@@ -28,7 +28,7 @@ class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
     """
     ClusterTrustBundleSpec contains the signer and trust anchors.
     """
-    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     signerName indicates the associated signer, if any.
 
@@ -40,7 +40,7 @@ class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
 
     List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
     """
-    trust_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    trust_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
 
@@ -52,8 +52,8 @@ class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ClusterTrustBundleSpecPatchArgs:
     def __init__(__self__, *,
-                 signer_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 trust_bundle: Optional[pulumi.Input[_builtins.str]] = None):
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 trust_bundle: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ClusterTrustBundleSpec contains the signer and trust anchors.
 
@@ -79,7 +79,7 @@ class ClusterTrustBundleSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="signerName")
-    def signer_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         signerName indicates the associated signer, if any.
 
@@ -94,12 +94,12 @@ class ClusterTrustBundleSpecPatchArgs:
         return pulumi.get(self, "signer_name")
 
     @signer_name.setter
-    def signer_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "signer_name", value)
 
     @_builtins.property
     @pulumi.getter(name="trustBundle")
-    def trust_bundle(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def trust_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
 
@@ -110,7 +110,7 @@ class ClusterTrustBundleSpecPatchArgs:
         return pulumi.get(self, "trust_bundle")
 
     @trust_bundle.setter
-    def trust_bundle(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def trust_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "trust_bundle", value)
 
 
@@ -126,7 +126,7 @@ class ClusterTrustBundleSpecArgsDict(TypedDict):
 
     Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
     """
-    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     signerName indicates the associated signer, if any.
 
@@ -143,7 +143,7 @@ class ClusterTrustBundleSpecArgsDict(TypedDict):
 class ClusterTrustBundleSpecArgs:
     def __init__(__self__, *,
                  trust_bundle: pulumi.Input[_builtins.str],
-                 signer_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ClusterTrustBundleSpec contains the signer and trust anchors.
 
@@ -184,7 +184,7 @@ class ClusterTrustBundleSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="signerName")
-    def signer_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         signerName indicates the associated signer, if any.
 
@@ -199,7 +199,7 @@ class ClusterTrustBundleSpecArgs:
         return pulumi.get(self, "signer_name")
 
     @signer_name.setter
-    def signer_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "signer_name", value)
 
 
@@ -215,15 +215,15 @@ class ClusterTrustBundleArgsDict(TypedDict):
     """
     spec contains the signer (if any) and trust anchors.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     metadata contains the object metadata.
     """
@@ -232,9 +232,9 @@ class ClusterTrustBundleArgsDict(TypedDict):
 class ClusterTrustBundleArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['ClusterTrustBundleSpecArgs'],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
         """
         ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
 
@@ -269,38 +269,38 @@ class ClusterTrustBundleArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         metadata contains the object metadata.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
 

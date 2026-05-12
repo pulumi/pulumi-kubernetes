@@ -44,15 +44,15 @@ class APIServiceConditionArgsDict(TypedDict):
     """
     Type is the type of the condition.
     """
-    last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
+    last_transition_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Last time the condition transitioned from one status to another.
     """
-    message: NotRequired[pulumi.Input[_builtins.str]]
+    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Human-readable message indicating details about last transition.
     """
-    reason: NotRequired[pulumi.Input[_builtins.str]]
+    reason: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Unique, one-word, CamelCase reason for the condition's last transition.
     """
@@ -62,9 +62,9 @@ class APIServiceConditionArgs:
     def __init__(__self__, *,
                  status: pulumi.Input[_builtins.str],
                  type: pulumi.Input[_builtins.str],
-                 last_transition_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None):
+                 last_transition_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None):
         """
         APIServiceCondition describes the state of an APIService at a particular point
 
@@ -109,38 +109,38 @@ class APIServiceConditionArgs:
 
     @_builtins.property
     @pulumi.getter(name="lastTransitionTime")
-    def last_transition_time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def last_transition_time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Last time the condition transitioned from one status to another.
         """
         return pulumi.get(self, "last_transition_time")
 
     @last_transition_time.setter
-    def last_transition_time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def last_transition_time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "last_transition_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Human-readable message indicating details about last transition.
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
     @_builtins.property
     @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Unique, one-word, CamelCase reason for the condition's last transition.
         """
         return pulumi.get(self, "reason")
 
     @reason.setter
-    def reason(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
 
 
@@ -148,31 +148,31 @@ class APIServiceSpecPatchArgsDict(TypedDict):
     """
     APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
     """
-    ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    ca_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
     """
-    group: NotRequired[pulumi.Input[_builtins.str]]
+    group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Group is the API group name this server hosts
     """
-    group_priority_minimum: NotRequired[pulumi.Input[_builtins.int]]
+    group_priority_minimum: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
     """
-    insecure_skip_tls_verify: NotRequired[pulumi.Input[_builtins.bool]]
+    insecure_skip_tls_verify: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
     """
-    service: NotRequired[pulumi.Input['ServiceReferencePatchArgsDict']]
+    service: NotRequired[pulumi.Input[Optional['ServiceReferencePatchArgs']]]
     """
     Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
     """
-    version: NotRequired[pulumi.Input[_builtins.str]]
+    version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Version is the API version this server hosts.  For example, "v1"
     """
-    version_priority: NotRequired[pulumi.Input[_builtins.int]]
+    version_priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
     """
@@ -180,13 +180,13 @@ class APIServiceSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class APIServiceSpecPatchArgs:
     def __init__(__self__, *,
-                 ca_bundle: Optional[pulumi.Input[_builtins.str]] = None,
-                 group: Optional[pulumi.Input[_builtins.str]] = None,
-                 group_priority_minimum: Optional[pulumi.Input[_builtins.int]] = None,
-                 insecure_skip_tls_verify: Optional[pulumi.Input[_builtins.bool]] = None,
-                 service: Optional[pulumi.Input['ServiceReferencePatchArgs']] = None,
-                 version: Optional[pulumi.Input[_builtins.str]] = None,
-                 version_priority: Optional[pulumi.Input[_builtins.int]] = None):
+                 ca_bundle: pulumi.Input[Optional[_builtins.str]] = None,
+                 group: pulumi.Input[Optional[_builtins.str]] = None,
+                 group_priority_minimum: pulumi.Input[Optional[_builtins.int]] = None,
+                 insecure_skip_tls_verify: pulumi.Input[Optional[_builtins.bool]] = None,
+                 service: pulumi.Input[Optional['ServiceReferencePatchArgs']] = None,
+                 version: pulumi.Input[Optional[_builtins.str]] = None,
+                 version_priority: pulumi.Input[Optional[_builtins.int]] = None):
         """
         APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
 
@@ -215,86 +215,86 @@ class APIServiceSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="caBundle")
-    def ca_bundle(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ca_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
         """
         return pulumi.get(self, "ca_bundle")
 
     @ca_bundle.setter
-    def ca_bundle(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ca_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ca_bundle", value)
 
     @_builtins.property
     @pulumi.getter
-    def group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Group is the API group name this server hosts
         """
         return pulumi.get(self, "group")
 
     @group.setter
-    def group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "group", value)
 
     @_builtins.property
     @pulumi.getter(name="groupPriorityMinimum")
-    def group_priority_minimum(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_priority_minimum(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
         """
         return pulumi.get(self, "group_priority_minimum")
 
     @group_priority_minimum.setter
-    def group_priority_minimum(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_priority_minimum(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_priority_minimum", value)
 
     @_builtins.property
     @pulumi.getter(name="insecureSkipTLSVerify")
-    def insecure_skip_tls_verify(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def insecure_skip_tls_verify(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
         """
         return pulumi.get(self, "insecure_skip_tls_verify")
 
     @insecure_skip_tls_verify.setter
-    def insecure_skip_tls_verify(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def insecure_skip_tls_verify(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "insecure_skip_tls_verify", value)
 
     @_builtins.property
     @pulumi.getter
-    def service(self) -> Optional[pulumi.Input['ServiceReferencePatchArgs']]:
+    def service(self) -> pulumi.Input[Optional['ServiceReferencePatchArgs']]:
         """
         Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
         """
         return pulumi.get(self, "service")
 
     @service.setter
-    def service(self, value: Optional[pulumi.Input['ServiceReferencePatchArgs']]):
+    def service(self, value: pulumi.Input[Optional['ServiceReferencePatchArgs']]):
         pulumi.set(self, "service", value)
 
     @_builtins.property
     @pulumi.getter
-    def version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Version is the API version this server hosts.  For example, "v1"
         """
         return pulumi.get(self, "version")
 
     @version.setter
-    def version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "version", value)
 
     @_builtins.property
     @pulumi.getter(name="versionPriority")
-    def version_priority(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def version_priority(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         """
         return pulumi.get(self, "version_priority")
 
     @version_priority.setter
-    def version_priority(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def version_priority(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "version_priority", value)
 
 
@@ -314,19 +314,19 @@ class APIServiceSpecArgsDict(TypedDict):
     """
     VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
     """
-    ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    ca_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
     """
-    group: NotRequired[pulumi.Input[_builtins.str]]
+    group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Group is the API group name this server hosts
     """
-    insecure_skip_tls_verify: NotRequired[pulumi.Input[_builtins.bool]]
+    insecure_skip_tls_verify: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
     """
-    version: NotRequired[pulumi.Input[_builtins.str]]
+    version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Version is the API version this server hosts.  For example, "v1"
     """
@@ -337,10 +337,10 @@ class APIServiceSpecArgs:
                  group_priority_minimum: pulumi.Input[_builtins.int],
                  service: pulumi.Input['ServiceReferenceArgs'],
                  version_priority: pulumi.Input[_builtins.int],
-                 ca_bundle: Optional[pulumi.Input[_builtins.str]] = None,
-                 group: Optional[pulumi.Input[_builtins.str]] = None,
-                 insecure_skip_tls_verify: Optional[pulumi.Input[_builtins.bool]] = None,
-                 version: Optional[pulumi.Input[_builtins.str]] = None):
+                 ca_bundle: pulumi.Input[Optional[_builtins.str]] = None,
+                 group: pulumi.Input[Optional[_builtins.str]] = None,
+                 insecure_skip_tls_verify: pulumi.Input[Optional[_builtins.bool]] = None,
+                 version: pulumi.Input[Optional[_builtins.str]] = None):
         """
         APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
 
@@ -402,50 +402,50 @@ class APIServiceSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="caBundle")
-    def ca_bundle(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ca_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
         """
         return pulumi.get(self, "ca_bundle")
 
     @ca_bundle.setter
-    def ca_bundle(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ca_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ca_bundle", value)
 
     @_builtins.property
     @pulumi.getter
-    def group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Group is the API group name this server hosts
         """
         return pulumi.get(self, "group")
 
     @group.setter
-    def group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "group", value)
 
     @_builtins.property
     @pulumi.getter(name="insecureSkipTLSVerify")
-    def insecure_skip_tls_verify(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def insecure_skip_tls_verify(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
         """
         return pulumi.get(self, "insecure_skip_tls_verify")
 
     @insecure_skip_tls_verify.setter
-    def insecure_skip_tls_verify(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def insecure_skip_tls_verify(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "insecure_skip_tls_verify", value)
 
     @_builtins.property
     @pulumi.getter
-    def version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Version is the API version this server hosts.  For example, "v1"
         """
         return pulumi.get(self, "version")
 
     @version.setter
-    def version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "version", value)
 
 
@@ -453,7 +453,7 @@ class APIServiceStatusArgsDict(TypedDict):
     """
     APIServiceStatus contains derived information about an API server
     """
-    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgsDict']]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['APIServiceConditionArgs']]]]]
     """
     Current service state of apiService.
     """
@@ -461,7 +461,7 @@ class APIServiceStatusArgsDict(TypedDict):
 @pulumi.input_type
 class APIServiceStatusArgs:
     def __init__(__self__, *,
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgs']]]] = None):
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['APIServiceConditionArgs']]]] = None):
         """
         APIServiceStatus contains derived information about an API server
 
@@ -472,14 +472,14 @@ class APIServiceStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgs']]]]:
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['APIServiceConditionArgs']]]]:
         """
         Current service state of apiService.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['APIServiceConditionArgs']]]]):
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['APIServiceConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 
@@ -487,20 +487,20 @@ class APIServiceArgsDict(TypedDict):
     """
     APIService represents a server for a particular GroupVersion. Name must be "version.group".
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-    spec: NotRequired[pulumi.Input['APIServiceSpecArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['APIServiceSpecArgs']]]
     """
     Spec contains information for locating and communicating with a server
     """
-    status: NotRequired[pulumi.Input['APIServiceStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['APIServiceStatusArgs']]]
     """
     Status contains derived information about an API server
     """
@@ -508,11 +508,11 @@ class APIServiceArgsDict(TypedDict):
 @pulumi.input_type
 class APIServiceArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['APIServiceSpecArgs']] = None,
-                 status: Optional[pulumi.Input['APIServiceStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['APIServiceSpecArgs']] = None,
+                 status: pulumi.Input[Optional['APIServiceStatusArgs']] = None):
         """
         APIService represents a server for a particular GroupVersion. Name must be "version.group".
 
@@ -534,59 +534,59 @@ class APIServiceArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['APIServiceSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['APIServiceSpecArgs']]:
         """
         Spec contains information for locating and communicating with a server
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['APIServiceSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['APIServiceSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['APIServiceStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['APIServiceStatusArgs']]:
         """
         Status contains derived information about an API server
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['APIServiceStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['APIServiceStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
@@ -594,15 +594,15 @@ class ServiceReferencePatchArgsDict(TypedDict):
     """
     ServiceReference holds a reference to Service.legacy.k8s.io
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Name is the name of the service
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Namespace is the namespace of the service
     """
-    port: NotRequired[pulumi.Input[_builtins.int]]
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
     """
@@ -610,9 +610,9 @@ class ServiceReferencePatchArgsDict(TypedDict):
 @pulumi.input_type
 class ServiceReferencePatchArgs:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
 
@@ -629,38 +629,38 @@ class ServiceReferencePatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name is the name of the service
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Namespace is the namespace of the service
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "port", value)
 
 
@@ -668,15 +668,15 @@ class ServiceReferenceArgsDict(TypedDict):
     """
     ServiceReference holds a reference to Service.legacy.k8s.io
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Name is the name of the service
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Namespace is the namespace of the service
     """
-    port: NotRequired[pulumi.Input[_builtins.int]]
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
     """
@@ -684,9 +684,9 @@ class ServiceReferenceArgsDict(TypedDict):
 @pulumi.input_type
 class ServiceReferenceArgs:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
 
@@ -703,38 +703,38 @@ class ServiceReferenceArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name is the name of the service
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Namespace is the namespace of the service
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "port", value)
 
 

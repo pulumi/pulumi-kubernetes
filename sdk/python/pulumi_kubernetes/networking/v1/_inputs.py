@@ -121,15 +121,15 @@ class HTTPIngressPathPatchArgsDict(TypedDict):
     """
     HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
     """
-    backend: NotRequired[pulumi.Input['IngressBackendPatchArgsDict']]
+    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgs']]]
     """
     backend defines the referenced service endpoint to which the traffic will be forwarded to.
     """
-    path: NotRequired[pulumi.Input[_builtins.str]]
+    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
     """
-    path_type: NotRequired[pulumi.Input[_builtins.str]]
+    path_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
       done on a path element by element basis. A path element refers is the
@@ -147,9 +147,9 @@ class HTTPIngressPathPatchArgsDict(TypedDict):
 @pulumi.input_type
 class HTTPIngressPathPatchArgs:
     def __init__(__self__, *,
-                 backend: Optional[pulumi.Input['IngressBackendPatchArgs']] = None,
-                 path: Optional[pulumi.Input[_builtins.str]] = None,
-                 path_type: Optional[pulumi.Input[_builtins.str]] = None):
+                 backend: pulumi.Input[Optional['IngressBackendPatchArgs']] = None,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 path_type: pulumi.Input[Optional[_builtins.str]] = None):
         """
         HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 
@@ -176,31 +176,31 @@ class HTTPIngressPathPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def backend(self) -> Optional[pulumi.Input['IngressBackendPatchArgs']]:
+    def backend(self) -> pulumi.Input[Optional['IngressBackendPatchArgs']]:
         """
         backend defines the referenced service endpoint to which the traffic will be forwarded to.
         """
         return pulumi.get(self, "backend")
 
     @backend.setter
-    def backend(self, value: Optional[pulumi.Input['IngressBackendPatchArgs']]):
+    def backend(self, value: pulumi.Input[Optional['IngressBackendPatchArgs']]):
         pulumi.set(self, "backend", value)
 
     @_builtins.property
     @pulumi.getter
-    def path(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
         """
         return pulumi.get(self, "path")
 
     @path.setter
-    def path(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "path", value)
 
     @_builtins.property
     @pulumi.getter(name="pathType")
-    def path_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def path_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
           done on a path element by element basis. A path element refers is the
@@ -217,7 +217,7 @@ class HTTPIngressPathPatchArgs:
         return pulumi.get(self, "path_type")
 
     @path_type.setter
-    def path_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def path_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "path_type", value)
 
 
@@ -243,7 +243,7 @@ class HTTPIngressPathArgsDict(TypedDict):
       or treat it identically to Prefix or Exact path types.
     Implementations are required to support all path types.
     """
-    path: NotRequired[pulumi.Input[_builtins.str]]
+    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
     """
@@ -253,7 +253,7 @@ class HTTPIngressPathArgs:
     def __init__(__self__, *,
                  backend: pulumi.Input['IngressBackendArgs'],
                  path_type: pulumi.Input[_builtins.str],
-                 path: Optional[pulumi.Input[_builtins.str]] = None):
+                 path: pulumi.Input[Optional[_builtins.str]] = None):
         """
         HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 
@@ -312,14 +312,14 @@ class HTTPIngressPathArgs:
 
     @_builtins.property
     @pulumi.getter
-    def path(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
         """
         return pulumi.get(self, "path")
 
     @path.setter
-    def path(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "path", value)
 
 
@@ -327,7 +327,7 @@ class HTTPIngressRuleValuePatchArgsDict(TypedDict):
     """
     HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
     """
-    paths: NotRequired[pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathPatchArgsDict']]]]
+    paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]]]
     """
     paths is a collection of paths that map requests to backends.
     """
@@ -335,7 +335,7 @@ class HTTPIngressRuleValuePatchArgsDict(TypedDict):
 @pulumi.input_type
 class HTTPIngressRuleValuePatchArgs:
     def __init__(__self__, *,
-                 paths: Optional[pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]] = None):
+                 paths: pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]] = None):
         """
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
 
@@ -346,14 +346,14 @@ class HTTPIngressRuleValuePatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def paths(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]]:
+    def paths(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]]:
         """
         paths is a collection of paths that map requests to backends.
         """
         return pulumi.get(self, "paths")
 
     @paths.setter
-    def paths(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]]):
+    def paths(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]]):
         pulumi.set(self, "paths", value)
 
 
@@ -394,7 +394,7 @@ class IPAddressSpecPatchArgsDict(TypedDict):
     """
     IPAddressSpec describe the attributes in an IP Address.
     """
-    parent_ref: NotRequired[pulumi.Input['ParentReferencePatchArgsDict']]
+    parent_ref: NotRequired[pulumi.Input[Optional['ParentReferencePatchArgs']]]
     """
     ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
     """
@@ -402,7 +402,7 @@ class IPAddressSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class IPAddressSpecPatchArgs:
     def __init__(__self__, *,
-                 parent_ref: Optional[pulumi.Input['ParentReferencePatchArgs']] = None):
+                 parent_ref: pulumi.Input[Optional['ParentReferencePatchArgs']] = None):
         """
         IPAddressSpec describe the attributes in an IP Address.
 
@@ -413,14 +413,14 @@ class IPAddressSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="parentRef")
-    def parent_ref(self) -> Optional[pulumi.Input['ParentReferencePatchArgs']]:
+    def parent_ref(self) -> pulumi.Input[Optional['ParentReferencePatchArgs']]:
         """
         ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
         return pulumi.get(self, "parent_ref")
 
     @parent_ref.setter
-    def parent_ref(self, value: Optional[pulumi.Input['ParentReferencePatchArgs']]):
+    def parent_ref(self, value: pulumi.Input[Optional['ParentReferencePatchArgs']]):
         pulumi.set(self, "parent_ref", value)
 
 
@@ -465,15 +465,15 @@ class IPAddressArgsDict(TypedDict):
     """
     spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
@@ -482,9 +482,9 @@ class IPAddressArgsDict(TypedDict):
 class IPAddressArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['IPAddressSpecArgs'],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
         """
         IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
 
@@ -515,38 +515,38 @@ class IPAddressArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
 
@@ -554,11 +554,11 @@ class IPBlockPatchArgsDict(TypedDict):
     """
     IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
     """
-    cidr: NotRequired[pulumi.Input[_builtins.str]]
+    cidr: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
     """
-    except_: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    except_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
     """
@@ -566,8 +566,8 @@ class IPBlockPatchArgsDict(TypedDict):
 @pulumi.input_type
 class IPBlockPatchArgs:
     def __init__(__self__, *,
-                 cidr: Optional[pulumi.Input[_builtins.str]] = None,
-                 except_: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 cidr: pulumi.Input[Optional[_builtins.str]] = None,
+                 except_: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 
@@ -581,26 +581,26 @@ class IPBlockPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def cidr(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cidr(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
         """
         return pulumi.get(self, "cidr")
 
     @cidr.setter
-    def cidr(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cidr(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cidr", value)
 
     @_builtins.property
     @pulumi.getter(name="except")
-    def except_(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def except_(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
         """
         return pulumi.get(self, "except_")
 
     @except_.setter
-    def except_(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def except_(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "except_", value)
 
 
@@ -612,7 +612,7 @@ class IPBlockArgsDict(TypedDict):
     """
     cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
     """
-    except_: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    except_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
     """
@@ -621,7 +621,7 @@ class IPBlockArgsDict(TypedDict):
 class IPBlockArgs:
     def __init__(__self__, *,
                  cidr: pulumi.Input[_builtins.str],
-                 except_: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 except_: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 
@@ -646,14 +646,14 @@ class IPBlockArgs:
 
     @_builtins.property
     @pulumi.getter(name="except")
-    def except_(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def except_(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
         """
         return pulumi.get(self, "except_")
 
     @except_.setter
-    def except_(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def except_(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "except_", value)
 
 
@@ -661,11 +661,11 @@ class IngressBackendPatchArgsDict(TypedDict):
     """
     IngressBackend describes all endpoints for a given service and port.
     """
-    resource: NotRequired[pulumi.Input['_core.v1.TypedLocalObjectReferencePatchArgsDict']]
+    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgs']]]
     """
     resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
     """
-    service: NotRequired[pulumi.Input['IngressServiceBackendPatchArgsDict']]
+    service: NotRequired[pulumi.Input[Optional['IngressServiceBackendPatchArgs']]]
     """
     service references a service as a backend. This is a mutually exclusive setting with "Resource".
     """
@@ -673,8 +673,8 @@ class IngressBackendPatchArgsDict(TypedDict):
 @pulumi.input_type
 class IngressBackendPatchArgs:
     def __init__(__self__, *,
-                 resource: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferencePatchArgs']] = None,
-                 service: Optional[pulumi.Input['IngressServiceBackendPatchArgs']] = None):
+                 resource: pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgs']] = None,
+                 service: pulumi.Input[Optional['IngressServiceBackendPatchArgs']] = None):
         """
         IngressBackend describes all endpoints for a given service and port.
 
@@ -688,26 +688,26 @@ class IngressBackendPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def resource(self) -> Optional[pulumi.Input['_core.v1.TypedLocalObjectReferencePatchArgs']]:
+    def resource(self) -> pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgs']]:
         """
         resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
         """
         return pulumi.get(self, "resource")
 
     @resource.setter
-    def resource(self, value: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferencePatchArgs']]):
+    def resource(self, value: pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgs']]):
         pulumi.set(self, "resource", value)
 
     @_builtins.property
     @pulumi.getter
-    def service(self) -> Optional[pulumi.Input['IngressServiceBackendPatchArgs']]:
+    def service(self) -> pulumi.Input[Optional['IngressServiceBackendPatchArgs']]:
         """
         service references a service as a backend. This is a mutually exclusive setting with "Resource".
         """
         return pulumi.get(self, "service")
 
     @service.setter
-    def service(self, value: Optional[pulumi.Input['IngressServiceBackendPatchArgs']]):
+    def service(self, value: pulumi.Input[Optional['IngressServiceBackendPatchArgs']]):
         pulumi.set(self, "service", value)
 
 
@@ -715,11 +715,11 @@ class IngressBackendArgsDict(TypedDict):
     """
     IngressBackend describes all endpoints for a given service and port.
     """
-    resource: NotRequired[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgsDict']]
+    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgs']]]
     """
     resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
     """
-    service: NotRequired[pulumi.Input['IngressServiceBackendArgsDict']]
+    service: NotRequired[pulumi.Input[Optional['IngressServiceBackendArgs']]]
     """
     service references a service as a backend. This is a mutually exclusive setting with "Resource".
     """
@@ -727,8 +727,8 @@ class IngressBackendArgsDict(TypedDict):
 @pulumi.input_type
 class IngressBackendArgs:
     def __init__(__self__, *,
-                 resource: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']] = None,
-                 service: Optional[pulumi.Input['IngressServiceBackendArgs']] = None):
+                 resource: pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgs']] = None,
+                 service: pulumi.Input[Optional['IngressServiceBackendArgs']] = None):
         """
         IngressBackend describes all endpoints for a given service and port.
 
@@ -742,26 +742,26 @@ class IngressBackendArgs:
 
     @_builtins.property
     @pulumi.getter
-    def resource(self) -> Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']]:
+    def resource(self) -> pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgs']]:
         """
         resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
         """
         return pulumi.get(self, "resource")
 
     @resource.setter
-    def resource(self, value: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']]):
+    def resource(self, value: pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgs']]):
         pulumi.set(self, "resource", value)
 
     @_builtins.property
     @pulumi.getter
-    def service(self) -> Optional[pulumi.Input['IngressServiceBackendArgs']]:
+    def service(self) -> pulumi.Input[Optional['IngressServiceBackendArgs']]:
         """
         service references a service as a backend. This is a mutually exclusive setting with "Resource".
         """
         return pulumi.get(self, "service")
 
     @service.setter
-    def service(self, value: Optional[pulumi.Input['IngressServiceBackendArgs']]):
+    def service(self, value: pulumi.Input[Optional['IngressServiceBackendArgs']]):
         pulumi.set(self, "service", value)
 
 
@@ -769,23 +769,23 @@ class IngressClassParametersReferencePatchArgsDict(TypedDict):
     """
     IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
     """
-    api_group: NotRequired[pulumi.Input[_builtins.str]]
+    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     kind is the type of resource being referenced.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     name is the name of resource being referenced.
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
     """
-    scope: NotRequired[pulumi.Input[_builtins.str]]
+    scope: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
     """
@@ -793,11 +793,11 @@ class IngressClassParametersReferencePatchArgsDict(TypedDict):
 @pulumi.input_type
 class IngressClassParametersReferencePatchArgs:
     def __init__(__self__, *,
-                 api_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 scope: Optional[pulumi.Input[_builtins.str]] = None):
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 scope: pulumi.Input[Optional[_builtins.str]] = None):
         """
         IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 
@@ -820,62 +820,62 @@ class IngressClassParametersReferencePatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiGroup")
-    def api_group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
         """
         return pulumi.get(self, "api_group")
 
     @api_group.setter
-    def api_group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_group", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         kind is the type of resource being referenced.
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         name is the name of resource being referenced.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter
-    def scope(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def scope(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
         """
         return pulumi.get(self, "scope")
 
     @scope.setter
-    def scope(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def scope(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "scope", value)
 
 
@@ -891,15 +891,15 @@ class IngressClassParametersReferenceArgsDict(TypedDict):
     """
     name is the name of resource being referenced.
     """
-    api_group: NotRequired[pulumi.Input[_builtins.str]]
+    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
     """
-    scope: NotRequired[pulumi.Input[_builtins.str]]
+    scope: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
     """
@@ -909,9 +909,9 @@ class IngressClassParametersReferenceArgs:
     def __init__(__self__, *,
                  kind: pulumi.Input[_builtins.str],
                  name: pulumi.Input[_builtins.str],
-                 api_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 scope: Optional[pulumi.Input[_builtins.str]] = None):
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 scope: pulumi.Input[Optional[_builtins.str]] = None):
         """
         IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 
@@ -956,38 +956,38 @@ class IngressClassParametersReferenceArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiGroup")
-    def api_group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
         """
         return pulumi.get(self, "api_group")
 
     @api_group.setter
-    def api_group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_group", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter
-    def scope(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def scope(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
         """
         return pulumi.get(self, "scope")
 
     @scope.setter
-    def scope(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def scope(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "scope", value)
 
 
@@ -995,11 +995,11 @@ class IngressClassSpecPatchArgsDict(TypedDict):
     """
     IngressClassSpec provides information about the class of an Ingress.
     """
-    controller: NotRequired[pulumi.Input[_builtins.str]]
+    controller: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
     """
-    parameters: NotRequired[pulumi.Input['IngressClassParametersReferencePatchArgsDict']]
+    parameters: NotRequired[pulumi.Input[Optional['IngressClassParametersReferencePatchArgs']]]
     """
     parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
     """
@@ -1007,8 +1007,8 @@ class IngressClassSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class IngressClassSpecPatchArgs:
     def __init__(__self__, *,
-                 controller: Optional[pulumi.Input[_builtins.str]] = None,
-                 parameters: Optional[pulumi.Input['IngressClassParametersReferencePatchArgs']] = None):
+                 controller: pulumi.Input[Optional[_builtins.str]] = None,
+                 parameters: pulumi.Input[Optional['IngressClassParametersReferencePatchArgs']] = None):
         """
         IngressClassSpec provides information about the class of an Ingress.
 
@@ -1022,26 +1022,26 @@ class IngressClassSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def controller(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def controller(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
         """
         return pulumi.get(self, "controller")
 
     @controller.setter
-    def controller(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def controller(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "controller", value)
 
     @_builtins.property
     @pulumi.getter
-    def parameters(self) -> Optional[pulumi.Input['IngressClassParametersReferencePatchArgs']]:
+    def parameters(self) -> pulumi.Input[Optional['IngressClassParametersReferencePatchArgs']]:
         """
         parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
         return pulumi.get(self, "parameters")
 
     @parameters.setter
-    def parameters(self, value: Optional[pulumi.Input['IngressClassParametersReferencePatchArgs']]):
+    def parameters(self, value: pulumi.Input[Optional['IngressClassParametersReferencePatchArgs']]):
         pulumi.set(self, "parameters", value)
 
 
@@ -1049,11 +1049,11 @@ class IngressClassSpecArgsDict(TypedDict):
     """
     IngressClassSpec provides information about the class of an Ingress.
     """
-    controller: NotRequired[pulumi.Input[_builtins.str]]
+    controller: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
     """
-    parameters: NotRequired[pulumi.Input['IngressClassParametersReferenceArgsDict']]
+    parameters: NotRequired[pulumi.Input[Optional['IngressClassParametersReferenceArgs']]]
     """
     parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
     """
@@ -1061,8 +1061,8 @@ class IngressClassSpecArgsDict(TypedDict):
 @pulumi.input_type
 class IngressClassSpecArgs:
     def __init__(__self__, *,
-                 controller: Optional[pulumi.Input[_builtins.str]] = None,
-                 parameters: Optional[pulumi.Input['IngressClassParametersReferenceArgs']] = None):
+                 controller: pulumi.Input[Optional[_builtins.str]] = None,
+                 parameters: pulumi.Input[Optional['IngressClassParametersReferenceArgs']] = None):
         """
         IngressClassSpec provides information about the class of an Ingress.
 
@@ -1076,26 +1076,26 @@ class IngressClassSpecArgs:
 
     @_builtins.property
     @pulumi.getter
-    def controller(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def controller(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
         """
         return pulumi.get(self, "controller")
 
     @controller.setter
-    def controller(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def controller(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "controller", value)
 
     @_builtins.property
     @pulumi.getter
-    def parameters(self) -> Optional[pulumi.Input['IngressClassParametersReferenceArgs']]:
+    def parameters(self) -> pulumi.Input[Optional['IngressClassParametersReferenceArgs']]:
         """
         parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
         return pulumi.get(self, "parameters")
 
     @parameters.setter
-    def parameters(self, value: Optional[pulumi.Input['IngressClassParametersReferenceArgs']]):
+    def parameters(self, value: pulumi.Input[Optional['IngressClassParametersReferenceArgs']]):
         pulumi.set(self, "parameters", value)
 
 
@@ -1103,19 +1103,19 @@ class IngressClassArgsDict(TypedDict):
     """
     IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input['IngressClassSpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['IngressClassSpecArgs']]]
     """
     spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -1123,10 +1123,10 @@ class IngressClassArgsDict(TypedDict):
 @pulumi.input_type
 class IngressClassArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['IngressClassSpecArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['IngressClassSpecArgs']] = None):
         """
         IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
 
@@ -1146,50 +1146,50 @@ class IngressClassArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['IngressClassSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['IngressClassSpecArgs']]:
         """
         spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['IngressClassSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['IngressClassSpecArgs']]):
         pulumi.set(self, "spec", value)
 
 
@@ -1197,15 +1197,15 @@ class IngressLoadBalancerIngressArgsDict(TypedDict):
     """
     IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
     """
-    hostname: NotRequired[pulumi.Input[_builtins.str]]
+    hostname: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     hostname is set for load-balancer ingress points that are DNS based.
     """
-    ip: NotRequired[pulumi.Input[_builtins.str]]
+    ip: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     ip is set for load-balancer ingress points that are IP based.
     """
-    ports: NotRequired[pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgsDict']]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressPortStatusArgs']]]]]
     """
     ports provides information about the ports exposed by this LoadBalancer.
     """
@@ -1213,9 +1213,9 @@ class IngressLoadBalancerIngressArgsDict(TypedDict):
 @pulumi.input_type
 class IngressLoadBalancerIngressArgs:
     def __init__(__self__, *,
-                 hostname: Optional[pulumi.Input[_builtins.str]] = None,
-                 ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 ports: Optional[pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgs']]]] = None):
+                 hostname: pulumi.Input[Optional[_builtins.str]] = None,
+                 ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 ports: pulumi.Input[Optional[Sequence[pulumi.Input['IngressPortStatusArgs']]]] = None):
         """
         IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
 
@@ -1232,38 +1232,38 @@ class IngressLoadBalancerIngressArgs:
 
     @_builtins.property
     @pulumi.getter
-    def hostname(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def hostname(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         hostname is set for load-balancer ingress points that are DNS based.
         """
         return pulumi.get(self, "hostname")
 
     @hostname.setter
-    def hostname(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def hostname(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "hostname", value)
 
     @_builtins.property
     @pulumi.getter
-    def ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ip is set for load-balancer ingress points that are IP based.
         """
         return pulumi.get(self, "ip")
 
     @ip.setter
-    def ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ip", value)
 
     @_builtins.property
     @pulumi.getter
-    def ports(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgs']]]]:
+    def ports(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['IngressPortStatusArgs']]]]:
         """
         ports provides information about the ports exposed by this LoadBalancer.
         """
         return pulumi.get(self, "ports")
 
     @ports.setter
-    def ports(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgs']]]]):
+    def ports(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['IngressPortStatusArgs']]]]):
         pulumi.set(self, "ports", value)
 
 
@@ -1271,7 +1271,7 @@ class IngressLoadBalancerStatusArgsDict(TypedDict):
     """
     IngressLoadBalancerStatus represents the status of a load-balancer.
     """
-    ingress: NotRequired[pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgsDict']]]]
+    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]]]
     """
     ingress is a list containing ingress points for the load-balancer.
     """
@@ -1279,7 +1279,7 @@ class IngressLoadBalancerStatusArgsDict(TypedDict):
 @pulumi.input_type
 class IngressLoadBalancerStatusArgs:
     def __init__(__self__, *,
-                 ingress: Optional[pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]] = None):
+                 ingress: pulumi.Input[Optional[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]] = None):
         """
         IngressLoadBalancerStatus represents the status of a load-balancer.
 
@@ -1290,14 +1290,14 @@ class IngressLoadBalancerStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def ingress(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]]:
+    def ingress(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]]:
         """
         ingress is a list containing ingress points for the load-balancer.
         """
         return pulumi.get(self, "ingress")
 
     @ingress.setter
-    def ingress(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]]):
+    def ingress(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]]):
         pulumi.set(self, "ingress", value)
 
 
@@ -1313,7 +1313,7 @@ class IngressPortStatusArgsDict(TypedDict):
     """
     protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
     """
-    error: NotRequired[pulumi.Input[_builtins.str]]
+    error: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
       CamelCase names
@@ -1326,7 +1326,7 @@ class IngressPortStatusArgs:
     def __init__(__self__, *,
                  port: pulumi.Input[_builtins.int],
                  protocol: pulumi.Input[_builtins.str],
-                 error: Optional[pulumi.Input[_builtins.str]] = None):
+                 error: pulumi.Input[Optional[_builtins.str]] = None):
         """
         IngressPortStatus represents the error condition of a service port
 
@@ -1368,7 +1368,7 @@ class IngressPortStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def error(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def error(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
           CamelCase names
@@ -1378,7 +1378,7 @@ class IngressPortStatusArgs:
         return pulumi.get(self, "error")
 
     @error.setter
-    def error(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def error(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "error", value)
 
 
@@ -1386,7 +1386,7 @@ class IngressRulePatchArgsDict(TypedDict):
     """
     IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
     """
-    host: NotRequired[pulumi.Input[_builtins.str]]
+    host: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
        the IP in the Spec of the parent Ingress.
@@ -1397,13 +1397,13 @@ class IngressRulePatchArgsDict(TypedDict):
 
     host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
     """
-    http: NotRequired[pulumi.Input['HTTPIngressRuleValuePatchArgsDict']]
+    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValuePatchArgs']]]
 
 @pulumi.input_type
 class IngressRulePatchArgs:
     def __init__(__self__, *,
-                 host: Optional[pulumi.Input[_builtins.str]] = None,
-                 http: Optional[pulumi.Input['HTTPIngressRuleValuePatchArgs']] = None):
+                 host: pulumi.Input[Optional[_builtins.str]] = None,
+                 http: pulumi.Input[Optional['HTTPIngressRuleValuePatchArgs']] = None):
         """
         IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 
@@ -1423,7 +1423,7 @@ class IngressRulePatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def host(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def host(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
            the IP in the Spec of the parent Ingress.
@@ -1437,16 +1437,16 @@ class IngressRulePatchArgs:
         return pulumi.get(self, "host")
 
     @host.setter
-    def host(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def host(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "host", value)
 
     @_builtins.property
     @pulumi.getter
-    def http(self) -> Optional[pulumi.Input['HTTPIngressRuleValuePatchArgs']]:
+    def http(self) -> pulumi.Input[Optional['HTTPIngressRuleValuePatchArgs']]:
         return pulumi.get(self, "http")
 
     @http.setter
-    def http(self, value: Optional[pulumi.Input['HTTPIngressRuleValuePatchArgs']]):
+    def http(self, value: pulumi.Input[Optional['HTTPIngressRuleValuePatchArgs']]):
         pulumi.set(self, "http", value)
 
 
@@ -1454,7 +1454,7 @@ class IngressRuleArgsDict(TypedDict):
     """
     IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
     """
-    host: NotRequired[pulumi.Input[_builtins.str]]
+    host: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
        the IP in the Spec of the parent Ingress.
@@ -1465,13 +1465,13 @@ class IngressRuleArgsDict(TypedDict):
 
     host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
     """
-    http: NotRequired[pulumi.Input['HTTPIngressRuleValueArgsDict']]
+    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValueArgs']]]
 
 @pulumi.input_type
 class IngressRuleArgs:
     def __init__(__self__, *,
-                 host: Optional[pulumi.Input[_builtins.str]] = None,
-                 http: Optional[pulumi.Input['HTTPIngressRuleValueArgs']] = None):
+                 host: pulumi.Input[Optional[_builtins.str]] = None,
+                 http: pulumi.Input[Optional['HTTPIngressRuleValueArgs']] = None):
         """
         IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 
@@ -1491,7 +1491,7 @@ class IngressRuleArgs:
 
     @_builtins.property
     @pulumi.getter
-    def host(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def host(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
            the IP in the Spec of the parent Ingress.
@@ -1505,16 +1505,16 @@ class IngressRuleArgs:
         return pulumi.get(self, "host")
 
     @host.setter
-    def host(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def host(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "host", value)
 
     @_builtins.property
     @pulumi.getter
-    def http(self) -> Optional[pulumi.Input['HTTPIngressRuleValueArgs']]:
+    def http(self) -> pulumi.Input[Optional['HTTPIngressRuleValueArgs']]:
         return pulumi.get(self, "http")
 
     @http.setter
-    def http(self, value: Optional[pulumi.Input['HTTPIngressRuleValueArgs']]):
+    def http(self, value: pulumi.Input[Optional['HTTPIngressRuleValueArgs']]):
         pulumi.set(self, "http", value)
 
 
@@ -1522,11 +1522,11 @@ class IngressServiceBackendPatchArgsDict(TypedDict):
     """
     IngressServiceBackend references a Kubernetes Service as a Backend.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     name is the referenced service. The service must exist in the same namespace as the Ingress object.
     """
-    port: NotRequired[pulumi.Input['ServiceBackendPortPatchArgsDict']]
+    port: NotRequired[pulumi.Input[Optional['ServiceBackendPortPatchArgs']]]
     """
     port of the referenced service. A port name or port number is required for a IngressServiceBackend.
     """
@@ -1534,8 +1534,8 @@ class IngressServiceBackendPatchArgsDict(TypedDict):
 @pulumi.input_type
 class IngressServiceBackendPatchArgs:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 port: Optional[pulumi.Input['ServiceBackendPortPatchArgs']] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 port: pulumi.Input[Optional['ServiceBackendPortPatchArgs']] = None):
         """
         IngressServiceBackend references a Kubernetes Service as a Backend.
 
@@ -1549,26 +1549,26 @@ class IngressServiceBackendPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         name is the referenced service. The service must exist in the same namespace as the Ingress object.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input['ServiceBackendPortPatchArgs']]:
+    def port(self) -> pulumi.Input[Optional['ServiceBackendPortPatchArgs']]:
         """
         port of the referenced service. A port name or port number is required for a IngressServiceBackend.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input['ServiceBackendPortPatchArgs']]):
+    def port(self, value: pulumi.Input[Optional['ServiceBackendPortPatchArgs']]):
         pulumi.set(self, "port", value)
 
 
@@ -1580,7 +1580,7 @@ class IngressServiceBackendArgsDict(TypedDict):
     """
     name is the referenced service. The service must exist in the same namespace as the Ingress object.
     """
-    port: NotRequired[pulumi.Input['ServiceBackendPortArgsDict']]
+    port: NotRequired[pulumi.Input[Optional['ServiceBackendPortArgs']]]
     """
     port of the referenced service. A port name or port number is required for a IngressServiceBackend.
     """
@@ -1589,7 +1589,7 @@ class IngressServiceBackendArgsDict(TypedDict):
 class IngressServiceBackendArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[_builtins.str],
-                 port: Optional[pulumi.Input['ServiceBackendPortArgs']] = None):
+                 port: pulumi.Input[Optional['ServiceBackendPortArgs']] = None):
         """
         IngressServiceBackend references a Kubernetes Service as a Backend.
 
@@ -1614,14 +1614,14 @@ class IngressServiceBackendArgs:
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input['ServiceBackendPortArgs']]:
+    def port(self) -> pulumi.Input[Optional['ServiceBackendPortArgs']]:
         """
         port of the referenced service. A port name or port number is required for a IngressServiceBackend.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input['ServiceBackendPortArgs']]):
+    def port(self, value: pulumi.Input[Optional['ServiceBackendPortArgs']]):
         pulumi.set(self, "port", value)
 
 
@@ -1629,19 +1629,19 @@ class IngressSpecPatchArgsDict(TypedDict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
-    default_backend: NotRequired[pulumi.Input['IngressBackendPatchArgsDict']]
+    default_backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgs']]]
     """
     defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
     """
-    ingress_class_name: NotRequired[pulumi.Input[_builtins.str]]
+    ingress_class_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
     """
-    rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['IngressRulePatchArgsDict']]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgs']]]]]
     """
     rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
     """
-    tls: NotRequired[pulumi.Input[Sequence[pulumi.Input['IngressTLSPatchArgsDict']]]]
+    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgs']]]]]
     """
     tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
     """
@@ -1649,10 +1649,10 @@ class IngressSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class IngressSpecPatchArgs:
     def __init__(__self__, *,
-                 default_backend: Optional[pulumi.Input['IngressBackendPatchArgs']] = None,
-                 ingress_class_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 rules: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRulePatchArgs']]]] = None,
-                 tls: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSPatchArgs']]]] = None):
+                 default_backend: pulumi.Input[Optional['IngressBackendPatchArgs']] = None,
+                 ingress_class_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgs']]]] = None,
+                 tls: pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgs']]]] = None):
         """
         IngressSpec describes the Ingress the user wishes to exist.
 
@@ -1672,50 +1672,50 @@ class IngressSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="defaultBackend")
-    def default_backend(self) -> Optional[pulumi.Input['IngressBackendPatchArgs']]:
+    def default_backend(self) -> pulumi.Input[Optional['IngressBackendPatchArgs']]:
         """
         defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
         """
         return pulumi.get(self, "default_backend")
 
     @default_backend.setter
-    def default_backend(self, value: Optional[pulumi.Input['IngressBackendPatchArgs']]):
+    def default_backend(self, value: pulumi.Input[Optional['IngressBackendPatchArgs']]):
         pulumi.set(self, "default_backend", value)
 
     @_builtins.property
     @pulumi.getter(name="ingressClassName")
-    def ingress_class_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ingress_class_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
         """
         return pulumi.get(self, "ingress_class_name")
 
     @ingress_class_name.setter
-    def ingress_class_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ingress_class_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ingress_class_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IngressRulePatchArgs']]]]:
+    def rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgs']]]]:
         """
         rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
         """
         return pulumi.get(self, "rules")
 
     @rules.setter
-    def rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRulePatchArgs']]]]):
+    def rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgs']]]]):
         pulumi.set(self, "rules", value)
 
     @_builtins.property
     @pulumi.getter
-    def tls(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSPatchArgs']]]]:
+    def tls(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgs']]]]:
         """
         tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
         return pulumi.get(self, "tls")
 
     @tls.setter
-    def tls(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSPatchArgs']]]]):
+    def tls(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgs']]]]):
         pulumi.set(self, "tls", value)
 
 
@@ -1723,19 +1723,19 @@ class IngressSpecArgsDict(TypedDict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
-    default_backend: NotRequired[pulumi.Input['IngressBackendArgsDict']]
+    default_backend: NotRequired[pulumi.Input[Optional['IngressBackendArgs']]]
     """
     defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
     """
-    ingress_class_name: NotRequired[pulumi.Input[_builtins.str]]
+    ingress_class_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
     """
-    rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['IngressRuleArgsDict']]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgs']]]]]
     """
     rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
     """
-    tls: NotRequired[pulumi.Input[Sequence[pulumi.Input['IngressTLSArgsDict']]]]
+    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgs']]]]]
     """
     tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
     """
@@ -1743,10 +1743,10 @@ class IngressSpecArgsDict(TypedDict):
 @pulumi.input_type
 class IngressSpecArgs:
     def __init__(__self__, *,
-                 default_backend: Optional[pulumi.Input['IngressBackendArgs']] = None,
-                 ingress_class_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 rules: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRuleArgs']]]] = None,
-                 tls: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSArgs']]]] = None):
+                 default_backend: pulumi.Input[Optional['IngressBackendArgs']] = None,
+                 ingress_class_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgs']]]] = None,
+                 tls: pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgs']]]] = None):
         """
         IngressSpec describes the Ingress the user wishes to exist.
 
@@ -1766,50 +1766,50 @@ class IngressSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="defaultBackend")
-    def default_backend(self) -> Optional[pulumi.Input['IngressBackendArgs']]:
+    def default_backend(self) -> pulumi.Input[Optional['IngressBackendArgs']]:
         """
         defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
         """
         return pulumi.get(self, "default_backend")
 
     @default_backend.setter
-    def default_backend(self, value: Optional[pulumi.Input['IngressBackendArgs']]):
+    def default_backend(self, value: pulumi.Input[Optional['IngressBackendArgs']]):
         pulumi.set(self, "default_backend", value)
 
     @_builtins.property
     @pulumi.getter(name="ingressClassName")
-    def ingress_class_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ingress_class_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
         """
         return pulumi.get(self, "ingress_class_name")
 
     @ingress_class_name.setter
-    def ingress_class_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ingress_class_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ingress_class_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IngressRuleArgs']]]]:
+    def rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgs']]]]:
         """
         rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
         """
         return pulumi.get(self, "rules")
 
     @rules.setter
-    def rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRuleArgs']]]]):
+    def rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgs']]]]):
         pulumi.set(self, "rules", value)
 
     @_builtins.property
     @pulumi.getter
-    def tls(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSArgs']]]]:
+    def tls(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgs']]]]:
         """
         tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
         return pulumi.get(self, "tls")
 
     @tls.setter
-    def tls(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSArgs']]]]):
+    def tls(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgs']]]]):
         pulumi.set(self, "tls", value)
 
 
@@ -1817,7 +1817,7 @@ class IngressStatusArgsDict(TypedDict):
     """
     IngressStatus describe the current state of the Ingress.
     """
-    load_balancer: NotRequired[pulumi.Input['IngressLoadBalancerStatusArgsDict']]
+    load_balancer: NotRequired[pulumi.Input[Optional['IngressLoadBalancerStatusArgs']]]
     """
     loadBalancer contains the current status of the load-balancer.
     """
@@ -1825,7 +1825,7 @@ class IngressStatusArgsDict(TypedDict):
 @pulumi.input_type
 class IngressStatusArgs:
     def __init__(__self__, *,
-                 load_balancer: Optional[pulumi.Input['IngressLoadBalancerStatusArgs']] = None):
+                 load_balancer: pulumi.Input[Optional['IngressLoadBalancerStatusArgs']] = None):
         """
         IngressStatus describe the current state of the Ingress.
 
@@ -1836,14 +1836,14 @@ class IngressStatusArgs:
 
     @_builtins.property
     @pulumi.getter(name="loadBalancer")
-    def load_balancer(self) -> Optional[pulumi.Input['IngressLoadBalancerStatusArgs']]:
+    def load_balancer(self) -> pulumi.Input[Optional['IngressLoadBalancerStatusArgs']]:
         """
         loadBalancer contains the current status of the load-balancer.
         """
         return pulumi.get(self, "load_balancer")
 
     @load_balancer.setter
-    def load_balancer(self, value: Optional[pulumi.Input['IngressLoadBalancerStatusArgs']]):
+    def load_balancer(self, value: pulumi.Input[Optional['IngressLoadBalancerStatusArgs']]):
         pulumi.set(self, "load_balancer", value)
 
 
@@ -1851,11 +1851,11 @@ class IngressTLSPatchArgsDict(TypedDict):
     """
     IngressTLS describes the transport layer security associated with an ingress.
     """
-    hosts: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    hosts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
     """
-    secret_name: NotRequired[pulumi.Input[_builtins.str]]
+    secret_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
     """
@@ -1863,8 +1863,8 @@ class IngressTLSPatchArgsDict(TypedDict):
 @pulumi.input_type
 class IngressTLSPatchArgs:
     def __init__(__self__, *,
-                 hosts: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 secret_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 hosts: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 secret_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         IngressTLS describes the transport layer security associated with an ingress.
 
@@ -1878,26 +1878,26 @@ class IngressTLSPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def hosts(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def hosts(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         """
         return pulumi.get(self, "hosts")
 
     @hosts.setter
-    def hosts(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def hosts(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "hosts", value)
 
     @_builtins.property
     @pulumi.getter(name="secretName")
-    def secret_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def secret_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
         """
         return pulumi.get(self, "secret_name")
 
     @secret_name.setter
-    def secret_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def secret_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "secret_name", value)
 
 
@@ -1905,11 +1905,11 @@ class IngressTLSArgsDict(TypedDict):
     """
     IngressTLS describes the transport layer security associated with an ingress.
     """
-    hosts: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    hosts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
     """
-    secret_name: NotRequired[pulumi.Input[_builtins.str]]
+    secret_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
     """
@@ -1917,8 +1917,8 @@ class IngressTLSArgsDict(TypedDict):
 @pulumi.input_type
 class IngressTLSArgs:
     def __init__(__self__, *,
-                 hosts: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 secret_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 hosts: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 secret_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         IngressTLS describes the transport layer security associated with an ingress.
 
@@ -1932,26 +1932,26 @@ class IngressTLSArgs:
 
     @_builtins.property
     @pulumi.getter
-    def hosts(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def hosts(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         """
         return pulumi.get(self, "hosts")
 
     @hosts.setter
-    def hosts(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def hosts(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "hosts", value)
 
     @_builtins.property
     @pulumi.getter(name="secretName")
-    def secret_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def secret_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
         """
         return pulumi.get(self, "secret_name")
 
     @secret_name.setter
-    def secret_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def secret_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "secret_name", value)
 
 
@@ -1973,23 +1973,23 @@ class IngressArgsDict(TypedDict):
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input['IngressSpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['IngressSpecArgs']]]
     """
     spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input['IngressStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['IngressStatusArgs']]]
     """
     status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -1997,11 +1997,11 @@ class IngressArgsDict(TypedDict):
 @pulumi.input_type
 class IngressArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['IngressSpecArgs']] = None,
-                 status: Optional[pulumi.Input['IngressStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['IngressSpecArgs']] = None,
+                 status: pulumi.Input[Optional['IngressStatusArgs']] = None):
         """
         Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
 
@@ -2038,62 +2038,62 @@ class IngressArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['IngressSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['IngressSpecArgs']]:
         """
         spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['IngressSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['IngressSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['IngressStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['IngressStatusArgs']]:
         """
         status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['IngressStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['IngressStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
@@ -2101,11 +2101,11 @@ class NetworkPolicyEgressRulePatchArgsDict(TypedDict):
     """
     NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     """
-    ports: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgsDict']]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]]
     """
     ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
-    to: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgsDict']]]]
+    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]]
     """
     to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
     """
@@ -2113,8 +2113,8 @@ class NetworkPolicyEgressRulePatchArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyEgressRulePatchArgs:
     def __init__(__self__, *,
-                 ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]] = None,
-                 to: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]] = None):
+                 ports: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]] = None,
+                 to: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]] = None):
         """
         NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
 
@@ -2128,26 +2128,26 @@ class NetworkPolicyEgressRulePatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def ports(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]:
+    def ports(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]:
         """
         ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
         return pulumi.get(self, "ports")
 
     @ports.setter
-    def ports(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]):
+    def ports(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]):
         pulumi.set(self, "ports", value)
 
     @_builtins.property
     @pulumi.getter
-    def to(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]:
+    def to(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]:
         """
         to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
         return pulumi.get(self, "to")
 
     @to.setter
-    def to(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]):
+    def to(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]):
         pulumi.set(self, "to", value)
 
 
@@ -2155,11 +2155,11 @@ class NetworkPolicyEgressRuleArgsDict(TypedDict):
     """
     NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     """
-    ports: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgsDict']]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]]
     """
     ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
-    to: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgsDict']]]]
+    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]]
     """
     to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
     """
@@ -2167,8 +2167,8 @@ class NetworkPolicyEgressRuleArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyEgressRuleArgs:
     def __init__(__self__, *,
-                 ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]] = None,
-                 to: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]] = None):
+                 ports: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]] = None,
+                 to: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]] = None):
         """
         NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
 
@@ -2182,26 +2182,26 @@ class NetworkPolicyEgressRuleArgs:
 
     @_builtins.property
     @pulumi.getter
-    def ports(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]:
+    def ports(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]:
         """
         ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
         return pulumi.get(self, "ports")
 
     @ports.setter
-    def ports(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]):
+    def ports(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]):
         pulumi.set(self, "ports", value)
 
     @_builtins.property
     @pulumi.getter
-    def to(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]:
+    def to(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]:
         """
         to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
         return pulumi.get(self, "to")
 
     @to.setter
-    def to(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]):
+    def to(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]):
         pulumi.set(self, "to", value)
 
 
@@ -2209,11 +2209,11 @@ class NetworkPolicyIngressRulePatchArgsDict(TypedDict):
     """
     NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
     """
-    from_: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgsDict']]]]
+    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]]
     """
     from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
     """
-    ports: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgsDict']]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]]
     """
     ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
@@ -2221,8 +2221,8 @@ class NetworkPolicyIngressRulePatchArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyIngressRulePatchArgs:
     def __init__(__self__, *,
-                 from_: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]] = None,
-                 ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]] = None):
+                 from_: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]] = None,
+                 ports: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]] = None):
         """
         NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
 
@@ -2236,26 +2236,26 @@ class NetworkPolicyIngressRulePatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="from")
-    def from_(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]:
+    def from_(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]:
         """
         from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
         """
         return pulumi.get(self, "from_")
 
     @from_.setter
-    def from_(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]):
+    def from_(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]):
         pulumi.set(self, "from_", value)
 
     @_builtins.property
     @pulumi.getter
-    def ports(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]:
+    def ports(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]:
         """
         ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
         return pulumi.get(self, "ports")
 
     @ports.setter
-    def ports(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]):
+    def ports(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]):
         pulumi.set(self, "ports", value)
 
 
@@ -2263,11 +2263,11 @@ class NetworkPolicyIngressRuleArgsDict(TypedDict):
     """
     NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
     """
-    from_: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgsDict']]]]
+    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]]
     """
     from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
     """
-    ports: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgsDict']]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]]
     """
     ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
@@ -2275,8 +2275,8 @@ class NetworkPolicyIngressRuleArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyIngressRuleArgs:
     def __init__(__self__, *,
-                 from_: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]] = None,
-                 ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]] = None):
+                 from_: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]] = None,
+                 ports: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]] = None):
         """
         NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
 
@@ -2290,26 +2290,26 @@ class NetworkPolicyIngressRuleArgs:
 
     @_builtins.property
     @pulumi.getter(name="from")
-    def from_(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]:
+    def from_(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]:
         """
         from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
         """
         return pulumi.get(self, "from_")
 
     @from_.setter
-    def from_(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]):
+    def from_(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]):
         pulumi.set(self, "from_", value)
 
     @_builtins.property
     @pulumi.getter
-    def ports(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]:
+    def ports(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]:
         """
         ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
         return pulumi.get(self, "ports")
 
     @ports.setter
-    def ports(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]):
+    def ports(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]):
         pulumi.set(self, "ports", value)
 
 
@@ -2317,17 +2317,17 @@ class NetworkPolicyPeerPatchArgsDict(TypedDict):
     """
     NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
     """
-    ip_block: NotRequired[pulumi.Input['IPBlockPatchArgsDict']]
+    ip_block: NotRequired[pulumi.Input[Optional['IPBlockPatchArgs']]]
     """
     ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
     """
-    namespace_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
     """
     namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 
     If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
     """
-    pod_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
     """
     podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 
@@ -2337,9 +2337,9 @@ class NetworkPolicyPeerPatchArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyPeerPatchArgs:
     def __init__(__self__, *,
-                 ip_block: Optional[pulumi.Input['IPBlockPatchArgs']] = None,
-                 namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-                 pod_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None):
+                 ip_block: pulumi.Input[Optional['IPBlockPatchArgs']] = None,
+                 namespace_selector: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']] = None,
+                 pod_selector: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']] = None):
         """
         NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
 
@@ -2360,19 +2360,19 @@ class NetworkPolicyPeerPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="ipBlock")
-    def ip_block(self) -> Optional[pulumi.Input['IPBlockPatchArgs']]:
+    def ip_block(self) -> pulumi.Input[Optional['IPBlockPatchArgs']]:
         """
         ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
         """
         return pulumi.get(self, "ip_block")
 
     @ip_block.setter
-    def ip_block(self, value: Optional[pulumi.Input['IPBlockPatchArgs']]):
+    def ip_block(self, value: pulumi.Input[Optional['IPBlockPatchArgs']]):
         pulumi.set(self, "ip_block", value)
 
     @_builtins.property
     @pulumi.getter(name="namespaceSelector")
-    def namespace_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
+    def namespace_selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]:
         """
         namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 
@@ -2381,12 +2381,12 @@ class NetworkPolicyPeerPatchArgs:
         return pulumi.get(self, "namespace_selector")
 
     @namespace_selector.setter
-    def namespace_selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]):
+    def namespace_selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]):
         pulumi.set(self, "namespace_selector", value)
 
     @_builtins.property
     @pulumi.getter(name="podSelector")
-    def pod_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
+    def pod_selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]:
         """
         podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 
@@ -2395,7 +2395,7 @@ class NetworkPolicyPeerPatchArgs:
         return pulumi.get(self, "pod_selector")
 
     @pod_selector.setter
-    def pod_selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]):
+    def pod_selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]):
         pulumi.set(self, "pod_selector", value)
 
 
@@ -2403,17 +2403,17 @@ class NetworkPolicyPeerArgsDict(TypedDict):
     """
     NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
     """
-    ip_block: NotRequired[pulumi.Input['IPBlockArgsDict']]
+    ip_block: NotRequired[pulumi.Input[Optional['IPBlockArgs']]]
     """
     ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
     """
-    namespace_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
     """
     namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 
     If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
     """
-    pod_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
+    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
     """
     podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 
@@ -2423,9 +2423,9 @@ class NetworkPolicyPeerArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyPeerArgs:
     def __init__(__self__, *,
-                 ip_block: Optional[pulumi.Input['IPBlockArgs']] = None,
-                 namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-                 pod_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None):
+                 ip_block: pulumi.Input[Optional['IPBlockArgs']] = None,
+                 namespace_selector: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']] = None,
+                 pod_selector: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']] = None):
         """
         NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
 
@@ -2446,19 +2446,19 @@ class NetworkPolicyPeerArgs:
 
     @_builtins.property
     @pulumi.getter(name="ipBlock")
-    def ip_block(self) -> Optional[pulumi.Input['IPBlockArgs']]:
+    def ip_block(self) -> pulumi.Input[Optional['IPBlockArgs']]:
         """
         ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
         """
         return pulumi.get(self, "ip_block")
 
     @ip_block.setter
-    def ip_block(self, value: Optional[pulumi.Input['IPBlockArgs']]):
+    def ip_block(self, value: pulumi.Input[Optional['IPBlockArgs']]):
         pulumi.set(self, "ip_block", value)
 
     @_builtins.property
     @pulumi.getter(name="namespaceSelector")
-    def namespace_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
+    def namespace_selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]:
         """
         namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 
@@ -2467,12 +2467,12 @@ class NetworkPolicyPeerArgs:
         return pulumi.get(self, "namespace_selector")
 
     @namespace_selector.setter
-    def namespace_selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]):
+    def namespace_selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]):
         pulumi.set(self, "namespace_selector", value)
 
     @_builtins.property
     @pulumi.getter(name="podSelector")
-    def pod_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
+    def pod_selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]:
         """
         podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 
@@ -2481,7 +2481,7 @@ class NetworkPolicyPeerArgs:
         return pulumi.get(self, "pod_selector")
 
     @pod_selector.setter
-    def pod_selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]):
+    def pod_selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]):
         pulumi.set(self, "pod_selector", value)
 
 
@@ -2489,15 +2489,15 @@ class NetworkPolicyPortPatchArgsDict(TypedDict):
     """
     NetworkPolicyPort describes a port to allow traffic on
     """
-    end_port: NotRequired[pulumi.Input[_builtins.int]]
+    end_port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
     """
-    port: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    port: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
     """
     port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
     """
-    protocol: NotRequired[pulumi.Input[_builtins.str]]
+    protocol: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
     """
@@ -2505,9 +2505,9 @@ class NetworkPolicyPortPatchArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyPortPatchArgs:
     def __init__(__self__, *,
-                 end_port: Optional[pulumi.Input[_builtins.int]] = None,
-                 port: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]] = None,
-                 protocol: Optional[pulumi.Input[_builtins.str]] = None):
+                 end_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 port: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 protocol: pulumi.Input[Optional[_builtins.str]] = None):
         """
         NetworkPolicyPort describes a port to allow traffic on
 
@@ -2524,38 +2524,38 @@ class NetworkPolicyPortPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="endPort")
-    def end_port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def end_port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
         """
         return pulumi.get(self, "end_port")
 
     @end_port.setter
-    def end_port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def end_port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "end_port", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]:
+    def port(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
         """
         port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]):
+    def port(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
         pulumi.set(self, "port", value)
 
     @_builtins.property
     @pulumi.getter
-    def protocol(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def protocol(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
         return pulumi.get(self, "protocol")
 
     @protocol.setter
-    def protocol(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def protocol(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "protocol", value)
 
 
@@ -2563,15 +2563,15 @@ class NetworkPolicyPortArgsDict(TypedDict):
     """
     NetworkPolicyPort describes a port to allow traffic on
     """
-    end_port: NotRequired[pulumi.Input[_builtins.int]]
+    end_port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
     """
-    port: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    port: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
     """
     port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
     """
-    protocol: NotRequired[pulumi.Input[_builtins.str]]
+    protocol: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
     """
@@ -2579,9 +2579,9 @@ class NetworkPolicyPortArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyPortArgs:
     def __init__(__self__, *,
-                 end_port: Optional[pulumi.Input[_builtins.int]] = None,
-                 port: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]] = None,
-                 protocol: Optional[pulumi.Input[_builtins.str]] = None):
+                 end_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 port: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 protocol: pulumi.Input[Optional[_builtins.str]] = None):
         """
         NetworkPolicyPort describes a port to allow traffic on
 
@@ -2598,38 +2598,38 @@ class NetworkPolicyPortArgs:
 
     @_builtins.property
     @pulumi.getter(name="endPort")
-    def end_port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def end_port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
         """
         return pulumi.get(self, "end_port")
 
     @end_port.setter
-    def end_port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def end_port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "end_port", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]:
+    def port(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
         """
         port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]):
+    def port(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
         pulumi.set(self, "port", value)
 
     @_builtins.property
     @pulumi.getter
-    def protocol(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def protocol(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
         return pulumi.get(self, "protocol")
 
     @protocol.setter
-    def protocol(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def protocol(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "protocol", value)
 
 
@@ -2637,19 +2637,19 @@ class NetworkPolicySpecPatchArgsDict(TypedDict):
     """
     NetworkPolicySpec provides the specification of a NetworkPolicy
     """
-    egress: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgsDict']]]]
+    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]]]
     """
     egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
     """
-    ingress: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgsDict']]]]
+    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]]]
     """
     ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
     """
-    pod_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
     """
     podSelector selects the pods to which this NetworkPolicy object applies. The array of rules is applied to any pods selected by this field. An empty selector matches all pods in the policy's namespace. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is optional. If it is not specified, it defaults to an empty selector.
     """
-    policy_types: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    policy_types: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
     """
@@ -2657,10 +2657,10 @@ class NetworkPolicySpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicySpecPatchArgs:
     def __init__(__self__, *,
-                 egress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]] = None,
-                 ingress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]] = None,
-                 pod_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-                 policy_types: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 egress: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]] = None,
+                 ingress: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]] = None,
+                 pod_selector: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']] = None,
+                 policy_types: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         NetworkPolicySpec provides the specification of a NetworkPolicy
 
@@ -2680,50 +2680,50 @@ class NetworkPolicySpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def egress(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]]:
+    def egress(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]]:
         """
         egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
         """
         return pulumi.get(self, "egress")
 
     @egress.setter
-    def egress(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]]):
+    def egress(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]]):
         pulumi.set(self, "egress", value)
 
     @_builtins.property
     @pulumi.getter
-    def ingress(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]]:
+    def ingress(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]]:
         """
         ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
         """
         return pulumi.get(self, "ingress")
 
     @ingress.setter
-    def ingress(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]]):
+    def ingress(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]]):
         pulumi.set(self, "ingress", value)
 
     @_builtins.property
     @pulumi.getter(name="podSelector")
-    def pod_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
+    def pod_selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]:
         """
         podSelector selects the pods to which this NetworkPolicy object applies. The array of rules is applied to any pods selected by this field. An empty selector matches all pods in the policy's namespace. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is optional. If it is not specified, it defaults to an empty selector.
         """
         return pulumi.get(self, "pod_selector")
 
     @pod_selector.setter
-    def pod_selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]):
+    def pod_selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]):
         pulumi.set(self, "pod_selector", value)
 
     @_builtins.property
     @pulumi.getter(name="policyTypes")
-    def policy_types(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def policy_types(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
         return pulumi.get(self, "policy_types")
 
     @policy_types.setter
-    def policy_types(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def policy_types(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "policy_types", value)
 
 
@@ -2735,15 +2735,15 @@ class NetworkPolicySpecArgsDict(TypedDict):
     """
     podSelector selects the pods to which this NetworkPolicy object applies. The array of rules is applied to any pods selected by this field. An empty selector matches all pods in the policy's namespace. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is optional. If it is not specified, it defaults to an empty selector.
     """
-    egress: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgsDict']]]]
+    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]]]
     """
     egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
     """
-    ingress: NotRequired[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgsDict']]]]
+    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]]]
     """
     ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
     """
-    policy_types: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    policy_types: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
     """
@@ -2752,9 +2752,9 @@ class NetworkPolicySpecArgsDict(TypedDict):
 class NetworkPolicySpecArgs:
     def __init__(__self__, *,
                  pod_selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
-                 egress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]] = None,
-                 ingress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]] = None,
-                 policy_types: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 egress: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]] = None,
+                 ingress: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]] = None,
+                 policy_types: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         NetworkPolicySpec provides the specification of a NetworkPolicy
 
@@ -2785,38 +2785,38 @@ class NetworkPolicySpecArgs:
 
     @_builtins.property
     @pulumi.getter
-    def egress(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]]:
+    def egress(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]]:
         """
         egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
         """
         return pulumi.get(self, "egress")
 
     @egress.setter
-    def egress(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]]):
+    def egress(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]]):
         pulumi.set(self, "egress", value)
 
     @_builtins.property
     @pulumi.getter
-    def ingress(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]]:
+    def ingress(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]]:
         """
         ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
         """
         return pulumi.get(self, "ingress")
 
     @ingress.setter
-    def ingress(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]]):
+    def ingress(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]]):
         pulumi.set(self, "ingress", value)
 
     @_builtins.property
     @pulumi.getter(name="policyTypes")
-    def policy_types(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def policy_types(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
         return pulumi.get(self, "policy_types")
 
     @policy_types.setter
-    def policy_types(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def policy_types(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "policy_types", value)
 
 
@@ -2824,7 +2824,7 @@ class NetworkPolicyStatusArgsDict(TypedDict):
     """
     NetworkPolicyStatus describe the current state of the NetworkPolicy.
     """
-    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
     """
     Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
     """
@@ -2832,7 +2832,7 @@ class NetworkPolicyStatusArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyStatusArgs:
     def __init__(__self__, *,
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None):
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None):
         """
         NetworkPolicyStatus describe the current state of the NetworkPolicy.
 
@@ -2843,14 +2843,14 @@ class NetworkPolicyStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
         """
         Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 
@@ -2858,23 +2858,23 @@ class NetworkPolicyArgsDict(TypedDict):
     """
     NetworkPolicy describes what network traffic is allowed for a set of Pods
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input['NetworkPolicySpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['NetworkPolicySpecArgs']]]
     """
     spec represents the specification of the desired behavior for this NetworkPolicy.
     """
-    status: NotRequired[pulumi.Input['NetworkPolicyStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['NetworkPolicyStatusArgs']]]
     """
     Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -2882,11 +2882,11 @@ class NetworkPolicyArgsDict(TypedDict):
 @pulumi.input_type
 class NetworkPolicyArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['NetworkPolicySpecArgs']] = None,
-                 status: Optional[pulumi.Input['NetworkPolicyStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['NetworkPolicySpecArgs']] = None,
+                 status: pulumi.Input[Optional['NetworkPolicyStatusArgs']] = None):
         """
         NetworkPolicy describes what network traffic is allowed for a set of Pods
 
@@ -2909,62 +2909,62 @@ class NetworkPolicyArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['NetworkPolicySpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['NetworkPolicySpecArgs']]:
         """
         spec represents the specification of the desired behavior for this NetworkPolicy.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['NetworkPolicySpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['NetworkPolicySpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['NetworkPolicyStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['NetworkPolicyStatusArgs']]:
         """
         Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['NetworkPolicyStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['NetworkPolicyStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
@@ -2972,19 +2972,19 @@ class ParentReferencePatchArgsDict(TypedDict):
     """
     ParentReference describes a reference to a parent object.
     """
-    group: NotRequired[pulumi.Input[_builtins.str]]
+    group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Group is the group of the object being referenced.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Name is the name of the object being referenced.
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Namespace is the namespace of the object being referenced.
     """
-    resource: NotRequired[pulumi.Input[_builtins.str]]
+    resource: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Resource is the resource of the object being referenced.
     """
@@ -2992,10 +2992,10 @@ class ParentReferencePatchArgsDict(TypedDict):
 @pulumi.input_type
 class ParentReferencePatchArgs:
     def __init__(__self__, *,
-                 group: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 resource: Optional[pulumi.Input[_builtins.str]] = None):
+                 group: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ParentReference describes a reference to a parent object.
 
@@ -3015,50 +3015,50 @@ class ParentReferencePatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Group is the group of the object being referenced.
         """
         return pulumi.get(self, "group")
 
     @group.setter
-    def group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "group", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name is the name of the object being referenced.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Namespace is the namespace of the object being referenced.
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter
-    def resource(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Resource is the resource of the object being referenced.
         """
         return pulumi.get(self, "resource")
 
     @resource.setter
-    def resource(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource", value)
 
 
@@ -3074,11 +3074,11 @@ class ParentReferenceArgsDict(TypedDict):
     """
     Resource is the resource of the object being referenced.
     """
-    group: NotRequired[pulumi.Input[_builtins.str]]
+    group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Group is the group of the object being referenced.
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Namespace is the namespace of the object being referenced.
     """
@@ -3088,8 +3088,8 @@ class ParentReferenceArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[_builtins.str],
                  resource: pulumi.Input[_builtins.str],
-                 group: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None):
+                 group: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ParentReference describes a reference to a parent object.
 
@@ -3131,26 +3131,26 @@ class ParentReferenceArgs:
 
     @_builtins.property
     @pulumi.getter
-    def group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Group is the group of the object being referenced.
         """
         return pulumi.get(self, "group")
 
     @group.setter
-    def group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "group", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Namespace is the namespace of the object being referenced.
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
 
@@ -3158,11 +3158,11 @@ class ServiceBackendPortPatchArgsDict(TypedDict):
     """
     ServiceBackendPort is the service port being referenced.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
     """
-    number: NotRequired[pulumi.Input[_builtins.int]]
+    number: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
     """
@@ -3170,8 +3170,8 @@ class ServiceBackendPortPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ServiceBackendPortPatchArgs:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 number: Optional[pulumi.Input[_builtins.int]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 number: pulumi.Input[Optional[_builtins.int]] = None):
         """
         ServiceBackendPort is the service port being referenced.
 
@@ -3185,26 +3185,26 @@ class ServiceBackendPortPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def number(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def number(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         """
         return pulumi.get(self, "number")
 
     @number.setter
-    def number(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def number(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "number", value)
 
 
@@ -3212,11 +3212,11 @@ class ServiceBackendPortArgsDict(TypedDict):
     """
     ServiceBackendPort is the service port being referenced.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
     """
-    number: NotRequired[pulumi.Input[_builtins.int]]
+    number: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
     """
@@ -3224,8 +3224,8 @@ class ServiceBackendPortArgsDict(TypedDict):
 @pulumi.input_type
 class ServiceBackendPortArgs:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 number: Optional[pulumi.Input[_builtins.int]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 number: pulumi.Input[Optional[_builtins.int]] = None):
         """
         ServiceBackendPort is the service port being referenced.
 
@@ -3239,26 +3239,26 @@ class ServiceBackendPortArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def number(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def number(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         """
         return pulumi.get(self, "number")
 
     @number.setter
-    def number(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def number(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "number", value)
 
 
@@ -3266,7 +3266,7 @@ class ServiceCIDRSpecPatchArgsDict(TypedDict):
     """
     ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
     """
-    cidrs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    cidrs: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
     """
@@ -3274,7 +3274,7 @@ class ServiceCIDRSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ServiceCIDRSpecPatchArgs:
     def __init__(__self__, *,
-                 cidrs: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 cidrs: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
 
@@ -3285,14 +3285,14 @@ class ServiceCIDRSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def cidrs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def cidrs(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
         """
         return pulumi.get(self, "cidrs")
 
     @cidrs.setter
-    def cidrs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def cidrs(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "cidrs", value)
 
 
@@ -3300,7 +3300,7 @@ class ServiceCIDRSpecArgsDict(TypedDict):
     """
     ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
     """
-    cidrs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    cidrs: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
     """
@@ -3308,7 +3308,7 @@ class ServiceCIDRSpecArgsDict(TypedDict):
 @pulumi.input_type
 class ServiceCIDRSpecArgs:
     def __init__(__self__, *,
-                 cidrs: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 cidrs: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
 
@@ -3319,14 +3319,14 @@ class ServiceCIDRSpecArgs:
 
     @_builtins.property
     @pulumi.getter
-    def cidrs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def cidrs(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
         """
         return pulumi.get(self, "cidrs")
 
     @cidrs.setter
-    def cidrs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def cidrs(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "cidrs", value)
 
 
@@ -3334,7 +3334,7 @@ class ServiceCIDRStatusArgsDict(TypedDict):
     """
     ServiceCIDRStatus describes the current state of the ServiceCIDR.
     """
-    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
     """
     conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
     """
@@ -3342,7 +3342,7 @@ class ServiceCIDRStatusArgsDict(TypedDict):
 @pulumi.input_type
 class ServiceCIDRStatusArgs:
     def __init__(__self__, *,
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None):
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None):
         """
         ServiceCIDRStatus describes the current state of the ServiceCIDR.
 
@@ -3353,14 +3353,14 @@ class ServiceCIDRStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
         """
         conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 
@@ -3368,23 +3368,23 @@ class ServiceCIDRArgsDict(TypedDict):
     """
     ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input['ServiceCIDRSpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['ServiceCIDRSpecArgs']]]
     """
     spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input['ServiceCIDRStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['ServiceCIDRStatusArgs']]]
     """
     status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -3392,11 +3392,11 @@ class ServiceCIDRArgsDict(TypedDict):
 @pulumi.input_type
 class ServiceCIDRArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['ServiceCIDRSpecArgs']] = None,
-                 status: Optional[pulumi.Input['ServiceCIDRStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['ServiceCIDRSpecArgs']] = None,
+                 status: pulumi.Input[Optional['ServiceCIDRStatusArgs']] = None):
         """
         ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
 
@@ -3419,62 +3419,62 @@ class ServiceCIDRArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['ServiceCIDRSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['ServiceCIDRSpecArgs']]:
         """
         spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['ServiceCIDRSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['ServiceCIDRSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['ServiceCIDRStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['ServiceCIDRStatusArgs']]:
         """
         status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['ServiceCIDRStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['ServiceCIDRStatusArgs']]):
         pulumi.set(self, "status", value)
 
 

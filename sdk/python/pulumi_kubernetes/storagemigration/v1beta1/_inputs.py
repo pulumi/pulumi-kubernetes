@@ -30,7 +30,7 @@ class StorageVersionMigrationSpecPatchArgsDict(TypedDict):
     """
     Spec of the storage version migration.
     """
-    resource: NotRequired[pulumi.Input['_meta.v1.GroupResourcePatchArgsDict']]
+    resource: NotRequired[pulumi.Input[Optional['_meta.v1.GroupResourcePatchArgs']]]
     """
     The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
     """
@@ -38,7 +38,7 @@ class StorageVersionMigrationSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class StorageVersionMigrationSpecPatchArgs:
     def __init__(__self__, *,
-                 resource: Optional[pulumi.Input['_meta.v1.GroupResourcePatchArgs']] = None):
+                 resource: pulumi.Input[Optional['_meta.v1.GroupResourcePatchArgs']] = None):
         """
         Spec of the storage version migration.
 
@@ -49,14 +49,14 @@ class StorageVersionMigrationSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def resource(self) -> Optional[pulumi.Input['_meta.v1.GroupResourcePatchArgs']]:
+    def resource(self) -> pulumi.Input[Optional['_meta.v1.GroupResourcePatchArgs']]:
         """
         The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
         """
         return pulumi.get(self, "resource")
 
     @resource.setter
-    def resource(self, value: Optional[pulumi.Input['_meta.v1.GroupResourcePatchArgs']]):
+    def resource(self, value: pulumi.Input[Optional['_meta.v1.GroupResourcePatchArgs']]):
         pulumi.set(self, "resource", value)
 
 
@@ -97,11 +97,11 @@ class StorageVersionMigrationStatusArgsDict(TypedDict):
     """
     Status of the storage version migration.
     """
-    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
     """
     The latest available observations of the migration's current state.
     """
-    resource_version: NotRequired[pulumi.Input[_builtins.str]]
+    resource_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
     """
@@ -109,8 +109,8 @@ class StorageVersionMigrationStatusArgsDict(TypedDict):
 @pulumi.input_type
 class StorageVersionMigrationStatusArgs:
     def __init__(__self__, *,
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
-                 resource_version: Optional[pulumi.Input[_builtins.str]] = None):
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
+                 resource_version: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Status of the storage version migration.
 
@@ -124,26 +124,26 @@ class StorageVersionMigrationStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
         """
         The latest available observations of the migration's current state.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceVersion")
-    def resource_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
         """
         return pulumi.get(self, "resource_version")
 
     @resource_version.setter
-    def resource_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_version", value)
 
 
@@ -151,23 +151,23 @@ class StorageVersionMigrationArgsDict(TypedDict):
     """
     StorageVersionMigration represents a migration of stored data to the latest storage version.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input['StorageVersionMigrationSpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['StorageVersionMigrationSpecArgs']]]
     """
     Specification of the migration.
     """
-    status: NotRequired[pulumi.Input['StorageVersionMigrationStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['StorageVersionMigrationStatusArgs']]]
     """
     Status of the migration.
     """
@@ -175,11 +175,11 @@ class StorageVersionMigrationArgsDict(TypedDict):
 @pulumi.input_type
 class StorageVersionMigrationArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['StorageVersionMigrationSpecArgs']] = None,
-                 status: Optional[pulumi.Input['StorageVersionMigrationStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['StorageVersionMigrationSpecArgs']] = None,
+                 status: pulumi.Input[Optional['StorageVersionMigrationStatusArgs']] = None):
         """
         StorageVersionMigration represents a migration of stored data to the latest storage version.
 
@@ -202,62 +202,62 @@ class StorageVersionMigrationArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['StorageVersionMigrationSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['StorageVersionMigrationSpecArgs']]:
         """
         Specification of the migration.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['StorageVersionMigrationSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['StorageVersionMigrationSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['StorageVersionMigrationStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['StorageVersionMigrationStatusArgs']]:
         """
         Status of the migration.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['StorageVersionMigrationStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['StorageVersionMigrationStatusArgs']]):
         pulumi.set(self, "status", value)
 
 

@@ -30,19 +30,19 @@ class PodDisruptionBudgetSpecPatchArgsDict(TypedDict):
     """
     PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
     """
-    max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    max_unavailable: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
     """
     An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
     """
-    min_available: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    min_available: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
     """
     An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
     """
-    selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
     """
     Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
     """
-    unhealthy_pod_eviction_policy: NotRequired[pulumi.Input[_builtins.str]]
+    unhealthy_pod_eviction_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 
@@ -58,10 +58,10 @@ class PodDisruptionBudgetSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class PodDisruptionBudgetSpecPatchArgs:
     def __init__(__self__, *,
-                 max_unavailable: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]] = None,
-                 min_available: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]] = None,
-                 selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-                 unhealthy_pod_eviction_policy: Optional[pulumi.Input[_builtins.str]] = None):
+                 max_unavailable: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 min_available: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 selector: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']] = None,
+                 unhealthy_pod_eviction_policy: pulumi.Input[Optional[_builtins.str]] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 
@@ -89,43 +89,43 @@ class PodDisruptionBudgetSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]:
+    def max_unavailable(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
         """
         An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         """
         return pulumi.get(self, "max_unavailable")
 
     @max_unavailable.setter
-    def max_unavailable(self, value: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]):
+    def max_unavailable(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
         pulumi.set(self, "max_unavailable", value)
 
     @_builtins.property
     @pulumi.getter(name="minAvailable")
-    def min_available(self) -> Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]:
+    def min_available(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
         """
         An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         """
         return pulumi.get(self, "min_available")
 
     @min_available.setter
-    def min_available(self, value: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]):
+    def min_available(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
         pulumi.set(self, "min_available", value)
 
     @_builtins.property
     @pulumi.getter
-    def selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
+    def selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]:
         """
         Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
         """
         return pulumi.get(self, "selector")
 
     @selector.setter
-    def selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]):
+    def selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]):
         pulumi.set(self, "selector", value)
 
     @_builtins.property
     @pulumi.getter(name="unhealthyPodEvictionPolicy")
-    def unhealthy_pod_eviction_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def unhealthy_pod_eviction_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 
@@ -140,7 +140,7 @@ class PodDisruptionBudgetSpecPatchArgs:
         return pulumi.get(self, "unhealthy_pod_eviction_policy")
 
     @unhealthy_pod_eviction_policy.setter
-    def unhealthy_pod_eviction_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def unhealthy_pod_eviction_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "unhealthy_pod_eviction_policy", value)
 
 
@@ -148,19 +148,19 @@ class PodDisruptionBudgetSpecArgsDict(TypedDict):
     """
     PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
     """
-    max_unavailable: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    max_unavailable: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
     """
     An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
     """
-    min_available: NotRequired[pulumi.Input[Union[_builtins.int, _builtins.str]]]
+    min_available: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
     """
     An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
     """
-    selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
     """
     Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
     """
-    unhealthy_pod_eviction_policy: NotRequired[pulumi.Input[_builtins.str]]
+    unhealthy_pod_eviction_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 
@@ -176,10 +176,10 @@ class PodDisruptionBudgetSpecArgsDict(TypedDict):
 @pulumi.input_type
 class PodDisruptionBudgetSpecArgs:
     def __init__(__self__, *,
-                 max_unavailable: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]] = None,
-                 min_available: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]] = None,
-                 selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-                 unhealthy_pod_eviction_policy: Optional[pulumi.Input[_builtins.str]] = None):
+                 max_unavailable: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 min_available: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 selector: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']] = None,
+                 unhealthy_pod_eviction_policy: pulumi.Input[Optional[_builtins.str]] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 
@@ -207,43 +207,43 @@ class PodDisruptionBudgetSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]:
+    def max_unavailable(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
         """
         An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         """
         return pulumi.get(self, "max_unavailable")
 
     @max_unavailable.setter
-    def max_unavailable(self, value: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]):
+    def max_unavailable(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
         pulumi.set(self, "max_unavailable", value)
 
     @_builtins.property
     @pulumi.getter(name="minAvailable")
-    def min_available(self) -> Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]:
+    def min_available(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
         """
         An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         """
         return pulumi.get(self, "min_available")
 
     @min_available.setter
-    def min_available(self, value: Optional[pulumi.Input[Union[_builtins.int, _builtins.str]]]):
+    def min_available(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
         pulumi.set(self, "min_available", value)
 
     @_builtins.property
     @pulumi.getter
-    def selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
+    def selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]:
         """
         Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
         """
         return pulumi.get(self, "selector")
 
     @selector.setter
-    def selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]):
+    def selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]):
         pulumi.set(self, "selector", value)
 
     @_builtins.property
     @pulumi.getter(name="unhealthyPodEvictionPolicy")
-    def unhealthy_pod_eviction_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def unhealthy_pod_eviction_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 
@@ -258,7 +258,7 @@ class PodDisruptionBudgetSpecArgs:
         return pulumi.get(self, "unhealthy_pod_eviction_policy")
 
     @unhealthy_pod_eviction_policy.setter
-    def unhealthy_pod_eviction_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def unhealthy_pod_eviction_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "unhealthy_pod_eviction_policy", value)
 
 
@@ -282,7 +282,7 @@ class PodDisruptionBudgetStatusArgsDict(TypedDict):
     """
     total number of pods counted by this disruption budget
     """
-    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
     """
     Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
                   the number of allowed disruptions. Therefore no disruptions are
@@ -294,11 +294,11 @@ class PodDisruptionBudgetStatusArgsDict(TypedDict):
                       The condition will be True, and the number of allowed
                       disruptions are provided by the disruptionsAllowed property.
     """
-    disrupted_pods: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    disrupted_pods: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
     """
-    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    observed_generation: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
     """
@@ -310,9 +310,9 @@ class PodDisruptionBudgetStatusArgs:
                  desired_healthy: pulumi.Input[_builtins.int],
                  disruptions_allowed: pulumi.Input[_builtins.int],
                  expected_pods: pulumi.Input[_builtins.int],
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
-                 disrupted_pods: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 observed_generation: Optional[pulumi.Input[_builtins.int]] = None):
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
+                 disrupted_pods: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 observed_generation: pulumi.Input[Optional[_builtins.int]] = None):
         """
         PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 
@@ -393,7 +393,7 @@ class PodDisruptionBudgetStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
         """
         Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
                       the number of allowed disruptions. Therefore no disruptions are
@@ -408,31 +408,31 @@ class PodDisruptionBudgetStatusArgs:
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
     @_builtins.property
     @pulumi.getter(name="disruptedPods")
-    def disrupted_pods(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def disrupted_pods(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
         """
         return pulumi.get(self, "disrupted_pods")
 
     @disrupted_pods.setter
-    def disrupted_pods(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def disrupted_pods(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "disrupted_pods", value)
 
     @_builtins.property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def observed_generation(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
         return pulumi.get(self, "observed_generation")
 
     @observed_generation.setter
-    def observed_generation(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def observed_generation(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "observed_generation", value)
 
 
@@ -440,23 +440,23 @@ class PodDisruptionBudgetArgsDict(TypedDict):
     """
     PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input['PodDisruptionBudgetSpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]]
     """
     Specification of the desired behavior of the PodDisruptionBudget.
     """
-    status: NotRequired[pulumi.Input['PodDisruptionBudgetStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']]]
     """
     Most recently observed status of the PodDisruptionBudget.
     """
@@ -464,11 +464,11 @@ class PodDisruptionBudgetArgsDict(TypedDict):
 @pulumi.input_type
 class PodDisruptionBudgetArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']] = None,
-                 status: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']] = None,
+                 status: pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']] = None):
         """
         PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 
@@ -491,62 +491,62 @@ class PodDisruptionBudgetArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]:
         """
         Specification of the desired behavior of the PodDisruptionBudget.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']]:
         """
         Most recently observed status of the PodDisruptionBudget.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']]):
         pulumi.set(self, "status", value)
 
 

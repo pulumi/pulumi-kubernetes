@@ -22,12 +22,12 @@ __all__ = ['ServiceAccountPatchArgs', 'ServiceAccountPatch']
 @pulumi.input_type
 class ServiceAccountPatchArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 automount_service_account_token: Optional[pulumi.Input[_builtins.bool]] = None,
-                 image_pull_secrets: Optional[pulumi.Input[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
-                 secrets: Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferencePatchArgs']]]] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 automount_service_account_token: pulumi.Input[Optional[_builtins.bool]] = None,
+                 image_pull_secrets: pulumi.Input[Optional[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']] = None,
+                 secrets: pulumi.Input[Optional[Sequence[pulumi.Input['ObjectReferencePatchArgs']]]] = None):
         """
         The set of arguments for constructing a ServiceAccountPatch resource.
 
@@ -53,74 +53,74 @@ class ServiceAccountPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter(name="automountServiceAccountToken")
-    def automount_service_account_token(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def automount_service_account_token(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
         """
         return pulumi.get(self, "automount_service_account_token")
 
     @automount_service_account_token.setter
-    def automount_service_account_token(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def automount_service_account_token(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "automount_service_account_token", value)
 
     @_builtins.property
     @pulumi.getter(name="imagePullSecrets")
-    def image_pull_secrets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]]:
+    def image_pull_secrets(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]]:
         """
         ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
         """
         return pulumi.get(self, "image_pull_secrets")
 
     @image_pull_secrets.setter
-    def image_pull_secrets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]]):
+    def image_pull_secrets(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]]):
         pulumi.set(self, "image_pull_secrets", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def secrets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferencePatchArgs']]]]:
+    def secrets(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ObjectReferencePatchArgs']]]]:
         """
         Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """
         return pulumi.get(self, "secrets")
 
     @secrets.setter
-    def secrets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferencePatchArgs']]]]):
+    def secrets(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ObjectReferencePatchArgs']]]]):
         pulumi.set(self, "secrets", value)
 
 
@@ -130,12 +130,12 @@ class ServiceAccountPatch(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 automount_service_account_token: Optional[pulumi.Input[_builtins.bool]] = None,
-                 image_pull_secrets: Optional[pulumi.Input[Sequence[pulumi.Input[Union['LocalObjectReferencePatchArgs', 'LocalObjectReferencePatchArgsDict']]]]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 secrets: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ObjectReferencePatchArgs', 'ObjectReferencePatchArgsDict']]]]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 automount_service_account_token: pulumi.Input[Optional[_builtins.bool]] = None,
+                 image_pull_secrets: pulumi.Input[Optional[Sequence[pulumi.Input[Union['LocalObjectReferencePatchArgs', 'LocalObjectReferencePatchArgsDict']]]]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 secrets: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ObjectReferencePatchArgs', 'ObjectReferencePatchArgsDict']]]]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -187,12 +187,12 @@ class ServiceAccountPatch(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 automount_service_account_token: Optional[pulumi.Input[_builtins.bool]] = None,
-                 image_pull_secrets: Optional[pulumi.Input[Sequence[pulumi.Input[Union['LocalObjectReferencePatchArgs', 'LocalObjectReferencePatchArgsDict']]]]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 secrets: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ObjectReferencePatchArgs', 'ObjectReferencePatchArgsDict']]]]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 automount_service_account_token: pulumi.Input[Optional[_builtins.bool]] = None,
+                 image_pull_secrets: pulumi.Input[Optional[Sequence[pulumi.Input[Union['LocalObjectReferencePatchArgs', 'LocalObjectReferencePatchArgsDict']]]]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 secrets: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ObjectReferencePatchArgs', 'ObjectReferencePatchArgsDict']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

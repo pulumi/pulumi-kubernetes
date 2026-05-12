@@ -50,19 +50,19 @@ class CertificateSigningRequestConditionArgsDict(TypedDict):
 
     Only one condition of a given type is allowed.
     """
-    last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
+    last_transition_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
     """
-    last_update_time: NotRequired[pulumi.Input[_builtins.str]]
+    last_update_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     lastUpdateTime is the time of the last update to this condition
     """
-    message: NotRequired[pulumi.Input[_builtins.str]]
+    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     message contains a human readable message with details about the request state
     """
-    reason: NotRequired[pulumi.Input[_builtins.str]]
+    reason: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     reason indicates a brief reason for the request state
     """
@@ -72,10 +72,10 @@ class CertificateSigningRequestConditionArgs:
     def __init__(__self__, *,
                  status: pulumi.Input[_builtins.str],
                  type: pulumi.Input[_builtins.str],
-                 last_transition_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 last_update_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None):
+                 last_transition_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 last_update_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None):
         """
         CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
 
@@ -143,50 +143,50 @@ class CertificateSigningRequestConditionArgs:
 
     @_builtins.property
     @pulumi.getter(name="lastTransitionTime")
-    def last_transition_time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def last_transition_time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
         """
         return pulumi.get(self, "last_transition_time")
 
     @last_transition_time.setter
-    def last_transition_time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def last_transition_time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "last_transition_time", value)
 
     @_builtins.property
     @pulumi.getter(name="lastUpdateTime")
-    def last_update_time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def last_update_time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         lastUpdateTime is the time of the last update to this condition
         """
         return pulumi.get(self, "last_update_time")
 
     @last_update_time.setter
-    def last_update_time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def last_update_time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "last_update_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         message contains a human readable message with details about the request state
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
     @_builtins.property
     @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         reason indicates a brief reason for the request state
         """
         return pulumi.get(self, "reason")
 
     @reason.setter
-    def reason(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
 
 
@@ -194,7 +194,7 @@ class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
     """
     CertificateSigningRequestSpec contains the certificate request.
     """
-    expiration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    expiration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
 
@@ -209,19 +209,19 @@ class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
 
     The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
     """
-    extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]
+    extra: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]]
     """
     extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
     """
-    groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
     """
-    request: NotRequired[pulumi.Input[_builtins.str]]
+    request: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
     """
-    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     signerName indicates the requested signer, and is a qualified name.
 
@@ -245,11 +245,11 @@ class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
      5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
      6. Whether or not requests for CA certificates are allowed.
     """
-    uid: NotRequired[pulumi.Input[_builtins.str]]
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
     """
-    usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    usages: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     usages specifies a set of key usages requested in the issued certificate.
 
@@ -266,7 +266,7 @@ class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
      "ipsec end system", "ipsec tunnel", "ipsec user",
      "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
     """
-    username: NotRequired[pulumi.Input[_builtins.str]]
+    username: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
     """
@@ -274,14 +274,14 @@ class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class CertificateSigningRequestSpecPatchArgs:
     def __init__(__self__, *,
-                 expiration_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
-                 groups: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 request: Optional[pulumi.Input[_builtins.str]] = None,
-                 signer_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 uid: Optional[pulumi.Input[_builtins.str]] = None,
-                 usages: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 username: Optional[pulumi.Input[_builtins.str]] = None):
+                 expiration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 extra: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
+                 groups: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional[_builtins.str]] = None,
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None,
+                 usages: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 username: pulumi.Input[Optional[_builtins.str]] = None):
         """
         CertificateSigningRequestSpec contains the certificate request.
 
@@ -357,7 +357,7 @@ class CertificateSigningRequestSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="expirationSeconds")
-    def expiration_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def expiration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
 
@@ -375,48 +375,48 @@ class CertificateSigningRequestSpecPatchArgs:
         return pulumi.get(self, "expiration_seconds")
 
     @expiration_seconds.setter
-    def expiration_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def expiration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "expiration_seconds", value)
 
     @_builtins.property
     @pulumi.getter
-    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
+    def extra(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
         """
         extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "extra")
 
     @extra.setter
-    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
+    def extra(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
         pulumi.set(self, "extra", value)
 
     @_builtins.property
     @pulumi.getter
-    def groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "groups")
 
     @groups.setter
-    def groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "groups", value)
 
     @_builtins.property
     @pulumi.getter
-    def request(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def request(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
         """
         return pulumi.get(self, "request")
 
     @request.setter
-    def request(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def request(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "request", value)
 
     @_builtins.property
     @pulumi.getter(name="signerName")
-    def signer_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         signerName indicates the requested signer, and is a qualified name.
 
@@ -443,24 +443,24 @@ class CertificateSigningRequestSpecPatchArgs:
         return pulumi.get(self, "signer_name")
 
     @signer_name.setter
-    def signer_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "signer_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "uid")
 
     @uid.setter
-    def uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uid", value)
 
     @_builtins.property
     @pulumi.getter
-    def usages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def usages(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         usages specifies a set of key usages requested in the issued certificate.
 
@@ -480,19 +480,19 @@ class CertificateSigningRequestSpecPatchArgs:
         return pulumi.get(self, "usages")
 
     @usages.setter
-    def usages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def usages(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "usages", value)
 
     @_builtins.property
     @pulumi.getter
-    def username(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def username(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "username")
 
     @username.setter
-    def username(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def username(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "username", value)
 
 
@@ -528,7 +528,7 @@ class CertificateSigningRequestSpecArgsDict(TypedDict):
      5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
      6. Whether or not requests for CA certificates are allowed.
     """
-    expiration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    expiration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
 
@@ -543,19 +543,19 @@ class CertificateSigningRequestSpecArgsDict(TypedDict):
 
     The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
     """
-    extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]
+    extra: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]]
     """
     extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
     """
-    groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
     """
-    uid: NotRequired[pulumi.Input[_builtins.str]]
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
     """
-    usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    usages: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     usages specifies a set of key usages requested in the issued certificate.
 
@@ -572,7 +572,7 @@ class CertificateSigningRequestSpecArgsDict(TypedDict):
      "ipsec end system", "ipsec tunnel", "ipsec user",
      "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
     """
-    username: NotRequired[pulumi.Input[_builtins.str]]
+    username: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
     """
@@ -582,12 +582,12 @@ class CertificateSigningRequestSpecArgs:
     def __init__(__self__, *,
                  request: pulumi.Input[_builtins.str],
                  signer_name: pulumi.Input[_builtins.str],
-                 expiration_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
-                 groups: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 uid: Optional[pulumi.Input[_builtins.str]] = None,
-                 usages: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 username: Optional[pulumi.Input[_builtins.str]] = None):
+                 expiration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 extra: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
+                 groups: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None,
+                 usages: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 username: pulumi.Input[Optional[_builtins.str]] = None):
         """
         CertificateSigningRequestSpec contains the certificate request.
 
@@ -705,7 +705,7 @@ class CertificateSigningRequestSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="expirationSeconds")
-    def expiration_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def expiration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
 
@@ -723,48 +723,48 @@ class CertificateSigningRequestSpecArgs:
         return pulumi.get(self, "expiration_seconds")
 
     @expiration_seconds.setter
-    def expiration_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def expiration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "expiration_seconds", value)
 
     @_builtins.property
     @pulumi.getter
-    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
+    def extra(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
         """
         extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "extra")
 
     @extra.setter
-    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
+    def extra(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
         pulumi.set(self, "extra", value)
 
     @_builtins.property
     @pulumi.getter
-    def groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "groups")
 
     @groups.setter
-    def groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "groups", value)
 
     @_builtins.property
     @pulumi.getter
-    def uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "uid")
 
     @uid.setter
-    def uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uid", value)
 
     @_builtins.property
     @pulumi.getter
-    def usages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def usages(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         usages specifies a set of key usages requested in the issued certificate.
 
@@ -784,19 +784,19 @@ class CertificateSigningRequestSpecArgs:
         return pulumi.get(self, "usages")
 
     @usages.setter
-    def usages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def usages(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "usages", value)
 
     @_builtins.property
     @pulumi.getter
-    def username(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def username(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
         return pulumi.get(self, "username")
 
     @username.setter
-    def username(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def username(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "username", value)
 
 
@@ -804,7 +804,7 @@ class CertificateSigningRequestStatusArgsDict(TypedDict):
     """
     CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
     """
-    certificate: NotRequired[pulumi.Input[_builtins.str]]
+    certificate: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.
 
@@ -829,7 +829,7 @@ class CertificateSigningRequestStatusArgsDict(TypedDict):
         -----END CERTIFICATE-----
         )
     """
-    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgsDict']]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]]
     """
     conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
     """
@@ -837,8 +837,8 @@ class CertificateSigningRequestStatusArgsDict(TypedDict):
 @pulumi.input_type
 class CertificateSigningRequestStatusArgs:
     def __init__(__self__, *,
-                 certificate: Optional[pulumi.Input[_builtins.str]] = None,
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
+                 certificate: pulumi.Input[Optional[_builtins.str]] = None,
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
         """
         CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
 
@@ -873,7 +873,7 @@ class CertificateSigningRequestStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def certificate(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def certificate(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.
 
@@ -901,19 +901,19 @@ class CertificateSigningRequestStatusArgs:
         return pulumi.get(self, "certificate")
 
     @certificate.setter
-    def certificate(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def certificate(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "certificate", value)
 
     @_builtins.property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]:
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]:
         """
         conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 
@@ -931,16 +931,16 @@ class CertificateSigningRequestArgsDict(TypedDict):
     """
     spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-    status: NotRequired[pulumi.Input['CertificateSigningRequestStatusArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    status: NotRequired[pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]]
     """
     status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
     """
@@ -949,10 +949,10 @@ class CertificateSigningRequestArgsDict(TypedDict):
 class CertificateSigningRequestArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['CertificateSigningRequestSpecArgs'],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 status: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 status: pulumi.Input[Optional['CertificateSigningRequestStatusArgs']] = None):
         """
         CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
 
@@ -991,47 +991,47 @@ class CertificateSigningRequestArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['CertificateSigningRequestStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]:
         """
         status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]):
         pulumi.set(self, "status", value)
 
 

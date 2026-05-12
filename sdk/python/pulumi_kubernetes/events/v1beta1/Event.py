@@ -24,22 +24,22 @@ __all__ = ['EventInitArgs', 'Event']
 class EventInitArgs:
     def __init__(__self__, *,
                  event_time: pulumi.Input[_builtins.str],
-                 action: Optional[pulumi.Input[_builtins.str]] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 deprecated_count: Optional[pulumi.Input[_builtins.int]] = None,
-                 deprecated_first_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 deprecated_last_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 deprecated_source: Optional[pulumi.Input['_core.v1.EventSourceArgs']] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 note: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None,
-                 regarding: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
-                 related: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
-                 reporting_controller: Optional[pulumi.Input[_builtins.str]] = None,
-                 reporting_instance: Optional[pulumi.Input[_builtins.str]] = None,
-                 series: Optional[pulumi.Input['EventSeriesArgs']] = None,
-                 type: Optional[pulumi.Input[_builtins.str]] = None):
+                 action: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 deprecated_count: pulumi.Input[Optional[_builtins.int]] = None,
+                 deprecated_first_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 deprecated_last_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 deprecated_source: pulumi.Input[Optional['_core.v1.EventSourceArgs']] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 note: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None,
+                 regarding: pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']] = None,
+                 related: pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']] = None,
+                 reporting_controller: pulumi.Input[Optional[_builtins.str]] = None,
+                 reporting_instance: pulumi.Input[Optional[_builtins.str]] = None,
+                 series: pulumi.Input[Optional['EventSeriesArgs']] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Event resource.
 
@@ -108,191 +108,191 @@ class EventInitArgs:
 
     @_builtins.property
     @pulumi.getter
-    def action(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def action(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         What action was taken/failed regarding to the regarding object.
         """
         return pulumi.get(self, "action")
 
     @action.setter
-    def action(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def action(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "action", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter(name="deprecatedCount")
-    def deprecated_count(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def deprecated_count(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_count")
 
     @deprecated_count.setter
-    def deprecated_count(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def deprecated_count(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "deprecated_count", value)
 
     @_builtins.property
     @pulumi.getter(name="deprecatedFirstTimestamp")
-    def deprecated_first_timestamp(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def deprecated_first_timestamp(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_first_timestamp")
 
     @deprecated_first_timestamp.setter
-    def deprecated_first_timestamp(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def deprecated_first_timestamp(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "deprecated_first_timestamp", value)
 
     @_builtins.property
     @pulumi.getter(name="deprecatedLastTimestamp")
-    def deprecated_last_timestamp(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def deprecated_last_timestamp(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_last_timestamp")
 
     @deprecated_last_timestamp.setter
-    def deprecated_last_timestamp(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def deprecated_last_timestamp(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "deprecated_last_timestamp", value)
 
     @_builtins.property
     @pulumi.getter(name="deprecatedSource")
-    def deprecated_source(self) -> Optional[pulumi.Input['_core.v1.EventSourceArgs']]:
+    def deprecated_source(self) -> pulumi.Input[Optional['_core.v1.EventSourceArgs']]:
         """
         Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_source")
 
     @deprecated_source.setter
-    def deprecated_source(self, value: Optional[pulumi.Input['_core.v1.EventSourceArgs']]):
+    def deprecated_source(self, value: pulumi.Input[Optional['_core.v1.EventSourceArgs']]):
         pulumi.set(self, "deprecated_source", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def note(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def note(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         """
         return pulumi.get(self, "note")
 
     @note.setter
-    def note(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def note(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "note", value)
 
     @_builtins.property
     @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Why the action was taken.
         """
         return pulumi.get(self, "reason")
 
     @reason.setter
-    def reason(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
 
     @_builtins.property
     @pulumi.getter
-    def regarding(self) -> Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]:
+    def regarding(self) -> pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]:
         """
         The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         """
         return pulumi.get(self, "regarding")
 
     @regarding.setter
-    def regarding(self, value: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]):
+    def regarding(self, value: pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]):
         pulumi.set(self, "regarding", value)
 
     @_builtins.property
     @pulumi.getter
-    def related(self) -> Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]:
+    def related(self) -> pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]:
         """
         Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         """
         return pulumi.get(self, "related")
 
     @related.setter
-    def related(self, value: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]):
+    def related(self, value: pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]):
         pulumi.set(self, "related", value)
 
     @_builtins.property
     @pulumi.getter(name="reportingController")
-    def reporting_controller(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reporting_controller(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         """
         return pulumi.get(self, "reporting_controller")
 
     @reporting_controller.setter
-    def reporting_controller(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reporting_controller(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reporting_controller", value)
 
     @_builtins.property
     @pulumi.getter(name="reportingInstance")
-    def reporting_instance(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reporting_instance(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the controller instance, e.g. `kubelet-xyzf`.
         """
         return pulumi.get(self, "reporting_instance")
 
     @reporting_instance.setter
-    def reporting_instance(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reporting_instance(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reporting_instance", value)
 
     @_builtins.property
     @pulumi.getter
-    def series(self) -> Optional[pulumi.Input['EventSeriesArgs']]:
+    def series(self) -> pulumi.Input[Optional['EventSeriesArgs']]:
         """
         Data about the Event series this event represents or nil if it's a singleton Event.
         """
         return pulumi.get(self, "series")
 
     @series.setter
-    def series(self, value: Optional[pulumi.Input['EventSeriesArgs']]):
+    def series(self, value: pulumi.Input[Optional['EventSeriesArgs']]):
         pulumi.set(self, "series", value)
 
     @_builtins.property
     @pulumi.getter
-    def type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Type of this event (Normal, Warning), new types could be added in the future.
         """
         return pulumi.get(self, "type")
 
     @type.setter
-    def type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "type", value)
 
 
@@ -302,23 +302,23 @@ class Event(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 action: Optional[pulumi.Input[_builtins.str]] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 deprecated_count: Optional[pulumi.Input[_builtins.int]] = None,
-                 deprecated_first_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 deprecated_last_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 deprecated_source: Optional[pulumi.Input[Union['_core.v1.EventSourceArgs', '_core.v1.EventSourceArgsDict']]] = None,
-                 event_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 note: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None,
-                 regarding: Optional[pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
-                 related: Optional[pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
-                 reporting_controller: Optional[pulumi.Input[_builtins.str]] = None,
-                 reporting_instance: Optional[pulumi.Input[_builtins.str]] = None,
-                 series: Optional[pulumi.Input[Union['EventSeriesArgs', 'EventSeriesArgsDict']]] = None,
-                 type: Optional[pulumi.Input[_builtins.str]] = None,
+                 action: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 deprecated_count: pulumi.Input[Optional[_builtins.int]] = None,
+                 deprecated_first_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 deprecated_last_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 deprecated_source: pulumi.Input[Optional[Union['_core.v1.EventSourceArgs', '_core.v1.EventSourceArgsDict']]] = None,
+                 event_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 note: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None,
+                 regarding: pulumi.Input[Optional[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
+                 related: pulumi.Input[Optional[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
+                 reporting_controller: pulumi.Input[Optional[_builtins.str]] = None,
+                 reporting_instance: pulumi.Input[Optional[_builtins.str]] = None,
+                 series: pulumi.Input[Optional[Union['EventSeriesArgs', 'EventSeriesArgsDict']]] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
@@ -368,23 +368,23 @@ class Event(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 action: Optional[pulumi.Input[_builtins.str]] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 deprecated_count: Optional[pulumi.Input[_builtins.int]] = None,
-                 deprecated_first_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 deprecated_last_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 deprecated_source: Optional[pulumi.Input[Union['_core.v1.EventSourceArgs', '_core.v1.EventSourceArgsDict']]] = None,
-                 event_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 note: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None,
-                 regarding: Optional[pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
-                 related: Optional[pulumi.Input[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
-                 reporting_controller: Optional[pulumi.Input[_builtins.str]] = None,
-                 reporting_instance: Optional[pulumi.Input[_builtins.str]] = None,
-                 series: Optional[pulumi.Input[Union['EventSeriesArgs', 'EventSeriesArgsDict']]] = None,
-                 type: Optional[pulumi.Input[_builtins.str]] = None,
+                 action: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 deprecated_count: pulumi.Input[Optional[_builtins.int]] = None,
+                 deprecated_first_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 deprecated_last_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 deprecated_source: pulumi.Input[Optional[Union['_core.v1.EventSourceArgs', '_core.v1.EventSourceArgsDict']]] = None,
+                 event_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 note: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None,
+                 regarding: pulumi.Input[Optional[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
+                 related: pulumi.Input[Optional[Union['_core.v1.ObjectReferenceArgs', '_core.v1.ObjectReferenceArgsDict']]] = None,
+                 reporting_controller: pulumi.Input[Optional[_builtins.str]] = None,
+                 reporting_instance: pulumi.Input[Optional[_builtins.str]] = None,
+                 series: pulumi.Input[Optional[Union['EventSeriesArgs', 'EventSeriesArgsDict']]] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

@@ -22,12 +22,12 @@ __all__ = ['ResourceClaimParametersPatchArgs', 'ResourceClaimParametersPatch']
 @pulumi.input_type
 class ResourceClaimParametersPatchArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 driver_requests: Optional[pulumi.Input[Sequence[pulumi.Input['DriverRequestsPatchArgs']]]] = None,
-                 generated_from: Optional[pulumi.Input['ResourceClaimParametersReferencePatchArgs']] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
-                 shareable: Optional[pulumi.Input[_builtins.bool]] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 driver_requests: pulumi.Input[Optional[Sequence[pulumi.Input['DriverRequestsPatchArgs']]]] = None,
+                 generated_from: pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']] = None,
+                 shareable: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a ResourceClaimParametersPatch resource.
 
@@ -55,19 +55,19 @@ class ResourceClaimParametersPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter(name="driverRequests")
-    def driver_requests(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DriverRequestsPatchArgs']]]]:
+    def driver_requests(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['DriverRequestsPatchArgs']]]]:
         """
         DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
 
@@ -76,55 +76,55 @@ class ResourceClaimParametersPatchArgs:
         return pulumi.get(self, "driver_requests")
 
     @driver_requests.setter
-    def driver_requests(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DriverRequestsPatchArgs']]]]):
+    def driver_requests(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['DriverRequestsPatchArgs']]]]):
         pulumi.set(self, "driver_requests", value)
 
     @_builtins.property
     @pulumi.getter(name="generatedFrom")
-    def generated_from(self) -> Optional[pulumi.Input['ResourceClaimParametersReferencePatchArgs']]:
+    def generated_from(self) -> pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']]:
         """
         If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
         """
         return pulumi.get(self, "generated_from")
 
     @generated_from.setter
-    def generated_from(self, value: Optional[pulumi.Input['ResourceClaimParametersReferencePatchArgs']]):
+    def generated_from(self, value: pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']]):
         pulumi.set(self, "generated_from", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]:
         """
         Standard object metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def shareable(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def shareable(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
         """
         return pulumi.get(self, "shareable")
 
     @shareable.setter
-    def shareable(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def shareable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "shareable", value)
 
 
@@ -134,12 +134,12 @@ class ResourceClaimParametersPatch(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 driver_requests: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DriverRequestsPatchArgs', 'DriverRequestsPatchArgsDict']]]]] = None,
-                 generated_from: Optional[pulumi.Input[Union['ResourceClaimParametersReferencePatchArgs', 'ResourceClaimParametersReferencePatchArgsDict']]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 shareable: Optional[pulumi.Input[_builtins.bool]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 driver_requests: pulumi.Input[Optional[Sequence[pulumi.Input[Union['DriverRequestsPatchArgs', 'DriverRequestsPatchArgsDict']]]]] = None,
+                 generated_from: pulumi.Input[Optional[Union['ResourceClaimParametersReferencePatchArgs', 'ResourceClaimParametersReferencePatchArgsDict']]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 shareable: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -193,12 +193,12 @@ class ResourceClaimParametersPatch(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 driver_requests: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DriverRequestsPatchArgs', 'DriverRequestsPatchArgsDict']]]]] = None,
-                 generated_from: Optional[pulumi.Input[Union['ResourceClaimParametersReferencePatchArgs', 'ResourceClaimParametersReferencePatchArgsDict']]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 shareable: Optional[pulumi.Input[_builtins.bool]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 driver_requests: pulumi.Input[Optional[Sequence[pulumi.Input[Union['DriverRequestsPatchArgs', 'DriverRequestsPatchArgsDict']]]]] = None,
+                 generated_from: pulumi.Input[Optional[Union['ResourceClaimParametersReferencePatchArgs', 'ResourceClaimParametersReferencePatchArgsDict']]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 shareable: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

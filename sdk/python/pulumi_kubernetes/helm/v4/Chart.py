@@ -21,21 +21,21 @@ __all__ = ['ChartArgs', 'Chart']
 class ChartArgs:
     def __init__(__self__, *,
                  chart: pulumi.Input[_builtins.str],
-                 dependency_update: Optional[pulumi.Input[_builtins.bool]] = None,
-                 devel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 keyring: Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 plain_http: Optional[pulumi.Input[_builtins.bool]] = None,
-                 post_renderer: Optional[pulumi.Input['PostRendererArgs']] = None,
-                 repository_opts: Optional[pulumi.Input['RepositoryOptsArgs']] = None,
-                 resource_prefix: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_await: Optional[pulumi.Input[_builtins.bool]] = None,
-                 skip_crds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 value_yaml_files: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
-                 values: Optional[pulumi.Input[Mapping[str, Any]]] = None,
-                 verify: Optional[pulumi.Input[_builtins.bool]] = None,
-                 version: Optional[pulumi.Input[_builtins.str]] = None):
+                 dependency_update: pulumi.Input[Optional[_builtins.bool]] = None,
+                 devel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 keyring: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 plain_http: pulumi.Input[Optional[_builtins.bool]] = None,
+                 post_renderer: pulumi.Input[Optional['PostRendererArgs']] = None,
+                 repository_opts: pulumi.Input[Optional['RepositoryOptsArgs']] = None,
+                 resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_crds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 value_yaml_files: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
+                 values: pulumi.Input[Optional[Mapping[str, Any]]] = None,
+                 verify: pulumi.Input[Optional[_builtins.bool]] = None,
+                 version: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Chart resource.
 
@@ -102,182 +102,182 @@ class ChartArgs:
 
     @_builtins.property
     @pulumi.getter(name="dependencyUpdate")
-    def dependency_update(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dependency_update(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Run helm dependency update before installing the chart.
         """
         return pulumi.get(self, "dependency_update")
 
     @dependency_update.setter
-    def dependency_update(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dependency_update(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dependency_update", value)
 
     @_builtins.property
     @pulumi.getter
-    def devel(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def devel(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
         """
         return pulumi.get(self, "devel")
 
     @devel.setter
-    def devel(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def devel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "devel", value)
 
     @_builtins.property
     @pulumi.getter
-    def keyring(self) -> Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]:
+    def keyring(self) -> pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]]:
         """
         Location of public keys used for verification. Used only if `verify` is true
         """
         return pulumi.get(self, "keyring")
 
     @keyring.setter
-    def keyring(self, value: Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]):
+    def keyring(self, value: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]]):
         pulumi.set(self, "keyring", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Release name.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Namespace for the release.
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter(name="plainHttp")
-    def plain_http(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def plain_http(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Use insecure HTTP for the chart download instead of HTTPS.
         """
         return pulumi.get(self, "plain_http")
 
     @plain_http.setter
-    def plain_http(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def plain_http(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "plain_http", value)
 
     @_builtins.property
     @pulumi.getter(name="postRenderer")
-    def post_renderer(self) -> Optional[pulumi.Input['PostRendererArgs']]:
+    def post_renderer(self) -> pulumi.Input[Optional['PostRendererArgs']]:
         """
         Specification defining the post-renderer to use.
         """
         return pulumi.get(self, "post_renderer")
 
     @post_renderer.setter
-    def post_renderer(self, value: Optional[pulumi.Input['PostRendererArgs']]):
+    def post_renderer(self, value: pulumi.Input[Optional['PostRendererArgs']]):
         pulumi.set(self, "post_renderer", value)
 
     @_builtins.property
     @pulumi.getter(name="repositoryOpts")
-    def repository_opts(self) -> Optional[pulumi.Input['RepositoryOptsArgs']]:
+    def repository_opts(self) -> pulumi.Input[Optional['RepositoryOptsArgs']]:
         """
         Specification defining the Helm chart repository to use.
         """
         return pulumi.get(self, "repository_opts")
 
     @repository_opts.setter
-    def repository_opts(self, value: Optional[pulumi.Input['RepositoryOptsArgs']]):
+    def repository_opts(self, value: pulumi.Input[Optional['RepositoryOptsArgs']]):
         pulumi.set(self, "repository_opts", value)
 
     @_builtins.property
     @pulumi.getter(name="resourcePrefix")
-    def resource_prefix(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_prefix(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
         """
         return pulumi.get(self, "resource_prefix")
 
     @resource_prefix.setter
-    def resource_prefix(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_prefix(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_prefix", value)
 
     @_builtins.property
     @pulumi.getter(name="skipAwait")
-    def skip_await(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_await(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         """
         return pulumi.get(self, "skip_await")
 
     @skip_await.setter
-    def skip_await(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_await(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_await", value)
 
     @_builtins.property
     @pulumi.getter(name="skipCrds")
-    def skip_crds(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_crds(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If set, no CRDs will be installed. By default, CRDs are installed if not already present.
         """
         return pulumi.get(self, "skip_crds")
 
     @skip_crds.setter
-    def skip_crds(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_crds(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_crds", value)
 
     @_builtins.property
     @pulumi.getter(name="valueYamlFiles")
-    def value_yaml_files(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]:
+    def value_yaml_files(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]:
         """
         List of assets (raw yaml files). Content is read and merged with values.
         """
         return pulumi.get(self, "value_yaml_files")
 
     @value_yaml_files.setter
-    def value_yaml_files(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]):
+    def value_yaml_files(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]):
         pulumi.set(self, "value_yaml_files", value)
 
     @_builtins.property
     @pulumi.getter
-    def values(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+    def values(self) -> pulumi.Input[Optional[Mapping[str, Any]]]:
         """
         Custom values set for the release.
         """
         return pulumi.get(self, "values")
 
     @values.setter
-    def values(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+    def values(self, value: pulumi.Input[Optional[Mapping[str, Any]]]):
         pulumi.set(self, "values", value)
 
     @_builtins.property
     @pulumi.getter
-    def verify(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def verify(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Verify the chart's integrity.
         """
         return pulumi.get(self, "verify")
 
     @verify.setter
-    def verify(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def verify(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "verify", value)
 
     @_builtins.property
     @pulumi.getter
-    def version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Specify the chart version to install. If this is not specified, the latest version is installed.
         """
         return pulumi.get(self, "version")
 
     @version.setter
-    def version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "version", value)
 
 
@@ -287,22 +287,22 @@ class Chart(pulumi.ComponentResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 chart: Optional[pulumi.Input[_builtins.str]] = None,
-                 dependency_update: Optional[pulumi.Input[_builtins.bool]] = None,
-                 devel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 keyring: Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 plain_http: Optional[pulumi.Input[_builtins.bool]] = None,
-                 post_renderer: Optional[pulumi.Input[Union['PostRendererArgs', 'PostRendererArgsDict']]] = None,
-                 repository_opts: Optional[pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
-                 resource_prefix: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_await: Optional[pulumi.Input[_builtins.bool]] = None,
-                 skip_crds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 value_yaml_files: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
-                 values: Optional[pulumi.Input[Mapping[str, Any]]] = None,
-                 verify: Optional[pulumi.Input[_builtins.bool]] = None,
-                 version: Optional[pulumi.Input[_builtins.str]] = None,
+                 chart: pulumi.Input[Optional[_builtins.str]] = None,
+                 dependency_update: pulumi.Input[Optional[_builtins.bool]] = None,
+                 devel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 keyring: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 plain_http: pulumi.Input[Optional[_builtins.bool]] = None,
+                 post_renderer: pulumi.Input[Optional[Union['PostRendererArgs', 'PostRendererArgsDict']]] = None,
+                 repository_opts: pulumi.Input[Optional[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
+                 resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_crds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 value_yaml_files: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
+                 values: pulumi.Input[Optional[Mapping[str, Any]]] = None,
+                 verify: pulumi.Input[Optional[_builtins.bool]] = None,
+                 version: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         _Looking for the Release resource? Please use the [v3 package](/registry/packages/kubernetes/api-docs/helm/v3/release/)
@@ -682,22 +682,22 @@ class Chart(pulumi.ComponentResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 chart: Optional[pulumi.Input[_builtins.str]] = None,
-                 dependency_update: Optional[pulumi.Input[_builtins.bool]] = None,
-                 devel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 keyring: Optional[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 plain_http: Optional[pulumi.Input[_builtins.bool]] = None,
-                 post_renderer: Optional[pulumi.Input[Union['PostRendererArgs', 'PostRendererArgsDict']]] = None,
-                 repository_opts: Optional[pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
-                 resource_prefix: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_await: Optional[pulumi.Input[_builtins.bool]] = None,
-                 skip_crds: Optional[pulumi.Input[_builtins.bool]] = None,
-                 value_yaml_files: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
-                 values: Optional[pulumi.Input[Mapping[str, Any]]] = None,
-                 verify: Optional[pulumi.Input[_builtins.bool]] = None,
-                 version: Optional[pulumi.Input[_builtins.str]] = None,
+                 chart: pulumi.Input[Optional[_builtins.str]] = None,
+                 dependency_update: pulumi.Input[Optional[_builtins.bool]] = None,
+                 devel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 keyring: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 plain_http: pulumi.Input[Optional[_builtins.bool]] = None,
+                 post_renderer: pulumi.Input[Optional[Union['PostRendererArgs', 'PostRendererArgsDict']]] = None,
+                 repository_opts: pulumi.Input[Optional[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
+                 resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_crds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 value_yaml_files: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
+                 values: pulumi.Input[Optional[Mapping[str, Any]]] = None,
+                 verify: pulumi.Input[Optional[_builtins.bool]] = None,
+                 version: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

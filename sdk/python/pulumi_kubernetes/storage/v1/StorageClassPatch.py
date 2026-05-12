@@ -21,16 +21,16 @@ __all__ = ['StorageClassPatchArgs', 'StorageClassPatch']
 @pulumi.input_type
 class StorageClassPatchArgs:
     def __init__(__self__, *,
-                 allow_volume_expansion: Optional[pulumi.Input[_builtins.bool]] = None,
-                 allowed_topologies: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermPatchArgs']]]] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
-                 mount_options: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 provisioner: Optional[pulumi.Input[_builtins.str]] = None,
-                 reclaim_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 volume_binding_mode: Optional[pulumi.Input[_builtins.str]] = None):
+                 allow_volume_expansion: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allowed_topologies: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TopologySelectorTermPatchArgs']]]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']] = None,
+                 mount_options: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 parameters: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 provisioner: pulumi.Input[Optional[_builtins.str]] = None,
+                 reclaim_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 volume_binding_mode: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a StorageClassPatch resource.
 
@@ -68,122 +68,122 @@ class StorageClassPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="allowVolumeExpansion")
-    def allow_volume_expansion(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def allow_volume_expansion(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         allowVolumeExpansion shows whether the storage class allow volume expand.
         """
         return pulumi.get(self, "allow_volume_expansion")
 
     @allow_volume_expansion.setter
-    def allow_volume_expansion(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def allow_volume_expansion(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_volume_expansion", value)
 
     @_builtins.property
     @pulumi.getter(name="allowedTopologies")
-    def allowed_topologies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermPatchArgs']]]]:
+    def allowed_topologies(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TopologySelectorTermPatchArgs']]]]:
         """
         allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         """
         return pulumi.get(self, "allowed_topologies")
 
     @allowed_topologies.setter
-    def allowed_topologies(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermPatchArgs']]]]):
+    def allowed_topologies(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TopologySelectorTermPatchArgs']]]]):
         pulumi.set(self, "allowed_topologies", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter(name="mountOptions")
-    def mount_options(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def mount_options(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         """
         return pulumi.get(self, "mount_options")
 
     @mount_options.setter
-    def mount_options(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def mount_options(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "mount_options", value)
 
     @_builtins.property
     @pulumi.getter
-    def parameters(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def parameters(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         parameters holds the parameters for the provisioner that should create volumes of this storage class.
         """
         return pulumi.get(self, "parameters")
 
     @parameters.setter
-    def parameters(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def parameters(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "parameters", value)
 
     @_builtins.property
     @pulumi.getter
-    def provisioner(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def provisioner(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         provisioner indicates the type of the provisioner.
         """
         return pulumi.get(self, "provisioner")
 
     @provisioner.setter
-    def provisioner(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def provisioner(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "provisioner", value)
 
     @_builtins.property
     @pulumi.getter(name="reclaimPolicy")
-    def reclaim_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reclaim_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
         """
         return pulumi.get(self, "reclaim_policy")
 
     @reclaim_policy.setter
-    def reclaim_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reclaim_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reclaim_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="volumeBindingMode")
-    def volume_binding_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def volume_binding_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         """
         return pulumi.get(self, "volume_binding_mode")
 
     @volume_binding_mode.setter
-    def volume_binding_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def volume_binding_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "volume_binding_mode", value)
 
 
@@ -193,16 +193,16 @@ class StorageClassPatch(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_volume_expansion: Optional[pulumi.Input[_builtins.bool]] = None,
-                 allowed_topologies: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict']]]]] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 mount_options: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 provisioner: Optional[pulumi.Input[_builtins.str]] = None,
-                 reclaim_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 volume_binding_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_volume_expansion: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allowed_topologies: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict']]]]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 mount_options: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 parameters: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 provisioner: pulumi.Input[Optional[_builtins.str]] = None,
+                 reclaim_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 volume_binding_mode: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -262,16 +262,16 @@ class StorageClassPatch(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_volume_expansion: Optional[pulumi.Input[_builtins.bool]] = None,
-                 allowed_topologies: Optional[pulumi.Input[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict']]]]] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 mount_options: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 provisioner: Optional[pulumi.Input[_builtins.str]] = None,
-                 reclaim_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 volume_binding_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_volume_expansion: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allowed_topologies: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict']]]]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 mount_options: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 parameters: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 provisioner: pulumi.Input[Optional[_builtins.str]] = None,
+                 reclaim_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 volume_binding_mode: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
