@@ -86,13 +86,13 @@ export interface DirectoryArgs {
     /**
      * The default namespace to apply to the resources. Defaults to the provider's namespace.
      */
-    namespace?: pulumi.Input<string>;
+    namespace?: pulumi.Input<string | undefined>;
     /**
      * A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
      */
-    resourcePrefix?: pulumi.Input<string>;
+    resourcePrefix?: pulumi.Input<string | undefined>;
     /**
      * Indicates that child resources should skip the await logic.
      */
-    skipAwait?: pulumi.Input<boolean>;
+    skipAwait?: pulumi.Input<boolean | undefined>;
 }

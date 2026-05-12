@@ -100,15 +100,15 @@ export interface VolumeAttachmentArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"storage.k8s.io/v1">;
+    apiVersion?: pulumi.Input<"storage.k8s.io/v1" | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"VolumeAttachment">;
+    kind?: pulumi.Input<"VolumeAttachment" | undefined>;
     /**
      * Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**
      * spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      */

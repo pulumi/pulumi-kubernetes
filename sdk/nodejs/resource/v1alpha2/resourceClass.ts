@@ -116,7 +116,7 @@ export interface ResourceClassArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+    apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2" | undefined>;
     /**
      * DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
      *
@@ -126,23 +126,23 @@ export interface ResourceClassArgs {
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"ResourceClass">;
+    kind?: pulumi.Input<"ResourceClass" | undefined>;
     /**
      * Standard object metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**
      * ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
      */
-    parametersRef?: pulumi.Input<inputs.resource.v1alpha2.ResourceClassParametersReference>;
+    parametersRef?: pulumi.Input<inputs.resource.v1alpha2.ResourceClassParametersReference | undefined>;
     /**
      * If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
      */
-    structuredParameters?: pulumi.Input<boolean>;
+    structuredParameters?: pulumi.Input<boolean | undefined>;
     /**
      * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
      *
      * Setting this field is optional. If null, all nodes are candidates.
      */
-    suitableNodes?: pulumi.Input<inputs.core.v1.NodeSelector>;
+    suitableNodes?: pulumi.Input<inputs.core.v1.NodeSelector | undefined>;
 }

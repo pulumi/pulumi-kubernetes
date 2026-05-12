@@ -93,17 +93,17 @@ export interface WorkloadPatchArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"scheduling.k8s.io/v1alpha2">;
+    apiVersion?: pulumi.Input<"scheduling.k8s.io/v1alpha2" | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"Workload">;
+    kind?: pulumi.Input<"Workload" | undefined>;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
      * Spec defines the desired behavior of a Workload.
      */
-    spec?: pulumi.Input<inputs.scheduling.v1alpha2.WorkloadSpecPatch>;
+    spec?: pulumi.Input<inputs.scheduling.v1alpha2.WorkloadSpecPatch | undefined>;
 }

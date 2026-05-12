@@ -95,17 +95,17 @@ export interface CSINodePatchArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"storage.k8s.io/v1">;
+    apiVersion?: pulumi.Input<"storage.k8s.io/v1" | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"CSINode">;
+    kind?: pulumi.Input<"CSINode" | undefined>;
     /**
      * Standard object's metadata. metadata.name must be the Kubernetes node name.
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
      * spec is the specification of CSINode
      */
-    spec?: pulumi.Input<inputs.storage.v1.CSINodeSpecPatch>;
+    spec?: pulumi.Input<inputs.storage.v1.CSINodeSpecPatch | undefined>;
 }

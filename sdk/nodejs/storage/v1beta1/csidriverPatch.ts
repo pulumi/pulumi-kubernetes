@@ -95,17 +95,17 @@ export interface CSIDriverPatchArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1">;
+    apiVersion?: pulumi.Input<"storage.k8s.io/v1beta1" | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"CSIDriver">;
+    kind?: pulumi.Input<"CSIDriver" | undefined>;
     /**
      * Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
      * Specification of the CSI Driver.
      */
-    spec?: pulumi.Input<inputs.storage.v1beta1.CSIDriverSpecPatch>;
+    spec?: pulumi.Input<inputs.storage.v1beta1.CSIDriverSpecPatch | undefined>;
 }

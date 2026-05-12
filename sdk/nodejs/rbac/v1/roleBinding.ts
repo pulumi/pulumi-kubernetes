@@ -98,15 +98,15 @@ export interface RoleBindingArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1">;
+    apiVersion?: pulumi.Input<"rbac.authorization.k8s.io/v1" | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"RoleBinding">;
+    kind?: pulumi.Input<"RoleBinding" | undefined>;
     /**
      * Standard object's metadata.
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**
      * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      */
@@ -114,5 +114,5 @@ export interface RoleBindingArgs {
     /**
      * Subjects holds references to the objects the role applies to.
      */
-    subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1.Subject>[]>;
+    subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1.Subject>[] | undefined>;
 }

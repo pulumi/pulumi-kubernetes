@@ -105,25 +105,25 @@ export interface ResourceClassParametersPatchArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+    apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2" | undefined>;
     /**
      * Filters describes additional contraints that must be met when using the class.
      */
-    filters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.ResourceFilterPatch>[]>;
+    filters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.ResourceFilterPatch>[] | undefined>;
     /**
      * If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
      */
-    generatedFrom?: pulumi.Input<inputs.resource.v1alpha2.ResourceClassParametersReferencePatch>;
+    generatedFrom?: pulumi.Input<inputs.resource.v1alpha2.ResourceClassParametersReferencePatch | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"ResourceClassParameters">;
+    kind?: pulumi.Input<"ResourceClassParameters" | undefined>;
     /**
      * Standard object metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
      * VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
      */
-    vendorParameters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.VendorParametersPatch>[]>;
+    vendorParameters?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha2.VendorParametersPatch>[] | undefined>;
 }

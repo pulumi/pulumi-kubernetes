@@ -103,17 +103,17 @@ export interface PodSchedulingContextPatchArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+    apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2" | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"PodSchedulingContext">;
+    kind?: pulumi.Input<"PodSchedulingContext" | undefined>;
     /**
      * Standard object metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
      * Spec describes where resources for the Pod are needed.
      */
-    spec?: pulumi.Input<inputs.resource.v1alpha2.PodSchedulingContextSpecPatch>;
+    spec?: pulumi.Input<inputs.resource.v1alpha2.PodSchedulingContextSpecPatch | undefined>;
 }

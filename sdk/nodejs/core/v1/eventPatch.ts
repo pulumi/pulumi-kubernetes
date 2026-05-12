@@ -173,69 +173,69 @@ export interface EventPatchArgs {
     /**
      * What action was taken/failed regarding to the Regarding object.
      */
-    action?: pulumi.Input<string>;
+    action?: pulumi.Input<string | undefined>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"v1">;
+    apiVersion?: pulumi.Input<"v1" | undefined>;
     /**
      * The number of times this event has occurred.
      */
-    count?: pulumi.Input<number>;
+    count?: pulumi.Input<number | undefined>;
     /**
      * Time when this Event was first observed.
      */
-    eventTime?: pulumi.Input<string>;
+    eventTime?: pulumi.Input<string | undefined>;
     /**
      * The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
      */
-    firstTimestamp?: pulumi.Input<string>;
+    firstTimestamp?: pulumi.Input<string | undefined>;
     /**
      * The object that this event is about.
      */
-    involvedObject?: pulumi.Input<inputs.core.v1.ObjectReferencePatch>;
+    involvedObject?: pulumi.Input<inputs.core.v1.ObjectReferencePatch | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"Event">;
+    kind?: pulumi.Input<"Event" | undefined>;
     /**
      * The time at which the most recent occurrence of this event was recorded.
      */
-    lastTimestamp?: pulumi.Input<string>;
+    lastTimestamp?: pulumi.Input<string | undefined>;
     /**
      * A human-readable description of the status of this operation.
      */
-    message?: pulumi.Input<string>;
+    message?: pulumi.Input<string | undefined>;
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
      * This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
      */
-    reason?: pulumi.Input<string>;
+    reason?: pulumi.Input<string | undefined>;
     /**
      * Optional secondary object for more complex actions.
      */
-    related?: pulumi.Input<inputs.core.v1.ObjectReferencePatch>;
+    related?: pulumi.Input<inputs.core.v1.ObjectReferencePatch | undefined>;
     /**
      * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      */
-    reportingComponent?: pulumi.Input<string>;
+    reportingComponent?: pulumi.Input<string | undefined>;
     /**
      * ID of the controller instance, e.g. `kubelet-xyzf`.
      */
-    reportingInstance?: pulumi.Input<string>;
+    reportingInstance?: pulumi.Input<string | undefined>;
     /**
      * Data about the Event series this event represents or nil if it's a singleton Event.
      */
-    series?: pulumi.Input<inputs.core.v1.EventSeriesPatch>;
+    series?: pulumi.Input<inputs.core.v1.EventSeriesPatch | undefined>;
     /**
      * The component reporting this event. Should be a short machine understandable string.
      */
-    source?: pulumi.Input<inputs.core.v1.EventSourcePatch>;
+    source?: pulumi.Input<inputs.core.v1.EventSourcePatch | undefined>;
     /**
      * Type of this event (Normal, Warning), new types could be added in the future
      */
-    type?: pulumi.Input<string>;
+    type?: pulumi.Input<string | undefined>;
 }
