@@ -170,66 +170,66 @@ export interface EventPatchArgs {
     /**
      * What action was taken/failed regarding to the regarding object.
      */
-    action?: pulumi.Input<string>;
+    action?: pulumi.Input<string | undefined>;
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"events.k8s.io/v1beta1">;
+    apiVersion?: pulumi.Input<"events.k8s.io/v1beta1" | undefined>;
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      */
-    deprecatedCount?: pulumi.Input<number>;
+    deprecatedCount?: pulumi.Input<number | undefined>;
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      */
-    deprecatedFirstTimestamp?: pulumi.Input<string>;
+    deprecatedFirstTimestamp?: pulumi.Input<string | undefined>;
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      */
-    deprecatedLastTimestamp?: pulumi.Input<string>;
+    deprecatedLastTimestamp?: pulumi.Input<string | undefined>;
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      */
-    deprecatedSource?: pulumi.Input<inputs.core.v1.EventSourcePatch>;
+    deprecatedSource?: pulumi.Input<inputs.core.v1.EventSourcePatch | undefined>;
     /**
      * Required. Time when this Event was first observed.
      */
-    eventTime?: pulumi.Input<string>;
+    eventTime?: pulumi.Input<string | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"Event">;
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    kind?: pulumi.Input<"Event" | undefined>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
      * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      */
-    note?: pulumi.Input<string>;
+    note?: pulumi.Input<string | undefined>;
     /**
      * Why the action was taken.
      */
-    reason?: pulumi.Input<string>;
+    reason?: pulumi.Input<string | undefined>;
     /**
      * The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      */
-    regarding?: pulumi.Input<inputs.core.v1.ObjectReferencePatch>;
+    regarding?: pulumi.Input<inputs.core.v1.ObjectReferencePatch | undefined>;
     /**
      * Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      */
-    related?: pulumi.Input<inputs.core.v1.ObjectReferencePatch>;
+    related?: pulumi.Input<inputs.core.v1.ObjectReferencePatch | undefined>;
     /**
      * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      */
-    reportingController?: pulumi.Input<string>;
+    reportingController?: pulumi.Input<string | undefined>;
     /**
      * ID of the controller instance, e.g. `kubelet-xyzf`.
      */
-    reportingInstance?: pulumi.Input<string>;
+    reportingInstance?: pulumi.Input<string | undefined>;
     /**
      * Data about the Event series this event represents or nil if it's a singleton Event.
      */
-    series?: pulumi.Input<inputs.events.v1beta1.EventSeriesPatch>;
+    series?: pulumi.Input<inputs.events.v1beta1.EventSeriesPatch | undefined>;
     /**
      * Type of this event (Normal, Warning), new types could be added in the future.
      */
-    type?: pulumi.Input<string>;
+    type?: pulumi.Input<string | undefined>;
 }

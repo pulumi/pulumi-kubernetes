@@ -21,12 +21,12 @@ __all__ = ['CSIStorageCapacityInitArgs', 'CSIStorageCapacity']
 class CSIStorageCapacityInitArgs:
     def __init__(__self__, *,
                  storage_class_name: pulumi.Input[_builtins.str],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 capacity: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 maximum_volume_size: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 node_topology: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 capacity: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 maximum_volume_size: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 node_topology: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']] = None):
         """
         The set of arguments for constructing a CSIStorageCapacity resource.
 
@@ -74,19 +74,19 @@ class CSIStorageCapacityInitArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def capacity(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def capacity(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
 
@@ -95,24 +95,24 @@ class CSIStorageCapacityInitArgs:
         return pulumi.get(self, "capacity")
 
     @capacity.setter
-    def capacity(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def capacity(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "capacity", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter(name="maximumVolumeSize")
-    def maximum_volume_size(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def maximum_volume_size(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
 
@@ -121,12 +121,12 @@ class CSIStorageCapacityInitArgs:
         return pulumi.get(self, "maximum_volume_size")
 
     @maximum_volume_size.setter
-    def maximum_volume_size(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def maximum_volume_size(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "maximum_volume_size", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
 
@@ -137,19 +137,19 @@ class CSIStorageCapacityInitArgs:
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter(name="nodeTopology")
-    def node_topology(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
+    def node_topology(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]:
         """
         NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
         """
         return pulumi.get(self, "node_topology")
 
     @node_topology.setter
-    def node_topology(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]):
+    def node_topology(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]):
         pulumi.set(self, "node_topology", value)
 
 
@@ -159,13 +159,13 @@ class CSIStorageCapacity(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 capacity: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 maximum_volume_size: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 node_topology: Optional[pulumi.Input[Union['_meta.v1.LabelSelectorArgs', '_meta.v1.LabelSelectorArgsDict']]] = None,
-                 storage_class_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 capacity: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 maximum_volume_size: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 node_topology: pulumi.Input[Optional[Union['_meta.v1.LabelSelectorArgs', '_meta.v1.LabelSelectorArgsDict']]] = None,
+                 storage_class_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
@@ -230,13 +230,13 @@ class CSIStorageCapacity(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 capacity: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 maximum_volume_size: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 node_topology: Optional[pulumi.Input[Union['_meta.v1.LabelSelectorArgs', '_meta.v1.LabelSelectorArgsDict']]] = None,
-                 storage_class_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 capacity: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 maximum_volume_size: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 node_topology: pulumi.Input[Optional[Union['_meta.v1.LabelSelectorArgs', '_meta.v1.LabelSelectorArgsDict']]] = None,
+                 storage_class_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

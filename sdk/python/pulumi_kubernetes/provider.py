@@ -20,24 +20,24 @@ __all__ = ['ProviderArgs', 'Provider']
 @pulumi.input_type
 class ProviderArgs:
     def __init__(__self__, *,
-                 always_render: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cluster: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_identifier: Optional[pulumi.Input[_builtins.str]] = None,
-                 context: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_unreachable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_config_map_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_patch_force: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_secret_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_server_side_apply: Optional[pulumi.Input[_builtins.bool]] = None,
-                 helm_release_settings: Optional[pulumi.Input['HelmReleaseSettingsArgs']] = None,
-                 kube_client_settings: Optional[pulumi.Input['KubeClientSettingsArgs']] = None,
-                 kubeconfig: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 render_yaml_to_directory: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_update_unreachable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 suppress_deprecation_warnings: Optional[pulumi.Input[_builtins.bool]] = None,
-                 suppress_helm_hook_warnings: Optional[pulumi.Input[_builtins.bool]] = None,
-                 upsert_existing_objects: Optional[pulumi.Input[_builtins.bool]] = None):
+                 always_render: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cluster: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_identifier: pulumi.Input[Optional[_builtins.str]] = None,
+                 context: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_unreachable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_config_map_mutable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_patch_force: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_secret_mutable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_server_side_apply: pulumi.Input[Optional[_builtins.bool]] = None,
+                 helm_release_settings: pulumi.Input[Optional['HelmReleaseSettingsArgs']] = None,
+                 kube_client_settings: pulumi.Input[Optional['KubeClientSettingsArgs']] = None,
+                 kubeconfig: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 render_yaml_to_directory: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_update_unreachable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 suppress_deprecation_warnings: pulumi.Input[Optional[_builtins.bool]] = None,
+                 suppress_helm_hook_warnings: pulumi.Input[Optional[_builtins.bool]] = None,
+                 upsert_existing_objects: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Provider resource.
 
@@ -158,31 +158,31 @@ class ProviderArgs:
 
     @_builtins.property
     @pulumi.getter(name="alwaysRender")
-    def always_render(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def always_render(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
         """
         return pulumi.get(self, "always_render")
 
     @always_render.setter
-    def always_render(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def always_render(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "always_render", value)
 
     @_builtins.property
     @pulumi.getter
-    def cluster(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         If present, the name of the kubeconfig cluster to use.
         """
         return pulumi.get(self, "cluster")
 
     @cluster.setter
-    def cluster(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterIdentifier")
-    def cluster_identifier(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_identifier(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
 
@@ -193,36 +193,36 @@ class ProviderArgs:
         return pulumi.get(self, "cluster_identifier")
 
     @cluster_identifier.setter
-    def cluster_identifier(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_identifier(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_identifier", value)
 
     @_builtins.property
     @pulumi.getter
-    def context(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def context(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         If present, the name of the kubeconfig context to use.
         """
         return pulumi.get(self, "context")
 
     @context.setter
-    def context(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def context(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "context", value)
 
     @_builtins.property
     @pulumi.getter(name="deleteUnreachable")
-    def delete_unreachable(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def delete_unreachable(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
         """
         return pulumi.get(self, "delete_unreachable")
 
     @delete_unreachable.setter
-    def delete_unreachable(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def delete_unreachable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "delete_unreachable", value)
 
     @_builtins.property
     @pulumi.getter(name="enableConfigMapMutable")
-    def enable_config_map_mutable(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enable_config_map_mutable(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
         This feature is in developer preview, and is disabled by default.
@@ -234,12 +234,12 @@ class ProviderArgs:
         return pulumi.get(self, "enable_config_map_mutable")
 
     @enable_config_map_mutable.setter
-    def enable_config_map_mutable(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enable_config_map_mutable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enable_config_map_mutable", value)
 
     @_builtins.property
     @pulumi.getter(name="enablePatchForce")
-    def enable_patch_force(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enable_patch_force(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
         See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
@@ -252,12 +252,12 @@ class ProviderArgs:
         return pulumi.get(self, "enable_patch_force")
 
     @enable_patch_force.setter
-    def enable_patch_force(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enable_patch_force(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enable_patch_force", value)
 
     @_builtins.property
     @pulumi.getter(name="enableSecretMutable")
-    def enable_secret_mutable(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enable_secret_mutable(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         BETA FEATURE - If present and set to true, allow Secrets to be mutated.
         This feature is in developer preview, and is disabled by default.
@@ -269,12 +269,12 @@ class ProviderArgs:
         return pulumi.get(self, "enable_secret_mutable")
 
     @enable_secret_mutable.setter
-    def enable_secret_mutable(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enable_secret_mutable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enable_secret_mutable", value)
 
     @_builtins.property
     @pulumi.getter(name="enableServerSideApply")
-    def enable_server_side_apply(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enable_server_side_apply(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If present and set to false, disable Server-Side Apply mode.
         See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
@@ -282,48 +282,48 @@ class ProviderArgs:
         return pulumi.get(self, "enable_server_side_apply")
 
     @enable_server_side_apply.setter
-    def enable_server_side_apply(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enable_server_side_apply(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enable_server_side_apply", value)
 
     @_builtins.property
     @pulumi.getter(name="helmReleaseSettings")
-    def helm_release_settings(self) -> Optional[pulumi.Input['HelmReleaseSettingsArgs']]:
+    def helm_release_settings(self) -> pulumi.Input[Optional['HelmReleaseSettingsArgs']]:
         """
         Options to configure the Helm Release resource.
         """
         return pulumi.get(self, "helm_release_settings")
 
     @helm_release_settings.setter
-    def helm_release_settings(self, value: Optional[pulumi.Input['HelmReleaseSettingsArgs']]):
+    def helm_release_settings(self, value: pulumi.Input[Optional['HelmReleaseSettingsArgs']]):
         pulumi.set(self, "helm_release_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="kubeClientSettings")
-    def kube_client_settings(self) -> Optional[pulumi.Input['KubeClientSettingsArgs']]:
+    def kube_client_settings(self) -> pulumi.Input[Optional['KubeClientSettingsArgs']]:
         """
         Options for tuning the Kubernetes client used by a Provider.
         """
         return pulumi.get(self, "kube_client_settings")
 
     @kube_client_settings.setter
-    def kube_client_settings(self, value: Optional[pulumi.Input['KubeClientSettingsArgs']]):
+    def kube_client_settings(self, value: pulumi.Input[Optional['KubeClientSettingsArgs']]):
         pulumi.set(self, "kube_client_settings", value)
 
     @_builtins.property
     @pulumi.getter
-    def kubeconfig(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kubeconfig(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The contents of a kubeconfig file or the path to a kubeconfig file.
         """
         return pulumi.get(self, "kubeconfig")
 
     @kubeconfig.setter
-    def kubeconfig(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kubeconfig(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kubeconfig", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
 
@@ -335,12 +335,12 @@ class ProviderArgs:
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter(name="renderYamlToDirectory")
-    def render_yaml_to_directory(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def render_yaml_to_directory(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not
         be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
@@ -354,48 +354,48 @@ class ProviderArgs:
         return pulumi.get(self, "render_yaml_to_directory")
 
     @render_yaml_to_directory.setter
-    def render_yaml_to_directory(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def render_yaml_to_directory(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "render_yaml_to_directory", value)
 
     @_builtins.property
     @pulumi.getter(name="skipUpdateUnreachable")
-    def skip_update_unreachable(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_update_unreachable(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
         """
         return pulumi.get(self, "skip_update_unreachable")
 
     @skip_update_unreachable.setter
-    def skip_update_unreachable(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_update_unreachable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_update_unreachable", value)
 
     @_builtins.property
     @pulumi.getter(name="suppressDeprecationWarnings")
-    def suppress_deprecation_warnings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def suppress_deprecation_warnings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If present and set to true, suppress apiVersion deprecation warnings from the CLI.
         """
         return pulumi.get(self, "suppress_deprecation_warnings")
 
     @suppress_deprecation_warnings.setter
-    def suppress_deprecation_warnings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def suppress_deprecation_warnings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "suppress_deprecation_warnings", value)
 
     @_builtins.property
     @pulumi.getter(name="suppressHelmHookWarnings")
-    def suppress_helm_hook_warnings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def suppress_helm_hook_warnings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If present and set to true, suppress unsupported Helm hook warnings from the CLI.
         """
         return pulumi.get(self, "suppress_helm_hook_warnings")
 
     @suppress_helm_hook_warnings.setter
-    def suppress_helm_hook_warnings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def suppress_helm_hook_warnings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "suppress_helm_hook_warnings", value)
 
     @_builtins.property
     @pulumi.getter(name="upsertExistingObjects")
-    def upsert_existing_objects(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def upsert_existing_objects(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.
         By default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.
@@ -408,7 +408,7 @@ class ProviderArgs:
         return pulumi.get(self, "upsert_existing_objects")
 
     @upsert_existing_objects.setter
-    def upsert_existing_objects(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def upsert_existing_objects(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "upsert_existing_objects", value)
 
 
@@ -418,24 +418,24 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 always_render: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cluster: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_identifier: Optional[pulumi.Input[_builtins.str]] = None,
-                 context: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_unreachable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_config_map_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_patch_force: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_secret_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_server_side_apply: Optional[pulumi.Input[_builtins.bool]] = None,
-                 helm_release_settings: Optional[pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
-                 kube_client_settings: Optional[pulumi.Input[Union['KubeClientSettingsArgs', 'KubeClientSettingsArgsDict']]] = None,
-                 kubeconfig: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 render_yaml_to_directory: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_update_unreachable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 suppress_deprecation_warnings: Optional[pulumi.Input[_builtins.bool]] = None,
-                 suppress_helm_hook_warnings: Optional[pulumi.Input[_builtins.bool]] = None,
-                 upsert_existing_objects: Optional[pulumi.Input[_builtins.bool]] = None,
+                 always_render: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cluster: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_identifier: pulumi.Input[Optional[_builtins.str]] = None,
+                 context: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_unreachable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_config_map_mutable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_patch_force: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_secret_mutable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_server_side_apply: pulumi.Input[Optional[_builtins.bool]] = None,
+                 helm_release_settings: pulumi.Input[Optional[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
+                 kube_client_settings: pulumi.Input[Optional[Union['KubeClientSettingsArgs', 'KubeClientSettingsArgsDict']]] = None,
+                 kubeconfig: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 render_yaml_to_directory: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_update_unreachable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 suppress_deprecation_warnings: pulumi.Input[Optional[_builtins.bool]] = None,
+                 suppress_helm_hook_warnings: pulumi.Input[Optional[_builtins.bool]] = None,
+                 upsert_existing_objects: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         The provider type for the kubernetes package.
@@ -526,24 +526,24 @@ class Provider(pulumi.ProviderResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 always_render: Optional[pulumi.Input[_builtins.bool]] = None,
-                 cluster: Optional[pulumi.Input[_builtins.str]] = None,
-                 cluster_identifier: Optional[pulumi.Input[_builtins.str]] = None,
-                 context: Optional[pulumi.Input[_builtins.str]] = None,
-                 delete_unreachable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_config_map_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_patch_force: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_secret_mutable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enable_server_side_apply: Optional[pulumi.Input[_builtins.bool]] = None,
-                 helm_release_settings: Optional[pulumi.Input[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
-                 kube_client_settings: Optional[pulumi.Input[Union['KubeClientSettingsArgs', 'KubeClientSettingsArgsDict']]] = None,
-                 kubeconfig: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 render_yaml_to_directory: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_update_unreachable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 suppress_deprecation_warnings: Optional[pulumi.Input[_builtins.bool]] = None,
-                 suppress_helm_hook_warnings: Optional[pulumi.Input[_builtins.bool]] = None,
-                 upsert_existing_objects: Optional[pulumi.Input[_builtins.bool]] = None,
+                 always_render: pulumi.Input[Optional[_builtins.bool]] = None,
+                 cluster: pulumi.Input[Optional[_builtins.str]] = None,
+                 cluster_identifier: pulumi.Input[Optional[_builtins.str]] = None,
+                 context: pulumi.Input[Optional[_builtins.str]] = None,
+                 delete_unreachable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_config_map_mutable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_patch_force: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_secret_mutable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enable_server_side_apply: pulumi.Input[Optional[_builtins.bool]] = None,
+                 helm_release_settings: pulumi.Input[Optional[Union['HelmReleaseSettingsArgs', 'HelmReleaseSettingsArgsDict']]] = None,
+                 kube_client_settings: pulumi.Input[Optional[Union['KubeClientSettingsArgs', 'KubeClientSettingsArgsDict']]] = None,
+                 kubeconfig: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 render_yaml_to_directory: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_update_unreachable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 suppress_deprecation_warnings: pulumi.Input[Optional[_builtins.bool]] = None,
+                 suppress_helm_hook_warnings: pulumi.Input[Optional[_builtins.bool]] = None,
+                 upsert_existing_objects: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

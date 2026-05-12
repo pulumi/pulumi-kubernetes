@@ -46,8 +46,8 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["enablePatchForce"] = pulumi.output((args?.enablePatchForce) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_PATCH_FORCE")).apply(JSON.stringify);
             resourceInputs["enableSecretMutable"] = pulumi.output((args?.enableSecretMutable) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_SECRET_MUTABLE")).apply(JSON.stringify);
             resourceInputs["enableServerSideApply"] = pulumi.output((args?.enableServerSideApply) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY")).apply(JSON.stringify);
-            resourceInputs["helmReleaseSettings"] = pulumi.output(args ? (args.helmReleaseSettings ? pulumi.output(args.helmReleaseSettings).apply(inputs.helmReleaseSettingsProvideDefaults) : undefined) : undefined).apply(JSON.stringify);
-            resourceInputs["kubeClientSettings"] = pulumi.output(args ? (args.kubeClientSettings ? pulumi.output(args.kubeClientSettings).apply(inputs.kubeClientSettingsProvideDefaults) : undefined) : undefined).apply(JSON.stringify);
+            resourceInputs["helmReleaseSettings"] = pulumi.output(args ? pulumi.output(args.helmReleaseSettings).apply(v => v === undefined ? undefined : inputs.helmReleaseSettingsProvideDefaults(v)) : undefined).apply(JSON.stringify);
+            resourceInputs["kubeClientSettings"] = pulumi.output(args ? pulumi.output(args.kubeClientSettings).apply(v => v === undefined ? undefined : inputs.kubeClientSettingsProvideDefaults(v)) : undefined).apply(JSON.stringify);
             resourceInputs["kubeconfig"] = (args?.kubeconfig) ?? utilities.getEnv("KUBECONFIG");
             resourceInputs["namespace"] = args?.namespace;
             resourceInputs["renderYamlToDirectory"] = args?.renderYamlToDirectory;
@@ -68,11 +68,11 @@ export interface ProviderArgs {
     /**
      * If present and set to true, all resources will be rendered to the directory specified by renderYamlToDirectory on every update, even if the resource has not changed. This is useful for tools like ArgoCD Config Management Plugin that require all manifests to be regenerated on each run. Only valid when renderYamlToDirectory is set.
      */
-    alwaysRender?: pulumi.Input<boolean>;
+    alwaysRender?: pulumi.Input<boolean | undefined>;
     /**
      * If present, the name of the kubeconfig cluster to use.
      */
-    cluster?: pulumi.Input<string>;
+    cluster?: pulumi.Input<string | undefined>;
     /**
      * If present, this value will control the provider's replacement behavior. In particular, the provider will _only_ be replaced when `clusterIdentifier` changes; all other changes to provider configuration will be treated as updates.
      *
@@ -80,15 +80,15 @@ export interface ProviderArgs {
      *
      * Use `clusterIdentifier` for more fine-grained control of the provider resource's lifecycle.
      */
-    clusterIdentifier?: pulumi.Input<string>;
+    clusterIdentifier?: pulumi.Input<string | undefined>;
     /**
      * If present, the name of the kubeconfig context to use.
      */
-    context?: pulumi.Input<string>;
+    context?: pulumi.Input<string | undefined>;
     /**
      * If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
      */
-    deleteUnreachable?: pulumi.Input<boolean>;
+    deleteUnreachable?: pulumi.Input<boolean | undefined>;
     /**
      * BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
      * This feature is in developer preview, and is disabled by default.
@@ -97,7 +97,7 @@ export interface ProviderArgs {
      * 1. This `enableConfigMapMutable` parameter.
      * 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
      */
-    enableConfigMapMutable?: pulumi.Input<boolean>;
+    enableConfigMapMutable?: pulumi.Input<boolean | undefined>;
     /**
      * If present and set to true, enable patch force on all Server-Side Apply operations, overriding any field conflicts.
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2280 for additional details.
@@ -107,7 +107,7 @@ export interface ProviderArgs {
      * 2. This `enablePatchForce` parameter.
      * 3. The `PULUMI_K8S_ENABLE_PATCH_FORCE` environment variable.
      */
-    enablePatchForce?: pulumi.Input<boolean>;
+    enablePatchForce?: pulumi.Input<boolean | undefined>;
     /**
      * BETA FEATURE - If present and set to true, allow Secrets to be mutated.
      * This feature is in developer preview, and is disabled by default.
@@ -116,24 +116,24 @@ export interface ProviderArgs {
      * 1. This `enableSecretMutable` parameter.
      * 2. The `PULUMI_K8S_ENABLE_SECRET_MUTABLE` environment variable.
      */
-    enableSecretMutable?: pulumi.Input<boolean>;
+    enableSecretMutable?: pulumi.Input<boolean | undefined>;
     /**
      * If present and set to false, disable Server-Side Apply mode.
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
      */
-    enableServerSideApply?: pulumi.Input<boolean>;
+    enableServerSideApply?: pulumi.Input<boolean | undefined>;
     /**
      * Options to configure the Helm Release resource.
      */
-    helmReleaseSettings?: pulumi.Input<inputs.HelmReleaseSettings>;
+    helmReleaseSettings?: pulumi.Input<inputs.HelmReleaseSettings | undefined>;
     /**
      * Options for tuning the Kubernetes client used by a Provider.
      */
-    kubeClientSettings?: pulumi.Input<inputs.KubeClientSettings>;
+    kubeClientSettings?: pulumi.Input<inputs.KubeClientSettings | undefined>;
     /**
      * The contents of a kubeconfig file or the path to a kubeconfig file.
      */
-    kubeconfig?: pulumi.Input<string>;
+    kubeconfig?: pulumi.Input<string | undefined>;
     /**
      * If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
      *
@@ -142,7 +142,7 @@ export interface ProviderArgs {
      * 2. This `namespace` parameter.
      * 3. `namespace` set for the active context in the kubeconfig.
      */
-    namespace?: pulumi.Input<string>;
+    namespace?: pulumi.Input<string | undefined>;
     /**
      * BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not
      * be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
@@ -153,19 +153,19 @@ export interface ProviderArgs {
      * and may result in an error if they are referenced by other resources. Also note that any secret values
      * used in these resources will be rendered in plaintext to the resulting YAML.
      */
-    renderYamlToDirectory?: pulumi.Input<string>;
+    renderYamlToDirectory?: pulumi.Input<string | undefined>;
     /**
      * If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
      */
-    skipUpdateUnreachable?: pulumi.Input<boolean>;
+    skipUpdateUnreachable?: pulumi.Input<boolean | undefined>;
     /**
      * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
      */
-    suppressDeprecationWarnings?: pulumi.Input<boolean>;
+    suppressDeprecationWarnings?: pulumi.Input<boolean | undefined>;
     /**
      * If present and set to true, suppress unsupported Helm hook warnings from the CLI.
      */
-    suppressHelmHookWarnings?: pulumi.Input<boolean>;
+    suppressHelmHookWarnings?: pulumi.Input<boolean | undefined>;
     /**
      * If present and set to true, allow Pulumi to create resources that already exist in the cluster by updating them instead of returning an error.
      * By default, Pulumi will error if a resource already exists in the cluster to prevent accidental data loss. When a Pulumi resource is renamed without using aliases, the engine plans a create followed by a delete targeting the same cluster object. With server-side apply, the create silently updates the existing object, and the subsequent delete removes it — resulting in unexpected resource deletion.
@@ -175,5 +175,5 @@ export interface ProviderArgs {
      * 1. This `upsertExistingObjects` parameter.
      * 2. The `PULUMI_K8S_UPSERT_EXISTING_OBJECTS` environment variable.
      */
-    upsertExistingObjects?: pulumi.Input<boolean>;
+    upsertExistingObjects?: pulumi.Input<boolean | undefined>;
 }

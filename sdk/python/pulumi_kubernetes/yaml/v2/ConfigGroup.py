@@ -19,11 +19,11 @@ __all__ = ['ConfigGroupArgs', 'ConfigGroup']
 @pulumi.input_type
 class ConfigGroupArgs:
     def __init__(__self__, *,
-                 files: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 objs: Optional[pulumi.Input[Sequence[Any]]] = None,
-                 resource_prefix: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_await: Optional[pulumi.Input[_builtins.bool]] = None,
-                 yaml: Optional[pulumi.Input[_builtins.str]] = None):
+                 files: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 objs: pulumi.Input[Optional[Sequence[Any]]] = None,
+                 resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
+                 yaml: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a ConfigGroup resource.
 
@@ -46,62 +46,62 @@ class ConfigGroupArgs:
 
     @_builtins.property
     @pulumi.getter
-    def files(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def files(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
         """
         return pulumi.get(self, "files")
 
     @files.setter
-    def files(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def files(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "files", value)
 
     @_builtins.property
     @pulumi.getter
-    def objs(self) -> Optional[pulumi.Input[Sequence[Any]]]:
+    def objs(self) -> pulumi.Input[Optional[Sequence[Any]]]:
         """
         Objects representing Kubernetes resource configurations.
         """
         return pulumi.get(self, "objs")
 
     @objs.setter
-    def objs(self, value: Optional[pulumi.Input[Sequence[Any]]]):
+    def objs(self, value: pulumi.Input[Optional[Sequence[Any]]]):
         pulumi.set(self, "objs", value)
 
     @_builtins.property
     @pulumi.getter(name="resourcePrefix")
-    def resource_prefix(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_prefix(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         """
         return pulumi.get(self, "resource_prefix")
 
     @resource_prefix.setter
-    def resource_prefix(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_prefix(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_prefix", value)
 
     @_builtins.property
     @pulumi.getter(name="skipAwait")
-    def skip_await(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_await(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Indicates that child resources should skip the await logic.
         """
         return pulumi.get(self, "skip_await")
 
     @skip_await.setter
-    def skip_await(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_await(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_await", value)
 
     @_builtins.property
     @pulumi.getter
-    def yaml(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def yaml(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
         """
         return pulumi.get(self, "yaml")
 
     @yaml.setter
-    def yaml(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def yaml(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "yaml", value)
 
 
@@ -111,11 +111,11 @@ class ConfigGroup(pulumi.ComponentResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 files: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 objs: Optional[pulumi.Input[Sequence[Any]]] = None,
-                 resource_prefix: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_await: Optional[pulumi.Input[_builtins.bool]] = None,
-                 yaml: Optional[pulumi.Input[_builtins.str]] = None,
+                 files: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 objs: pulumi.Input[Optional[Sequence[Any]]] = None,
+                 resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
+                 yaml: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
@@ -348,11 +348,11 @@ class ConfigGroup(pulumi.ComponentResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 files: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 objs: Optional[pulumi.Input[Sequence[Any]]] = None,
-                 resource_prefix: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_await: Optional[pulumi.Input[_builtins.bool]] = None,
-                 yaml: Optional[pulumi.Input[_builtins.str]] = None,
+                 files: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 objs: pulumi.Input[Optional[Sequence[Any]]] = None,
+                 resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
+                 yaml: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

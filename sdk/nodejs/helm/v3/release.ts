@@ -427,11 +427,11 @@ export interface ReleaseArgs {
     /**
      * Whether to allow Null values in helm chart configs.
      */
-    allowNullValues?: pulumi.Input<boolean>;
+    allowNullValues?: pulumi.Input<boolean | undefined>;
     /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      */
-    atomic?: pulumi.Input<boolean>;
+    atomic?: pulumi.Input<boolean | undefined>;
     /**
      * Chart name to be installed. A path may be used.
      */
@@ -439,126 +439,126 @@ export interface ReleaseArgs {
     /**
      * Allow deletion of new resources created in this upgrade when upgrade fails.
      */
-    cleanupOnFail?: pulumi.Input<boolean>;
-    compat?: pulumi.Input<"true">;
+    cleanupOnFail?: pulumi.Input<boolean | undefined>;
+    compat?: pulumi.Input<"true" | undefined>;
     /**
      * Create the namespace if it does not exist.
      */
-    createNamespace?: pulumi.Input<boolean>;
+    createNamespace?: pulumi.Input<boolean | undefined>;
     /**
      * Run helm dependency update before installing the chart.
      */
-    dependencyUpdate?: pulumi.Input<boolean>;
+    dependencyUpdate?: pulumi.Input<boolean | undefined>;
     /**
      * Add a custom description
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
      */
-    devel?: pulumi.Input<boolean>;
+    devel?: pulumi.Input<boolean | undefined>;
     /**
      * Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
      */
-    disableCRDHooks?: pulumi.Input<boolean>;
+    disableCRDHooks?: pulumi.Input<boolean | undefined>;
     /**
      * If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
      */
-    disableOpenapiValidation?: pulumi.Input<boolean>;
+    disableOpenapiValidation?: pulumi.Input<boolean | undefined>;
     /**
      * Prevent hooks from running.
      */
-    disableWebhooks?: pulumi.Input<boolean>;
+    disableWebhooks?: pulumi.Input<boolean | undefined>;
     /**
      * Force resource update through delete/recreate if needed.
      */
-    forceUpdate?: pulumi.Input<boolean>;
+    forceUpdate?: pulumi.Input<boolean | undefined>;
     /**
      * Location of public keys used for verification. Used only if `verify` is true
      */
-    keyring?: pulumi.Input<string>;
+    keyring?: pulumi.Input<string | undefined>;
     /**
      * Run helm lint when planning.
      */
-    lint?: pulumi.Input<boolean>;
+    lint?: pulumi.Input<boolean | undefined>;
     /**
      * The rendered manifests as JSON. Not yet supported.
      */
-    manifest?: pulumi.Input<{[key: string]: any}>;
+    manifest?: pulumi.Input<{[key: string]: any} | undefined>;
     /**
      * Limit the maximum number of revisions saved per release. Use 0 for no limit.
      */
-    maxHistory?: pulumi.Input<number>;
+    maxHistory?: pulumi.Input<number | undefined>;
     /**
      * Release name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Namespace to install the release into.
      */
-    namespace?: pulumi.Input<string>;
+    namespace?: pulumi.Input<string | undefined>;
     /**
      * Postrender command to run.
      */
-    postrender?: pulumi.Input<string>;
+    postrender?: pulumi.Input<string | undefined>;
     /**
      * Perform pods restart during upgrade/rollback.
      */
-    recreatePods?: pulumi.Input<boolean>;
+    recreatePods?: pulumi.Input<boolean | undefined>;
     /**
      * If set, render subchart notes along with the parent.
      */
-    renderSubchartNotes?: pulumi.Input<boolean>;
+    renderSubchartNotes?: pulumi.Input<boolean | undefined>;
     /**
      * Re-use the given name, even if that name is already used. This is unsafe in production
      */
-    replace?: pulumi.Input<boolean>;
+    replace?: pulumi.Input<boolean | undefined>;
     /**
      * Specification defining the Helm chart repository to use.
      */
-    repositoryOpts?: pulumi.Input<inputs.helm.v3.RepositoryOpts>;
+    repositoryOpts?: pulumi.Input<inputs.helm.v3.RepositoryOpts | undefined>;
     /**
      * When upgrading, reset the values to the ones built into the chart.
      */
-    resetValues?: pulumi.Input<boolean>;
+    resetValues?: pulumi.Input<boolean | undefined>;
     /**
      * Names of resources created by the release grouped by "kind/version".
      */
-    resourceNames?: pulumi.Input<{[key: string]: pulumi.Input<pulumi.Input<string>[]>}>;
+    resourceNames?: pulumi.Input<{[key: string]: pulumi.Input<pulumi.Input<string>[]>} | undefined>;
     /**
      * When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
      */
-    reuseValues?: pulumi.Input<boolean>;
+    reuseValues?: pulumi.Input<boolean | undefined>;
     /**
      * By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
      */
-    skipAwait?: pulumi.Input<boolean>;
+    skipAwait?: pulumi.Input<boolean | undefined>;
     /**
      * If set, no CRDs will be installed. By default, CRDs are installed if not already present.
      */
-    skipCrds?: pulumi.Input<boolean>;
+    skipCrds?: pulumi.Input<boolean | undefined>;
     /**
      * Time in seconds to wait for any individual kubernetes operation.
      */
-    timeout?: pulumi.Input<number>;
+    timeout?: pulumi.Input<number | undefined>;
     /**
      * List of assets (raw yaml files). Content is read and merged with values.
      */
-    valueYamlFiles?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[]>;
+    valueYamlFiles?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[] | undefined>;
     /**
      * Custom values set for the release.
      */
-    values?: pulumi.Input<{[key: string]: any}>;
+    values?: pulumi.Input<{[key: string]: any} | undefined>;
     /**
      * Verify the package before installing it.
      */
-    verify?: pulumi.Input<boolean>;
+    verify?: pulumi.Input<boolean | undefined>;
     /**
      * Specify the exact chart version to install. If this is not specified, the latest version is installed.
      */
-    version?: pulumi.Input<string>;
+    version?: pulumi.Input<string | undefined>;
     /**
      * Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
      */
-    waitForJobs?: pulumi.Input<boolean>;
+    waitForJobs?: pulumi.Input<boolean | undefined>;
 }

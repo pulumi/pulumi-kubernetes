@@ -33,7 +33,7 @@ class OverheadPatchArgsDict(TypedDict):
     """
     Overhead structure represents the resource overhead associated with running a pod.
     """
-    pod_fixed: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    pod_fixed: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     podFixed represents the fixed resource overhead associated with running a pod.
     """
@@ -41,7 +41,7 @@ class OverheadPatchArgsDict(TypedDict):
 @pulumi.input_type
 class OverheadPatchArgs:
     def __init__(__self__, *,
-                 pod_fixed: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 pod_fixed: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         Overhead structure represents the resource overhead associated with running a pod.
 
@@ -52,14 +52,14 @@ class OverheadPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="podFixed")
-    def pod_fixed(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def pod_fixed(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         podFixed represents the fixed resource overhead associated with running a pod.
         """
         return pulumi.get(self, "pod_fixed")
 
     @pod_fixed.setter
-    def pod_fixed(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def pod_fixed(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "pod_fixed", value)
 
 
@@ -67,7 +67,7 @@ class OverheadArgsDict(TypedDict):
     """
     Overhead structure represents the resource overhead associated with running a pod.
     """
-    pod_fixed: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    pod_fixed: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     podFixed represents the fixed resource overhead associated with running a pod.
     """
@@ -75,7 +75,7 @@ class OverheadArgsDict(TypedDict):
 @pulumi.input_type
 class OverheadArgs:
     def __init__(__self__, *,
-                 pod_fixed: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 pod_fixed: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         Overhead structure represents the resource overhead associated with running a pod.
 
@@ -86,14 +86,14 @@ class OverheadArgs:
 
     @_builtins.property
     @pulumi.getter(name="podFixed")
-    def pod_fixed(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def pod_fixed(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         podFixed represents the fixed resource overhead associated with running a pod.
         """
         return pulumi.get(self, "pod_fixed")
 
     @pod_fixed.setter
-    def pod_fixed(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def pod_fixed(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "pod_fixed", value)
 
 
@@ -105,24 +105,24 @@ class RuntimeClassArgsDict(TypedDict):
     """
     handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    overhead: NotRequired[pulumi.Input['OverheadArgsDict']]
+    overhead: NotRequired[pulumi.Input[Optional['OverheadArgs']]]
     """
     overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
      https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
     """
-    scheduling: NotRequired[pulumi.Input['SchedulingArgsDict']]
+    scheduling: NotRequired[pulumi.Input[Optional['SchedulingArgs']]]
     """
     scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
     """
@@ -131,11 +131,11 @@ class RuntimeClassArgsDict(TypedDict):
 class RuntimeClassArgs:
     def __init__(__self__, *,
                  handler: pulumi.Input[_builtins.str],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 overhead: Optional[pulumi.Input['OverheadArgs']] = None,
-                 scheduling: Optional[pulumi.Input['SchedulingArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 overhead: pulumi.Input[Optional['OverheadArgs']] = None,
+                 scheduling: pulumi.Input[Optional['SchedulingArgs']] = None):
         """
         RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/
 
@@ -173,43 +173,43 @@ class RuntimeClassArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def overhead(self) -> Optional[pulumi.Input['OverheadArgs']]:
+    def overhead(self) -> pulumi.Input[Optional['OverheadArgs']]:
         """
         overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
          https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
@@ -217,19 +217,19 @@ class RuntimeClassArgs:
         return pulumi.get(self, "overhead")
 
     @overhead.setter
-    def overhead(self, value: Optional[pulumi.Input['OverheadArgs']]):
+    def overhead(self, value: pulumi.Input[Optional['OverheadArgs']]):
         pulumi.set(self, "overhead", value)
 
     @_builtins.property
     @pulumi.getter
-    def scheduling(self) -> Optional[pulumi.Input['SchedulingArgs']]:
+    def scheduling(self) -> pulumi.Input[Optional['SchedulingArgs']]:
         """
         scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
         return pulumi.get(self, "scheduling")
 
     @scheduling.setter
-    def scheduling(self, value: Optional[pulumi.Input['SchedulingArgs']]):
+    def scheduling(self, value: pulumi.Input[Optional['SchedulingArgs']]):
         pulumi.set(self, "scheduling", value)
 
 
@@ -237,11 +237,11 @@ class SchedulingPatchArgsDict(TypedDict):
     """
     Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     """
-    node_selector: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    node_selector: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
     """
-    tolerations: NotRequired[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgsDict']]]]
+    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]]
     """
     tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
     """
@@ -249,8 +249,8 @@ class SchedulingPatchArgsDict(TypedDict):
 @pulumi.input_type
 class SchedulingPatchArgs:
     def __init__(__self__, *,
-                 node_selector: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]] = None):
+                 node_selector: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 tolerations: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]] = None):
         """
         Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
 
@@ -264,26 +264,26 @@ class SchedulingPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="nodeSelector")
-    def node_selector(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def node_selector(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
         """
         return pulumi.get(self, "node_selector")
 
     @node_selector.setter
-    def node_selector(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def node_selector(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "node_selector", value)
 
     @_builtins.property
     @pulumi.getter
-    def tolerations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]:
+    def tolerations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]:
         """
         tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """
         return pulumi.get(self, "tolerations")
 
     @tolerations.setter
-    def tolerations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]):
+    def tolerations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]):
         pulumi.set(self, "tolerations", value)
 
 
@@ -291,11 +291,11 @@ class SchedulingArgsDict(TypedDict):
     """
     Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     """
-    node_selector: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    node_selector: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
     """
-    tolerations: NotRequired[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgsDict']]]]
+    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]]
     """
     tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
     """
@@ -303,8 +303,8 @@ class SchedulingArgsDict(TypedDict):
 @pulumi.input_type
 class SchedulingArgs:
     def __init__(__self__, *,
-                 node_selector: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]] = None):
+                 node_selector: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 tolerations: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]] = None):
         """
         Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
 
@@ -318,26 +318,26 @@ class SchedulingArgs:
 
     @_builtins.property
     @pulumi.getter(name="nodeSelector")
-    def node_selector(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def node_selector(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
         """
         return pulumi.get(self, "node_selector")
 
     @node_selector.setter
-    def node_selector(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def node_selector(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "node_selector", value)
 
     @_builtins.property
     @pulumi.getter
-    def tolerations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]:
+    def tolerations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]:
         """
         tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """
         return pulumi.get(self, "tolerations")
 
     @tolerations.setter
-    def tolerations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]):
+    def tolerations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]):
         pulumi.set(self, "tolerations", value)
 
 

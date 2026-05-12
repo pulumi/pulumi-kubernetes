@@ -20,8 +20,8 @@ __all__ = ['ConfigFileArgs', 'ConfigFile']
 class ConfigFileArgs:
     def __init__(__self__, *,
                  file: pulumi.Input[_builtins.str],
-                 resource_prefix: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_await: Optional[pulumi.Input[_builtins.bool]] = None):
+                 resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_await: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a ConfigFile resource.
 
@@ -49,26 +49,26 @@ class ConfigFileArgs:
 
     @_builtins.property
     @pulumi.getter(name="resourcePrefix")
-    def resource_prefix(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_prefix(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         """
         return pulumi.get(self, "resource_prefix")
 
     @resource_prefix.setter
-    def resource_prefix(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_prefix(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_prefix", value)
 
     @_builtins.property
     @pulumi.getter(name="skipAwait")
-    def skip_await(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_await(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Indicates that child resources should skip the await logic.
         """
         return pulumi.get(self, "skip_await")
 
     @skip_await.setter
-    def skip_await(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_await(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_await", value)
 
 
@@ -78,9 +78,9 @@ class ConfigFile(pulumi.ComponentResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 file: Optional[pulumi.Input[_builtins.str]] = None,
-                 resource_prefix: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_await: Optional[pulumi.Input[_builtins.bool]] = None,
+                 file: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         ConfigFile creates a set of Kubernetes resources from a remote or on-disk Kubernetes YAML file.
@@ -213,9 +213,9 @@ class ConfigFile(pulumi.ComponentResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 file: Optional[pulumi.Input[_builtins.str]] = None,
-                 resource_prefix: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_await: Optional[pulumi.Input[_builtins.bool]] = None,
+                 file: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

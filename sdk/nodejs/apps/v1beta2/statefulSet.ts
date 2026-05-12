@@ -111,14 +111,14 @@ export interface StatefulSetArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"apps/v1beta2">;
+    apiVersion?: pulumi.Input<"apps/v1beta2" | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"StatefulSet">;
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    kind?: pulumi.Input<"StatefulSet" | undefined>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**
      * Spec defines the desired identities of pods in this set.
      */
-    spec?: pulumi.Input<inputs.apps.v1beta2.StatefulSetSpec>;
+    spec?: pulumi.Input<inputs.apps.v1beta2.StatefulSetSpec | undefined>;
 }

@@ -24,12 +24,12 @@ __all__ = ['ResourceClassInitArgs', 'ResourceClass']
 class ResourceClassInitArgs:
     def __init__(__self__, *,
                  driver_name: pulumi.Input[_builtins.str],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 parameters_ref: Optional[pulumi.Input['ResourceClassParametersReferenceArgs']] = None,
-                 structured_parameters: Optional[pulumi.Input[_builtins.bool]] = None,
-                 suitable_nodes: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 parameters_ref: pulumi.Input[Optional['ResourceClassParametersReferenceArgs']] = None,
+                 structured_parameters: pulumi.Input[Optional[_builtins.bool]] = None,
+                 suitable_nodes: pulumi.Input[Optional['_core.v1.NodeSelectorArgs']] = None):
         """
         The set of arguments for constructing a ResourceClass resource.
 
@@ -75,67 +75,67 @@ class ResourceClassInitArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter(name="parametersRef")
-    def parameters_ref(self) -> Optional[pulumi.Input['ResourceClassParametersReferenceArgs']]:
+    def parameters_ref(self) -> pulumi.Input[Optional['ResourceClassParametersReferenceArgs']]:
         """
         ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
         """
         return pulumi.get(self, "parameters_ref")
 
     @parameters_ref.setter
-    def parameters_ref(self, value: Optional[pulumi.Input['ResourceClassParametersReferenceArgs']]):
+    def parameters_ref(self, value: pulumi.Input[Optional['ResourceClassParametersReferenceArgs']]):
         pulumi.set(self, "parameters_ref", value)
 
     @_builtins.property
     @pulumi.getter(name="structuredParameters")
-    def structured_parameters(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def structured_parameters(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
         """
         return pulumi.get(self, "structured_parameters")
 
     @structured_parameters.setter
-    def structured_parameters(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def structured_parameters(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "structured_parameters", value)
 
     @_builtins.property
     @pulumi.getter(name="suitableNodes")
-    def suitable_nodes(self) -> Optional[pulumi.Input['_core.v1.NodeSelectorArgs']]:
+    def suitable_nodes(self) -> pulumi.Input[Optional['_core.v1.NodeSelectorArgs']]:
         """
         Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 
@@ -144,7 +144,7 @@ class ResourceClassInitArgs:
         return pulumi.get(self, "suitable_nodes")
 
     @suitable_nodes.setter
-    def suitable_nodes(self, value: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']]):
+    def suitable_nodes(self, value: pulumi.Input[Optional['_core.v1.NodeSelectorArgs']]):
         pulumi.set(self, "suitable_nodes", value)
 
 
@@ -154,13 +154,13 @@ class ResourceClass(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 driver_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 parameters_ref: Optional[pulumi.Input[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
-                 structured_parameters: Optional[pulumi.Input[_builtins.bool]] = None,
-                 suitable_nodes: Optional[pulumi.Input[Union['_core.v1.NodeSelectorArgs', '_core.v1.NodeSelectorArgsDict']]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 driver_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 parameters_ref: pulumi.Input[Optional[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
+                 structured_parameters: pulumi.Input[Optional[_builtins.bool]] = None,
+                 suitable_nodes: pulumi.Input[Optional[Union['_core.v1.NodeSelectorArgs', '_core.v1.NodeSelectorArgsDict']]] = None,
                  __props__=None):
         """
         ResourceClass is used by administrators to influence how resources are allocated.
@@ -209,13 +209,13 @@ class ResourceClass(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 driver_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 parameters_ref: Optional[pulumi.Input[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
-                 structured_parameters: Optional[pulumi.Input[_builtins.bool]] = None,
-                 suitable_nodes: Optional[pulumi.Input[Union['_core.v1.NodeSelectorArgs', '_core.v1.NodeSelectorArgsDict']]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 driver_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 parameters_ref: pulumi.Input[Optional[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
+                 structured_parameters: pulumi.Input[Optional[_builtins.bool]] = None,
+                 suitable_nodes: pulumi.Input[Optional[Union['_core.v1.NodeSelectorArgs', '_core.v1.NodeSelectorArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

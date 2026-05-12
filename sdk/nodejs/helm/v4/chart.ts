@@ -241,61 +241,61 @@ export interface ChartArgs {
     /**
      * Run helm dependency update before installing the chart.
      */
-    dependencyUpdate?: pulumi.Input<boolean>;
+    dependencyUpdate?: pulumi.Input<boolean | undefined>;
     /**
      * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
      */
-    devel?: pulumi.Input<boolean>;
+    devel?: pulumi.Input<boolean | undefined>;
     /**
      * Location of public keys used for verification. Used only if `verify` is true
      */
-    keyring?: pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>;
+    keyring?: pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive | undefined>;
     /**
      * Release name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Namespace for the release.
      */
-    namespace?: pulumi.Input<string>;
+    namespace?: pulumi.Input<string | undefined>;
     /**
      * Use insecure HTTP for the chart download instead of HTTPS.
      */
-    plainHttp?: pulumi.Input<boolean>;
+    plainHttp?: pulumi.Input<boolean | undefined>;
     /**
      * Specification defining the post-renderer to use.
      */
-    postRenderer?: pulumi.Input<inputs.helm.v4.PostRenderer>;
+    postRenderer?: pulumi.Input<inputs.helm.v4.PostRenderer | undefined>;
     /**
      * Specification defining the Helm chart repository to use.
      */
-    repositoryOpts?: pulumi.Input<inputs.helm.v4.RepositoryOpts>;
+    repositoryOpts?: pulumi.Input<inputs.helm.v4.RepositoryOpts | undefined>;
     /**
      * An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
      */
-    resourcePrefix?: pulumi.Input<string>;
+    resourcePrefix?: pulumi.Input<string | undefined>;
     /**
      * By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
      */
-    skipAwait?: pulumi.Input<boolean>;
+    skipAwait?: pulumi.Input<boolean | undefined>;
     /**
      * If set, no CRDs will be installed. By default, CRDs are installed if not already present.
      */
-    skipCrds?: pulumi.Input<boolean>;
+    skipCrds?: pulumi.Input<boolean | undefined>;
     /**
      * List of assets (raw yaml files). Content is read and merged with values.
      */
-    valueYamlFiles?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[]>;
+    valueYamlFiles?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[] | undefined>;
     /**
      * Custom values set for the release.
      */
-    values?: pulumi.Input<{[key: string]: any}>;
+    values?: pulumi.Input<{[key: string]: any} | undefined>;
     /**
      * Verify the chart's integrity.
      */
-    verify?: pulumi.Input<boolean>;
+    verify?: pulumi.Input<boolean | undefined>;
     /**
      * Specify the chart version to install. If this is not specified, the latest version is installed.
      */
-    version?: pulumi.Input<string>;
+    version?: pulumi.Input<string | undefined>;
 }

@@ -103,19 +103,19 @@ export interface DeviceTaintRulePatchArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"resource.k8s.io/v1beta2">;
+    apiVersion?: pulumi.Input<"resource.k8s.io/v1beta2" | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"DeviceTaintRule">;
+    kind?: pulumi.Input<"DeviceTaintRule" | undefined>;
     /**
      * Standard object metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
      * Spec specifies the selector and one taint.
      *
      * Changing the spec automatically increments the metadata.generation number.
      */
-    spec?: pulumi.Input<inputs.resource.v1beta2.DeviceTaintRuleSpecPatch>;
+    spec?: pulumi.Input<inputs.resource.v1beta2.DeviceTaintRuleSpecPatch | undefined>;
 }

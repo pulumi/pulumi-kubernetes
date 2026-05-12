@@ -47,7 +47,7 @@ export class CustomResource extends pulumi.CustomResource {
      * values. More info:
      * https://git.k8s.io/community/contributors/devel/api-conventions.md#resources
      */
-    public readonly apiVersion!: pulumi.Output<string>;
+    declare public readonly apiVersion: pulumi.Output<string>;
 
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may
@@ -55,13 +55,13 @@ export class CustomResource extends pulumi.CustomResource {
      * CamelCase. More info:
      * https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds
      */
-    public readonly kind!: pulumi.Output<string>;
+    declare public readonly kind: pulumi.Output<string>;
 
     /**
      * Standard object metadata; More info:
      * https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata.
      */
-    public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
 
     public getInputs(): CustomResourceArgs { return this.__inputs; }
     private readonly __inputs: CustomResourceArgs;

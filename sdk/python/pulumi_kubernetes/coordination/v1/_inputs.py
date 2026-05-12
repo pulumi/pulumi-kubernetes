@@ -28,31 +28,31 @@ class LeaseSpecPatchArgsDict(TypedDict):
     """
     LeaseSpec is a specification of a Lease.
     """
-    acquire_time: NotRequired[pulumi.Input[_builtins.str]]
+    acquire_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     acquireTime is a time when the current lease was acquired.
     """
-    holder_identity: NotRequired[pulumi.Input[_builtins.str]]
+    holder_identity: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
     """
-    lease_duration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    lease_duration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
     """
-    lease_transitions: NotRequired[pulumi.Input[_builtins.int]]
+    lease_transitions: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     leaseTransitions is the number of transitions of a lease between holders.
     """
-    preferred_holder: NotRequired[pulumi.Input[_builtins.str]]
+    preferred_holder: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
     """
-    renew_time: NotRequired[pulumi.Input[_builtins.str]]
+    renew_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     renewTime is a time when the current holder of a lease has last updated the lease.
     """
-    strategy: NotRequired[pulumi.Input[_builtins.str]]
+    strategy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
     """
@@ -60,13 +60,13 @@ class LeaseSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class LeaseSpecPatchArgs:
     def __init__(__self__, *,
-                 acquire_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 holder_identity: Optional[pulumi.Input[_builtins.str]] = None,
-                 lease_duration_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 lease_transitions: Optional[pulumi.Input[_builtins.int]] = None,
-                 preferred_holder: Optional[pulumi.Input[_builtins.str]] = None,
-                 renew_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 strategy: Optional[pulumi.Input[_builtins.str]] = None):
+                 acquire_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 holder_identity: pulumi.Input[Optional[_builtins.str]] = None,
+                 lease_duration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 lease_transitions: pulumi.Input[Optional[_builtins.int]] = None,
+                 preferred_holder: pulumi.Input[Optional[_builtins.str]] = None,
+                 renew_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 strategy: pulumi.Input[Optional[_builtins.str]] = None):
         """
         LeaseSpec is a specification of a Lease.
 
@@ -95,86 +95,86 @@ class LeaseSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="acquireTime")
-    def acquire_time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def acquire_time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         acquireTime is a time when the current lease was acquired.
         """
         return pulumi.get(self, "acquire_time")
 
     @acquire_time.setter
-    def acquire_time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def acquire_time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "acquire_time", value)
 
     @_builtins.property
     @pulumi.getter(name="holderIdentity")
-    def holder_identity(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def holder_identity(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
         """
         return pulumi.get(self, "holder_identity")
 
     @holder_identity.setter
-    def holder_identity(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def holder_identity(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "holder_identity", value)
 
     @_builtins.property
     @pulumi.getter(name="leaseDurationSeconds")
-    def lease_duration_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def lease_duration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
         """
         return pulumi.get(self, "lease_duration_seconds")
 
     @lease_duration_seconds.setter
-    def lease_duration_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def lease_duration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "lease_duration_seconds", value)
 
     @_builtins.property
     @pulumi.getter(name="leaseTransitions")
-    def lease_transitions(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def lease_transitions(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         leaseTransitions is the number of transitions of a lease between holders.
         """
         return pulumi.get(self, "lease_transitions")
 
     @lease_transitions.setter
-    def lease_transitions(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def lease_transitions(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "lease_transitions", value)
 
     @_builtins.property
     @pulumi.getter(name="preferredHolder")
-    def preferred_holder(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def preferred_holder(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
         """
         return pulumi.get(self, "preferred_holder")
 
     @preferred_holder.setter
-    def preferred_holder(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def preferred_holder(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "preferred_holder", value)
 
     @_builtins.property
     @pulumi.getter(name="renewTime")
-    def renew_time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def renew_time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         renewTime is a time when the current holder of a lease has last updated the lease.
         """
         return pulumi.get(self, "renew_time")
 
     @renew_time.setter
-    def renew_time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def renew_time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "renew_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def strategy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def strategy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         """
         return pulumi.get(self, "strategy")
 
     @strategy.setter
-    def strategy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def strategy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "strategy", value)
 
 
@@ -182,31 +182,31 @@ class LeaseSpecArgsDict(TypedDict):
     """
     LeaseSpec is a specification of a Lease.
     """
-    acquire_time: NotRequired[pulumi.Input[_builtins.str]]
+    acquire_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     acquireTime is a time when the current lease was acquired.
     """
-    holder_identity: NotRequired[pulumi.Input[_builtins.str]]
+    holder_identity: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
     """
-    lease_duration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    lease_duration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
     """
-    lease_transitions: NotRequired[pulumi.Input[_builtins.int]]
+    lease_transitions: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     leaseTransitions is the number of transitions of a lease between holders.
     """
-    preferred_holder: NotRequired[pulumi.Input[_builtins.str]]
+    preferred_holder: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
     """
-    renew_time: NotRequired[pulumi.Input[_builtins.str]]
+    renew_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     renewTime is a time when the current holder of a lease has last updated the lease.
     """
-    strategy: NotRequired[pulumi.Input[_builtins.str]]
+    strategy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
     """
@@ -214,13 +214,13 @@ class LeaseSpecArgsDict(TypedDict):
 @pulumi.input_type
 class LeaseSpecArgs:
     def __init__(__self__, *,
-                 acquire_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 holder_identity: Optional[pulumi.Input[_builtins.str]] = None,
-                 lease_duration_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 lease_transitions: Optional[pulumi.Input[_builtins.int]] = None,
-                 preferred_holder: Optional[pulumi.Input[_builtins.str]] = None,
-                 renew_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 strategy: Optional[pulumi.Input[_builtins.str]] = None):
+                 acquire_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 holder_identity: pulumi.Input[Optional[_builtins.str]] = None,
+                 lease_duration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 lease_transitions: pulumi.Input[Optional[_builtins.int]] = None,
+                 preferred_holder: pulumi.Input[Optional[_builtins.str]] = None,
+                 renew_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 strategy: pulumi.Input[Optional[_builtins.str]] = None):
         """
         LeaseSpec is a specification of a Lease.
 
@@ -249,86 +249,86 @@ class LeaseSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="acquireTime")
-    def acquire_time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def acquire_time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         acquireTime is a time when the current lease was acquired.
         """
         return pulumi.get(self, "acquire_time")
 
     @acquire_time.setter
-    def acquire_time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def acquire_time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "acquire_time", value)
 
     @_builtins.property
     @pulumi.getter(name="holderIdentity")
-    def holder_identity(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def holder_identity(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
         """
         return pulumi.get(self, "holder_identity")
 
     @holder_identity.setter
-    def holder_identity(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def holder_identity(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "holder_identity", value)
 
     @_builtins.property
     @pulumi.getter(name="leaseDurationSeconds")
-    def lease_duration_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def lease_duration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
         """
         return pulumi.get(self, "lease_duration_seconds")
 
     @lease_duration_seconds.setter
-    def lease_duration_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def lease_duration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "lease_duration_seconds", value)
 
     @_builtins.property
     @pulumi.getter(name="leaseTransitions")
-    def lease_transitions(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def lease_transitions(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         leaseTransitions is the number of transitions of a lease between holders.
         """
         return pulumi.get(self, "lease_transitions")
 
     @lease_transitions.setter
-    def lease_transitions(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def lease_transitions(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "lease_transitions", value)
 
     @_builtins.property
     @pulumi.getter(name="preferredHolder")
-    def preferred_holder(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def preferred_holder(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
         """
         return pulumi.get(self, "preferred_holder")
 
     @preferred_holder.setter
-    def preferred_holder(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def preferred_holder(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "preferred_holder", value)
 
     @_builtins.property
     @pulumi.getter(name="renewTime")
-    def renew_time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def renew_time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         renewTime is a time when the current holder of a lease has last updated the lease.
         """
         return pulumi.get(self, "renew_time")
 
     @renew_time.setter
-    def renew_time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def renew_time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "renew_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def strategy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def strategy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         """
         return pulumi.get(self, "strategy")
 
     @strategy.setter
-    def strategy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def strategy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "strategy", value)
 
 
@@ -336,19 +336,19 @@ class LeaseArgsDict(TypedDict):
     """
     Lease defines a lease concept.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input['LeaseSpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['LeaseSpecArgs']]]
     """
     spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -356,10 +356,10 @@ class LeaseArgsDict(TypedDict):
 @pulumi.input_type
 class LeaseArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['LeaseSpecArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['LeaseSpecArgs']] = None):
         """
         Lease defines a lease concept.
 
@@ -379,50 +379,50 @@ class LeaseArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['LeaseSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['LeaseSpecArgs']]:
         """
         spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['LeaseSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['LeaseSpecArgs']]):
         pulumi.set(self, "spec", value)
 
 

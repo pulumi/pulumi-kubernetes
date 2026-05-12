@@ -47,23 +47,23 @@ class CertificateSigningRequestConditionArgsDict(TypedDict):
     """
     request approval state, currently Approved or Denied.
     """
-    last_transition_time: NotRequired[pulumi.Input[_builtins.str]]
+    last_transition_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
     """
-    last_update_time: NotRequired[pulumi.Input[_builtins.str]]
+    last_update_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     timestamp for the last update to this condition
     """
-    message: NotRequired[pulumi.Input[_builtins.str]]
+    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     human readable message with details about the request state
     """
-    reason: NotRequired[pulumi.Input[_builtins.str]]
+    reason: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     brief reason for the request state
     """
-    status: NotRequired[pulumi.Input[_builtins.str]]
+    status: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
     """
@@ -72,11 +72,11 @@ class CertificateSigningRequestConditionArgsDict(TypedDict):
 class CertificateSigningRequestConditionArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[_builtins.str],
-                 last_transition_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 last_update_time: Optional[pulumi.Input[_builtins.str]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None,
-                 status: Optional[pulumi.Input[_builtins.str]] = None):
+                 last_transition_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 last_update_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None,
+                 status: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] type: request approval state, currently Approved or Denied.
         :param pulumi.Input[_builtins.str] last_transition_time: lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
@@ -111,62 +111,62 @@ class CertificateSigningRequestConditionArgs:
 
     @_builtins.property
     @pulumi.getter(name="lastTransitionTime")
-    def last_transition_time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def last_transition_time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
         """
         return pulumi.get(self, "last_transition_time")
 
     @last_transition_time.setter
-    def last_transition_time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def last_transition_time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "last_transition_time", value)
 
     @_builtins.property
     @pulumi.getter(name="lastUpdateTime")
-    def last_update_time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def last_update_time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         timestamp for the last update to this condition
         """
         return pulumi.get(self, "last_update_time")
 
     @last_update_time.setter
-    def last_update_time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def last_update_time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "last_update_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         human readable message with details about the request state
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
     @_builtins.property
     @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         brief reason for the request state
         """
         return pulumi.get(self, "reason")
 
     @reason.setter
-    def reason(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def status(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def status(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "status", value)
 
 
@@ -174,19 +174,19 @@ class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
     """
     This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
     """
-    extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]
+    extra: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]]
     """
     Extra information about the requesting user. See user.Info interface for details.
     """
-    groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     Group information about the requesting user. See user.Info interface for details.
     """
-    request: NotRequired[pulumi.Input[_builtins.str]]
+    request: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Base64-encoded PKCS#10 CSR data
     """
-    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
      1. If it's a kubelet client certificate, it is assigned
@@ -196,16 +196,16 @@ class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
      3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
     Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
     """
-    uid: NotRequired[pulumi.Input[_builtins.str]]
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     UID information about the requesting user. See user.Info interface for details.
     """
-    usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    usages: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
          https://tools.ietf.org/html/rfc5280#section-4.2.1.12
     """
-    username: NotRequired[pulumi.Input[_builtins.str]]
+    username: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Information about the requesting user. See user.Info interface for details.
     """
@@ -213,13 +213,13 @@ class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class CertificateSigningRequestSpecPatchArgs:
     def __init__(__self__, *,
-                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
-                 groups: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 request: Optional[pulumi.Input[_builtins.str]] = None,
-                 signer_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 uid: Optional[pulumi.Input[_builtins.str]] = None,
-                 usages: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 username: Optional[pulumi.Input[_builtins.str]] = None):
+                 extra: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
+                 groups: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional[_builtins.str]] = None,
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None,
+                 usages: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 username: pulumi.Input[Optional[_builtins.str]] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
 
@@ -255,43 +255,43 @@ class CertificateSigningRequestSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
+    def extra(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
         """
         Extra information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "extra")
 
     @extra.setter
-    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
+    def extra(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
         pulumi.set(self, "extra", value)
 
     @_builtins.property
     @pulumi.getter
-    def groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Group information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "groups")
 
     @groups.setter
-    def groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "groups", value)
 
     @_builtins.property
     @pulumi.getter
-    def request(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def request(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Base64-encoded PKCS#10 CSR data
         """
         return pulumi.get(self, "request")
 
     @request.setter
-    def request(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def request(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "request", value)
 
     @_builtins.property
     @pulumi.getter(name="signerName")
-    def signer_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
          1. If it's a kubelet client certificate, it is assigned
@@ -304,24 +304,24 @@ class CertificateSigningRequestSpecPatchArgs:
         return pulumi.get(self, "signer_name")
 
     @signer_name.setter
-    def signer_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "signer_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         UID information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "uid")
 
     @uid.setter
-    def uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uid", value)
 
     @_builtins.property
     @pulumi.getter
-    def usages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def usages(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
              https://tools.ietf.org/html/rfc5280#section-4.2.1.12
@@ -329,19 +329,19 @@ class CertificateSigningRequestSpecPatchArgs:
         return pulumi.get(self, "usages")
 
     @usages.setter
-    def usages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def usages(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "usages", value)
 
     @_builtins.property
     @pulumi.getter
-    def username(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def username(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "username")
 
     @username.setter
-    def username(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def username(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "username", value)
 
 
@@ -353,15 +353,15 @@ class CertificateSigningRequestSpecArgsDict(TypedDict):
     """
     Base64-encoded PKCS#10 CSR data
     """
-    extra: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]
+    extra: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]]
     """
     Extra information about the requesting user. See user.Info interface for details.
     """
-    groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     Group information about the requesting user. See user.Info interface for details.
     """
-    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
      1. If it's a kubelet client certificate, it is assigned
@@ -371,16 +371,16 @@ class CertificateSigningRequestSpecArgsDict(TypedDict):
      3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
     Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
     """
-    uid: NotRequired[pulumi.Input[_builtins.str]]
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     UID information about the requesting user. See user.Info interface for details.
     """
-    usages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    usages: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
          https://tools.ietf.org/html/rfc5280#section-4.2.1.12
     """
-    username: NotRequired[pulumi.Input[_builtins.str]]
+    username: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Information about the requesting user. See user.Info interface for details.
     """
@@ -389,12 +389,12 @@ class CertificateSigningRequestSpecArgsDict(TypedDict):
 class CertificateSigningRequestSpecArgs:
     def __init__(__self__, *,
                  request: pulumi.Input[_builtins.str],
-                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
-                 groups: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 signer_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 uid: Optional[pulumi.Input[_builtins.str]] = None,
-                 usages: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 username: Optional[pulumi.Input[_builtins.str]] = None):
+                 extra: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
+                 groups: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None,
+                 usages: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 username: pulumi.Input[Optional[_builtins.str]] = None):
         """
         This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
 
@@ -441,31 +441,31 @@ class CertificateSigningRequestSpecArgs:
 
     @_builtins.property
     @pulumi.getter
-    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
+    def extra(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
         """
         Extra information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "extra")
 
     @extra.setter
-    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
+    def extra(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
         pulumi.set(self, "extra", value)
 
     @_builtins.property
     @pulumi.getter
-    def groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Group information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "groups")
 
     @groups.setter
-    def groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "groups", value)
 
     @_builtins.property
     @pulumi.getter(name="signerName")
-    def signer_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
          1. If it's a kubelet client certificate, it is assigned
@@ -478,24 +478,24 @@ class CertificateSigningRequestSpecArgs:
         return pulumi.get(self, "signer_name")
 
     @signer_name.setter
-    def signer_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "signer_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         UID information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "uid")
 
     @uid.setter
-    def uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uid", value)
 
     @_builtins.property
     @pulumi.getter
-    def usages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def usages(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
              https://tools.ietf.org/html/rfc5280#section-4.2.1.12
@@ -503,28 +503,28 @@ class CertificateSigningRequestSpecArgs:
         return pulumi.get(self, "usages")
 
     @usages.setter
-    def usages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def usages(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "usages", value)
 
     @_builtins.property
     @pulumi.getter
-    def username(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def username(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Information about the requesting user. See user.Info interface for details.
         """
         return pulumi.get(self, "username")
 
     @username.setter
-    def username(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def username(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "username", value)
 
 
 class CertificateSigningRequestStatusArgsDict(TypedDict):
-    certificate: NotRequired[pulumi.Input[_builtins.str]]
+    certificate: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     If request was approved, the controller will place the issued certificate here.
     """
-    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgsDict']]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]]
     """
     Conditions applied to the request, such as approval or denial.
     """
@@ -532,8 +532,8 @@ class CertificateSigningRequestStatusArgsDict(TypedDict):
 @pulumi.input_type
 class CertificateSigningRequestStatusArgs:
     def __init__(__self__, *,
-                 certificate: Optional[pulumi.Input[_builtins.str]] = None,
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
+                 certificate: pulumi.Input[Optional[_builtins.str]] = None,
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None):
         """
         :param pulumi.Input[_builtins.str] certificate: If request was approved, the controller will place the issued certificate here.
         :param pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]] conditions: Conditions applied to the request, such as approval or denial.
@@ -545,26 +545,26 @@ class CertificateSigningRequestStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def certificate(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def certificate(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         If request was approved, the controller will place the issued certificate here.
         """
         return pulumi.get(self, "certificate")
 
     @certificate.setter
-    def certificate(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def certificate(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "certificate", value)
 
     @_builtins.property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]:
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]:
         """
         Conditions applied to the request, such as approval or denial.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
 
@@ -572,20 +572,20 @@ class CertificateSigningRequestArgsDict(TypedDict):
     """
     Describes a certificate signing request
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-    spec: NotRequired[pulumi.Input['CertificateSigningRequestSpecArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['CertificateSigningRequestSpecArgs']]]
     """
     The certificate request itself and any additional information.
     """
-    status: NotRequired[pulumi.Input['CertificateSigningRequestStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]]
     """
     Derived information about the request.
     """
@@ -593,11 +593,11 @@ class CertificateSigningRequestArgsDict(TypedDict):
 @pulumi.input_type
 class CertificateSigningRequestArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['CertificateSigningRequestSpecArgs']] = None,
-                 status: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['CertificateSigningRequestSpecArgs']] = None,
+                 status: pulumi.Input[Optional['CertificateSigningRequestStatusArgs']] = None):
         """
         Describes a certificate signing request
 
@@ -619,59 +619,59 @@ class CertificateSigningRequestArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['CertificateSigningRequestSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['CertificateSigningRequestSpecArgs']]:
         """
         The certificate request itself and any additional information.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['CertificateSigningRequestSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['CertificateSigningRequestSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['CertificateSigningRequestStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]:
         """
         Derived information about the request.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
@@ -679,7 +679,7 @@ class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
     """
     ClusterTrustBundleSpec contains the signer and trust anchors.
     """
-    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     signerName indicates the associated signer, if any.
 
@@ -691,7 +691,7 @@ class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
 
     List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
     """
-    trust_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    trust_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
 
@@ -703,8 +703,8 @@ class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ClusterTrustBundleSpecPatchArgs:
     def __init__(__self__, *,
-                 signer_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 trust_bundle: Optional[pulumi.Input[_builtins.str]] = None):
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 trust_bundle: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ClusterTrustBundleSpec contains the signer and trust anchors.
 
@@ -730,7 +730,7 @@ class ClusterTrustBundleSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="signerName")
-    def signer_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         signerName indicates the associated signer, if any.
 
@@ -745,12 +745,12 @@ class ClusterTrustBundleSpecPatchArgs:
         return pulumi.get(self, "signer_name")
 
     @signer_name.setter
-    def signer_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "signer_name", value)
 
     @_builtins.property
     @pulumi.getter(name="trustBundle")
-    def trust_bundle(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def trust_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
 
@@ -761,7 +761,7 @@ class ClusterTrustBundleSpecPatchArgs:
         return pulumi.get(self, "trust_bundle")
 
     @trust_bundle.setter
-    def trust_bundle(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def trust_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "trust_bundle", value)
 
 
@@ -777,7 +777,7 @@ class ClusterTrustBundleSpecArgsDict(TypedDict):
 
     Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
     """
-    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     signerName indicates the associated signer, if any.
 
@@ -794,7 +794,7 @@ class ClusterTrustBundleSpecArgsDict(TypedDict):
 class ClusterTrustBundleSpecArgs:
     def __init__(__self__, *,
                  trust_bundle: pulumi.Input[_builtins.str],
-                 signer_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ClusterTrustBundleSpec contains the signer and trust anchors.
 
@@ -835,7 +835,7 @@ class ClusterTrustBundleSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="signerName")
-    def signer_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         signerName indicates the associated signer, if any.
 
@@ -850,7 +850,7 @@ class ClusterTrustBundleSpecArgs:
         return pulumi.get(self, "signer_name")
 
     @signer_name.setter
-    def signer_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "signer_name", value)
 
 
@@ -866,15 +866,15 @@ class ClusterTrustBundleArgsDict(TypedDict):
     """
     spec contains the signer (if any) and trust anchors.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     metadata contains the object metadata.
     """
@@ -883,9 +883,9 @@ class ClusterTrustBundleArgsDict(TypedDict):
 class ClusterTrustBundleArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['ClusterTrustBundleSpecArgs'],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
         """
         ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
 
@@ -920,38 +920,38 @@ class ClusterTrustBundleArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         metadata contains the object metadata.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
 
@@ -959,7 +959,7 @@ class PodCertificateRequestSpecPatchArgsDict(TypedDict):
     """
     PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
     """
-    max_expiration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    max_expiration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     maxExpirationSeconds is the maximum lifetime permitted for the certificate.
 
@@ -967,15 +967,15 @@ class PodCertificateRequestSpecPatchArgsDict(TypedDict):
 
     The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
     """
-    node_name: NotRequired[pulumi.Input[_builtins.str]]
+    node_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     nodeName is the name of the node the pod is assigned to.
     """
-    node_uid: NotRequired[pulumi.Input[_builtins.str]]
+    node_uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     nodeUID is the UID of the node the pod is assigned to.
     """
-    pkix_public_key: NotRequired[pulumi.Input[_builtins.str]]
+    pkix_public_key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The PKIX-serialized public key the signer will issue the certificate to.
 
@@ -985,15 +985,15 @@ class PodCertificateRequestSpecPatchArgsDict(TypedDict):
 
     Deprecated: This field is replaced by StubPKCS10Request. If StubPKCS10Request is set, this field must be empty.  Signer implementations should extract the public key from the StubPKCS10Request field.
     """
-    pod_name: NotRequired[pulumi.Input[_builtins.str]]
+    pod_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     podName is the name of the pod into which the certificate will be mounted.
     """
-    pod_uid: NotRequired[pulumi.Input[_builtins.str]]
+    pod_uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     podUID is the UID of the pod into which the certificate will be mounted.
     """
-    proof_of_possession: NotRequired[pulumi.Input[_builtins.str]]
+    proof_of_possession: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     A proof that the requesting kubelet holds the private key corresponding to pkixPublicKey.
 
@@ -1009,21 +1009,21 @@ class PodCertificateRequestSpecPatchArgsDict(TypedDict):
 
     Deprecated: This field is replaced by StubPKCS10Request. If StubPKCS10Request is set, this field must be empty.
     """
-    service_account_name: NotRequired[pulumi.Input[_builtins.str]]
+    service_account_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     serviceAccountName is the name of the service account the pod is running as.
     """
-    service_account_uid: NotRequired[pulumi.Input[_builtins.str]]
+    service_account_uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     serviceAccountUID is the UID of the service account the pod is running as.
     """
-    signer_name: NotRequired[pulumi.Input[_builtins.str]]
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     signerName indicates the requested signer.
 
     All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
     """
-    stub_pkcs10_request: NotRequired[pulumi.Input[_builtins.str]]
+    stub_pkcs10_request: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     A PKCS#10 certificate signing request (DER-serialized) generated by Kubelet using the subject private key.
 
@@ -1033,7 +1033,7 @@ class PodCertificateRequestSpecPatchArgsDict(TypedDict):
 
     Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
     """
-    unverified_user_annotations: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    unverified_user_annotations: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 
@@ -1045,18 +1045,18 @@ class PodCertificateRequestSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class PodCertificateRequestSpecPatchArgs:
     def __init__(__self__, *,
-                 max_expiration_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 node_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 node_uid: Optional[pulumi.Input[_builtins.str]] = None,
-                 pkix_public_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 pod_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pod_uid: Optional[pulumi.Input[_builtins.str]] = None,
-                 proof_of_possession: Optional[pulumi.Input[_builtins.str]] = None,
-                 service_account_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 service_account_uid: Optional[pulumi.Input[_builtins.str]] = None,
-                 signer_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 stub_pkcs10_request: Optional[pulumi.Input[_builtins.str]] = None,
-                 unverified_user_annotations: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 max_expiration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 node_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 node_uid: pulumi.Input[Optional[_builtins.str]] = None,
+                 pkix_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 pod_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 pod_uid: pulumi.Input[Optional[_builtins.str]] = None,
+                 proof_of_possession: pulumi.Input[Optional[_builtins.str]] = None,
+                 service_account_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 service_account_uid: pulumi.Input[Optional[_builtins.str]] = None,
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 stub_pkcs10_request: pulumi.Input[Optional[_builtins.str]] = None,
+                 unverified_user_annotations: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
 
@@ -1134,7 +1134,7 @@ class PodCertificateRequestSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="maxExpirationSeconds")
-    def max_expiration_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def max_expiration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         maxExpirationSeconds is the maximum lifetime permitted for the certificate.
 
@@ -1145,36 +1145,36 @@ class PodCertificateRequestSpecPatchArgs:
         return pulumi.get(self, "max_expiration_seconds")
 
     @max_expiration_seconds.setter
-    def max_expiration_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def max_expiration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "max_expiration_seconds", value)
 
     @_builtins.property
     @pulumi.getter(name="nodeName")
-    def node_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def node_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         nodeName is the name of the node the pod is assigned to.
         """
         return pulumi.get(self, "node_name")
 
     @node_name.setter
-    def node_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def node_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "node_name", value)
 
     @_builtins.property
     @pulumi.getter(name="nodeUID")
-    def node_uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def node_uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         nodeUID is the UID of the node the pod is assigned to.
         """
         return pulumi.get(self, "node_uid")
 
     @node_uid.setter
-    def node_uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def node_uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "node_uid", value)
 
     @_builtins.property
     @pulumi.getter(name="pkixPublicKey")
-    def pkix_public_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pkix_public_key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The PKIX-serialized public key the signer will issue the certificate to.
 
@@ -1187,36 +1187,36 @@ class PodCertificateRequestSpecPatchArgs:
         return pulumi.get(self, "pkix_public_key")
 
     @pkix_public_key.setter
-    def pkix_public_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pkix_public_key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pkix_public_key", value)
 
     @_builtins.property
     @pulumi.getter(name="podName")
-    def pod_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pod_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         podName is the name of the pod into which the certificate will be mounted.
         """
         return pulumi.get(self, "pod_name")
 
     @pod_name.setter
-    def pod_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pod_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pod_name", value)
 
     @_builtins.property
     @pulumi.getter(name="podUID")
-    def pod_uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pod_uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         podUID is the UID of the pod into which the certificate will be mounted.
         """
         return pulumi.get(self, "pod_uid")
 
     @pod_uid.setter
-    def pod_uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pod_uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pod_uid", value)
 
     @_builtins.property
     @pulumi.getter(name="proofOfPossession")
-    def proof_of_possession(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def proof_of_possession(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A proof that the requesting kubelet holds the private key corresponding to pkixPublicKey.
 
@@ -1235,36 +1235,36 @@ class PodCertificateRequestSpecPatchArgs:
         return pulumi.get(self, "proof_of_possession")
 
     @proof_of_possession.setter
-    def proof_of_possession(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def proof_of_possession(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "proof_of_possession", value)
 
     @_builtins.property
     @pulumi.getter(name="serviceAccountName")
-    def service_account_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def service_account_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         serviceAccountName is the name of the service account the pod is running as.
         """
         return pulumi.get(self, "service_account_name")
 
     @service_account_name.setter
-    def service_account_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def service_account_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "service_account_name", value)
 
     @_builtins.property
     @pulumi.getter(name="serviceAccountUID")
-    def service_account_uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def service_account_uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         serviceAccountUID is the UID of the service account the pod is running as.
         """
         return pulumi.get(self, "service_account_uid")
 
     @service_account_uid.setter
-    def service_account_uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def service_account_uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "service_account_uid", value)
 
     @_builtins.property
     @pulumi.getter(name="signerName")
-    def signer_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         signerName indicates the requested signer.
 
@@ -1273,12 +1273,12 @@ class PodCertificateRequestSpecPatchArgs:
         return pulumi.get(self, "signer_name")
 
     @signer_name.setter
-    def signer_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "signer_name", value)
 
     @_builtins.property
     @pulumi.getter(name="stubPKCS10Request")
-    def stub_pkcs10_request(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def stub_pkcs10_request(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A PKCS#10 certificate signing request (DER-serialized) generated by Kubelet using the subject private key.
 
@@ -1291,12 +1291,12 @@ class PodCertificateRequestSpecPatchArgs:
         return pulumi.get(self, "stub_pkcs10_request")
 
     @stub_pkcs10_request.setter
-    def stub_pkcs10_request(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def stub_pkcs10_request(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "stub_pkcs10_request", value)
 
     @_builtins.property
     @pulumi.getter(name="unverifiedUserAnnotations")
-    def unverified_user_annotations(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def unverified_user_annotations(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 
@@ -1307,7 +1307,7 @@ class PodCertificateRequestSpecPatchArgs:
         return pulumi.get(self, "unverified_user_annotations")
 
     @unverified_user_annotations.setter
-    def unverified_user_annotations(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def unverified_user_annotations(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "unverified_user_annotations", value)
 
 
@@ -1355,7 +1355,7 @@ class PodCertificateRequestSpecArgsDict(TypedDict):
 
     Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
     """
-    max_expiration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    max_expiration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     maxExpirationSeconds is the maximum lifetime permitted for the certificate.
 
@@ -1363,7 +1363,7 @@ class PodCertificateRequestSpecArgsDict(TypedDict):
 
     The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
     """
-    pkix_public_key: NotRequired[pulumi.Input[_builtins.str]]
+    pkix_public_key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The PKIX-serialized public key the signer will issue the certificate to.
 
@@ -1373,7 +1373,7 @@ class PodCertificateRequestSpecArgsDict(TypedDict):
 
     Deprecated: This field is replaced by StubPKCS10Request. If StubPKCS10Request is set, this field must be empty.  Signer implementations should extract the public key from the StubPKCS10Request field.
     """
-    proof_of_possession: NotRequired[pulumi.Input[_builtins.str]]
+    proof_of_possession: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     A proof that the requesting kubelet holds the private key corresponding to pkixPublicKey.
 
@@ -1389,7 +1389,7 @@ class PodCertificateRequestSpecArgsDict(TypedDict):
 
     Deprecated: This field is replaced by StubPKCS10Request. If StubPKCS10Request is set, this field must be empty.
     """
-    unverified_user_annotations: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    unverified_user_annotations: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 
@@ -1409,10 +1409,10 @@ class PodCertificateRequestSpecArgs:
                  service_account_uid: pulumi.Input[_builtins.str],
                  signer_name: pulumi.Input[_builtins.str],
                  stub_pkcs10_request: pulumi.Input[_builtins.str],
-                 max_expiration_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 pkix_public_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 proof_of_possession: Optional[pulumi.Input[_builtins.str]] = None,
-                 unverified_user_annotations: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 max_expiration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 pkix_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 proof_of_possession: pulumi.Input[Optional[_builtins.str]] = None,
+                 unverified_user_annotations: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
 
@@ -1586,7 +1586,7 @@ class PodCertificateRequestSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="maxExpirationSeconds")
-    def max_expiration_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def max_expiration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         maxExpirationSeconds is the maximum lifetime permitted for the certificate.
 
@@ -1597,12 +1597,12 @@ class PodCertificateRequestSpecArgs:
         return pulumi.get(self, "max_expiration_seconds")
 
     @max_expiration_seconds.setter
-    def max_expiration_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def max_expiration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "max_expiration_seconds", value)
 
     @_builtins.property
     @pulumi.getter(name="pkixPublicKey")
-    def pkix_public_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pkix_public_key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The PKIX-serialized public key the signer will issue the certificate to.
 
@@ -1615,12 +1615,12 @@ class PodCertificateRequestSpecArgs:
         return pulumi.get(self, "pkix_public_key")
 
     @pkix_public_key.setter
-    def pkix_public_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pkix_public_key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pkix_public_key", value)
 
     @_builtins.property
     @pulumi.getter(name="proofOfPossession")
-    def proof_of_possession(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def proof_of_possession(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A proof that the requesting kubelet holds the private key corresponding to pkixPublicKey.
 
@@ -1639,12 +1639,12 @@ class PodCertificateRequestSpecArgs:
         return pulumi.get(self, "proof_of_possession")
 
     @proof_of_possession.setter
-    def proof_of_possession(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def proof_of_possession(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "proof_of_possession", value)
 
     @_builtins.property
     @pulumi.getter(name="unverifiedUserAnnotations")
-    def unverified_user_annotations(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def unverified_user_annotations(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 
@@ -1655,7 +1655,7 @@ class PodCertificateRequestSpecArgs:
         return pulumi.get(self, "unverified_user_annotations")
 
     @unverified_user_annotations.setter
-    def unverified_user_annotations(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def unverified_user_annotations(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "unverified_user_annotations", value)
 
 
@@ -1663,13 +1663,13 @@ class PodCertificateRequestStatusArgsDict(TypedDict):
     """
     PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
     """
-    begin_refresh_at: NotRequired[pulumi.Input[_builtins.str]]
+    begin_refresh_at: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
 
     This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
     """
-    certificate_chain: NotRequired[pulumi.Input[_builtins.str]]
+    certificate_chain: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
 
@@ -1682,7 +1682,7 @@ class PodCertificateRequestStatusArgsDict(TypedDict):
 
     If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
     """
-    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
     """
     conditions applied to the request.
 
@@ -1690,11 +1690,11 @@ class PodCertificateRequestStatusArgsDict(TypedDict):
 
     If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
     """
-    not_after: NotRequired[pulumi.Input[_builtins.str]]
+    not_after: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
     """
-    not_before: NotRequired[pulumi.Input[_builtins.str]]
+    not_before: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
     """
@@ -1702,11 +1702,11 @@ class PodCertificateRequestStatusArgsDict(TypedDict):
 @pulumi.input_type
 class PodCertificateRequestStatusArgs:
     def __init__(__self__, *,
-                 begin_refresh_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 certificate_chain: Optional[pulumi.Input[_builtins.str]] = None,
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
-                 not_after: Optional[pulumi.Input[_builtins.str]] = None,
-                 not_before: Optional[pulumi.Input[_builtins.str]] = None):
+                 begin_refresh_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 certificate_chain: pulumi.Input[Optional[_builtins.str]] = None,
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
+                 not_after: pulumi.Input[Optional[_builtins.str]] = None,
+                 not_before: pulumi.Input[Optional[_builtins.str]] = None):
         """
         PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
 
@@ -1744,7 +1744,7 @@ class PodCertificateRequestStatusArgs:
 
     @_builtins.property
     @pulumi.getter(name="beginRefreshAt")
-    def begin_refresh_at(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def begin_refresh_at(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
 
@@ -1753,12 +1753,12 @@ class PodCertificateRequestStatusArgs:
         return pulumi.get(self, "begin_refresh_at")
 
     @begin_refresh_at.setter
-    def begin_refresh_at(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def begin_refresh_at(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "begin_refresh_at", value)
 
     @_builtins.property
     @pulumi.getter(name="certificateChain")
-    def certificate_chain(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def certificate_chain(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
 
@@ -1774,12 +1774,12 @@ class PodCertificateRequestStatusArgs:
         return pulumi.get(self, "certificate_chain")
 
     @certificate_chain.setter
-    def certificate_chain(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def certificate_chain(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "certificate_chain", value)
 
     @_builtins.property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
         """
         conditions applied to the request.
 
@@ -1790,31 +1790,31 @@ class PodCertificateRequestStatusArgs:
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
     @_builtins.property
     @pulumi.getter(name="notAfter")
-    def not_after(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def not_after(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
         """
         return pulumi.get(self, "not_after")
 
     @not_after.setter
-    def not_after(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def not_after(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "not_after", value)
 
     @_builtins.property
     @pulumi.getter(name="notBefore")
-    def not_before(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def not_before(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
         """
         return pulumi.get(self, "not_before")
 
     @not_before.setter
-    def not_before(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def not_before(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "not_before", value)
 
 
@@ -1828,19 +1828,19 @@ class PodCertificateRequestArgsDict(TypedDict):
     """
     spec contains the details about the certificate being requested.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     metadata contains the object metadata.
     """
-    status: NotRequired[pulumi.Input['PodCertificateRequestStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['PodCertificateRequestStatusArgs']]]
     """
     status contains the issued certificate, and a standard set of conditions.
     """
@@ -1849,10 +1849,10 @@ class PodCertificateRequestArgsDict(TypedDict):
 class PodCertificateRequestArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['PodCertificateRequestSpecArgs'],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 status: Optional[pulumi.Input['PodCertificateRequestStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 status: pulumi.Input[Optional['PodCertificateRequestStatusArgs']] = None):
         """
         PodCertificateRequest encodes a pod requesting a certificate from a given signer.
 
@@ -1888,50 +1888,50 @@ class PodCertificateRequestArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         metadata contains the object metadata.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['PodCertificateRequestStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['PodCertificateRequestStatusArgs']]:
         """
         status contains the issued certificate, and a standard set of conditions.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['PodCertificateRequestStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['PodCertificateRequestStatusArgs']]):
         pulumi.set(self, "status", value)
 
 

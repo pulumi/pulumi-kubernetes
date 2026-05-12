@@ -48,11 +48,11 @@ class AuditSinkSpecPatchArgsDict(TypedDict):
     """
     AuditSinkSpec holds the spec for the audit sink
     """
-    policy: NotRequired[pulumi.Input['PolicyPatchArgsDict']]
+    policy: NotRequired[pulumi.Input[Optional['PolicyPatchArgs']]]
     """
     Policy defines the policy for selecting which events should be sent to the webhook required
     """
-    webhook: NotRequired[pulumi.Input['WebhookPatchArgsDict']]
+    webhook: NotRequired[pulumi.Input[Optional['WebhookPatchArgs']]]
     """
     Webhook to send events required
     """
@@ -60,8 +60,8 @@ class AuditSinkSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class AuditSinkSpecPatchArgs:
     def __init__(__self__, *,
-                 policy: Optional[pulumi.Input['PolicyPatchArgs']] = None,
-                 webhook: Optional[pulumi.Input['WebhookPatchArgs']] = None):
+                 policy: pulumi.Input[Optional['PolicyPatchArgs']] = None,
+                 webhook: pulumi.Input[Optional['WebhookPatchArgs']] = None):
         """
         AuditSinkSpec holds the spec for the audit sink
 
@@ -75,26 +75,26 @@ class AuditSinkSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def policy(self) -> Optional[pulumi.Input['PolicyPatchArgs']]:
+    def policy(self) -> pulumi.Input[Optional['PolicyPatchArgs']]:
         """
         Policy defines the policy for selecting which events should be sent to the webhook required
         """
         return pulumi.get(self, "policy")
 
     @policy.setter
-    def policy(self, value: Optional[pulumi.Input['PolicyPatchArgs']]):
+    def policy(self, value: pulumi.Input[Optional['PolicyPatchArgs']]):
         pulumi.set(self, "policy", value)
 
     @_builtins.property
     @pulumi.getter
-    def webhook(self) -> Optional[pulumi.Input['WebhookPatchArgs']]:
+    def webhook(self) -> pulumi.Input[Optional['WebhookPatchArgs']]:
         """
         Webhook to send events required
         """
         return pulumi.get(self, "webhook")
 
     @webhook.setter
-    def webhook(self, value: Optional[pulumi.Input['WebhookPatchArgs']]):
+    def webhook(self, value: pulumi.Input[Optional['WebhookPatchArgs']]):
         pulumi.set(self, "webhook", value)
 
 
@@ -154,16 +154,16 @@ class AuditSinkArgsDict(TypedDict):
     """
     AuditSink represents a cluster level audit sink
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
-    spec: NotRequired[pulumi.Input['AuditSinkSpecArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['AuditSinkSpecArgs']]]
     """
     Spec defines the audit configuration spec
     """
@@ -171,10 +171,10 @@ class AuditSinkArgsDict(TypedDict):
 @pulumi.input_type
 class AuditSinkArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['AuditSinkSpecArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['AuditSinkSpecArgs']] = None):
         """
         AuditSink represents a cluster level audit sink
 
@@ -193,47 +193,47 @@ class AuditSinkArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['AuditSinkSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['AuditSinkSpecArgs']]:
         """
         Spec defines the audit configuration spec
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['AuditSinkSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['AuditSinkSpecArgs']]):
         pulumi.set(self, "spec", value)
 
 
@@ -241,11 +241,11 @@ class PolicyPatchArgsDict(TypedDict):
     """
     Policy defines the configuration of how audit events are logged
     """
-    level: NotRequired[pulumi.Input[_builtins.str]]
+    level: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
     """
-    stages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    stages: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     Stages is a list of stages for which events are created.
     """
@@ -253,8 +253,8 @@ class PolicyPatchArgsDict(TypedDict):
 @pulumi.input_type
 class PolicyPatchArgs:
     def __init__(__self__, *,
-                 level: Optional[pulumi.Input[_builtins.str]] = None,
-                 stages: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 level: pulumi.Input[Optional[_builtins.str]] = None,
+                 stages: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         Policy defines the configuration of how audit events are logged
 
@@ -268,26 +268,26 @@ class PolicyPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def level(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def level(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
         """
         return pulumi.get(self, "level")
 
     @level.setter
-    def level(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def level(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "level", value)
 
     @_builtins.property
     @pulumi.getter
-    def stages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def stages(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Stages is a list of stages for which events are created.
         """
         return pulumi.get(self, "stages")
 
     @stages.setter
-    def stages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def stages(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "stages", value)
 
 
@@ -299,7 +299,7 @@ class PolicyArgsDict(TypedDict):
     """
     The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
     """
-    stages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    stages: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     Stages is a list of stages for which events are created.
     """
@@ -308,7 +308,7 @@ class PolicyArgsDict(TypedDict):
 class PolicyArgs:
     def __init__(__self__, *,
                  level: pulumi.Input[_builtins.str],
-                 stages: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 stages: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         Policy defines the configuration of how audit events are logged
 
@@ -333,14 +333,14 @@ class PolicyArgs:
 
     @_builtins.property
     @pulumi.getter
-    def stages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def stages(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Stages is a list of stages for which events are created.
         """
         return pulumi.get(self, "stages")
 
     @stages.setter
-    def stages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def stages(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "stages", value)
 
 
@@ -348,19 +348,19 @@ class ServiceReferencePatchArgsDict(TypedDict):
     """
     ServiceReference holds a reference to Service.legacy.k8s.io
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `name` is the name of the service. Required
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `namespace` is the namespace of the service. Required
     """
-    path: NotRequired[pulumi.Input[_builtins.str]]
+    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `path` is an optional URL path which will be sent in any request to this service.
     """
-    port: NotRequired[pulumi.Input[_builtins.int]]
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
     """
@@ -368,10 +368,10 @@ class ServiceReferencePatchArgsDict(TypedDict):
 @pulumi.input_type
 class ServiceReferencePatchArgs:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 path: Optional[pulumi.Input[_builtins.str]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
 
@@ -391,50 +391,50 @@ class ServiceReferencePatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         `name` is the name of the service. Required
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         `namespace` is the namespace of the service. Required
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter
-    def path(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         `path` is an optional URL path which will be sent in any request to this service.
         """
         return pulumi.get(self, "path")
 
     @path.setter
-    def path(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "path", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "port", value)
 
 
@@ -450,11 +450,11 @@ class ServiceReferenceArgsDict(TypedDict):
     """
     `namespace` is the namespace of the service. Required
     """
-    path: NotRequired[pulumi.Input[_builtins.str]]
+    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `path` is an optional URL path which will be sent in any request to this service.
     """
-    port: NotRequired[pulumi.Input[_builtins.int]]
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
     """
@@ -464,8 +464,8 @@ class ServiceReferenceArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[_builtins.str],
                  namespace: pulumi.Input[_builtins.str],
-                 path: Optional[pulumi.Input[_builtins.str]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None):
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None):
         """
         ServiceReference holds a reference to Service.legacy.k8s.io
 
@@ -507,26 +507,26 @@ class ServiceReferenceArgs:
 
     @_builtins.property
     @pulumi.getter
-    def path(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         `path` is an optional URL path which will be sent in any request to this service.
         """
         return pulumi.get(self, "path")
 
     @path.setter
-    def path(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "path", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "port", value)
 
 
@@ -534,17 +534,17 @@ class WebhookClientConfigPatchArgsDict(TypedDict):
     """
     WebhookClientConfig contains the information to make a connection with the webhook
     """
-    ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    ca_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
     """
-    service: NotRequired[pulumi.Input['ServiceReferencePatchArgsDict']]
+    service: NotRequired[pulumi.Input[Optional['ServiceReferencePatchArgs']]]
     """
     `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 
     If the webhook is running within the cluster, then you should use `service`.
     """
-    url: NotRequired[pulumi.Input[_builtins.str]]
+    url: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
 
@@ -562,9 +562,9 @@ class WebhookClientConfigPatchArgsDict(TypedDict):
 @pulumi.input_type
 class WebhookClientConfigPatchArgs:
     def __init__(__self__, *,
-                 ca_bundle: Optional[pulumi.Input[_builtins.str]] = None,
-                 service: Optional[pulumi.Input['ServiceReferencePatchArgs']] = None,
-                 url: Optional[pulumi.Input[_builtins.str]] = None):
+                 ca_bundle: pulumi.Input[Optional[_builtins.str]] = None,
+                 service: pulumi.Input[Optional['ServiceReferencePatchArgs']] = None,
+                 url: pulumi.Input[Optional[_builtins.str]] = None):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
 
@@ -593,19 +593,19 @@ class WebhookClientConfigPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="caBundle")
-    def ca_bundle(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ca_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         """
         return pulumi.get(self, "ca_bundle")
 
     @ca_bundle.setter
-    def ca_bundle(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ca_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ca_bundle", value)
 
     @_builtins.property
     @pulumi.getter
-    def service(self) -> Optional[pulumi.Input['ServiceReferencePatchArgs']]:
+    def service(self) -> pulumi.Input[Optional['ServiceReferencePatchArgs']]:
         """
         `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 
@@ -614,12 +614,12 @@ class WebhookClientConfigPatchArgs:
         return pulumi.get(self, "service")
 
     @service.setter
-    def service(self, value: Optional[pulumi.Input['ServiceReferencePatchArgs']]):
+    def service(self, value: pulumi.Input[Optional['ServiceReferencePatchArgs']]):
         pulumi.set(self, "service", value)
 
     @_builtins.property
     @pulumi.getter
-    def url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
 
@@ -636,7 +636,7 @@ class WebhookClientConfigPatchArgs:
         return pulumi.get(self, "url")
 
     @url.setter
-    def url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "url", value)
 
 
@@ -644,17 +644,17 @@ class WebhookClientConfigArgsDict(TypedDict):
     """
     WebhookClientConfig contains the information to make a connection with the webhook
     """
-    ca_bundle: NotRequired[pulumi.Input[_builtins.str]]
+    ca_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
     """
-    service: NotRequired[pulumi.Input['ServiceReferenceArgsDict']]
+    service: NotRequired[pulumi.Input[Optional['ServiceReferenceArgs']]]
     """
     `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 
     If the webhook is running within the cluster, then you should use `service`.
     """
-    url: NotRequired[pulumi.Input[_builtins.str]]
+    url: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
 
@@ -672,9 +672,9 @@ class WebhookClientConfigArgsDict(TypedDict):
 @pulumi.input_type
 class WebhookClientConfigArgs:
     def __init__(__self__, *,
-                 ca_bundle: Optional[pulumi.Input[_builtins.str]] = None,
-                 service: Optional[pulumi.Input['ServiceReferenceArgs']] = None,
-                 url: Optional[pulumi.Input[_builtins.str]] = None):
+                 ca_bundle: pulumi.Input[Optional[_builtins.str]] = None,
+                 service: pulumi.Input[Optional['ServiceReferenceArgs']] = None,
+                 url: pulumi.Input[Optional[_builtins.str]] = None):
         """
         WebhookClientConfig contains the information to make a connection with the webhook
 
@@ -703,19 +703,19 @@ class WebhookClientConfigArgs:
 
     @_builtins.property
     @pulumi.getter(name="caBundle")
-    def ca_bundle(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ca_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
         """
         return pulumi.get(self, "ca_bundle")
 
     @ca_bundle.setter
-    def ca_bundle(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ca_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ca_bundle", value)
 
     @_builtins.property
     @pulumi.getter
-    def service(self) -> Optional[pulumi.Input['ServiceReferenceArgs']]:
+    def service(self) -> pulumi.Input[Optional['ServiceReferenceArgs']]:
         """
         `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 
@@ -724,12 +724,12 @@ class WebhookClientConfigArgs:
         return pulumi.get(self, "service")
 
     @service.setter
-    def service(self, value: Optional[pulumi.Input['ServiceReferenceArgs']]):
+    def service(self, value: pulumi.Input[Optional['ServiceReferenceArgs']]):
         pulumi.set(self, "service", value)
 
     @_builtins.property
     @pulumi.getter
-    def url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
 
@@ -746,7 +746,7 @@ class WebhookClientConfigArgs:
         return pulumi.get(self, "url")
 
     @url.setter
-    def url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "url", value)
 
 
@@ -754,11 +754,11 @@ class WebhookPatchArgsDict(TypedDict):
     """
     Webhook holds the configuration of the webhook
     """
-    client_config: NotRequired[pulumi.Input['WebhookClientConfigPatchArgsDict']]
+    client_config: NotRequired[pulumi.Input[Optional['WebhookClientConfigPatchArgs']]]
     """
     ClientConfig holds the connection parameters for the webhook required
     """
-    throttle: NotRequired[pulumi.Input['WebhookThrottleConfigPatchArgsDict']]
+    throttle: NotRequired[pulumi.Input[Optional['WebhookThrottleConfigPatchArgs']]]
     """
     Throttle holds the options for throttling the webhook
     """
@@ -766,8 +766,8 @@ class WebhookPatchArgsDict(TypedDict):
 @pulumi.input_type
 class WebhookPatchArgs:
     def __init__(__self__, *,
-                 client_config: Optional[pulumi.Input['WebhookClientConfigPatchArgs']] = None,
-                 throttle: Optional[pulumi.Input['WebhookThrottleConfigPatchArgs']] = None):
+                 client_config: pulumi.Input[Optional['WebhookClientConfigPatchArgs']] = None,
+                 throttle: pulumi.Input[Optional['WebhookThrottleConfigPatchArgs']] = None):
         """
         Webhook holds the configuration of the webhook
 
@@ -781,26 +781,26 @@ class WebhookPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="clientConfig")
-    def client_config(self) -> Optional[pulumi.Input['WebhookClientConfigPatchArgs']]:
+    def client_config(self) -> pulumi.Input[Optional['WebhookClientConfigPatchArgs']]:
         """
         ClientConfig holds the connection parameters for the webhook required
         """
         return pulumi.get(self, "client_config")
 
     @client_config.setter
-    def client_config(self, value: Optional[pulumi.Input['WebhookClientConfigPatchArgs']]):
+    def client_config(self, value: pulumi.Input[Optional['WebhookClientConfigPatchArgs']]):
         pulumi.set(self, "client_config", value)
 
     @_builtins.property
     @pulumi.getter
-    def throttle(self) -> Optional[pulumi.Input['WebhookThrottleConfigPatchArgs']]:
+    def throttle(self) -> pulumi.Input[Optional['WebhookThrottleConfigPatchArgs']]:
         """
         Throttle holds the options for throttling the webhook
         """
         return pulumi.get(self, "throttle")
 
     @throttle.setter
-    def throttle(self, value: Optional[pulumi.Input['WebhookThrottleConfigPatchArgs']]):
+    def throttle(self, value: pulumi.Input[Optional['WebhookThrottleConfigPatchArgs']]):
         pulumi.set(self, "throttle", value)
 
 
@@ -808,11 +808,11 @@ class WebhookThrottleConfigPatchArgsDict(TypedDict):
     """
     WebhookThrottleConfig holds the configuration for throttling events
     """
-    burst: NotRequired[pulumi.Input[_builtins.int]]
+    burst: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
     """
-    qps: NotRequired[pulumi.Input[_builtins.int]]
+    qps: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     ThrottleQPS maximum number of batches per second default 10 QPS
     """
@@ -820,8 +820,8 @@ class WebhookThrottleConfigPatchArgsDict(TypedDict):
 @pulumi.input_type
 class WebhookThrottleConfigPatchArgs:
     def __init__(__self__, *,
-                 burst: Optional[pulumi.Input[_builtins.int]] = None,
-                 qps: Optional[pulumi.Input[_builtins.int]] = None):
+                 burst: pulumi.Input[Optional[_builtins.int]] = None,
+                 qps: pulumi.Input[Optional[_builtins.int]] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
 
@@ -835,26 +835,26 @@ class WebhookThrottleConfigPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def burst(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def burst(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         """
         return pulumi.get(self, "burst")
 
     @burst.setter
-    def burst(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def burst(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "burst", value)
 
     @_builtins.property
     @pulumi.getter
-    def qps(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def qps(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         ThrottleQPS maximum number of batches per second default 10 QPS
         """
         return pulumi.get(self, "qps")
 
     @qps.setter
-    def qps(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def qps(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "qps", value)
 
 
@@ -862,11 +862,11 @@ class WebhookThrottleConfigArgsDict(TypedDict):
     """
     WebhookThrottleConfig holds the configuration for throttling events
     """
-    burst: NotRequired[pulumi.Input[_builtins.int]]
+    burst: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
     """
-    qps: NotRequired[pulumi.Input[_builtins.int]]
+    qps: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     ThrottleQPS maximum number of batches per second default 10 QPS
     """
@@ -874,8 +874,8 @@ class WebhookThrottleConfigArgsDict(TypedDict):
 @pulumi.input_type
 class WebhookThrottleConfigArgs:
     def __init__(__self__, *,
-                 burst: Optional[pulumi.Input[_builtins.int]] = None,
-                 qps: Optional[pulumi.Input[_builtins.int]] = None):
+                 burst: pulumi.Input[Optional[_builtins.int]] = None,
+                 qps: pulumi.Input[Optional[_builtins.int]] = None):
         """
         WebhookThrottleConfig holds the configuration for throttling events
 
@@ -889,26 +889,26 @@ class WebhookThrottleConfigArgs:
 
     @_builtins.property
     @pulumi.getter
-    def burst(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def burst(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         """
         return pulumi.get(self, "burst")
 
     @burst.setter
-    def burst(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def burst(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "burst", value)
 
     @_builtins.property
     @pulumi.getter
-    def qps(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def qps(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         ThrottleQPS maximum number of batches per second default 10 QPS
         """
         return pulumi.get(self, "qps")
 
     @qps.setter
-    def qps(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def qps(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "qps", value)
 
 
@@ -920,7 +920,7 @@ class WebhookArgsDict(TypedDict):
     """
     ClientConfig holds the connection parameters for the webhook required
     """
-    throttle: NotRequired[pulumi.Input['WebhookThrottleConfigArgsDict']]
+    throttle: NotRequired[pulumi.Input[Optional['WebhookThrottleConfigArgs']]]
     """
     Throttle holds the options for throttling the webhook
     """
@@ -929,7 +929,7 @@ class WebhookArgsDict(TypedDict):
 class WebhookArgs:
     def __init__(__self__, *,
                  client_config: pulumi.Input['WebhookClientConfigArgs'],
-                 throttle: Optional[pulumi.Input['WebhookThrottleConfigArgs']] = None):
+                 throttle: pulumi.Input[Optional['WebhookThrottleConfigArgs']] = None):
         """
         Webhook holds the configuration of the webhook
 
@@ -954,14 +954,14 @@ class WebhookArgs:
 
     @_builtins.property
     @pulumi.getter
-    def throttle(self) -> Optional[pulumi.Input['WebhookThrottleConfigArgs']]:
+    def throttle(self) -> pulumi.Input[Optional['WebhookThrottleConfigArgs']]:
         """
         Throttle holds the options for throttling the webhook
         """
         return pulumi.get(self, "throttle")
 
     @throttle.setter
-    def throttle(self, value: Optional[pulumi.Input['WebhookThrottleConfigArgs']]):
+    def throttle(self, value: pulumi.Input[Optional['WebhookThrottleConfigArgs']]):
         pulumi.set(self, "throttle", value)
 
 

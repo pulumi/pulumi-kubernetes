@@ -25,23 +25,23 @@ class HelmReleaseSettingsArgsDict(TypedDict):
     """
     Options to configure the Helm Release resource.
     """
-    driver: NotRequired[pulumi.Input[_builtins.str]]
+    driver: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
     """
-    plugins_path: NotRequired[pulumi.Input[_builtins.str]]
+    plugins_path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The path to the helm plugins directory.
     """
-    registry_config_path: NotRequired[pulumi.Input[_builtins.str]]
+    registry_config_path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The path to the registry config file.
     """
-    repository_cache: NotRequired[pulumi.Input[_builtins.str]]
+    repository_cache: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The path to the directory containing cached repository indexes.
     """
-    repository_config_path: NotRequired[pulumi.Input[_builtins.str]]
+    repository_config_path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The path to the file containing repository names and URLs.
     """
@@ -49,11 +49,11 @@ class HelmReleaseSettingsArgsDict(TypedDict):
 @pulumi.input_type
 class HelmReleaseSettingsArgs:
     def __init__(__self__, *,
-                 driver: Optional[pulumi.Input[_builtins.str]] = None,
-                 plugins_path: Optional[pulumi.Input[_builtins.str]] = None,
-                 registry_config_path: Optional[pulumi.Input[_builtins.str]] = None,
-                 repository_cache: Optional[pulumi.Input[_builtins.str]] = None,
-                 repository_config_path: Optional[pulumi.Input[_builtins.str]] = None):
+                 driver: pulumi.Input[Optional[_builtins.str]] = None,
+                 plugins_path: pulumi.Input[Optional[_builtins.str]] = None,
+                 registry_config_path: pulumi.Input[Optional[_builtins.str]] = None,
+                 repository_cache: pulumi.Input[Optional[_builtins.str]] = None,
+                 repository_config_path: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Options to configure the Helm Release resource.
 
@@ -86,62 +86,62 @@ class HelmReleaseSettingsArgs:
 
     @_builtins.property
     @pulumi.getter
-    def driver(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def driver(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
         """
         return pulumi.get(self, "driver")
 
     @driver.setter
-    def driver(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def driver(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "driver", value)
 
     @_builtins.property
     @pulumi.getter(name="pluginsPath")
-    def plugins_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def plugins_path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The path to the helm plugins directory.
         """
         return pulumi.get(self, "plugins_path")
 
     @plugins_path.setter
-    def plugins_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def plugins_path(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "plugins_path", value)
 
     @_builtins.property
     @pulumi.getter(name="registryConfigPath")
-    def registry_config_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def registry_config_path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The path to the registry config file.
         """
         return pulumi.get(self, "registry_config_path")
 
     @registry_config_path.setter
-    def registry_config_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def registry_config_path(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "registry_config_path", value)
 
     @_builtins.property
     @pulumi.getter(name="repositoryCache")
-    def repository_cache(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def repository_cache(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The path to the directory containing cached repository indexes.
         """
         return pulumi.get(self, "repository_cache")
 
     @repository_cache.setter
-    def repository_cache(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def repository_cache(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "repository_cache", value)
 
     @_builtins.property
     @pulumi.getter(name="repositoryConfigPath")
-    def repository_config_path(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def repository_config_path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The path to the file containing repository names and URLs.
         """
         return pulumi.get(self, "repository_config_path")
 
     @repository_config_path.setter
-    def repository_config_path(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def repository_config_path(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "repository_config_path", value)
 
 
@@ -149,15 +149,15 @@ class KubeClientSettingsArgsDict(TypedDict):
     """
     Options for tuning the Kubernetes client used by a Provider.
     """
-    burst: NotRequired[pulumi.Input[_builtins.int]]
+    burst: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     Maximum burst for throttle. Default value is 120.
     """
-    qps: NotRequired[pulumi.Input[_builtins.float]]
+    qps: NotRequired[pulumi.Input[Optional[_builtins.float]]]
     """
     Maximum queries per second (QPS) to the API server from this client. Default value is 50.
     """
-    timeout: NotRequired[pulumi.Input[_builtins.int]]
+    timeout: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
     """
@@ -165,9 +165,9 @@ class KubeClientSettingsArgsDict(TypedDict):
 @pulumi.input_type
 class KubeClientSettingsArgs:
     def __init__(__self__, *,
-                 burst: Optional[pulumi.Input[_builtins.int]] = None,
-                 qps: Optional[pulumi.Input[_builtins.float]] = None,
-                 timeout: Optional[pulumi.Input[_builtins.int]] = None):
+                 burst: pulumi.Input[Optional[_builtins.int]] = None,
+                 qps: pulumi.Input[Optional[_builtins.float]] = None,
+                 timeout: pulumi.Input[Optional[_builtins.int]] = None):
         """
         Options for tuning the Kubernetes client used by a Provider.
 
@@ -190,38 +190,38 @@ class KubeClientSettingsArgs:
 
     @_builtins.property
     @pulumi.getter
-    def burst(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def burst(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Maximum burst for throttle. Default value is 120.
         """
         return pulumi.get(self, "burst")
 
     @burst.setter
-    def burst(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def burst(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "burst", value)
 
     @_builtins.property
     @pulumi.getter
-    def qps(self) -> Optional[pulumi.Input[_builtins.float]]:
+    def qps(self) -> pulumi.Input[Optional[_builtins.float]]:
         """
         Maximum queries per second (QPS) to the API server from this client. Default value is 50.
         """
         return pulumi.get(self, "qps")
 
     @qps.setter
-    def qps(self, value: Optional[pulumi.Input[_builtins.float]]):
+    def qps(self, value: pulumi.Input[Optional[_builtins.float]]):
         pulumi.set(self, "qps", value)
 
     @_builtins.property
     @pulumi.getter
-    def timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
         """
         return pulumi.get(self, "timeout")
 
     @timeout.setter
-    def timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "timeout", value)
 
 

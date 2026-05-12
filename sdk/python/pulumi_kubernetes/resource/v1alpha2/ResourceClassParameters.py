@@ -22,12 +22,12 @@ __all__ = ['ResourceClassParametersInitArgs', 'ResourceClassParameters']
 @pulumi.input_type
 class ResourceClassParametersInitArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 filters: Optional[pulumi.Input[Sequence[pulumi.Input['ResourceFilterArgs']]]] = None,
-                 generated_from: Optional[pulumi.Input['ResourceClassParametersReferenceArgs']] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 vendor_parameters: Optional[pulumi.Input[Sequence[pulumi.Input['VendorParametersArgs']]]] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 filters: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceFilterArgs']]]] = None,
+                 generated_from: pulumi.Input[Optional['ResourceClassParametersReferenceArgs']] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 vendor_parameters: pulumi.Input[Optional[Sequence[pulumi.Input['VendorParametersArgs']]]] = None):
         """
         The set of arguments for constructing a ResourceClassParameters resource.
 
@@ -53,74 +53,74 @@ class ResourceClassParametersInitArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def filters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ResourceFilterArgs']]]]:
+    def filters(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ResourceFilterArgs']]]]:
         """
         Filters describes additional contraints that must be met when using the class.
         """
         return pulumi.get(self, "filters")
 
     @filters.setter
-    def filters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ResourceFilterArgs']]]]):
+    def filters(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceFilterArgs']]]]):
         pulumi.set(self, "filters", value)
 
     @_builtins.property
     @pulumi.getter(name="generatedFrom")
-    def generated_from(self) -> Optional[pulumi.Input['ResourceClassParametersReferenceArgs']]:
+    def generated_from(self) -> pulumi.Input[Optional['ResourceClassParametersReferenceArgs']]:
         """
         If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
         """
         return pulumi.get(self, "generated_from")
 
     @generated_from.setter
-    def generated_from(self, value: Optional[pulumi.Input['ResourceClassParametersReferenceArgs']]):
+    def generated_from(self, value: pulumi.Input[Optional['ResourceClassParametersReferenceArgs']]):
         pulumi.set(self, "generated_from", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter(name="vendorParameters")
-    def vendor_parameters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VendorParametersArgs']]]]:
+    def vendor_parameters(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['VendorParametersArgs']]]]:
         """
         VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
         """
         return pulumi.get(self, "vendor_parameters")
 
     @vendor_parameters.setter
-    def vendor_parameters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VendorParametersArgs']]]]):
+    def vendor_parameters(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['VendorParametersArgs']]]]):
         pulumi.set(self, "vendor_parameters", value)
 
 
@@ -130,12 +130,12 @@ class ResourceClassParameters(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 filters: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict']]]]] = None,
-                 generated_from: Optional[pulumi.Input[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 vendor_parameters: Optional[pulumi.Input[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict']]]]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 filters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict']]]]] = None,
+                 generated_from: pulumi.Input[Optional[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 vendor_parameters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict']]]]] = None,
                  __props__=None):
         """
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
@@ -175,12 +175,12 @@ class ResourceClassParameters(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 filters: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict']]]]] = None,
-                 generated_from: Optional[pulumi.Input[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 vendor_parameters: Optional[pulumi.Input[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict']]]]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 filters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict']]]]] = None,
+                 generated_from: pulumi.Input[Optional[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 vendor_parameters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

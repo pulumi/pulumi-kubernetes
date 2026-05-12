@@ -109,27 +109,27 @@ export interface ResourceSlicePatchArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2">;
+    apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha2" | undefined>;
     /**
      * DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
      */
-    driverName?: pulumi.Input<string>;
+    driverName?: pulumi.Input<string | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"ResourceSlice">;
+    kind?: pulumi.Input<"ResourceSlice" | undefined>;
     /**
      * Standard object metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
      * NamedResources describes available resources using the named resources model.
      */
-    namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesResourcesPatch>;
+    namedResources?: pulumi.Input<inputs.resource.v1alpha2.NamedResourcesResourcesPatch | undefined>;
     /**
      * NodeName identifies the node which provides the resources if they are local to a node.
      *
      * A field selector can be used to list only ResourceSlice objects with a certain node name.
      */
-    nodeName?: pulumi.Input<string>;
+    nodeName?: pulumi.Input<string | undefined>;
 }

@@ -96,7 +96,7 @@ class ApplyConfigurationPatchArgsDict(TypedDict):
     """
     ApplyConfiguration defines the desired configuration values of an object.
     """
-    expression: NotRequired[pulumi.Input[_builtins.str]]
+    expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
 
@@ -131,7 +131,7 @@ class ApplyConfigurationPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ApplyConfigurationPatchArgs:
     def __init__(__self__, *,
-                 expression: Optional[pulumi.Input[_builtins.str]] = None):
+                 expression: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ApplyConfiguration defines the desired configuration values of an object.
 
@@ -169,7 +169,7 @@ class ApplyConfigurationPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
 
@@ -203,7 +203,7 @@ class ApplyConfigurationPatchArgs:
         return pulumi.get(self, "expression")
 
     @expression.setter
-    def expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "expression", value)
 
 
@@ -211,7 +211,7 @@ class ApplyConfigurationArgsDict(TypedDict):
     """
     ApplyConfiguration defines the desired configuration values of an object.
     """
-    expression: NotRequired[pulumi.Input[_builtins.str]]
+    expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
 
@@ -246,7 +246,7 @@ class ApplyConfigurationArgsDict(TypedDict):
 @pulumi.input_type
 class ApplyConfigurationArgs:
     def __init__(__self__, *,
-                 expression: Optional[pulumi.Input[_builtins.str]] = None):
+                 expression: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ApplyConfiguration defines the desired configuration values of an object.
 
@@ -284,7 +284,7 @@ class ApplyConfigurationArgs:
 
     @_builtins.property
     @pulumi.getter
-    def expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         expression will be evaluated by CEL to create an apply configuration. ref: https://github.com/google/cel-spec
 
@@ -318,7 +318,7 @@ class ApplyConfigurationArgs:
         return pulumi.get(self, "expression")
 
     @expression.setter
-    def expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "expression", value)
 
 
@@ -326,7 +326,7 @@ class AuditAnnotationPatchArgsDict(TypedDict):
     """
     AuditAnnotation describes how to produce an audit annotation for an API request.
     """
-    key: NotRequired[pulumi.Input[_builtins.str]]
+    key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
 
@@ -336,7 +336,7 @@ class AuditAnnotationPatchArgsDict(TypedDict):
 
     Required.
     """
-    value_expression: NotRequired[pulumi.Input[_builtins.str]]
+    value_expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
 
@@ -348,8 +348,8 @@ class AuditAnnotationPatchArgsDict(TypedDict):
 @pulumi.input_type
 class AuditAnnotationPatchArgs:
     def __init__(__self__, *,
-                 key: Optional[pulumi.Input[_builtins.str]] = None,
-                 value_expression: Optional[pulumi.Input[_builtins.str]] = None):
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 value_expression: pulumi.Input[Optional[_builtins.str]] = None):
         """
         AuditAnnotation describes how to produce an audit annotation for an API request.
 
@@ -373,7 +373,7 @@ class AuditAnnotationPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
 
@@ -386,12 +386,12 @@ class AuditAnnotationPatchArgs:
         return pulumi.get(self, "key")
 
     @key.setter
-    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "key", value)
 
     @_builtins.property
     @pulumi.getter(name="valueExpression")
-    def value_expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def value_expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
 
@@ -402,7 +402,7 @@ class AuditAnnotationPatchArgs:
         return pulumi.get(self, "value_expression")
 
     @value_expression.setter
-    def value_expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def value_expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "value_expression", value)
 
 
@@ -544,7 +544,7 @@ class JSONPatchPatchArgsDict(TypedDict):
     """
     JSONPatch defines a JSON Patch.
     """
-    expression: NotRequired[pulumi.Input[_builtins.str]]
+    expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
 
@@ -605,7 +605,7 @@ class JSONPatchPatchArgsDict(TypedDict):
 @pulumi.input_type
 class JSONPatchPatchArgs:
     def __init__(__self__, *,
-                 expression: Optional[pulumi.Input[_builtins.str]] = None):
+                 expression: pulumi.Input[Optional[_builtins.str]] = None):
         """
         JSONPatch defines a JSON Patch.
 
@@ -669,7 +669,7 @@ class JSONPatchPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
 
@@ -729,7 +729,7 @@ class JSONPatchPatchArgs:
         return pulumi.get(self, "expression")
 
     @expression.setter
-    def expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "expression", value)
 
 
@@ -737,7 +737,7 @@ class JSONPatchArgsDict(TypedDict):
     """
     JSONPatch defines a JSON Patch.
     """
-    expression: NotRequired[pulumi.Input[_builtins.str]]
+    expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
 
@@ -798,7 +798,7 @@ class JSONPatchArgsDict(TypedDict):
 @pulumi.input_type
 class JSONPatchArgs:
     def __init__(__self__, *,
-                 expression: Optional[pulumi.Input[_builtins.str]] = None):
+                 expression: pulumi.Input[Optional[_builtins.str]] = None):
         """
         JSONPatch defines a JSON Patch.
 
@@ -862,7 +862,7 @@ class JSONPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         expression will be evaluated by CEL to create a [JSON patch](https://jsonpatch.com/). ref: https://github.com/google/cel-spec
 
@@ -922,12 +922,12 @@ class JSONPatchArgs:
         return pulumi.get(self, "expression")
 
     @expression.setter
-    def expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "expression", value)
 
 
 class MatchConditionPatchArgsDict(TypedDict):
-    expression: NotRequired[pulumi.Input[_builtins.str]]
+    expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 
@@ -939,7 +939,7 @@ class MatchConditionPatchArgsDict(TypedDict):
 
     Required.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 
@@ -949,8 +949,8 @@ class MatchConditionPatchArgsDict(TypedDict):
 @pulumi.input_type
 class MatchConditionPatchArgs:
     def __init__(__self__, *,
-                 expression: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 expression: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] expression: expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
                
@@ -972,7 +972,7 @@ class MatchConditionPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
 
@@ -987,12 +987,12 @@ class MatchConditionPatchArgs:
         return pulumi.get(self, "expression")
 
     @expression.setter
-    def expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "expression", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
 
@@ -1001,7 +1001,7 @@ class MatchConditionPatchArgs:
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
 
@@ -1086,11 +1086,11 @@ class MatchResourcesPatchArgsDict(TypedDict):
     """
     MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
-    exclude_resource_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgsDict']]]]
+    exclude_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]]
     """
     excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
-    match_policy: NotRequired[pulumi.Input[_builtins.str]]
+    match_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 
@@ -1100,7 +1100,7 @@ class MatchResourcesPatchArgsDict(TypedDict):
 
     Defaults to "Equivalent"
     """
-    namespace_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
     """
     namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
@@ -1134,11 +1134,11 @@ class MatchResourcesPatchArgsDict(TypedDict):
 
     Default to the empty LabelSelector, which matches everything.
     """
-    object_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    object_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
     """
     objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
     """
-    resource_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgsDict']]]]
+    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]]
     """
     resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
     """
@@ -1146,11 +1146,11 @@ class MatchResourcesPatchArgsDict(TypedDict):
 @pulumi.input_type
 class MatchResourcesPatchArgs:
     def __init__(__self__, *,
-                 exclude_resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]] = None,
-                 match_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-                 object_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-                 resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]] = None):
+                 exclude_resource_rules: pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]] = None,
+                 match_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace_selector: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']] = None,
+                 object_selector: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']] = None,
+                 resource_rules: pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]] = None):
         """
         MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
@@ -1209,19 +1209,19 @@ class MatchResourcesPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="excludeResourceRules")
-    def exclude_resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]:
+    def exclude_resource_rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]:
         """
         excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
         """
         return pulumi.get(self, "exclude_resource_rules")
 
     @exclude_resource_rules.setter
-    def exclude_resource_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]):
+    def exclude_resource_rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]):
         pulumi.set(self, "exclude_resource_rules", value)
 
     @_builtins.property
     @pulumi.getter(name="matchPolicy")
-    def match_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def match_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 
@@ -1234,12 +1234,12 @@ class MatchResourcesPatchArgs:
         return pulumi.get(self, "match_policy")
 
     @match_policy.setter
-    def match_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def match_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "match_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="namespaceSelector")
-    def namespace_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
+    def namespace_selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]:
         """
         namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
@@ -1276,31 +1276,31 @@ class MatchResourcesPatchArgs:
         return pulumi.get(self, "namespace_selector")
 
     @namespace_selector.setter
-    def namespace_selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]):
+    def namespace_selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]):
         pulumi.set(self, "namespace_selector", value)
 
     @_builtins.property
     @pulumi.getter(name="objectSelector")
-    def object_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
+    def object_selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]:
         """
         objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
         """
         return pulumi.get(self, "object_selector")
 
     @object_selector.setter
-    def object_selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]):
+    def object_selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]):
         pulumi.set(self, "object_selector", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceRules")
-    def resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]:
+    def resource_rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]:
         """
         resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
         """
         return pulumi.get(self, "resource_rules")
 
     @resource_rules.setter
-    def resource_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]):
+    def resource_rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]):
         pulumi.set(self, "resource_rules", value)
 
 
@@ -1308,11 +1308,11 @@ class MatchResourcesArgsDict(TypedDict):
     """
     MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
-    exclude_resource_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgsDict']]]]
+    exclude_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]]
     """
     excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
-    match_policy: NotRequired[pulumi.Input[_builtins.str]]
+    match_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 
@@ -1322,7 +1322,7 @@ class MatchResourcesArgsDict(TypedDict):
 
     Defaults to "Equivalent"
     """
-    namespace_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
     """
     namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
@@ -1356,11 +1356,11 @@ class MatchResourcesArgsDict(TypedDict):
 
     Default to the empty LabelSelector, which matches everything.
     """
-    object_selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
+    object_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
     """
     objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
     """
-    resource_rules: NotRequired[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgsDict']]]]
+    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]]
     """
     resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
     """
@@ -1368,11 +1368,11 @@ class MatchResourcesArgsDict(TypedDict):
 @pulumi.input_type
 class MatchResourcesArgs:
     def __init__(__self__, *,
-                 exclude_resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]] = None,
-                 match_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-                 object_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-                 resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]] = None):
+                 exclude_resource_rules: pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]] = None,
+                 match_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace_selector: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']] = None,
+                 object_selector: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']] = None,
+                 resource_rules: pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]] = None):
         """
         MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 
@@ -1431,19 +1431,19 @@ class MatchResourcesArgs:
 
     @_builtins.property
     @pulumi.getter(name="excludeResourceRules")
-    def exclude_resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]:
+    def exclude_resource_rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]:
         """
         excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
         """
         return pulumi.get(self, "exclude_resource_rules")
 
     @exclude_resource_rules.setter
-    def exclude_resource_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]):
+    def exclude_resource_rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]):
         pulumi.set(self, "exclude_resource_rules", value)
 
     @_builtins.property
     @pulumi.getter(name="matchPolicy")
-    def match_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def match_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 
@@ -1456,12 +1456,12 @@ class MatchResourcesArgs:
         return pulumi.get(self, "match_policy")
 
     @match_policy.setter
-    def match_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def match_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "match_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="namespaceSelector")
-    def namespace_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
+    def namespace_selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]:
         """
         namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
@@ -1498,31 +1498,31 @@ class MatchResourcesArgs:
         return pulumi.get(self, "namespace_selector")
 
     @namespace_selector.setter
-    def namespace_selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]):
+    def namespace_selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]):
         pulumi.set(self, "namespace_selector", value)
 
     @_builtins.property
     @pulumi.getter(name="objectSelector")
-    def object_selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
+    def object_selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]:
         """
         objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
         """
         return pulumi.get(self, "object_selector")
 
     @object_selector.setter
-    def object_selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]):
+    def object_selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]):
         pulumi.set(self, "object_selector", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceRules")
-    def resource_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]:
+    def resource_rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]:
         """
         resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
         """
         return pulumi.get(self, "resource_rules")
 
     @resource_rules.setter
-    def resource_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]):
+    def resource_rules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]):
         pulumi.set(self, "resource_rules", value)
 
 
@@ -1530,15 +1530,15 @@ class MutatingAdmissionPolicyBindingSpecPatchArgsDict(TypedDict):
     """
     MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
     """
-    match_resources: NotRequired[pulumi.Input['MatchResourcesPatchArgsDict']]
+    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgs']]]
     """
     matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
     """
-    param_ref: NotRequired[pulumi.Input['ParamRefPatchArgsDict']]
+    param_ref: NotRequired[pulumi.Input[Optional['ParamRefPatchArgs']]]
     """
     paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
     """
-    policy_name: NotRequired[pulumi.Input[_builtins.str]]
+    policy_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
     """
@@ -1546,9 +1546,9 @@ class MutatingAdmissionPolicyBindingSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class MutatingAdmissionPolicyBindingSpecPatchArgs:
     def __init__(__self__, *,
-                 match_resources: Optional[pulumi.Input['MatchResourcesPatchArgs']] = None,
-                 param_ref: Optional[pulumi.Input['ParamRefPatchArgs']] = None,
-                 policy_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 match_resources: pulumi.Input[Optional['MatchResourcesPatchArgs']] = None,
+                 param_ref: pulumi.Input[Optional['ParamRefPatchArgs']] = None,
+                 policy_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
 
@@ -1565,38 +1565,38 @@ class MutatingAdmissionPolicyBindingSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="matchResources")
-    def match_resources(self) -> Optional[pulumi.Input['MatchResourcesPatchArgs']]:
+    def match_resources(self) -> pulumi.Input[Optional['MatchResourcesPatchArgs']]:
         """
         matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
         """
         return pulumi.get(self, "match_resources")
 
     @match_resources.setter
-    def match_resources(self, value: Optional[pulumi.Input['MatchResourcesPatchArgs']]):
+    def match_resources(self, value: pulumi.Input[Optional['MatchResourcesPatchArgs']]):
         pulumi.set(self, "match_resources", value)
 
     @_builtins.property
     @pulumi.getter(name="paramRef")
-    def param_ref(self) -> Optional[pulumi.Input['ParamRefPatchArgs']]:
+    def param_ref(self) -> pulumi.Input[Optional['ParamRefPatchArgs']]:
         """
         paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
         """
         return pulumi.get(self, "param_ref")
 
     @param_ref.setter
-    def param_ref(self, value: Optional[pulumi.Input['ParamRefPatchArgs']]):
+    def param_ref(self, value: pulumi.Input[Optional['ParamRefPatchArgs']]):
         pulumi.set(self, "param_ref", value)
 
     @_builtins.property
     @pulumi.getter(name="policyName")
-    def policy_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def policy_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         """
         return pulumi.get(self, "policy_name")
 
     @policy_name.setter
-    def policy_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def policy_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "policy_name", value)
 
 
@@ -1604,15 +1604,15 @@ class MutatingAdmissionPolicyBindingSpecArgsDict(TypedDict):
     """
     MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
     """
-    match_resources: NotRequired[pulumi.Input['MatchResourcesArgsDict']]
+    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesArgs']]]
     """
     matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
     """
-    param_ref: NotRequired[pulumi.Input['ParamRefArgsDict']]
+    param_ref: NotRequired[pulumi.Input[Optional['ParamRefArgs']]]
     """
     paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
     """
-    policy_name: NotRequired[pulumi.Input[_builtins.str]]
+    policy_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
     """
@@ -1620,9 +1620,9 @@ class MutatingAdmissionPolicyBindingSpecArgsDict(TypedDict):
 @pulumi.input_type
 class MutatingAdmissionPolicyBindingSpecArgs:
     def __init__(__self__, *,
-                 match_resources: Optional[pulumi.Input['MatchResourcesArgs']] = None,
-                 param_ref: Optional[pulumi.Input['ParamRefArgs']] = None,
-                 policy_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 match_resources: pulumi.Input[Optional['MatchResourcesArgs']] = None,
+                 param_ref: pulumi.Input[Optional['ParamRefArgs']] = None,
+                 policy_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
 
@@ -1639,38 +1639,38 @@ class MutatingAdmissionPolicyBindingSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="matchResources")
-    def match_resources(self) -> Optional[pulumi.Input['MatchResourcesArgs']]:
+    def match_resources(self) -> pulumi.Input[Optional['MatchResourcesArgs']]:
         """
         matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
         """
         return pulumi.get(self, "match_resources")
 
     @match_resources.setter
-    def match_resources(self, value: Optional[pulumi.Input['MatchResourcesArgs']]):
+    def match_resources(self, value: pulumi.Input[Optional['MatchResourcesArgs']]):
         pulumi.set(self, "match_resources", value)
 
     @_builtins.property
     @pulumi.getter(name="paramRef")
-    def param_ref(self) -> Optional[pulumi.Input['ParamRefArgs']]:
+    def param_ref(self) -> pulumi.Input[Optional['ParamRefArgs']]:
         """
         paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
         """
         return pulumi.get(self, "param_ref")
 
     @param_ref.setter
-    def param_ref(self, value: Optional[pulumi.Input['ParamRefArgs']]):
+    def param_ref(self, value: pulumi.Input[Optional['ParamRefArgs']]):
         pulumi.set(self, "param_ref", value)
 
     @_builtins.property
     @pulumi.getter(name="policyName")
-    def policy_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def policy_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         policyName references a MutatingAdmissionPolicy name which the MutatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         """
         return pulumi.get(self, "policy_name")
 
     @policy_name.setter
-    def policy_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def policy_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "policy_name", value)
 
 
@@ -1682,19 +1682,19 @@ class MutatingAdmissionPolicyBindingArgsDict(TypedDict):
 
     Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
-    spec: NotRequired[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['MutatingAdmissionPolicyBindingSpecArgs']]]
     """
     spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
     """
@@ -1702,10 +1702,10 @@ class MutatingAdmissionPolicyBindingArgsDict(TypedDict):
 @pulumi.input_type
 class MutatingAdmissionPolicyBindingArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['MutatingAdmissionPolicyBindingSpecArgs']] = None):
         """
         MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.
 
@@ -1729,50 +1729,50 @@ class MutatingAdmissionPolicyBindingArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['MutatingAdmissionPolicyBindingSpecArgs']]:
         """
         spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['MutatingAdmissionPolicyBindingSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['MutatingAdmissionPolicyBindingSpecArgs']]):
         pulumi.set(self, "spec", value)
 
 
@@ -1780,7 +1780,7 @@ class MutatingAdmissionPolicySpecPatchArgsDict(TypedDict):
     """
     MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
     """
-    failure_policy: NotRequired[pulumi.Input[_builtins.str]]
+    failure_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
 
@@ -1790,7 +1790,7 @@ class MutatingAdmissionPolicySpecPatchArgsDict(TypedDict):
 
     Allowed values are Ignore or Fail. Defaults to Fail.
     """
-    match_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgsDict']]]]
+    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]]
     """
     matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -1803,19 +1803,19 @@ class MutatingAdmissionPolicySpecPatchArgsDict(TypedDict):
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the policy is skipped
     """
-    match_constraints: NotRequired[pulumi.Input['MatchResourcesPatchArgsDict']]
+    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgs']]]
     """
     matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
     """
-    mutations: NotRequired[pulumi.Input[Sequence[pulumi.Input['MutationPatchArgsDict']]]]
+    mutations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MutationPatchArgs']]]]]
     """
     mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
     """
-    param_kind: NotRequired[pulumi.Input['ParamKindPatchArgsDict']]
+    param_kind: NotRequired[pulumi.Input[Optional['ParamKindPatchArgs']]]
     """
     paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
     """
-    reinvocation_policy: NotRequired[pulumi.Input[_builtins.str]]
+    reinvocation_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
 
@@ -1823,7 +1823,7 @@ class MutatingAdmissionPolicySpecPatchArgsDict(TypedDict):
 
     IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
     """
-    variables: NotRequired[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgsDict']]]]
+    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]]]
     """
     variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
 
@@ -1833,13 +1833,13 @@ class MutatingAdmissionPolicySpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class MutatingAdmissionPolicySpecPatchArgs:
     def __init__(__self__, *,
-                 failure_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]] = None,
-                 match_constraints: Optional[pulumi.Input['MatchResourcesPatchArgs']] = None,
-                 mutations: Optional[pulumi.Input[Sequence[pulumi.Input['MutationPatchArgs']]]] = None,
-                 param_kind: Optional[pulumi.Input['ParamKindPatchArgs']] = None,
-                 reinvocation_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]] = None):
+                 failure_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 match_conditions: pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]] = None,
+                 match_constraints: pulumi.Input[Optional['MatchResourcesPatchArgs']] = None,
+                 mutations: pulumi.Input[Optional[Sequence[pulumi.Input['MutationPatchArgs']]]] = None,
+                 param_kind: pulumi.Input[Optional['ParamKindPatchArgs']] = None,
+                 reinvocation_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 variables: pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]] = None):
         """
         MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
 
@@ -1889,7 +1889,7 @@ class MutatingAdmissionPolicySpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="failurePolicy")
-    def failure_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def failure_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
 
@@ -1902,12 +1902,12 @@ class MutatingAdmissionPolicySpecPatchArgs:
         return pulumi.get(self, "failure_policy")
 
     @failure_policy.setter
-    def failure_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def failure_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "failure_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="matchConditions")
-    def match_conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]:
+    def match_conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]:
         """
         matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -1923,48 +1923,48 @@ class MutatingAdmissionPolicySpecPatchArgs:
         return pulumi.get(self, "match_conditions")
 
     @match_conditions.setter
-    def match_conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]):
+    def match_conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]):
         pulumi.set(self, "match_conditions", value)
 
     @_builtins.property
     @pulumi.getter(name="matchConstraints")
-    def match_constraints(self) -> Optional[pulumi.Input['MatchResourcesPatchArgs']]:
+    def match_constraints(self) -> pulumi.Input[Optional['MatchResourcesPatchArgs']]:
         """
         matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
         """
         return pulumi.get(self, "match_constraints")
 
     @match_constraints.setter
-    def match_constraints(self, value: Optional[pulumi.Input['MatchResourcesPatchArgs']]):
+    def match_constraints(self, value: pulumi.Input[Optional['MatchResourcesPatchArgs']]):
         pulumi.set(self, "match_constraints", value)
 
     @_builtins.property
     @pulumi.getter
-    def mutations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MutationPatchArgs']]]]:
+    def mutations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['MutationPatchArgs']]]]:
         """
         mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
         """
         return pulumi.get(self, "mutations")
 
     @mutations.setter
-    def mutations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MutationPatchArgs']]]]):
+    def mutations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['MutationPatchArgs']]]]):
         pulumi.set(self, "mutations", value)
 
     @_builtins.property
     @pulumi.getter(name="paramKind")
-    def param_kind(self) -> Optional[pulumi.Input['ParamKindPatchArgs']]:
+    def param_kind(self) -> pulumi.Input[Optional['ParamKindPatchArgs']]:
         """
         paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
         """
         return pulumi.get(self, "param_kind")
 
     @param_kind.setter
-    def param_kind(self, value: Optional[pulumi.Input['ParamKindPatchArgs']]):
+    def param_kind(self, value: pulumi.Input[Optional['ParamKindPatchArgs']]):
         pulumi.set(self, "param_kind", value)
 
     @_builtins.property
     @pulumi.getter(name="reinvocationPolicy")
-    def reinvocation_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reinvocation_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
 
@@ -1975,12 +1975,12 @@ class MutatingAdmissionPolicySpecPatchArgs:
         return pulumi.get(self, "reinvocation_policy")
 
     @reinvocation_policy.setter
-    def reinvocation_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reinvocation_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reinvocation_policy", value)
 
     @_builtins.property
     @pulumi.getter
-    def variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]]:
+    def variables(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]]:
         """
         variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
 
@@ -1989,7 +1989,7 @@ class MutatingAdmissionPolicySpecPatchArgs:
         return pulumi.get(self, "variables")
 
     @variables.setter
-    def variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]]):
+    def variables(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]]):
         pulumi.set(self, "variables", value)
 
 
@@ -1997,7 +1997,7 @@ class MutatingAdmissionPolicySpecArgsDict(TypedDict):
     """
     MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
     """
-    failure_policy: NotRequired[pulumi.Input[_builtins.str]]
+    failure_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
 
@@ -2007,7 +2007,7 @@ class MutatingAdmissionPolicySpecArgsDict(TypedDict):
 
     Allowed values are Ignore or Fail. Defaults to Fail.
     """
-    match_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgsDict']]]]
+    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]]]
     """
     matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -2020,19 +2020,19 @@ class MutatingAdmissionPolicySpecArgsDict(TypedDict):
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the policy is skipped
     """
-    match_constraints: NotRequired[pulumi.Input['MatchResourcesArgsDict']]
+    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesArgs']]]
     """
     matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
     """
-    mutations: NotRequired[pulumi.Input[Sequence[pulumi.Input['MutationArgsDict']]]]
+    mutations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MutationArgs']]]]]
     """
     mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
     """
-    param_kind: NotRequired[pulumi.Input['ParamKindArgsDict']]
+    param_kind: NotRequired[pulumi.Input[Optional['ParamKindArgs']]]
     """
     paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
     """
-    reinvocation_policy: NotRequired[pulumi.Input[_builtins.str]]
+    reinvocation_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
 
@@ -2040,7 +2040,7 @@ class MutatingAdmissionPolicySpecArgsDict(TypedDict):
 
     IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
     """
-    variables: NotRequired[pulumi.Input[Sequence[pulumi.Input['VariableArgsDict']]]]
+    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]]]
     """
     variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
 
@@ -2050,13 +2050,13 @@ class MutatingAdmissionPolicySpecArgsDict(TypedDict):
 @pulumi.input_type
 class MutatingAdmissionPolicySpecArgs:
     def __init__(__self__, *,
-                 failure_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]] = None,
-                 match_constraints: Optional[pulumi.Input['MatchResourcesArgs']] = None,
-                 mutations: Optional[pulumi.Input[Sequence[pulumi.Input['MutationArgs']]]] = None,
-                 param_kind: Optional[pulumi.Input['ParamKindArgs']] = None,
-                 reinvocation_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]] = None):
+                 failure_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 match_conditions: pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]] = None,
+                 match_constraints: pulumi.Input[Optional['MatchResourcesArgs']] = None,
+                 mutations: pulumi.Input[Optional[Sequence[pulumi.Input['MutationArgs']]]] = None,
+                 param_kind: pulumi.Input[Optional['ParamKindArgs']] = None,
+                 reinvocation_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 variables: pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]] = None):
         """
         MutatingAdmissionPolicySpec is the specification of the desired behavior of the admission policy.
 
@@ -2106,7 +2106,7 @@ class MutatingAdmissionPolicySpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="failurePolicy")
-    def failure_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def failure_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
 
@@ -2119,12 +2119,12 @@ class MutatingAdmissionPolicySpecArgs:
         return pulumi.get(self, "failure_policy")
 
     @failure_policy.setter
-    def failure_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def failure_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "failure_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="matchConditions")
-    def match_conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]]:
+    def match_conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]]:
         """
         matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -2140,48 +2140,48 @@ class MutatingAdmissionPolicySpecArgs:
         return pulumi.get(self, "match_conditions")
 
     @match_conditions.setter
-    def match_conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]]):
+    def match_conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]]):
         pulumi.set(self, "match_conditions", value)
 
     @_builtins.property
     @pulumi.getter(name="matchConstraints")
-    def match_constraints(self) -> Optional[pulumi.Input['MatchResourcesArgs']]:
+    def match_constraints(self) -> pulumi.Input[Optional['MatchResourcesArgs']]:
         """
         matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
         """
         return pulumi.get(self, "match_constraints")
 
     @match_constraints.setter
-    def match_constraints(self, value: Optional[pulumi.Input['MatchResourcesArgs']]):
+    def match_constraints(self, value: pulumi.Input[Optional['MatchResourcesArgs']]):
         pulumi.set(self, "match_constraints", value)
 
     @_builtins.property
     @pulumi.getter
-    def mutations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MutationArgs']]]]:
+    def mutations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['MutationArgs']]]]:
         """
         mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
         """
         return pulumi.get(self, "mutations")
 
     @mutations.setter
-    def mutations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MutationArgs']]]]):
+    def mutations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['MutationArgs']]]]):
         pulumi.set(self, "mutations", value)
 
     @_builtins.property
     @pulumi.getter(name="paramKind")
-    def param_kind(self) -> Optional[pulumi.Input['ParamKindArgs']]:
+    def param_kind(self) -> pulumi.Input[Optional['ParamKindArgs']]:
         """
         paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
         """
         return pulumi.get(self, "param_kind")
 
     @param_kind.setter
-    def param_kind(self, value: Optional[pulumi.Input['ParamKindArgs']]):
+    def param_kind(self, value: pulumi.Input[Optional['ParamKindArgs']]):
         pulumi.set(self, "param_kind", value)
 
     @_builtins.property
     @pulumi.getter(name="reinvocationPolicy")
-    def reinvocation_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reinvocation_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         reinvocationPolicy indicates whether mutations may be called multiple times per MutatingAdmissionPolicyBinding as part of a single admission evaluation. Allowed values are "Never" and "IfNeeded".
 
@@ -2192,12 +2192,12 @@ class MutatingAdmissionPolicySpecArgs:
         return pulumi.get(self, "reinvocation_policy")
 
     @reinvocation_policy.setter
-    def reinvocation_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reinvocation_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reinvocation_policy", value)
 
     @_builtins.property
     @pulumi.getter
-    def variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]]:
+    def variables(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]]:
         """
         variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
 
@@ -2206,7 +2206,7 @@ class MutatingAdmissionPolicySpecArgs:
         return pulumi.get(self, "variables")
 
     @variables.setter
-    def variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]]):
+    def variables(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]]):
         pulumi.set(self, "variables", value)
 
 
@@ -2214,19 +2214,19 @@ class MutatingAdmissionPolicyArgsDict(TypedDict):
     """
     MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
-    spec: NotRequired[pulumi.Input['MutatingAdmissionPolicySpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['MutatingAdmissionPolicySpecArgs']]]
     """
     spec defines the desired behavior of the MutatingAdmissionPolicy.
     """
@@ -2234,10 +2234,10 @@ class MutatingAdmissionPolicyArgsDict(TypedDict):
 @pulumi.input_type
 class MutatingAdmissionPolicyArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['MutatingAdmissionPolicySpecArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['MutatingAdmissionPolicySpecArgs']] = None):
         """
         MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.
 
@@ -2257,50 +2257,50 @@ class MutatingAdmissionPolicyArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['MutatingAdmissionPolicySpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['MutatingAdmissionPolicySpecArgs']]:
         """
         spec defines the desired behavior of the MutatingAdmissionPolicy.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['MutatingAdmissionPolicySpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['MutatingAdmissionPolicySpecArgs']]):
         pulumi.set(self, "spec", value)
 
 
@@ -2308,15 +2308,15 @@ class MutationPatchArgsDict(TypedDict):
     """
     Mutation specifies the CEL expression which is used to apply the Mutation.
     """
-    apply_configuration: NotRequired[pulumi.Input['ApplyConfigurationPatchArgsDict']]
+    apply_configuration: NotRequired[pulumi.Input[Optional['ApplyConfigurationPatchArgs']]]
     """
     applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
     """
-    json_patch: NotRequired[pulumi.Input['JSONPatchPatchArgsDict']]
+    json_patch: NotRequired[pulumi.Input[Optional['JSONPatchPatchArgs']]]
     """
     jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
     """
-    patch_type: NotRequired[pulumi.Input[_builtins.str]]
+    patch_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
     """
@@ -2324,9 +2324,9 @@ class MutationPatchArgsDict(TypedDict):
 @pulumi.input_type
 class MutationPatchArgs:
     def __init__(__self__, *,
-                 apply_configuration: Optional[pulumi.Input['ApplyConfigurationPatchArgs']] = None,
-                 json_patch: Optional[pulumi.Input['JSONPatchPatchArgs']] = None,
-                 patch_type: Optional[pulumi.Input[_builtins.str]] = None):
+                 apply_configuration: pulumi.Input[Optional['ApplyConfigurationPatchArgs']] = None,
+                 json_patch: pulumi.Input[Optional['JSONPatchPatchArgs']] = None,
+                 patch_type: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Mutation specifies the CEL expression which is used to apply the Mutation.
 
@@ -2343,38 +2343,38 @@ class MutationPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="applyConfiguration")
-    def apply_configuration(self) -> Optional[pulumi.Input['ApplyConfigurationPatchArgs']]:
+    def apply_configuration(self) -> pulumi.Input[Optional['ApplyConfigurationPatchArgs']]:
         """
         applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
         """
         return pulumi.get(self, "apply_configuration")
 
     @apply_configuration.setter
-    def apply_configuration(self, value: Optional[pulumi.Input['ApplyConfigurationPatchArgs']]):
+    def apply_configuration(self, value: pulumi.Input[Optional['ApplyConfigurationPatchArgs']]):
         pulumi.set(self, "apply_configuration", value)
 
     @_builtins.property
     @pulumi.getter(name="jsonPatch")
-    def json_patch(self) -> Optional[pulumi.Input['JSONPatchPatchArgs']]:
+    def json_patch(self) -> pulumi.Input[Optional['JSONPatchPatchArgs']]:
         """
         jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
         """
         return pulumi.get(self, "json_patch")
 
     @json_patch.setter
-    def json_patch(self, value: Optional[pulumi.Input['JSONPatchPatchArgs']]):
+    def json_patch(self, value: pulumi.Input[Optional['JSONPatchPatchArgs']]):
         pulumi.set(self, "json_patch", value)
 
     @_builtins.property
     @pulumi.getter(name="patchType")
-    def patch_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def patch_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
         """
         return pulumi.get(self, "patch_type")
 
     @patch_type.setter
-    def patch_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def patch_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "patch_type", value)
 
 
@@ -2386,11 +2386,11 @@ class MutationArgsDict(TypedDict):
     """
     patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
     """
-    apply_configuration: NotRequired[pulumi.Input['ApplyConfigurationArgsDict']]
+    apply_configuration: NotRequired[pulumi.Input[Optional['ApplyConfigurationArgs']]]
     """
     applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
     """
-    json_patch: NotRequired[pulumi.Input['JSONPatchArgsDict']]
+    json_patch: NotRequired[pulumi.Input[Optional['JSONPatchArgs']]]
     """
     jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
     """
@@ -2399,8 +2399,8 @@ class MutationArgsDict(TypedDict):
 class MutationArgs:
     def __init__(__self__, *,
                  patch_type: pulumi.Input[_builtins.str],
-                 apply_configuration: Optional[pulumi.Input['ApplyConfigurationArgs']] = None,
-                 json_patch: Optional[pulumi.Input['JSONPatchArgs']] = None):
+                 apply_configuration: pulumi.Input[Optional['ApplyConfigurationArgs']] = None,
+                 json_patch: pulumi.Input[Optional['JSONPatchArgs']] = None):
         """
         Mutation specifies the CEL expression which is used to apply the Mutation.
 
@@ -2428,26 +2428,26 @@ class MutationArgs:
 
     @_builtins.property
     @pulumi.getter(name="applyConfiguration")
-    def apply_configuration(self) -> Optional[pulumi.Input['ApplyConfigurationArgs']]:
+    def apply_configuration(self) -> pulumi.Input[Optional['ApplyConfigurationArgs']]:
         """
         applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
         """
         return pulumi.get(self, "apply_configuration")
 
     @apply_configuration.setter
-    def apply_configuration(self, value: Optional[pulumi.Input['ApplyConfigurationArgs']]):
+    def apply_configuration(self, value: pulumi.Input[Optional['ApplyConfigurationArgs']]):
         pulumi.set(self, "apply_configuration", value)
 
     @_builtins.property
     @pulumi.getter(name="jsonPatch")
-    def json_patch(self) -> Optional[pulumi.Input['JSONPatchArgs']]:
+    def json_patch(self) -> pulumi.Input[Optional['JSONPatchArgs']]:
         """
         jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
         """
         return pulumi.get(self, "json_patch")
 
     @json_patch.setter
-    def json_patch(self, value: Optional[pulumi.Input['JSONPatchArgs']]):
+    def json_patch(self, value: pulumi.Input[Optional['JSONPatchArgs']]):
         pulumi.set(self, "json_patch", value)
 
 
@@ -2455,23 +2455,23 @@ class NamedRuleWithOperationsPatchArgsDict(TypedDict):
     """
     NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
     """
-    api_groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    api_groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
     """
-    api_versions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    api_versions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
     """
-    operations: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    operations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
     """
-    resource_names: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    resource_names: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
     """
-    resources: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    resources: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     resources is a list of resources this rule applies to.
 
@@ -2481,7 +2481,7 @@ class NamedRuleWithOperationsPatchArgsDict(TypedDict):
 
     Depending on the enclosing object, subresources might not be allowed. Required.
     """
-    scope: NotRequired[pulumi.Input[_builtins.str]]
+    scope: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
     """
@@ -2489,12 +2489,12 @@ class NamedRuleWithOperationsPatchArgsDict(TypedDict):
 @pulumi.input_type
 class NamedRuleWithOperationsPatchArgs:
     def __init__(__self__, *,
-                 api_groups: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 api_versions: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 operations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 resource_names: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 resources: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 scope: Optional[pulumi.Input[_builtins.str]] = None):
+                 api_groups: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 api_versions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 operations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 resource_names: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 resources: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 scope: pulumi.Input[Optional[_builtins.str]] = None):
         """
         NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 
@@ -2526,55 +2526,55 @@ class NamedRuleWithOperationsPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiGroups")
-    def api_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def api_groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_groups")
 
     @api_groups.setter
-    def api_groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def api_groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "api_groups", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersions")
-    def api_versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def api_versions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_versions")
 
     @api_versions.setter
-    def api_versions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def api_versions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "api_versions", value)
 
     @_builtins.property
     @pulumi.getter
-    def operations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def operations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "operations")
 
     @operations.setter
-    def operations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def operations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "operations", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceNames")
-    def resource_names(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def resource_names(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         """
         return pulumi.get(self, "resource_names")
 
     @resource_names.setter
-    def resource_names(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def resource_names(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "resource_names", value)
 
     @_builtins.property
     @pulumi.getter
-    def resources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def resources(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         resources is a list of resources this rule applies to.
 
@@ -2587,19 +2587,19 @@ class NamedRuleWithOperationsPatchArgs:
         return pulumi.get(self, "resources")
 
     @resources.setter
-    def resources(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def resources(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "resources", value)
 
     @_builtins.property
     @pulumi.getter
-    def scope(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def scope(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
         """
         return pulumi.get(self, "scope")
 
     @scope.setter
-    def scope(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def scope(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "scope", value)
 
 
@@ -2607,23 +2607,23 @@ class NamedRuleWithOperationsArgsDict(TypedDict):
     """
     NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
     """
-    api_groups: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    api_groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
     """
-    api_versions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    api_versions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
     """
-    operations: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    operations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
     """
-    resource_names: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    resource_names: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
     """
-    resources: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    resources: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     resources is a list of resources this rule applies to.
 
@@ -2633,7 +2633,7 @@ class NamedRuleWithOperationsArgsDict(TypedDict):
 
     Depending on the enclosing object, subresources might not be allowed. Required.
     """
-    scope: NotRequired[pulumi.Input[_builtins.str]]
+    scope: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
     """
@@ -2641,12 +2641,12 @@ class NamedRuleWithOperationsArgsDict(TypedDict):
 @pulumi.input_type
 class NamedRuleWithOperationsArgs:
     def __init__(__self__, *,
-                 api_groups: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 api_versions: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 operations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 resource_names: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 resources: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 scope: Optional[pulumi.Input[_builtins.str]] = None):
+                 api_groups: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 api_versions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 operations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 resource_names: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 resources: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 scope: pulumi.Input[Optional[_builtins.str]] = None):
         """
         NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
 
@@ -2678,55 +2678,55 @@ class NamedRuleWithOperationsArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiGroups")
-    def api_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def api_groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_groups")
 
     @api_groups.setter
-    def api_groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def api_groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "api_groups", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersions")
-    def api_versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def api_versions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "api_versions")
 
     @api_versions.setter
-    def api_versions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def api_versions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "api_versions", value)
 
     @_builtins.property
     @pulumi.getter
-    def operations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def operations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
         """
         return pulumi.get(self, "operations")
 
     @operations.setter
-    def operations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def operations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "operations", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceNames")
-    def resource_names(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def resource_names(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         """
         return pulumi.get(self, "resource_names")
 
     @resource_names.setter
-    def resource_names(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def resource_names(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "resource_names", value)
 
     @_builtins.property
     @pulumi.getter
-    def resources(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def resources(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         resources is a list of resources this rule applies to.
 
@@ -2739,19 +2739,19 @@ class NamedRuleWithOperationsArgs:
         return pulumi.get(self, "resources")
 
     @resources.setter
-    def resources(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def resources(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "resources", value)
 
     @_builtins.property
     @pulumi.getter
-    def scope(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def scope(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
         """
         return pulumi.get(self, "scope")
 
     @scope.setter
-    def scope(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def scope(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "scope", value)
 
 
@@ -2759,11 +2759,11 @@ class ParamKindPatchArgsDict(TypedDict):
     """
     ParamKind is a tuple of Group Kind and Version.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     apiVersion is the API group version the resources belong to. In format of "group/version". Required.
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     kind is the API kind the resources belong to. Required.
     """
@@ -2771,8 +2771,8 @@ class ParamKindPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ParamKindPatchArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ParamKind is a tuple of Group Kind and Version.
 
@@ -2786,26 +2786,26 @@ class ParamKindPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         apiVersion is the API group version the resources belong to. In format of "group/version". Required.
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         kind is the API kind the resources belong to. Required.
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
 
@@ -2813,11 +2813,11 @@ class ParamKindArgsDict(TypedDict):
     """
     ParamKind is a tuple of Group Kind and Version.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     apiVersion is the API group version the resources belong to. In format of "group/version". Required.
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     kind is the API kind the resources belong to. Required.
     """
@@ -2825,8 +2825,8 @@ class ParamKindArgsDict(TypedDict):
 @pulumi.input_type
 class ParamKindArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ParamKind is a tuple of Group Kind and Version.
 
@@ -2840,26 +2840,26 @@ class ParamKindArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         apiVersion is the API group version the resources belong to. In format of "group/version". Required.
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         kind is the API kind the resources belong to. Required.
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
 
@@ -2867,13 +2867,13 @@ class ParamRefPatchArgsDict(TypedDict):
     """
     ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     name is the name of the resource being referenced.
 
     `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
 
@@ -2883,13 +2883,13 @@ class ParamRefPatchArgsDict(TypedDict):
 
     - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
     """
-    parameter_not_found_action: NotRequired[pulumi.Input[_builtins.str]]
+    parameter_not_found_action: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 
     Allowed values are `Allow` or `Deny` Default to `Deny`
     """
-    selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
     """
     selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
 
@@ -2901,10 +2901,10 @@ class ParamRefPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ParamRefPatchArgs:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 parameter_not_found_action: Optional[pulumi.Input[_builtins.str]] = None,
-                 selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 parameter_not_found_action: pulumi.Input[Optional[_builtins.str]] = None,
+                 selector: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']] = None):
         """
         ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 
@@ -2938,7 +2938,7 @@ class ParamRefPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         name is the name of the resource being referenced.
 
@@ -2947,12 +2947,12 @@ class ParamRefPatchArgs:
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
 
@@ -2965,12 +2965,12 @@ class ParamRefPatchArgs:
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter(name="parameterNotFoundAction")
-    def parameter_not_found_action(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def parameter_not_found_action(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 
@@ -2979,12 +2979,12 @@ class ParamRefPatchArgs:
         return pulumi.get(self, "parameter_not_found_action")
 
     @parameter_not_found_action.setter
-    def parameter_not_found_action(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def parameter_not_found_action(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "parameter_not_found_action", value)
 
     @_builtins.property
     @pulumi.getter
-    def selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
+    def selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]:
         """
         selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
 
@@ -2995,7 +2995,7 @@ class ParamRefPatchArgs:
         return pulumi.get(self, "selector")
 
     @selector.setter
-    def selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]):
+    def selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]):
         pulumi.set(self, "selector", value)
 
 
@@ -3003,13 +3003,13 @@ class ParamRefArgsDict(TypedDict):
     """
     ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     name is the name of the resource being referenced.
 
     `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
 
@@ -3019,13 +3019,13 @@ class ParamRefArgsDict(TypedDict):
 
     - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
     """
-    parameter_not_found_action: NotRequired[pulumi.Input[_builtins.str]]
+    parameter_not_found_action: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 
     Allowed values are `Allow` or `Deny` Default to `Deny`
     """
-    selector: NotRequired[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
     """
     selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
 
@@ -3037,10 +3037,10 @@ class ParamRefArgsDict(TypedDict):
 @pulumi.input_type
 class ParamRefArgs:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 parameter_not_found_action: Optional[pulumi.Input[_builtins.str]] = None,
-                 selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 parameter_not_found_action: pulumi.Input[Optional[_builtins.str]] = None,
+                 selector: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']] = None):
         """
         ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 
@@ -3074,7 +3074,7 @@ class ParamRefArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         name is the name of the resource being referenced.
 
@@ -3083,12 +3083,12 @@ class ParamRefArgs:
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
 
@@ -3101,12 +3101,12 @@ class ParamRefArgs:
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter(name="parameterNotFoundAction")
-    def parameter_not_found_action(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def parameter_not_found_action(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
 
@@ -3115,12 +3115,12 @@ class ParamRefArgs:
         return pulumi.get(self, "parameter_not_found_action")
 
     @parameter_not_found_action.setter
-    def parameter_not_found_action(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def parameter_not_found_action(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "parameter_not_found_action", value)
 
     @_builtins.property
     @pulumi.getter
-    def selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
+    def selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]:
         """
         selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
 
@@ -3131,7 +3131,7 @@ class ParamRefArgs:
         return pulumi.get(self, "selector")
 
     @selector.setter
-    def selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]):
+    def selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]):
         pulumi.set(self, "selector", value)
 
 
@@ -3139,7 +3139,7 @@ class TypeCheckingArgsDict(TypedDict):
     """
     TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
     """
-    expression_warnings: NotRequired[pulumi.Input[Sequence[pulumi.Input['ExpressionWarningArgsDict']]]]
+    expression_warnings: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ExpressionWarningArgs']]]]]
     """
     The type checking warnings for each expression.
     """
@@ -3147,7 +3147,7 @@ class TypeCheckingArgsDict(TypedDict):
 @pulumi.input_type
 class TypeCheckingArgs:
     def __init__(__self__, *,
-                 expression_warnings: Optional[pulumi.Input[Sequence[pulumi.Input['ExpressionWarningArgs']]]] = None):
+                 expression_warnings: pulumi.Input[Optional[Sequence[pulumi.Input['ExpressionWarningArgs']]]] = None):
         """
         TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
 
@@ -3158,14 +3158,14 @@ class TypeCheckingArgs:
 
     @_builtins.property
     @pulumi.getter(name="expressionWarnings")
-    def expression_warnings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ExpressionWarningArgs']]]]:
+    def expression_warnings(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ExpressionWarningArgs']]]]:
         """
         The type checking warnings for each expression.
         """
         return pulumi.get(self, "expression_warnings")
 
     @expression_warnings.setter
-    def expression_warnings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ExpressionWarningArgs']]]]):
+    def expression_warnings(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ExpressionWarningArgs']]]]):
         pulumi.set(self, "expression_warnings", value)
 
 
@@ -3173,19 +3173,19 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
     """
-    match_resources: NotRequired[pulumi.Input['MatchResourcesPatchArgsDict']]
+    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgs']]]
     """
     MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
     """
-    param_ref: NotRequired[pulumi.Input['ParamRefPatchArgsDict']]
+    param_ref: NotRequired[pulumi.Input[Optional['ParamRefPatchArgs']]]
     """
     ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
     """
-    policy_name: NotRequired[pulumi.Input[_builtins.str]]
+    policy_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
     """
-    validation_actions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    validation_actions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
 
@@ -3211,10 +3211,10 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ValidatingAdmissionPolicyBindingSpecPatchArgs:
     def __init__(__self__, *,
-                 match_resources: Optional[pulumi.Input['MatchResourcesPatchArgs']] = None,
-                 param_ref: Optional[pulumi.Input['ParamRefPatchArgs']] = None,
-                 policy_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 validation_actions: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 match_resources: pulumi.Input[Optional['MatchResourcesPatchArgs']] = None,
+                 param_ref: pulumi.Input[Optional['ParamRefPatchArgs']] = None,
+                 policy_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 validation_actions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
 
@@ -3252,43 +3252,43 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="matchResources")
-    def match_resources(self) -> Optional[pulumi.Input['MatchResourcesPatchArgs']]:
+    def match_resources(self) -> pulumi.Input[Optional['MatchResourcesPatchArgs']]:
         """
         MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
         """
         return pulumi.get(self, "match_resources")
 
     @match_resources.setter
-    def match_resources(self, value: Optional[pulumi.Input['MatchResourcesPatchArgs']]):
+    def match_resources(self, value: pulumi.Input[Optional['MatchResourcesPatchArgs']]):
         pulumi.set(self, "match_resources", value)
 
     @_builtins.property
     @pulumi.getter(name="paramRef")
-    def param_ref(self) -> Optional[pulumi.Input['ParamRefPatchArgs']]:
+    def param_ref(self) -> pulumi.Input[Optional['ParamRefPatchArgs']]:
         """
         ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         """
         return pulumi.get(self, "param_ref")
 
     @param_ref.setter
-    def param_ref(self, value: Optional[pulumi.Input['ParamRefPatchArgs']]):
+    def param_ref(self, value: pulumi.Input[Optional['ParamRefPatchArgs']]):
         pulumi.set(self, "param_ref", value)
 
     @_builtins.property
     @pulumi.getter(name="policyName")
-    def policy_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def policy_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         """
         return pulumi.get(self, "policy_name")
 
     @policy_name.setter
-    def policy_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def policy_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "policy_name", value)
 
     @_builtins.property
     @pulumi.getter(name="validationActions")
-    def validation_actions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def validation_actions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
 
@@ -3313,7 +3313,7 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgs:
         return pulumi.get(self, "validation_actions")
 
     @validation_actions.setter
-    def validation_actions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def validation_actions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "validation_actions", value)
 
 
@@ -3321,19 +3321,19 @@ class ValidatingAdmissionPolicyBindingSpecArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
     """
-    match_resources: NotRequired[pulumi.Input['MatchResourcesArgsDict']]
+    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesArgs']]]
     """
     MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
     """
-    param_ref: NotRequired[pulumi.Input['ParamRefArgsDict']]
+    param_ref: NotRequired[pulumi.Input[Optional['ParamRefArgs']]]
     """
     ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
     """
-    policy_name: NotRequired[pulumi.Input[_builtins.str]]
+    policy_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
     """
-    validation_actions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    validation_actions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
 
@@ -3359,10 +3359,10 @@ class ValidatingAdmissionPolicyBindingSpecArgsDict(TypedDict):
 @pulumi.input_type
 class ValidatingAdmissionPolicyBindingSpecArgs:
     def __init__(__self__, *,
-                 match_resources: Optional[pulumi.Input['MatchResourcesArgs']] = None,
-                 param_ref: Optional[pulumi.Input['ParamRefArgs']] = None,
-                 policy_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 validation_actions: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 match_resources: pulumi.Input[Optional['MatchResourcesArgs']] = None,
+                 param_ref: pulumi.Input[Optional['ParamRefArgs']] = None,
+                 policy_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 validation_actions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
 
@@ -3400,43 +3400,43 @@ class ValidatingAdmissionPolicyBindingSpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="matchResources")
-    def match_resources(self) -> Optional[pulumi.Input['MatchResourcesArgs']]:
+    def match_resources(self) -> pulumi.Input[Optional['MatchResourcesArgs']]:
         """
         MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
         """
         return pulumi.get(self, "match_resources")
 
     @match_resources.setter
-    def match_resources(self, value: Optional[pulumi.Input['MatchResourcesArgs']]):
+    def match_resources(self, value: pulumi.Input[Optional['MatchResourcesArgs']]):
         pulumi.set(self, "match_resources", value)
 
     @_builtins.property
     @pulumi.getter(name="paramRef")
-    def param_ref(self) -> Optional[pulumi.Input['ParamRefArgs']]:
+    def param_ref(self) -> pulumi.Input[Optional['ParamRefArgs']]:
         """
         ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         """
         return pulumi.get(self, "param_ref")
 
     @param_ref.setter
-    def param_ref(self, value: Optional[pulumi.Input['ParamRefArgs']]):
+    def param_ref(self, value: pulumi.Input[Optional['ParamRefArgs']]):
         pulumi.set(self, "param_ref", value)
 
     @_builtins.property
     @pulumi.getter(name="policyName")
-    def policy_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def policy_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         """
         return pulumi.get(self, "policy_name")
 
     @policy_name.setter
-    def policy_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def policy_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "policy_name", value)
 
     @_builtins.property
     @pulumi.getter(name="validationActions")
-    def validation_actions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def validation_actions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
 
@@ -3461,7 +3461,7 @@ class ValidatingAdmissionPolicyBindingSpecArgs:
         return pulumi.get(self, "validation_actions")
 
     @validation_actions.setter
-    def validation_actions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def validation_actions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "validation_actions", value)
 
 
@@ -3469,19 +3469,19 @@ class ValidatingAdmissionPolicyBindingArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
-    spec: NotRequired[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['ValidatingAdmissionPolicyBindingSpecArgs']]]
     """
     Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
     """
@@ -3489,10 +3489,10 @@ class ValidatingAdmissionPolicyBindingArgsDict(TypedDict):
 @pulumi.input_type
 class ValidatingAdmissionPolicyBindingArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['ValidatingAdmissionPolicyBindingSpecArgs']] = None):
         """
         ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
 
@@ -3512,50 +3512,50 @@ class ValidatingAdmissionPolicyBindingArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['ValidatingAdmissionPolicyBindingSpecArgs']]:
         """
         Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['ValidatingAdmissionPolicyBindingSpecArgs']]):
         pulumi.set(self, "spec", value)
 
 
@@ -3563,15 +3563,15 @@ class ValidatingAdmissionPolicySpecPatchArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
     """
-    audit_annotations: NotRequired[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationPatchArgsDict']]]]
+    audit_annotations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]]]]
     """
     auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
     """
-    failure_policy: NotRequired[pulumi.Input[_builtins.str]]
+    failure_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
     """
-    match_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgsDict']]]]
+    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]]
     """
     MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -3584,19 +3584,19 @@ class ValidatingAdmissionPolicySpecPatchArgsDict(TypedDict):
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the policy is skipped
     """
-    match_constraints: NotRequired[pulumi.Input['MatchResourcesPatchArgsDict']]
+    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgs']]]
     """
     MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
     """
-    param_kind: NotRequired[pulumi.Input['ParamKindPatchArgsDict']]
+    param_kind: NotRequired[pulumi.Input[Optional['ParamKindPatchArgs']]]
     """
     ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
     """
-    validations: NotRequired[pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgsDict']]]]
+    validations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ValidationPatchArgs']]]]]
     """
     Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
     """
-    variables: NotRequired[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgsDict']]]]
+    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]]]
     """
     Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 
@@ -3606,13 +3606,13 @@ class ValidatingAdmissionPolicySpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ValidatingAdmissionPolicySpecPatchArgs:
     def __init__(__self__, *,
-                 audit_annotations: Optional[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]]] = None,
-                 failure_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]] = None,
-                 match_constraints: Optional[pulumi.Input['MatchResourcesPatchArgs']] = None,
-                 param_kind: Optional[pulumi.Input['ParamKindPatchArgs']] = None,
-                 validations: Optional[pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]]] = None,
-                 variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]] = None):
+                 audit_annotations: pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]]] = None,
+                 failure_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 match_conditions: pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]] = None,
+                 match_constraints: pulumi.Input[Optional['MatchResourcesPatchArgs']] = None,
+                 param_kind: pulumi.Input[Optional['ParamKindPatchArgs']] = None,
+                 validations: pulumi.Input[Optional[Sequence[pulumi.Input['ValidationPatchArgs']]]] = None,
+                 variables: pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
 
@@ -3652,31 +3652,31 @@ class ValidatingAdmissionPolicySpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="auditAnnotations")
-    def audit_annotations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]]]:
+    def audit_annotations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]]]:
         """
         auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
         """
         return pulumi.get(self, "audit_annotations")
 
     @audit_annotations.setter
-    def audit_annotations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]]]):
+    def audit_annotations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]]]):
         pulumi.set(self, "audit_annotations", value)
 
     @_builtins.property
     @pulumi.getter(name="failurePolicy")
-    def failure_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def failure_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
 
     @failure_policy.setter
-    def failure_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def failure_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "failure_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="matchConditions")
-    def match_conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]:
+    def match_conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]:
         """
         MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -3692,48 +3692,48 @@ class ValidatingAdmissionPolicySpecPatchArgs:
         return pulumi.get(self, "match_conditions")
 
     @match_conditions.setter
-    def match_conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]):
+    def match_conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]):
         pulumi.set(self, "match_conditions", value)
 
     @_builtins.property
     @pulumi.getter(name="matchConstraints")
-    def match_constraints(self) -> Optional[pulumi.Input['MatchResourcesPatchArgs']]:
+    def match_constraints(self) -> pulumi.Input[Optional['MatchResourcesPatchArgs']]:
         """
         MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
         """
         return pulumi.get(self, "match_constraints")
 
     @match_constraints.setter
-    def match_constraints(self, value: Optional[pulumi.Input['MatchResourcesPatchArgs']]):
+    def match_constraints(self, value: pulumi.Input[Optional['MatchResourcesPatchArgs']]):
         pulumi.set(self, "match_constraints", value)
 
     @_builtins.property
     @pulumi.getter(name="paramKind")
-    def param_kind(self) -> Optional[pulumi.Input['ParamKindPatchArgs']]:
+    def param_kind(self) -> pulumi.Input[Optional['ParamKindPatchArgs']]:
         """
         ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
         """
         return pulumi.get(self, "param_kind")
 
     @param_kind.setter
-    def param_kind(self, value: Optional[pulumi.Input['ParamKindPatchArgs']]):
+    def param_kind(self, value: pulumi.Input[Optional['ParamKindPatchArgs']]):
         pulumi.set(self, "param_kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def validations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]]]:
+    def validations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ValidationPatchArgs']]]]:
         """
         Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
         """
         return pulumi.get(self, "validations")
 
     @validations.setter
-    def validations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]]]):
+    def validations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ValidationPatchArgs']]]]):
         pulumi.set(self, "validations", value)
 
     @_builtins.property
     @pulumi.getter
-    def variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]]:
+    def variables(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]]:
         """
         Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 
@@ -3742,7 +3742,7 @@ class ValidatingAdmissionPolicySpecPatchArgs:
         return pulumi.get(self, "variables")
 
     @variables.setter
-    def variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]]):
+    def variables(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]]):
         pulumi.set(self, "variables", value)
 
 
@@ -3754,15 +3754,15 @@ class ValidatingAdmissionPolicySpecArgsDict(TypedDict):
     """
     Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
     """
-    audit_annotations: NotRequired[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationArgsDict']]]]
+    audit_annotations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationArgs']]]]]
     """
     auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
     """
-    failure_policy: NotRequired[pulumi.Input[_builtins.str]]
+    failure_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
     """
-    match_conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgsDict']]]]
+    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]]]
     """
     MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -3775,15 +3775,15 @@ class ValidatingAdmissionPolicySpecArgsDict(TypedDict):
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the policy is skipped
     """
-    match_constraints: NotRequired[pulumi.Input['MatchResourcesArgsDict']]
+    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesArgs']]]
     """
     MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
     """
-    param_kind: NotRequired[pulumi.Input['ParamKindArgsDict']]
+    param_kind: NotRequired[pulumi.Input[Optional['ParamKindArgs']]]
     """
     ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
     """
-    variables: NotRequired[pulumi.Input[Sequence[pulumi.Input['VariableArgsDict']]]]
+    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]]]
     """
     Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 
@@ -3794,12 +3794,12 @@ class ValidatingAdmissionPolicySpecArgsDict(TypedDict):
 class ValidatingAdmissionPolicySpecArgs:
     def __init__(__self__, *,
                  validations: pulumi.Input[Sequence[pulumi.Input['ValidationArgs']]],
-                 audit_annotations: Optional[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationArgs']]]] = None,
-                 failure_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]] = None,
-                 match_constraints: Optional[pulumi.Input['MatchResourcesArgs']] = None,
-                 param_kind: Optional[pulumi.Input['ParamKindArgs']] = None,
-                 variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]] = None):
+                 audit_annotations: pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationArgs']]]] = None,
+                 failure_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 match_conditions: pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]] = None,
+                 match_constraints: pulumi.Input[Optional['MatchResourcesArgs']] = None,
+                 param_kind: pulumi.Input[Optional['ParamKindArgs']] = None,
+                 variables: pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
 
@@ -3850,31 +3850,31 @@ class ValidatingAdmissionPolicySpecArgs:
 
     @_builtins.property
     @pulumi.getter(name="auditAnnotations")
-    def audit_annotations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationArgs']]]]:
+    def audit_annotations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationArgs']]]]:
         """
         auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
         """
         return pulumi.get(self, "audit_annotations")
 
     @audit_annotations.setter
-    def audit_annotations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationArgs']]]]):
+    def audit_annotations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationArgs']]]]):
         pulumi.set(self, "audit_annotations", value)
 
     @_builtins.property
     @pulumi.getter(name="failurePolicy")
-    def failure_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def failure_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
 
     @failure_policy.setter
-    def failure_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def failure_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "failure_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="matchConditions")
-    def match_conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]]:
+    def match_conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]]:
         """
         MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -3890,36 +3890,36 @@ class ValidatingAdmissionPolicySpecArgs:
         return pulumi.get(self, "match_conditions")
 
     @match_conditions.setter
-    def match_conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]]):
+    def match_conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]]):
         pulumi.set(self, "match_conditions", value)
 
     @_builtins.property
     @pulumi.getter(name="matchConstraints")
-    def match_constraints(self) -> Optional[pulumi.Input['MatchResourcesArgs']]:
+    def match_constraints(self) -> pulumi.Input[Optional['MatchResourcesArgs']]:
         """
         MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
         """
         return pulumi.get(self, "match_constraints")
 
     @match_constraints.setter
-    def match_constraints(self, value: Optional[pulumi.Input['MatchResourcesArgs']]):
+    def match_constraints(self, value: pulumi.Input[Optional['MatchResourcesArgs']]):
         pulumi.set(self, "match_constraints", value)
 
     @_builtins.property
     @pulumi.getter(name="paramKind")
-    def param_kind(self) -> Optional[pulumi.Input['ParamKindArgs']]:
+    def param_kind(self) -> pulumi.Input[Optional['ParamKindArgs']]:
         """
         ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
         """
         return pulumi.get(self, "param_kind")
 
     @param_kind.setter
-    def param_kind(self, value: Optional[pulumi.Input['ParamKindArgs']]):
+    def param_kind(self, value: pulumi.Input[Optional['ParamKindArgs']]):
         pulumi.set(self, "param_kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]]:
+    def variables(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]]:
         """
         Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 
@@ -3928,7 +3928,7 @@ class ValidatingAdmissionPolicySpecArgs:
         return pulumi.get(self, "variables")
 
     @variables.setter
-    def variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]]):
+    def variables(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]]):
         pulumi.set(self, "variables", value)
 
 
@@ -3936,15 +3936,15 @@ class ValidatingAdmissionPolicyStatusArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
     """
-    conditions: NotRequired[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
     """
     The conditions represent the latest available observations of a policy's current state.
     """
-    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    observed_generation: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     The generation observed by the controller.
     """
-    type_checking: NotRequired[pulumi.Input['TypeCheckingArgsDict']]
+    type_checking: NotRequired[pulumi.Input[Optional['TypeCheckingArgs']]]
     """
     The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
     """
@@ -3952,9 +3952,9 @@ class ValidatingAdmissionPolicyStatusArgsDict(TypedDict):
 @pulumi.input_type
 class ValidatingAdmissionPolicyStatusArgs:
     def __init__(__self__, *,
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
-                 observed_generation: Optional[pulumi.Input[_builtins.int]] = None,
-                 type_checking: Optional[pulumi.Input['TypeCheckingArgs']] = None):
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
+                 observed_generation: pulumi.Input[Optional[_builtins.int]] = None,
+                 type_checking: pulumi.Input[Optional['TypeCheckingArgs']] = None):
         """
         ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
 
@@ -3971,38 +3971,38 @@ class ValidatingAdmissionPolicyStatusArgs:
 
     @_builtins.property
     @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
         """
         The conditions represent the latest available observations of a policy's current state.
         """
         return pulumi.get(self, "conditions")
 
     @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
 
     @_builtins.property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def observed_generation(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The generation observed by the controller.
         """
         return pulumi.get(self, "observed_generation")
 
     @observed_generation.setter
-    def observed_generation(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def observed_generation(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "observed_generation", value)
 
     @_builtins.property
     @pulumi.getter(name="typeChecking")
-    def type_checking(self) -> Optional[pulumi.Input['TypeCheckingArgs']]:
+    def type_checking(self) -> pulumi.Input[Optional['TypeCheckingArgs']]:
         """
         The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
         """
         return pulumi.get(self, "type_checking")
 
     @type_checking.setter
-    def type_checking(self, value: Optional[pulumi.Input['TypeCheckingArgs']]):
+    def type_checking(self, value: pulumi.Input[Optional['TypeCheckingArgs']]):
         pulumi.set(self, "type_checking", value)
 
 
@@ -4010,23 +4010,23 @@ class ValidatingAdmissionPolicyArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
-    spec: NotRequired[pulumi.Input['ValidatingAdmissionPolicySpecArgsDict']]
+    spec: NotRequired[pulumi.Input[Optional['ValidatingAdmissionPolicySpecArgs']]]
     """
     Specification of the desired behavior of the ValidatingAdmissionPolicy.
     """
-    status: NotRequired[pulumi.Input['ValidatingAdmissionPolicyStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['ValidatingAdmissionPolicyStatusArgs']]]
     """
     The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
     """
@@ -4034,11 +4034,11 @@ class ValidatingAdmissionPolicyArgsDict(TypedDict):
 @pulumi.input_type
 class ValidatingAdmissionPolicyArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['ValidatingAdmissionPolicySpecArgs']] = None,
-                 status: Optional[pulumi.Input['ValidatingAdmissionPolicyStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['ValidatingAdmissionPolicySpecArgs']] = None,
+                 status: pulumi.Input[Optional['ValidatingAdmissionPolicyStatusArgs']] = None):
         """
         ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
 
@@ -4061,62 +4061,62 @@ class ValidatingAdmissionPolicyArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['ValidatingAdmissionPolicySpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['ValidatingAdmissionPolicySpecArgs']]:
         """
         Specification of the desired behavior of the ValidatingAdmissionPolicy.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['ValidatingAdmissionPolicySpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['ValidatingAdmissionPolicySpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['ValidatingAdmissionPolicyStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['ValidatingAdmissionPolicyStatusArgs']]:
         """
         The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['ValidatingAdmissionPolicyStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['ValidatingAdmissionPolicyStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
@@ -4124,7 +4124,7 @@ class ValidationPatchArgsDict(TypedDict):
     """
     Validation specifies the CEL expression which is used to apply the validation.
     """
-    expression: NotRequired[pulumi.Input[_builtins.str]]
+    expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 
@@ -4148,15 +4148,15 @@ class ValidationPatchArgsDict(TypedDict):
         non-intersecting keys are appended, retaining their partial order.
     Required.
     """
-    message: NotRequired[pulumi.Input[_builtins.str]]
+    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
     """
-    message_expression: NotRequired[pulumi.Input[_builtins.str]]
+    message_expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
     """
-    reason: NotRequired[pulumi.Input[_builtins.str]]
+    reason: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
     """
@@ -4164,10 +4164,10 @@ class ValidationPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ValidationPatchArgs:
     def __init__(__self__, *,
-                 expression: Optional[pulumi.Input[_builtins.str]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 message_expression: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None):
+                 expression: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 message_expression: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Validation specifies the CEL expression which is used to apply the validation.
 
@@ -4207,7 +4207,7 @@ class ValidationPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
 
@@ -4234,43 +4234,43 @@ class ValidationPatchArgs:
         return pulumi.get(self, "expression")
 
     @expression.setter
-    def expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "expression", value)
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
     @_builtins.property
     @pulumi.getter(name="messageExpression")
-    def message_expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message_expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
         """
         return pulumi.get(self, "message_expression")
 
     @message_expression.setter
-    def message_expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message_expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message_expression", value)
 
     @_builtins.property
     @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
         """
         return pulumi.get(self, "reason")
 
     @reason.setter
-    def reason(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
 
 
@@ -4302,15 +4302,15 @@ class ValidationArgsDict(TypedDict):
         non-intersecting keys are appended, retaining their partial order.
     Required.
     """
-    message: NotRequired[pulumi.Input[_builtins.str]]
+    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
     """
-    message_expression: NotRequired[pulumi.Input[_builtins.str]]
+    message_expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
     """
-    reason: NotRequired[pulumi.Input[_builtins.str]]
+    reason: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
     """
@@ -4319,9 +4319,9 @@ class ValidationArgsDict(TypedDict):
 class ValidationArgs:
     def __init__(__self__, *,
                  expression: pulumi.Input[_builtins.str],
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 message_expression: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None):
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 message_expression: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Validation specifies the CEL expression which is used to apply the validation.
 
@@ -4392,38 +4392,38 @@ class ValidationArgs:
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
     @_builtins.property
     @pulumi.getter(name="messageExpression")
-    def message_expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message_expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
         """
         return pulumi.get(self, "message_expression")
 
     @message_expression.setter
-    def message_expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message_expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message_expression", value)
 
     @_builtins.property
     @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
         """
         return pulumi.get(self, "reason")
 
     @reason.setter
-    def reason(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
 
 
@@ -4431,11 +4431,11 @@ class VariablePatchArgsDict(TypedDict):
     """
     Variable is the definition of a variable that is used for composition.
     """
-    expression: NotRequired[pulumi.Input[_builtins.str]]
+    expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
     """
@@ -4443,8 +4443,8 @@ class VariablePatchArgsDict(TypedDict):
 @pulumi.input_type
 class VariablePatchArgs:
     def __init__(__self__, *,
-                 expression: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 expression: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Variable is the definition of a variable that is used for composition.
 
@@ -4458,26 +4458,26 @@ class VariablePatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def expression(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def expression(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
         """
         return pulumi.get(self, "expression")
 
     @expression.setter
-    def expression(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def expression(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "expression", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
 

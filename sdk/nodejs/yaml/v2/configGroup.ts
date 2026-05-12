@@ -152,21 +152,21 @@ export interface ConfigGroupArgs {
     /**
      * Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
      */
-    files?: pulumi.Input<pulumi.Input<string>[]>;
+    files?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Objects representing Kubernetes resource configurations.
      */
-    objs?: pulumi.Input<any[]>;
+    objs?: pulumi.Input<any[] | undefined>;
     /**
      * A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
      */
-    resourcePrefix?: pulumi.Input<string>;
+    resourcePrefix?: pulumi.Input<string | undefined>;
     /**
      * Indicates that child resources should skip the await logic.
      */
-    skipAwait?: pulumi.Input<boolean>;
+    skipAwait?: pulumi.Input<boolean | undefined>;
     /**
      * A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
      */
-    yaml?: pulumi.Input<string>;
+    yaml?: pulumi.Input<string | undefined>;
 }

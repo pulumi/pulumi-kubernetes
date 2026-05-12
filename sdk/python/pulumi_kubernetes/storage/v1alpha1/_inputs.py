@@ -39,11 +39,11 @@ class VolumeAttachmentSourcePatchArgsDict(TypedDict):
     """
     VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
     """
-    inline_volume_spec: NotRequired[pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgsDict']]
+    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']]]
     """
     inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
     """
-    persistent_volume_name: NotRequired[pulumi.Input[_builtins.str]]
+    persistent_volume_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Name of the persistent volume to attach.
     """
@@ -51,8 +51,8 @@ class VolumeAttachmentSourcePatchArgsDict(TypedDict):
 @pulumi.input_type
 class VolumeAttachmentSourcePatchArgs:
     def __init__(__self__, *,
-                 inline_volume_spec: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs']] = None,
-                 persistent_volume_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 inline_volume_spec: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']] = None,
+                 persistent_volume_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
 
@@ -66,26 +66,26 @@ class VolumeAttachmentSourcePatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="inlineVolumeSpec")
-    def inline_volume_spec(self) -> Optional[pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs']]:
+    def inline_volume_spec(self) -> pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']]:
         """
         inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
         """
         return pulumi.get(self, "inline_volume_spec")
 
     @inline_volume_spec.setter
-    def inline_volume_spec(self, value: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs']]):
+    def inline_volume_spec(self, value: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']]):
         pulumi.set(self, "inline_volume_spec", value)
 
     @_builtins.property
     @pulumi.getter(name="persistentVolumeName")
-    def persistent_volume_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def persistent_volume_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the persistent volume to attach.
         """
         return pulumi.get(self, "persistent_volume_name")
 
     @persistent_volume_name.setter
-    def persistent_volume_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def persistent_volume_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "persistent_volume_name", value)
 
 
@@ -93,11 +93,11 @@ class VolumeAttachmentSourceArgsDict(TypedDict):
     """
     VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
     """
-    inline_volume_spec: NotRequired[pulumi.Input['_core.v1.PersistentVolumeSpecArgsDict']]
+    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']]]
     """
     inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
     """
-    persistent_volume_name: NotRequired[pulumi.Input[_builtins.str]]
+    persistent_volume_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Name of the persistent volume to attach.
     """
@@ -105,8 +105,8 @@ class VolumeAttachmentSourceArgsDict(TypedDict):
 @pulumi.input_type
 class VolumeAttachmentSourceArgs:
     def __init__(__self__, *,
-                 inline_volume_spec: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecArgs']] = None,
-                 persistent_volume_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 inline_volume_spec: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']] = None,
+                 persistent_volume_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
 
@@ -120,26 +120,26 @@ class VolumeAttachmentSourceArgs:
 
     @_builtins.property
     @pulumi.getter(name="inlineVolumeSpec")
-    def inline_volume_spec(self) -> Optional[pulumi.Input['_core.v1.PersistentVolumeSpecArgs']]:
+    def inline_volume_spec(self) -> pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']]:
         """
         inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
         """
         return pulumi.get(self, "inline_volume_spec")
 
     @inline_volume_spec.setter
-    def inline_volume_spec(self, value: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecArgs']]):
+    def inline_volume_spec(self, value: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']]):
         pulumi.set(self, "inline_volume_spec", value)
 
     @_builtins.property
     @pulumi.getter(name="persistentVolumeName")
-    def persistent_volume_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def persistent_volume_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the persistent volume to attach.
         """
         return pulumi.get(self, "persistent_volume_name")
 
     @persistent_volume_name.setter
-    def persistent_volume_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def persistent_volume_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "persistent_volume_name", value)
 
 
@@ -147,15 +147,15 @@ class VolumeAttachmentSpecPatchArgsDict(TypedDict):
     """
     VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     """
-    attacher: NotRequired[pulumi.Input[_builtins.str]]
+    attacher: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
     """
-    node_name: NotRequired[pulumi.Input[_builtins.str]]
+    node_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The node that the volume should be attached to.
     """
-    source: NotRequired[pulumi.Input['VolumeAttachmentSourcePatchArgsDict']]
+    source: NotRequired[pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']]]
     """
     Source represents the volume that should be attached.
     """
@@ -163,9 +163,9 @@ class VolumeAttachmentSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class VolumeAttachmentSpecPatchArgs:
     def __init__(__self__, *,
-                 attacher: Optional[pulumi.Input[_builtins.str]] = None,
-                 node_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 source: Optional[pulumi.Input['VolumeAttachmentSourcePatchArgs']] = None):
+                 attacher: pulumi.Input[Optional[_builtins.str]] = None,
+                 node_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 source: pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']] = None):
         """
         VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 
@@ -182,38 +182,38 @@ class VolumeAttachmentSpecPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def attacher(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def attacher(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
         """
         return pulumi.get(self, "attacher")
 
     @attacher.setter
-    def attacher(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def attacher(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "attacher", value)
 
     @_builtins.property
     @pulumi.getter(name="nodeName")
-    def node_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def node_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The node that the volume should be attached to.
         """
         return pulumi.get(self, "node_name")
 
     @node_name.setter
-    def node_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def node_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "node_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def source(self) -> Optional[pulumi.Input['VolumeAttachmentSourcePatchArgs']]:
+    def source(self) -> pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']]:
         """
         Source represents the volume that should be attached.
         """
         return pulumi.get(self, "source")
 
     @source.setter
-    def source(self, value: Optional[pulumi.Input['VolumeAttachmentSourcePatchArgs']]):
+    def source(self, value: pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']]):
         pulumi.set(self, "source", value)
 
 
@@ -296,15 +296,15 @@ class VolumeAttachmentStatusArgsDict(TypedDict):
     """
     Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     """
-    attach_error: NotRequired[pulumi.Input['VolumeErrorArgsDict']]
+    attach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgs']]]
     """
     The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     """
-    attachment_metadata: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    attachment_metadata: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     """
-    detach_error: NotRequired[pulumi.Input['VolumeErrorArgsDict']]
+    detach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgs']]]
     """
     The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
     """
@@ -313,9 +313,9 @@ class VolumeAttachmentStatusArgsDict(TypedDict):
 class VolumeAttachmentStatusArgs:
     def __init__(__self__, *,
                  attached: pulumi.Input[_builtins.bool],
-                 attach_error: Optional[pulumi.Input['VolumeErrorArgs']] = None,
-                 attachment_metadata: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 detach_error: Optional[pulumi.Input['VolumeErrorArgs']] = None):
+                 attach_error: pulumi.Input[Optional['VolumeErrorArgs']] = None,
+                 attachment_metadata: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 detach_error: pulumi.Input[Optional['VolumeErrorArgs']] = None):
         """
         VolumeAttachmentStatus is the status of a VolumeAttachment request.
 
@@ -346,38 +346,38 @@ class VolumeAttachmentStatusArgs:
 
     @_builtins.property
     @pulumi.getter(name="attachError")
-    def attach_error(self) -> Optional[pulumi.Input['VolumeErrorArgs']]:
+    def attach_error(self) -> pulumi.Input[Optional['VolumeErrorArgs']]:
         """
         The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         """
         return pulumi.get(self, "attach_error")
 
     @attach_error.setter
-    def attach_error(self, value: Optional[pulumi.Input['VolumeErrorArgs']]):
+    def attach_error(self, value: pulumi.Input[Optional['VolumeErrorArgs']]):
         pulumi.set(self, "attach_error", value)
 
     @_builtins.property
     @pulumi.getter(name="attachmentMetadata")
-    def attachment_metadata(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def attachment_metadata(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         """
         return pulumi.get(self, "attachment_metadata")
 
     @attachment_metadata.setter
-    def attachment_metadata(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def attachment_metadata(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "attachment_metadata", value)
 
     @_builtins.property
     @pulumi.getter(name="detachError")
-    def detach_error(self) -> Optional[pulumi.Input['VolumeErrorArgs']]:
+    def detach_error(self) -> pulumi.Input[Optional['VolumeErrorArgs']]:
         """
         The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
         """
         return pulumi.get(self, "detach_error")
 
     @detach_error.setter
-    def detach_error(self, value: Optional[pulumi.Input['VolumeErrorArgs']]):
+    def detach_error(self, value: pulumi.Input[Optional['VolumeErrorArgs']]):
         pulumi.set(self, "detach_error", value)
 
 
@@ -391,19 +391,19 @@ class VolumeAttachmentArgsDict(TypedDict):
     """
     Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    status: NotRequired[pulumi.Input['VolumeAttachmentStatusArgsDict']]
+    status: NotRequired[pulumi.Input[Optional['VolumeAttachmentStatusArgs']]]
     """
     Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
     """
@@ -412,10 +412,10 @@ class VolumeAttachmentArgsDict(TypedDict):
 class VolumeAttachmentArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['VolumeAttachmentSpecArgs'],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 status: Optional[pulumi.Input['VolumeAttachmentStatusArgs']] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 status: pulumi.Input[Optional['VolumeAttachmentStatusArgs']] = None):
         """
         VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 
@@ -451,50 +451,50 @@ class VolumeAttachmentArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['VolumeAttachmentStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['VolumeAttachmentStatusArgs']]:
         """
         Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['VolumeAttachmentStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['VolumeAttachmentStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
@@ -506,19 +506,19 @@ class VolumeAttributesClassArgsDict(TypedDict):
     """
     Name of the CSI driver This field is immutable.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input['_meta.v1.ObjectMetaArgsDict']]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    parameters: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    parameters: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
 
@@ -529,10 +529,10 @@ class VolumeAttributesClassArgsDict(TypedDict):
 class VolumeAttributesClassArgs:
     def __init__(__self__, *,
                  driver_name: pulumi.Input[_builtins.str],
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 parameters: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.
 
@@ -568,43 +568,43 @@ class VolumeAttributesClassArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter
-    def parameters(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def parameters(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
 
@@ -613,7 +613,7 @@ class VolumeAttributesClassArgs:
         return pulumi.get(self, "parameters")
 
     @parameters.setter
-    def parameters(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def parameters(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "parameters", value)
 
 
@@ -621,11 +621,11 @@ class VolumeErrorArgsDict(TypedDict):
     """
     VolumeError captures an error encountered during a volume operation.
     """
-    message: NotRequired[pulumi.Input[_builtins.str]]
+    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
     """
-    time: NotRequired[pulumi.Input[_builtins.str]]
+    time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Time the error was encountered.
     """
@@ -633,8 +633,8 @@ class VolumeErrorArgsDict(TypedDict):
 @pulumi.input_type
 class VolumeErrorArgs:
     def __init__(__self__, *,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 time: Optional[pulumi.Input[_builtins.str]] = None):
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 time: pulumi.Input[Optional[_builtins.str]] = None):
         """
         VolumeError captures an error encountered during a volume operation.
 
@@ -648,26 +648,26 @@ class VolumeErrorArgs:
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
     @_builtins.property
     @pulumi.getter
-    def time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Time the error was encountered.
         """
         return pulumi.get(self, "time")
 
     @time.setter
-    def time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "time", value)
 
 

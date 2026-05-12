@@ -83,7 +83,7 @@ class ConditionArgsDict(TypedDict):
     """
     type of condition in CamelCase or in foo.example.com/CamelCase.
     """
-    observed_generation: NotRequired[pulumi.Input[_builtins.int]]
+    observed_generation: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
     """
@@ -96,7 +96,7 @@ class ConditionArgs:
                  reason: pulumi.Input[_builtins.str],
                  status: pulumi.Input[_builtins.str],
                  type: pulumi.Input[_builtins.str],
-                 observed_generation: Optional[pulumi.Input[_builtins.int]] = None):
+                 observed_generation: pulumi.Input[Optional[_builtins.int]] = None):
         """
         Condition contains details for one aspect of the current state of this API Resource.
 
@@ -177,14 +177,14 @@ class ConditionArgs:
 
     @_builtins.property
     @pulumi.getter(name="observedGeneration")
-    def observed_generation(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def observed_generation(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
         """
         return pulumi.get(self, "observed_generation")
 
     @observed_generation.setter
-    def observed_generation(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def observed_generation(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "observed_generation", value)
 
 
@@ -192,14 +192,14 @@ class GroupResourcePatchArgsDict(TypedDict):
     """
     GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
     """
-    group: NotRequired[pulumi.Input[_builtins.str]]
-    resource: NotRequired[pulumi.Input[_builtins.str]]
+    group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    resource: NotRequired[pulumi.Input[Optional[_builtins.str]]]
 
 @pulumi.input_type
 class GroupResourcePatchArgs:
     def __init__(__self__, *,
-                 group: Optional[pulumi.Input[_builtins.str]] = None,
-                 resource: Optional[pulumi.Input[_builtins.str]] = None):
+                 group: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource: pulumi.Input[Optional[_builtins.str]] = None):
         """
         GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types
         """
@@ -210,20 +210,20 @@ class GroupResourcePatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def group(self) -> pulumi.Input[Optional[_builtins.str]]:
         return pulumi.get(self, "group")
 
     @group.setter
-    def group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "group", value)
 
     @_builtins.property
     @pulumi.getter
-    def resource(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource(self) -> pulumi.Input[Optional[_builtins.str]]:
         return pulumi.get(self, "resource")
 
     @resource.setter
-    def resource(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource", value)
 
 
@@ -268,11 +268,11 @@ class LabelSelectorPatchArgsDict(TypedDict):
     """
     A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
     """
-    match_expressions: NotRequired[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgsDict']]]]
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgs']]]]]
     """
     matchExpressions is a list of label selector requirements. The requirements are ANDed.
     """
-    match_labels: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    match_labels: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
     """
@@ -280,8 +280,8 @@ class LabelSelectorPatchArgsDict(TypedDict):
 @pulumi.input_type
 class LabelSelectorPatchArgs:
     def __init__(__self__, *,
-                 match_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgs']]]] = None,
-                 match_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 match_expressions: pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgs']]]] = None,
+                 match_labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
 
@@ -295,26 +295,26 @@ class LabelSelectorPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="matchExpressions")
-    def match_expressions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgs']]]]:
+    def match_expressions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgs']]]]:
         """
         matchExpressions is a list of label selector requirements. The requirements are ANDed.
         """
         return pulumi.get(self, "match_expressions")
 
     @match_expressions.setter
-    def match_expressions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgs']]]]):
+    def match_expressions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgs']]]]):
         pulumi.set(self, "match_expressions", value)
 
     @_builtins.property
     @pulumi.getter(name="matchLabels")
-    def match_labels(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def match_labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
         """
         return pulumi.get(self, "match_labels")
 
     @match_labels.setter
-    def match_labels(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def match_labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "match_labels", value)
 
 
@@ -322,15 +322,15 @@ class LabelSelectorRequirementPatchArgsDict(TypedDict):
     """
     A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
     """
-    key: NotRequired[pulumi.Input[_builtins.str]]
+    key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     key is the label key that the selector applies to.
     """
-    operator: NotRequired[pulumi.Input[_builtins.str]]
+    operator: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
     """
-    values: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    values: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
     """
@@ -338,9 +338,9 @@ class LabelSelectorRequirementPatchArgsDict(TypedDict):
 @pulumi.input_type
 class LabelSelectorRequirementPatchArgs:
     def __init__(__self__, *,
-                 key: Optional[pulumi.Input[_builtins.str]] = None,
-                 operator: Optional[pulumi.Input[_builtins.str]] = None,
-                 values: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 operator: pulumi.Input[Optional[_builtins.str]] = None,
+                 values: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 
@@ -357,38 +357,38 @@ class LabelSelectorRequirementPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         key is the label key that the selector applies to.
         """
         return pulumi.get(self, "key")
 
     @key.setter
-    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "key", value)
 
     @_builtins.property
     @pulumi.getter
-    def operator(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def operator(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
         """
         return pulumi.get(self, "operator")
 
     @operator.setter
-    def operator(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def operator(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "operator", value)
 
     @_builtins.property
     @pulumi.getter
-    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def values(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
         """
         return pulumi.get(self, "values")
 
     @values.setter
-    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def values(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "values", value)
 
 
@@ -404,7 +404,7 @@ class LabelSelectorRequirementArgsDict(TypedDict):
     """
     operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.
     """
-    values: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    values: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
     """
@@ -414,7 +414,7 @@ class LabelSelectorRequirementArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[_builtins.str],
                  operator: pulumi.Input[_builtins.str],
-                 values: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 values: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 
@@ -453,14 +453,14 @@ class LabelSelectorRequirementArgs:
 
     @_builtins.property
     @pulumi.getter
-    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def values(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
         """
         return pulumi.get(self, "values")
 
     @values.setter
-    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def values(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "values", value)
 
 
@@ -468,11 +468,11 @@ class LabelSelectorArgsDict(TypedDict):
     """
     A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
     """
-    match_expressions: NotRequired[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementArgsDict']]]]
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]]]
     """
     matchExpressions is a list of label selector requirements. The requirements are ANDed.
     """
-    match_labels: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    match_labels: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
     """
@@ -480,8 +480,8 @@ class LabelSelectorArgsDict(TypedDict):
 @pulumi.input_type
 class LabelSelectorArgs:
     def __init__(__self__, *,
-                 match_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]] = None,
-                 match_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+                 match_expressions: pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]] = None,
+                 match_labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
         A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
 
@@ -495,26 +495,26 @@ class LabelSelectorArgs:
 
     @_builtins.property
     @pulumi.getter(name="matchExpressions")
-    def match_expressions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]]:
+    def match_expressions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]]:
         """
         matchExpressions is a list of label selector requirements. The requirements are ANDed.
         """
         return pulumi.get(self, "match_expressions")
 
     @match_expressions.setter
-    def match_expressions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]]):
+    def match_expressions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]]):
         pulumi.set(self, "match_expressions", value)
 
     @_builtins.property
     @pulumi.getter(name="matchLabels")
-    def match_labels(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def match_labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
         """
         return pulumi.get(self, "match_labels")
 
     @match_labels.setter
-    def match_labels(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def match_labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "match_labels", value)
 
 
@@ -522,23 +522,23 @@ class ListMetaPatchArgsDict(TypedDict):
     """
     ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
     """
-    continue_: NotRequired[pulumi.Input[_builtins.str]]
+    continue_: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
     """
-    remaining_item_count: NotRequired[pulumi.Input[_builtins.int]]
+    remaining_item_count: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
     """
-    resource_version: NotRequired[pulumi.Input[_builtins.str]]
+    resource_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
     """
-    self_link: NotRequired[pulumi.Input[_builtins.str]]
+    self_link: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
     """
-    shard_info: NotRequired[pulumi.Input['ShardInfoPatchArgsDict']]
+    shard_info: NotRequired[pulumi.Input[Optional['ShardInfoPatchArgs']]]
     """
     shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
 
@@ -548,11 +548,11 @@ class ListMetaPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ListMetaPatchArgs:
     def __init__(__self__, *,
-                 continue_: Optional[pulumi.Input[_builtins.str]] = None,
-                 remaining_item_count: Optional[pulumi.Input[_builtins.int]] = None,
-                 resource_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 self_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 shard_info: Optional[pulumi.Input['ShardInfoPatchArgs']] = None):
+                 continue_: pulumi.Input[Optional[_builtins.str]] = None,
+                 remaining_item_count: pulumi.Input[Optional[_builtins.int]] = None,
+                 resource_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 self_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 shard_info: pulumi.Input[Optional['ShardInfoPatchArgs']] = None):
         """
         ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
 
@@ -577,55 +577,55 @@ class ListMetaPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="continue")
-    def continue_(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def continue_(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
         """
         return pulumi.get(self, "continue_")
 
     @continue_.setter
-    def continue_(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def continue_(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "continue_", value)
 
     @_builtins.property
     @pulumi.getter(name="remainingItemCount")
-    def remaining_item_count(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def remaining_item_count(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
         """
         return pulumi.get(self, "remaining_item_count")
 
     @remaining_item_count.setter
-    def remaining_item_count(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def remaining_item_count(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "remaining_item_count", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceVersion")
-    def resource_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
         """
         return pulumi.get(self, "resource_version")
 
     @resource_version.setter
-    def resource_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_version", value)
 
     @_builtins.property
     @pulumi.getter(name="selfLink")
-    def self_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def self_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         """
         return pulumi.get(self, "self_link")
 
     @self_link.setter
-    def self_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def self_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "self_link", value)
 
     @_builtins.property
     @pulumi.getter(name="shardInfo")
-    def shard_info(self) -> Optional[pulumi.Input['ShardInfoPatchArgs']]:
+    def shard_info(self) -> pulumi.Input[Optional['ShardInfoPatchArgs']]:
         """
         shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
 
@@ -634,7 +634,7 @@ class ListMetaPatchArgs:
         return pulumi.get(self, "shard_info")
 
     @shard_info.setter
-    def shard_info(self, value: Optional[pulumi.Input['ShardInfoPatchArgs']]):
+    def shard_info(self, value: pulumi.Input[Optional['ShardInfoPatchArgs']]):
         pulumi.set(self, "shard_info", value)
 
 
@@ -642,23 +642,23 @@ class ListMetaArgsDict(TypedDict):
     """
     ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
     """
-    continue_: NotRequired[pulumi.Input[_builtins.str]]
+    continue_: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
     """
-    remaining_item_count: NotRequired[pulumi.Input[_builtins.int]]
+    remaining_item_count: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
     """
-    resource_version: NotRequired[pulumi.Input[_builtins.str]]
+    resource_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
     """
-    self_link: NotRequired[pulumi.Input[_builtins.str]]
+    self_link: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
     """
-    shard_info: NotRequired[pulumi.Input['ShardInfoArgsDict']]
+    shard_info: NotRequired[pulumi.Input[Optional['ShardInfoArgs']]]
     """
     shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
 
@@ -668,11 +668,11 @@ class ListMetaArgsDict(TypedDict):
 @pulumi.input_type
 class ListMetaArgs:
     def __init__(__self__, *,
-                 continue_: Optional[pulumi.Input[_builtins.str]] = None,
-                 remaining_item_count: Optional[pulumi.Input[_builtins.int]] = None,
-                 resource_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 self_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 shard_info: Optional[pulumi.Input['ShardInfoArgs']] = None):
+                 continue_: pulumi.Input[Optional[_builtins.str]] = None,
+                 remaining_item_count: pulumi.Input[Optional[_builtins.int]] = None,
+                 resource_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 self_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 shard_info: pulumi.Input[Optional['ShardInfoArgs']] = None):
         """
         ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
 
@@ -697,55 +697,55 @@ class ListMetaArgs:
 
     @_builtins.property
     @pulumi.getter(name="continue")
-    def continue_(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def continue_(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
         """
         return pulumi.get(self, "continue_")
 
     @continue_.setter
-    def continue_(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def continue_(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "continue_", value)
 
     @_builtins.property
     @pulumi.getter(name="remainingItemCount")
-    def remaining_item_count(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def remaining_item_count(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.
         """
         return pulumi.get(self, "remaining_item_count")
 
     @remaining_item_count.setter
-    def remaining_item_count(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def remaining_item_count(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "remaining_item_count", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceVersion")
-    def resource_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
         """
         return pulumi.get(self, "resource_version")
 
     @resource_version.setter
-    def resource_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_version", value)
 
     @_builtins.property
     @pulumi.getter(name="selfLink")
-    def self_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def self_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         """
         return pulumi.get(self, "self_link")
 
     @self_link.setter
-    def self_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def self_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "self_link", value)
 
     @_builtins.property
     @pulumi.getter(name="shardInfo")
-    def shard_info(self) -> Optional[pulumi.Input['ShardInfoArgs']]:
+    def shard_info(self) -> pulumi.Input[Optional['ShardInfoArgs']]:
         """
         shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
 
@@ -754,7 +754,7 @@ class ListMetaArgs:
         return pulumi.get(self, "shard_info")
 
     @shard_info.setter
-    def shard_info(self, value: Optional[pulumi.Input['ShardInfoArgs']]):
+    def shard_info(self, value: pulumi.Input[Optional['ShardInfoArgs']]):
         pulumi.set(self, "shard_info", value)
 
 
@@ -762,31 +762,31 @@ class ManagedFieldsEntryPatchArgsDict(TypedDict):
     """
     ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the version of this resource that this field set applies to. The format is "group/version" just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.
     """
-    fields_type: NotRequired[pulumi.Input[_builtins.str]]
+    fields_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: "FieldsV1"
     """
-    fields_v1: NotRequired[Any]
+    fields_v1: NotRequired[Optional[Any]]
     """
     FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
     """
-    manager: NotRequired[pulumi.Input[_builtins.str]]
+    manager: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Manager is an identifier of the workflow managing these fields.
     """
-    operation: NotRequired[pulumi.Input[_builtins.str]]
+    operation: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
     """
-    subresource: NotRequired[pulumi.Input[_builtins.str]]
+    subresource: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
     """
-    time: NotRequired[pulumi.Input[_builtins.str]]
+    time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Time is the timestamp of when the ManagedFields entry was added. The timestamp will also be updated if a field is added, the manager changes any of the owned fields value or removes a field. The timestamp does not update when a field is removed from the entry because another manager took it over.
     """
@@ -794,13 +794,13 @@ class ManagedFieldsEntryPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ManagedFieldsEntryPatchArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 fields_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 fields_type: pulumi.Input[Optional[_builtins.str]] = None,
                  fields_v1: Optional[Any] = None,
-                 manager: Optional[pulumi.Input[_builtins.str]] = None,
-                 operation: Optional[pulumi.Input[_builtins.str]] = None,
-                 subresource: Optional[pulumi.Input[_builtins.str]] = None,
-                 time: Optional[pulumi.Input[_builtins.str]] = None):
+                 manager: pulumi.Input[Optional[_builtins.str]] = None,
+                 operation: pulumi.Input[Optional[_builtins.str]] = None,
+                 subresource: pulumi.Input[Optional[_builtins.str]] = None,
+                 time: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
 
@@ -829,26 +829,26 @@ class ManagedFieldsEntryPatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the version of this resource that this field set applies to. The format is "group/version" just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter(name="fieldsType")
-    def fields_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def fields_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: "FieldsV1"
         """
         return pulumi.get(self, "fields_type")
 
     @fields_type.setter
-    def fields_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def fields_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "fields_type", value)
 
     @_builtins.property
@@ -865,50 +865,50 @@ class ManagedFieldsEntryPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def manager(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def manager(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Manager is an identifier of the workflow managing these fields.
         """
         return pulumi.get(self, "manager")
 
     @manager.setter
-    def manager(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def manager(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "manager", value)
 
     @_builtins.property
     @pulumi.getter
-    def operation(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def operation(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
         """
         return pulumi.get(self, "operation")
 
     @operation.setter
-    def operation(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def operation(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "operation", value)
 
     @_builtins.property
     @pulumi.getter
-    def subresource(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def subresource(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
         """
         return pulumi.get(self, "subresource")
 
     @subresource.setter
-    def subresource(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def subresource(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "subresource", value)
 
     @_builtins.property
     @pulumi.getter
-    def time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Time is the timestamp of when the ManagedFields entry was added. The timestamp will also be updated if a field is added, the manager changes any of the owned fields value or removes a field. The timestamp does not update when a field is removed from the entry because another manager took it over.
         """
         return pulumi.get(self, "time")
 
     @time.setter
-    def time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "time", value)
 
 
@@ -916,31 +916,31 @@ class ManagedFieldsEntryArgsDict(TypedDict):
     """
     ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIVersion defines the version of this resource that this field set applies to. The format is "group/version" just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.
     """
-    fields_type: NotRequired[pulumi.Input[_builtins.str]]
+    fields_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: "FieldsV1"
     """
-    fields_v1: NotRequired[Any]
+    fields_v1: NotRequired[Optional[Any]]
     """
     FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
     """
-    manager: NotRequired[pulumi.Input[_builtins.str]]
+    manager: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Manager is an identifier of the workflow managing these fields.
     """
-    operation: NotRequired[pulumi.Input[_builtins.str]]
+    operation: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
     """
-    subresource: NotRequired[pulumi.Input[_builtins.str]]
+    subresource: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
     """
-    time: NotRequired[pulumi.Input[_builtins.str]]
+    time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Time is the timestamp of when the ManagedFields entry was added. The timestamp will also be updated if a field is added, the manager changes any of the owned fields value or removes a field. The timestamp does not update when a field is removed from the entry because another manager took it over.
     """
@@ -948,13 +948,13 @@ class ManagedFieldsEntryArgsDict(TypedDict):
 @pulumi.input_type
 class ManagedFieldsEntryArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 fields_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 fields_type: pulumi.Input[Optional[_builtins.str]] = None,
                  fields_v1: Optional[Any] = None,
-                 manager: Optional[pulumi.Input[_builtins.str]] = None,
-                 operation: Optional[pulumi.Input[_builtins.str]] = None,
-                 subresource: Optional[pulumi.Input[_builtins.str]] = None,
-                 time: Optional[pulumi.Input[_builtins.str]] = None):
+                 manager: pulumi.Input[Optional[_builtins.str]] = None,
+                 operation: pulumi.Input[Optional[_builtins.str]] = None,
+                 subresource: pulumi.Input[Optional[_builtins.str]] = None,
+                 time: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
 
@@ -983,26 +983,26 @@ class ManagedFieldsEntryArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         APIVersion defines the version of this resource that this field set applies to. The format is "group/version" just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter(name="fieldsType")
-    def fields_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def fields_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: "FieldsV1"
         """
         return pulumi.get(self, "fields_type")
 
     @fields_type.setter
-    def fields_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def fields_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "fields_type", value)
 
     @_builtins.property
@@ -1019,50 +1019,50 @@ class ManagedFieldsEntryArgs:
 
     @_builtins.property
     @pulumi.getter
-    def manager(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def manager(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Manager is an identifier of the workflow managing these fields.
         """
         return pulumi.get(self, "manager")
 
     @manager.setter
-    def manager(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def manager(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "manager", value)
 
     @_builtins.property
     @pulumi.getter
-    def operation(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def operation(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
         """
         return pulumi.get(self, "operation")
 
     @operation.setter
-    def operation(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def operation(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "operation", value)
 
     @_builtins.property
     @pulumi.getter
-    def subresource(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def subresource(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
         """
         return pulumi.get(self, "subresource")
 
     @subresource.setter
-    def subresource(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def subresource(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "subresource", value)
 
     @_builtins.property
     @pulumi.getter
-    def time(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def time(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Time is the timestamp of when the ManagedFields entry was added. The timestamp will also be updated if a field is added, the manager changes any of the owned fields value or removes a field. The timestamp does not update when a field is removed from the entry because another manager took it over.
         """
         return pulumi.get(self, "time")
 
     @time.setter
-    def time(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def time(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "time", value)
 
 
@@ -1070,35 +1070,35 @@ class ObjectMetaPatchArgsDict(TypedDict):
     """
     ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
     """
-    annotations: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    annotations: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
     """
-    cluster_name: NotRequired[pulumi.Input[_builtins.str]]
+    cluster_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
     """
-    creation_timestamp: NotRequired[pulumi.Input[_builtins.str]]
+    creation_timestamp: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
 
     Populated by the system. Read-only. Null for lists. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    deletion_grace_period_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    deletion_grace_period_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
     """
-    deletion_timestamp: NotRequired[pulumi.Input[_builtins.str]]
+    deletion_timestamp: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field, once the finalizers list is empty. As long as the finalizers list contains items, deletion is blocked. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time. For example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react by sending a graceful termination signal to the containers in the pod. After that 30 seconds, the Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup, remove the pod from the API. In the presence of network partitions, this object may still exist after this timestamp, until an administrator or automated process can determine the resource is fully terminated. If not set, graceful deletion of the object has not been requested.
 
     Populated by the system when a graceful deletion is requested. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    finalizers: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    finalizers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
     """
-    generate_name: NotRequired[pulumi.Input[_builtins.str]]
+    generate_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
 
@@ -1106,43 +1106,43 @@ class ObjectMetaPatchArgsDict(TypedDict):
 
     Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
     """
-    generation: NotRequired[pulumi.Input[_builtins.int]]
+    generation: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
     """
-    labels: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    labels: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
     """
-    managed_fields: NotRequired[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgsDict']]]]
+    managed_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgs']]]]]
     """
     ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
 
     Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
     """
-    owner_references: NotRequired[pulumi.Input[Sequence[pulumi.Input['OwnerReferencePatchArgsDict']]]]
+    owner_references: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferencePatchArgs']]]]]
     """
     List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
     """
-    resource_version: NotRequired[pulumi.Input[_builtins.str]]
+    resource_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
 
     Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
     """
-    self_link: NotRequired[pulumi.Input[_builtins.str]]
+    self_link: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
     """
-    uid: NotRequired[pulumi.Input[_builtins.str]]
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
 
@@ -1152,22 +1152,22 @@ class ObjectMetaPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ObjectMetaPatchArgs:
     def __init__(__self__, *,
-                 annotations: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 cluster_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 creation_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 deletion_grace_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 deletion_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 finalizers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 generate_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 generation: Optional[pulumi.Input[_builtins.int]] = None,
-                 labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 managed_fields: Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgs']]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 owner_references: Optional[pulumi.Input[Sequence[pulumi.Input['OwnerReferencePatchArgs']]]] = None,
-                 resource_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 self_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 uid: Optional[pulumi.Input[_builtins.str]] = None):
+                 annotations: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 cluster_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 creation_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 deletion_grace_period_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 deletion_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 finalizers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 generate_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 generation: pulumi.Input[Optional[_builtins.int]] = None,
+                 labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 managed_fields: pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgs']]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 owner_references: pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferencePatchArgs']]]] = None,
+                 resource_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 self_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
 
@@ -1237,31 +1237,31 @@ class ObjectMetaPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def annotations(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def annotations(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
         """
         return pulumi.get(self, "annotations")
 
     @annotations.setter
-    def annotations(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def annotations(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "annotations", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterName")
-    def cluster_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
         """
         return pulumi.get(self, "cluster_name")
 
     @cluster_name.setter
-    def cluster_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_name", value)
 
     @_builtins.property
     @pulumi.getter(name="creationTimestamp")
-    def creation_timestamp(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def creation_timestamp(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
 
@@ -1270,24 +1270,24 @@ class ObjectMetaPatchArgs:
         return pulumi.get(self, "creation_timestamp")
 
     @creation_timestamp.setter
-    def creation_timestamp(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def creation_timestamp(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "creation_timestamp", value)
 
     @_builtins.property
     @pulumi.getter(name="deletionGracePeriodSeconds")
-    def deletion_grace_period_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def deletion_grace_period_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
         """
         return pulumi.get(self, "deletion_grace_period_seconds")
 
     @deletion_grace_period_seconds.setter
-    def deletion_grace_period_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def deletion_grace_period_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "deletion_grace_period_seconds", value)
 
     @_builtins.property
     @pulumi.getter(name="deletionTimestamp")
-    def deletion_timestamp(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def deletion_timestamp(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field, once the finalizers list is empty. As long as the finalizers list contains items, deletion is blocked. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time. For example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react by sending a graceful termination signal to the containers in the pod. After that 30 seconds, the Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup, remove the pod from the API. In the presence of network partitions, this object may still exist after this timestamp, until an administrator or automated process can determine the resource is fully terminated. If not set, graceful deletion of the object has not been requested.
 
@@ -1296,24 +1296,24 @@ class ObjectMetaPatchArgs:
         return pulumi.get(self, "deletion_timestamp")
 
     @deletion_timestamp.setter
-    def deletion_timestamp(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def deletion_timestamp(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "deletion_timestamp", value)
 
     @_builtins.property
     @pulumi.getter
-    def finalizers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def finalizers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
         """
         return pulumi.get(self, "finalizers")
 
     @finalizers.setter
-    def finalizers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def finalizers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "finalizers", value)
 
     @_builtins.property
     @pulumi.getter(name="generateName")
-    def generate_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def generate_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
 
@@ -1324,60 +1324,60 @@ class ObjectMetaPatchArgs:
         return pulumi.get(self, "generate_name")
 
     @generate_name.setter
-    def generate_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def generate_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "generate_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def generation(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def generation(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
         """
         return pulumi.get(self, "generation")
 
     @generation.setter
-    def generation(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def generation(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "generation", value)
 
     @_builtins.property
     @pulumi.getter
-    def labels(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
         """
         return pulumi.get(self, "labels")
 
     @labels.setter
-    def labels(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "labels", value)
 
     @_builtins.property
     @pulumi.getter(name="managedFields")
-    def managed_fields(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgs']]]]:
+    def managed_fields(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgs']]]]:
         """
         ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
         """
         return pulumi.get(self, "managed_fields")
 
     @managed_fields.setter
-    def managed_fields(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgs']]]]):
+    def managed_fields(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgs']]]]):
         pulumi.set(self, "managed_fields", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
 
@@ -1386,24 +1386,24 @@ class ObjectMetaPatchArgs:
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter(name="ownerReferences")
-    def owner_references(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['OwnerReferencePatchArgs']]]]:
+    def owner_references(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferencePatchArgs']]]]:
         """
         List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
         """
         return pulumi.get(self, "owner_references")
 
     @owner_references.setter
-    def owner_references(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['OwnerReferencePatchArgs']]]]):
+    def owner_references(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferencePatchArgs']]]]):
         pulumi.set(self, "owner_references", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceVersion")
-    def resource_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
 
@@ -1412,24 +1412,24 @@ class ObjectMetaPatchArgs:
         return pulumi.get(self, "resource_version")
 
     @resource_version.setter
-    def resource_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_version", value)
 
     @_builtins.property
     @pulumi.getter(name="selfLink")
-    def self_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def self_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         """
         return pulumi.get(self, "self_link")
 
     @self_link.setter
-    def self_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def self_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "self_link", value)
 
     @_builtins.property
     @pulumi.getter
-    def uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
 
@@ -1438,7 +1438,7 @@ class ObjectMetaPatchArgs:
         return pulumi.get(self, "uid")
 
     @uid.setter
-    def uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uid", value)
 
 
@@ -1446,35 +1446,35 @@ class ObjectMetaArgsDict(TypedDict):
     """
     ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
     """
-    annotations: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    annotations: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
     """
-    cluster_name: NotRequired[pulumi.Input[_builtins.str]]
+    cluster_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
     """
-    creation_timestamp: NotRequired[pulumi.Input[_builtins.str]]
+    creation_timestamp: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
 
     Populated by the system. Read-only. Null for lists. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    deletion_grace_period_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    deletion_grace_period_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
     """
-    deletion_timestamp: NotRequired[pulumi.Input[_builtins.str]]
+    deletion_timestamp: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field, once the finalizers list is empty. As long as the finalizers list contains items, deletion is blocked. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time. For example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react by sending a graceful termination signal to the containers in the pod. After that 30 seconds, the Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup, remove the pod from the API. In the presence of network partitions, this object may still exist after this timestamp, until an administrator or automated process can determine the resource is fully terminated. If not set, graceful deletion of the object has not been requested.
 
     Populated by the system when a graceful deletion is requested. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    finalizers: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    finalizers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
     """
-    generate_name: NotRequired[pulumi.Input[_builtins.str]]
+    generate_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
 
@@ -1482,43 +1482,43 @@ class ObjectMetaArgsDict(TypedDict):
 
     Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
     """
-    generation: NotRequired[pulumi.Input[_builtins.int]]
+    generation: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
     """
-    labels: NotRequired[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]
+    labels: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
     Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
     """
-    managed_fields: NotRequired[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgsDict']]]]
+    managed_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]]]
     """
     ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
     """
-    namespace: NotRequired[pulumi.Input[_builtins.str]]
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
 
     Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
     """
-    owner_references: NotRequired[pulumi.Input[Sequence[pulumi.Input['OwnerReferenceArgsDict']]]]
+    owner_references: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferenceArgs']]]]]
     """
     List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
     """
-    resource_version: NotRequired[pulumi.Input[_builtins.str]]
+    resource_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
 
     Populated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
     """
-    self_link: NotRequired[pulumi.Input[_builtins.str]]
+    self_link: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
     """
-    uid: NotRequired[pulumi.Input[_builtins.str]]
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
 
@@ -1528,22 +1528,22 @@ class ObjectMetaArgsDict(TypedDict):
 @pulumi.input_type
 class ObjectMetaArgs:
     def __init__(__self__, *,
-                 annotations: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 cluster_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 creation_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 deletion_grace_period_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 deletion_timestamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 finalizers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 generate_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 generation: Optional[pulumi.Input[_builtins.int]] = None,
-                 labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 managed_fields: Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 namespace: Optional[pulumi.Input[_builtins.str]] = None,
-                 owner_references: Optional[pulumi.Input[Sequence[pulumi.Input['OwnerReferenceArgs']]]] = None,
-                 resource_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 self_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 uid: Optional[pulumi.Input[_builtins.str]] = None):
+                 annotations: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 cluster_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 creation_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 deletion_grace_period_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 deletion_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 finalizers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 generate_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 generation: pulumi.Input[Optional[_builtins.int]] = None,
+                 labels: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 managed_fields: pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None,
+                 owner_references: pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferenceArgs']]]] = None,
+                 resource_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 self_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
 
@@ -1613,31 +1613,31 @@ class ObjectMetaArgs:
 
     @_builtins.property
     @pulumi.getter
-    def annotations(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def annotations(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
         """
         return pulumi.get(self, "annotations")
 
     @annotations.setter
-    def annotations(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def annotations(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "annotations", value)
 
     @_builtins.property
     @pulumi.getter(name="clusterName")
-    def cluster_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cluster_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
         """
         return pulumi.get(self, "cluster_name")
 
     @cluster_name.setter
-    def cluster_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cluster_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cluster_name", value)
 
     @_builtins.property
     @pulumi.getter(name="creationTimestamp")
-    def creation_timestamp(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def creation_timestamp(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
 
@@ -1646,24 +1646,24 @@ class ObjectMetaArgs:
         return pulumi.get(self, "creation_timestamp")
 
     @creation_timestamp.setter
-    def creation_timestamp(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def creation_timestamp(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "creation_timestamp", value)
 
     @_builtins.property
     @pulumi.getter(name="deletionGracePeriodSeconds")
-    def deletion_grace_period_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def deletion_grace_period_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
         """
         return pulumi.get(self, "deletion_grace_period_seconds")
 
     @deletion_grace_period_seconds.setter
-    def deletion_grace_period_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def deletion_grace_period_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "deletion_grace_period_seconds", value)
 
     @_builtins.property
     @pulumi.getter(name="deletionTimestamp")
-    def deletion_timestamp(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def deletion_timestamp(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field, once the finalizers list is empty. As long as the finalizers list contains items, deletion is blocked. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time. For example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react by sending a graceful termination signal to the containers in the pod. After that 30 seconds, the Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup, remove the pod from the API. In the presence of network partitions, this object may still exist after this timestamp, until an administrator or automated process can determine the resource is fully terminated. If not set, graceful deletion of the object has not been requested.
 
@@ -1672,24 +1672,24 @@ class ObjectMetaArgs:
         return pulumi.get(self, "deletion_timestamp")
 
     @deletion_timestamp.setter
-    def deletion_timestamp(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def deletion_timestamp(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "deletion_timestamp", value)
 
     @_builtins.property
     @pulumi.getter
-    def finalizers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def finalizers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
         """
         return pulumi.get(self, "finalizers")
 
     @finalizers.setter
-    def finalizers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def finalizers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "finalizers", value)
 
     @_builtins.property
     @pulumi.getter(name="generateName")
-    def generate_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def generate_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.
 
@@ -1700,60 +1700,60 @@ class ObjectMetaArgs:
         return pulumi.get(self, "generate_name")
 
     @generate_name.setter
-    def generate_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def generate_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "generate_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def generation(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def generation(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
         """
         return pulumi.get(self, "generation")
 
     @generation.setter
-    def generation(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def generation(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "generation", value)
 
     @_builtins.property
     @pulumi.getter
-    def labels(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    def labels(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
         Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
         """
         return pulumi.get(self, "labels")
 
     @labels.setter
-    def labels(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]):
+    def labels(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "labels", value)
 
     @_builtins.property
     @pulumi.getter(name="managedFields")
-    def managed_fields(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]]:
+    def managed_fields(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]]:
         """
         ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
         """
         return pulumi.get(self, "managed_fields")
 
     @managed_fields.setter
-    def managed_fields(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]]):
+    def managed_fields(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]]):
         pulumi.set(self, "managed_fields", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
 
@@ -1762,24 +1762,24 @@ class ObjectMetaArgs:
         return pulumi.get(self, "namespace")
 
     @namespace.setter
-    def namespace(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "namespace", value)
 
     @_builtins.property
     @pulumi.getter(name="ownerReferences")
-    def owner_references(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['OwnerReferenceArgs']]]]:
+    def owner_references(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferenceArgs']]]]:
         """
         List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
         """
         return pulumi.get(self, "owner_references")
 
     @owner_references.setter
-    def owner_references(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['OwnerReferenceArgs']]]]):
+    def owner_references(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferenceArgs']]]]):
         pulumi.set(self, "owner_references", value)
 
     @_builtins.property
     @pulumi.getter(name="resourceVersion")
-    def resource_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def resource_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
 
@@ -1788,24 +1788,24 @@ class ObjectMetaArgs:
         return pulumi.get(self, "resource_version")
 
     @resource_version.setter
-    def resource_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def resource_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "resource_version", value)
 
     @_builtins.property
     @pulumi.getter(name="selfLink")
-    def self_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def self_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         """
         return pulumi.get(self, "self_link")
 
     @self_link.setter
-    def self_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def self_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "self_link", value)
 
     @_builtins.property
     @pulumi.getter
-    def uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
 
@@ -1814,7 +1814,7 @@ class ObjectMetaArgs:
         return pulumi.get(self, "uid")
 
     @uid.setter
-    def uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uid", value)
 
 
@@ -1822,27 +1822,27 @@ class OwnerReferencePatchArgsDict(TypedDict):
     """
     OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
     """
-    api_version: NotRequired[pulumi.Input[_builtins.str]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     API version of the referent.
     """
-    block_owner_deletion: NotRequired[pulumi.Input[_builtins.bool]]
+    block_owner_deletion: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
     """
-    controller: NotRequired[pulumi.Input[_builtins.bool]]
+    controller: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     If true, this reference points to the managing controller.
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
     """
-    uid: NotRequired[pulumi.Input[_builtins.str]]
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
     """
@@ -1850,12 +1850,12 @@ class OwnerReferencePatchArgsDict(TypedDict):
 @pulumi.input_type
 class OwnerReferencePatchArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[_builtins.str]] = None,
-                 block_owner_deletion: Optional[pulumi.Input[_builtins.bool]] = None,
-                 controller: Optional[pulumi.Input[_builtins.bool]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 uid: Optional[pulumi.Input[_builtins.str]] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 block_owner_deletion: pulumi.Input[Optional[_builtins.bool]] = None,
+                 controller: pulumi.Input[Optional[_builtins.bool]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
 
@@ -1881,74 +1881,74 @@ class OwnerReferencePatchArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         API version of the referent.
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter(name="blockOwnerDeletion")
-    def block_owner_deletion(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def block_owner_deletion(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
         """
         return pulumi.get(self, "block_owner_deletion")
 
     @block_owner_deletion.setter
-    def block_owner_deletion(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def block_owner_deletion(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "block_owner_deletion", value)
 
     @_builtins.property
     @pulumi.getter
-    def controller(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def controller(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If true, this reference points to the managing controller.
         """
         return pulumi.get(self, "controller")
 
     @controller.setter
-    def controller(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def controller(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "controller", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
 
     @uid.setter
-    def uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uid", value)
 
 
@@ -1972,11 +1972,11 @@ class OwnerReferenceArgsDict(TypedDict):
     """
     UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
     """
-    block_owner_deletion: NotRequired[pulumi.Input[_builtins.bool]]
+    block_owner_deletion: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
     """
-    controller: NotRequired[pulumi.Input[_builtins.bool]]
+    controller: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     If true, this reference points to the managing controller.
     """
@@ -1988,8 +1988,8 @@ class OwnerReferenceArgs:
                  kind: pulumi.Input[_builtins.str],
                  name: pulumi.Input[_builtins.str],
                  uid: pulumi.Input[_builtins.str],
-                 block_owner_deletion: Optional[pulumi.Input[_builtins.bool]] = None,
-                 controller: Optional[pulumi.Input[_builtins.bool]] = None):
+                 block_owner_deletion: pulumi.Input[Optional[_builtins.bool]] = None,
+                 controller: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
 
@@ -2059,26 +2059,26 @@ class OwnerReferenceArgs:
 
     @_builtins.property
     @pulumi.getter(name="blockOwnerDeletion")
-    def block_owner_deletion(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def block_owner_deletion(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
         """
         return pulumi.get(self, "block_owner_deletion")
 
     @block_owner_deletion.setter
-    def block_owner_deletion(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def block_owner_deletion(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "block_owner_deletion", value)
 
     @_builtins.property
     @pulumi.getter
-    def controller(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def controller(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         If true, this reference points to the managing controller.
         """
         return pulumi.get(self, "controller")
 
     @controller.setter
-    def controller(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def controller(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "controller", value)
 
 
@@ -2086,7 +2086,7 @@ class ShardInfoPatchArgsDict(TypedDict):
     """
     ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
     """
-    selector: NotRequired[pulumi.Input[_builtins.str]]
+    selector: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
     """
@@ -2094,7 +2094,7 @@ class ShardInfoPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ShardInfoPatchArgs:
     def __init__(__self__, *,
-                 selector: Optional[pulumi.Input[_builtins.str]] = None):
+                 selector: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ShardInfo describes the shard selector that was applied to produce a list response. Its presence on a list response indicates the list is a filtered subset.
 
@@ -2105,14 +2105,14 @@ class ShardInfoPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def selector(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def selector(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         selector is the shard selector string from the request, echoed back so clients can verify which shard they received and merge responses from multiple shards.
         """
         return pulumi.get(self, "selector")
 
     @selector.setter
-    def selector(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def selector(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "selector", value)
 
 
@@ -2153,7 +2153,7 @@ class StatusCausePatchArgsDict(TypedDict):
     """
     StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
     """
-    field: NotRequired[pulumi.Input[_builtins.str]]
+    field: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
 
@@ -2161,11 +2161,11 @@ class StatusCausePatchArgsDict(TypedDict):
       "name" - the field "name" on the current resource
       "items[0].name" - the field "name" on the first array entry in "items"
     """
-    message: NotRequired[pulumi.Input[_builtins.str]]
+    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     A human-readable description of the cause of the error.  This field may be presented as-is to a reader.
     """
-    reason: NotRequired[pulumi.Input[_builtins.str]]
+    reason: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     A machine-readable description of the cause of the error. If this value is empty there is no information available.
     """
@@ -2173,9 +2173,9 @@ class StatusCausePatchArgsDict(TypedDict):
 @pulumi.input_type
 class StatusCausePatchArgs:
     def __init__(__self__, *,
-                 field: Optional[pulumi.Input[_builtins.str]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None):
+                 field: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None):
         """
         StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
 
@@ -2196,7 +2196,7 @@ class StatusCausePatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def field(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def field(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
 
@@ -2207,31 +2207,31 @@ class StatusCausePatchArgs:
         return pulumi.get(self, "field")
 
     @field.setter
-    def field(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def field(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "field", value)
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A human-readable description of the cause of the error.  This field may be presented as-is to a reader.
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
     @_builtins.property
     @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A machine-readable description of the cause of the error. If this value is empty there is no information available.
         """
         return pulumi.get(self, "reason")
 
     @reason.setter
-    def reason(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
 
 
@@ -2239,7 +2239,7 @@ class StatusCauseArgsDict(TypedDict):
     """
     StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
     """
-    field: NotRequired[pulumi.Input[_builtins.str]]
+    field: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
 
@@ -2247,11 +2247,11 @@ class StatusCauseArgsDict(TypedDict):
       "name" - the field "name" on the current resource
       "items[0].name" - the field "name" on the first array entry in "items"
     """
-    message: NotRequired[pulumi.Input[_builtins.str]]
+    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     A human-readable description of the cause of the error.  This field may be presented as-is to a reader.
     """
-    reason: NotRequired[pulumi.Input[_builtins.str]]
+    reason: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     A machine-readable description of the cause of the error. If this value is empty there is no information available.
     """
@@ -2259,9 +2259,9 @@ class StatusCauseArgsDict(TypedDict):
 @pulumi.input_type
 class StatusCauseArgs:
     def __init__(__self__, *,
-                 field: Optional[pulumi.Input[_builtins.str]] = None,
-                 message: Optional[pulumi.Input[_builtins.str]] = None,
-                 reason: Optional[pulumi.Input[_builtins.str]] = None):
+                 field: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None):
         """
         StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
 
@@ -2282,7 +2282,7 @@ class StatusCauseArgs:
 
     @_builtins.property
     @pulumi.getter
-    def field(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def field(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
 
@@ -2293,31 +2293,31 @@ class StatusCauseArgs:
         return pulumi.get(self, "field")
 
     @field.setter
-    def field(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def field(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "field", value)
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A human-readable description of the cause of the error.  This field may be presented as-is to a reader.
         """
         return pulumi.get(self, "message")
 
     @message.setter
-    def message(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "message", value)
 
     @_builtins.property
     @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A machine-readable description of the cause of the error. If this value is empty there is no information available.
         """
         return pulumi.get(self, "reason")
 
     @reason.setter
-    def reason(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
 
 
@@ -2325,27 +2325,27 @@ class StatusDetailsPatchArgsDict(TypedDict):
     """
     StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
     """
-    causes: NotRequired[pulumi.Input[Sequence[pulumi.Input['StatusCausePatchArgsDict']]]]
+    causes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['StatusCausePatchArgs']]]]]
     """
     The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
     """
-    group: NotRequired[pulumi.Input[_builtins.str]]
+    group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The group attribute of the resource associated with the status StatusReason.
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
     """
-    retry_after_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    retry_after_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
     """
-    uid: NotRequired[pulumi.Input[_builtins.str]]
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
     """
@@ -2353,12 +2353,12 @@ class StatusDetailsPatchArgsDict(TypedDict):
 @pulumi.input_type
 class StatusDetailsPatchArgs:
     def __init__(__self__, *,
-                 causes: Optional[pulumi.Input[Sequence[pulumi.Input['StatusCausePatchArgs']]]] = None,
-                 group: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 retry_after_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 uid: Optional[pulumi.Input[_builtins.str]] = None):
+                 causes: pulumi.Input[Optional[Sequence[pulumi.Input['StatusCausePatchArgs']]]] = None,
+                 group: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 retry_after_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
 
@@ -2384,74 +2384,74 @@ class StatusDetailsPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def causes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['StatusCausePatchArgs']]]]:
+    def causes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['StatusCausePatchArgs']]]]:
         """
         The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
         """
         return pulumi.get(self, "causes")
 
     @causes.setter
-    def causes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['StatusCausePatchArgs']]]]):
+    def causes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['StatusCausePatchArgs']]]]):
         pulumi.set(self, "causes", value)
 
     @_builtins.property
     @pulumi.getter
-    def group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The group attribute of the resource associated with the status StatusReason.
         """
         return pulumi.get(self, "group")
 
     @group.setter
-    def group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "group", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="retryAfterSeconds")
-    def retry_after_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def retry_after_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
         """
         return pulumi.get(self, "retry_after_seconds")
 
     @retry_after_seconds.setter
-    def retry_after_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def retry_after_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "retry_after_seconds", value)
 
     @_builtins.property
     @pulumi.getter
-    def uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
 
     @uid.setter
-    def uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uid", value)
 
 
@@ -2459,27 +2459,27 @@ class StatusDetailsArgsDict(TypedDict):
     """
     StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
     """
-    causes: NotRequired[pulumi.Input[Sequence[pulumi.Input['StatusCauseArgsDict']]]]
+    causes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['StatusCauseArgs']]]]]
     """
     The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
     """
-    group: NotRequired[pulumi.Input[_builtins.str]]
+    group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The group attribute of the resource associated with the status StatusReason.
     """
-    kind: NotRequired[pulumi.Input[_builtins.str]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    name: NotRequired[pulumi.Input[_builtins.str]]
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
     """
-    retry_after_seconds: NotRequired[pulumi.Input[_builtins.int]]
+    retry_after_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
     """
-    uid: NotRequired[pulumi.Input[_builtins.str]]
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
     """
@@ -2487,12 +2487,12 @@ class StatusDetailsArgsDict(TypedDict):
 @pulumi.input_type
 class StatusDetailsArgs:
     def __init__(__self__, *,
-                 causes: Optional[pulumi.Input[Sequence[pulumi.Input['StatusCauseArgs']]]] = None,
-                 group: Optional[pulumi.Input[_builtins.str]] = None,
-                 kind: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 retry_after_seconds: Optional[pulumi.Input[_builtins.int]] = None,
-                 uid: Optional[pulumi.Input[_builtins.str]] = None):
+                 causes: pulumi.Input[Optional[Sequence[pulumi.Input['StatusCauseArgs']]]] = None,
+                 group: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 retry_after_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None):
         """
         StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
 
@@ -2518,74 +2518,74 @@ class StatusDetailsArgs:
 
     @_builtins.property
     @pulumi.getter
-    def causes(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['StatusCauseArgs']]]]:
+    def causes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['StatusCauseArgs']]]]:
         """
         The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
         """
         return pulumi.get(self, "causes")
 
     @causes.setter
-    def causes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['StatusCauseArgs']]]]):
+    def causes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['StatusCauseArgs']]]]):
         pulumi.set(self, "causes", value)
 
     @_builtins.property
     @pulumi.getter
-    def group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The group attribute of the resource associated with the status StatusReason.
         """
         return pulumi.get(self, "group")
 
     @group.setter
-    def group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "group", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="retryAfterSeconds")
-    def retry_after_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def retry_after_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
         """
         return pulumi.get(self, "retry_after_seconds")
 
     @retry_after_seconds.setter
-    def retry_after_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def retry_after_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "retry_after_seconds", value)
 
     @_builtins.property
     @pulumi.getter
-    def uid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
 
     @uid.setter
-    def uid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "uid", value)
 
 
