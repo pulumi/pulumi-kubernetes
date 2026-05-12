@@ -23,9 +23,24 @@ import (
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen/examples"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
+
+// listInputsSpec builds the ObjectTypeSpec advertising List support for a Kubernetes
+// resource kind. The namespace property is omitted for known cluster-scoped kinds.
+func listInputsSpec(kind string) *pschema.ObjectTypeSpec {
+	props := map[string]pschema.PropertySpec{
+		"name":          {TypeSpec: pschema.TypeSpec{Type: "string"}},
+		"labelSelector": {TypeSpec: pschema.TypeSpec{Type: "string"}},
+		"fieldSelector": {TypeSpec: pschema.TypeSpec{Type: "string"}},
+	}
+	if known, namespaced := kinds.Kind(kind).Namespaced(); !known || namespaced {
+		props["namespace"] = pschema.PropertySpec{TypeSpec: pschema.TypeSpec{Type: "string"}}
+	}
+	return &pschema.ObjectTypeSpec{Type: "object", Properties: props}
+}
 
 type schemaGenerator struct {
 	// typeOverlays augment the types defined by the kubernetes schema.
@@ -501,6 +516,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 					ObjectTypeSpec:     objectSpec,
 					DeprecationMessage: kind.DeprecationComment(),
 					InputProperties:    map[string]pschema.PropertySpec{},
+					ListInputs:         listInputsSpec(kind.kind),
 				}
 
 				for _, p := range kind.RequiredInputProperties() {
