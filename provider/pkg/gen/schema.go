@@ -516,7 +516,11 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 					ObjectTypeSpec:     objectSpec,
 					DeprecationMessage: kind.DeprecationComment(),
 					InputProperties:    map[string]pschema.PropertySpec{},
-					ListInputs:         listInputsSpec(kind.kind),
+				}
+				// *List envelope kinds (PodList, DeploymentList, ...) are not addressable REST
+				// resources; only their base kind can be listed.
+				if !kind.isList {
+					resourceSpec.ListInputs = listInputsSpec(kind.kind)
 				}
 
 				for _, p := range kind.RequiredInputProperties() {
