@@ -850,7 +850,6 @@ func TestGet(t *testing.T) {
 }
 
 func TestIstio(t *testing.T) {
-	tests.SkipIfShort(t, "test provisions a load balancer and requires a cloud provider cluster to run")
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:         filepath.Join("istio", "step1"),
 		Quick:       true,

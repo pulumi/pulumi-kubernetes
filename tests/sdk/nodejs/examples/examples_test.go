@@ -135,7 +135,6 @@ func TestAccGuestbook(t *testing.T) {
 }
 
 func TestAccIngress(t *testing.T) {
-	tests.SkipIfShort(t, "test provisions a load balancer and requires a cloud provider cluster to run")
 	testNetworkingV1 := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir:           filepath.Join(getCwd(t), "ingress"),
