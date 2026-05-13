@@ -34,6 +34,7 @@ import (
 	jsonpatch "github.com/evanphx/json-patch"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	helmcli "helm.sh/helm/v3/pkg/cli"
@@ -44,6 +45,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
@@ -98,6 +100,7 @@ const (
 	secretKind           = "Secret"
 	clusterIdentifierKey = "clusterIdentifier"
 	trueStr              = "true"
+	coreGroup            = "core"
 )
 
 type cancellationContext struct {
@@ -115,6 +118,13 @@ func makeCancellationContext() *cancellationContext {
 
 type kubeOpts struct {
 	rejectUnknownResources bool
+}
+
+type listQuery struct {
+	namespace     string
+	name          string
+	labelSelector string
+	fieldSelector string
 }
 
 type kubeProvider struct {
@@ -2128,6 +2138,148 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	return &pulumirpc.ReadResponse{Id: id, Properties: state, Inputs: inputs}, nil
 }
 
+// List lists resources of a given token and streams resource identifiers.
+func (k *kubeProvider) List(
+	req *pulumirpc.ListRequest,
+	stream grpc.ServerStreamingServer[pulumirpc.ListResponse],
+) error {
+	if req == nil {
+		return status.Error(codes.InvalidArgument, "list request must not be nil")
+	}
+	if req.GetToken() == "" {
+		return status.Error(codes.InvalidArgument, "token must not be empty")
+	}
+	if req.GetLimit() < 0 {
+		return status.Error(codes.InvalidArgument, "limit must be >= 0")
+	}
+	if req.GetPageSize() < 0 {
+		return status.Error(codes.InvalidArgument, "page_size must be >= 0")
+	}
+	if k.clusterUnreachable {
+		return fmt.Errorf("configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason)
+	}
+	if k.clientSet == nil || k.clientSet.GenericClient == nil || k.clientSet.RESTMapper == nil {
+		return status.Error(codes.FailedPrecondition, "provider is not configured")
+	}
+
+	query, err := parseListQuery(req.GetQuery())
+	if err != nil {
+		return status.Errorf(codes.InvalidArgument, "invalid query: %v", err)
+	}
+
+	// Decode the incoming continuation token. Empty token = first call.
+	contState, err := decodeContinuation(req.GetContinuationToken())
+	if err != nil {
+		return status.Errorf(codes.InvalidArgument, "invalid continuation_token: %v", err)
+	}
+	if contState.Remaining != nil && *contState.Remaining <= 0 {
+		return status.Errorf(codes.InvalidArgument,
+			"continuation_token carries invalid remaining: %d", *contState.Remaining)
+	}
+
+	// Determine the remaining budget for this call. A non-nil contState.Remaining means
+	// we are continuing a paginated session that is tracking a session-wide cap; use that
+	// value verbatim. Otherwise — first call, or no-cap continuation — initialize from the
+	// request's limit if positive; leave nil to mean "no cap."
+	var remaining *int64
+	if contState.Remaining != nil {
+		remaining = contState.Remaining
+	} else if req.GetLimit() > 0 {
+		sessionLimit := req.GetLimit()
+		remaining = &sessionLimit
+	}
+
+	gvk, err := k.gvkFromTypeToken(req.GetToken())
+	if err != nil {
+		return status.Errorf(codes.InvalidArgument, "invalid token %q: %v", req.GetToken(), err)
+	}
+	// Patch resources map to the same API resource as their underlying type.
+	gvk.Kind = strings.TrimSuffix(gvk.Kind, "Patch")
+
+	mapping, err := k.clientSet.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
+	if err != nil {
+		// Mapping can fail when discovery cache is stale (for example, after CRDs are added).
+		k.clientSet.RESTMapper.Reset()
+		mapping, err = k.clientSet.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version)
+		if err != nil {
+			return err
+		}
+	}
+
+	var resourceClient dynamic.ResourceInterface
+	if mapping.Scope.Name() == meta.RESTScopeNameNamespace {
+		resourceClient = k.clientSet.GenericClient.Resource(mapping.Resource).Namespace(query.namespace)
+	} else if query.namespace != "" {
+		return status.Errorf(codes.InvalidArgument,
+			"query.namespace is invalid for cluster-scoped resource %q", req.GetToken())
+	} else {
+		resourceClient = k.clientSet.GenericClient.Resource(mapping.Resource)
+	}
+
+	listOpts := metav1.ListOptions{
+		LabelSelector: query.labelSelector,
+		FieldSelector: query.fieldSelector,
+		Continue:      contState.K8sContinue,
+		Limit:         effectiveLimit(req.GetPageSize(), remaining),
+	}
+	if query.name != "" {
+		nameSelector := "metadata.name=" + query.name
+		if listOpts.FieldSelector == "" {
+			listOpts.FieldSelector = nameSelector
+		} else {
+			listOpts.FieldSelector += "," + nameSelector
+		}
+	}
+
+	resources, err := resourceClient.List(stream.Context(), listOpts)
+	if err != nil {
+		return err
+	}
+
+	var sent int64
+	for i := range resources.Items {
+		item := resources.Items[i]
+		if err := stream.Send(&pulumirpc.ListResponse{
+			Response: &pulumirpc.ListResponse_Result_{
+				Result: &pulumirpc.ListResponse_Result{
+					Id:   fqObjName(&item),
+					Name: item.GetName(),
+				},
+			},
+		}); err != nil {
+			return err
+		}
+		sent++
+	}
+
+	// Build the outgoing continuation state and decide whether to emit a token.
+	nextState := continuationState{K8sContinue: resources.GetContinue()}
+	if remaining != nil {
+		newRem := *remaining - sent
+		if newRem < 0 {
+			newRem = 0
+		}
+		nextState.Remaining = &newRem
+	}
+	token, err := encodeContinuation(nextState)
+	if err != nil {
+		return fmt.Errorf("encode continuation: %w", err)
+	}
+	if token != "" {
+		if err := stream.Send(&pulumirpc.ListResponse{
+			Response: &pulumirpc.ListResponse_Continuation_{
+				Continuation: &pulumirpc.ListResponse_Continuation{
+					ContinuationToken: token,
+				},
+			},
+		}); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // Update updates an existing resource with new values. This client uses a Server-side Apply (SSA) patch by default, but
 // also supports the older three-way JSON patch and the strategic merge patch as fallback options.
 // See references [1], [2], [3].
@@ -2532,7 +2684,7 @@ func (k *kubeProvider) gvkFromUnstructured(input *unstructured.Unstructured) sch
 	} else {
 		group, version = gv[0], gv[1]
 	}
-	if group == "core" {
+	if group == coreGroup {
 		group = ""
 	}
 
@@ -2557,7 +2709,7 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, er
 			fmt.Errorf("apiVersion does not have both a group and a version: %q", urn.Type().Module().Name())
 	}
 	group, version := gv[0], gv[1]
-	if group == "core" {
+	if group == coreGroup {
 		group = ""
 	}
 
@@ -2565,6 +2717,108 @@ func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, er
 		Group:   group,
 		Version: version,
 		Kind:    kind,
+	}, nil
+}
+
+func (k *kubeProvider) gvkFromTypeToken(typeToken string) (schema.GroupVersionKind, error) {
+	parts := strings.Split(typeToken, ":")
+	if len(parts) != 3 {
+		return schema.GroupVersionKind{}, fmt.Errorf("type token must be in the format <package>:<group/version>:<kind>")
+	}
+	if parts[0] != k.providerPackage {
+		return schema.GroupVersionKind{}, fmt.Errorf("unrecognized resource type: %q for this provider", typeToken)
+	}
+	if parts[2] == "" {
+		return schema.GroupVersionKind{}, fmt.Errorf("token kind is empty")
+	}
+
+	gv := strings.Split(parts[1], "/")
+	if len(gv) != 2 {
+		return schema.GroupVersionKind{}, fmt.Errorf("apiVersion does not have both a group and a version: %q", parts[1])
+	}
+
+	group := gv[0]
+	if group == coreGroup {
+		group = ""
+	}
+
+	return schema.GroupVersionKind{
+		Group:   group,
+		Version: gv[1],
+		Kind:    parts[2],
+	}, nil
+}
+
+func parseListQuery(query *structpb.Struct) (listQuery, error) {
+	if query == nil {
+		return listQuery{}, nil
+	}
+
+	fields := query.AsMap()
+	getString := func(key string) (string, error) {
+		value, ok := fields[key]
+		if !ok {
+			return "", nil
+		}
+		s, ok := value.(string)
+		if !ok {
+			return "", fmt.Errorf("query.%s must be a string", key)
+		}
+		return s, nil
+	}
+
+	metadataNamespace := ""
+	metadataName := ""
+	if metadataField, ok := fields["metadata"]; ok {
+		metadata, ok := metadataField.(map[string]any)
+		if !ok {
+			return listQuery{}, fmt.Errorf("query.metadata must be an object")
+		}
+		if value, ok := metadata["namespace"]; ok {
+			s, ok := value.(string)
+			if !ok {
+				return listQuery{}, fmt.Errorf("query.metadata.namespace must be a string")
+			}
+			metadataNamespace = s
+		}
+		if value, ok := metadata["name"]; ok {
+			s, ok := value.(string)
+			if !ok {
+				return listQuery{}, fmt.Errorf("query.metadata.name must be a string")
+			}
+			metadataName = s
+		}
+	}
+
+	namespace, err := getString("namespace")
+	if err != nil {
+		return listQuery{}, err
+	}
+	name, err := getString("name")
+	if err != nil {
+		return listQuery{}, err
+	}
+	labelSelector, err := getString("labelSelector")
+	if err != nil {
+		return listQuery{}, err
+	}
+	fieldSelector, err := getString("fieldSelector")
+	if err != nil {
+		return listQuery{}, err
+	}
+
+	if namespace == "" {
+		namespace = metadataNamespace
+	}
+	if name == "" {
+		name = metadataName
+	}
+
+	return listQuery{
+		namespace:     namespace,
+		name:          name,
+		labelSelector: labelSelector,
+		fieldSelector: fieldSelector,
 	}, nil
 }
 

@@ -6,6 +6,7 @@
 ### Added
 
 - [#2744](https://github.com/pulumi/pulumi-kubernetes/issues/2744) Advertise a `helm` mapping for `terraform` conversion so `pulumi import --from terraform` and `pulumi convert --from terraform` recognize `helm_release` and emit `kubernetes:helm.sh/v3:Release`.
+- [#4332](https://github.com/pulumi/pulumi-kubernetes/issues/4332) Implement the `List` provider RPC and advertise `listInputs` (`namespace`, `name`, `labelSelector`, `fieldSelector`) on every non-nested resource. `namespace` is omitted from `listInputs` on cluster-scoped kinds.
 
 ### Fixed
 
