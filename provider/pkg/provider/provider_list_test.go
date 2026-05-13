@@ -42,9 +42,15 @@ import (
 	fakeclients "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 )
 
-// configMapType is the Pulumi resource type token for core/v1 ConfigMap,
-// hoisted out to silence gosec G101 false positives on `Token: "..."` literals.
-const configMapType = "kubernetes:core/v1:ConfigMap"
+// Pulumi resource type tokens hoisted out to silence gosec G101 false
+// positives on `Token: "..."` literals (the proto field name "Token" matches
+// the linter's credential-name regex).
+const (
+	configMapType      = "kubernetes:core/v1:ConfigMap"
+	configMapPatchType = "kubernetes:core/v1:ConfigMapPatch"
+	namespaceType      = "kubernetes:core/v1:Namespace"
+	awsBucketType      = "aws:s3/bucket:Bucket"
+)
 
 // listResponseStream is an in-memory ListResponse stream for testing.
 type listResponseStream struct {
@@ -184,7 +190,7 @@ func TestList_NotConfigured(t *testing.T) {
 
 func TestList_UnknownPackageRejected(t *testing.T) {
 	k := newListTestProvider(t)
-	err := k.List(&pulumirpc.ListRequest{Token: "aws:s3/bucket:Bucket"}, &listResponseStream{})
+	err := k.List(&pulumirpc.ListRequest{Token: awsBucketType}, &listResponseStream{})
 	require.Error(t, err)
 	assert.Equal(t, codes.InvalidArgument, status.Code(err))
 }
@@ -244,7 +250,7 @@ func TestList_PatchSuffixStripped(t *testing.T) {
 		configMap("ns-1", "cm-1", nil),
 	)
 	stream := &listResponseStream{}
-	err := k.List(&pulumirpc.ListRequest{Token: "kubernetes:core/v1:ConfigMapPatch"}, stream)
+	err := k.List(&pulumirpc.ListRequest{Token: configMapPatchType}, stream)
 	require.NoError(t, err)
 	assert.Equal(t, []string{"ns-1/cm-1"}, collectIDs(stream))
 }
@@ -258,7 +264,7 @@ func TestList_ClusterScopedRejectsNamespaceQuery(t *testing.T) {
 	)
 	q, err := structpb.NewStruct(map[string]any{"namespace": "x"})
 	require.NoError(t, err)
-	err = k.List(&pulumirpc.ListRequest{Token: "kubernetes:core/v1:Namespace", Query: q}, &listResponseStream{})
+	err = k.List(&pulumirpc.ListRequest{Token: namespaceType, Query: q}, &listResponseStream{})
 	require.Error(t, err)
 	assert.Equal(t, codes.InvalidArgument, status.Code(err))
 }
@@ -275,7 +281,7 @@ func TestList_ClusterScopedListsWithoutNamespace(t *testing.T) {
 		},
 	)
 	stream := &listResponseStream{}
-	err := k.List(&pulumirpc.ListRequest{Token: "kubernetes:core/v1:Namespace"}, stream)
+	err := k.List(&pulumirpc.ListRequest{Token: namespaceType}, stream)
 	require.NoError(t, err)
 	assert.ElementsMatch(t, []string{"ns-1", "ns-2"}, collectIDs(stream))
 }
@@ -323,11 +329,11 @@ func TestParseListQuery_RejectsWrongTypes(t *testing.T) {
 func TestGvkFromTypeToken(t *testing.T) {
 	k := &kubeProvider{providerPackage: "kubernetes"}
 	cases := []struct {
-		token    string
-		ok       bool
-		group    string
-		version  string
-		kind     string
+		token   string
+		ok      bool
+		group   string
+		version string
+		kind    string
 	}{
 		{"kubernetes:core/v1:ConfigMap", true, "", "v1", "ConfigMap"},
 		{"kubernetes:apps/v1:Deployment", true, "apps", "v1", "Deployment"},
@@ -425,7 +431,9 @@ func (n *paginatingNamespaceable) Namespace(ns string) dynamic.ResourceInterface
 	}
 }
 
-func (n *paginatingNamespaceable) List(_ context.Context, opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
+func (n *paginatingNamespaceable) List(
+	_ context.Context, opts metav1.ListOptions,
+) (*unstructured.UnstructuredList, error) {
 	return paginatePool(n.pool, opts), nil
 }
 
@@ -496,7 +504,9 @@ func makeNConfigMaps(ns string, count int) []unstructured.Unstructured {
 // runListSession simulates the engine's pagination loop: call List repeatedly,
 // chaining continuation tokens, until the provider stops emitting them.
 // Returns all IDs received across calls and the total call count.
-func runListSession(t *testing.T, client pulumirpc.ResourceProviderClient, base *pulumirpc.ListRequest) ([]string, int) {
+func runListSession(
+	t *testing.T, client pulumirpc.ResourceProviderClient, base *pulumirpc.ListRequest,
+) ([]string, int) {
 	t.Helper()
 	var allIDs []string
 	var contToken string
@@ -505,9 +515,15 @@ func runListSession(t *testing.T, client pulumirpc.ResourceProviderClient, base 
 		callCount++
 		require.Less(t, callCount, 50, "infinite-loop guard — provider should signal stop by now")
 
-		req := *base
-		req.ContinuationToken = contToken
-		stream, err := client.List(context.Background(), &req)
+		// Build a fresh ListRequest per call rather than copying *base (which contains
+		// a sync.Mutex inside its proto MessageState — copylocks flags struct copies).
+		stream, err := client.List(context.Background(), &pulumirpc.ListRequest{
+			Token:             base.GetToken(),
+			Query:             base.GetQuery(),
+			Limit:             base.GetLimit(),
+			PageSize:          base.GetPageSize(),
+			ContinuationToken: contToken,
+		})
 		require.NoError(t, err)
 		ids, nextToken := drainList(t, stream)
 		allIDs = append(allIDs, ids...)

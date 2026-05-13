@@ -23,9 +23,9 @@ import (
 
 func TestListInputsSpec(t *testing.T) {
 	cases := []struct {
-		name             string
-		kind             string
-		expectNamespace  bool
+		name            string
+		kind            string
+		expectNamespace bool
 	}{
 		{"namespaced kind includes namespace", "ConfigMap", true},
 		{"namespaced kind (apps/v1) includes namespace", "Deployment", true},

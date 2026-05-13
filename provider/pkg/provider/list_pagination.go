@@ -22,8 +22,11 @@ import (
 
 // continuationState carries provider-side pagination state across paginated List calls.
 type continuationState struct {
-	K8sContinue string `json:"k8sContinue,omitempty"` // K8s's own pagination cursor
-	Remaining   *int64 `json:"remaining,omitempty"`   // items still allowed under the request's limit; nil = no cap, *0 = cap exhausted
+	// K8sContinue is K8s's own pagination cursor.
+	K8sContinue string `json:"k8sContinue,omitempty"`
+	// Remaining tracks items still allowed under the request's limit.
+	// nil = no cap; *0 = cap exhausted; *N>0 = N items allowed.
+	Remaining *int64 `json:"remaining,omitempty"`
 }
 
 // isZero reports whether the pagination state carries nothing worth emitting.

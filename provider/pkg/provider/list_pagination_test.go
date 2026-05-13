@@ -80,11 +80,26 @@ func TestIsZero(t *testing.T) {
 		want bool
 	}{
 		{"empty struct", continuationState{}, true},
-		{"more K8s pages available, no session cap", continuationState{K8sContinue: "abc"}, false},
-		{"more K8s pages, session budget unspent", continuationState{K8sContinue: "abc", Remaining: ptr.To(int64(25))}, false},
-		{"session cap exhausted", continuationState{K8sContinue: "abc", Remaining: ptr.To(int64(0))}, true},
-		{"no more K8s pages, session budget unspent", continuationState{Remaining: ptr.To(int64(5))}, true},
-		{"no more K8s pages and cap exhausted", continuationState{Remaining: ptr.To(int64(0))}, true},
+		{
+			"more K8s pages available, no session cap",
+			continuationState{K8sContinue: "abc"}, false,
+		},
+		{
+			"more K8s pages, session budget unspent",
+			continuationState{K8sContinue: "abc", Remaining: ptr.To(int64(25))}, false,
+		},
+		{
+			"session cap exhausted",
+			continuationState{K8sContinue: "abc", Remaining: ptr.To(int64(0))}, true,
+		},
+		{
+			"no more K8s pages, session budget unspent",
+			continuationState{Remaining: ptr.To(int64(5))}, true,
+		},
+		{
+			"no more K8s pages and cap exhausted",
+			continuationState{Remaining: ptr.To(int64(0))}, true,
+		},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -100,7 +115,10 @@ func TestContinuationRoundTrip(t *testing.T) {
 	}{
 		{"k8s cursor only — no cap", continuationState{K8sContinue: "abc-cursor"}},
 		{"k8s cursor + remaining set", continuationState{K8sContinue: "cursor-xyz", Remaining: ptr.To(int64(100))}},
-		{"k8s cursor with chars outside url-safe base64", continuationState{K8sContinue: "abc/def+xyz=", Remaining: ptr.To(int64(5))}},
+		{
+			"k8s cursor with chars outside url-safe base64",
+			continuationState{K8sContinue: "abc/def+xyz=", Remaining: ptr.To(int64(5))},
+		},
 		{"large remaining", continuationState{K8sContinue: "x", Remaining: ptr.To(int64(1_000_000))}},
 	}
 	for _, tc := range cases {

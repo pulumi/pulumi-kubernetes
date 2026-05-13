@@ -341,7 +341,7 @@ const (
 func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) pschema.TypeSpec {
 	if t, exists := prop["type"]; exists {
 		switch t := t.(string); t {
-		case "array":
+		case "array": //nolint:goconst // OpenAPI type keyword, not a free-form string constant
 			elemSpec := makeSchemaTypeSpec(prop["items"].(map[string]any), canonicalGroups)
 			return pschema.TypeSpec{
 				Type:  "array",
