@@ -478,6 +478,30 @@ jobs:
       with:
         cluster_name: kind-integration-tests-${{ matrix.language }}
         node_image: kindest/node:v1.29.2
+    - name: Setup MetalLB for LoadBalancer support
+      run: |
+        kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/manifests/metallb-native.yaml
+        kubectl wait --namespace metallb-system --for=condition=available deploy/controller --timeout=120s
+        kubectl wait --namespace metallb-system --for=condition=ready pod -l component=speaker --timeout=120s
+        kubectl apply -f - <<EOF
+        apiVersion: metallb.io/v1beta1
+        kind: IPAddressPool
+        metadata:
+          name: default
+          namespace: metallb-system
+        spec:
+          addresses:
+          - 172.18.255.200-172.18.255.250
+        ---
+        apiVersion: metallb.io/v1beta1
+        kind: L2Advertisement
+        metadata:
+          name: default
+          namespace: metallb-system
+        spec:
+          ipAddressPools:
+          - default
+        EOF
     - name: Run tests
       run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
         2h -parallel 4 -short ./...
