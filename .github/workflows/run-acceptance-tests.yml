@@ -451,7 +451,7 @@ jobs:
         requested-token-type: urn:pulumi:token-type:access_token:organization
         export-environment-variables: false
     - name: Export AWS Credentials
-      uses: pulumi/esc-action@9840934db12128a33f6afb60b17d9de8f7ec5519
+      uses: pulumi/esc-action@197ccaa42ab49560ce838a3010eb8345ce086896
       env:
         PULUMI_ACCESS_TOKEN: ${{ steps.generate_pulumi_token.outputs.pulumi-access-token }}
       with:
@@ -514,7 +514,7 @@ jobs:
       name: Fetch secrets from ESC
       uses: pulumi/esc-action@9eb774255b1a4afb7855678ae8d4a77359da0d9b
     - name: Mark workflow as successful
-      uses: guibranco/github-status-action-v2@3f704867b3ec00272a5f1b550c207789736bbee9 # v1.2.0
+      uses: guibranco/github-status-action-v2@e8a8fa568b768f554cfe1d34e27e917aed4c6127 # v1.2.1
       with:
         authToken: ${{ secrets.GITHUB_TOKEN }}
         context: Sentinel
