@@ -14,8 +14,8 @@ require (
 	github.com/pulumi/providertest v0.7.0
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.30.0
-	github.com/pulumi/pulumi/pkg/v3 v3.237.0
-	github.com/pulumi/pulumi/sdk/v3 v3.237.0
+	github.com/pulumi/pulumi/pkg/v3 v3.239.0
+	github.com/pulumi/pulumi/sdk/v3 v3.239.0
 	github.com/pulumiverse/pulumi-time/sdk v0.0.0-20231010123146-089d7304da13
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/exp v0.0.0-20260508232706-74f9aab9d74a
@@ -169,7 +169,7 @@ require (
 	github.com/hashicorp/go-sockaddr v1.0.6 // indirect
 	github.com/hashicorp/go-version v1.9.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/hashicorp/hcl/v2 v2.22.0 // indirect
+	github.com/hashicorp/hcl/v2 v2.24.0 // indirect
 	github.com/hashicorp/vault/api v1.12.0 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
@@ -254,11 +254,11 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
-	github.com/zclconf/go-cty v1.14.4 // indirect
+	github.com/zclconf/go-cty v1.16.3 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
-	go.opentelemetry.io/collector/featuregate v1.57.0 // indirect
-	go.opentelemetry.io/collector/pdata v1.57.0 // indirect
+	go.opentelemetry.io/collector/featuregate v1.58.0 // indirect
+	go.opentelemetry.io/collector/pdata v1.58.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.68.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.68.0 // indirect
 	go.opentelemetry.io/otel v1.43.0 // indirect

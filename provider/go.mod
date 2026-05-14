@@ -18,8 +18,8 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.106.2
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.30.0
-	github.com/pulumi/pulumi/pkg/v3 v3.237.0
-	github.com/pulumi/pulumi/sdk/v3 v3.237.0
+	github.com/pulumi/pulumi/pkg/v3 v3.239.0
+	github.com/pulumi/pulumi/sdk/v3 v3.239.0
 	github.com/stretchr/testify v1.11.1
 	github.com/theory/jsonpath v0.9.0
 	golang.org/x/crypto v0.51.0
@@ -49,8 +49,8 @@ require (
 	github.com/fsnotify/fsnotify v1.10.1 // indirect
 	github.com/hashicorp/go-version v1.9.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.3.0 // indirect
-	go.opentelemetry.io/collector/featuregate v1.57.0 // indirect
-	go.opentelemetry.io/collector/pdata v1.57.0 // indirect
+	go.opentelemetry.io/collector/featuregate v1.58.0 // indirect
+	go.opentelemetry.io/collector/pdata v1.58.0 // indirect
 	go.opentelemetry.io/otel/bridge/opentracing v1.33.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.28.0 // indirect
@@ -144,7 +144,7 @@ require (
 	github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20180507213350-8e809c8a8645 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	github.com/hashicorp/hcl/v2 v2.22.0 // indirect
+	github.com/hashicorp/hcl/v2 v2.24.0 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
@@ -217,7 +217,7 @@ require (
 	github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
 	github.com/xo/terminfo v0.0.0-20220910002029-abceb7e1c41e // indirect
-	github.com/zclconf/go-cty v1.14.4 // indirect
+	github.com/zclconf/go-cty v1.16.3 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.6.11 // indirect
 	go.etcd.io/etcd/client/v3 v3.6.11 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
