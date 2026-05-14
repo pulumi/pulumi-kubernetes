@@ -98,9 +98,33 @@ jobs:
           # Build provider and SDKs
           make k8sprovider build
 
-          # Add CHANGELOG entry at end of ## Unreleased section (before next ## heading)
-          sed -i '/^## Unreleased$/,/^## [0-9]/{/^## [0-9]/i\\### Changed\n\n- Upgrade Kubernetes schema and libraries to v'"${KUBE_VERSION}"'.\n
-          }' CHANGELOG.md
+          # Append a bullet to the ### Changed block under ## Unreleased,
+          # creating that block if it doesn't yet exist.
+          awk -v ver="v${KUBE_VERSION}" '
+            /^## Unreleased$/ { u=1; print; next }
+            u && /^## [0-9]/ {
+              if (c) {
+                print "- Upgrade Kubernetes schema and libraries to " ver "."
+                printf "%s", buf; buf=""
+                c=0; appended=1
+              } else if (!appended) {
+                print "### Changed"; print ""
+                print "- Upgrade Kubernetes schema and libraries to " ver "."; print ""
+                appended=1
+              }
+              u=0; print; next
+            }
+            u && c && /^### / {
+              print "- Upgrade Kubernetes schema and libraries to " ver "."
+              printf "%s", buf; buf=""
+              c=0; appended=1
+              print; next
+            }
+            u && /^### Changed$/ { c=1; print; next }
+            c && /^$/ { buf = buf $0 "\n"; next }
+            c && /./  { printf "%s", buf; buf=""; print; next }
+            { print }
+          ' CHANGELOG.md > CHANGELOG.md.new && mv CHANGELOG.md.new CHANGELOG.md
 
           git add .
           git commit -m "Update Kubernetes to v${KUBE_VERSION}"
