@@ -489,26 +489,9 @@ jobs:
         config: /tmp/kind-calico-config.yaml
     - name: Install Calico (NetworkPolicy-enforcing CNI)
       run: |
-        kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/tigera-operator.yaml
-        kubectl create -f - <<EOF
-        apiVersion: operator.tigera.io/v1
-        kind: Installation
-        metadata:
-          name: default
-        spec:
-          calicoNetwork:
-            ipPools:
-              - cidr: 10.244.0.0/16
-                encapsulation: VXLAN
-        ---
-        apiVersion: operator.tigera.io/v1
-        kind: APIServer
-        metadata:
-          name: default
-        spec: {}
-        EOF
-        kubectl wait --for=condition=Ready tigerastatus/calico --timeout=5m
-        kubectl wait --for=condition=Ready tigerastatus/apiserver --timeout=5m
+        kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/calico.yaml
+        kubectl -n kube-system rollout status daemonset/calico-node --timeout=5m
+        kubectl -n kube-system rollout status deployment/calico-kube-controllers --timeout=5m
     - name: Run tests
       run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
         2h -parallel 4 -short ./...
