@@ -16,7 +16,7 @@ require (
 	github.com/onsi/gomega v1.39.1
 	github.com/pgavlin/fx/v2 v2.0.12
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.106.1
+	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.106.2
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.30.0
 	github.com/pulumi/pulumi/pkg/v3 v3.237.0
 	github.com/pulumi/pulumi/sdk/v3 v3.237.0
