@@ -135,6 +135,7 @@ func TestAccGuestbook(t *testing.T) {
 }
 
 func TestAccIngress(t *testing.T) {
+	tests.SkipIfShort(t, "test requires an Ingress controller, which kind does not ship with by default")
 	testNetworkingV1 := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir:           filepath.Join(getCwd(t), "ingress"),
