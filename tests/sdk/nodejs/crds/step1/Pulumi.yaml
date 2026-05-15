@@ -1,3 +1,0 @@
-name: crd-tests
-description: A program that tests CRD/CR error handling.
-runtime: nodejs
