@@ -668,7 +668,7 @@ jobs:
     needs:
     - build-test-cluster
     - test
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    if: ${{ always() && github.repository_owner == 'pulumi' }}
     permissions:
       contents: read
       id-token: write # For Pulumi access token OIDC.
