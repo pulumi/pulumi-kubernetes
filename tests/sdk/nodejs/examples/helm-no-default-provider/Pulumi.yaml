@@ -1,3 +1,0 @@
-name: helm-no-default-provider
-runtime: nodejs
-description: A minimal Kubernetes TypeScript Pulumi program
