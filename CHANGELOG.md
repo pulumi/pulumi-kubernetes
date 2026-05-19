@@ -3,6 +3,13 @@
 
 ## Unreleased
 
+## 4.31.1 (May 19, 2026)
+
+### Changed
+
+- [#4364](https://github.com/pulumi/pulumi-kubernetes/pull/4364) Update `github.com/go-git/go-git/v5` to v5.19.1 (SECURITY).
+- Update first-party Pulumi dependencies to v3.242.0.
+
 ## 4.31.0 (May 14, 2026)
 
 ### Added
