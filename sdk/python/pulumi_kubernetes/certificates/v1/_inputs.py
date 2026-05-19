@@ -829,7 +829,7 @@ class CertificateSigningRequestStatusArgsDict(TypedDict):
         -----END CERTIFICATE-----
         )
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgsDict']]]]]
     """
     conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
     """
@@ -939,8 +939,8 @@ class CertificateSigningRequestArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
-    status: NotRequired[pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    status: NotRequired[pulumi.Input[Optional['CertificateSigningRequestStatusArgsDict']]]
     """
     status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
     """

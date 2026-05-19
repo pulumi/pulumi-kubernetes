@@ -164,7 +164,7 @@ class APIServiceSpecPatchArgsDict(TypedDict):
     """
     InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
     """
-    service: NotRequired[pulumi.Input[Optional['ServiceReferencePatchArgs']]]
+    service: NotRequired[pulumi.Input[Optional['ServiceReferencePatchArgsDict']]]
     """
     Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
     """
@@ -453,7 +453,7 @@ class APIServiceStatusArgsDict(TypedDict):
     """
     APIServiceStatus contains derived information about an API server
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['APIServiceConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['APIServiceConditionArgsDict']]]]]
     """
     Current service state of apiService.
     """
@@ -495,12 +495,12 @@ class APIServiceArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
-    spec: NotRequired[pulumi.Input[Optional['APIServiceSpecArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    spec: NotRequired[pulumi.Input[Optional['APIServiceSpecArgsDict']]]
     """
     Spec contains information for locating and communicating with a server
     """
-    status: NotRequired[pulumi.Input[Optional['APIServiceStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['APIServiceStatusArgsDict']]]
     """
     Status contains derived information about an API server
     """

@@ -81,7 +81,7 @@ class CronJobSpecPatchArgsDict(TypedDict):
     """
     The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
     """
-    job_template: NotRequired[pulumi.Input[Optional['JobTemplateSpecPatchArgs']]]
+    job_template: NotRequired[pulumi.Input[Optional['JobTemplateSpecPatchArgsDict']]]
     """
     Specifies the job that will be created when executing a CronJob.
     """
@@ -429,7 +429,7 @@ class CronJobStatusArgsDict(TypedDict):
     """
     CronJobStatus represents the current state of a cron job.
     """
-    active: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]]]
+    active: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgsDict']]]]]
     """
     A list of pointers to currently running jobs.
     """
@@ -515,11 +515,11 @@ class CronJobArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    status: NotRequired[pulumi.Input[Optional['CronJobStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['CronJobStatusArgsDict']]]
     """
     Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -790,7 +790,7 @@ class JobSpecPatchArgsDict(TypedDict):
     """
     Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
     """
-    pod_failure_policy: NotRequired[pulumi.Input[Optional['PodFailurePolicyPatchArgs']]]
+    pod_failure_policy: NotRequired[pulumi.Input[Optional['PodFailurePolicyPatchArgsDict']]]
     """
     Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
     """
@@ -803,11 +803,11 @@ class JobSpecPatchArgsDict(TypedDict):
 
     When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    success_policy: NotRequired[pulumi.Input[Optional['SuccessPolicyPatchArgs']]]
+    success_policy: NotRequired[pulumi.Input[Optional['SuccessPolicyPatchArgsDict']]]
     """
     successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
     """
@@ -815,7 +815,7 @@ class JobSpecPatchArgsDict(TypedDict):
     """
     suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgsDict']]]
     """
     Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
     """
@@ -1161,7 +1161,7 @@ class JobSpecArgsDict(TypedDict):
     """
     Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
     """
-    pod_failure_policy: NotRequired[pulumi.Input[Optional['PodFailurePolicyArgs']]]
+    pod_failure_policy: NotRequired[pulumi.Input[Optional['PodFailurePolicyArgsDict']]]
     """
     Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
     """
@@ -1174,11 +1174,11 @@ class JobSpecArgsDict(TypedDict):
 
     When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    success_policy: NotRequired[pulumi.Input[Optional['SuccessPolicyArgs']]]
+    success_policy: NotRequired[pulumi.Input[Optional['SuccessPolicyArgsDict']]]
     """
     successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
     """
@@ -1493,7 +1493,7 @@ class JobStatusArgsDict(TypedDict):
     """
     Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is set when the job finishes successfully, and only then. The value cannot be updated or removed. The value indicates the same or later point in time as the startTime field.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JobConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JobConditionArgsDict']]]]]
     """
     The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true.
 
@@ -1529,7 +1529,7 @@ class JobStatusArgsDict(TypedDict):
 
     This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
     """
-    uncounted_terminated_pods: NotRequired[pulumi.Input[Optional['UncountedTerminatedPodsArgs']]]
+    uncounted_terminated_pods: NotRequired[pulumi.Input[Optional['UncountedTerminatedPodsArgsDict']]]
     """
     uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 
@@ -1760,11 +1760,11 @@ class JobTemplateSpecPatchArgsDict(TypedDict):
     """
     JobTemplateSpec describes the data a Job should have when created from a template
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgsDict']]]
     """
     Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['JobSpecPatchArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['JobSpecPatchArgsDict']]]
     """
     Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -1814,11 +1814,11 @@ class JobTemplateSpecArgsDict(TypedDict):
     """
     JobTemplateSpec describes the data a Job should have when created from a template
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['JobSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['JobSpecArgsDict']]]
     """
     Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -1896,15 +1896,15 @@ class JobArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['JobSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['JobSpecArgsDict']]]
     """
     Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['JobStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['JobStatusArgsDict']]]
     """
     Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -2323,7 +2323,7 @@ class PodFailurePolicyPatchArgsDict(TypedDict):
     """
     PodFailurePolicy describes how failed pods influence the backoffLimit.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgsDict']]]]]
     """
     A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
     """
@@ -2371,11 +2371,11 @@ class PodFailurePolicyRulePatchArgsDict(TypedDict):
       counter towards the .backoffLimit is incremented.
     Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
     """
-    on_exit_codes: NotRequired[pulumi.Input[Optional['PodFailurePolicyOnExitCodesRequirementPatchArgs']]]
+    on_exit_codes: NotRequired[pulumi.Input[Optional['PodFailurePolicyOnExitCodesRequirementPatchArgsDict']]]
     """
     Represents the requirement on the container exit codes.
     """
-    on_pod_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]]]]
+    on_pod_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgsDict']]]]]
     """
     Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
     """
@@ -2475,11 +2475,11 @@ class PodFailurePolicyRuleArgsDict(TypedDict):
       counter towards the .backoffLimit is incremented.
     Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
     """
-    on_exit_codes: NotRequired[pulumi.Input[Optional['PodFailurePolicyOnExitCodesRequirementArgs']]]
+    on_exit_codes: NotRequired[pulumi.Input[Optional['PodFailurePolicyOnExitCodesRequirementArgsDict']]]
     """
     Represents the requirement on the container exit codes.
     """
-    on_pod_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]]]]
+    on_pod_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgsDict']]]]]
     """
     Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
     """
@@ -2597,7 +2597,7 @@ class SuccessPolicyPatchArgsDict(TypedDict):
     """
     SuccessPolicy describes when a Job can be declared as succeeded based on the success of some indexes.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SuccessPolicyRulePatchArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SuccessPolicyRulePatchArgsDict']]]]]
     """
     rules represents the list of alternative rules for the declaring the Jobs as successful before `.status.succeeded >= .spec.completions`. Once any of the rules are met, the "SuccessCriteriaMet" condition is added, and the lingering pods are removed. The terminal state for such a Job has the "Complete" condition. Additionally, these rules are evaluated in order; Once the Job meets one of the rules, other rules are ignored. At most 20 elements are allowed.
     """

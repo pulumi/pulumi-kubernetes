@@ -75,7 +75,7 @@ class HTTPIngressPathPatchArgsDict(TypedDict):
     """
     HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
     """
-    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgs']]]
+    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgsDict']]]
     """
     Backend defines the referenced service endpoint to which the traffic will be forwarded to.
     """
@@ -282,7 +282,7 @@ class HTTPIngressRuleValuePatchArgsDict(TypedDict):
     """
     HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
     """
-    paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]]]
+    paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgsDict']]]]]
     """
     A collection of paths that map requests to backends.
     """
@@ -349,7 +349,7 @@ class IPAddressSpecPatchArgsDict(TypedDict):
     """
     IPAddressSpec describe the attributes in an IP Address.
     """
-    parent_ref: NotRequired[pulumi.Input[Optional['ParentReferencePatchArgs']]]
+    parent_ref: NotRequired[pulumi.Input[Optional['ParentReferencePatchArgsDict']]]
     """
     ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
     """
@@ -428,7 +428,7 @@ class IPAddressArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
@@ -509,7 +509,7 @@ class IngressBackendPatchArgsDict(TypedDict):
     """
     IngressBackend describes all endpoints for a given service and port.
     """
-    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgs']]]
+    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgsDict']]]
     """
     Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
     """
@@ -591,7 +591,7 @@ class IngressBackendArgsDict(TypedDict):
     """
     Specifies the port of the referenced service.
     """
-    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgs']]]
+    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgsDict']]]
     """
     Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
     """
@@ -659,7 +659,7 @@ class IngressClassSpecPatchArgsDict(TypedDict):
     """
     Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
     """
-    parameters: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgs']]]
+    parameters: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgsDict']]]
     """
     Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
     """
@@ -713,7 +713,7 @@ class IngressClassSpecArgsDict(TypedDict):
     """
     Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
     """
-    parameters: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgs']]]
+    parameters: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgsDict']]]
     """
     Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
     """
@@ -771,11 +771,11 @@ class IngressClassArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['IngressClassSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['IngressClassSpecArgsDict']]]
     """
     Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -866,7 +866,7 @@ class IngressRulePatchArgsDict(TypedDict):
     	  :443 for https.
     Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
     """
-    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValuePatchArgs']]]
+    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValuePatchArgsDict']]]
 
 @pulumi.input_type
 class IngressRulePatchArgs:
@@ -928,7 +928,7 @@ class IngressRuleArgsDict(TypedDict):
     	  :443 for https.
     Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
     """
-    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValueArgs']]]
+    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValueArgsDict']]]
 
 @pulumi.input_type
 class IngressRuleArgs:
@@ -981,7 +981,7 @@ class IngressSpecPatchArgsDict(TypedDict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
-    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgs']]]
+    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgsDict']]]
     """
     A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
     """
@@ -989,11 +989,11 @@ class IngressSpecPatchArgsDict(TypedDict):
     """
     IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgsDict']]]]]
     """
     A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
     """
-    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgs']]]]]
+    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgsDict']]]]]
     """
     TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
     """
@@ -1075,7 +1075,7 @@ class IngressSpecArgsDict(TypedDict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
-    backend: NotRequired[pulumi.Input[Optional['IngressBackendArgs']]]
+    backend: NotRequired[pulumi.Input[Optional['IngressBackendArgsDict']]]
     """
     A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
     """
@@ -1083,11 +1083,11 @@ class IngressSpecArgsDict(TypedDict):
     """
     IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgsDict']]]]]
     """
     A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
     """
-    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgs']]]]]
+    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgsDict']]]]]
     """
     TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
     """
@@ -1169,7 +1169,7 @@ class IngressStatusArgsDict(TypedDict):
     """
     IngressStatus describe the current state of the Ingress.
     """
-    load_balancer: NotRequired[pulumi.Input[Optional['_core.v1.LoadBalancerStatusArgs']]]
+    load_balancer: NotRequired[pulumi.Input[Optional['_core.v1.LoadBalancerStatusArgsDict']]]
     """
     LoadBalancer contains the current status of the load-balancer.
     """
@@ -1333,15 +1333,15 @@ class IngressArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['IngressSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['IngressSpecArgsDict']]]
     """
     Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['IngressStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['IngressStatusArgsDict']]]
     """
     Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -1707,7 +1707,7 @@ class ServiceCIDRStatusArgsDict(TypedDict):
     """
     ServiceCIDRStatus describes the current state of the ServiceCIDR.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
     """
@@ -1749,15 +1749,15 @@ class ServiceCIDRArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['ServiceCIDRSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ServiceCIDRSpecArgsDict']]]
     """
     spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['ServiceCIDRStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ServiceCIDRStatusArgsDict']]]
     """
     status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """

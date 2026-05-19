@@ -44,7 +44,7 @@ class CronJobSpecPatchArgsDict(TypedDict):
     """
     The number of failed finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
     """
-    job_template: NotRequired[pulumi.Input[Optional['JobTemplateSpecPatchArgs']]]
+    job_template: NotRequired[pulumi.Input[Optional['JobTemplateSpecPatchArgsDict']]]
     """
     Specifies the job that will be created when executing a CronJob.
     """
@@ -342,7 +342,7 @@ class CronJobStatusArgsDict(TypedDict):
     """
     CronJobStatus represents the current state of a cron job.
     """
-    active: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]]]
+    active: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgsDict']]]]]
     """
     A list of pointers to currently running jobs.
     """
@@ -404,15 +404,15 @@ class CronJobArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['CronJobSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['CronJobSpecArgsDict']]]
     """
     Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['CronJobStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['CronJobStatusArgsDict']]]
     """
     Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -510,11 +510,11 @@ class JobTemplateSpecPatchArgsDict(TypedDict):
     """
     JobTemplateSpec describes the data a Job should have when created from a template
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgsDict']]]
     """
     Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['_batch.v1.JobSpecPatchArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['_batch.v1.JobSpecPatchArgsDict']]]
     """
     Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -564,11 +564,11 @@ class JobTemplateSpecArgsDict(TypedDict):
     """
     JobTemplateSpec describes the data a Job should have when created from a template
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['_batch.v1.JobSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['_batch.v1.JobSpecArgsDict']]]
     """
     Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """

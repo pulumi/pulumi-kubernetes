@@ -147,11 +147,11 @@ class AllocationResultArgsDict(TypedDict):
 
     This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
     """
-    devices: NotRequired[pulumi.Input[Optional['DeviceAllocationResultArgs']]]
+    devices: NotRequired[pulumi.Input[Optional['DeviceAllocationResultArgsDict']]]
     """
     Devices is the result of allocating devices.
     """
-    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgs']]]
+    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgsDict']]]
     """
     NodeSelector defines where the allocated resources are available. If unset, they are available everywhere.
     """
@@ -225,7 +225,7 @@ class BasicDevicePatchArgsDict(TypedDict):
     """
     BasicDevice defines one device instance.
     """
-    attributes: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['DeviceAttributeArgs']]]]]
+    attributes: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['DeviceAttributeArgsDict']]]]]
     """
     Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 
@@ -291,7 +291,7 @@ class BasicDeviceArgsDict(TypedDict):
     """
     BasicDevice defines one device instance.
     """
-    attributes: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['DeviceAttributeArgs']]]]]
+    attributes: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['DeviceAttributeArgsDict']]]]]
     """
     Attributes defines the set of attributes for this device. The name of each attribute must be unique in that set.
 
@@ -584,7 +584,7 @@ class DeviceAllocationConfigurationArgsDict(TypedDict):
     """
     Source records whether the configuration comes from a class and thus is not something that a normal user would have been able to set or from a claim.
     """
-    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationArgs']]]
+    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationArgsDict']]]
     """
     Opaque provides driver-specific configuration parameters.
     """
@@ -653,13 +653,13 @@ class DeviceAllocationResultArgsDict(TypedDict):
     """
     DeviceAllocationResult is the result of allocating devices.
     """
-    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceAllocationConfigurationArgs']]]]]
+    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceAllocationConfigurationArgsDict']]]]]
     """
     This field is a combination of all the claim and class configuration parameters. Drivers can distinguish between those based on a flag.
 
     This includes configuration parameters for drivers which have no allocated devices in the result because it is up to the drivers which configuration parameters they support. They can silently ignore unknown configuration parameters.
     """
-    results: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRequestAllocationResultArgs']]]]]
+    results: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRequestAllocationResultArgsDict']]]]]
     """
     Results lists all allocated devices.
     """
@@ -807,7 +807,7 @@ class DeviceClaimConfigurationPatchArgsDict(TypedDict):
     """
     DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
     """
-    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationPatchArgs']]]
+    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationPatchArgsDict']]]
     """
     Opaque provides driver-specific configuration parameters.
     """
@@ -861,7 +861,7 @@ class DeviceClaimConfigurationArgsDict(TypedDict):
     """
     DeviceClaimConfiguration is used for configuration parameters in DeviceClaim.
     """
-    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationArgs']]]
+    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationArgsDict']]]
     """
     Opaque provides driver-specific configuration parameters.
     """
@@ -915,15 +915,15 @@ class DeviceClaimPatchArgsDict(TypedDict):
     """
     DeviceClaim defines how to request devices with a ResourceClaim.
     """
-    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceClaimConfigurationPatchArgs']]]]]
+    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceClaimConfigurationPatchArgsDict']]]]]
     """
     This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
     """
-    constraints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceConstraintPatchArgs']]]]]
+    constraints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceConstraintPatchArgsDict']]]]]
     """
     These constraints must be satisfied by the set of devices that get allocated for the claim.
     """
-    requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRequestPatchArgs']]]]]
+    requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRequestPatchArgsDict']]]]]
     """
     Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
     """
@@ -989,15 +989,15 @@ class DeviceClaimArgsDict(TypedDict):
     """
     DeviceClaim defines how to request devices with a ResourceClaim.
     """
-    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceClaimConfigurationArgs']]]]]
+    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceClaimConfigurationArgsDict']]]]]
     """
     This field holds configuration for multiple potential drivers which could satisfy requests in this claim. It is ignored while allocating the claim.
     """
-    constraints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceConstraintArgs']]]]]
+    constraints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceConstraintArgsDict']]]]]
     """
     These constraints must be satisfied by the set of devices that get allocated for the claim.
     """
-    requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRequestArgs']]]]]
+    requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRequestArgsDict']]]]]
     """
     Requests represent individual requests for distinct devices which must all be satisfied. If empty, nothing needs to be allocated.
     """
@@ -1063,7 +1063,7 @@ class DeviceClassConfigurationPatchArgsDict(TypedDict):
     """
     DeviceClassConfiguration is used in DeviceClass.
     """
-    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationPatchArgs']]]
+    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationPatchArgsDict']]]
     """
     Opaque provides driver-specific configuration parameters.
     """
@@ -1097,7 +1097,7 @@ class DeviceClassConfigurationArgsDict(TypedDict):
     """
     DeviceClassConfiguration is used in DeviceClass.
     """
-    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationArgs']]]
+    opaque: NotRequired[pulumi.Input[Optional['OpaqueDeviceConfigurationArgsDict']]]
     """
     Opaque provides driver-specific configuration parameters.
     """
@@ -1131,17 +1131,17 @@ class DeviceClassSpecPatchArgsDict(TypedDict):
     """
     DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
     """
-    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceClassConfigurationPatchArgs']]]]]
+    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceClassConfigurationPatchArgsDict']]]]]
     """
     Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
 
     They are passed to the driver, but are not considered while allocating the claim.
     """
-    selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]]]
+    selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceSelectorPatchArgsDict']]]]]
     """
     Each selector must be satisfied by a device which is claimed via this class.
     """
-    suitable_nodes: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorPatchArgs']]]
+    suitable_nodes: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorPatchArgsDict']]]
     """
     Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a claim that has not been allocated yet *and* that claim gets allocated through a control plane controller. It is ignored when the claim does not use a control plane controller for allocation.
 
@@ -1223,17 +1223,17 @@ class DeviceClassSpecArgsDict(TypedDict):
     """
     DeviceClassSpec is used in a [DeviceClass] to define what can be allocated and how to configure it.
     """
-    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceClassConfigurationArgs']]]]]
+    config: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceClassConfigurationArgsDict']]]]]
     """
     Config defines configuration parameters that apply to each device that is claimed via this class. Some classses may potentially be satisfied by multiple drivers, so each instance of a vendor configuration applies to exactly one driver.
 
     They are passed to the driver, but are not considered while allocating the claim.
     """
-    selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceSelectorArgs']]]]]
+    selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceSelectorArgsDict']]]]]
     """
     Each selector must be satisfied by a device which is claimed via this class.
     """
-    suitable_nodes: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgs']]]
+    suitable_nodes: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgsDict']]]
     """
     Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a claim that has not been allocated yet *and* that claim gets allocated through a control plane controller. It is ignored when the claim does not use a control plane controller for allocation.
 
@@ -1333,7 +1333,7 @@ class DeviceClassArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
@@ -1556,7 +1556,7 @@ class DevicePatchArgsDict(TypedDict):
     """
     Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
     """
-    basic: NotRequired[pulumi.Input[Optional['BasicDevicePatchArgs']]]
+    basic: NotRequired[pulumi.Input[Optional['BasicDevicePatchArgsDict']]]
     """
     Basic defines one device instance.
     """
@@ -1752,7 +1752,7 @@ class DeviceRequestPatchArgsDict(TypedDict):
 
     Must be a DNS label.
     """
-    selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceSelectorPatchArgs']]]]]
+    selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceSelectorPatchArgsDict']]]]]
     """
     Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
     """
@@ -1944,7 +1944,7 @@ class DeviceRequestArgsDict(TypedDict):
     """
     Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
     """
-    selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceSelectorArgs']]]]]
+    selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceSelectorArgsDict']]]]]
     """
     Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
     """
@@ -2094,7 +2094,7 @@ class DeviceSelectorPatchArgsDict(TypedDict):
     """
     DeviceSelector must have exactly one field set.
     """
-    cel: NotRequired[pulumi.Input[Optional['CELDeviceSelectorPatchArgs']]]
+    cel: NotRequired[pulumi.Input[Optional['CELDeviceSelectorPatchArgsDict']]]
     """
     CEL contains a CEL expression for selecting a device.
     """
@@ -2128,7 +2128,7 @@ class DeviceSelectorArgsDict(TypedDict):
     """
     DeviceSelector must have exactly one field set.
     """
-    cel: NotRequired[pulumi.Input[Optional['CELDeviceSelectorArgs']]]
+    cel: NotRequired[pulumi.Input[Optional['CELDeviceSelectorArgsDict']]]
     """
     CEL contains a CEL expression for selecting a device.
     """
@@ -2268,11 +2268,11 @@ class DeviceTaintRuleSpecPatchArgsDict(TypedDict):
     """
     DeviceTaintRuleSpec specifies the selector and one taint.
     """
-    device_selector: NotRequired[pulumi.Input[Optional['DeviceTaintSelectorPatchArgs']]]
+    device_selector: NotRequired[pulumi.Input[Optional['DeviceTaintSelectorPatchArgsDict']]]
     """
     DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
     """
-    taint: NotRequired[pulumi.Input[Optional['DeviceTaintPatchArgs']]]
+    taint: NotRequired[pulumi.Input[Optional['DeviceTaintPatchArgsDict']]]
     """
     The taint that gets applied to matching devices.
     """
@@ -2326,7 +2326,7 @@ class DeviceTaintRuleSpecArgsDict(TypedDict):
     """
     The taint that gets applied to matching devices.
     """
-    device_selector: NotRequired[pulumi.Input[Optional['DeviceTaintSelectorArgs']]]
+    device_selector: NotRequired[pulumi.Input[Optional['DeviceTaintSelectorArgsDict']]]
     """
     DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
     """
@@ -2375,7 +2375,7 @@ class DeviceTaintRuleStatusArgsDict(TypedDict):
     """
     DeviceTaintRuleStatus provides information about an on-going pod eviction.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
 
@@ -2450,11 +2450,11 @@ class DeviceTaintRuleArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
-    status: NotRequired[pulumi.Input[Optional['DeviceTaintRuleStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['DeviceTaintRuleStatusArgsDict']]]
     """
     Status provides information about what was requested in the spec.
     """
@@ -2835,7 +2835,7 @@ class DeviceArgsDict(TypedDict):
     """
     Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
     """
-    basic: NotRequired[pulumi.Input[Optional['BasicDeviceArgs']]]
+    basic: NotRequired[pulumi.Input[Optional['BasicDeviceArgsDict']]]
     """
     Basic defines one device instance.
     """
@@ -2892,7 +2892,7 @@ class OpaqueDeviceConfigurationPatchArgsDict(TypedDict):
 
     Must be a DNS subdomain and should end with a DNS domain owned by the vendor of the driver.
     """
-    parameters: NotRequired[Optional[Any]]
+    parameters: NotRequired[Any]
     """
     Parameters can contain arbitrary data. It is the responsibility of the driver developer to handle validation and versioning. Typically this includes self-identification and a version ("kind" + "apiVersion" for Kubernetes types), with conversion between different versions.
     """
@@ -3134,7 +3134,7 @@ class PodSchedulingContextStatusArgsDict(TypedDict):
     """
     PodSchedulingContextStatus describes where resources for the Pod can be allocated.
     """
-    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]]]
+    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgsDict']]]]]
     """
     ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
     """
@@ -3182,11 +3182,11 @@ class PodSchedulingContextArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
-    status: NotRequired[pulumi.Input[Optional['PodSchedulingContextStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PodSchedulingContextStatusArgsDict']]]
     """
     Status describes where resources for the Pod can be allocated.
     """
@@ -3654,7 +3654,7 @@ class ResourceClaimSpecPatchArgsDict(TypedDict):
 
     This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
     """
-    devices: NotRequired[pulumi.Input[Optional['DeviceClaimPatchArgs']]]
+    devices: NotRequired[pulumi.Input[Optional['DeviceClaimPatchArgsDict']]]
     """
     Devices defines how to request devices.
     """
@@ -3720,7 +3720,7 @@ class ResourceClaimSpecArgsDict(TypedDict):
 
     This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
     """
-    devices: NotRequired[pulumi.Input[Optional['DeviceClaimArgs']]]
+    devices: NotRequired[pulumi.Input[Optional['DeviceClaimArgsDict']]]
     """
     Devices defines how to request devices.
     """
@@ -3778,7 +3778,7 @@ class ResourceClaimStatusArgsDict(TypedDict):
     """
     ResourceClaimStatus tracks whether the resource has been allocated and what the result of that was.
     """
-    allocation: NotRequired[pulumi.Input[Optional['AllocationResultArgs']]]
+    allocation: NotRequired[pulumi.Input[Optional['AllocationResultArgsDict']]]
     """
     Allocation is set once the claim has been allocated successfully.
     """
@@ -3790,7 +3790,7 @@ class ResourceClaimStatusArgsDict(TypedDict):
 
     This is an alpha field and requires enabling the DRAControlPlaneController feature gate.
     """
-    reserved_for: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]]]
+    reserved_for: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgsDict']]]]]
     """
     ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started. A claim that is in use or might be in use because it has been reserved must not get deallocated.
 
@@ -3882,11 +3882,11 @@ class ResourceClaimTemplateSpecPatchArgsDict(TypedDict):
     """
     ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgsDict']]]
     """
     ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
     """
-    spec: NotRequired[pulumi.Input[Optional['ResourceClaimSpecPatchArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ResourceClaimSpecPatchArgsDict']]]
     """
     Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
     """
@@ -3940,7 +3940,7 @@ class ResourceClaimTemplateSpecArgsDict(TypedDict):
     """
     Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
     """
@@ -4005,7 +4005,7 @@ class ResourceClaimTemplateArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
@@ -4106,11 +4106,11 @@ class ResourceClaimArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
-    status: NotRequired[pulumi.Input[Optional['ResourceClaimStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ResourceClaimStatusArgsDict']]]
     """
     Status describes whether the claim is ready to use and what has been allocated.
     """
@@ -4464,13 +4464,13 @@ class ResourcePoolStatusRequestStatusArgsDict(TypedDict):
     """
     PoolCount is the total number of pools that matched the filter criteria, regardless of truncation. This helps users understand how many pools exist even when the response is truncated. A value of 0 means no pools matched the filter criteria.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     Conditions provide information about the state of the request. A condition with type=Complete or type=Failed will always be set when the status is populated.
 
     Known condition types: - "Complete": True when the request has been processed successfully - "Failed": True when the request could not be processed
     """
-    pools: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PoolStatusArgs']]]]]
+    pools: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PoolStatusArgsDict']]]]]
     """
     Pools contains the first `spec.limit` matching pools, sorted by driver then pool name. If `len(pools) < poolCount`, the list was truncated. When omitted, no pools matched the request filters.
     """
@@ -4555,7 +4555,7 @@ class ResourcePoolStatusRequestArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    status: NotRequired[pulumi.Input[Optional['ResourcePoolStatusRequestStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ResourcePoolStatusRequestStatusArgsDict']]]
     """
     Status is populated by the controller with the calculated pool status. When status is non-nil, the request is considered complete and the entire object becomes immutable.
     """
@@ -4746,7 +4746,7 @@ class ResourceSliceSpecPatchArgsDict(TypedDict):
 
     Exactly one of NodeName, NodeSelector and AllNodes must be set.
     """
-    devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DevicePatchArgs']]]]]
+    devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DevicePatchArgsDict']]]]]
     """
     Devices lists some or all of the devices in this pool.
 
@@ -4766,7 +4766,7 @@ class ResourceSliceSpecPatchArgsDict(TypedDict):
 
     Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
     """
-    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorPatchArgs']]]
+    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorPatchArgsDict']]]
     """
     NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
 
@@ -4774,7 +4774,7 @@ class ResourceSliceSpecPatchArgsDict(TypedDict):
 
     Exactly one of NodeName, NodeSelector and AllNodes must be set.
     """
-    pool: NotRequired[pulumi.Input[Optional['ResourcePoolPatchArgs']]]
+    pool: NotRequired[pulumi.Input[Optional['ResourcePoolPatchArgsDict']]]
     """
     Pool describes the pool that this ResourceSlice belongs to.
     """
@@ -4932,7 +4932,7 @@ class ResourceSliceSpecArgsDict(TypedDict):
 
     Exactly one of NodeName, NodeSelector and AllNodes must be set.
     """
-    devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceArgs']]]]]
+    devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeviceArgsDict']]]]]
     """
     Devices lists some or all of the devices in this pool.
 
@@ -4946,7 +4946,7 @@ class ResourceSliceSpecArgsDict(TypedDict):
 
     Exactly one of NodeName, NodeSelector and AllNodes must be set. This field is immutable.
     """
-    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgs']]]
+    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgsDict']]]
     """
     NodeSelector defines which nodes have access to the resources in the pool, when that pool is not limited to a single node.
 

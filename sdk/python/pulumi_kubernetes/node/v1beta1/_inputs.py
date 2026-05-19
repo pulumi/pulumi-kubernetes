@@ -113,15 +113,15 @@ class RuntimeClassArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    overhead: NotRequired[pulumi.Input[Optional['OverheadArgs']]]
+    overhead: NotRequired[pulumi.Input[Optional['OverheadArgsDict']]]
     """
     Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
     """
-    scheduling: NotRequired[pulumi.Input[Optional['SchedulingArgs']]]
+    scheduling: NotRequired[pulumi.Input[Optional['SchedulingArgsDict']]]
     """
     Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
     """
@@ -238,7 +238,7 @@ class SchedulingPatchArgsDict(TypedDict):
     """
     nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
     """
-    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]]
+    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgsDict']]]]]
     """
     tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
     """
@@ -292,7 +292,7 @@ class SchedulingArgsDict(TypedDict):
     """
     nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
     """
-    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]]
+    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationArgsDict']]]]]
     """
     tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
     """

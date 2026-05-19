@@ -29,23 +29,23 @@ class PodPresetSpecPatchArgsDict(TypedDict):
     """
     PodPresetSpec is a description of a pod preset.
     """
-    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.EnvVarPatchArgs']]]]]
+    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.EnvVarPatchArgsDict']]]]]
     """
     Env defines the collection of EnvVar to inject into containers.
     """
-    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.EnvFromSourcePatchArgs']]]]]
+    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.EnvFromSourcePatchArgsDict']]]]]
     """
     EnvFrom defines the collection of EnvFromSource to inject into containers.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Selector is a label query over a set of resources, in this case pods. Required.
     """
-    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.VolumeMountPatchArgs']]]]]
+    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.VolumeMountPatchArgsDict']]]]]
     """
     VolumeMounts defines the collection of VolumeMount to inject into containers.
     """
-    volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.VolumePatchArgs']]]]]
+    volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.VolumePatchArgsDict']]]]]
     """
     Volumes defines the collection of Volume to inject into the pod.
     """
@@ -143,23 +143,23 @@ class PodPresetSpecArgsDict(TypedDict):
     """
     PodPresetSpec is a description of a pod preset.
     """
-    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.EnvVarArgs']]]]]
+    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.EnvVarArgsDict']]]]]
     """
     Env defines the collection of EnvVar to inject into containers.
     """
-    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.EnvFromSourceArgs']]]]]
+    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.EnvFromSourceArgsDict']]]]]
     """
     EnvFrom defines the collection of EnvFromSource to inject into containers.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     Selector is a label query over a set of resources, in this case pods. Required.
     """
-    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.VolumeMountArgs']]]]]
+    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.VolumeMountArgsDict']]]]]
     """
     VolumeMounts defines the collection of VolumeMount to inject into containers.
     """
-    volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.VolumeArgs']]]]]
+    volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.VolumeArgsDict']]]]]
     """
     Volumes defines the collection of Volume to inject into the pod.
     """
@@ -265,8 +265,8 @@ class PodPresetArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
-    spec: NotRequired[pulumi.Input[Optional['PodPresetSpecArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    spec: NotRequired[pulumi.Input[Optional['PodPresetSpecArgsDict']]]
 
 @pulumi.input_type
 class PodPresetArgs:

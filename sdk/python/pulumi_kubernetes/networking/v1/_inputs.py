@@ -121,7 +121,7 @@ class HTTPIngressPathPatchArgsDict(TypedDict):
     """
     HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
     """
-    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgs']]]
+    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgsDict']]]
     """
     backend defines the referenced service endpoint to which the traffic will be forwarded to.
     """
@@ -327,7 +327,7 @@ class HTTPIngressRuleValuePatchArgsDict(TypedDict):
     """
     HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
     """
-    paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]]]
+    paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgsDict']]]]]
     """
     paths is a collection of paths that map requests to backends.
     """
@@ -394,7 +394,7 @@ class IPAddressSpecPatchArgsDict(TypedDict):
     """
     IPAddressSpec describe the attributes in an IP Address.
     """
-    parent_ref: NotRequired[pulumi.Input[Optional['ParentReferencePatchArgs']]]
+    parent_ref: NotRequired[pulumi.Input[Optional['ParentReferencePatchArgsDict']]]
     """
     ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
     """
@@ -473,7 +473,7 @@ class IPAddressArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
@@ -661,11 +661,11 @@ class IngressBackendPatchArgsDict(TypedDict):
     """
     IngressBackend describes all endpoints for a given service and port.
     """
-    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgs']]]
+    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgsDict']]]
     """
     resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
     """
-    service: NotRequired[pulumi.Input[Optional['IngressServiceBackendPatchArgs']]]
+    service: NotRequired[pulumi.Input[Optional['IngressServiceBackendPatchArgsDict']]]
     """
     service references a service as a backend. This is a mutually exclusive setting with "Resource".
     """
@@ -715,11 +715,11 @@ class IngressBackendArgsDict(TypedDict):
     """
     IngressBackend describes all endpoints for a given service and port.
     """
-    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgs']]]
+    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgsDict']]]
     """
     resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
     """
-    service: NotRequired[pulumi.Input[Optional['IngressServiceBackendArgs']]]
+    service: NotRequired[pulumi.Input[Optional['IngressServiceBackendArgsDict']]]
     """
     service references a service as a backend. This is a mutually exclusive setting with "Resource".
     """
@@ -999,7 +999,7 @@ class IngressClassSpecPatchArgsDict(TypedDict):
     """
     controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
     """
-    parameters: NotRequired[pulumi.Input[Optional['IngressClassParametersReferencePatchArgs']]]
+    parameters: NotRequired[pulumi.Input[Optional['IngressClassParametersReferencePatchArgsDict']]]
     """
     parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
     """
@@ -1053,7 +1053,7 @@ class IngressClassSpecArgsDict(TypedDict):
     """
     controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
     """
-    parameters: NotRequired[pulumi.Input[Optional['IngressClassParametersReferenceArgs']]]
+    parameters: NotRequired[pulumi.Input[Optional['IngressClassParametersReferenceArgsDict']]]
     """
     parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
     """
@@ -1111,11 +1111,11 @@ class IngressClassArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['IngressClassSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['IngressClassSpecArgsDict']]]
     """
     spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -1205,7 +1205,7 @@ class IngressLoadBalancerIngressArgsDict(TypedDict):
     """
     ip is set for load-balancer ingress points that are IP based.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressPortStatusArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressPortStatusArgsDict']]]]]
     """
     ports provides information about the ports exposed by this LoadBalancer.
     """
@@ -1271,7 +1271,7 @@ class IngressLoadBalancerStatusArgsDict(TypedDict):
     """
     IngressLoadBalancerStatus represents the status of a load-balancer.
     """
-    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]]]
+    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressLoadBalancerIngressArgsDict']]]]]
     """
     ingress is a list containing ingress points for the load-balancer.
     """
@@ -1397,7 +1397,7 @@ class IngressRulePatchArgsDict(TypedDict):
 
     host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
     """
-    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValuePatchArgs']]]
+    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValuePatchArgsDict']]]
 
 @pulumi.input_type
 class IngressRulePatchArgs:
@@ -1465,7 +1465,7 @@ class IngressRuleArgsDict(TypedDict):
 
     host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
     """
-    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValueArgs']]]
+    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValueArgsDict']]]
 
 @pulumi.input_type
 class IngressRuleArgs:
@@ -1526,7 +1526,7 @@ class IngressServiceBackendPatchArgsDict(TypedDict):
     """
     name is the referenced service. The service must exist in the same namespace as the Ingress object.
     """
-    port: NotRequired[pulumi.Input[Optional['ServiceBackendPortPatchArgs']]]
+    port: NotRequired[pulumi.Input[Optional['ServiceBackendPortPatchArgsDict']]]
     """
     port of the referenced service. A port name or port number is required for a IngressServiceBackend.
     """
@@ -1580,7 +1580,7 @@ class IngressServiceBackendArgsDict(TypedDict):
     """
     name is the referenced service. The service must exist in the same namespace as the Ingress object.
     """
-    port: NotRequired[pulumi.Input[Optional['ServiceBackendPortArgs']]]
+    port: NotRequired[pulumi.Input[Optional['ServiceBackendPortArgsDict']]]
     """
     port of the referenced service. A port name or port number is required for a IngressServiceBackend.
     """
@@ -1629,7 +1629,7 @@ class IngressSpecPatchArgsDict(TypedDict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
-    default_backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgs']]]
+    default_backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgsDict']]]
     """
     defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
     """
@@ -1637,11 +1637,11 @@ class IngressSpecPatchArgsDict(TypedDict):
     """
     ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgsDict']]]]]
     """
     rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
     """
-    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgs']]]]]
+    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgsDict']]]]]
     """
     tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
     """
@@ -1723,7 +1723,7 @@ class IngressSpecArgsDict(TypedDict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
-    default_backend: NotRequired[pulumi.Input[Optional['IngressBackendArgs']]]
+    default_backend: NotRequired[pulumi.Input[Optional['IngressBackendArgsDict']]]
     """
     defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
     """
@@ -1731,11 +1731,11 @@ class IngressSpecArgsDict(TypedDict):
     """
     ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgsDict']]]]]
     """
     rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
     """
-    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgs']]]]]
+    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgsDict']]]]]
     """
     tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
     """
@@ -1817,7 +1817,7 @@ class IngressStatusArgsDict(TypedDict):
     """
     IngressStatus describe the current state of the Ingress.
     """
-    load_balancer: NotRequired[pulumi.Input[Optional['IngressLoadBalancerStatusArgs']]]
+    load_balancer: NotRequired[pulumi.Input[Optional['IngressLoadBalancerStatusArgsDict']]]
     """
     loadBalancer contains the current status of the load-balancer.
     """
@@ -1981,15 +1981,15 @@ class IngressArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['IngressSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['IngressSpecArgsDict']]]
     """
     spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['IngressStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['IngressStatusArgsDict']]]
     """
     status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -2101,11 +2101,11 @@ class NetworkPolicyEgressRulePatchArgsDict(TypedDict):
     """
     NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgsDict']]]]]
     """
     ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
-    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]]
+    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgsDict']]]]]
     """
     to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
     """
@@ -2155,11 +2155,11 @@ class NetworkPolicyEgressRuleArgsDict(TypedDict):
     """
     NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgsDict']]]]]
     """
     ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
-    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]]
+    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgsDict']]]]]
     """
     to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
     """
@@ -2209,11 +2209,11 @@ class NetworkPolicyIngressRulePatchArgsDict(TypedDict):
     """
     NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
     """
-    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]]
+    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgsDict']]]]]
     """
     from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgsDict']]]]]
     """
     ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
@@ -2263,11 +2263,11 @@ class NetworkPolicyIngressRuleArgsDict(TypedDict):
     """
     NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
     """
-    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]]
+    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgsDict']]]]]
     """
     from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgsDict']]]]]
     """
     ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
@@ -2317,17 +2317,17 @@ class NetworkPolicyPeerPatchArgsDict(TypedDict):
     """
     NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
     """
-    ip_block: NotRequired[pulumi.Input[Optional['IPBlockPatchArgs']]]
+    ip_block: NotRequired[pulumi.Input[Optional['IPBlockPatchArgsDict']]]
     """
     ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
     """
-    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 
     If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
     """
-    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 
@@ -2403,17 +2403,17 @@ class NetworkPolicyPeerArgsDict(TypedDict):
     """
     NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
     """
-    ip_block: NotRequired[pulumi.Input[Optional['IPBlockArgs']]]
+    ip_block: NotRequired[pulumi.Input[Optional['IPBlockArgsDict']]]
     """
     ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
     """
-    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 
     If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
     """
-    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 
@@ -2637,15 +2637,15 @@ class NetworkPolicySpecPatchArgsDict(TypedDict):
     """
     NetworkPolicySpec provides the specification of a NetworkPolicy
     """
-    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]]]
+    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgsDict']]]]]
     """
     egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
     """
-    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]]]
+    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgsDict']]]]]
     """
     ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
     """
-    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     podSelector selects the pods to which this NetworkPolicy object applies. The array of rules is applied to any pods selected by this field. An empty selector matches all pods in the policy's namespace. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is optional. If it is not specified, it defaults to an empty selector.
     """
@@ -2735,11 +2735,11 @@ class NetworkPolicySpecArgsDict(TypedDict):
     """
     podSelector selects the pods to which this NetworkPolicy object applies. The array of rules is applied to any pods selected by this field. An empty selector matches all pods in the policy's namespace. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is optional. If it is not specified, it defaults to an empty selector.
     """
-    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]]]
+    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgsDict']]]]]
     """
     egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
     """
-    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]]]
+    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgsDict']]]]]
     """
     ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
     """
@@ -2824,7 +2824,7 @@ class NetworkPolicyStatusArgsDict(TypedDict):
     """
     NetworkPolicyStatus describe the current state of the NetworkPolicy.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
     """
@@ -2866,15 +2866,15 @@ class NetworkPolicyArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['NetworkPolicySpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['NetworkPolicySpecArgsDict']]]
     """
     spec represents the specification of the desired behavior for this NetworkPolicy.
     """
-    status: NotRequired[pulumi.Input[Optional['NetworkPolicyStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['NetworkPolicyStatusArgsDict']]]
     """
     Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -3334,7 +3334,7 @@ class ServiceCIDRStatusArgsDict(TypedDict):
     """
     ServiceCIDRStatus describes the current state of the ServiceCIDR.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
     """
@@ -3376,15 +3376,15 @@ class ServiceCIDRArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['ServiceCIDRSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ServiceCIDRSpecArgsDict']]]
     """
     spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['ServiceCIDRStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ServiceCIDRStatusArgsDict']]]
     """
     status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """

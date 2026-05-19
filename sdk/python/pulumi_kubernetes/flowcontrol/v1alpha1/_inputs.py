@@ -271,7 +271,7 @@ class FlowSchemaSpecPatchArgsDict(TypedDict):
     """
     FlowSchemaSpec describes how the FlowSchema's specification looks like.
     """
-    distinguisher_method: NotRequired[pulumi.Input[Optional['FlowDistinguisherMethodPatchArgs']]]
+    distinguisher_method: NotRequired[pulumi.Input[Optional['FlowDistinguisherMethodPatchArgsDict']]]
     """
     `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
     """
@@ -279,11 +279,11 @@ class FlowSchemaSpecPatchArgsDict(TypedDict):
     """
     `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative. Note that if the precedence is not specified or zero, it will be set to 1000 as default.
     """
-    priority_level_configuration: NotRequired[pulumi.Input[Optional['PriorityLevelConfigurationReferencePatchArgs']]]
+    priority_level_configuration: NotRequired[pulumi.Input[Optional['PriorityLevelConfigurationReferencePatchArgsDict']]]
     """
     `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRulesWithSubjectsPatchArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRulesWithSubjectsPatchArgsDict']]]]]
     """
     `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
     """
@@ -369,7 +369,7 @@ class FlowSchemaSpecArgsDict(TypedDict):
     """
     `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
     """
-    distinguisher_method: NotRequired[pulumi.Input[Optional['FlowDistinguisherMethodArgs']]]
+    distinguisher_method: NotRequired[pulumi.Input[Optional['FlowDistinguisherMethodArgsDict']]]
     """
     `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
     """
@@ -377,7 +377,7 @@ class FlowSchemaSpecArgsDict(TypedDict):
     """
     `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be non-negative. Note that if the precedence is not specified or zero, it will be set to 1000 as default.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgsDict']]]]]
     """
     `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
     """
@@ -458,7 +458,7 @@ class FlowSchemaStatusArgsDict(TypedDict):
     """
     FlowSchemaStatus represents the current state of a FlowSchema.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlowSchemaConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['FlowSchemaConditionArgsDict']]]]]
     """
     `conditions` is a list of the current states of FlowSchema.
     """
@@ -500,15 +500,15 @@ class FlowSchemaArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['FlowSchemaSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['FlowSchemaSpecArgsDict']]]
     """
     `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['FlowSchemaStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['FlowSchemaStatusArgsDict']]]
     """
     `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -673,7 +673,7 @@ class LimitResponsePatchArgsDict(TypedDict):
     """
     LimitResponse defines how to handle requests that can not be executed right now.
     """
-    queuing: NotRequired[pulumi.Input[Optional['QueuingConfigurationPatchArgs']]]
+    queuing: NotRequired[pulumi.Input[Optional['QueuingConfigurationPatchArgsDict']]]
     """
     `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
     """
@@ -731,7 +731,7 @@ class LimitResponseArgsDict(TypedDict):
     """
     `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
     """
-    queuing: NotRequired[pulumi.Input[Optional['QueuingConfigurationArgs']]]
+    queuing: NotRequired[pulumi.Input[Optional['QueuingConfigurationArgsDict']]]
     """
     `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
     """
@@ -790,7 +790,7 @@ class LimitedPriorityLevelConfigurationPatchArgsDict(TypedDict):
 
     bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
     """
-    limit_response: NotRequired[pulumi.Input[Optional['LimitResponsePatchArgs']]]
+    limit_response: NotRequired[pulumi.Input[Optional['LimitResponsePatchArgsDict']]]
     """
     `limitResponse` indicates what to do with requests that can not be executed right now
     """
@@ -860,7 +860,7 @@ class LimitedPriorityLevelConfigurationArgsDict(TypedDict):
 
     bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
     """
-    limit_response: NotRequired[pulumi.Input[Optional['LimitResponseArgs']]]
+    limit_response: NotRequired[pulumi.Input[Optional['LimitResponseArgsDict']]]
     """
     `limitResponse` indicates what to do with requests that can not be executed right now
     """
@@ -1062,15 +1062,15 @@ class PolicyRulesWithSubjectsPatchArgsDict(TypedDict):
     """
     PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
     """
-    non_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NonResourcePolicyRulePatchArgs']]]]]
+    non_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NonResourcePolicyRulePatchArgsDict']]]]]
     """
     `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
     """
-    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourcePolicyRulePatchArgs']]]]]
+    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourcePolicyRulePatchArgsDict']]]]]
     """
     `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
     """
-    subjects: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SubjectPatchArgs']]]]]
+    subjects: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SubjectPatchArgsDict']]]]]
     """
     subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
     """
@@ -1140,11 +1140,11 @@ class PolicyRulesWithSubjectsArgsDict(TypedDict):
     """
     subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
     """
-    non_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NonResourcePolicyRuleArgs']]]]]
+    non_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NonResourcePolicyRuleArgsDict']]]]]
     """
     `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
     """
-    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourcePolicyRuleArgs']]]]]
+    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourcePolicyRuleArgsDict']]]]]
     """
     `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
     """
@@ -1390,7 +1390,7 @@ class PriorityLevelConfigurationSpecPatchArgsDict(TypedDict):
     """
     PriorityLevelConfigurationSpec specifies the configuration of a priority level.
     """
-    limited: NotRequired[pulumi.Input[Optional['LimitedPriorityLevelConfigurationPatchArgs']]]
+    limited: NotRequired[pulumi.Input[Optional['LimitedPriorityLevelConfigurationPatchArgsDict']]]
     """
     `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
     """
@@ -1448,7 +1448,7 @@ class PriorityLevelConfigurationSpecArgsDict(TypedDict):
     """
     `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
     """
-    limited: NotRequired[pulumi.Input[Optional['LimitedPriorityLevelConfigurationArgs']]]
+    limited: NotRequired[pulumi.Input[Optional['LimitedPriorityLevelConfigurationArgsDict']]]
     """
     `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
     """
@@ -1497,7 +1497,7 @@ class PriorityLevelConfigurationStatusArgsDict(TypedDict):
     """
     PriorityLevelConfigurationStatus represents the current state of a "request-priority".
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgsDict']]]]]
     """
     `conditions` is the current state of "request-priority".
     """
@@ -1539,15 +1539,15 @@ class PriorityLevelConfigurationArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PriorityLevelConfigurationSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PriorityLevelConfigurationSpecArgsDict']]]
     """
     `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['PriorityLevelConfigurationStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PriorityLevelConfigurationStatusArgsDict']]]
     """
     `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -2124,13 +2124,13 @@ class SubjectPatchArgsDict(TypedDict):
     """
     Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
     """
-    group: NotRequired[pulumi.Input[Optional['GroupSubjectPatchArgs']]]
+    group: NotRequired[pulumi.Input[Optional['GroupSubjectPatchArgsDict']]]
     kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Required
     """
-    service_account: NotRequired[pulumi.Input[Optional['ServiceAccountSubjectPatchArgs']]]
-    user: NotRequired[pulumi.Input[Optional['UserSubjectPatchArgs']]]
+    service_account: NotRequired[pulumi.Input[Optional['ServiceAccountSubjectPatchArgsDict']]]
+    user: NotRequired[pulumi.Input[Optional['UserSubjectPatchArgsDict']]]
 
 @pulumi.input_type
 class SubjectPatchArgs:
@@ -2201,9 +2201,9 @@ class SubjectArgsDict(TypedDict):
     """
     Required
     """
-    group: NotRequired[pulumi.Input[Optional['GroupSubjectArgs']]]
-    service_account: NotRequired[pulumi.Input[Optional['ServiceAccountSubjectArgs']]]
-    user: NotRequired[pulumi.Input[Optional['UserSubjectArgs']]]
+    group: NotRequired[pulumi.Input[Optional['GroupSubjectArgsDict']]]
+    service_account: NotRequired[pulumi.Input[Optional['ServiceAccountSubjectArgsDict']]]
+    user: NotRequired[pulumi.Input[Optional['UserSubjectArgsDict']]]
 
 @pulumi.input_type
 class SubjectArgs:

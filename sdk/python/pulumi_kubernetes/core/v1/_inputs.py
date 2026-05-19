@@ -920,15 +920,15 @@ class AffinityPatchArgsDict(TypedDict):
     """
     Affinity is a group of affinity scheduling rules.
     """
-    node_affinity: NotRequired[pulumi.Input[Optional['NodeAffinityPatchArgs']]]
+    node_affinity: NotRequired[pulumi.Input[Optional['NodeAffinityPatchArgsDict']]]
     """
     Describes node affinity scheduling rules for the pod.
     """
-    pod_affinity: NotRequired[pulumi.Input[Optional['PodAffinityPatchArgs']]]
+    pod_affinity: NotRequired[pulumi.Input[Optional['PodAffinityPatchArgsDict']]]
     """
     Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
     """
-    pod_anti_affinity: NotRequired[pulumi.Input[Optional['PodAntiAffinityPatchArgs']]]
+    pod_anti_affinity: NotRequired[pulumi.Input[Optional['PodAntiAffinityPatchArgsDict']]]
     """
     Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
     """
@@ -994,15 +994,15 @@ class AffinityArgsDict(TypedDict):
     """
     Affinity is a group of affinity scheduling rules.
     """
-    node_affinity: NotRequired[pulumi.Input[Optional['NodeAffinityArgs']]]
+    node_affinity: NotRequired[pulumi.Input[Optional['NodeAffinityArgsDict']]]
     """
     Describes node affinity scheduling rules for the pod.
     """
-    pod_affinity: NotRequired[pulumi.Input[Optional['PodAffinityArgs']]]
+    pod_affinity: NotRequired[pulumi.Input[Optional['PodAffinityArgsDict']]]
     """
     Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
     """
-    pod_anti_affinity: NotRequired[pulumi.Input[Optional['PodAntiAffinityArgs']]]
+    pod_anti_affinity: NotRequired[pulumi.Input[Optional['PodAntiAffinityArgsDict']]]
     """
     Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
     """
@@ -1843,11 +1843,11 @@ class CSIPersistentVolumeSourcePatchArgsDict(TypedDict):
     """
     Represents storage that is managed by an external CSI volume driver
     """
-    controller_expand_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    controller_expand_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
-    controller_publish_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    controller_publish_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
@@ -1859,15 +1859,15 @@ class CSIPersistentVolumeSourcePatchArgsDict(TypedDict):
     """
     fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
     """
-    node_expand_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    node_expand_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
-    node_publish_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    node_publish_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
-    node_stage_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    node_stage_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
@@ -2065,11 +2065,11 @@ class CSIPersistentVolumeSourceArgsDict(TypedDict):
     """
     volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
     """
-    controller_expand_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    controller_expand_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
-    controller_publish_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    controller_publish_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
@@ -2077,15 +2077,15 @@ class CSIPersistentVolumeSourceArgsDict(TypedDict):
     """
     fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
     """
-    node_expand_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    node_expand_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
-    node_publish_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    node_publish_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
-    node_stage_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    node_stage_secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
     """
@@ -2277,7 +2277,7 @@ class CSIVolumeSourcePatchArgsDict(TypedDict):
     """
     fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
     """
-    node_publish_secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgs']]]
+    node_publish_secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgsDict']]]
     """
     nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
     """
@@ -2391,7 +2391,7 @@ class CSIVolumeSourceArgsDict(TypedDict):
     """
     fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
     """
-    node_publish_secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgs']]]
+    node_publish_secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgsDict']]]
     """
     nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
     """
@@ -2620,7 +2620,7 @@ class CephFSPersistentVolumeSourcePatchArgsDict(TypedDict):
     """
     secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
     """
@@ -2754,7 +2754,7 @@ class CephFSPersistentVolumeSourceArgsDict(TypedDict):
     """
     secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
     """
@@ -2887,7 +2887,7 @@ class CephFSVolumeSourcePatchArgsDict(TypedDict):
     """
     secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgsDict']]]
     """
     secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
     """
@@ -3021,7 +3021,7 @@ class CephFSVolumeSourceArgsDict(TypedDict):
     """
     secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgsDict']]]
     """
     secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
     """
@@ -3146,7 +3146,7 @@ class CinderPersistentVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
     """
@@ -3244,7 +3244,7 @@ class CinderPersistentVolumeSourceArgsDict(TypedDict):
     """
     readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
     """
@@ -3333,7 +3333,7 @@ class CinderVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgsDict']]]
     """
     secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
     """
@@ -3431,7 +3431,7 @@ class CinderVolumeSourceArgsDict(TypedDict):
     """
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgsDict']]]
     """
     secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
     """
@@ -3732,7 +3732,7 @@ class ClusterTrustBundleProjectionPatchArgsDict(TypedDict):
     """
     ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
     """
-    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
     """
@@ -3850,7 +3850,7 @@ class ClusterTrustBundleProjectionArgsDict(TypedDict):
     """
     Relative path from the volume root to write the bundle.
     """
-    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
     """
@@ -4449,7 +4449,7 @@ class ConfigMapProjectionPatchArgsDict(TypedDict):
 
     The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathPatchArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathPatchArgsDict']]]]]
     """
     items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
     """
@@ -4527,7 +4527,7 @@ class ConfigMapProjectionArgsDict(TypedDict):
 
     The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathArgsDict']]]]]
     """
     items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
     """
@@ -4609,7 +4609,7 @@ class ConfigMapVolumeSourcePatchArgsDict(TypedDict):
     """
     defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathPatchArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathPatchArgsDict']]]]]
     """
     items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
     """
@@ -4707,7 +4707,7 @@ class ConfigMapVolumeSourceArgsDict(TypedDict):
     """
     defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathArgsDict']]]]]
     """
     items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
     """
@@ -4819,7 +4819,7 @@ class ConfigMapArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
@@ -5065,11 +5065,11 @@ class ContainerPatchArgsDict(TypedDict):
     """
     Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
     """
-    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvVarPatchArgs']]]]]
+    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvVarPatchArgsDict']]]]]
     """
     List of environment variables to set in the container. Cannot be updated.
     """
-    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvFromSourcePatchArgs']]]]]
+    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvFromSourcePatchArgsDict']]]]]
     """
     List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
     """
@@ -5081,11 +5081,11 @@ class ContainerPatchArgsDict(TypedDict):
     """
     Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
     """
-    lifecycle: NotRequired[pulumi.Input[Optional['LifecyclePatchArgs']]]
+    lifecycle: NotRequired[pulumi.Input[Optional['LifecyclePatchArgsDict']]]
     """
     Actions that the management system should take in response to container lifecycle events. Cannot be updated.
     """
-    liveness_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgs']]]
+    liveness_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgsDict']]]
     """
     Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
     """
@@ -5093,19 +5093,19 @@ class ContainerPatchArgsDict(TypedDict):
     """
     Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPortPatchArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPortPatchArgsDict']]]]]
     """
     List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
     """
-    readiness_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgs']]]
+    readiness_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgsDict']]]
     """
     Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
     """
-    resize_policy: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerResizePolicyPatchArgs']]]]]
+    resize_policy: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerResizePolicyPatchArgsDict']]]]]
     """
     Resources resize policy for the container. This field cannot be set on ephemeral containers.
     """
-    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsPatchArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsPatchArgsDict']]]
     """
     Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     """
@@ -5113,15 +5113,15 @@ class ContainerPatchArgsDict(TypedDict):
     """
     RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
     """
-    restart_policy_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]]]]
+    restart_policy_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerRestartRulePatchArgsDict']]]]]
     """
     Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
     """
-    security_context: NotRequired[pulumi.Input[Optional['SecurityContextPatchArgs']]]
+    security_context: NotRequired[pulumi.Input[Optional['SecurityContextPatchArgsDict']]]
     """
     SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     """
-    startup_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgs']]]
+    startup_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgsDict']]]
     """
     StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
     """
@@ -5145,11 +5145,11 @@ class ContainerPatchArgsDict(TypedDict):
     """
     Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
     """
-    volume_devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeDevicePatchArgs']]]]]
+    volume_devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeDevicePatchArgsDict']]]]]
     """
     volumeDevices is the list of block devices to be used by the container.
     """
-    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountPatchArgs']]]]]
+    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountPatchArgsDict']]]]]
     """
     Pod volumes to mount into the container's filesystem. Cannot be updated.
     """
@@ -6033,7 +6033,7 @@ class ContainerRestartRulePatchArgsDict(TypedDict):
     """
     Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
     """
-    exit_codes: NotRequired[pulumi.Input[Optional['ContainerRestartRuleOnExitCodesPatchArgs']]]
+    exit_codes: NotRequired[pulumi.Input[Optional['ContainerRestartRuleOnExitCodesPatchArgsDict']]]
     """
     Represents the exit codes to check on container exits.
     """
@@ -6087,7 +6087,7 @@ class ContainerRestartRuleArgsDict(TypedDict):
     """
     Specifies the action taken on a container exit if the requirements are satisfied. The only possible value is "Restart" to restart the container.
     """
-    exit_codes: NotRequired[pulumi.Input[Optional['ContainerRestartRuleOnExitCodesArgs']]]
+    exit_codes: NotRequired[pulumi.Input[Optional['ContainerRestartRuleOnExitCodesArgsDict']]]
     """
     Represents the exit codes to check on container exits.
     """
@@ -6377,15 +6377,15 @@ class ContainerStateArgsDict(TypedDict):
     """
     ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
     """
-    running: NotRequired[pulumi.Input[Optional['ContainerStateRunningArgs']]]
+    running: NotRequired[pulumi.Input[Optional['ContainerStateRunningArgsDict']]]
     """
     Details about a running container
     """
-    terminated: NotRequired[pulumi.Input[Optional['ContainerStateTerminatedArgs']]]
+    terminated: NotRequired[pulumi.Input[Optional['ContainerStateTerminatedArgsDict']]]
     """
     Details about a terminated container
     """
-    waiting: NotRequired[pulumi.Input[Optional['ContainerStateWaitingArgs']]]
+    waiting: NotRequired[pulumi.Input[Optional['ContainerStateWaitingArgsDict']]]
     """
     Details about a waiting container
     """
@@ -6477,7 +6477,7 @@ class ContainerStatusArgsDict(TypedDict):
     """
     AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
     """
-    allocated_resources_status: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceStatusArgs']]]]]
+    allocated_resources_status: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceStatusArgsDict']]]]]
     """
     AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
     """
@@ -6485,11 +6485,11 @@ class ContainerStatusArgsDict(TypedDict):
     """
     ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
     """
-    last_state: NotRequired[pulumi.Input[Optional['ContainerStateArgs']]]
+    last_state: NotRequired[pulumi.Input[Optional['ContainerStateArgsDict']]]
     """
     LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
     """
-    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgsDict']]]
     """
     Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
     """
@@ -6497,7 +6497,7 @@ class ContainerStatusArgsDict(TypedDict):
     """
     Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
     """
-    state: NotRequired[pulumi.Input[Optional['ContainerStateArgs']]]
+    state: NotRequired[pulumi.Input[Optional['ContainerStateArgsDict']]]
     """
     State holds details about the container's current condition.
     """
@@ -6505,11 +6505,11 @@ class ContainerStatusArgsDict(TypedDict):
     """
     StopSignal reports the effective stop signal for this container
     """
-    user: NotRequired[pulumi.Input[Optional['ContainerUserArgs']]]
+    user: NotRequired[pulumi.Input[Optional['ContainerUserArgsDict']]]
     """
     User represents user identity information initially attached to the first process of the container
     """
-    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountStatusArgs']]]]]
+    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountStatusArgsDict']]]]]
     """
     Status of volume mounts.
     """
@@ -6766,7 +6766,7 @@ class ContainerUserArgsDict(TypedDict):
     """
     ContainerUser represents user identity information
     """
-    linux: NotRequired[pulumi.Input[Optional['LinuxContainerUserArgs']]]
+    linux: NotRequired[pulumi.Input[Optional['LinuxContainerUserArgsDict']]]
     """
     Linux holds user identity information initially attached to the first process of the containers in Linux. Note that the actual running identity can be changed if the process has enough privilege to do so.
     """
@@ -6812,11 +6812,11 @@ class ContainerArgsDict(TypedDict):
     """
     Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
     """
-    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvVarArgs']]]]]
+    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvVarArgsDict']]]]]
     """
     List of environment variables to set in the container. Cannot be updated.
     """
-    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvFromSourceArgs']]]]]
+    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvFromSourceArgsDict']]]]]
     """
     List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
     """
@@ -6828,27 +6828,27 @@ class ContainerArgsDict(TypedDict):
     """
     Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
     """
-    lifecycle: NotRequired[pulumi.Input[Optional['LifecycleArgs']]]
+    lifecycle: NotRequired[pulumi.Input[Optional['LifecycleArgsDict']]]
     """
     Actions that the management system should take in response to container lifecycle events. Cannot be updated.
     """
-    liveness_probe: NotRequired[pulumi.Input[Optional['ProbeArgs']]]
+    liveness_probe: NotRequired[pulumi.Input[Optional['ProbeArgsDict']]]
     """
     Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPortArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPortArgsDict']]]]]
     """
     List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
     """
-    readiness_probe: NotRequired[pulumi.Input[Optional['ProbeArgs']]]
+    readiness_probe: NotRequired[pulumi.Input[Optional['ProbeArgsDict']]]
     """
     Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
     """
-    resize_policy: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerResizePolicyArgs']]]]]
+    resize_policy: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerResizePolicyArgsDict']]]]]
     """
     Resources resize policy for the container. This field cannot be set on ephemeral containers.
     """
-    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgsDict']]]
     """
     Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
     """
@@ -6856,15 +6856,15 @@ class ContainerArgsDict(TypedDict):
     """
     RestartPolicy defines the restart behavior of individual containers in a pod. This overrides the pod-level restart policy. When this field is not specified, the restart behavior is defined by the Pod's restart policy and the container type. Additionally, setting the RestartPolicy as "Always" for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy "Always" will be shut down. This lifecycle differs from normal init containers and is often referred to as a "sidecar" container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
     """
-    restart_policy_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerRestartRuleArgs']]]]]
+    restart_policy_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerRestartRuleArgsDict']]]]]
     """
     Represents a list of rules to be checked to determine if the container should be restarted on exit. The rules are evaluated in order. Once a rule matches a container exit condition, the remaining rules are ignored. If no rule matches the container exit condition, the Container-level restart policy determines the whether the container is restarted or not. Constraints on the rules: - At most 20 rules are allowed. - Rules can have the same action. - Identical rules are not forbidden in validations. When rules are specified, container MUST set RestartPolicy explicitly even it if matches the Pod's RestartPolicy.
     """
-    security_context: NotRequired[pulumi.Input[Optional['SecurityContextArgs']]]
+    security_context: NotRequired[pulumi.Input[Optional['SecurityContextArgsDict']]]
     """
     SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     """
-    startup_probe: NotRequired[pulumi.Input[Optional['ProbeArgs']]]
+    startup_probe: NotRequired[pulumi.Input[Optional['ProbeArgsDict']]]
     """
     StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
     """
@@ -6888,11 +6888,11 @@ class ContainerArgsDict(TypedDict):
     """
     Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
     """
-    volume_devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeDeviceArgs']]]]]
+    volume_devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeDeviceArgsDict']]]]]
     """
     volumeDevices is the list of block devices to be used by the container.
     """
-    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountArgs']]]]]
+    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountArgsDict']]]]]
     """
     Pod volumes to mount into the container's filesystem. Cannot be updated.
     """
@@ -7346,7 +7346,7 @@ class DownwardAPIProjectionPatchArgsDict(TypedDict):
     """
     Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgsDict']]]]]
     """
     Items is a list of DownwardAPIVolume file
     """
@@ -7380,7 +7380,7 @@ class DownwardAPIProjectionArgsDict(TypedDict):
     """
     Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DownwardAPIVolumeFileArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DownwardAPIVolumeFileArgsDict']]]]]
     """
     Items is a list of DownwardAPIVolume file
     """
@@ -7414,7 +7414,7 @@ class DownwardAPIVolumeFilePatchArgsDict(TypedDict):
     """
     DownwardAPIVolumeFile represents information to create the file containing the pod field
     """
-    field_ref: NotRequired[pulumi.Input[Optional['ObjectFieldSelectorPatchArgs']]]
+    field_ref: NotRequired[pulumi.Input[Optional['ObjectFieldSelectorPatchArgsDict']]]
     """
     Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
     """
@@ -7426,7 +7426,7 @@ class DownwardAPIVolumeFilePatchArgsDict(TypedDict):
     """
     Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
     """
-    resource_field_ref: NotRequired[pulumi.Input[Optional['ResourceFieldSelectorPatchArgs']]]
+    resource_field_ref: NotRequired[pulumi.Input[Optional['ResourceFieldSelectorPatchArgsDict']]]
     """
     Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
     """
@@ -7512,7 +7512,7 @@ class DownwardAPIVolumeFileArgsDict(TypedDict):
     """
     Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
     """
-    field_ref: NotRequired[pulumi.Input[Optional['ObjectFieldSelectorArgs']]]
+    field_ref: NotRequired[pulumi.Input[Optional['ObjectFieldSelectorArgsDict']]]
     """
     Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
     """
@@ -7520,7 +7520,7 @@ class DownwardAPIVolumeFileArgsDict(TypedDict):
     """
     Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
     """
-    resource_field_ref: NotRequired[pulumi.Input[Optional['ResourceFieldSelectorArgs']]]
+    resource_field_ref: NotRequired[pulumi.Input[Optional['ResourceFieldSelectorArgsDict']]]
     """
     Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
     """
@@ -7605,7 +7605,7 @@ class DownwardAPIVolumeSourcePatchArgsDict(TypedDict):
     """
     Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgsDict']]]]]
     """
     Items is a list of downward API volume file
     """
@@ -7659,7 +7659,7 @@ class DownwardAPIVolumeSourceArgsDict(TypedDict):
     """
     Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DownwardAPIVolumeFileArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DownwardAPIVolumeFileArgsDict']]]]]
     """
     Items is a list of downward API volume file
     """
@@ -7829,7 +7829,7 @@ class EndpointAddressPatchArgsDict(TypedDict):
     """
     Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
     """
-    target_ref: NotRequired[pulumi.Input[Optional['ObjectReferencePatchArgs']]]
+    target_ref: NotRequired[pulumi.Input[Optional['ObjectReferencePatchArgsDict']]]
     """
     Reference to object providing the endpoint.
     """
@@ -7923,7 +7923,7 @@ class EndpointAddressArgsDict(TypedDict):
     """
     Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
     """
-    target_ref: NotRequired[pulumi.Input[Optional['ObjectReferenceArgs']]]
+    target_ref: NotRequired[pulumi.Input[Optional['ObjectReferenceArgsDict']]]
     """
     Reference to object providing the endpoint.
     """
@@ -8257,15 +8257,15 @@ class EndpointSubsetPatchArgsDict(TypedDict):
 
     Deprecated: This API is deprecated in v1.33+.
     """
-    addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointAddressPatchArgs']]]]]
+    addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointAddressPatchArgsDict']]]]]
     """
     IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
     """
-    not_ready_addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointAddressPatchArgs']]]]]
+    not_ready_addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointAddressPatchArgsDict']]]]]
     """
     IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointPortPatchArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointPortPatchArgsDict']]]]]
     """
     Port numbers available on the related IP addresses.
     """
@@ -8355,15 +8355,15 @@ class EndpointSubsetArgsDict(TypedDict):
 
     Deprecated: This API is deprecated in v1.33+.
     """
-    addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointAddressArgs']]]]]
+    addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointAddressArgsDict']]]]]
     """
     IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
     """
-    not_ready_addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointAddressArgs']]]]]
+    not_ready_addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointAddressArgsDict']]]]]
     """
     IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointPortArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointPortArgsDict']]]]]
     """
     Port numbers available on the related IP addresses.
     """
@@ -8465,11 +8465,11 @@ class EndpointsArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    subsets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointSubsetArgs']]]]]
+    subsets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointSubsetArgsDict']]]]]
     """
     The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
     """
@@ -8567,7 +8567,7 @@ class EnvFromSourcePatchArgsDict(TypedDict):
     """
     EnvFromSource represents the source of a set of ConfigMaps or Secrets
     """
-    config_map_ref: NotRequired[pulumi.Input[Optional['ConfigMapEnvSourcePatchArgs']]]
+    config_map_ref: NotRequired[pulumi.Input[Optional['ConfigMapEnvSourcePatchArgsDict']]]
     """
     The ConfigMap to select from
     """
@@ -8575,7 +8575,7 @@ class EnvFromSourcePatchArgsDict(TypedDict):
     """
     Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretEnvSourcePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretEnvSourcePatchArgsDict']]]
     """
     The Secret to select from
     """
@@ -8641,7 +8641,7 @@ class EnvFromSourceArgsDict(TypedDict):
     """
     EnvFromSource represents the source of a set of ConfigMaps or Secrets
     """
-    config_map_ref: NotRequired[pulumi.Input[Optional['ConfigMapEnvSourceArgs']]]
+    config_map_ref: NotRequired[pulumi.Input[Optional['ConfigMapEnvSourceArgsDict']]]
     """
     The ConfigMap to select from
     """
@@ -8649,7 +8649,7 @@ class EnvFromSourceArgsDict(TypedDict):
     """
     Optional text to prepend to the name of each environment variable. May consist of any printable ASCII characters except '='.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretEnvSourceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretEnvSourceArgsDict']]]
     """
     The Secret to select from
     """
@@ -8723,7 +8723,7 @@ class EnvVarPatchArgsDict(TypedDict):
     """
     Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
     """
-    value_from: NotRequired[pulumi.Input[Optional['EnvVarSourcePatchArgs']]]
+    value_from: NotRequired[pulumi.Input[Optional['EnvVarSourcePatchArgsDict']]]
     """
     Source for the environment variable's value. Cannot be used if value is not empty.
     """
@@ -8789,23 +8789,23 @@ class EnvVarSourcePatchArgsDict(TypedDict):
     """
     EnvVarSource represents a source for the value of an EnvVar.
     """
-    config_map_key_ref: NotRequired[pulumi.Input[Optional['ConfigMapKeySelectorPatchArgs']]]
+    config_map_key_ref: NotRequired[pulumi.Input[Optional['ConfigMapKeySelectorPatchArgsDict']]]
     """
     Selects a key of a ConfigMap.
     """
-    field_ref: NotRequired[pulumi.Input[Optional['ObjectFieldSelectorPatchArgs']]]
+    field_ref: NotRequired[pulumi.Input[Optional['ObjectFieldSelectorPatchArgsDict']]]
     """
     Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
     """
-    file_key_ref: NotRequired[pulumi.Input[Optional['FileKeySelectorPatchArgs']]]
+    file_key_ref: NotRequired[pulumi.Input[Optional['FileKeySelectorPatchArgsDict']]]
     """
     FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
     """
-    resource_field_ref: NotRequired[pulumi.Input[Optional['ResourceFieldSelectorPatchArgs']]]
+    resource_field_ref: NotRequired[pulumi.Input[Optional['ResourceFieldSelectorPatchArgsDict']]]
     """
     Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
     """
-    secret_key_ref: NotRequired[pulumi.Input[Optional['SecretKeySelectorPatchArgs']]]
+    secret_key_ref: NotRequired[pulumi.Input[Optional['SecretKeySelectorPatchArgsDict']]]
     """
     Selects a key of a secret in the pod's namespace
     """
@@ -8903,23 +8903,23 @@ class EnvVarSourceArgsDict(TypedDict):
     """
     EnvVarSource represents a source for the value of an EnvVar.
     """
-    config_map_key_ref: NotRequired[pulumi.Input[Optional['ConfigMapKeySelectorArgs']]]
+    config_map_key_ref: NotRequired[pulumi.Input[Optional['ConfigMapKeySelectorArgsDict']]]
     """
     Selects a key of a ConfigMap.
     """
-    field_ref: NotRequired[pulumi.Input[Optional['ObjectFieldSelectorArgs']]]
+    field_ref: NotRequired[pulumi.Input[Optional['ObjectFieldSelectorArgsDict']]]
     """
     Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
     """
-    file_key_ref: NotRequired[pulumi.Input[Optional['FileKeySelectorArgs']]]
+    file_key_ref: NotRequired[pulumi.Input[Optional['FileKeySelectorArgsDict']]]
     """
     FileKeyRef selects a key of the env file. Requires the EnvFiles feature gate to be enabled.
     """
-    resource_field_ref: NotRequired[pulumi.Input[Optional['ResourceFieldSelectorArgs']]]
+    resource_field_ref: NotRequired[pulumi.Input[Optional['ResourceFieldSelectorArgsDict']]]
     """
     Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
     """
-    secret_key_ref: NotRequired[pulumi.Input[Optional['SecretKeySelectorArgs']]]
+    secret_key_ref: NotRequired[pulumi.Input[Optional['SecretKeySelectorArgsDict']]]
     """
     Selects a key of a secret in the pod's namespace
     """
@@ -9025,7 +9025,7 @@ class EnvVarArgsDict(TypedDict):
     """
     Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
     """
-    value_from: NotRequired[pulumi.Input[Optional['EnvVarSourceArgs']]]
+    value_from: NotRequired[pulumi.Input[Optional['EnvVarSourceArgsDict']]]
     """
     Source for the environment variable's value. Cannot be used if value is not empty.
     """
@@ -9100,11 +9100,11 @@ class EphemeralContainerPatchArgsDict(TypedDict):
     """
     Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
     """
-    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvVarPatchArgs']]]]]
+    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvVarPatchArgsDict']]]]]
     """
     List of environment variables to set in the container. Cannot be updated.
     """
-    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvFromSourcePatchArgs']]]]]
+    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvFromSourcePatchArgsDict']]]]]
     """
     List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
     """
@@ -9116,11 +9116,11 @@ class EphemeralContainerPatchArgsDict(TypedDict):
     """
     Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
     """
-    lifecycle: NotRequired[pulumi.Input[Optional['LifecyclePatchArgs']]]
+    lifecycle: NotRequired[pulumi.Input[Optional['LifecyclePatchArgsDict']]]
     """
     Lifecycle is not allowed for ephemeral containers.
     """
-    liveness_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgs']]]
+    liveness_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgsDict']]]
     """
     Probes are not allowed for ephemeral containers.
     """
@@ -9128,19 +9128,19 @@ class EphemeralContainerPatchArgsDict(TypedDict):
     """
     Name of the ephemeral container specified as a DNS_LABEL. This name must be unique among all containers, init containers and ephemeral containers.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPortPatchArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPortPatchArgsDict']]]]]
     """
     Ports are not allowed for ephemeral containers.
     """
-    readiness_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgs']]]
+    readiness_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgsDict']]]
     """
     Probes are not allowed for ephemeral containers.
     """
-    resize_policy: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerResizePolicyPatchArgs']]]]]
+    resize_policy: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerResizePolicyPatchArgsDict']]]]]
     """
     Resources resize policy for the container.
     """
-    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsPatchArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsPatchArgsDict']]]
     """
     Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
     """
@@ -9148,15 +9148,15 @@ class EphemeralContainerPatchArgsDict(TypedDict):
     """
     Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
     """
-    restart_policy_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerRestartRulePatchArgs']]]]]
+    restart_policy_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerRestartRulePatchArgsDict']]]]]
     """
     Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
     """
-    security_context: NotRequired[pulumi.Input[Optional['SecurityContextPatchArgs']]]
+    security_context: NotRequired[pulumi.Input[Optional['SecurityContextPatchArgsDict']]]
     """
     Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
     """
-    startup_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgs']]]
+    startup_probe: NotRequired[pulumi.Input[Optional['ProbePatchArgsDict']]]
     """
     Probes are not allowed for ephemeral containers.
     """
@@ -9186,11 +9186,11 @@ class EphemeralContainerPatchArgsDict(TypedDict):
     """
     Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
     """
-    volume_devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeDevicePatchArgs']]]]]
+    volume_devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeDevicePatchArgsDict']]]]]
     """
     volumeDevices is the list of block devices to be used by the container.
     """
-    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountPatchArgs']]]]]
+    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountPatchArgsDict']]]]]
     """
     Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers. Cannot be updated.
     """
@@ -9648,11 +9648,11 @@ class EphemeralContainerArgsDict(TypedDict):
     """
     Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
     """
-    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvVarArgs']]]]]
+    env: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvVarArgsDict']]]]]
     """
     List of environment variables to set in the container. Cannot be updated.
     """
-    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvFromSourceArgs']]]]]
+    env_from: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EnvFromSourceArgsDict']]]]]
     """
     List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
     """
@@ -9664,27 +9664,27 @@ class EphemeralContainerArgsDict(TypedDict):
     """
     Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
     """
-    lifecycle: NotRequired[pulumi.Input[Optional['LifecycleArgs']]]
+    lifecycle: NotRequired[pulumi.Input[Optional['LifecycleArgsDict']]]
     """
     Lifecycle is not allowed for ephemeral containers.
     """
-    liveness_probe: NotRequired[pulumi.Input[Optional['ProbeArgs']]]
+    liveness_probe: NotRequired[pulumi.Input[Optional['ProbeArgsDict']]]
     """
     Probes are not allowed for ephemeral containers.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPortArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPortArgsDict']]]]]
     """
     Ports are not allowed for ephemeral containers.
     """
-    readiness_probe: NotRequired[pulumi.Input[Optional['ProbeArgs']]]
+    readiness_probe: NotRequired[pulumi.Input[Optional['ProbeArgsDict']]]
     """
     Probes are not allowed for ephemeral containers.
     """
-    resize_policy: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerResizePolicyArgs']]]]]
+    resize_policy: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerResizePolicyArgsDict']]]]]
     """
     Resources resize policy for the container.
     """
-    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgsDict']]]
     """
     Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
     """
@@ -9692,15 +9692,15 @@ class EphemeralContainerArgsDict(TypedDict):
     """
     Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
     """
-    restart_policy_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerRestartRuleArgs']]]]]
+    restart_policy_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerRestartRuleArgsDict']]]]]
     """
     Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
     """
-    security_context: NotRequired[pulumi.Input[Optional['SecurityContextArgs']]]
+    security_context: NotRequired[pulumi.Input[Optional['SecurityContextArgsDict']]]
     """
     Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
     """
-    startup_probe: NotRequired[pulumi.Input[Optional['ProbeArgs']]]
+    startup_probe: NotRequired[pulumi.Input[Optional['ProbeArgsDict']]]
     """
     Probes are not allowed for ephemeral containers.
     """
@@ -9730,11 +9730,11 @@ class EphemeralContainerArgsDict(TypedDict):
     """
     Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
     """
-    volume_devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeDeviceArgs']]]]]
+    volume_devices: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeDeviceArgsDict']]]]]
     """
     volumeDevices is the list of block devices to be used by the container.
     """
-    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountArgs']]]]]
+    volume_mounts: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeMountArgsDict']]]]]
     """
     Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers. Cannot be updated.
     """
@@ -10181,7 +10181,7 @@ class EphemeralVolumeSourcePatchArgsDict(TypedDict):
     """
     Specifies a read-only configuration for the volume. Defaults to false (read/write).
     """
-    volume_claim_template: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimTemplatePatchArgs']]]
+    volume_claim_template: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimTemplatePatchArgsDict']]]
     """
     Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
 
@@ -10253,7 +10253,7 @@ class EphemeralVolumeSourceArgsDict(TypedDict):
     """
     Specifies a read-only configuration for the volume. Defaults to false (read/write).
     """
-    volume_claim_template: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimTemplateArgs']]]
+    volume_claim_template: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimTemplateArgsDict']]]
     """
     Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
 
@@ -10621,7 +10621,7 @@ class EventArgsDict(TypedDict):
     """
     This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
     """
-    related: NotRequired[pulumi.Input[Optional['ObjectReferenceArgs']]]
+    related: NotRequired[pulumi.Input[Optional['ObjectReferenceArgsDict']]]
     """
     Optional secondary object for more complex actions.
     """
@@ -10633,11 +10633,11 @@ class EventArgsDict(TypedDict):
     """
     ID of the controller instance, e.g. `kubelet-xyzf`.
     """
-    series: NotRequired[pulumi.Input[Optional['EventSeriesArgs']]]
+    series: NotRequired[pulumi.Input[Optional['EventSeriesArgsDict']]]
     """
     Data about the Event series this event represents or nil if it's a singleton Event.
     """
-    source: NotRequired[pulumi.Input[Optional['EventSourceArgs']]]
+    source: NotRequired[pulumi.Input[Optional['EventSourceArgsDict']]]
     """
     The component reporting this event. Should be a short machine understandable string.
     """
@@ -11438,7 +11438,7 @@ class FlexPersistentVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
     """
@@ -11552,7 +11552,7 @@ class FlexPersistentVolumeSourceArgsDict(TypedDict):
     """
     readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
     """
@@ -11665,7 +11665,7 @@ class FlexVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgsDict']]]
     """
     secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
     """
@@ -11779,7 +11779,7 @@ class FlexVolumeSourceArgsDict(TypedDict):
     """
     readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgsDict']]]
     """
     secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
     """
@@ -12789,7 +12789,7 @@ class HTTPGetActionPatchArgsDict(TypedDict):
     """
     Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
     """
-    http_headers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPHeaderPatchArgs']]]]]
+    http_headers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPHeaderPatchArgsDict']]]]]
     """
     Custom headers to set in the request. HTTP allows repeated headers.
     """
@@ -12907,7 +12907,7 @@ class HTTPGetActionArgsDict(TypedDict):
     """
     Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
     """
-    http_headers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPHeaderArgs']]]]]
+    http_headers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPHeaderArgsDict']]]]]
     """
     Custom headers to set in the request. HTTP allows repeated headers.
     """
@@ -13401,7 +13401,7 @@ class ISCSIPersistentVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     secretRef is the CHAP Secret for iSCSI target and initiator authentication
     """
@@ -13639,7 +13639,7 @@ class ISCSIPersistentVolumeSourceArgsDict(TypedDict):
     """
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     secretRef is the CHAP Secret for iSCSI target and initiator authentication
     """
@@ -13866,7 +13866,7 @@ class ISCSIVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgsDict']]]
     """
     secretRef is the CHAP Secret for iSCSI target and initiator authentication
     """
@@ -14104,7 +14104,7 @@ class ISCSIVolumeSourceArgsDict(TypedDict):
     """
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgsDict']]]
     """
     secretRef is the CHAP Secret for iSCSI target and initiator authentication
     """
@@ -14582,19 +14582,19 @@ class LifecycleHandlerPatchArgsDict(TypedDict):
     """
     LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
     """
-    exec_: NotRequired[pulumi.Input[Optional['ExecActionPatchArgs']]]
+    exec_: NotRequired[pulumi.Input[Optional['ExecActionPatchArgsDict']]]
     """
     Exec specifies a command to execute in the container.
     """
-    http_get: NotRequired[pulumi.Input[Optional['HTTPGetActionPatchArgs']]]
+    http_get: NotRequired[pulumi.Input[Optional['HTTPGetActionPatchArgsDict']]]
     """
     HTTPGet specifies an HTTP GET request to perform.
     """
-    sleep: NotRequired[pulumi.Input[Optional['SleepActionPatchArgs']]]
+    sleep: NotRequired[pulumi.Input[Optional['SleepActionPatchArgsDict']]]
     """
     Sleep represents a duration that the container should sleep.
     """
-    tcp_socket: NotRequired[pulumi.Input[Optional['TCPSocketActionPatchArgs']]]
+    tcp_socket: NotRequired[pulumi.Input[Optional['TCPSocketActionPatchArgsDict']]]
     """
     Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
     """
@@ -14676,19 +14676,19 @@ class LifecycleHandlerArgsDict(TypedDict):
     """
     LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
     """
-    exec_: NotRequired[pulumi.Input[Optional['ExecActionArgs']]]
+    exec_: NotRequired[pulumi.Input[Optional['ExecActionArgsDict']]]
     """
     Exec specifies a command to execute in the container.
     """
-    http_get: NotRequired[pulumi.Input[Optional['HTTPGetActionArgs']]]
+    http_get: NotRequired[pulumi.Input[Optional['HTTPGetActionArgsDict']]]
     """
     HTTPGet specifies an HTTP GET request to perform.
     """
-    sleep: NotRequired[pulumi.Input[Optional['SleepActionArgs']]]
+    sleep: NotRequired[pulumi.Input[Optional['SleepActionArgsDict']]]
     """
     Sleep represents a duration that the container should sleep.
     """
-    tcp_socket: NotRequired[pulumi.Input[Optional['TCPSocketActionArgs']]]
+    tcp_socket: NotRequired[pulumi.Input[Optional['TCPSocketActionArgsDict']]]
     """
     Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for backward compatibility. There is no validation of this field and lifecycle hooks will fail at runtime when it is specified.
     """
@@ -14770,11 +14770,11 @@ class LifecyclePatchArgsDict(TypedDict):
     """
     Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
     """
-    post_start: NotRequired[pulumi.Input[Optional['LifecycleHandlerPatchArgs']]]
+    post_start: NotRequired[pulumi.Input[Optional['LifecycleHandlerPatchArgsDict']]]
     """
     PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
     """
-    pre_stop: NotRequired[pulumi.Input[Optional['LifecycleHandlerPatchArgs']]]
+    pre_stop: NotRequired[pulumi.Input[Optional['LifecycleHandlerPatchArgsDict']]]
     """
     PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
     """
@@ -14844,11 +14844,11 @@ class LifecycleArgsDict(TypedDict):
     """
     Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
     """
-    post_start: NotRequired[pulumi.Input[Optional['LifecycleHandlerArgs']]]
+    post_start: NotRequired[pulumi.Input[Optional['LifecycleHandlerArgsDict']]]
     """
     PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
     """
-    pre_stop: NotRequired[pulumi.Input[Optional['LifecycleHandlerArgs']]]
+    pre_stop: NotRequired[pulumi.Input[Optional['LifecycleHandlerArgsDict']]]
     """
     PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
     """
@@ -15185,7 +15185,7 @@ class LimitRangeSpecPatchArgsDict(TypedDict):
     """
     LimitRangeSpec defines a min/max usage limit for resources that match on kind.
     """
-    limits: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LimitRangeItemPatchArgs']]]]]
+    limits: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LimitRangeItemPatchArgsDict']]]]]
     """
     Limits is the list of LimitRangeItem objects that are enforced.
     """
@@ -15260,11 +15260,11 @@ class LimitRangeArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['LimitRangeSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['LimitRangeSpecArgsDict']]]
     """
     Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -15430,7 +15430,7 @@ class LoadBalancerIngressArgsDict(TypedDict):
     """
     IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PortStatusArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PortStatusArgsDict']]]]]
     """
     Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
     """
@@ -15512,7 +15512,7 @@ class LoadBalancerStatusArgsDict(TypedDict):
     """
     LoadBalancerStatus represents the status of a load-balancer.
     """
-    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LoadBalancerIngressArgs']]]]]
+    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LoadBalancerIngressArgsDict']]]]]
     """
     Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
     """
@@ -16208,7 +16208,7 @@ class NamespaceStatusArgsDict(TypedDict):
     """
     NamespaceStatus is information about the current status of a Namespace.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamespaceConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamespaceConditionArgsDict']]]]]
     """
     Represents the latest available observations of a namespace's current state.
     """
@@ -16270,15 +16270,15 @@ class NamespaceArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['NamespaceSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['NamespaceSpecArgsDict']]]
     """
     Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['NamespaceStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['NamespaceStatusArgsDict']]]
     """
     Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -16428,11 +16428,11 @@ class NodeAffinityPatchArgsDict(TypedDict):
     """
     Node affinity is a group of node affinity scheduling rules.
     """
-    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PreferredSchedulingTermPatchArgs']]]]]
+    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PreferredSchedulingTermPatchArgsDict']]]]]
     """
     The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
     """
-    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional['NodeSelectorPatchArgs']]]
+    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional['NodeSelectorPatchArgsDict']]]
     """
     If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
     """
@@ -16482,11 +16482,11 @@ class NodeAffinityArgsDict(TypedDict):
     """
     Node affinity is a group of node affinity scheduling rules.
     """
-    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PreferredSchedulingTermArgs']]]]]
+    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PreferredSchedulingTermArgsDict']]]]]
     """
     The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
     """
-    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional['NodeSelectorArgs']]]
+    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional['NodeSelectorArgsDict']]]
     """
     If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
     """
@@ -16740,7 +16740,7 @@ class NodeConfigSourcePatchArgsDict(TypedDict):
     """
     NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
     """
-    config_map: NotRequired[pulumi.Input[Optional['ConfigMapNodeConfigSourcePatchArgs']]]
+    config_map: NotRequired[pulumi.Input[Optional['ConfigMapNodeConfigSourcePatchArgsDict']]]
     """
     ConfigMap is a reference to a Node's ConfigMap
     """
@@ -16774,7 +16774,7 @@ class NodeConfigSourceArgsDict(TypedDict):
     """
     NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
     """
-    config_map: NotRequired[pulumi.Input[Optional['ConfigMapNodeConfigSourceArgs']]]
+    config_map: NotRequired[pulumi.Input[Optional['ConfigMapNodeConfigSourceArgsDict']]]
     """
     ConfigMap is a reference to a Node's ConfigMap
     """
@@ -16808,11 +16808,11 @@ class NodeConfigStatusArgsDict(TypedDict):
     """
     NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
     """
-    active: NotRequired[pulumi.Input[Optional['NodeConfigSourceArgs']]]
+    active: NotRequired[pulumi.Input[Optional['NodeConfigSourceArgsDict']]]
     """
     Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
     """
-    assigned: NotRequired[pulumi.Input[Optional['NodeConfigSourceArgs']]]
+    assigned: NotRequired[pulumi.Input[Optional['NodeConfigSourceArgsDict']]]
     """
     Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.
     """
@@ -16820,7 +16820,7 @@ class NodeConfigStatusArgsDict(TypedDict):
     """
     Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to load or validate the Assigned config, etc. Errors may occur at different points while syncing config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter case, it is usually possible to resolve the error by fixing the config assigned in Spec.ConfigSource. You can find additional information for debugging by searching the error message in the Kubelet log. Error is a human-readable description of the error state; machines can check whether or not Error is empty, but should not rely on the stability of the Error text across Kubelet versions.
     """
-    last_known_good: NotRequired[pulumi.Input[Optional['NodeConfigSourceArgs']]]
+    last_known_good: NotRequired[pulumi.Input[Optional['NodeConfigSourceArgsDict']]]
     """
     LastKnownGood reports the checkpointed config the node will fall back to when it encounters an error attempting to use the Assigned config. The Assigned config becomes the LastKnownGood config when the node determines that the Assigned config is stable and correct. This is currently implemented as a 10-minute soak period starting when the local record of Assigned config is updated. If the Assigned config is Active at the end of this period, it becomes the LastKnownGood. Note that if Spec.ConfigSource is reset to nil (use local defaults), the LastKnownGood is also immediately reset to nil, because the local default config is always assumed good. You should not make assumptions about the node's method of determining config stability and correctness, as this may change or become configurable in the future.
     """
@@ -16902,7 +16902,7 @@ class NodeDaemonEndpointsArgsDict(TypedDict):
     """
     NodeDaemonEndpoints lists ports opened by daemons running on the Node.
     """
-    kubelet_endpoint: NotRequired[pulumi.Input[Optional['DaemonEndpointArgs']]]
+    kubelet_endpoint: NotRequired[pulumi.Input[Optional['DaemonEndpointArgsDict']]]
     """
     Endpoint on which Kubelet is listening.
     """
@@ -17024,7 +17024,7 @@ class NodeRuntimeHandlerArgsDict(TypedDict):
     """
     NodeRuntimeHandler is a set of runtime handler information.
     """
-    features: NotRequired[pulumi.Input[Optional['NodeRuntimeHandlerFeaturesArgs']]]
+    features: NotRequired[pulumi.Input[Optional['NodeRuntimeHandlerFeaturesArgsDict']]]
     """
     Supported features.
     """
@@ -17078,7 +17078,7 @@ class NodeSelectorPatchArgsDict(TypedDict):
     """
     A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
     """
-    node_selector_terms: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorTermPatchArgs']]]]]
+    node_selector_terms: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorTermPatchArgsDict']]]]]
     """
     Required. A list of node selector terms. The terms are ORed.
     """
@@ -17258,11 +17258,11 @@ class NodeSelectorTermPatchArgsDict(TypedDict):
     """
     A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
     """
-    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorRequirementPatchArgs']]]]]
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorRequirementPatchArgsDict']]]]]
     """
     A list of node selector requirements by node's labels.
     """
-    match_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorRequirementPatchArgs']]]]]
+    match_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorRequirementPatchArgsDict']]]]]
     """
     A list of node selector requirements by node's fields.
     """
@@ -17312,11 +17312,11 @@ class NodeSelectorTermArgsDict(TypedDict):
     """
     A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
     """
-    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorRequirementArgs']]]]]
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorRequirementArgsDict']]]]]
     """
     A list of node selector requirements by node's labels.
     """
-    match_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorRequirementArgs']]]]]
+    match_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeSelectorRequirementArgsDict']]]]]
     """
     A list of node selector requirements by node's fields.
     """
@@ -17399,7 +17399,7 @@ class NodeSpecPatchArgsDict(TypedDict):
     """
     NodeSpec describes the attributes that a node is created with.
     """
-    config_source: NotRequired[pulumi.Input[Optional['NodeConfigSourcePatchArgs']]]
+    config_source: NotRequired[pulumi.Input[Optional['NodeConfigSourcePatchArgsDict']]]
     """
     Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
     """
@@ -17419,7 +17419,7 @@ class NodeSpecPatchArgsDict(TypedDict):
     """
     ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
     """
-    taints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TaintPatchArgs']]]]]
+    taints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TaintPatchArgsDict']]]]]
     """
     If specified, the node's taints.
     """
@@ -17553,7 +17553,7 @@ class NodeSpecArgsDict(TypedDict):
     """
     NodeSpec describes the attributes that a node is created with.
     """
-    config_source: NotRequired[pulumi.Input[Optional['NodeConfigSourceArgs']]]
+    config_source: NotRequired[pulumi.Input[Optional['NodeConfigSourceArgsDict']]]
     """
     Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
     """
@@ -17573,7 +17573,7 @@ class NodeSpecArgsDict(TypedDict):
     """
     ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
     """
-    taints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TaintArgs']]]]]
+    taints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TaintArgsDict']]]]]
     """
     If specified, the node's taints.
     """
@@ -17707,7 +17707,7 @@ class NodeStatusArgsDict(TypedDict):
     """
     NodeStatus is information about the current status of a node.
     """
-    addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeAddressArgs']]]]]
+    addresses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeAddressArgsDict']]]]]
     """
     List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
     """
@@ -17719,15 +17719,15 @@ class NodeStatusArgsDict(TypedDict):
     """
     Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeConditionArgsDict']]]]]
     """
     Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
     """
-    config: NotRequired[pulumi.Input[Optional['NodeConfigStatusArgs']]]
+    config: NotRequired[pulumi.Input[Optional['NodeConfigStatusArgsDict']]]
     """
     Status of the config assigned to the node via the dynamic Kubelet config feature.
     """
-    daemon_endpoints: NotRequired[pulumi.Input[Optional['NodeDaemonEndpointsArgs']]]
+    daemon_endpoints: NotRequired[pulumi.Input[Optional['NodeDaemonEndpointsArgsDict']]]
     """
     Endpoints of daemons running on the Node.
     """
@@ -17735,15 +17735,15 @@ class NodeStatusArgsDict(TypedDict):
     """
     DeclaredFeatures represents the features related to feature gates that are declared by the node.
     """
-    features: NotRequired[pulumi.Input[Optional['NodeFeaturesArgs']]]
+    features: NotRequired[pulumi.Input[Optional['NodeFeaturesArgsDict']]]
     """
     Features describes the set of features implemented by the CRI implementation.
     """
-    images: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerImageArgs']]]]]
+    images: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerImageArgsDict']]]]]
     """
     List of container images on this node
     """
-    node_info: NotRequired[pulumi.Input[Optional['NodeSystemInfoArgs']]]
+    node_info: NotRequired[pulumi.Input[Optional['NodeSystemInfoArgsDict']]]
     """
     Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/reference/node/node-status/#info
     """
@@ -17751,11 +17751,11 @@ class NodeStatusArgsDict(TypedDict):
     """
     NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
     """
-    runtime_handlers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeRuntimeHandlerArgs']]]]]
+    runtime_handlers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeRuntimeHandlerArgsDict']]]]]
     """
     The available runtime handlers.
     """
-    volumes_attached: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AttachedVolumeArgs']]]]]
+    volumes_attached: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AttachedVolumeArgsDict']]]]]
     """
     List of volumes that are attached to the node.
     """
@@ -18075,7 +18075,7 @@ class NodeSystemInfoArgsDict(TypedDict):
     """
     SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
     """
-    swap: NotRequired[pulumi.Input[Optional['NodeSwapStatusArgs']]]
+    swap: NotRequired[pulumi.Input[Optional['NodeSwapStatusArgsDict']]]
     """
     Swap Info reported by the node.
     """
@@ -18267,15 +18267,15 @@ class NodeArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['NodeSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['NodeSpecArgsDict']]]
     """
     Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['NodeStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['NodeStatusArgsDict']]]
     """
     Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -19062,15 +19062,15 @@ class PersistentVolumeClaimPatchArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimSpecPatchArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimSpecPatchArgsDict']]]
     """
     spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
     """
-    status: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimStatusPatchArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimStatusPatchArgsDict']]]
     """
     status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
     """
@@ -19172,11 +19172,11 @@ class PersistentVolumeClaimSpecPatchArgsDict(TypedDict):
     """
     accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
     """
-    data_source: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']]]
+    data_source: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferencePatchArgsDict']]]
     """
     dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
     """
-    data_source_ref: NotRequired[pulumi.Input[Optional['TypedObjectReferencePatchArgs']]]
+    data_source_ref: NotRequired[pulumi.Input[Optional['TypedObjectReferencePatchArgsDict']]]
     """
     dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
       allows any non-core object, as well as PersistentVolumeClaim objects.
@@ -19187,11 +19187,11 @@ class PersistentVolumeClaimSpecPatchArgsDict(TypedDict):
       in any namespaces.
     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
     """
-    resources: NotRequired[pulumi.Input[Optional['VolumeResourceRequirementsPatchArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['VolumeResourceRequirementsPatchArgsDict']]]
     """
     resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     selector is a label query over volumes to consider for binding.
     """
@@ -19387,11 +19387,11 @@ class PersistentVolumeClaimSpecArgsDict(TypedDict):
     """
     accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
     """
-    data_source: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferenceArgs']]]
+    data_source: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferenceArgsDict']]]
     """
     dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
     """
-    data_source_ref: NotRequired[pulumi.Input[Optional['TypedObjectReferenceArgs']]]
+    data_source_ref: NotRequired[pulumi.Input[Optional['TypedObjectReferenceArgsDict']]]
     """
     dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
       allows any non-core object, as well as PersistentVolumeClaim objects.
@@ -19402,11 +19402,11 @@ class PersistentVolumeClaimSpecArgsDict(TypedDict):
       in any namespaces.
     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
     """
-    resources: NotRequired[pulumi.Input[Optional['VolumeResourceRequirementsArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['VolumeResourceRequirementsArgsDict']]]
     """
     resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     selector is a label query over volumes to consider for binding.
     """
@@ -19649,7 +19649,7 @@ class PersistentVolumeClaimStatusPatchArgsDict(TypedDict):
     """
     capacity represents the actual resources of the underlying volume.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PersistentVolumeClaimConditionPatchArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PersistentVolumeClaimConditionPatchArgsDict']]]]]
     """
     conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
     """
@@ -19657,7 +19657,7 @@ class PersistentVolumeClaimStatusPatchArgsDict(TypedDict):
     """
     currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
     """
-    modify_volume_status: NotRequired[pulumi.Input[Optional['ModifyVolumeStatusPatchArgs']]]
+    modify_volume_status: NotRequired[pulumi.Input[Optional['ModifyVolumeStatusPatchArgsDict']]]
     """
     ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
     """
@@ -19948,7 +19948,7 @@ class PersistentVolumeClaimStatusArgsDict(TypedDict):
     """
     capacity represents the actual resources of the underlying volume.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PersistentVolumeClaimConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PersistentVolumeClaimConditionArgsDict']]]]]
     """
     conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
     """
@@ -19956,7 +19956,7 @@ class PersistentVolumeClaimStatusArgsDict(TypedDict):
     """
     currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
     """
-    modify_volume_status: NotRequired[pulumi.Input[Optional['ModifyVolumeStatusArgs']]]
+    modify_volume_status: NotRequired[pulumi.Input[Optional['ModifyVolumeStatusArgsDict']]]
     """
     ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
     """
@@ -20196,11 +20196,11 @@ class PersistentVolumeClaimTemplatePatchArgsDict(TypedDict):
     """
     PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgsDict']]]
     """
     May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
     """
-    spec: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimSpecPatchArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimSpecPatchArgsDict']]]
     """
     The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
     """
@@ -20254,7 +20254,7 @@ class PersistentVolumeClaimTemplateArgsDict(TypedDict):
     """
     The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
     """
@@ -20418,15 +20418,15 @@ class PersistentVolumeClaimArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimSpecArgsDict']]]
     """
     spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
     """
-    status: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimStatusArgsDict']]]
     """
     status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
     """
@@ -20528,15 +20528,15 @@ class PersistentVolumeSpecPatchArgsDict(TypedDict):
     """
     accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
     """
-    aws_elastic_block_store: NotRequired[pulumi.Input[Optional['AWSElasticBlockStoreVolumeSourcePatchArgs']]]
+    aws_elastic_block_store: NotRequired[pulumi.Input[Optional['AWSElasticBlockStoreVolumeSourcePatchArgsDict']]]
     """
     awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
     """
-    azure_disk: NotRequired[pulumi.Input[Optional['AzureDiskVolumeSourcePatchArgs']]]
+    azure_disk: NotRequired[pulumi.Input[Optional['AzureDiskVolumeSourcePatchArgsDict']]]
     """
     azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
     """
-    azure_file: NotRequired[pulumi.Input[Optional['AzureFilePersistentVolumeSourcePatchArgs']]]
+    azure_file: NotRequired[pulumi.Input[Optional['AzureFilePersistentVolumeSourcePatchArgsDict']]]
     """
     azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
     """
@@ -20544,51 +20544,51 @@ class PersistentVolumeSpecPatchArgsDict(TypedDict):
     """
     capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
     """
-    cephfs: NotRequired[pulumi.Input[Optional['CephFSPersistentVolumeSourcePatchArgs']]]
+    cephfs: NotRequired[pulumi.Input[Optional['CephFSPersistentVolumeSourcePatchArgsDict']]]
     """
     cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
     """
-    cinder: NotRequired[pulumi.Input[Optional['CinderPersistentVolumeSourcePatchArgs']]]
+    cinder: NotRequired[pulumi.Input[Optional['CinderPersistentVolumeSourcePatchArgsDict']]]
     """
     cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     """
-    claim_ref: NotRequired[pulumi.Input[Optional['ObjectReferencePatchArgs']]]
+    claim_ref: NotRequired[pulumi.Input[Optional['ObjectReferencePatchArgsDict']]]
     """
     claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
     """
-    csi: NotRequired[pulumi.Input[Optional['CSIPersistentVolumeSourcePatchArgs']]]
+    csi: NotRequired[pulumi.Input[Optional['CSIPersistentVolumeSourcePatchArgsDict']]]
     """
     csi represents storage that is handled by an external CSI driver.
     """
-    fc: NotRequired[pulumi.Input[Optional['FCVolumeSourcePatchArgs']]]
+    fc: NotRequired[pulumi.Input[Optional['FCVolumeSourcePatchArgsDict']]]
     """
     fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
     """
-    flex_volume: NotRequired[pulumi.Input[Optional['FlexPersistentVolumeSourcePatchArgs']]]
+    flex_volume: NotRequired[pulumi.Input[Optional['FlexPersistentVolumeSourcePatchArgsDict']]]
     """
     flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
     """
-    flocker: NotRequired[pulumi.Input[Optional['FlockerVolumeSourcePatchArgs']]]
+    flocker: NotRequired[pulumi.Input[Optional['FlockerVolumeSourcePatchArgsDict']]]
     """
     flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
     """
-    gce_persistent_disk: NotRequired[pulumi.Input[Optional['GCEPersistentDiskVolumeSourcePatchArgs']]]
+    gce_persistent_disk: NotRequired[pulumi.Input[Optional['GCEPersistentDiskVolumeSourcePatchArgsDict']]]
     """
     gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
     """
-    glusterfs: NotRequired[pulumi.Input[Optional['GlusterfsPersistentVolumeSourcePatchArgs']]]
+    glusterfs: NotRequired[pulumi.Input[Optional['GlusterfsPersistentVolumeSourcePatchArgsDict']]]
     """
     glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
     """
-    host_path: NotRequired[pulumi.Input[Optional['HostPathVolumeSourcePatchArgs']]]
+    host_path: NotRequired[pulumi.Input[Optional['HostPathVolumeSourcePatchArgsDict']]]
     """
     hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
     """
-    iscsi: NotRequired[pulumi.Input[Optional['ISCSIPersistentVolumeSourcePatchArgs']]]
+    iscsi: NotRequired[pulumi.Input[Optional['ISCSIPersistentVolumeSourcePatchArgsDict']]]
     """
     iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
     """
-    local: NotRequired[pulumi.Input[Optional['LocalVolumeSourcePatchArgs']]]
+    local: NotRequired[pulumi.Input[Optional['LocalVolumeSourcePatchArgsDict']]]
     """
     local represents directly-attached storage with node affinity
     """
@@ -20596,11 +20596,11 @@ class PersistentVolumeSpecPatchArgsDict(TypedDict):
     """
     mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
     """
-    nfs: NotRequired[pulumi.Input[Optional['NFSVolumeSourcePatchArgs']]]
+    nfs: NotRequired[pulumi.Input[Optional['NFSVolumeSourcePatchArgsDict']]]
     """
     nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
     """
-    node_affinity: NotRequired[pulumi.Input[Optional['VolumeNodeAffinityPatchArgs']]]
+    node_affinity: NotRequired[pulumi.Input[Optional['VolumeNodeAffinityPatchArgsDict']]]
     """
     nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
     """
@@ -20608,23 +20608,23 @@ class PersistentVolumeSpecPatchArgsDict(TypedDict):
     """
     persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
     """
-    photon_persistent_disk: NotRequired[pulumi.Input[Optional['PhotonPersistentDiskVolumeSourcePatchArgs']]]
+    photon_persistent_disk: NotRequired[pulumi.Input[Optional['PhotonPersistentDiskVolumeSourcePatchArgsDict']]]
     """
     photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
     """
-    portworx_volume: NotRequired[pulumi.Input[Optional['PortworxVolumeSourcePatchArgs']]]
+    portworx_volume: NotRequired[pulumi.Input[Optional['PortworxVolumeSourcePatchArgsDict']]]
     """
     portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
     """
-    quobyte: NotRequired[pulumi.Input[Optional['QuobyteVolumeSourcePatchArgs']]]
+    quobyte: NotRequired[pulumi.Input[Optional['QuobyteVolumeSourcePatchArgsDict']]]
     """
     quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
     """
-    rbd: NotRequired[pulumi.Input[Optional['RBDPersistentVolumeSourcePatchArgs']]]
+    rbd: NotRequired[pulumi.Input[Optional['RBDPersistentVolumeSourcePatchArgsDict']]]
     """
     rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
     """
-    scale_io: NotRequired[pulumi.Input[Optional['ScaleIOPersistentVolumeSourcePatchArgs']]]
+    scale_io: NotRequired[pulumi.Input[Optional['ScaleIOPersistentVolumeSourcePatchArgsDict']]]
     """
     scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
     """
@@ -20632,7 +20632,7 @@ class PersistentVolumeSpecPatchArgsDict(TypedDict):
     """
     storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
     """
-    storageos: NotRequired[pulumi.Input[Optional['StorageOSPersistentVolumeSourcePatchArgs']]]
+    storageos: NotRequired[pulumi.Input[Optional['StorageOSPersistentVolumeSourcePatchArgsDict']]]
     """
     storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
     """
@@ -20644,7 +20644,7 @@ class PersistentVolumeSpecPatchArgsDict(TypedDict):
     """
     volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
     """
-    vsphere_volume: NotRequired[pulumi.Input[Optional['VsphereVirtualDiskVolumeSourcePatchArgs']]]
+    vsphere_volume: NotRequired[pulumi.Input[Optional['VsphereVirtualDiskVolumeSourcePatchArgsDict']]]
     """
     vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
     """
@@ -21162,15 +21162,15 @@ class PersistentVolumeSpecArgsDict(TypedDict):
     """
     accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
     """
-    aws_elastic_block_store: NotRequired[pulumi.Input[Optional['AWSElasticBlockStoreVolumeSourceArgs']]]
+    aws_elastic_block_store: NotRequired[pulumi.Input[Optional['AWSElasticBlockStoreVolumeSourceArgsDict']]]
     """
     awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
     """
-    azure_disk: NotRequired[pulumi.Input[Optional['AzureDiskVolumeSourceArgs']]]
+    azure_disk: NotRequired[pulumi.Input[Optional['AzureDiskVolumeSourceArgsDict']]]
     """
     azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
     """
-    azure_file: NotRequired[pulumi.Input[Optional['AzureFilePersistentVolumeSourceArgs']]]
+    azure_file: NotRequired[pulumi.Input[Optional['AzureFilePersistentVolumeSourceArgsDict']]]
     """
     azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
     """
@@ -21178,51 +21178,51 @@ class PersistentVolumeSpecArgsDict(TypedDict):
     """
     capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
     """
-    cephfs: NotRequired[pulumi.Input[Optional['CephFSPersistentVolumeSourceArgs']]]
+    cephfs: NotRequired[pulumi.Input[Optional['CephFSPersistentVolumeSourceArgsDict']]]
     """
     cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
     """
-    cinder: NotRequired[pulumi.Input[Optional['CinderPersistentVolumeSourceArgs']]]
+    cinder: NotRequired[pulumi.Input[Optional['CinderPersistentVolumeSourceArgsDict']]]
     """
     cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     """
-    claim_ref: NotRequired[pulumi.Input[Optional['ObjectReferenceArgs']]]
+    claim_ref: NotRequired[pulumi.Input[Optional['ObjectReferenceArgsDict']]]
     """
     claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
     """
-    csi: NotRequired[pulumi.Input[Optional['CSIPersistentVolumeSourceArgs']]]
+    csi: NotRequired[pulumi.Input[Optional['CSIPersistentVolumeSourceArgsDict']]]
     """
     csi represents storage that is handled by an external CSI driver.
     """
-    fc: NotRequired[pulumi.Input[Optional['FCVolumeSourceArgs']]]
+    fc: NotRequired[pulumi.Input[Optional['FCVolumeSourceArgsDict']]]
     """
     fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
     """
-    flex_volume: NotRequired[pulumi.Input[Optional['FlexPersistentVolumeSourceArgs']]]
+    flex_volume: NotRequired[pulumi.Input[Optional['FlexPersistentVolumeSourceArgsDict']]]
     """
     flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
     """
-    flocker: NotRequired[pulumi.Input[Optional['FlockerVolumeSourceArgs']]]
+    flocker: NotRequired[pulumi.Input[Optional['FlockerVolumeSourceArgsDict']]]
     """
     flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
     """
-    gce_persistent_disk: NotRequired[pulumi.Input[Optional['GCEPersistentDiskVolumeSourceArgs']]]
+    gce_persistent_disk: NotRequired[pulumi.Input[Optional['GCEPersistentDiskVolumeSourceArgsDict']]]
     """
     gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
     """
-    glusterfs: NotRequired[pulumi.Input[Optional['GlusterfsPersistentVolumeSourceArgs']]]
+    glusterfs: NotRequired[pulumi.Input[Optional['GlusterfsPersistentVolumeSourceArgsDict']]]
     """
     glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported. More info: https://examples.k8s.io/volumes/glusterfs/README.md
     """
-    host_path: NotRequired[pulumi.Input[Optional['HostPathVolumeSourceArgs']]]
+    host_path: NotRequired[pulumi.Input[Optional['HostPathVolumeSourceArgsDict']]]
     """
     hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
     """
-    iscsi: NotRequired[pulumi.Input[Optional['ISCSIPersistentVolumeSourceArgs']]]
+    iscsi: NotRequired[pulumi.Input[Optional['ISCSIPersistentVolumeSourceArgsDict']]]
     """
     iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
     """
-    local: NotRequired[pulumi.Input[Optional['LocalVolumeSourceArgs']]]
+    local: NotRequired[pulumi.Input[Optional['LocalVolumeSourceArgsDict']]]
     """
     local represents directly-attached storage with node affinity
     """
@@ -21230,11 +21230,11 @@ class PersistentVolumeSpecArgsDict(TypedDict):
     """
     mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
     """
-    nfs: NotRequired[pulumi.Input[Optional['NFSVolumeSourceArgs']]]
+    nfs: NotRequired[pulumi.Input[Optional['NFSVolumeSourceArgsDict']]]
     """
     nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
     """
-    node_affinity: NotRequired[pulumi.Input[Optional['VolumeNodeAffinityArgs']]]
+    node_affinity: NotRequired[pulumi.Input[Optional['VolumeNodeAffinityArgsDict']]]
     """
     nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume. This field is mutable if MutablePVNodeAffinity feature gate is enabled.
     """
@@ -21242,23 +21242,23 @@ class PersistentVolumeSpecArgsDict(TypedDict):
     """
     persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
     """
-    photon_persistent_disk: NotRequired[pulumi.Input[Optional['PhotonPersistentDiskVolumeSourceArgs']]]
+    photon_persistent_disk: NotRequired[pulumi.Input[Optional['PhotonPersistentDiskVolumeSourceArgsDict']]]
     """
     photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
     """
-    portworx_volume: NotRequired[pulumi.Input[Optional['PortworxVolumeSourceArgs']]]
+    portworx_volume: NotRequired[pulumi.Input[Optional['PortworxVolumeSourceArgsDict']]]
     """
     portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
     """
-    quobyte: NotRequired[pulumi.Input[Optional['QuobyteVolumeSourceArgs']]]
+    quobyte: NotRequired[pulumi.Input[Optional['QuobyteVolumeSourceArgsDict']]]
     """
     quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
     """
-    rbd: NotRequired[pulumi.Input[Optional['RBDPersistentVolumeSourceArgs']]]
+    rbd: NotRequired[pulumi.Input[Optional['RBDPersistentVolumeSourceArgsDict']]]
     """
     rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported. More info: https://examples.k8s.io/volumes/rbd/README.md
     """
-    scale_io: NotRequired[pulumi.Input[Optional['ScaleIOPersistentVolumeSourceArgs']]]
+    scale_io: NotRequired[pulumi.Input[Optional['ScaleIOPersistentVolumeSourceArgsDict']]]
     """
     scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
     """
@@ -21266,7 +21266,7 @@ class PersistentVolumeSpecArgsDict(TypedDict):
     """
     storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
     """
-    storageos: NotRequired[pulumi.Input[Optional['StorageOSPersistentVolumeSourceArgs']]]
+    storageos: NotRequired[pulumi.Input[Optional['StorageOSPersistentVolumeSourceArgsDict']]]
     """
     storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported. More info: https://examples.k8s.io/volumes/storageos/README.md
     """
@@ -21278,7 +21278,7 @@ class PersistentVolumeSpecArgsDict(TypedDict):
     """
     volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
     """
-    vsphere_volume: NotRequired[pulumi.Input[Optional['VsphereVirtualDiskVolumeSourceArgs']]]
+    vsphere_volume: NotRequired[pulumi.Input[Optional['VsphereVirtualDiskVolumeSourceArgsDict']]]
     """
     vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
     """
@@ -21894,15 +21894,15 @@ class PersistentVolumeArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PersistentVolumeSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PersistentVolumeSpecArgsDict']]]
     """
     spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
     """
-    status: NotRequired[pulumi.Input[Optional['PersistentVolumeStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PersistentVolumeStatusArgsDict']]]
     """
     status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
     """
@@ -22107,11 +22107,11 @@ class PodAffinityPatchArgsDict(TypedDict):
     """
     Pod affinity is a group of inter pod affinity scheduling rules.
     """
-    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgs']]]]]
+    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgsDict']]]]]
     """
     The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
     """
-    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]]]]
+    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodAffinityTermPatchArgsDict']]]]]
     """
     If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
     """
@@ -22161,7 +22161,7 @@ class PodAffinityTermPatchArgsDict(TypedDict):
     """
     Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
     """
-    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
     """
@@ -22173,7 +22173,7 @@ class PodAffinityTermPatchArgsDict(TypedDict):
     """
     MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
     """
-    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
     """
@@ -22299,7 +22299,7 @@ class PodAffinityTermArgsDict(TypedDict):
     """
     This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
     """
-    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     A label query over a set of resources, in this case pods. If it's null, this PodAffinityTerm matches with no Pods.
     """
@@ -22311,7 +22311,7 @@ class PodAffinityTermArgsDict(TypedDict):
     """
     MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
     """
-    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
     """
@@ -22428,11 +22428,11 @@ class PodAffinityArgsDict(TypedDict):
     """
     Pod affinity is a group of inter pod affinity scheduling rules.
     """
-    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]]]]
+    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WeightedPodAffinityTermArgsDict']]]]]
     """
     The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
     """
-    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodAffinityTermArgs']]]]]
+    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodAffinityTermArgsDict']]]]]
     """
     If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
     """
@@ -22482,11 +22482,11 @@ class PodAntiAffinityPatchArgsDict(TypedDict):
     """
     Pod anti affinity is a group of inter pod anti affinity scheduling rules.
     """
-    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgs']]]]]
+    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WeightedPodAffinityTermPatchArgsDict']]]]]
     """
     The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
     """
-    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]]]]
+    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodAffinityTermPatchArgsDict']]]]]
     """
     If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
     """
@@ -22536,11 +22536,11 @@ class PodAntiAffinityArgsDict(TypedDict):
     """
     Pod anti affinity is a group of inter pod anti affinity scheduling rules.
     """
-    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]]]]
+    preferred_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['WeightedPodAffinityTermArgsDict']]]]]
     """
     The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
     """
-    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodAffinityTermArgs']]]]]
+    required_during_scheduling_ignored_during_execution: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodAffinityTermArgsDict']]]]]
     """
     If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
     """
@@ -23304,7 +23304,7 @@ class PodDNSConfigPatchArgsDict(TypedDict):
     """
     A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
     """
-    options: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodDNSConfigOptionPatchArgs']]]]]
+    options: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodDNSConfigOptionPatchArgsDict']]]]]
     """
     A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy.
     """
@@ -23378,7 +23378,7 @@ class PodDNSConfigArgsDict(TypedDict):
     """
     A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
     """
-    options: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodDNSConfigOptionArgs']]]]]
+    options: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodDNSConfigOptionArgsDict']]]]]
     """
     A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy.
     """
@@ -23693,7 +23693,7 @@ class PodResourceClaimPatchArgsDict(TypedDict):
 
     Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
     """
-    source: NotRequired[pulumi.Input[Optional['ClaimSourcePatchArgs']]]
+    source: NotRequired[pulumi.Input[Optional['ClaimSourcePatchArgsDict']]]
     """
     Source describes where to find the ResourceClaim.
     """
@@ -23890,7 +23890,7 @@ class PodResourceClaimArgsDict(TypedDict):
 
     Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
     """
-    source: NotRequired[pulumi.Input[Optional['ClaimSourceArgs']]]
+    source: NotRequired[pulumi.Input[Optional['ClaimSourceArgsDict']]]
     """
     Source describes where to find the ResourceClaim.
     """
@@ -24130,7 +24130,7 @@ class PodSecurityContextPatchArgsDict(TypedDict):
     """
     PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
     """
-    app_armor_profile: NotRequired[pulumi.Input[Optional['AppArmorProfilePatchArgs']]]
+    app_armor_profile: NotRequired[pulumi.Input[Optional['AppArmorProfilePatchArgsDict']]]
     """
     appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
     """
@@ -24172,11 +24172,11 @@ class PodSecurityContextPatchArgsDict(TypedDict):
 
     All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
     """
-    se_linux_options: NotRequired[pulumi.Input[Optional['SELinuxOptionsPatchArgs']]]
+    se_linux_options: NotRequired[pulumi.Input[Optional['SELinuxOptionsPatchArgsDict']]]
     """
     The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
     """
-    seccomp_profile: NotRequired[pulumi.Input[Optional['SeccompProfilePatchArgs']]]
+    seccomp_profile: NotRequired[pulumi.Input[Optional['SeccompProfilePatchArgsDict']]]
     """
     The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
     """
@@ -24188,11 +24188,11 @@ class PodSecurityContextPatchArgsDict(TypedDict):
     """
     Defines how supplemental groups of the first container processes are calculated. Valid values are "Merge" and "Strict". If not specified, "Merge" is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
     """
-    sysctls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SysctlPatchArgs']]]]]
+    sysctls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SysctlPatchArgsDict']]]]]
     """
     Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
     """
-    windows_options: NotRequired[pulumi.Input[Optional['WindowsSecurityContextOptionsPatchArgs']]]
+    windows_options: NotRequired[pulumi.Input[Optional['WindowsSecurityContextOptionsPatchArgsDict']]]
     """
     The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
     """
@@ -24446,7 +24446,7 @@ class PodSecurityContextArgsDict(TypedDict):
     """
     PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
     """
-    app_armor_profile: NotRequired[pulumi.Input[Optional['AppArmorProfileArgs']]]
+    app_armor_profile: NotRequired[pulumi.Input[Optional['AppArmorProfileArgsDict']]]
     """
     appArmorProfile is the AppArmor options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
     """
@@ -24488,11 +24488,11 @@ class PodSecurityContextArgsDict(TypedDict):
 
     All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
     """
-    se_linux_options: NotRequired[pulumi.Input[Optional['SELinuxOptionsArgs']]]
+    se_linux_options: NotRequired[pulumi.Input[Optional['SELinuxOptionsArgsDict']]]
     """
     The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
     """
-    seccomp_profile: NotRequired[pulumi.Input[Optional['SeccompProfileArgs']]]
+    seccomp_profile: NotRequired[pulumi.Input[Optional['SeccompProfileArgsDict']]]
     """
     The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
     """
@@ -24504,11 +24504,11 @@ class PodSecurityContextArgsDict(TypedDict):
     """
     Defines how supplemental groups of the first container processes are calculated. Valid values are "Merge" and "Strict". If not specified, "Merge" is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
     """
-    sysctls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SysctlArgs']]]]]
+    sysctls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SysctlArgsDict']]]]]
     """
     Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
     """
-    windows_options: NotRequired[pulumi.Input[Optional['WindowsSecurityContextOptionsArgs']]]
+    windows_options: NotRequired[pulumi.Input[Optional['WindowsSecurityContextOptionsArgsDict']]]
     """
     The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
     """
@@ -24766,7 +24766,7 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
     """
-    affinity: NotRequired[pulumi.Input[Optional['AffinityPatchArgs']]]
+    affinity: NotRequired[pulumi.Input[Optional['AffinityPatchArgsDict']]]
     """
     If specified, the pod's scheduling constraints
     """
@@ -24774,11 +24774,11 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
     """
-    containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPatchArgs']]]]]
+    containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPatchArgsDict']]]]]
     """
     List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
     """
-    dns_config: NotRequired[pulumi.Input[Optional['PodDNSConfigPatchArgs']]]
+    dns_config: NotRequired[pulumi.Input[Optional['PodDNSConfigPatchArgsDict']]]
     """
     Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
     """
@@ -24790,11 +24790,11 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
     """
-    ephemeral_containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EphemeralContainerPatchArgs']]]]]
+    ephemeral_containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EphemeralContainerPatchArgsDict']]]]]
     """
     List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
     """
-    host_aliases: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostAliasPatchArgs']]]]]
+    host_aliases: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostAliasPatchArgsDict']]]]]
     """
     HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
     """
@@ -24824,11 +24824,11 @@ class PodSpecPatchArgsDict(TypedDict):
 
     This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
     """
-    image_pull_secrets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]]]
+    image_pull_secrets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LocalObjectReferencePatchArgsDict']]]]]
     """
     ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
     """
-    init_containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPatchArgs']]]]]
+    init_containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerPatchArgsDict']]]]]
     """
     List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
     """
@@ -24840,7 +24840,7 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
     """
-    os: NotRequired[pulumi.Input[Optional['PodOSPatchArgs']]]
+    os: NotRequired[pulumi.Input[Optional['PodOSPatchArgsDict']]]
     """
     Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
 
@@ -24864,11 +24864,11 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
     """
-    readiness_gates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodReadinessGatePatchArgs']]]]]
+    readiness_gates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodReadinessGatePatchArgsDict']]]]]
     """
     If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
     """
-    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodResourceClaimPatchArgs']]]]]
+    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodResourceClaimPatchArgsDict']]]]]
     """
     ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
 
@@ -24876,7 +24876,7 @@ class PodSpecPatchArgsDict(TypedDict):
 
     This field is immutable.
     """
-    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsPatchArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsPatchArgsDict']]]
     """
     Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
 
@@ -24896,17 +24896,17 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
     """
-    scheduling_gates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodSchedulingGatePatchArgs']]]]]
+    scheduling_gates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodSchedulingGatePatchArgsDict']]]]]
     """
     SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 
     SchedulingGates can only be set at pod creation time, and be removed only afterwards.
     """
-    scheduling_group: NotRequired[pulumi.Input[Optional['PodSchedulingGroupPatchArgs']]]
+    scheduling_group: NotRequired[pulumi.Input[Optional['PodSchedulingGroupPatchArgsDict']]]
     """
     SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
     """
-    security_context: NotRequired[pulumi.Input[Optional['PodSecurityContextPatchArgs']]]
+    security_context: NotRequired[pulumi.Input[Optional['PodSecurityContextPatchArgsDict']]]
     """
     SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
     """
@@ -24934,15 +24934,15 @@ class PodSpecPatchArgsDict(TypedDict):
     """
     Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
     """
-    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TolerationPatchArgs']]]]]
+    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TolerationPatchArgsDict']]]]]
     """
     If specified, the pod's tolerations.
     """
-    topology_spread_constraints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologySpreadConstraintPatchArgs']]]]]
+    topology_spread_constraints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologySpreadConstraintPatchArgsDict']]]]]
     """
     TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
     """
-    volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumePatchArgs']]]]]
+    volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumePatchArgsDict']]]]]
     """
     List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
     """
@@ -25672,7 +25672,7 @@ class PodSpecArgsDict(TypedDict):
     """
     Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
     """
-    affinity: NotRequired[pulumi.Input[Optional['AffinityArgs']]]
+    affinity: NotRequired[pulumi.Input[Optional['AffinityArgsDict']]]
     """
     If specified, the pod's scheduling constraints
     """
@@ -25680,7 +25680,7 @@ class PodSpecArgsDict(TypedDict):
     """
     AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
     """
-    dns_config: NotRequired[pulumi.Input[Optional['PodDNSConfigArgs']]]
+    dns_config: NotRequired[pulumi.Input[Optional['PodDNSConfigArgsDict']]]
     """
     Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
     """
@@ -25692,11 +25692,11 @@ class PodSpecArgsDict(TypedDict):
     """
     EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
     """
-    ephemeral_containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EphemeralContainerArgs']]]]]
+    ephemeral_containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EphemeralContainerArgsDict']]]]]
     """
     List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
     """
-    host_aliases: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostAliasArgs']]]]]
+    host_aliases: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostAliasArgsDict']]]]]
     """
     HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
     """
@@ -25726,11 +25726,11 @@ class PodSpecArgsDict(TypedDict):
 
     This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
     """
-    image_pull_secrets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LocalObjectReferenceArgs']]]]]
+    image_pull_secrets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LocalObjectReferenceArgsDict']]]]]
     """
     ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
     """
-    init_containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerArgs']]]]]
+    init_containers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerArgsDict']]]]]
     """
     List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
     """
@@ -25742,7 +25742,7 @@ class PodSpecArgsDict(TypedDict):
     """
     NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
     """
-    os: NotRequired[pulumi.Input[Optional['PodOSArgs']]]
+    os: NotRequired[pulumi.Input[Optional['PodOSArgsDict']]]
     """
     Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
 
@@ -25766,11 +25766,11 @@ class PodSpecArgsDict(TypedDict):
     """
     If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
     """
-    readiness_gates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodReadinessGateArgs']]]]]
+    readiness_gates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodReadinessGateArgsDict']]]]]
     """
     If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
     """
-    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodResourceClaimArgs']]]]]
+    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodResourceClaimArgsDict']]]]]
     """
     ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
 
@@ -25778,7 +25778,7 @@ class PodSpecArgsDict(TypedDict):
 
     This field is immutable.
     """
-    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgsDict']]]
     """
     Resources is the total amount of CPU and Memory resources required by all containers in the pod. It supports specifying Requests and Limits for "cpu", "memory" and "hugepages-" resource names only. ResourceClaims are not supported.
 
@@ -25798,17 +25798,17 @@ class PodSpecArgsDict(TypedDict):
     """
     If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
     """
-    scheduling_gates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodSchedulingGateArgs']]]]]
+    scheduling_gates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodSchedulingGateArgsDict']]]]]
     """
     SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 
     SchedulingGates can only be set at pod creation time, and be removed only afterwards.
     """
-    scheduling_group: NotRequired[pulumi.Input[Optional['PodSchedulingGroupArgs']]]
+    scheduling_group: NotRequired[pulumi.Input[Optional['PodSchedulingGroupArgsDict']]]
     """
     SchedulingGroup provides a reference to the immediate scheduling runtime grouping object that this Pod belongs to. This field is used by the scheduler to identify the group and apply the correct group scheduling policies. The association with a group also impacts other lifecycle aspects of a Pod that are relevant in a wider context of scheduling like preemption, resource attachment, etc. If not specified, the Pod is treated as a single unit in all of these aspects. The group object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a group object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
     """
-    security_context: NotRequired[pulumi.Input[Optional['PodSecurityContextArgs']]]
+    security_context: NotRequired[pulumi.Input[Optional['PodSecurityContextArgsDict']]]
     """
     SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
     """
@@ -25836,15 +25836,15 @@ class PodSpecArgsDict(TypedDict):
     """
     Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
     """
-    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TolerationArgs']]]]]
+    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TolerationArgsDict']]]]]
     """
     If specified, the pod's tolerations.
     """
-    topology_spread_constraints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologySpreadConstraintArgs']]]]]
+    topology_spread_constraints: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologySpreadConstraintArgsDict']]]]]
     """
     TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
     """
-    volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeArgs']]]]]
+    volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeArgsDict']]]]]
     """
     List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
     """
@@ -26569,19 +26569,19 @@ class PodStatusArgsDict(TypedDict):
     """
     AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodConditionArgsDict']]]]]
     """
     Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
     """
-    container_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerStatusArgs']]]]]
+    container_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerStatusArgsDict']]]]]
     """
     Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
     """
-    ephemeral_container_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerStatusArgs']]]]]
+    ephemeral_container_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerStatusArgsDict']]]]]
     """
     Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
     """
-    extended_resource_claim_status: NotRequired[pulumi.Input[Optional['PodExtendedResourceClaimStatusArgs']]]
+    extended_resource_claim_status: NotRequired[pulumi.Input[Optional['PodExtendedResourceClaimStatusArgsDict']]]
     """
     Status of extended resource claim backed by DRA.
     """
@@ -26589,11 +26589,11 @@ class PodStatusArgsDict(TypedDict):
     """
     hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
     """
-    host_ips: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostIPArgs']]]]]
+    host_ips: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostIPArgsDict']]]]]
     """
     hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
     """
-    init_container_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerStatusArgs']]]]]
+    init_container_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ContainerStatusArgsDict']]]]]
     """
     Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
     """
@@ -26601,7 +26601,7 @@ class PodStatusArgsDict(TypedDict):
     """
     A human readable message indicating details about why the pod is in this condition.
     """
-    node_allocatable_resource_claim_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeAllocatableResourceClaimStatusArgs']]]]]
+    node_allocatable_resource_claim_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NodeAllocatableResourceClaimStatusArgsDict']]]]]
     """
     NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
     """
@@ -26625,7 +26625,7 @@ class PodStatusArgsDict(TypedDict):
     """
     podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
     """
-    pod_ips: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodIPArgs']]]]]
+    pod_ips: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodIPArgsDict']]]]]
     """
     podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
     """
@@ -26641,11 +26641,11 @@ class PodStatusArgsDict(TypedDict):
     """
     Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
     """
-    resource_claim_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodResourceClaimStatusArgs']]]]]
+    resource_claim_statuses: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodResourceClaimStatusArgsDict']]]]]
     """
     Status of resource claims.
     """
-    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgs']]]
+    resources: NotRequired[pulumi.Input[Optional['ResourceRequirementsArgsDict']]]
     """
     Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
     """
@@ -27011,11 +27011,11 @@ class PodTemplateSpecPatchArgsDict(TypedDict):
     """
     PodTemplateSpec describes the data a pod should have when created from a template
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PodSpecPatchArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PodSpecPatchArgsDict']]]
     """
     Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -27065,11 +27065,11 @@ class PodTemplateSpecArgsDict(TypedDict):
     """
     PodTemplateSpec describes the data a pod should have when created from a template
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PodSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PodSpecArgsDict']]]
     """
     Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -27127,11 +27127,11 @@ class PodTemplateArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    template: NotRequired[pulumi.Input[Optional['PodTemplateSpecArgs']]]
+    template: NotRequired[pulumi.Input[Optional['PodTemplateSpecArgsDict']]]
     """
     Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -27236,15 +27236,15 @@ class PodArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PodSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PodSpecArgsDict']]]
     """
     Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['PodStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PodStatusArgsDict']]]
     """
     Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -27585,7 +27585,7 @@ class PreferredSchedulingTermPatchArgsDict(TypedDict):
     """
     An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
     """
-    preference: NotRequired[pulumi.Input[Optional['NodeSelectorTermPatchArgs']]]
+    preference: NotRequired[pulumi.Input[Optional['NodeSelectorTermPatchArgsDict']]]
     """
     A node selector term, associated with the corresponding weight.
     """
@@ -27691,7 +27691,7 @@ class ProbePatchArgsDict(TypedDict):
     """
     Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
     """
-    exec_: NotRequired[pulumi.Input[Optional['ExecActionPatchArgs']]]
+    exec_: NotRequired[pulumi.Input[Optional['ExecActionPatchArgsDict']]]
     """
     Exec specifies a command to execute in the container.
     """
@@ -27699,11 +27699,11 @@ class ProbePatchArgsDict(TypedDict):
     """
     Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
     """
-    grpc: NotRequired[pulumi.Input[Optional['GRPCActionPatchArgs']]]
+    grpc: NotRequired[pulumi.Input[Optional['GRPCActionPatchArgsDict']]]
     """
     GRPC specifies a GRPC HealthCheckRequest.
     """
-    http_get: NotRequired[pulumi.Input[Optional['HTTPGetActionPatchArgs']]]
+    http_get: NotRequired[pulumi.Input[Optional['HTTPGetActionPatchArgsDict']]]
     """
     HTTPGet specifies an HTTP GET request to perform.
     """
@@ -27719,7 +27719,7 @@ class ProbePatchArgsDict(TypedDict):
     """
     Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
     """
-    tcp_socket: NotRequired[pulumi.Input[Optional['TCPSocketActionPatchArgs']]]
+    tcp_socket: NotRequired[pulumi.Input[Optional['TCPSocketActionPatchArgsDict']]]
     """
     TCPSocket specifies a connection to a TCP port.
     """
@@ -27905,7 +27905,7 @@ class ProbeArgsDict(TypedDict):
     """
     Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
     """
-    exec_: NotRequired[pulumi.Input[Optional['ExecActionArgs']]]
+    exec_: NotRequired[pulumi.Input[Optional['ExecActionArgsDict']]]
     """
     Exec specifies a command to execute in the container.
     """
@@ -27913,11 +27913,11 @@ class ProbeArgsDict(TypedDict):
     """
     Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
     """
-    grpc: NotRequired[pulumi.Input[Optional['GRPCActionArgs']]]
+    grpc: NotRequired[pulumi.Input[Optional['GRPCActionArgsDict']]]
     """
     GRPC specifies a GRPC HealthCheckRequest.
     """
-    http_get: NotRequired[pulumi.Input[Optional['HTTPGetActionArgs']]]
+    http_get: NotRequired[pulumi.Input[Optional['HTTPGetActionArgsDict']]]
     """
     HTTPGet specifies an HTTP GET request to perform.
     """
@@ -27933,7 +27933,7 @@ class ProbeArgsDict(TypedDict):
     """
     Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
     """
-    tcp_socket: NotRequired[pulumi.Input[Optional['TCPSocketActionArgs']]]
+    tcp_socket: NotRequired[pulumi.Input[Optional['TCPSocketActionArgsDict']]]
     """
     TCPSocket specifies a connection to a TCP port.
     """
@@ -28123,7 +28123,7 @@ class ProjectedVolumeSourcePatchArgsDict(TypedDict):
     """
     defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
     """
-    sources: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeProjectionPatchArgs']]]]]
+    sources: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VolumeProjectionPatchArgsDict']]]]]
     """
     sources is the list of volume projections. Each entry in this list handles one source.
     """
@@ -28516,7 +28516,7 @@ class RBDPersistentVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
     """
@@ -28690,7 +28690,7 @@ class RBDPersistentVolumeSourceArgsDict(TypedDict):
     """
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferenceArgsDict']]]
     """
     secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
     """
@@ -28862,7 +28862,7 @@ class RBDVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgsDict']]]
     """
     secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
     """
@@ -29036,7 +29036,7 @@ class RBDVolumeSourceArgsDict(TypedDict):
     """
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgsDict']]]
     """
     secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
     """
@@ -29308,7 +29308,7 @@ class ReplicationControllerSpecPatchArgsDict(TypedDict):
     """
     Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    template: NotRequired[pulumi.Input[Optional['PodTemplateSpecPatchArgs']]]
+    template: NotRequired[pulumi.Input[Optional['PodTemplateSpecPatchArgsDict']]]
     """
     Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
     """
@@ -29402,7 +29402,7 @@ class ReplicationControllerSpecArgsDict(TypedDict):
     """
     Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    template: NotRequired[pulumi.Input[Optional['PodTemplateSpecArgs']]]
+    template: NotRequired[pulumi.Input[Optional['PodTemplateSpecArgsDict']]]
     """
     Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
     """
@@ -29492,7 +29492,7 @@ class ReplicationControllerStatusArgsDict(TypedDict):
     """
     The number of available replicas (ready for at least minReadySeconds) for this replication controller.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ReplicationControllerConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ReplicationControllerConditionArgsDict']]]]]
     """
     Represents the latest available observations of a replication controller's current state.
     """
@@ -29625,15 +29625,15 @@ class ReplicationControllerArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['ReplicationControllerSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ReplicationControllerSpecArgsDict']]]
     """
     Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['ReplicationControllerStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ReplicationControllerStatusArgsDict']]]
     """
     Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -30086,7 +30086,7 @@ class ResourceQuotaSpecPatchArgsDict(TypedDict):
     """
     hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
     """
-    scope_selector: NotRequired[pulumi.Input[Optional['ScopeSelectorPatchArgs']]]
+    scope_selector: NotRequired[pulumi.Input[Optional['ScopeSelectorPatchArgsDict']]]
     """
     scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
     """
@@ -30160,7 +30160,7 @@ class ResourceQuotaSpecArgsDict(TypedDict):
     """
     hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
     """
-    scope_selector: NotRequired[pulumi.Input[Optional['ScopeSelectorArgs']]]
+    scope_selector: NotRequired[pulumi.Input[Optional['ScopeSelectorArgsDict']]]
     """
     scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
     """
@@ -30292,15 +30292,15 @@ class ResourceQuotaArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['ResourceQuotaSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ResourceQuotaSpecArgsDict']]]
     """
     Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['ResourceQuotaStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ResourceQuotaStatusArgsDict']]]
     """
     Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -30398,7 +30398,7 @@ class ResourceRequirementsPatchArgsDict(TypedDict):
     """
     ResourceRequirements describes the compute resource requirements.
     """
-    claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimPatchArgs']]]]]
+    claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimPatchArgsDict']]]]]
     """
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
 
@@ -30484,7 +30484,7 @@ class ResourceRequirementsArgsDict(TypedDict):
     """
     ResourceRequirements describes the compute resource requirements.
     """
-    claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimArgs']]]]]
+    claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimArgsDict']]]]]
     """
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
 
@@ -30574,7 +30574,7 @@ class ResourceStatusArgsDict(TypedDict):
     """
     Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
     """
-    resources: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceHealthArgs']]]]]
+    resources: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceHealthArgsDict']]]]]
     """
     List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
     """
@@ -30827,7 +30827,7 @@ class ScaleIOPersistentVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['SecretReferencePatchArgsDict']]]
     """
     secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
     """
@@ -31252,7 +31252,7 @@ class ScaleIOVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgsDict']]]
     """
     secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
     """
@@ -31661,7 +31661,7 @@ class ScopeSelectorPatchArgsDict(TypedDict):
     """
     A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
     """
-    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ScopedResourceSelectorRequirementPatchArgs']]]]]
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ScopedResourceSelectorRequirementPatchArgsDict']]]]]
     """
     A list of scope selector requirements by scope of the resources.
     """
@@ -31695,7 +31695,7 @@ class ScopeSelectorArgsDict(TypedDict):
     """
     A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
     """
-    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ScopedResourceSelectorRequirementArgs']]]]]
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ScopedResourceSelectorRequirementArgsDict']]]]]
     """
     A list of scope selector requirements by scope of the resources.
     """
@@ -32259,7 +32259,7 @@ class SecretProjectionPatchArgsDict(TypedDict):
 
     The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathPatchArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathPatchArgsDict']]]]]
     """
     items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
     """
@@ -32337,7 +32337,7 @@ class SecretProjectionArgsDict(TypedDict):
 
     The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathArgsDict']]]]]
     """
     items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
     """
@@ -32527,7 +32527,7 @@ class SecretVolumeSourcePatchArgsDict(TypedDict):
     """
     defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathPatchArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathPatchArgsDict']]]]]
     """
     items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
     """
@@ -32625,7 +32625,7 @@ class SecretVolumeSourceArgsDict(TypedDict):
     """
     defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
     """
-    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathArgs']]]]]
+    items: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['KeyToPathArgsDict']]]]]
     """
     items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
     """
@@ -32743,7 +32743,7 @@ class SecretArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
@@ -32895,11 +32895,11 @@ class SecurityContextPatchArgsDict(TypedDict):
     """
     AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
     """
-    app_armor_profile: NotRequired[pulumi.Input[Optional['AppArmorProfilePatchArgs']]]
+    app_armor_profile: NotRequired[pulumi.Input[Optional['AppArmorProfilePatchArgsDict']]]
     """
     appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
     """
-    capabilities: NotRequired[pulumi.Input[Optional['CapabilitiesPatchArgs']]]
+    capabilities: NotRequired[pulumi.Input[Optional['CapabilitiesPatchArgsDict']]]
     """
     The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
     """
@@ -32927,15 +32927,15 @@ class SecurityContextPatchArgsDict(TypedDict):
     """
     The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
     """
-    se_linux_options: NotRequired[pulumi.Input[Optional['SELinuxOptionsPatchArgs']]]
+    se_linux_options: NotRequired[pulumi.Input[Optional['SELinuxOptionsPatchArgsDict']]]
     """
     The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
     """
-    seccomp_profile: NotRequired[pulumi.Input[Optional['SeccompProfilePatchArgs']]]
+    seccomp_profile: NotRequired[pulumi.Input[Optional['SeccompProfilePatchArgsDict']]]
     """
     The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
     """
-    windows_options: NotRequired[pulumi.Input[Optional['WindowsSecurityContextOptionsPatchArgs']]]
+    windows_options: NotRequired[pulumi.Input[Optional['WindowsSecurityContextOptionsPatchArgsDict']]]
     """
     The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
     """
@@ -33149,11 +33149,11 @@ class SecurityContextArgsDict(TypedDict):
     """
     AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
     """
-    app_armor_profile: NotRequired[pulumi.Input[Optional['AppArmorProfileArgs']]]
+    app_armor_profile: NotRequired[pulumi.Input[Optional['AppArmorProfileArgsDict']]]
     """
     appArmorProfile is the AppArmor options to use by this container. If set, this profile overrides the pod's appArmorProfile. Note that this field cannot be set when spec.os.name is windows.
     """
-    capabilities: NotRequired[pulumi.Input[Optional['CapabilitiesArgs']]]
+    capabilities: NotRequired[pulumi.Input[Optional['CapabilitiesArgsDict']]]
     """
     The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
     """
@@ -33181,15 +33181,15 @@ class SecurityContextArgsDict(TypedDict):
     """
     The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
     """
-    se_linux_options: NotRequired[pulumi.Input[Optional['SELinuxOptionsArgs']]]
+    se_linux_options: NotRequired[pulumi.Input[Optional['SELinuxOptionsArgsDict']]]
     """
     The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
     """
-    seccomp_profile: NotRequired[pulumi.Input[Optional['SeccompProfileArgs']]]
+    seccomp_profile: NotRequired[pulumi.Input[Optional['SeccompProfileArgsDict']]]
     """
     The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
     """
-    windows_options: NotRequired[pulumi.Input[Optional['WindowsSecurityContextOptionsArgs']]]
+    windows_options: NotRequired[pulumi.Input[Optional['WindowsSecurityContextOptionsArgsDict']]]
     """
     The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
     """
@@ -33554,7 +33554,7 @@ class ServiceAccountArgsDict(TypedDict):
     """
     AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
     """
-    image_pull_secrets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LocalObjectReferenceArgs']]]]]
+    image_pull_secrets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LocalObjectReferenceArgsDict']]]]]
     """
     ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
     """
@@ -33562,11 +33562,11 @@ class ServiceAccountArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    secrets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ObjectReferenceArgs']]]]]
+    secrets: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ObjectReferenceArgsDict']]]]]
     """
     Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". The "kubernetes.io/enforce-mountable-secrets" annotation is deprecated since v1.32. Prefer separate namespaces to isolate access to mounted secrets. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
     """
@@ -34061,7 +34061,7 @@ class ServiceSpecPatchArgsDict(TypedDict):
     """
     If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ServicePortPatchArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ServicePortPatchArgsDict']]]]]
     """
     The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
     """
@@ -34077,7 +34077,7 @@ class ServiceSpecPatchArgsDict(TypedDict):
     """
     Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
     """
-    session_affinity_config: NotRequired[pulumi.Input[Optional['SessionAffinityConfigPatchArgs']]]
+    session_affinity_config: NotRequired[pulumi.Input[Optional['SessionAffinityConfigPatchArgsDict']]]
     """
     sessionAffinityConfig contains the configurations of session affinity.
     """
@@ -34527,7 +34527,7 @@ class ServiceSpecArgsDict(TypedDict):
     """
     If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ServicePortArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ServicePortArgsDict']]]]]
     """
     The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
     """
@@ -34543,7 +34543,7 @@ class ServiceSpecArgsDict(TypedDict):
     """
     Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
     """
-    session_affinity_config: NotRequired[pulumi.Input[Optional['SessionAffinityConfigArgs']]]
+    session_affinity_config: NotRequired[pulumi.Input[Optional['SessionAffinityConfigArgsDict']]]
     """
     sessionAffinityConfig contains the configurations of session affinity.
     """
@@ -34933,11 +34933,11 @@ class ServiceStatusArgsDict(TypedDict):
     """
     ServiceStatus represents the current status of a service.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     Current service state
     """
-    load_balancer: NotRequired[pulumi.Input[Optional['LoadBalancerStatusArgs']]]
+    load_balancer: NotRequired[pulumi.Input[Optional['LoadBalancerStatusArgsDict']]]
     """
     LoadBalancer contains the current status of the load-balancer, if one is present.
     """
@@ -35012,15 +35012,15 @@ class ServiceArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['ServiceSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ServiceSpecArgsDict']]]
     """
     Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['ServiceStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ServiceStatusArgsDict']]]
     """
     Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -35135,7 +35135,7 @@ class SessionAffinityConfigPatchArgsDict(TypedDict):
     """
     SessionAffinityConfig represents the configurations of session affinity.
     """
-    client_ip: NotRequired[pulumi.Input[Optional['ClientIPConfigPatchArgs']]]
+    client_ip: NotRequired[pulumi.Input[Optional['ClientIPConfigPatchArgsDict']]]
     """
     clientIP contains the configurations of Client IP based session affinity.
     """
@@ -35169,7 +35169,7 @@ class SessionAffinityConfigArgsDict(TypedDict):
     """
     SessionAffinityConfig represents the configurations of session affinity.
     """
-    client_ip: NotRequired[pulumi.Input[Optional['ClientIPConfigArgs']]]
+    client_ip: NotRequired[pulumi.Input[Optional['ClientIPConfigArgsDict']]]
     """
     clientIP contains the configurations of Client IP based session affinity.
     """
@@ -35278,7 +35278,7 @@ class StorageOSPersistentVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['ObjectReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['ObjectReferencePatchArgsDict']]]
     """
     secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
     """
@@ -35392,7 +35392,7 @@ class StorageOSPersistentVolumeSourceArgsDict(TypedDict):
     """
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['ObjectReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['ObjectReferenceArgsDict']]]
     """
     secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
     """
@@ -35506,7 +35506,7 @@ class StorageOSVolumeSourcePatchArgsDict(TypedDict):
     """
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferencePatchArgsDict']]]
     """
     secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
     """
@@ -35620,7 +35620,7 @@ class StorageOSVolumeSourceArgsDict(TypedDict):
     """
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
     """
-    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgs']]]
+    secret_ref: NotRequired[pulumi.Input[Optional['LocalObjectReferenceArgsDict']]]
     """
     secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
     """
@@ -36459,7 +36459,7 @@ class TopologySelectorTermPatchArgsDict(TypedDict):
     """
     A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
     """
-    match_label_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologySelectorLabelRequirementPatchArgs']]]]]
+    match_label_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologySelectorLabelRequirementPatchArgsDict']]]]]
     """
     A list of topology selector requirements by labels.
     """
@@ -36493,7 +36493,7 @@ class TopologySelectorTermArgsDict(TypedDict):
     """
     A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
     """
-    match_label_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologySelectorLabelRequirementArgs']]]]]
+    match_label_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologySelectorLabelRequirementArgsDict']]]]]
     """
     A list of topology selector requirements by labels.
     """
@@ -36527,7 +36527,7 @@ class TopologySpreadConstraintPatchArgsDict(TypedDict):
     """
     TopologySpreadConstraint specifies how to spread matching pods among the given topology.
     """
-    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
     """
@@ -36749,7 +36749,7 @@ class TopologySpreadConstraintArgsDict(TypedDict):
       skew.
     A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
     """
-    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    label_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
     """
@@ -37570,7 +37570,7 @@ class VolumeMountStatusArgsDict(TypedDict):
     """
     RecursiveReadOnly must be set to Disabled, Enabled, or unspecified (for non-readonly mounts). An IfPossible value in the original VolumeMount must be translated to Disabled or Enabled, depending on the mount result.
     """
-    volume_status: NotRequired[pulumi.Input[Optional['VolumeStatusArgs']]]
+    volume_status: NotRequired[pulumi.Input[Optional['VolumeStatusArgsDict']]]
     """
     volumeStatus represents volume-type-specific status about the mounted volume.
     """
@@ -37842,7 +37842,7 @@ class VolumeNodeAffinityPatchArgsDict(TypedDict):
     """
     VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
     """
-    required: NotRequired[pulumi.Input[Optional['NodeSelectorPatchArgs']]]
+    required: NotRequired[pulumi.Input[Optional['NodeSelectorPatchArgsDict']]]
     """
     required specifies hard node constraints that must be met.
     """
@@ -37876,7 +37876,7 @@ class VolumeNodeAffinityArgsDict(TypedDict):
     """
     VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
     """
-    required: NotRequired[pulumi.Input[Optional['NodeSelectorArgs']]]
+    required: NotRequired[pulumi.Input[Optional['NodeSelectorArgsDict']]]
     """
     required specifies hard node constraints that must be met.
     """
@@ -37910,43 +37910,43 @@ class VolumePatchArgsDict(TypedDict):
     """
     Volume represents a named volume in a pod that may be accessed by any container in the pod.
     """
-    aws_elastic_block_store: NotRequired[pulumi.Input[Optional['AWSElasticBlockStoreVolumeSourcePatchArgs']]]
+    aws_elastic_block_store: NotRequired[pulumi.Input[Optional['AWSElasticBlockStoreVolumeSourcePatchArgsDict']]]
     """
     awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
     """
-    azure_disk: NotRequired[pulumi.Input[Optional['AzureDiskVolumeSourcePatchArgs']]]
+    azure_disk: NotRequired[pulumi.Input[Optional['AzureDiskVolumeSourcePatchArgsDict']]]
     """
     azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
     """
-    azure_file: NotRequired[pulumi.Input[Optional['AzureFileVolumeSourcePatchArgs']]]
+    azure_file: NotRequired[pulumi.Input[Optional['AzureFileVolumeSourcePatchArgsDict']]]
     """
     azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
     """
-    cephfs: NotRequired[pulumi.Input[Optional['CephFSVolumeSourcePatchArgs']]]
+    cephfs: NotRequired[pulumi.Input[Optional['CephFSVolumeSourcePatchArgsDict']]]
     """
     cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
     """
-    cinder: NotRequired[pulumi.Input[Optional['CinderVolumeSourcePatchArgs']]]
+    cinder: NotRequired[pulumi.Input[Optional['CinderVolumeSourcePatchArgsDict']]]
     """
     cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     """
-    config_map: NotRequired[pulumi.Input[Optional['ConfigMapVolumeSourcePatchArgs']]]
+    config_map: NotRequired[pulumi.Input[Optional['ConfigMapVolumeSourcePatchArgsDict']]]
     """
     configMap represents a configMap that should populate this volume
     """
-    csi: NotRequired[pulumi.Input[Optional['CSIVolumeSourcePatchArgs']]]
+    csi: NotRequired[pulumi.Input[Optional['CSIVolumeSourcePatchArgsDict']]]
     """
     csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
     """
-    downward_api: NotRequired[pulumi.Input[Optional['DownwardAPIVolumeSourcePatchArgs']]]
+    downward_api: NotRequired[pulumi.Input[Optional['DownwardAPIVolumeSourcePatchArgsDict']]]
     """
     downwardAPI represents downward API about the pod that should populate this volume
     """
-    empty_dir: NotRequired[pulumi.Input[Optional['EmptyDirVolumeSourcePatchArgs']]]
+    empty_dir: NotRequired[pulumi.Input[Optional['EmptyDirVolumeSourcePatchArgsDict']]]
     """
     emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
     """
-    ephemeral: NotRequired[pulumi.Input[Optional['EphemeralVolumeSourcePatchArgs']]]
+    ephemeral: NotRequired[pulumi.Input[Optional['EphemeralVolumeSourcePatchArgsDict']]]
     """
     ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
 
@@ -37963,35 +37963,35 @@ class VolumePatchArgsDict(TypedDict):
 
     A pod can use both types of ephemeral volumes and persistent volumes at the same time.
     """
-    fc: NotRequired[pulumi.Input[Optional['FCVolumeSourcePatchArgs']]]
+    fc: NotRequired[pulumi.Input[Optional['FCVolumeSourcePatchArgsDict']]]
     """
     fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
     """
-    flex_volume: NotRequired[pulumi.Input[Optional['FlexVolumeSourcePatchArgs']]]
+    flex_volume: NotRequired[pulumi.Input[Optional['FlexVolumeSourcePatchArgsDict']]]
     """
     flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
     """
-    flocker: NotRequired[pulumi.Input[Optional['FlockerVolumeSourcePatchArgs']]]
+    flocker: NotRequired[pulumi.Input[Optional['FlockerVolumeSourcePatchArgsDict']]]
     """
     flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
     """
-    gce_persistent_disk: NotRequired[pulumi.Input[Optional['GCEPersistentDiskVolumeSourcePatchArgs']]]
+    gce_persistent_disk: NotRequired[pulumi.Input[Optional['GCEPersistentDiskVolumeSourcePatchArgsDict']]]
     """
     gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
     """
-    git_repo: NotRequired[pulumi.Input[Optional['GitRepoVolumeSourcePatchArgs']]]
+    git_repo: NotRequired[pulumi.Input[Optional['GitRepoVolumeSourcePatchArgsDict']]]
     """
     gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
     """
-    glusterfs: NotRequired[pulumi.Input[Optional['GlusterfsVolumeSourcePatchArgs']]]
+    glusterfs: NotRequired[pulumi.Input[Optional['GlusterfsVolumeSourcePatchArgsDict']]]
     """
     glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
     """
-    host_path: NotRequired[pulumi.Input[Optional['HostPathVolumeSourcePatchArgs']]]
+    host_path: NotRequired[pulumi.Input[Optional['HostPathVolumeSourcePatchArgsDict']]]
     """
     hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
     """
-    image: NotRequired[pulumi.Input[Optional['ImageVolumeSourcePatchArgs']]]
+    image: NotRequired[pulumi.Input[Optional['ImageVolumeSourcePatchArgsDict']]]
     """
     image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:
 
@@ -37999,7 +37999,7 @@ class VolumePatchArgsDict(TypedDict):
 
     The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
     """
-    iscsi: NotRequired[pulumi.Input[Optional['ISCSIVolumeSourcePatchArgs']]]
+    iscsi: NotRequired[pulumi.Input[Optional['ISCSIVolumeSourcePatchArgsDict']]]
     """
     iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
     """
@@ -38007,47 +38007,47 @@ class VolumePatchArgsDict(TypedDict):
     """
     name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
     """
-    nfs: NotRequired[pulumi.Input[Optional['NFSVolumeSourcePatchArgs']]]
+    nfs: NotRequired[pulumi.Input[Optional['NFSVolumeSourcePatchArgsDict']]]
     """
     nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
     """
-    persistent_volume_claim: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimVolumeSourcePatchArgs']]]
+    persistent_volume_claim: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimVolumeSourcePatchArgsDict']]]
     """
     persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
     """
-    photon_persistent_disk: NotRequired[pulumi.Input[Optional['PhotonPersistentDiskVolumeSourcePatchArgs']]]
+    photon_persistent_disk: NotRequired[pulumi.Input[Optional['PhotonPersistentDiskVolumeSourcePatchArgsDict']]]
     """
     photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
     """
-    portworx_volume: NotRequired[pulumi.Input[Optional['PortworxVolumeSourcePatchArgs']]]
+    portworx_volume: NotRequired[pulumi.Input[Optional['PortworxVolumeSourcePatchArgsDict']]]
     """
     portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
     """
-    projected: NotRequired[pulumi.Input[Optional['ProjectedVolumeSourcePatchArgs']]]
+    projected: NotRequired[pulumi.Input[Optional['ProjectedVolumeSourcePatchArgsDict']]]
     """
     projected items for all in one resources secrets, configmaps, and downward API
     """
-    quobyte: NotRequired[pulumi.Input[Optional['QuobyteVolumeSourcePatchArgs']]]
+    quobyte: NotRequired[pulumi.Input[Optional['QuobyteVolumeSourcePatchArgsDict']]]
     """
     quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
     """
-    rbd: NotRequired[pulumi.Input[Optional['RBDVolumeSourcePatchArgs']]]
+    rbd: NotRequired[pulumi.Input[Optional['RBDVolumeSourcePatchArgsDict']]]
     """
     rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
     """
-    scale_io: NotRequired[pulumi.Input[Optional['ScaleIOVolumeSourcePatchArgs']]]
+    scale_io: NotRequired[pulumi.Input[Optional['ScaleIOVolumeSourcePatchArgsDict']]]
     """
     scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
     """
-    secret: NotRequired[pulumi.Input[Optional['SecretVolumeSourcePatchArgs']]]
+    secret: NotRequired[pulumi.Input[Optional['SecretVolumeSourcePatchArgsDict']]]
     """
     secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
     """
-    storageos: NotRequired[pulumi.Input[Optional['StorageOSVolumeSourcePatchArgs']]]
+    storageos: NotRequired[pulumi.Input[Optional['StorageOSVolumeSourcePatchArgsDict']]]
     """
     storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
     """
-    vsphere_volume: NotRequired[pulumi.Input[Optional['VsphereVirtualDiskVolumeSourcePatchArgs']]]
+    vsphere_volume: NotRequired[pulumi.Input[Optional['VsphereVirtualDiskVolumeSourcePatchArgsDict']]]
     """
     vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
     """
@@ -38595,7 +38595,7 @@ class VolumeProjectionPatchArgsDict(TypedDict):
     """
     Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.
     """
-    cluster_trust_bundle: NotRequired[pulumi.Input[Optional['ClusterTrustBundleProjectionPatchArgs']]]
+    cluster_trust_bundle: NotRequired[pulumi.Input[Optional['ClusterTrustBundleProjectionPatchArgsDict']]]
     """
     ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
 
@@ -38605,15 +38605,15 @@ class VolumeProjectionPatchArgsDict(TypedDict):
 
     Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
     """
-    config_map: NotRequired[pulumi.Input[Optional['ConfigMapProjectionPatchArgs']]]
+    config_map: NotRequired[pulumi.Input[Optional['ConfigMapProjectionPatchArgsDict']]]
     """
     configMap information about the configMap data to project
     """
-    downward_api: NotRequired[pulumi.Input[Optional['DownwardAPIProjectionPatchArgs']]]
+    downward_api: NotRequired[pulumi.Input[Optional['DownwardAPIProjectionPatchArgsDict']]]
     """
     downwardAPI information about the downwardAPI data to project
     """
-    pod_certificate: NotRequired[pulumi.Input[Optional['PodCertificateProjectionPatchArgs']]]
+    pod_certificate: NotRequired[pulumi.Input[Optional['PodCertificateProjectionPatchArgsDict']]]
     """
     Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
 
@@ -38629,11 +38629,11 @@ class VolumeProjectionPatchArgsDict(TypedDict):
 
     The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
     """
-    secret: NotRequired[pulumi.Input[Optional['SecretProjectionPatchArgs']]]
+    secret: NotRequired[pulumi.Input[Optional['SecretProjectionPatchArgsDict']]]
     """
     secret information about the secret data to project
     """
-    service_account_token: NotRequired[pulumi.Input[Optional['ServiceAccountTokenProjectionPatchArgs']]]
+    service_account_token: NotRequired[pulumi.Input[Optional['ServiceAccountTokenProjectionPatchArgsDict']]]
     """
     serviceAccountToken is information about the serviceAccountToken data to project
     """
@@ -38783,7 +38783,7 @@ class VolumeProjectionArgsDict(TypedDict):
     """
     Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.
     """
-    cluster_trust_bundle: NotRequired[pulumi.Input[Optional['ClusterTrustBundleProjectionArgs']]]
+    cluster_trust_bundle: NotRequired[pulumi.Input[Optional['ClusterTrustBundleProjectionArgsDict']]]
     """
     ClusterTrustBundle allows a pod to access the `.spec.trustBundle` field of ClusterTrustBundle objects in an auto-updating file.
 
@@ -38793,15 +38793,15 @@ class VolumeProjectionArgsDict(TypedDict):
 
     Kubelet performs aggressive normalization of the PEM contents written into the pod filesystem.  Esoteric PEM features such as inter-block comments and block headers are stripped.  Certificates are deduplicated. The ordering of certificates within the file is arbitrary, and Kubelet may change the order over time.
     """
-    config_map: NotRequired[pulumi.Input[Optional['ConfigMapProjectionArgs']]]
+    config_map: NotRequired[pulumi.Input[Optional['ConfigMapProjectionArgsDict']]]
     """
     configMap information about the configMap data to project
     """
-    downward_api: NotRequired[pulumi.Input[Optional['DownwardAPIProjectionArgs']]]
+    downward_api: NotRequired[pulumi.Input[Optional['DownwardAPIProjectionArgsDict']]]
     """
     downwardAPI information about the downwardAPI data to project
     """
-    pod_certificate: NotRequired[pulumi.Input[Optional['PodCertificateProjectionArgs']]]
+    pod_certificate: NotRequired[pulumi.Input[Optional['PodCertificateProjectionArgsDict']]]
     """
     Projects an auto-rotating credential bundle (private key and certificate chain) that the pod can use either as a TLS client or server.
 
@@ -38817,11 +38817,11 @@ class VolumeProjectionArgsDict(TypedDict):
 
     The named signer controls chooses the format of the certificate it issues; consult the signer implementation's documentation to learn how to use the certificates it issues.
     """
-    secret: NotRequired[pulumi.Input[Optional['SecretProjectionArgs']]]
+    secret: NotRequired[pulumi.Input[Optional['SecretProjectionArgsDict']]]
     """
     secret information about the secret data to project
     """
-    service_account_token: NotRequired[pulumi.Input[Optional['ServiceAccountTokenProjectionArgs']]]
+    service_account_token: NotRequired[pulumi.Input[Optional['ServiceAccountTokenProjectionArgsDict']]]
     """
     serviceAccountToken is information about the serviceAccountToken data to project
     """
@@ -39079,7 +39079,7 @@ class VolumeStatusArgsDict(TypedDict):
     """
     VolumeStatus represents the status of a mounted volume. At most one of its members must be specified.
     """
-    image: NotRequired[pulumi.Input[Optional['ImageVolumeStatusArgs']]]
+    image: NotRequired[pulumi.Input[Optional['ImageVolumeStatusArgsDict']]]
     """
     image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine.
     """
@@ -39117,43 +39117,43 @@ class VolumeArgsDict(TypedDict):
     """
     name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
     """
-    aws_elastic_block_store: NotRequired[pulumi.Input[Optional['AWSElasticBlockStoreVolumeSourceArgs']]]
+    aws_elastic_block_store: NotRequired[pulumi.Input[Optional['AWSElasticBlockStoreVolumeSourceArgsDict']]]
     """
     awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: AWSElasticBlockStore is deprecated. All operations for the in-tree awsElasticBlockStore type are redirected to the ebs.csi.aws.com CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
     """
-    azure_disk: NotRequired[pulumi.Input[Optional['AzureDiskVolumeSourceArgs']]]
+    azure_disk: NotRequired[pulumi.Input[Optional['AzureDiskVolumeSourceArgsDict']]]
     """
     azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod. Deprecated: AzureDisk is deprecated. All operations for the in-tree azureDisk type are redirected to the disk.csi.azure.com CSI driver.
     """
-    azure_file: NotRequired[pulumi.Input[Optional['AzureFileVolumeSourceArgs']]]
+    azure_file: NotRequired[pulumi.Input[Optional['AzureFileVolumeSourceArgsDict']]]
     """
     azureFile represents an Azure File Service mount on the host and bind mount to the pod. Deprecated: AzureFile is deprecated. All operations for the in-tree azureFile type are redirected to the file.csi.azure.com CSI driver.
     """
-    cephfs: NotRequired[pulumi.Input[Optional['CephFSVolumeSourceArgs']]]
+    cephfs: NotRequired[pulumi.Input[Optional['CephFSVolumeSourceArgsDict']]]
     """
     cephFS represents a Ceph FS mount on the host that shares a pod's lifetime. Deprecated: CephFS is deprecated and the in-tree cephfs type is no longer supported.
     """
-    cinder: NotRequired[pulumi.Input[Optional['CinderVolumeSourceArgs']]]
+    cinder: NotRequired[pulumi.Input[Optional['CinderVolumeSourceArgsDict']]]
     """
     cinder represents a cinder volume attached and mounted on kubelets host machine. Deprecated: Cinder is deprecated. All operations for the in-tree cinder type are redirected to the cinder.csi.openstack.org CSI driver. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
     """
-    config_map: NotRequired[pulumi.Input[Optional['ConfigMapVolumeSourceArgs']]]
+    config_map: NotRequired[pulumi.Input[Optional['ConfigMapVolumeSourceArgsDict']]]
     """
     configMap represents a configMap that should populate this volume
     """
-    csi: NotRequired[pulumi.Input[Optional['CSIVolumeSourceArgs']]]
+    csi: NotRequired[pulumi.Input[Optional['CSIVolumeSourceArgsDict']]]
     """
     csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers.
     """
-    downward_api: NotRequired[pulumi.Input[Optional['DownwardAPIVolumeSourceArgs']]]
+    downward_api: NotRequired[pulumi.Input[Optional['DownwardAPIVolumeSourceArgsDict']]]
     """
     downwardAPI represents downward API about the pod that should populate this volume
     """
-    empty_dir: NotRequired[pulumi.Input[Optional['EmptyDirVolumeSourceArgs']]]
+    empty_dir: NotRequired[pulumi.Input[Optional['EmptyDirVolumeSourceArgsDict']]]
     """
     emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
     """
-    ephemeral: NotRequired[pulumi.Input[Optional['EphemeralVolumeSourceArgs']]]
+    ephemeral: NotRequired[pulumi.Input[Optional['EphemeralVolumeSourceArgsDict']]]
     """
     ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
 
@@ -39170,35 +39170,35 @@ class VolumeArgsDict(TypedDict):
 
     A pod can use both types of ephemeral volumes and persistent volumes at the same time.
     """
-    fc: NotRequired[pulumi.Input[Optional['FCVolumeSourceArgs']]]
+    fc: NotRequired[pulumi.Input[Optional['FCVolumeSourceArgsDict']]]
     """
     fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
     """
-    flex_volume: NotRequired[pulumi.Input[Optional['FlexVolumeSourceArgs']]]
+    flex_volume: NotRequired[pulumi.Input[Optional['FlexVolumeSourceArgsDict']]]
     """
     flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin. Deprecated: FlexVolume is deprecated. Consider using a CSIDriver instead.
     """
-    flocker: NotRequired[pulumi.Input[Optional['FlockerVolumeSourceArgs']]]
+    flocker: NotRequired[pulumi.Input[Optional['FlockerVolumeSourceArgsDict']]]
     """
     flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running. Deprecated: Flocker is deprecated and the in-tree flocker type is no longer supported.
     """
-    gce_persistent_disk: NotRequired[pulumi.Input[Optional['GCEPersistentDiskVolumeSourceArgs']]]
+    gce_persistent_disk: NotRequired[pulumi.Input[Optional['GCEPersistentDiskVolumeSourceArgsDict']]]
     """
     gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Deprecated: GCEPersistentDisk is deprecated. All operations for the in-tree gcePersistentDisk type are redirected to the pd.csi.storage.gke.io CSI driver. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
     """
-    git_repo: NotRequired[pulumi.Input[Optional['GitRepoVolumeSourceArgs']]]
+    git_repo: NotRequired[pulumi.Input[Optional['GitRepoVolumeSourceArgsDict']]]
     """
     gitRepo represents a git repository at a particular revision. Deprecated: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
     """
-    glusterfs: NotRequired[pulumi.Input[Optional['GlusterfsVolumeSourceArgs']]]
+    glusterfs: NotRequired[pulumi.Input[Optional['GlusterfsVolumeSourceArgsDict']]]
     """
     glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. Deprecated: Glusterfs is deprecated and the in-tree glusterfs type is no longer supported.
     """
-    host_path: NotRequired[pulumi.Input[Optional['HostPathVolumeSourceArgs']]]
+    host_path: NotRequired[pulumi.Input[Optional['HostPathVolumeSourceArgsDict']]]
     """
     hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
     """
-    image: NotRequired[pulumi.Input[Optional['ImageVolumeSourceArgs']]]
+    image: NotRequired[pulumi.Input[Optional['ImageVolumeSourceArgsDict']]]
     """
     image represents an OCI object (a container image or artifact) pulled and mounted on the kubelet's host machine. The volume is resolved at pod startup depending on which PullPolicy value is provided:
 
@@ -39206,51 +39206,51 @@ class VolumeArgsDict(TypedDict):
 
     The volume gets re-resolved if the pod gets deleted and recreated, which means that new remote content will become available on pod recreation. A failure to resolve or pull the image during pod startup will block containers from starting and may add significant latency. Failures will be retried using normal volume backoff and will be reported on the pod reason and message. The types of objects that may be mounted by this volume are defined by the container runtime implementation on a host machine and at minimum must include all valid types supported by the container image field. The OCI object gets mounted in a single directory (spec.containers[*].volumeMounts.mountPath) by merging the manifest layers in the same way as for container images. The volume will be mounted read-only (ro). Sub path mounts for containers are not supported (spec.containers[*].volumeMounts.subpath) before 1.33. The field spec.securityContext.fsGroupChangePolicy has no effect on this volume type.
     """
-    iscsi: NotRequired[pulumi.Input[Optional['ISCSIVolumeSourceArgs']]]
+    iscsi: NotRequired[pulumi.Input[Optional['ISCSIVolumeSourceArgsDict']]]
     """
     iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes/#iscsi
     """
-    nfs: NotRequired[pulumi.Input[Optional['NFSVolumeSourceArgs']]]
+    nfs: NotRequired[pulumi.Input[Optional['NFSVolumeSourceArgsDict']]]
     """
     nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
     """
-    persistent_volume_claim: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimVolumeSourceArgs']]]
+    persistent_volume_claim: NotRequired[pulumi.Input[Optional['PersistentVolumeClaimVolumeSourceArgsDict']]]
     """
     persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
     """
-    photon_persistent_disk: NotRequired[pulumi.Input[Optional['PhotonPersistentDiskVolumeSourceArgs']]]
+    photon_persistent_disk: NotRequired[pulumi.Input[Optional['PhotonPersistentDiskVolumeSourceArgsDict']]]
     """
     photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine. Deprecated: PhotonPersistentDisk is deprecated and the in-tree photonPersistentDisk type is no longer supported.
     """
-    portworx_volume: NotRequired[pulumi.Input[Optional['PortworxVolumeSourceArgs']]]
+    portworx_volume: NotRequired[pulumi.Input[Optional['PortworxVolumeSourceArgsDict']]]
     """
     portworxVolume represents a portworx volume attached and mounted on kubelets host machine. Deprecated: PortworxVolume is deprecated. All operations for the in-tree portworxVolume type are redirected to the pxd.portworx.com CSI driver.
     """
-    projected: NotRequired[pulumi.Input[Optional['ProjectedVolumeSourceArgs']]]
+    projected: NotRequired[pulumi.Input[Optional['ProjectedVolumeSourceArgsDict']]]
     """
     projected items for all in one resources secrets, configmaps, and downward API
     """
-    quobyte: NotRequired[pulumi.Input[Optional['QuobyteVolumeSourceArgs']]]
+    quobyte: NotRequired[pulumi.Input[Optional['QuobyteVolumeSourceArgsDict']]]
     """
     quobyte represents a Quobyte mount on the host that shares a pod's lifetime. Deprecated: Quobyte is deprecated and the in-tree quobyte type is no longer supported.
     """
-    rbd: NotRequired[pulumi.Input[Optional['RBDVolumeSourceArgs']]]
+    rbd: NotRequired[pulumi.Input[Optional['RBDVolumeSourceArgsDict']]]
     """
     rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. Deprecated: RBD is deprecated and the in-tree rbd type is no longer supported.
     """
-    scale_io: NotRequired[pulumi.Input[Optional['ScaleIOVolumeSourceArgs']]]
+    scale_io: NotRequired[pulumi.Input[Optional['ScaleIOVolumeSourceArgsDict']]]
     """
     scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes. Deprecated: ScaleIO is deprecated and the in-tree scaleIO type is no longer supported.
     """
-    secret: NotRequired[pulumi.Input[Optional['SecretVolumeSourceArgs']]]
+    secret: NotRequired[pulumi.Input[Optional['SecretVolumeSourceArgsDict']]]
     """
     secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
     """
-    storageos: NotRequired[pulumi.Input[Optional['StorageOSVolumeSourceArgs']]]
+    storageos: NotRequired[pulumi.Input[Optional['StorageOSVolumeSourceArgsDict']]]
     """
     storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes. Deprecated: StorageOS is deprecated and the in-tree storageos type is no longer supported.
     """
-    vsphere_volume: NotRequired[pulumi.Input[Optional['VsphereVirtualDiskVolumeSourceArgs']]]
+    vsphere_volume: NotRequired[pulumi.Input[Optional['VsphereVirtualDiskVolumeSourceArgsDict']]]
     """
     vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine. Deprecated: VsphereVolume is deprecated. All operations for the in-tree vsphereVolume type are redirected to the csi.vsphere.vmware.com CSI driver.
     """
@@ -39984,7 +39984,7 @@ class WeightedPodAffinityTermPatchArgsDict(TypedDict):
     """
     The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
     """
-    pod_affinity_term: NotRequired[pulumi.Input[Optional['PodAffinityTermPatchArgs']]]
+    pod_affinity_term: NotRequired[pulumi.Input[Optional['PodAffinityTermPatchArgsDict']]]
     """
     Required. A pod affinity term, associated with the corresponding weight.
     """

@@ -46,7 +46,7 @@ class AggregationRulePatchArgsDict(TypedDict):
     """
     AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     """
-    cluster_role_selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]]]]
+    cluster_role_selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.LabelSelectorPatchArgsDict']]]]]
     """
     ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
     """
@@ -80,7 +80,7 @@ class AggregationRuleArgsDict(TypedDict):
     """
     AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     """
-    cluster_role_selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.LabelSelectorArgs']]]]]
+    cluster_role_selectors: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.LabelSelectorArgsDict']]]]]
     """
     ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
     """
@@ -126,11 +126,11 @@ class ClusterRoleBindingArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata.
     """
-    subjects: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SubjectArgs']]]]]
+    subjects: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SubjectArgsDict']]]]]
     """
     Subjects holds references to the objects the role applies to.
     """
@@ -227,7 +227,7 @@ class ClusterRoleArgsDict(TypedDict):
     """
     ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.20.
     """
-    aggregation_rule: NotRequired[pulumi.Input[Optional['AggregationRuleArgs']]]
+    aggregation_rule: NotRequired[pulumi.Input[Optional['AggregationRuleArgsDict']]]
     """
     AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
     """
@@ -239,11 +239,11 @@ class ClusterRoleArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRuleArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRuleArgsDict']]]]]
     """
     Rules holds all the PolicyRules for this ClusterRole
     """
@@ -580,11 +580,11 @@ class RoleBindingArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata.
     """
-    subjects: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SubjectArgs']]]]]
+    subjects: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SubjectArgsDict']]]]]
     """
     Subjects holds references to the objects the role applies to.
     """
@@ -834,11 +834,11 @@ class RoleArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRuleArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRuleArgsDict']]]]]
     """
     Rules holds all the PolicyRules for this Role
     """

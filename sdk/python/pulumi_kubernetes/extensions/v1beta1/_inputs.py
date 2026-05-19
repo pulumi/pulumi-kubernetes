@@ -551,11 +551,11 @@ class DaemonSetSpecPatchArgsDict(TypedDict):
     """
     The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgsDict']]]
     """
     An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
     """
@@ -563,7 +563,7 @@ class DaemonSetSpecPatchArgsDict(TypedDict):
     """
     DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
     """
-    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyPatchArgs']]]
+    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyPatchArgsDict']]]
     """
     An update strategy to replace existing DaemonSet pods with new pods.
     """
@@ -689,7 +689,7 @@ class DaemonSetSpecArgsDict(TypedDict):
     """
     The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
@@ -697,7 +697,7 @@ class DaemonSetSpecArgsDict(TypedDict):
     """
     DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
     """
-    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyArgs']]]
+    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyArgsDict']]]
     """
     An update strategy to replace existing DaemonSet pods with new pods.
     """
@@ -830,7 +830,7 @@ class DaemonSetStatusArgsDict(TypedDict):
     """
     Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DaemonSetConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DaemonSetConditionArgsDict']]]]]
     """
     Represents the latest available observations of a DaemonSet's current state.
     """
@@ -1017,7 +1017,7 @@ class DaemonSetStatusArgs:
 
 
 class DaemonSetUpdateStrategyPatchArgsDict(TypedDict):
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgsDict']]]
     """
     Rolling update config params. Present only if type = "RollingUpdate".
     """
@@ -1066,7 +1066,7 @@ class DaemonSetUpdateStrategyPatchArgs:
 
 
 class DaemonSetUpdateStrategyArgsDict(TypedDict):
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetArgsDict']]]
     """
     Rolling update config params. Present only if type = "RollingUpdate".
     """
@@ -1126,15 +1126,15 @@ class DaemonSetArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['DaemonSetSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['DaemonSetSpecArgsDict']]]
     """
     The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['DaemonSetStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['DaemonSetStatusArgsDict']]]
     """
     The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -1384,19 +1384,19 @@ class DeploymentSpecPatchArgsDict(TypedDict):
     """
     The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. This is set to the max value of int32 (i.e. 2147483647) by default, which means "retaining all old RelicaSets".
     """
-    rollback_to: NotRequired[pulumi.Input[Optional['RollbackConfigPatchArgs']]]
+    rollback_to: NotRequired[pulumi.Input[Optional['RollbackConfigPatchArgsDict']]]
     """
     DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
     """
-    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyPatchArgs']]]
+    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyPatchArgsDict']]]
     """
     The deployment strategy to use to replace existing pods with new ones.
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgsDict']]]
     """
     Template describes the pods that will be created.
     """
@@ -1582,15 +1582,15 @@ class DeploymentSpecArgsDict(TypedDict):
     """
     The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. This is set to the max value of int32 (i.e. 2147483647) by default, which means "retaining all old RelicaSets".
     """
-    rollback_to: NotRequired[pulumi.Input[Optional['RollbackConfigArgs']]]
+    rollback_to: NotRequired[pulumi.Input[Optional['RollbackConfigArgsDict']]]
     """
     DEPRECATED. The config this deployment is rolling back to. Will be cleared after rollback is done.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
     """
-    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyArgs']]]
+    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyArgsDict']]]
     """
     The deployment strategy to use to replace existing pods with new ones.
     """
@@ -1759,7 +1759,7 @@ class DeploymentStatusArgsDict(TypedDict):
     """
     Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeploymentConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeploymentConditionArgsDict']]]]]
     """
     Represents the latest available observations of a deployment's current state.
     """
@@ -1925,7 +1925,7 @@ class DeploymentStrategyPatchArgsDict(TypedDict):
     """
     DeploymentStrategy describes how to replace existing pods with new ones.
     """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentPatchArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentPatchArgsDict']]]
     """
     Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
     """
@@ -1979,7 +1979,7 @@ class DeploymentStrategyArgsDict(TypedDict):
     """
     DeploymentStrategy describes how to replace existing pods with new ones.
     """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentArgsDict']]]
     """
     Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
     """
@@ -2063,15 +2063,15 @@ class DeploymentArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata.
     """
-    spec: NotRequired[pulumi.Input[Optional['DeploymentSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['DeploymentSpecArgsDict']]]
     """
     Specification of the desired behavior of the Deployment.
     """
-    status: NotRequired[pulumi.Input[Optional['DeploymentStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['DeploymentStatusArgsDict']]]
     """
     Most recently observed status of the Deployment.
     """
@@ -2191,7 +2191,7 @@ class FSGroupStrategyOptionsPatchArgsDict(TypedDict):
     """
     FSGroupStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use FSGroupStrategyOptions from policy API Group instead.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgsDict']]]]]
     """
     ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -2245,7 +2245,7 @@ class FSGroupStrategyOptionsArgsDict(TypedDict):
     """
     FSGroupStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use FSGroupStrategyOptions from policy API Group instead.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgsDict']]]]]
     """
     ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -2299,7 +2299,7 @@ class HTTPIngressPathPatchArgsDict(TypedDict):
     """
     HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
     """
-    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgs']]]
+    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgsDict']]]
     """
     Backend defines the referenced service endpoint to which the traffic will be forwarded to.
     """
@@ -2506,7 +2506,7 @@ class HTTPIngressRuleValuePatchArgsDict(TypedDict):
     """
     HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
     """
-    paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]]]
+    paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HTTPIngressPathPatchArgsDict']]]]]
     """
     A collection of paths that map requests to backends.
     """
@@ -2892,7 +2892,7 @@ class IngressBackendPatchArgsDict(TypedDict):
     """
     IngressBackend describes all endpoints for a given service and port.
     """
-    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgs']]]
+    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferencePatchArgsDict']]]
     """
     Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
     """
@@ -2974,7 +2974,7 @@ class IngressBackendArgsDict(TypedDict):
     """
     Specifies the port of the referenced service.
     """
-    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgs']]]
+    resource: NotRequired[pulumi.Input[Optional['_core.v1.TypedLocalObjectReferenceArgsDict']]]
     """
     Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
     """
@@ -3047,7 +3047,7 @@ class IngressRulePatchArgsDict(TypedDict):
     	  :443 for https.
     Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
     """
-    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValuePatchArgs']]]
+    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValuePatchArgsDict']]]
 
 @pulumi.input_type
 class IngressRulePatchArgs:
@@ -3109,7 +3109,7 @@ class IngressRuleArgsDict(TypedDict):
     	  :443 for https.
     Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
     """
-    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValueArgs']]]
+    http: NotRequired[pulumi.Input[Optional['HTTPIngressRuleValueArgsDict']]]
 
 @pulumi.input_type
 class IngressRuleArgs:
@@ -3162,7 +3162,7 @@ class IngressSpecPatchArgsDict(TypedDict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
-    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgs']]]
+    backend: NotRequired[pulumi.Input[Optional['IngressBackendPatchArgsDict']]]
     """
     A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
     """
@@ -3170,11 +3170,11 @@ class IngressSpecPatchArgsDict(TypedDict):
     """
     IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRulePatchArgsDict']]]]]
     """
     A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
     """
-    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgs']]]]]
+    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSPatchArgsDict']]]]]
     """
     TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
     """
@@ -3256,7 +3256,7 @@ class IngressSpecArgsDict(TypedDict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
-    backend: NotRequired[pulumi.Input[Optional['IngressBackendArgs']]]
+    backend: NotRequired[pulumi.Input[Optional['IngressBackendArgsDict']]]
     """
     A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
     """
@@ -3264,11 +3264,11 @@ class IngressSpecArgsDict(TypedDict):
     """
     IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
     """
-    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgs']]]]]
+    rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressRuleArgsDict']]]]]
     """
     A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
     """
-    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgs']]]]]
+    tls: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IngressTLSArgsDict']]]]]
     """
     TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
     """
@@ -3350,7 +3350,7 @@ class IngressStatusArgsDict(TypedDict):
     """
     IngressStatus describe the current state of the Ingress.
     """
-    load_balancer: NotRequired[pulumi.Input[Optional['_core.v1.LoadBalancerStatusArgs']]]
+    load_balancer: NotRequired[pulumi.Input[Optional['_core.v1.LoadBalancerStatusArgsDict']]]
     """
     LoadBalancer contains the current status of the load-balancer.
     """
@@ -3514,15 +3514,15 @@ class IngressArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['IngressSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['IngressSpecArgsDict']]]
     """
     Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['IngressStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['IngressStatusArgsDict']]]
     """
     Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -3634,11 +3634,11 @@ class NetworkPolicyEgressRulePatchArgsDict(TypedDict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicyEgressRule is deprecated by networking/v1/NetworkPolicyEgressRule. NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgsDict']]]]]
     """
     List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
-    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]]
+    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgsDict']]]]]
     """
     List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
     """
@@ -3688,11 +3688,11 @@ class NetworkPolicyEgressRuleArgsDict(TypedDict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicyEgressRule is deprecated by networking/v1/NetworkPolicyEgressRule. NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgsDict']]]]]
     """
     List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
-    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]]
+    to: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgsDict']]]]]
     """
     List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
     """
@@ -3742,11 +3742,11 @@ class NetworkPolicyIngressRulePatchArgsDict(TypedDict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by networking/v1/NetworkPolicyIngressRule. This NetworkPolicyIngressRule matches traffic if and only if the traffic matches both ports AND from.
     """
-    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]]]
+    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgsDict']]]]]
     """
     List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortPatchArgsDict']]]]]
     """
     List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
@@ -3796,11 +3796,11 @@ class NetworkPolicyIngressRuleArgsDict(TypedDict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by networking/v1/NetworkPolicyIngressRule. This NetworkPolicyIngressRule matches traffic if and only if the traffic matches both ports AND from.
     """
-    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]]]
+    from_: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPeerArgsDict']]]]]
     """
     List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyPortArgsDict']]]]]
     """
     List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
     """
@@ -3850,17 +3850,17 @@ class NetworkPolicyPeerPatchArgsDict(TypedDict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by networking/v1/NetworkPolicyPeer.
     """
-    ip_block: NotRequired[pulumi.Input[Optional['IPBlockPatchArgs']]]
+    ip_block: NotRequired[pulumi.Input[Optional['IPBlockPatchArgsDict']]]
     """
     IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
     """
-    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 
     If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
     """
-    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 
@@ -3936,17 +3936,17 @@ class NetworkPolicyPeerArgsDict(TypedDict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by networking/v1/NetworkPolicyPeer.
     """
-    ip_block: NotRequired[pulumi.Input[Optional['IPBlockArgs']]]
+    ip_block: NotRequired[pulumi.Input[Optional['IPBlockArgsDict']]]
     """
     IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
     """
-    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 
     If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
     """
-    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 
@@ -4130,15 +4130,15 @@ class NetworkPolicySpecPatchArgsDict(TypedDict):
     """
     DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by networking/v1/NetworkPolicySpec.
     """
-    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]]]
+    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgsDict']]]]]
     """
     List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
     """
-    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]]]
+    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgsDict']]]]]
     """
     List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
     """
-    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    pod_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
     """
@@ -4228,11 +4228,11 @@ class NetworkPolicySpecArgsDict(TypedDict):
     """
     Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
     """
-    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]]]
+    egress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgsDict']]]]]
     """
     List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
     """
-    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]]]
+    ingress: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgsDict']]]]]
     """
     List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
     """
@@ -4325,11 +4325,11 @@ class NetworkPolicyArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['NetworkPolicySpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['NetworkPolicySpecArgsDict']]]
     """
     Specification of the desired behavior for this NetworkPolicy.
     """
@@ -4415,7 +4415,7 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
     """
     allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
     """
-    allowed_csi_drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedCSIDriverPatchArgs']]]]]
+    allowed_csi_drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedCSIDriverPatchArgsDict']]]]]
     """
     AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes.
     """
@@ -4423,11 +4423,11 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
     """
     allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
     """
-    allowed_flex_volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedFlexVolumePatchArgs']]]]]
+    allowed_flex_volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedFlexVolumePatchArgsDict']]]]]
     """
     allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
     """
-    allowed_host_paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedHostPathPatchArgs']]]]]
+    allowed_host_paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedHostPathPatchArgsDict']]]]]
     """
     allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
     """
@@ -4455,7 +4455,7 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
 
     Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
     """
-    fs_group: NotRequired[pulumi.Input[Optional['FSGroupStrategyOptionsPatchArgs']]]
+    fs_group: NotRequired[pulumi.Input[Optional['FSGroupStrategyOptionsPatchArgsDict']]]
     """
     fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
     """
@@ -4471,7 +4471,7 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
     """
     hostPID determines if the policy allows the use of HostPID in the pod spec.
     """
-    host_ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostPortRangePatchArgs']]]]]
+    host_ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostPortRangePatchArgsDict']]]]]
     """
     hostPorts determines which host port ranges are allowed to be exposed.
     """
@@ -4487,23 +4487,23 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
     """
     requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
     """
-    run_as_group: NotRequired[pulumi.Input[Optional['RunAsGroupStrategyOptionsPatchArgs']]]
+    run_as_group: NotRequired[pulumi.Input[Optional['RunAsGroupStrategyOptionsPatchArgsDict']]]
     """
     RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
     """
-    run_as_user: NotRequired[pulumi.Input[Optional['RunAsUserStrategyOptionsPatchArgs']]]
+    run_as_user: NotRequired[pulumi.Input[Optional['RunAsUserStrategyOptionsPatchArgsDict']]]
     """
     runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
     """
-    runtime_class: NotRequired[pulumi.Input[Optional['RuntimeClassStrategyOptionsPatchArgs']]]
+    runtime_class: NotRequired[pulumi.Input[Optional['RuntimeClassStrategyOptionsPatchArgsDict']]]
     """
     runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
     """
-    se_linux: NotRequired[pulumi.Input[Optional['SELinuxStrategyOptionsPatchArgs']]]
+    se_linux: NotRequired[pulumi.Input[Optional['SELinuxStrategyOptionsPatchArgsDict']]]
     """
     seLinux is the strategy that will dictate the allowable labels that may be set.
     """
-    supplemental_groups: NotRequired[pulumi.Input[Optional['SupplementalGroupsStrategyOptionsPatchArgs']]]
+    supplemental_groups: NotRequired[pulumi.Input[Optional['SupplementalGroupsStrategyOptionsPatchArgsDict']]]
     """
     supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
     """
@@ -4937,7 +4937,7 @@ class PodSecurityPolicySpecArgsDict(TypedDict):
     """
     allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
     """
-    allowed_csi_drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedCSIDriverArgs']]]]]
+    allowed_csi_drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedCSIDriverArgsDict']]]]]
     """
     AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes.
     """
@@ -4945,11 +4945,11 @@ class PodSecurityPolicySpecArgsDict(TypedDict):
     """
     allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
     """
-    allowed_flex_volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedFlexVolumeArgs']]]]]
+    allowed_flex_volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedFlexVolumeArgsDict']]]]]
     """
     allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
     """
-    allowed_host_paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedHostPathArgs']]]]]
+    allowed_host_paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedHostPathArgsDict']]]]]
     """
     allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
     """
@@ -4989,7 +4989,7 @@ class PodSecurityPolicySpecArgsDict(TypedDict):
     """
     hostPID determines if the policy allows the use of HostPID in the pod spec.
     """
-    host_ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostPortRangeArgs']]]]]
+    host_ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostPortRangeArgsDict']]]]]
     """
     hostPorts determines which host port ranges are allowed to be exposed.
     """
@@ -5005,11 +5005,11 @@ class PodSecurityPolicySpecArgsDict(TypedDict):
     """
     requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
     """
-    run_as_group: NotRequired[pulumi.Input[Optional['RunAsGroupStrategyOptionsArgs']]]
+    run_as_group: NotRequired[pulumi.Input[Optional['RunAsGroupStrategyOptionsArgsDict']]]
     """
     RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
     """
-    runtime_class: NotRequired[pulumi.Input[Optional['RuntimeClassStrategyOptionsArgs']]]
+    runtime_class: NotRequired[pulumi.Input[Optional['RuntimeClassStrategyOptionsArgsDict']]]
     """
     runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
     """
@@ -5427,11 +5427,11 @@ class PodSecurityPolicyArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PodSecurityPolicySpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PodSecurityPolicySpecArgsDict']]]
     """
     spec defines the policy enforced.
     """
@@ -5633,11 +5633,11 @@ class ReplicaSetSpecPatchArgsDict(TypedDict):
     """
     Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgsDict']]]
     """
     Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
     """
@@ -5727,11 +5727,11 @@ class ReplicaSetSpecArgsDict(TypedDict):
     """
     Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecArgsDict']]]
     """
     Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
     """
@@ -5821,7 +5821,7 @@ class ReplicaSetStatusArgsDict(TypedDict):
     """
     The number of available replicas (ready for at least minReadySeconds) for this replica set.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ReplicaSetConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ReplicaSetConditionArgsDict']]]]]
     """
     Represents the latest available observations of a replica set's current state.
     """
@@ -5954,15 +5954,15 @@ class ReplicaSetArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['ReplicaSetSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ReplicaSetSpecArgsDict']]]
     """
     Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['ReplicaSetStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ReplicaSetStatusArgsDict']]]
     """
     Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -6304,7 +6304,7 @@ class RunAsGroupStrategyOptionsPatchArgsDict(TypedDict):
     """
     RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgsDict']]]]]
     """
     ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -6362,7 +6362,7 @@ class RunAsGroupStrategyOptionsArgsDict(TypedDict):
     """
     rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgsDict']]]]]
     """
     ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -6411,7 +6411,7 @@ class RunAsUserStrategyOptionsPatchArgsDict(TypedDict):
     """
     RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsUserStrategyOptions from policy API Group instead.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgsDict']]]]]
     """
     ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -6469,7 +6469,7 @@ class RunAsUserStrategyOptionsArgsDict(TypedDict):
     """
     rule is the strategy that will dictate the allowable RunAsUser values that may be set.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgsDict']]]]]
     """
     ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -6629,7 +6629,7 @@ class SELinuxStrategyOptionsPatchArgsDict(TypedDict):
     """
     rule is the strategy that will dictate the allowable labels that may be set.
     """
-    se_linux_options: NotRequired[pulumi.Input[Optional['_core.v1.SELinuxOptionsPatchArgs']]]
+    se_linux_options: NotRequired[pulumi.Input[Optional['_core.v1.SELinuxOptionsPatchArgsDict']]]
     """
     seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     """
@@ -6683,7 +6683,7 @@ class SELinuxStrategyOptionsArgsDict(TypedDict):
     """
     rule is the strategy that will dictate the allowable labels that may be set.
     """
-    se_linux_options: NotRequired[pulumi.Input[Optional['_core.v1.SELinuxOptionsArgs']]]
+    se_linux_options: NotRequired[pulumi.Input[Optional['_core.v1.SELinuxOptionsArgsDict']]]
     """
     seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     """
@@ -6732,7 +6732,7 @@ class SupplementalGroupsStrategyOptionsPatchArgsDict(TypedDict):
     """
     SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgsDict']]]]]
     """
     ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -6786,7 +6786,7 @@ class SupplementalGroupsStrategyOptionsArgsDict(TypedDict):
     """
     SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgsDict']]]]]
     """
     ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
     """

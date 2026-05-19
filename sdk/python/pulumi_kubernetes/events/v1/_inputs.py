@@ -159,7 +159,7 @@ class EventArgsDict(TypedDict):
     """
     deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
     """
-    deprecated_source: NotRequired[pulumi.Input[Optional['_core.v1.EventSourceArgs']]]
+    deprecated_source: NotRequired[pulumi.Input[Optional['_core.v1.EventSourceArgsDict']]]
     """
     deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
     """
@@ -167,7 +167,7 @@ class EventArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
@@ -179,11 +179,11 @@ class EventArgsDict(TypedDict):
     """
     reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
     """
-    regarding: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]]
+    regarding: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgsDict']]]
     """
     regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
     """
-    related: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]]
+    related: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgsDict']]]
     """
     related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
     """
@@ -195,7 +195,7 @@ class EventArgsDict(TypedDict):
     """
     reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
     """
-    series: NotRequired[pulumi.Input[Optional['EventSeriesArgs']]]
+    series: NotRequired[pulumi.Input[Optional['EventSeriesArgsDict']]]
     """
     series is data about the Event series this event represents or nil if it's a singleton Event.
     """

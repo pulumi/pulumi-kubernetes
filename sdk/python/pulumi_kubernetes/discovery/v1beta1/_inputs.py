@@ -189,7 +189,7 @@ class EndpointPatchArgsDict(TypedDict):
     """
     addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
     """
-    conditions: NotRequired[pulumi.Input[Optional['EndpointConditionsPatchArgs']]]
+    conditions: NotRequired[pulumi.Input[Optional['EndpointConditionsPatchArgsDict']]]
     """
     conditions contains information about the current status of the endpoint.
     """
@@ -201,7 +201,7 @@ class EndpointPatchArgsDict(TypedDict):
     """
     nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
     """
-    target_ref: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferencePatchArgs']]]
+    target_ref: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferencePatchArgsDict']]]
     """
     targetRef is a reference to a Kubernetes object that represents this endpoint.
     """
@@ -541,11 +541,11 @@ class EndpointSliceArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata.
     """
-    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointPortArgs']]]]]
+    ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['EndpointPortArgsDict']]]]]
     """
     ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
     """
@@ -661,7 +661,7 @@ class EndpointArgsDict(TypedDict):
     """
     addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
     """
-    conditions: NotRequired[pulumi.Input[Optional['EndpointConditionsArgs']]]
+    conditions: NotRequired[pulumi.Input[Optional['EndpointConditionsArgsDict']]]
     """
     conditions contains information about the current status of the endpoint.
     """
@@ -673,7 +673,7 @@ class EndpointArgsDict(TypedDict):
     """
     nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
     """
-    target_ref: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]]
+    target_ref: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgsDict']]]
     """
     targetRef is a reference to a Kubernetes object that represents this endpoint.
     """

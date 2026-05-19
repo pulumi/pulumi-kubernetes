@@ -38,7 +38,7 @@ class PodDisruptionBudgetSpecPatchArgsDict(TypedDict):
     """
     An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
     """
@@ -156,7 +156,7 @@ class PodDisruptionBudgetSpecArgsDict(TypedDict):
     """
     An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
     """
@@ -282,7 +282,7 @@ class PodDisruptionBudgetStatusArgsDict(TypedDict):
     """
     total number of pods counted by this disruption budget
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
                   the number of allowed disruptions. Therefore no disruptions are
@@ -448,15 +448,15 @@ class PodDisruptionBudgetArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetSpecArgsDict']]]
     """
     Specification of the desired behavior of the PodDisruptionBudget.
     """
-    status: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetStatusArgsDict']]]
     """
     Most recently observed status of the PodDisruptionBudget.
     """

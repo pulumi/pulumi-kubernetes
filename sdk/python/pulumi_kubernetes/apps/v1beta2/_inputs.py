@@ -97,7 +97,7 @@ class ControllerRevisionArgsDict(TypedDict):
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    data: NotRequired[Optional[Any]]
+    data: NotRequired[Any]
     """
     Data is the serialized representation of the state.
     """
@@ -105,7 +105,7 @@ class ControllerRevisionArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
@@ -322,15 +322,15 @@ class DaemonSetSpecPatchArgsDict(TypedDict):
     """
     The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgsDict']]]
     """
     An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
     """
-    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyPatchArgs']]]
+    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyPatchArgsDict']]]
     """
     An update strategy to replace existing DaemonSet pods with new pods.
     """
@@ -444,7 +444,7 @@ class DaemonSetSpecArgsDict(TypedDict):
     """
     The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
     """
-    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyArgs']]]
+    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyArgsDict']]]
     """
     An update strategy to replace existing DaemonSet pods with new pods.
     """
@@ -560,7 +560,7 @@ class DaemonSetStatusArgsDict(TypedDict):
     """
     Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DaemonSetConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DaemonSetConditionArgsDict']]]]]
     """
     Represents the latest available observations of a DaemonSet's current state.
     """
@@ -750,7 +750,7 @@ class DaemonSetUpdateStrategyPatchArgsDict(TypedDict):
     """
     DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
     """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgsDict']]]
     """
     Rolling update config params. Present only if type = "RollingUpdate".
     """
@@ -804,7 +804,7 @@ class DaemonSetUpdateStrategyArgsDict(TypedDict):
     """
     DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
     """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetArgsDict']]]
     """
     Rolling update config params. Present only if type = "RollingUpdate".
     """
@@ -866,15 +866,15 @@ class DaemonSetArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['DaemonSetSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['DaemonSetSpecArgsDict']]]
     """
     The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['DaemonSetStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['DaemonSetStatusArgsDict']]]
     """
     The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -1124,15 +1124,15 @@ class DeploymentSpecPatchArgsDict(TypedDict):
     """
     The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
     """
-    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyPatchArgs']]]
+    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyPatchArgsDict']]]
     """
     The deployment strategy to use to replace existing pods with new ones.
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgsDict']]]
     """
     Template describes the pods that will be created.
     """
@@ -1306,7 +1306,7 @@ class DeploymentSpecArgsDict(TypedDict):
     """
     The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
     """
-    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyArgs']]]
+    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyArgsDict']]]
     """
     The deployment strategy to use to replace existing pods with new ones.
     """
@@ -1458,7 +1458,7 @@ class DeploymentStatusArgsDict(TypedDict):
     """
     Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeploymentConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DeploymentConditionArgsDict']]]]]
     """
     Represents the latest available observations of a deployment's current state.
     """
@@ -1624,7 +1624,7 @@ class DeploymentStrategyPatchArgsDict(TypedDict):
     """
     DeploymentStrategy describes how to replace existing pods with new ones.
     """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentPatchArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentPatchArgsDict']]]
     """
     Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
     """
@@ -1678,7 +1678,7 @@ class DeploymentStrategyArgsDict(TypedDict):
     """
     DeploymentStrategy describes how to replace existing pods with new ones.
     """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentArgsDict']]]
     """
     Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
     """
@@ -1762,15 +1762,15 @@ class DeploymentArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata.
     """
-    spec: NotRequired[pulumi.Input[Optional['DeploymentSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['DeploymentSpecArgsDict']]]
     """
     Specification of the desired behavior of the Deployment.
     """
-    status: NotRequired[pulumi.Input[Optional['DeploymentStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['DeploymentStatusArgsDict']]]
     """
     Most recently observed status of the Deployment.
     """
@@ -2010,11 +2010,11 @@ class ReplicaSetSpecPatchArgsDict(TypedDict):
     """
     Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgsDict']]]
     """
     Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
     """
@@ -2108,7 +2108,7 @@ class ReplicaSetSpecArgsDict(TypedDict):
     """
     Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecArgsDict']]]
     """
     Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
     """
@@ -2197,7 +2197,7 @@ class ReplicaSetStatusArgsDict(TypedDict):
     """
     The number of available replicas (ready for at least minReadySeconds) for this replica set.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ReplicaSetConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ReplicaSetConditionArgsDict']]]]]
     """
     Represents the latest available observations of a replica set's current state.
     """
@@ -2330,15 +2330,15 @@ class ReplicaSetArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['ReplicaSetSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ReplicaSetSpecArgsDict']]]
     """
     Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['ReplicaSetStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ReplicaSetStatusArgsDict']]]
     """
     Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -2804,7 +2804,7 @@ class StatefulSetSpecPatchArgsDict(TypedDict):
     """
     revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
@@ -2812,15 +2812,15 @@ class StatefulSetSpecPatchArgsDict(TypedDict):
     """
     serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
     """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]]
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgsDict']]]
     """
     template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
     """
-    update_strategy: NotRequired[pulumi.Input[Optional['StatefulSetUpdateStrategyPatchArgs']]]
+    update_strategy: NotRequired[pulumi.Input[Optional['StatefulSetUpdateStrategyPatchArgsDict']]]
     """
     updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
     """
-    volume_claim_templates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimPatchArgs']]]]]
+    volume_claim_templates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimPatchArgsDict']]]]]
     """
     volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
     """
@@ -2990,11 +2990,11 @@ class StatefulSetSpecArgsDict(TypedDict):
     """
     revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
     """
-    update_strategy: NotRequired[pulumi.Input[Optional['StatefulSetUpdateStrategyArgs']]]
+    update_strategy: NotRequired[pulumi.Input[Optional['StatefulSetUpdateStrategyArgsDict']]]
     """
     updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
     """
-    volume_claim_templates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]]]
+    volume_claim_templates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgsDict']]]]]
     """
     volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
     """
@@ -3145,7 +3145,7 @@ class StatefulSetStatusArgsDict(TypedDict):
     """
     collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['StatefulSetConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['StatefulSetConditionArgsDict']]]]]
     """
     Represents the latest available observations of a statefulset's current state.
     """
@@ -3330,7 +3330,7 @@ class StatefulSetUpdateStrategyPatchArgsDict(TypedDict):
     """
     StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
     """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgsDict']]]
     """
     RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
     """
@@ -3384,7 +3384,7 @@ class StatefulSetUpdateStrategyArgsDict(TypedDict):
     """
     StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
     """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateStatefulSetStrategyArgs']]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateStatefulSetStrategyArgsDict']]]
     """
     RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
     """
@@ -3462,12 +3462,12 @@ class StatefulSetArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
-    spec: NotRequired[pulumi.Input[Optional['StatefulSetSpecArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    spec: NotRequired[pulumi.Input[Optional['StatefulSetSpecArgsDict']]]
     """
     Spec defines the desired identities of pods in this set.
     """
-    status: NotRequired[pulumi.Input[Optional['StatefulSetStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['StatefulSetStatusArgsDict']]]
     """
     Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
     """

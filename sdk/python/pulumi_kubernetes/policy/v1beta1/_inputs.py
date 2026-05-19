@@ -335,7 +335,7 @@ class FSGroupStrategyOptionsPatchArgsDict(TypedDict):
     """
     FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgsDict']]]]]
     """
     ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -389,7 +389,7 @@ class FSGroupStrategyOptionsArgsDict(TypedDict):
     """
     FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgsDict']]]]]
     """
     ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -663,7 +663,7 @@ class PodDisruptionBudgetSpecPatchArgsDict(TypedDict):
     """
     An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     Label query over pods whose evictions are managed by the disruption budget.
     """
@@ -737,7 +737,7 @@ class PodDisruptionBudgetSpecArgsDict(TypedDict):
     """
     An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     Label query over pods whose evictions are managed by the disruption budget.
     """
@@ -941,12 +941,12 @@ class PodDisruptionBudgetArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
-    spec: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    spec: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetSpecArgsDict']]]
     """
     Specification of the desired behavior of the PodDisruptionBudget.
     """
-    status: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetStatusArgsDict']]]
     """
     Most recently observed status of the PodDisruptionBudget.
     """
@@ -1044,7 +1044,7 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
     """
     allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
     """
-    allowed_csi_drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedCSIDriverPatchArgs']]]]]
+    allowed_csi_drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedCSIDriverPatchArgsDict']]]]]
     """
     AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
     """
@@ -1052,11 +1052,11 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
     """
     allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
     """
-    allowed_flex_volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedFlexVolumePatchArgs']]]]]
+    allowed_flex_volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedFlexVolumePatchArgsDict']]]]]
     """
     allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
     """
-    allowed_host_paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedHostPathPatchArgs']]]]]
+    allowed_host_paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedHostPathPatchArgsDict']]]]]
     """
     allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
     """
@@ -1084,7 +1084,7 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
 
     Examples: e.g. "foo/*" forbids "foo/bar", "foo/baz", etc. e.g. "foo.*" forbids "foo.bar", "foo.baz", etc.
     """
-    fs_group: NotRequired[pulumi.Input[Optional['FSGroupStrategyOptionsPatchArgs']]]
+    fs_group: NotRequired[pulumi.Input[Optional['FSGroupStrategyOptionsPatchArgsDict']]]
     """
     fsGroup is the strategy that will dictate what fs group is used by the SecurityContext.
     """
@@ -1100,7 +1100,7 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
     """
     hostPID determines if the policy allows the use of HostPID in the pod spec.
     """
-    host_ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostPortRangePatchArgs']]]]]
+    host_ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostPortRangePatchArgsDict']]]]]
     """
     hostPorts determines which host port ranges are allowed to be exposed.
     """
@@ -1116,23 +1116,23 @@ class PodSecurityPolicySpecPatchArgsDict(TypedDict):
     """
     requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
     """
-    run_as_group: NotRequired[pulumi.Input[Optional['RunAsGroupStrategyOptionsPatchArgs']]]
+    run_as_group: NotRequired[pulumi.Input[Optional['RunAsGroupStrategyOptionsPatchArgsDict']]]
     """
     RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
     """
-    run_as_user: NotRequired[pulumi.Input[Optional['RunAsUserStrategyOptionsPatchArgs']]]
+    run_as_user: NotRequired[pulumi.Input[Optional['RunAsUserStrategyOptionsPatchArgsDict']]]
     """
     runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set.
     """
-    runtime_class: NotRequired[pulumi.Input[Optional['RuntimeClassStrategyOptionsPatchArgs']]]
+    runtime_class: NotRequired[pulumi.Input[Optional['RuntimeClassStrategyOptionsPatchArgsDict']]]
     """
     runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
     """
-    se_linux: NotRequired[pulumi.Input[Optional['SELinuxStrategyOptionsPatchArgs']]]
+    se_linux: NotRequired[pulumi.Input[Optional['SELinuxStrategyOptionsPatchArgsDict']]]
     """
     seLinux is the strategy that will dictate the allowable labels that may be set.
     """
-    supplemental_groups: NotRequired[pulumi.Input[Optional['SupplementalGroupsStrategyOptionsPatchArgs']]]
+    supplemental_groups: NotRequired[pulumi.Input[Optional['SupplementalGroupsStrategyOptionsPatchArgsDict']]]
     """
     supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
     """
@@ -1566,7 +1566,7 @@ class PodSecurityPolicySpecArgsDict(TypedDict):
     """
     allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
     """
-    allowed_csi_drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedCSIDriverArgs']]]]]
+    allowed_csi_drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedCSIDriverArgsDict']]]]]
     """
     AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
     """
@@ -1574,11 +1574,11 @@ class PodSecurityPolicySpecArgsDict(TypedDict):
     """
     allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
     """
-    allowed_flex_volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedFlexVolumeArgs']]]]]
+    allowed_flex_volumes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedFlexVolumeArgsDict']]]]]
     """
     allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
     """
-    allowed_host_paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedHostPathArgs']]]]]
+    allowed_host_paths: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AllowedHostPathArgsDict']]]]]
     """
     allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
     """
@@ -1618,7 +1618,7 @@ class PodSecurityPolicySpecArgsDict(TypedDict):
     """
     hostPID determines if the policy allows the use of HostPID in the pod spec.
     """
-    host_ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostPortRangeArgs']]]]]
+    host_ports: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['HostPortRangeArgsDict']]]]]
     """
     hostPorts determines which host port ranges are allowed to be exposed.
     """
@@ -1634,11 +1634,11 @@ class PodSecurityPolicySpecArgsDict(TypedDict):
     """
     requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
     """
-    run_as_group: NotRequired[pulumi.Input[Optional['RunAsGroupStrategyOptionsArgs']]]
+    run_as_group: NotRequired[pulumi.Input[Optional['RunAsGroupStrategyOptionsArgsDict']]]
     """
     RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
     """
-    runtime_class: NotRequired[pulumi.Input[Optional['RuntimeClassStrategyOptionsArgs']]]
+    runtime_class: NotRequired[pulumi.Input[Optional['RuntimeClassStrategyOptionsArgsDict']]]
     """
     runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
     """
@@ -2056,11 +2056,11 @@ class PodSecurityPolicyArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PodSecurityPolicySpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['PodSecurityPolicySpecArgsDict']]]
     """
     spec defines the policy enforced.
     """
@@ -2142,7 +2142,7 @@ class RunAsGroupStrategyOptionsPatchArgsDict(TypedDict):
     """
     RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgsDict']]]]]
     """
     ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -2200,7 +2200,7 @@ class RunAsGroupStrategyOptionsArgsDict(TypedDict):
     """
     rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgsDict']]]]]
     """
     ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -2249,7 +2249,7 @@ class RunAsUserStrategyOptionsPatchArgsDict(TypedDict):
     """
     RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgsDict']]]]]
     """
     ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -2307,7 +2307,7 @@ class RunAsUserStrategyOptionsArgsDict(TypedDict):
     """
     rule is the strategy that will dictate the allowable RunAsUser values that may be set.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgsDict']]]]]
     """
     ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -2467,7 +2467,7 @@ class SELinuxStrategyOptionsPatchArgsDict(TypedDict):
     """
     rule is the strategy that will dictate the allowable labels that may be set.
     """
-    se_linux_options: NotRequired[pulumi.Input[Optional['_core.v1.SELinuxOptionsPatchArgs']]]
+    se_linux_options: NotRequired[pulumi.Input[Optional['_core.v1.SELinuxOptionsPatchArgsDict']]]
     """
     seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     """
@@ -2521,7 +2521,7 @@ class SELinuxStrategyOptionsArgsDict(TypedDict):
     """
     rule is the strategy that will dictate the allowable labels that may be set.
     """
-    se_linux_options: NotRequired[pulumi.Input[Optional['_core.v1.SELinuxOptionsArgs']]]
+    se_linux_options: NotRequired[pulumi.Input[Optional['_core.v1.SELinuxOptionsArgsDict']]]
     """
     seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     """
@@ -2570,7 +2570,7 @@ class SupplementalGroupsStrategyOptionsPatchArgsDict(TypedDict):
     """
     SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangePatchArgsDict']]]]]
     """
     ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
     """
@@ -2624,7 +2624,7 @@ class SupplementalGroupsStrategyOptionsArgsDict(TypedDict):
     """
     SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy.
     """
-    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgs']]]]]
+    ranges: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['IDRangeArgsDict']]]]]
     """
     ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
     """
