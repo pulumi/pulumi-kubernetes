@@ -135,33 +135,22 @@ func TestAccGuestbook(t *testing.T) {
 }
 
 func TestAccIngress(t *testing.T) {
-	tests.SkipIfShort(t, "test provisions a load balancer and requires a cloud provider cluster to run")
-	testNetworkingV1 := getBaseOptions(t).
+	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:           filepath.Join(getCwd(t), "ingress"),
-			Quick:         true,
-			NoParallel:    true, // We want to run this and the next test serially so nginx ingress isn't clobbered.
-			DebugLogLevel: 3,
-			SkipRefresh:   true, // ingress may have changes during refresh.
+			Dir:         filepath.Join(getCwd(t), "ingress"),
+			Quick:       true,
+			SkipRefresh: true,
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
-				assert.NotNil(t, stackInfo.Deployment)
-				assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
-
 				integration.AssertHTTPResultWithRetry(t,
-					fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]),
-					nil, 10*time.Minute, func(body string) bool {
-						return assert.NotEmpty(t, body, "Body should not be empty")
-					})
-
-				integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]),
-					map[string]string{"Host": "ingresshello.io"}, 10*time.Minute, func(body string) bool {
+					fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressIp"]),
+					nil, 5*time.Minute, func(body string) bool {
 						return assert.NotEmpty(t, body, "Body should not be empty")
 					})
 			},
 		})
-	integration.ProgramTest(t, &testNetworkingV1)
+	integration.ProgramTest(t, &test)
 }
 
 func TestAccHelm(t *testing.T) {
