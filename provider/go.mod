@@ -18,8 +18,8 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.106.2
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.31.0
-	github.com/pulumi/pulumi/pkg/v3 v3.241.0
-	github.com/pulumi/pulumi/sdk/v3 v3.241.0
+	github.com/pulumi/pulumi/pkg/v3 v3.242.0
+	github.com/pulumi/pulumi/sdk/v3 v3.242.0
 	github.com/stretchr/testify v1.11.1
 	github.com/theory/jsonpath v0.9.0
 	golang.org/x/crypto v0.51.0
@@ -241,8 +241,8 @@ require (
 	golang.org/x/term v0.43.0 // indirect
 	golang.org/x/text v0.37.0
 	golang.org/x/time v0.15.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20260511170946-3700d4141b60 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260511170946-3700d4141b60 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20260519071638-aa98bba5eb94 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260519071638-aa98bba5eb94 // indirect
 	google.golang.org/protobuf v1.36.12-0.20260120151049-f2248ac996af
 	gopkg.in/evanphx/json-patch.v4 v4.13.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect

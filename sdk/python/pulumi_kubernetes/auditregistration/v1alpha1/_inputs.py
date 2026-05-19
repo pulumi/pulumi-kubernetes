@@ -48,11 +48,11 @@ class AuditSinkSpecPatchArgsDict(TypedDict):
     """
     AuditSinkSpec holds the spec for the audit sink
     """
-    policy: NotRequired[pulumi.Input[Optional['PolicyPatchArgs']]]
+    policy: NotRequired[pulumi.Input[Optional['PolicyPatchArgsDict']]]
     """
     Policy defines the policy for selecting which events should be sent to the webhook required
     """
-    webhook: NotRequired[pulumi.Input[Optional['WebhookPatchArgs']]]
+    webhook: NotRequired[pulumi.Input[Optional['WebhookPatchArgsDict']]]
     """
     Webhook to send events required
     """
@@ -162,8 +162,8 @@ class AuditSinkArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
-    spec: NotRequired[pulumi.Input[Optional['AuditSinkSpecArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    spec: NotRequired[pulumi.Input[Optional['AuditSinkSpecArgsDict']]]
     """
     Spec defines the audit configuration spec
     """
@@ -538,7 +538,7 @@ class WebhookClientConfigPatchArgsDict(TypedDict):
     """
     `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
     """
-    service: NotRequired[pulumi.Input[Optional['ServiceReferencePatchArgs']]]
+    service: NotRequired[pulumi.Input[Optional['ServiceReferencePatchArgsDict']]]
     """
     `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 
@@ -648,7 +648,7 @@ class WebhookClientConfigArgsDict(TypedDict):
     """
     `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
     """
-    service: NotRequired[pulumi.Input[Optional['ServiceReferenceArgs']]]
+    service: NotRequired[pulumi.Input[Optional['ServiceReferenceArgsDict']]]
     """
     `service` is a reference to the service for this webhook. Either `service` or `url` must be specified.
 
@@ -754,11 +754,11 @@ class WebhookPatchArgsDict(TypedDict):
     """
     Webhook holds the configuration of the webhook
     """
-    client_config: NotRequired[pulumi.Input[Optional['WebhookClientConfigPatchArgs']]]
+    client_config: NotRequired[pulumi.Input[Optional['WebhookClientConfigPatchArgsDict']]]
     """
     ClientConfig holds the connection parameters for the webhook required
     """
-    throttle: NotRequired[pulumi.Input[Optional['WebhookThrottleConfigPatchArgs']]]
+    throttle: NotRequired[pulumi.Input[Optional['WebhookThrottleConfigPatchArgsDict']]]
     """
     Throttle holds the options for throttling the webhook
     """
@@ -920,7 +920,7 @@ class WebhookArgsDict(TypedDict):
     """
     ClientConfig holds the connection parameters for the webhook required
     """
-    throttle: NotRequired[pulumi.Input[Optional['WebhookThrottleConfigArgs']]]
+    throttle: NotRequired[pulumi.Input[Optional['WebhookThrottleConfigArgsDict']]]
     """
     Throttle holds the options for throttling the webhook
     """

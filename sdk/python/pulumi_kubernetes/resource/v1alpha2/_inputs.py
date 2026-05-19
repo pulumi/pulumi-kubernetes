@@ -119,13 +119,13 @@ class AllocationResultArgsDict(TypedDict):
     """
     AllocationResult contains attributes of an allocated resource.
     """
-    available_on_nodes: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgs']]]
+    available_on_nodes: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgsDict']]]
     """
     This field will get set by the resource driver after it has allocated the resource to inform the scheduler where it can schedule Pods using the ResourceClaim.
 
     Setting this field is optional. If null, the resource is available everywhere.
     """
-    resource_handles: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceHandleArgs']]]]]
+    resource_handles: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceHandleArgsDict']]]]]
     """
     ResourceHandles contain the state associated with an allocation that should be maintained throughout the lifetime of a claim. Each ResourceHandle contains data that should be passed to a specific kubelet plugin once it lands on a node. This data is returned by the driver after a successful allocation and is opaque to Kubernetes. Driver documentation may explain to users how to interpret this data if needed.
 
@@ -205,11 +205,11 @@ class DriverAllocationResultArgsDict(TypedDict):
     """
     DriverAllocationResult contains vendor parameters and the allocation result for one request.
     """
-    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesAllocationResultArgs']]]
+    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesAllocationResultArgsDict']]]
     """
     NamedResources describes the allocation result when using the named resources model.
     """
-    vendor_request_parameters: NotRequired[Optional[Any]]
+    vendor_request_parameters: NotRequired[Any]
     """
     VendorRequestParameters are the per-request configuration parameters from the time that the claim was allocated.
     """
@@ -263,11 +263,11 @@ class DriverRequestsPatchArgsDict(TypedDict):
     """
     DriverName is the name used by the DRA driver kubelet plugin.
     """
-    requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceRequestPatchArgs']]]]]
+    requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceRequestPatchArgsDict']]]]]
     """
     Requests describes all resources that are needed from the driver.
     """
-    vendor_parameters: NotRequired[Optional[Any]]
+    vendor_parameters: NotRequired[Any]
     """
     VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
     """
@@ -337,11 +337,11 @@ class DriverRequestsArgsDict(TypedDict):
     """
     DriverName is the name used by the DRA driver kubelet plugin.
     """
-    requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceRequestArgs']]]]]
+    requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceRequestArgsDict']]]]]
     """
     Requests describes all resources that are needed from the driver.
     """
-    vendor_parameters: NotRequired[Optional[Any]]
+    vendor_parameters: NotRequired[Any]
     """
     VendorParameters are arbitrary setup parameters for all requests of the claim. They are ignored while allocating the claim.
     """
@@ -448,7 +448,7 @@ class NamedResourcesAttributePatchArgsDict(TypedDict):
     """
     IntValue is a 64-bit integer.
     """
-    int_slice: NotRequired[pulumi.Input[Optional['NamedResourcesIntSlicePatchArgs']]]
+    int_slice: NotRequired[pulumi.Input[Optional['NamedResourcesIntSlicePatchArgsDict']]]
     """
     IntSliceValue is an array of 64-bit integers.
     """
@@ -464,7 +464,7 @@ class NamedResourcesAttributePatchArgsDict(TypedDict):
     """
     StringValue is a string.
     """
-    string_slice: NotRequired[pulumi.Input[Optional['NamedResourcesStringSlicePatchArgs']]]
+    string_slice: NotRequired[pulumi.Input[Optional['NamedResourcesStringSlicePatchArgsDict']]]
     """
     StringSliceValue is an array of strings.
     """
@@ -626,7 +626,7 @@ class NamedResourcesAttributeArgsDict(TypedDict):
     """
     IntValue is a 64-bit integer.
     """
-    int_slice: NotRequired[pulumi.Input[Optional['NamedResourcesIntSliceArgs']]]
+    int_slice: NotRequired[pulumi.Input[Optional['NamedResourcesIntSliceArgsDict']]]
     """
     IntSliceValue is an array of 64-bit integers.
     """
@@ -638,7 +638,7 @@ class NamedResourcesAttributeArgsDict(TypedDict):
     """
     StringValue is a string.
     """
-    string_slice: NotRequired[pulumi.Input[Optional['NamedResourcesStringSliceArgs']]]
+    string_slice: NotRequired[pulumi.Input[Optional['NamedResourcesStringSliceArgsDict']]]
     """
     StringSliceValue is an array of strings.
     """
@@ -884,7 +884,7 @@ class NamedResourcesInstancePatchArgsDict(TypedDict):
     """
     NamedResourcesInstance represents one individual hardware instance that can be selected based on its attributes.
     """
-    attributes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedResourcesAttributePatchArgs']]]]]
+    attributes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedResourcesAttributePatchArgsDict']]]]]
     """
     Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
     """
@@ -942,7 +942,7 @@ class NamedResourcesInstanceArgsDict(TypedDict):
     """
     Name is unique identifier among all resource instances managed by the driver on the node. It must be a DNS subdomain.
     """
-    attributes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedResourcesAttributeArgs']]]]]
+    attributes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedResourcesAttributeArgsDict']]]]]
     """
     Attributes defines the attributes of this resource instance. The name of each attribute must be unique.
     """
@@ -1155,7 +1155,7 @@ class NamedResourcesResourcesPatchArgsDict(TypedDict):
     """
     NamedResourcesResources is used in ResourceModel.
     """
-    instances: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedResourcesInstancePatchArgs']]]]]
+    instances: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedResourcesInstancePatchArgsDict']]]]]
     """
     The list of all individual resources instances currently available.
     """
@@ -1409,7 +1409,7 @@ class PodSchedulingContextStatusArgsDict(TypedDict):
     """
     PodSchedulingContextStatus describes where resources for the Pod can be allocated.
     """
-    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]]]
+    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgsDict']]]]]
     """
     ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
     """
@@ -1457,11 +1457,11 @@ class PodSchedulingContextArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
-    status: NotRequired[pulumi.Input[Optional['PodSchedulingContextStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PodSchedulingContextStatusArgsDict']]]
     """
     Status describes where resources for the Pod can be allocated.
     """
@@ -1801,13 +1801,13 @@ class ResourceClaimParametersArgsDict(TypedDict):
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    driver_requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DriverRequestsArgs']]]]]
+    driver_requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['DriverRequestsArgsDict']]]]]
     """
     DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
 
     May be empty, in which case the claim can always be allocated.
     """
-    generated_from: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferenceArgs']]]
+    generated_from: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferenceArgsDict']]]
     """
     If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
     """
@@ -1815,7 +1815,7 @@ class ResourceClaimParametersArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
@@ -2001,7 +2001,7 @@ class ResourceClaimSpecPatchArgsDict(TypedDict):
     """
     Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
     """
-    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']]]
+    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgsDict']]]
     """
     ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
 
@@ -2085,7 +2085,7 @@ class ResourceClaimSpecArgsDict(TypedDict):
     """
     Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
     """
-    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferenceArgs']]]
+    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferenceArgsDict']]]
     """
     ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
 
@@ -2156,7 +2156,7 @@ class ResourceClaimStatusArgsDict(TypedDict):
     """
     ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
     """
-    allocation: NotRequired[pulumi.Input[Optional['AllocationResultArgs']]]
+    allocation: NotRequired[pulumi.Input[Optional['AllocationResultArgsDict']]]
     """
     Allocation is set by the resource driver once a resource or set of resources has been allocated successfully. If this is not specified, the resources have not been allocated yet.
     """
@@ -2172,7 +2172,7 @@ class ResourceClaimStatusArgsDict(TypedDict):
     """
     DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
     """
-    reserved_for: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]]]
+    reserved_for: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgsDict']]]]]
     """
     ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
 
@@ -2268,11 +2268,11 @@ class ResourceClaimTemplateSpecPatchArgsDict(TypedDict):
     """
     ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgsDict']]]
     """
     ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
     """
-    spec: NotRequired[pulumi.Input[Optional['ResourceClaimSpecPatchArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ResourceClaimSpecPatchArgsDict']]]
     """
     Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
     """
@@ -2326,7 +2326,7 @@ class ResourceClaimTemplateSpecArgsDict(TypedDict):
     """
     Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
     """
@@ -2389,7 +2389,7 @@ class ResourceClaimTemplateArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
@@ -2488,11 +2488,11 @@ class ResourceClaimArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
-    status: NotRequired[pulumi.Input[Optional['ResourceClaimStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ResourceClaimStatusArgsDict']]]
     """
     Status describes whether the resource is available and with which attributes.
     """
@@ -2781,11 +2781,11 @@ class ResourceClassParametersArgsDict(TypedDict):
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    filters: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceFilterArgs']]]]]
+    filters: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceFilterArgsDict']]]]]
     """
     Filters describes additional contraints that must be met when using the class.
     """
-    generated_from: NotRequired[pulumi.Input[Optional['ResourceClassParametersReferenceArgs']]]
+    generated_from: NotRequired[pulumi.Input[Optional['ResourceClassParametersReferenceArgsDict']]]
     """
     If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
     """
@@ -2793,11 +2793,11 @@ class ResourceClassParametersArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
-    vendor_parameters: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VendorParametersArgs']]]]]
+    vendor_parameters: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VendorParametersArgsDict']]]]]
     """
     VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
     """
@@ -2927,11 +2927,11 @@ class ResourceClassArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
-    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClassParametersReferenceArgs']]]
+    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClassParametersReferenceArgsDict']]]
     """
     ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
     """
@@ -2939,7 +2939,7 @@ class ResourceClassArgsDict(TypedDict):
     """
     If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
     """
-    suitable_nodes: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgs']]]
+    suitable_nodes: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgsDict']]]
     """
     Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 
@@ -3084,7 +3084,7 @@ class ResourceFilterPatchArgsDict(TypedDict):
     """
     DriverName is the name used by the DRA driver kubelet plugin.
     """
-    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesFilterPatchArgs']]]
+    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesFilterPatchArgsDict']]]
     """
     NamedResources describes a resource filter using the named resources model.
     """
@@ -3138,7 +3138,7 @@ class ResourceFilterArgsDict(TypedDict):
     """
     DriverName is the name used by the DRA driver kubelet plugin.
     """
-    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesFilterArgs']]]
+    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesFilterArgsDict']]]
     """
     NamedResources describes a resource filter using the named resources model.
     """
@@ -3198,7 +3198,7 @@ class ResourceHandleArgsDict(TypedDict):
     """
     DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
     """
-    structured_data: NotRequired[pulumi.Input[Optional['StructuredResourceHandleArgs']]]
+    structured_data: NotRequired[pulumi.Input[Optional['StructuredResourceHandleArgsDict']]]
     """
     If StructuredData is set, then it needs to be used instead of Data.
     """
@@ -3268,11 +3268,11 @@ class ResourceRequestPatchArgsDict(TypedDict):
     """
     ResourceRequest is a request for resources from one particular driver.
     """
-    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesRequestPatchArgs']]]
+    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesRequestPatchArgsDict']]]
     """
     NamedResources describes a request for resources with the named resources model.
     """
-    vendor_parameters: NotRequired[Optional[Any]]
+    vendor_parameters: NotRequired[Any]
     """
     VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
     """
@@ -3322,11 +3322,11 @@ class ResourceRequestArgsDict(TypedDict):
     """
     ResourceRequest is a request for resources from one particular driver.
     """
-    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesRequestArgs']]]
+    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesRequestArgsDict']]]
     """
     NamedResources describes a request for resources with the named resources model.
     """
-    vendor_parameters: NotRequired[Optional[Any]]
+    vendor_parameters: NotRequired[Any]
     """
     VendorParameters are arbitrary setup parameters for the requested resource. They are ignored while allocating a claim.
     """
@@ -3388,11 +3388,11 @@ class ResourceSliceArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata
     """
-    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesResourcesArgs']]]
+    named_resources: NotRequired[pulumi.Input[Optional['NamedResourcesResourcesArgsDict']]]
     """
     NamedResources describes available resources using the named resources model.
     """
@@ -3523,11 +3523,11 @@ class StructuredResourceHandleArgsDict(TypedDict):
     """
     NodeName is the name of the node providing the necessary resources if the resources are local to a node.
     """
-    vendor_claim_parameters: NotRequired[Optional[Any]]
+    vendor_claim_parameters: NotRequired[Any]
     """
     VendorClaimParameters are the per-claim configuration parameters from the resource claim parameters at the time that the claim was allocated.
     """
-    vendor_class_parameters: NotRequired[Optional[Any]]
+    vendor_class_parameters: NotRequired[Any]
     """
     VendorClassParameters are the per-claim configuration parameters from the resource class at the time that the claim was allocated.
     """
@@ -3612,7 +3612,7 @@ class VendorParametersPatchArgsDict(TypedDict):
     """
     DriverName is the name used by the DRA driver kubelet plugin.
     """
-    parameters: NotRequired[Optional[Any]]
+    parameters: NotRequired[Any]
     """
     Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
     """
@@ -3666,7 +3666,7 @@ class VendorParametersArgsDict(TypedDict):
     """
     DriverName is the name used by the DRA driver kubelet plugin.
     """
-    parameters: NotRequired[Optional[Any]]
+    parameters: NotRequired[Any]
     """
     Parameters can be arbitrary setup parameters. They are ignored while allocating a claim.
     """

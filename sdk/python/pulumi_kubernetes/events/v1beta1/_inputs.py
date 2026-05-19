@@ -198,7 +198,7 @@ class EventArgsDict(TypedDict):
     """
     Deprecated field assuring backward compatibility with core.v1 Event type
     """
-    deprecated_source: NotRequired[pulumi.Input[Optional['_core.v1.EventSourceArgs']]]
+    deprecated_source: NotRequired[pulumi.Input[Optional['_core.v1.EventSourceArgsDict']]]
     """
     Deprecated field assuring backward compatibility with core.v1 Event type
     """
@@ -206,7 +206,7 @@ class EventArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     note: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
@@ -215,11 +215,11 @@ class EventArgsDict(TypedDict):
     """
     Why the action was taken.
     """
-    regarding: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]]
+    regarding: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgsDict']]]
     """
     The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
     """
-    related: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]]
+    related: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgsDict']]]
     """
     Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
     """
@@ -231,7 +231,7 @@ class EventArgsDict(TypedDict):
     """
     ID of the controller instance, e.g. `kubelet-xyzf`.
     """
-    series: NotRequired[pulumi.Input[Optional['EventSeriesArgs']]]
+    series: NotRequired[pulumi.Input[Optional['EventSeriesArgsDict']]]
     """
     Data about the Event series this event represents or nil if it's a singleton Event.
     """

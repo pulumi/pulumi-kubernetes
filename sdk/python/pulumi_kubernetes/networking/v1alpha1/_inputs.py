@@ -55,7 +55,7 @@ class ClusterCIDRSpecPatchArgsDict(TypedDict):
     """
     IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
     """
-    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorPatchArgs']]]
+    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorPatchArgsDict']]]
     """
     NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
     """
@@ -153,7 +153,7 @@ class ClusterCIDRSpecArgsDict(TypedDict):
     """
     IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
     """
-    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgs']]]
+    node_selector: NotRequired[pulumi.Input[Optional['_core.v1.NodeSelectorArgsDict']]]
     """
     NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
     """
@@ -242,11 +242,11 @@ class ClusterCIDRArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['ClusterCIDRSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ClusterCIDRSpecArgsDict']]]
     """
     Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -328,7 +328,7 @@ class IPAddressSpecPatchArgsDict(TypedDict):
     """
     IPAddressSpec describe the attributes in an IP Address.
     """
-    parent_ref: NotRequired[pulumi.Input[Optional['ParentReferencePatchArgs']]]
+    parent_ref: NotRequired[pulumi.Input[Optional['ParentReferencePatchArgsDict']]]
     """
     ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
     """
@@ -403,11 +403,11 @@ class IPAddressArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['IPAddressSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['IPAddressSpecArgsDict']]]
     """
     spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
@@ -783,7 +783,7 @@ class ServiceCIDRStatusArgsDict(TypedDict):
     """
     ServiceCIDRStatus describes the current state of the ServiceCIDR.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     conditions holds an array of metav1.Condition that describe the state of the ServiceCIDR. Current service state
     """
@@ -825,15 +825,15 @@ class ServiceCIDRArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['ServiceCIDRSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ServiceCIDRSpecArgsDict']]]
     """
     spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['ServiceCIDRStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ServiceCIDRStatusArgsDict']]]
     """
     status represents the current state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """

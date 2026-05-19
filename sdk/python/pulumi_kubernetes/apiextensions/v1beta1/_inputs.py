@@ -350,7 +350,7 @@ class CustomResourceConversionPatchArgsDict(TypedDict):
     strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
       is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
     """
-    webhook_client_config: NotRequired[pulumi.Input[Optional['WebhookClientConfigPatchArgs']]]
+    webhook_client_config: NotRequired[pulumi.Input[Optional['WebhookClientConfigPatchArgsDict']]]
     """
     webhookClientConfig is the instructions for how to call the webhook if strategy is `Webhook`. Required when `strategy` is set to `Webhook`.
     """
@@ -427,7 +427,7 @@ class CustomResourceConversionArgsDict(TypedDict):
     """
     conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
     """
-    webhook_client_config: NotRequired[pulumi.Input[Optional['WebhookClientConfigArgs']]]
+    webhook_client_config: NotRequired[pulumi.Input[Optional['WebhookClientConfigArgsDict']]]
     """
     webhookClientConfig is the instructions for how to call the webhook if strategy is `Webhook`. Required when `strategy` is set to `Webhook`.
     """
@@ -872,11 +872,11 @@ class CustomResourceDefinitionSpecPatchArgsDict(TypedDict):
     """
     CustomResourceDefinitionSpec describes how a user wants their resource to appear
     """
-    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionPatchArgs']]]]]
+    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionPatchArgsDict']]]]]
     """
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
     """
-    conversion: NotRequired[pulumi.Input[Optional['CustomResourceConversionPatchArgs']]]
+    conversion: NotRequired[pulumi.Input[Optional['CustomResourceConversionPatchArgsDict']]]
     """
     conversion defines conversion settings for the CRD.
     """
@@ -884,7 +884,7 @@ class CustomResourceDefinitionSpecPatchArgsDict(TypedDict):
     """
     group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
     """
-    names: NotRequired[pulumi.Input[Optional['CustomResourceDefinitionNamesPatchArgs']]]
+    names: NotRequired[pulumi.Input[Optional['CustomResourceDefinitionNamesPatchArgsDict']]]
     """
     names specify the resource and kind names for the custom resource.
     """
@@ -896,11 +896,11 @@ class CustomResourceDefinitionSpecPatchArgsDict(TypedDict):
     """
     scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
     """
-    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesPatchArgs']]]
+    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesPatchArgsDict']]]
     """
     subresources specify what subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive.
     """
-    validation: NotRequired[pulumi.Input[Optional['CustomResourceValidationPatchArgs']]]
+    validation: NotRequired[pulumi.Input[Optional['CustomResourceValidationPatchArgsDict']]]
     """
     validation describes the schema used for validation and pruning of the custom resource. If present, this validation schema is used to validate all versions. Top-level and per-version schemas are mutually exclusive.
     """
@@ -908,7 +908,7 @@ class CustomResourceDefinitionSpecPatchArgsDict(TypedDict):
     """
     version is the API version of the defined custom resource. The custom resources are served under `/apis/<group>/<version>/...`. Must match the name of the first item in the `versions` list if `version` and `versions` are both specified. Optional if `versions` is specified. Deprecated: use `versions` instead.
     """
-    versions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceDefinitionVersionPatchArgs']]]]]
+    versions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceDefinitionVersionPatchArgsDict']]]]]
     """
     versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
     """
@@ -1098,11 +1098,11 @@ class CustomResourceDefinitionSpecArgsDict(TypedDict):
     """
     scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
     """
-    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]]]
+    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgsDict']]]]]
     """
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
     """
-    conversion: NotRequired[pulumi.Input[Optional['CustomResourceConversionArgs']]]
+    conversion: NotRequired[pulumi.Input[Optional['CustomResourceConversionArgsDict']]]
     """
     conversion defines conversion settings for the CRD.
     """
@@ -1110,11 +1110,11 @@ class CustomResourceDefinitionSpecArgsDict(TypedDict):
     """
     preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. If false, schemas must be defined for all versions. Defaults to true in v1beta for backwards compatibility. Deprecated: will be required to be false in v1. Preservation of unknown fields can be specified in the validation schema using the `x-kubernetes-preserve-unknown-fields: true` extension. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
     """
-    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesArgs']]]
+    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesArgsDict']]]
     """
     subresources specify what subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive.
     """
-    validation: NotRequired[pulumi.Input[Optional['CustomResourceValidationArgs']]]
+    validation: NotRequired[pulumi.Input[Optional['CustomResourceValidationArgsDict']]]
     """
     validation describes the schema used for validation and pruning of the custom resource. If present, this validation schema is used to validate all versions. Top-level and per-version schemas are mutually exclusive.
     """
@@ -1122,7 +1122,7 @@ class CustomResourceDefinitionSpecArgsDict(TypedDict):
     """
     version is the API version of the defined custom resource. The custom resources are served under `/apis/<group>/<version>/...`. Must match the name of the first item in the `versions` list if `version` and `versions` are both specified. Optional if `versions` is specified. Deprecated: use `versions` instead.
     """
-    versions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]]]]
+    versions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgsDict']]]]]
     """
     versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
     """
@@ -1305,7 +1305,7 @@ class CustomResourceDefinitionStatusArgsDict(TypedDict):
     """
     storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgsDict']]]]]
     """
     conditions indicate state for particular aspects of a CustomResourceDefinition
     """
@@ -1369,7 +1369,7 @@ class CustomResourceDefinitionVersionPatchArgsDict(TypedDict):
     """
     CustomResourceDefinitionVersion describes a version for CRD.
     """
-    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionPatchArgs']]]]]
+    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionPatchArgsDict']]]]]
     """
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
     """
@@ -1385,7 +1385,7 @@ class CustomResourceDefinitionVersionPatchArgsDict(TypedDict):
     """
     name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
     """
-    schema: NotRequired[pulumi.Input[Optional['CustomResourceValidationPatchArgs']]]
+    schema: NotRequired[pulumi.Input[Optional['CustomResourceValidationPatchArgsDict']]]
     """
     schema describes the schema used for validation and pruning of this version of the custom resource. Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all be set to identical values (top-level validation schema should be used instead).
     """
@@ -1397,7 +1397,7 @@ class CustomResourceDefinitionVersionPatchArgsDict(TypedDict):
     """
     storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
     """
-    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesPatchArgs']]]
+    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesPatchArgsDict']]]
     """
     subresources specify what subresources this version of the defined custom resource have. Top-level and per-version subresources are mutually exclusive. Per-version subresources must not all be set to identical values (top-level subresources should be used instead).
     """
@@ -1555,7 +1555,7 @@ class CustomResourceDefinitionVersionArgsDict(TypedDict):
     """
     storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
     """
-    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]]]
+    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgsDict']]]]]
     """
     additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
     """
@@ -1567,11 +1567,11 @@ class CustomResourceDefinitionVersionArgsDict(TypedDict):
     """
     deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
     """
-    schema: NotRequired[pulumi.Input[Optional['CustomResourceValidationArgs']]]
+    schema: NotRequired[pulumi.Input[Optional['CustomResourceValidationArgsDict']]]
     """
     schema describes the schema used for validation and pruning of this version of the custom resource. Top-level and per-version schemas are mutually exclusive. Per-version schemas must not all be set to identical values (top-level validation schema should be used instead).
     """
-    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesArgs']]]
+    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesArgsDict']]]
     """
     subresources specify what subresources this version of the defined custom resource have. Top-level and per-version subresources are mutually exclusive. Per-version subresources must not all be set to identical values (top-level subresources should be used instead).
     """
@@ -1726,8 +1726,8 @@ class CustomResourceDefinitionArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
-    status: NotRequired[pulumi.Input[Optional['CustomResourceDefinitionStatusArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    status: NotRequired[pulumi.Input[Optional['CustomResourceDefinitionStatusArgsDict']]]
     """
     status indicates the actual state of the CustomResourceDefinition
     """
@@ -1966,11 +1966,11 @@ class CustomResourceSubresourcesPatchArgsDict(TypedDict):
     """
     CustomResourceSubresources defines the status and scale subresources for CustomResources.
     """
-    scale: NotRequired[pulumi.Input[Optional['CustomResourceSubresourceScalePatchArgs']]]
+    scale: NotRequired[pulumi.Input[Optional['CustomResourceSubresourceScalePatchArgsDict']]]
     """
     scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
     """
-    status: NotRequired[Optional[Any]]
+    status: NotRequired[Any]
     """
     status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
     """
@@ -2020,11 +2020,11 @@ class CustomResourceSubresourcesArgsDict(TypedDict):
     """
     CustomResourceSubresources defines the status and scale subresources for CustomResources.
     """
-    scale: NotRequired[pulumi.Input[Optional['CustomResourceSubresourceScaleArgs']]]
+    scale: NotRequired[pulumi.Input[Optional['CustomResourceSubresourceScaleArgsDict']]]
     """
     scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
     """
-    status: NotRequired[Optional[Any]]
+    status: NotRequired[Any]
     """
     status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
     """
@@ -2074,7 +2074,7 @@ class CustomResourceValidationPatchArgsDict(TypedDict):
     """
     CustomResourceValidation is a list of validation methods for CustomResources.
     """
-    open_apiv3_schema: NotRequired[pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]]
+    open_apiv3_schema: NotRequired[pulumi.Input[Optional['JSONSchemaPropsPatchArgsDict']]]
     """
     openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
     """
@@ -2108,7 +2108,7 @@ class CustomResourceValidationArgsDict(TypedDict):
     """
     CustomResourceValidation is a list of validation methods for CustomResources.
     """
-    open_apiv3_schema: NotRequired[pulumi.Input[Optional['JSONSchemaPropsArgs']]]
+    open_apiv3_schema: NotRequired[pulumi.Input[Optional['JSONSchemaPropsArgsDict']]]
     """
     openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
     """
@@ -2222,22 +2222,22 @@ class JSONSchemaPropsPatchArgsDict(TypedDict):
     """
     _ref: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     _schema: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    additional_items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]]
-    additional_properties: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]]
-    all_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]]
-    any_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]]
-    default: NotRequired[Optional[Any]]
+    additional_items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', _builtins.bool]]]]
+    additional_properties: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', _builtins.bool]]]]
+    all_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgsDict']]]]]
+    any_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgsDict']]]]]
+    default: NotRequired[Any]
     """
     default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. CustomResourceDefinitions with defaults must be created using the v1 (or newer) CustomResourceDefinition API.
     """
-    definitions: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]]
-    dependencies: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgs', Sequence[pulumi.Input[_builtins.str]]]]]]]]
+    definitions: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
+    dependencies: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgsDict', Sequence[pulumi.Input[_builtins.str]]]]]]]]
     description: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     enum: NotRequired[pulumi.Input[Optional[Sequence[Any]]]]
-    example: NotRequired[Optional[Any]]
+    example: NotRequired[Any]
     exclusive_maximum: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     exclusive_minimum: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    external_docs: NotRequired[pulumi.Input[Optional['ExternalDocumentationPatchArgs']]]
+    external_docs: NotRequired[pulumi.Input[Optional['ExternalDocumentationPatchArgsDict']]]
     format: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
@@ -2245,7 +2245,7 @@ class JSONSchemaPropsPatchArgsDict(TypedDict):
     - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\d{3}[- ]?\\d{2}[- ]?\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
     """
     id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgs', Sequence[Any]]]]]
+    items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', Sequence[Any]]]]]
     max_items: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     max_length: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     max_properties: NotRequired[pulumi.Input[Optional[_builtins.int]]]
@@ -2255,12 +2255,12 @@ class JSONSchemaPropsPatchArgsDict(TypedDict):
     min_properties: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     minimum: NotRequired[pulumi.Input[Optional[_builtins.float]]]
     multiple_of: NotRequired[pulumi.Input[Optional[_builtins.float]]]
-    not_: NotRequired[pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]]
+    not_: NotRequired[pulumi.Input[Optional['JSONSchemaPropsPatchArgsDict']]]
     nullable: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    one_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]]
+    one_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgsDict']]]]]
     pattern: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    pattern_properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]]
-    properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]]
+    pattern_properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
+    properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
     required: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     title: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
@@ -2950,22 +2950,22 @@ class JSONSchemaPropsArgsDict(TypedDict):
     """
     _ref: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     _schema: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    additional_items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]]
-    additional_properties: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]]
-    all_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsArgs']]]]]
-    any_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsArgs']]]]]
-    default: NotRequired[Optional[Any]]
+    additional_items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', _builtins.bool]]]]
+    additional_properties: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', _builtins.bool]]]]
+    all_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsArgsDict']]]]]
+    any_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsArgsDict']]]]]
+    default: NotRequired[Any]
     """
     default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. CustomResourceDefinitions with defaults must be created using the v1 (or newer) CustomResourceDefinition API.
     """
-    definitions: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]]
-    dependencies: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgs', Sequence[pulumi.Input[_builtins.str]]]]]]]]
+    definitions: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
+    dependencies: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgsDict', Sequence[pulumi.Input[_builtins.str]]]]]]]]
     description: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     enum: NotRequired[pulumi.Input[Optional[Sequence[Any]]]]
-    example: NotRequired[Optional[Any]]
+    example: NotRequired[Any]
     exclusive_maximum: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     exclusive_minimum: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    external_docs: NotRequired[pulumi.Input[Optional['ExternalDocumentationArgs']]]
+    external_docs: NotRequired[pulumi.Input[Optional['ExternalDocumentationArgsDict']]]
     format: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
@@ -2973,7 +2973,7 @@ class JSONSchemaPropsArgsDict(TypedDict):
     - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\d{3}[- ]?\\d{2}[- ]?\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
     """
     id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgs', Sequence[Any]]]]]
+    items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', Sequence[Any]]]]]
     max_items: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     max_length: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     max_properties: NotRequired[pulumi.Input[Optional[_builtins.int]]]
@@ -2983,12 +2983,12 @@ class JSONSchemaPropsArgsDict(TypedDict):
     min_properties: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     minimum: NotRequired[pulumi.Input[Optional[_builtins.float]]]
     multiple_of: NotRequired[pulumi.Input[Optional[_builtins.float]]]
-    not_: NotRequired[pulumi.Input[Optional['JSONSchemaPropsArgs']]]
+    not_: NotRequired[pulumi.Input[Optional['JSONSchemaPropsArgsDict']]]
     nullable: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    one_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsArgs']]]]]
+    one_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsArgsDict']]]]]
     pattern: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    pattern_properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]]
-    properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]]
+    pattern_properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
+    properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
     required: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     title: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
@@ -3866,7 +3866,7 @@ class WebhookClientConfigPatchArgsDict(TypedDict):
     """
     caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
     """
-    service: NotRequired[pulumi.Input[Optional['ServiceReferencePatchArgs']]]
+    service: NotRequired[pulumi.Input[Optional['ServiceReferencePatchArgsDict']]]
     """
     service is a reference to the service for this webhook. Either service or url must be specified.
 
@@ -3976,7 +3976,7 @@ class WebhookClientConfigArgsDict(TypedDict):
     """
     caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
     """
-    service: NotRequired[pulumi.Input[Optional['ServiceReferenceArgs']]]
+    service: NotRequired[pulumi.Input[Optional['ServiceReferenceArgsDict']]]
     """
     service is a reference to the service for this webhook. Either service or url must be specified.
 

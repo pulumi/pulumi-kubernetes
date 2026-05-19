@@ -39,7 +39,7 @@ class VolumeAttachmentSourcePatchArgsDict(TypedDict):
     """
     VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
     """
-    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']]]
+    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgsDict']]]
     """
     inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
     """
@@ -93,7 +93,7 @@ class VolumeAttachmentSourceArgsDict(TypedDict):
     """
     VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
     """
-    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']]]
+    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgsDict']]]
     """
     inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
     """
@@ -155,7 +155,7 @@ class VolumeAttachmentSpecPatchArgsDict(TypedDict):
     """
     The node that the volume should be attached to.
     """
-    source: NotRequired[pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']]]
+    source: NotRequired[pulumi.Input[Optional['VolumeAttachmentSourcePatchArgsDict']]]
     """
     Source represents the volume that should be attached.
     """
@@ -296,7 +296,7 @@ class VolumeAttachmentStatusArgsDict(TypedDict):
     """
     Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     """
-    attach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgs']]]
+    attach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgsDict']]]
     """
     The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     """
@@ -304,7 +304,7 @@ class VolumeAttachmentStatusArgsDict(TypedDict):
     """
     Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     """
-    detach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgs']]]
+    detach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgsDict']]]
     """
     The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
     """
@@ -399,11 +399,11 @@ class VolumeAttachmentArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    status: NotRequired[pulumi.Input[Optional['VolumeAttachmentStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['VolumeAttachmentStatusArgsDict']]]
     """
     Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
     """
@@ -514,7 +514,7 @@ class VolumeAttributesClassArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """

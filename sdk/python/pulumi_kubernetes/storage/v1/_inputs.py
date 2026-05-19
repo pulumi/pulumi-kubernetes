@@ -150,7 +150,7 @@ class CSIDriverSpecPatchArgsDict(TypedDict):
 
     This field was immutable in Kubernetes <= 1.22 and now is mutable.
     """
-    token_requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgs']]]]]
+    token_requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgsDict']]]]]
     """
     tokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
       "<audience>": {
@@ -567,7 +567,7 @@ class CSIDriverSpecArgsDict(TypedDict):
 
     This field was immutable in Kubernetes <= 1.22 and now is mutable.
     """
-    token_requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestArgs']]]]]
+    token_requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestArgsDict']]]]]
     """
     tokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
       "<audience>": {
@@ -913,7 +913,7 @@ class CSIDriverArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
@@ -994,7 +994,7 @@ class CSINodeDriverPatchArgsDict(TypedDict):
     """
     CSINodeDriver holds information about the specification of one CSI driver installed on a node
     """
-    allocatable: NotRequired[pulumi.Input[Optional['VolumeNodeResourcesPatchArgs']]]
+    allocatable: NotRequired[pulumi.Input[Optional['VolumeNodeResourcesPatchArgsDict']]]
     """
     allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
     """
@@ -1096,7 +1096,7 @@ class CSINodeDriverArgsDict(TypedDict):
     """
     nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
     """
-    allocatable: NotRequired[pulumi.Input[Optional['VolumeNodeResourcesArgs']]]
+    allocatable: NotRequired[pulumi.Input[Optional['VolumeNodeResourcesArgsDict']]]
     """
     allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
     """
@@ -1180,7 +1180,7 @@ class CSINodeSpecPatchArgsDict(TypedDict):
     """
     CSINodeSpec holds information about the specification of all CSI drivers installed on a node
     """
-    drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CSINodeDriverPatchArgs']]]]]
+    drivers: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CSINodeDriverPatchArgsDict']]]]]
     """
     drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
     """
@@ -1259,7 +1259,7 @@ class CSINodeArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. metadata.name must be the Kubernetes node name.
     """
@@ -1372,7 +1372,7 @@ class CSIStorageCapacityArgsDict(TypedDict):
 
     This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
 
@@ -1380,7 +1380,7 @@ class CSIStorageCapacityArgsDict(TypedDict):
 
     More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    node_topology: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    node_topology: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     nodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
     """
@@ -1543,7 +1543,7 @@ class StorageClassArgsDict(TypedDict):
     """
     allowVolumeExpansion shows whether the storage class allow volume expand.
     """
-    allowed_topologies: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]]]
+    allowed_topologies: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgsDict']]]]]
     """
     allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
     """
@@ -1555,7 +1555,7 @@ class StorageClassArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
@@ -1857,7 +1857,7 @@ class VolumeAttachmentSourcePatchArgsDict(TypedDict):
     """
     VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
     """
-    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']]]
+    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgsDict']]]
     """
     inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
     """
@@ -1911,7 +1911,7 @@ class VolumeAttachmentSourceArgsDict(TypedDict):
     """
     VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
     """
-    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']]]
+    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgsDict']]]
     """
     inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
     """
@@ -1973,7 +1973,7 @@ class VolumeAttachmentSpecPatchArgsDict(TypedDict):
     """
     nodeName represents the node that the volume should be attached to.
     """
-    source: NotRequired[pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']]]
+    source: NotRequired[pulumi.Input[Optional['VolumeAttachmentSourcePatchArgsDict']]]
     """
     source represents the volume that should be attached.
     """
@@ -2114,7 +2114,7 @@ class VolumeAttachmentStatusArgsDict(TypedDict):
     """
     attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     """
-    attach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgs']]]
+    attach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgsDict']]]
     """
     attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     """
@@ -2122,7 +2122,7 @@ class VolumeAttachmentStatusArgsDict(TypedDict):
     """
     attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
     """
-    detach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgs']]]
+    detach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgsDict']]]
     """
     detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
     """
@@ -2217,11 +2217,11 @@ class VolumeAttachmentArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    status: NotRequired[pulumi.Input[Optional['VolumeAttachmentStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['VolumeAttachmentStatusArgsDict']]]
     """
     status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
     """
@@ -2332,7 +2332,7 @@ class VolumeAttributesClassArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """

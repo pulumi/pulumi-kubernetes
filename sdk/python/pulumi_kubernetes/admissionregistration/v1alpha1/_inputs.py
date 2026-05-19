@@ -1086,7 +1086,7 @@ class MatchResourcesPatchArgsDict(TypedDict):
     """
     MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
-    exclude_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]]
+    exclude_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgsDict']]]]]
     """
     excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
@@ -1100,7 +1100,7 @@ class MatchResourcesPatchArgsDict(TypedDict):
 
     Defaults to "Equivalent"
     """
-    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
@@ -1134,11 +1134,11 @@ class MatchResourcesPatchArgsDict(TypedDict):
 
     Default to the empty LabelSelector, which matches everything.
     """
-    object_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    object_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
     """
-    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]]]
+    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgsDict']]]]]
     """
     resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
     """
@@ -1308,7 +1308,7 @@ class MatchResourcesArgsDict(TypedDict):
     """
     MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
-    exclude_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]]
+    exclude_resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgsDict']]]]]
     """
     excludeResourceRules describes what operations on what resources/subresources the policy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
     """
@@ -1322,7 +1322,7 @@ class MatchResourcesArgsDict(TypedDict):
 
     Defaults to "Equivalent"
     """
-    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    namespace_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     namespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
 
@@ -1356,11 +1356,11 @@ class MatchResourcesArgsDict(TypedDict):
 
     Default to the empty LabelSelector, which matches everything.
     """
-    object_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    object_selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     objectSelector decides whether to run the policy based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the policy's expression (CEL), and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
     """
-    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]]]
+    resource_rules: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['NamedRuleWithOperationsArgsDict']]]]]
     """
     resourceRules describes what operations on what resources/subresources the admission policy matches. The policy cares about an operation if it matches _any_ Rule.
     """
@@ -1530,11 +1530,11 @@ class MutatingAdmissionPolicyBindingSpecPatchArgsDict(TypedDict):
     """
     MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
     """
-    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgs']]]
+    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgsDict']]]
     """
     matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
     """
-    param_ref: NotRequired[pulumi.Input[Optional['ParamRefPatchArgs']]]
+    param_ref: NotRequired[pulumi.Input[Optional['ParamRefPatchArgsDict']]]
     """
     paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
     """
@@ -1604,11 +1604,11 @@ class MutatingAdmissionPolicyBindingSpecArgsDict(TypedDict):
     """
     MutatingAdmissionPolicyBindingSpec is the specification of the MutatingAdmissionPolicyBinding.
     """
-    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesArgs']]]
+    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesArgsDict']]]
     """
     matchResources limits what resources match this binding and may be mutated by it. Note that if matchResources matches a resource, the resource must also match a policy's matchConstraints and matchConditions before the resource may be mutated. When matchResources is unset, it does not constrain resource matching, and only the policy's matchConstraints and matchConditions must match for the resource to be mutated. Additionally, matchResources.resourceRules are optional and do not constraint matching when unset. Note that this is differs from MutatingAdmissionPolicy matchConstraints, where resourceRules are required. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT.
     """
-    param_ref: NotRequired[pulumi.Input[Optional['ParamRefArgs']]]
+    param_ref: NotRequired[pulumi.Input[Optional['ParamRefArgsDict']]]
     """
     paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in spec.ParamKind of the bound MutatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the MutatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
     """
@@ -1690,11 +1690,11 @@ class MutatingAdmissionPolicyBindingArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
-    spec: NotRequired[pulumi.Input[Optional['MutatingAdmissionPolicyBindingSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['MutatingAdmissionPolicyBindingSpecArgsDict']]]
     """
     spec defines the desired behavior of the MutatingAdmissionPolicyBinding.
     """
@@ -1790,7 +1790,7 @@ class MutatingAdmissionPolicySpecPatchArgsDict(TypedDict):
 
     Allowed values are Ignore or Fail. Defaults to Fail.
     """
-    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]]
+    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgsDict']]]]]
     """
     matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -1803,15 +1803,15 @@ class MutatingAdmissionPolicySpecPatchArgsDict(TypedDict):
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the policy is skipped
     """
-    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgs']]]
+    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgsDict']]]
     """
     matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
     """
-    mutations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MutationPatchArgs']]]]]
+    mutations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MutationPatchArgsDict']]]]]
     """
     mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
     """
-    param_kind: NotRequired[pulumi.Input[Optional['ParamKindPatchArgs']]]
+    param_kind: NotRequired[pulumi.Input[Optional['ParamKindPatchArgsDict']]]
     """
     paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
     """
@@ -1823,7 +1823,7 @@ class MutatingAdmissionPolicySpecPatchArgsDict(TypedDict):
 
     IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
     """
-    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]]]
+    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgsDict']]]]]
     """
     variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
 
@@ -2007,7 +2007,7 @@ class MutatingAdmissionPolicySpecArgsDict(TypedDict):
 
     Allowed values are Ignore or Fail. Defaults to Fail.
     """
-    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]]]
+    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgsDict']]]]]
     """
     matchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the matchConstraints. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -2020,15 +2020,15 @@ class MutatingAdmissionPolicySpecArgsDict(TypedDict):
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the policy is skipped
     """
-    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesArgs']]]
+    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesArgsDict']]]
     """
     matchConstraints specifies what resources this policy is designed to validate. The MutatingAdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API MutatingAdmissionPolicy cannot match MutatingAdmissionPolicy and MutatingAdmissionPolicyBinding. The CREATE, UPDATE and CONNECT operations are allowed.  The DELETE operation may not be matched. '*' matches CREATE, UPDATE and CONNECT. Required.
     """
-    mutations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MutationArgs']]]]]
+    mutations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MutationArgsDict']]]]]
     """
     mutations contain operations to perform on matching objects. mutations may not be empty; a minimum of one mutation is required. mutations are evaluated in order, and are reinvoked according to the reinvocationPolicy. The mutations of a policy are invoked for each binding of this policy and reinvocation of mutations occurs on a per binding basis.
     """
-    param_kind: NotRequired[pulumi.Input[Optional['ParamKindArgs']]]
+    param_kind: NotRequired[pulumi.Input[Optional['ParamKindArgsDict']]]
     """
     paramKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If paramKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in MutatingAdmissionPolicyBinding, the params variable will be null.
     """
@@ -2040,7 +2040,7 @@ class MutatingAdmissionPolicySpecArgsDict(TypedDict):
 
     IfNeeded: These mutations may be invoked more than once per binding for a single admission request and there is no guarantee of order with respect to other admission plugins, admission webhooks, bindings of this policy and admission policies.  Mutations are only reinvoked when mutations change the object after this mutation is invoked. Required.
     """
-    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]]]
+    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgsDict']]]]]
     """
     variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except matchConditions because matchConditions are evaluated before the rest of the policy.
 
@@ -2222,11 +2222,11 @@ class MutatingAdmissionPolicyArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
-    spec: NotRequired[pulumi.Input[Optional['MutatingAdmissionPolicySpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['MutatingAdmissionPolicySpecArgsDict']]]
     """
     spec defines the desired behavior of the MutatingAdmissionPolicy.
     """
@@ -2308,11 +2308,11 @@ class MutationPatchArgsDict(TypedDict):
     """
     Mutation specifies the CEL expression which is used to apply the Mutation.
     """
-    apply_configuration: NotRequired[pulumi.Input[Optional['ApplyConfigurationPatchArgs']]]
+    apply_configuration: NotRequired[pulumi.Input[Optional['ApplyConfigurationPatchArgsDict']]]
     """
     applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
     """
-    json_patch: NotRequired[pulumi.Input[Optional['JSONPatchPatchArgs']]]
+    json_patch: NotRequired[pulumi.Input[Optional['JSONPatchPatchArgsDict']]]
     """
     jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
     """
@@ -2386,11 +2386,11 @@ class MutationArgsDict(TypedDict):
     """
     patchType indicates the patch strategy used. Allowed values are "ApplyConfiguration" and "JSONPatch". Required.
     """
-    apply_configuration: NotRequired[pulumi.Input[Optional['ApplyConfigurationArgs']]]
+    apply_configuration: NotRequired[pulumi.Input[Optional['ApplyConfigurationArgsDict']]]
     """
     applyConfiguration defines the desired configuration values of an object. The configuration is applied to the admission object using [structured merge diff](https://github.com/kubernetes-sigs/structured-merge-diff). A CEL expression is used to create apply configuration.
     """
-    json_patch: NotRequired[pulumi.Input[Optional['JSONPatchArgs']]]
+    json_patch: NotRequired[pulumi.Input[Optional['JSONPatchArgsDict']]]
     """
     jsonPatch defines a [JSON patch](https://jsonpatch.com/) operation to perform a mutation to the object. A CEL expression is used to create the JSON patch.
     """
@@ -2889,7 +2889,7 @@ class ParamRefPatchArgsDict(TypedDict):
 
     Allowed values are `Allow` or `Deny` Default to `Deny`
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
     """
     selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
 
@@ -3025,7 +3025,7 @@ class ParamRefArgsDict(TypedDict):
 
     Allowed values are `Allow` or `Deny` Default to `Deny`
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]]
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorArgsDict']]]
     """
     selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
 
@@ -3139,7 +3139,7 @@ class TypeCheckingArgsDict(TypedDict):
     """
     TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
     """
-    expression_warnings: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ExpressionWarningArgs']]]]]
+    expression_warnings: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ExpressionWarningArgsDict']]]]]
     """
     The type checking warnings for each expression.
     """
@@ -3173,11 +3173,11 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
     """
-    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgs']]]
+    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgsDict']]]
     """
     MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
     """
-    param_ref: NotRequired[pulumi.Input[Optional['ParamRefPatchArgs']]]
+    param_ref: NotRequired[pulumi.Input[Optional['ParamRefPatchArgsDict']]]
     """
     ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
     """
@@ -3321,11 +3321,11 @@ class ValidatingAdmissionPolicyBindingSpecArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
     """
-    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesArgs']]]
+    match_resources: NotRequired[pulumi.Input[Optional['MatchResourcesArgsDict']]]
     """
     MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
     """
-    param_ref: NotRequired[pulumi.Input[Optional['ParamRefArgs']]]
+    param_ref: NotRequired[pulumi.Input[Optional['ParamRefArgsDict']]]
     """
     ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
     """
@@ -3477,11 +3477,11 @@ class ValidatingAdmissionPolicyBindingArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
-    spec: NotRequired[pulumi.Input[Optional['ValidatingAdmissionPolicyBindingSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ValidatingAdmissionPolicyBindingSpecArgsDict']]]
     """
     Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
     """
@@ -3563,7 +3563,7 @@ class ValidatingAdmissionPolicySpecPatchArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
     """
-    audit_annotations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]]]]
+    audit_annotations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationPatchArgsDict']]]]]
     """
     auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
     """
@@ -3571,7 +3571,7 @@ class ValidatingAdmissionPolicySpecPatchArgsDict(TypedDict):
     """
     FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
     """
-    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgs']]]]]
+    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionPatchArgsDict']]]]]
     """
     MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -3584,19 +3584,19 @@ class ValidatingAdmissionPolicySpecPatchArgsDict(TypedDict):
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the policy is skipped
     """
-    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgs']]]
+    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesPatchArgsDict']]]
     """
     MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
     """
-    param_kind: NotRequired[pulumi.Input[Optional['ParamKindPatchArgs']]]
+    param_kind: NotRequired[pulumi.Input[Optional['ParamKindPatchArgsDict']]]
     """
     ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
     """
-    validations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ValidationPatchArgs']]]]]
+    validations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ValidationPatchArgsDict']]]]]
     """
     Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
     """
-    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgs']]]]]
+    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariablePatchArgsDict']]]]]
     """
     Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 
@@ -3754,7 +3754,7 @@ class ValidatingAdmissionPolicySpecArgsDict(TypedDict):
     """
     Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
     """
-    audit_annotations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationArgs']]]]]
+    audit_annotations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['AuditAnnotationArgsDict']]]]]
     """
     auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
     """
@@ -3762,7 +3762,7 @@ class ValidatingAdmissionPolicySpecArgsDict(TypedDict):
     """
     FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
     """
-    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgs']]]]]
+    match_conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MatchConditionArgsDict']]]]]
     """
     MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
 
@@ -3775,15 +3775,15 @@ class ValidatingAdmissionPolicySpecArgsDict(TypedDict):
          - If failurePolicy=Fail, reject the request
          - If failurePolicy=Ignore, the policy is skipped
     """
-    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesArgs']]]
+    match_constraints: NotRequired[pulumi.Input[Optional['MatchResourcesArgsDict']]]
     """
     MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
     """
-    param_kind: NotRequired[pulumi.Input[Optional['ParamKindArgs']]]
+    param_kind: NotRequired[pulumi.Input[Optional['ParamKindArgsDict']]]
     """
     ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
     """
-    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgs']]]]]
+    variables: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['VariableArgsDict']]]]]
     """
     Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
 
@@ -3936,7 +3936,7 @@ class ValidatingAdmissionPolicyStatusArgsDict(TypedDict):
     """
     ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     The conditions represent the latest available observations of a policy's current state.
     """
@@ -3944,7 +3944,7 @@ class ValidatingAdmissionPolicyStatusArgsDict(TypedDict):
     """
     The generation observed by the controller.
     """
-    type_checking: NotRequired[pulumi.Input[Optional['TypeCheckingArgs']]]
+    type_checking: NotRequired[pulumi.Input[Optional['TypeCheckingArgsDict']]]
     """
     The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
     """
@@ -4018,15 +4018,15 @@ class ValidatingAdmissionPolicyArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
     """
-    spec: NotRequired[pulumi.Input[Optional['ValidatingAdmissionPolicySpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['ValidatingAdmissionPolicySpecArgsDict']]]
     """
     Specification of the desired behavior of the ValidatingAdmissionPolicy.
     """
-    status: NotRequired[pulumi.Input[Optional['ValidatingAdmissionPolicyStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['ValidatingAdmissionPolicyStatusArgsDict']]]
     """
     The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
     """

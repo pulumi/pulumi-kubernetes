@@ -524,7 +524,7 @@ class CertificateSigningRequestStatusArgsDict(TypedDict):
     """
     If request was approved, the controller will place the issued certificate here.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgsDict']]]]]
     """
     Conditions applied to the request, such as approval or denial.
     """
@@ -580,12 +580,12 @@ class CertificateSigningRequestArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
-    spec: NotRequired[pulumi.Input[Optional['CertificateSigningRequestSpecArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    spec: NotRequired[pulumi.Input[Optional['CertificateSigningRequestSpecArgsDict']]]
     """
     The certificate request itself and any additional information.
     """
-    status: NotRequired[pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['CertificateSigningRequestStatusArgsDict']]]
     """
     Derived information about the request.
     """
@@ -874,7 +874,7 @@ class ClusterTrustBundleArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     metadata contains the object metadata.
     """
@@ -1682,7 +1682,7 @@ class PodCertificateRequestStatusArgsDict(TypedDict):
 
     If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_meta.v1.ConditionArgsDict']]]]]
     """
     conditions applied to the request.
 
@@ -1836,11 +1836,11 @@ class PodCertificateRequestArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     metadata contains the object metadata.
     """
-    status: NotRequired[pulumi.Input[Optional['PodCertificateRequestStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['PodCertificateRequestStatusArgsDict']]]
     """
     status contains the issued certificate, and a standard set of conditions.
     """

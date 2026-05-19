@@ -268,7 +268,7 @@ class LabelSelectorPatchArgsDict(TypedDict):
     """
     A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
     """
-    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgs']]]]]
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgsDict']]]]]
     """
     matchExpressions is a list of label selector requirements. The requirements are ANDed.
     """
@@ -468,7 +468,7 @@ class LabelSelectorArgsDict(TypedDict):
     """
     A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
     """
-    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]]]
+    match_expressions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['LabelSelectorRequirementArgsDict']]]]]
     """
     matchExpressions is a list of label selector requirements. The requirements are ANDed.
     """
@@ -538,7 +538,7 @@ class ListMetaPatchArgsDict(TypedDict):
     """
     Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
     """
-    shard_info: NotRequired[pulumi.Input[Optional['ShardInfoPatchArgs']]]
+    shard_info: NotRequired[pulumi.Input[Optional['ShardInfoPatchArgsDict']]]
     """
     shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
 
@@ -658,7 +658,7 @@ class ListMetaArgsDict(TypedDict):
     """
     Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
     """
-    shard_info: NotRequired[pulumi.Input[Optional['ShardInfoArgs']]]
+    shard_info: NotRequired[pulumi.Input[Optional['ShardInfoArgsDict']]]
     """
     shardInfo is set when the list is a filtered subset of the full collection, as selected by a shard selector on the request. It echoes back the selector so clients can verify which shard they received and merge sharded responses. Clients should not cache sharded list responses as a full representation of the collection.
 
@@ -770,7 +770,7 @@ class ManagedFieldsEntryPatchArgsDict(TypedDict):
     """
     FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: "FieldsV1"
     """
-    fields_v1: NotRequired[Optional[Any]]
+    fields_v1: NotRequired[Any]
     """
     FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
     """
@@ -924,7 +924,7 @@ class ManagedFieldsEntryArgsDict(TypedDict):
     """
     FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: "FieldsV1"
     """
-    fields_v1: NotRequired[Optional[Any]]
+    fields_v1: NotRequired[Any]
     """
     FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
     """
@@ -1114,7 +1114,7 @@ class ObjectMetaPatchArgsDict(TypedDict):
     """
     Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
     """
-    managed_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgs']]]]]
+    managed_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryPatchArgsDict']]]]]
     """
     ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
     """
@@ -1128,7 +1128,7 @@ class ObjectMetaPatchArgsDict(TypedDict):
 
     Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
     """
-    owner_references: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferencePatchArgs']]]]]
+    owner_references: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferencePatchArgsDict']]]]]
     """
     List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
     """
@@ -1490,7 +1490,7 @@ class ObjectMetaArgsDict(TypedDict):
     """
     Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
     """
-    managed_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryArgs']]]]]
+    managed_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ManagedFieldsEntryArgsDict']]]]]
     """
     ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
     """
@@ -1504,7 +1504,7 @@ class ObjectMetaArgsDict(TypedDict):
 
     Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
     """
-    owner_references: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferenceArgs']]]]]
+    owner_references: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['OwnerReferenceArgsDict']]]]]
     """
     List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
     """
@@ -2325,7 +2325,7 @@ class StatusDetailsPatchArgsDict(TypedDict):
     """
     StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
     """
-    causes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['StatusCausePatchArgs']]]]]
+    causes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['StatusCausePatchArgsDict']]]]]
     """
     The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
     """
@@ -2459,7 +2459,7 @@ class StatusDetailsArgsDict(TypedDict):
     """
     StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
     """
-    causes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['StatusCauseArgs']]]]]
+    causes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['StatusCauseArgsDict']]]]]
     """
     The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
     """

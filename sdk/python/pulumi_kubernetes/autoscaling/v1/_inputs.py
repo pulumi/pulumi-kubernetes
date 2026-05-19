@@ -188,7 +188,7 @@ class HorizontalPodAutoscalerSpecPatchArgsDict(TypedDict):
     """
     minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
     """
-    scale_target_ref: NotRequired[pulumi.Input[Optional['CrossVersionObjectReferencePatchArgs']]]
+    scale_target_ref: NotRequired[pulumi.Input[Optional['CrossVersionObjectReferencePatchArgsDict']]]
     """
     reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
     """
@@ -490,11 +490,11 @@ class HorizontalPodAutoscalerArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    status: NotRequired[pulumi.Input[Optional['HorizontalPodAutoscalerStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['HorizontalPodAutoscalerStatusArgsDict']]]
     """
     status is the current information about the autoscaler.
     """

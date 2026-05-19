@@ -300,7 +300,7 @@ class StorageVersionMigrationSpecPatchArgsDict(TypedDict):
     """
     The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
     """
-    resource: NotRequired[pulumi.Input[Optional['GroupVersionResourcePatchArgs']]]
+    resource: NotRequired[pulumi.Input[Optional['GroupVersionResourcePatchArgsDict']]]
     """
     The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
     """
@@ -403,7 +403,7 @@ class StorageVersionMigrationStatusArgsDict(TypedDict):
     """
     Status of the storage version migration.
     """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgs']]]]]
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgsDict']]]]]
     """
     The latest available observations of the migration's current state.
     """
@@ -465,15 +465,15 @@ class StorageVersionMigrationArgsDict(TypedDict):
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
     Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['StorageVersionMigrationSpecArgs']]]
+    spec: NotRequired[pulumi.Input[Optional['StorageVersionMigrationSpecArgsDict']]]
     """
     Specification of the migration.
     """
-    status: NotRequired[pulumi.Input[Optional['StorageVersionMigrationStatusArgs']]]
+    status: NotRequired[pulumi.Input[Optional['StorageVersionMigrationStatusArgsDict']]]
     """
     Status of the migration.
     """
