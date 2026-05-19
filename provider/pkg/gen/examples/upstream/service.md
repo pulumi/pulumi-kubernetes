@@ -147,6 +147,28 @@ resources:
         type: kubernetes:core/v1:Service
 runtime: yaml
 ```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_core_v1_service" "service" {
+  spec = {
+    ports = [{
+      port        = 80
+      protocol    = "TCP"
+      target_port = 9376
+    }]
+    selector = {
+      app = "MyApp"
+    }
+  }
+}
+```
 {{% /example %}}
 {{% example %}}
 ### Create a Service with a user-specified name
@@ -317,6 +339,31 @@ resources:
                     app: MyApp
         type: kubernetes:core/v1:Service
 runtime: yaml
+```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_core_v1_service" "service" {
+  metadata = {
+    name = "my-service"
+  }
+  spec = {
+    ports = [{
+      port        = 80
+      protocol    = "TCP"
+      target_port = 9376
+    }]
+    selector = {
+      app = "MyApp"
+    }
+  }
+}
 ```
 {{% /example %}}
 {{% /examples %}}

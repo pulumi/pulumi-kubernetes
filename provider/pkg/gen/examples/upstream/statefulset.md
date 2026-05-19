@@ -488,6 +488,80 @@ resources:
         type: kubernetes:apps/v1:StatefulSet
 runtime: yaml
 ```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_core_v1_service" "service" {
+  metadata = {
+    labels = {
+      app = "nginx"
+    }
+  }
+  spec = {
+    cluster_ip = "None"
+    ports = [{
+      name = "web"
+      port = 80
+    }]
+    selector = {
+      app = "nginx"
+    }
+  }
+}
+
+resource "kubernetes_apps_v1_stateful_set" "statefulset" {
+  spec = {
+    replicas = 3
+    selector = {
+      match_labels = {
+        app = "nginx"
+      }
+    }
+    service_name = kubernetes_core_v1_service.service.metadata.name
+    template = {
+      metadata = {
+        labels = {
+          app = "nginx"
+        }
+      }
+      spec = {
+        containers = [{
+          image = "nginx:stable-alpine3.17-slim"
+          name  = "nginx"
+          ports = [{
+            container_port = 80
+            name           = "web"
+          }]
+          volume_mounts = [{
+            mount_path = "/usr/share/nginx/html"
+            name       = "www"
+          }]
+        }]
+        termination_grace_period_seconds = 10
+      }
+    }
+    volume_claim_templates = [{
+      metadata = {
+        name = "www"
+      }
+      spec = {
+        access_modes = ["ReadWriteOnce"]
+        resources = {
+          requests = {
+            storage = "1Gi"
+          }
+        }
+      }
+    }]
+  }
+}
+```
 {{% /example %}}
 {{% example %}}
 ### Create a StatefulSet with a user-specified name
@@ -1003,6 +1077,84 @@ resources:
                                 storage: 1Gi
         type: kubernetes:apps/v1:StatefulSet
 runtime: yaml
+```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_core_v1_service" "service" {
+  metadata = {
+    labels = {
+      app = "nginx"
+    }
+    name = "nginx"
+  }
+  spec = {
+    cluster_ip = "None"
+    ports = [{
+      name = "web"
+      port = 80
+    }]
+    selector = {
+      app = "nginx"
+    }
+  }
+}
+
+resource "kubernetes_apps_v1_stateful_set" "statefulset" {
+  metadata = {
+    name = "web"
+  }
+  spec = {
+    replicas = 3
+    selector = {
+      match_labels = {
+        app = "nginx"
+      }
+    }
+    service_name = kubernetes_core_v1_service.service.metadata.name
+    template = {
+      metadata = {
+        labels = {
+          app = "nginx"
+        }
+      }
+      spec = {
+        containers = [{
+          image = "nginx:stable-alpine3.17-slim"
+          name  = "nginx"
+          ports = [{
+            container_port = 80
+            name           = "web"
+          }]
+          volume_mounts = [{
+            mount_path = "/usr/share/nginx/html"
+            name       = "www"
+          }]
+        }]
+        termination_grace_period_seconds = 10
+      }
+    }
+    volume_claim_templates = [{
+      metadata = {
+        name = "www"
+      }
+      spec = {
+        access_modes = ["ReadWriteOnce"]
+        resources = {
+          requests = {
+            storage = "1Gi"
+          }
+        }
+      }
+    }]
+  }
+}
 ```
 {{% /example %}}
 {{% /examples %}}
