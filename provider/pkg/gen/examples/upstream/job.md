@@ -209,6 +209,36 @@ resources:
         type: kubernetes:batch/v1:Job
 runtime: yaml
 ```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_batch_v1_job" "job" {
+  spec = {
+    backoff_limit = 4
+    template = {
+      spec = {
+        containers = [{
+          command = [
+            "perl",
+            "-Mbignum=bpi",
+            "-wle",
+            "print bpi(2000)",
+          ]
+          image = "perl"
+          name  = "pi"
+        }]
+        restart_policy = "Never"
+      }
+    }
+  }
+}
+```
 {{% /example %}}
 {{% example %}}
 ### Create a Job with a user-specified name
@@ -431,6 +461,39 @@ resources:
                         restartPolicy: Never
         type: kubernetes:batch/v1:Job
 runtime: yaml
+```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_batch_v1_job" "job" {
+  metadata = {
+    name = "pi"
+  }
+  spec = {
+    backoff_limit = 4
+    template = {
+      spec = {
+        containers = [{
+          command = [
+            "perl",
+            "-Mbignum=bpi",
+            "-wle",
+            "print bpi(2000)",
+          ]
+          image = "perl"
+          name  = "pi"
+        }]
+        restart_policy = "Never"
+      }
+    }
+  }
+}
 ```
 {{% /example %}}
 {{% /examples %}}

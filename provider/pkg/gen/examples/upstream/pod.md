@@ -148,6 +148,27 @@ resources:
         type: kubernetes:core/v1:Pod
 runtime: yaml
 ```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_core_v1_pod" "pod" {
+  spec = {
+    containers = [{
+      image = "nginx:1.14.2"
+      name  = "nginx"
+      ports = [{
+        container_port = 80
+      }]
+    }]
+  }
+}
+```
 {{% /example %}}
 {{% example %}}
 ### Create a Pod with a user-specified name
@@ -319,6 +340,30 @@ resources:
                         - containerPort: 80
         type: kubernetes:core/v1:Pod
 runtime: yaml
+```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_core_v1_pod" "pod" {
+  metadata = {
+    name = "nginx"
+  }
+  spec = {
+    containers = [{
+      image = "nginx:1.14.2"
+      name  = "nginx"
+      ports = [{
+        container_port = 80
+      }]
+    }]
+  }
+}
 ```
 {{% /example %}}
 {{% /examples %}}

@@ -271,6 +271,47 @@ resources:
         type: kubernetes:apps/v1:Deployment
 runtime: yaml
 ```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_apps_v1_deployment" "deployment" {
+  metadata = {
+    labels = {
+      app = "nginx"
+    }
+  }
+  spec = {
+    replicas = 3
+    selector = {
+      match_labels = {
+        app = "nginx"
+      }
+    }
+    template = {
+      metadata = {
+        labels = {
+          app = "nginx"
+        }
+      }
+      spec = {
+        containers = [{
+          image = "nginx:1.14.2"
+          name  = "nginx"
+          ports = [{
+            container_port = 80
+          }]
+        }]
+      }
+    }
+  }
+}
+```
 {{% /example %}}
 {{% example %}}
 ### Create a Deployment with a user-specified name
@@ -548,6 +589,48 @@ resources:
                                 - containerPort: 80
         type: kubernetes:apps/v1:Deployment
 runtime: yaml
+```
+```hcl
+pulumi {
+  required_providers {
+    kubernetes = {
+      source = "pulumi/kubernetes"
+    }
+  }
+}
+
+resource "kubernetes_apps_v1_deployment" "deployment" {
+  metadata = {
+    labels = {
+      app = "nginx"
+    }
+    name = "nginx-deployment"
+  }
+  spec = {
+    replicas = 3
+    selector = {
+      match_labels = {
+        app = "nginx"
+      }
+    }
+    template = {
+      metadata = {
+        labels = {
+          app = "nginx"
+        }
+      }
+      spec = {
+        containers = [{
+          image = "nginx:1.14.2"
+          name  = "nginx"
+          ports = [{
+            container_port = 80
+          }]
+        }]
+      }
+    }
+  }
+}
 ```
 {{% /example %}}
 {{% /examples %}}
