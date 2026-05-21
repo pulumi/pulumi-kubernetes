@@ -850,7 +850,6 @@ func TestGet(t *testing.T) {
 }
 
 func TestIstio(t *testing.T) {
-	tests.SkipIfShort(t, "test provisions a load balancer and requires a cloud provider cluster to run")
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:         filepath.Join("istio", "step1"),
 		Quick:       true,
@@ -2383,7 +2382,6 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 // and has a controller backing it. We create 2 pods to test egress between them, rather than hitting
 // a live URL, to avoid flakiness.
 func TestEmptyItemNormalization(t *testing.T) {
-	tests.SkipIfShort(t, "test requires a cluster with NetworkPolicy support")
 	validateProgram := func(networkingEnabled bool) func(*testing.T, integration.RuntimeValidationStackInfo) {
 		return func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			ns, ok := stackInfo.Outputs["podANamespace"].(string)

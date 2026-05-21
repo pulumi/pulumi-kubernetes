@@ -153,7 +153,6 @@ func createSAKubeconfig(t *testing.T, saName string) (string, error) {
 // subresoruces. This is to ensure we don't fail preview, since status fields are only populated after the resource is
 // created on cluster.
 func TestPreviewWithApply(t *testing.T) {
-	tests.SkipIfShort(t, "test requires a load balancer and won't work on kind clusters")
 	var externalIP, nsName, svcName string
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "preview-apply",
