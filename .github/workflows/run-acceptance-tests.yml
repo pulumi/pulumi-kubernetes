@@ -481,6 +481,8 @@ jobs:
         config: scripts/kind-config.yaml
     - name: Install KinD prerequisites (Calico + MetalLB + Traefik)
       run: ./scripts/setup-kind-cluster.sh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Run tests
       run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
         2h -parallel 4 -short ./...
