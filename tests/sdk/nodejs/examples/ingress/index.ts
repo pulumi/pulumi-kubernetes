@@ -17,6 +17,20 @@ import * as k8s from "@pulumi/kubernetes";
 const ns = new k8s.core.v1.Namespace("test");
 const namespace = ns.metadata.name;
 
+// Self-install an nginx ingress controller so the test is portable: the GKE
+// cluster used by master CI has no ingress controller of its own. nginx uses a
+// distinct ingress class, so it coexists with the KinD cluster's Traefik.
+const ingressNs = new k8s.core.v1.Namespace("ingress-nginx");
+const ingressController = new k8s.helm.v3.Release("nginx-ingress", {
+    name: "nginx-ingress",
+    namespace: ingressNs.metadata.name,
+    chart: "ingress-nginx",
+    version: "4.13.9",
+    repositoryOpts: {
+        repo: "https://kubernetes.github.io/ingress-nginx",
+    },
+});
+
 const helloLabels = { app: "hello", tier: "frontend" };
 
 const helloService = new k8s.core.v1.Service("hello-svc", {
@@ -56,9 +70,12 @@ const feIngress = new k8s.networking.v1.Ingress("feIngress", {
     metadata: {
         namespace: namespace,
         name: "feingress",
+        annotations: {
+            "nginx.ingress.kubernetes.io/ssl-redirect": "false",
+        },
     },
     spec: {
-        ingressClassName: "traefik",
+        ingressClassName: "nginx",
         rules: [{
             http: {
                 paths: [{
@@ -69,6 +86,6 @@ const feIngress = new k8s.networking.v1.Ingress("feIngress", {
             },
         }],
     },
-});
+}, { dependsOn: [ingressController] });
 
 export const ingressIp = feIngress.status.loadBalancer.ingress[0].ip;
