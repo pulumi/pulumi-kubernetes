@@ -362,7 +362,7 @@ func generateSchema(
 	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema, gen.WithParameterization(&pulumischema.ParameterizationSpec{
 		BaseProvider: pulumischema.BaseProviderSpec{
 			Name:    baseProvName,
-			Version: baseProvVersion,
+			Version: strings.TrimPrefix(baseProvVersion, "v"),
 		},
 		Parameter: marshaledOpenAPISchema,
 	}))
