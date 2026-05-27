@@ -48,7 +48,7 @@ to the full API surface, including deprecated endpoints.
 The SDK API is 100% compatible with the Kubernetes API, and is
 schematically identical to what Kubernetes users expect.
 
-We support Kubernetes clusters with version >=1.9.0.
+We support Kubernetes clusters with version >=1.13.0.
 
 #### How does API support for Kubernetes work?
 
@@ -68,7 +68,7 @@ for more details.
 
 * [Reference Documentation](https://www.pulumi.com/registry/packages/kubernetes/)
 * API Documentation
-    * [Node.js API](https://pulumi.io/reference/pkg/nodejs/@pulumi/kubernetes)
+    * [Node.js API](https://www.pulumi.com/registry/packages/kubernetes/api-docs/)
     * [Python API](https://www.pulumi.com/docs/reference/pkg/python/pulumi_kubernetes/)
 * [All Examples](./examples)
 * [How-to Guides](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/)
@@ -76,7 +76,7 @@ for more details.
 ## Prerequisites
 
 1. [Install Pulumi](https://www.pulumi.com/docs/get-started/kubernetes/install-pulumi/).
-1. Install a language runtime such as [Node.js](https://nodejs.org/en/download), [Python](https://www.python.org/downloads/) or [.NET](https://dotnet.microsoft.com/download/dotnet-core/3.1).
+1. Install a language runtime such as [Node.js](https://nodejs.org/en/download), [Python](https://www.python.org/downloads/) or [.NET](https://dotnet.microsoft.com/download).
 1. Install a package manager
     * For Node.js, use [NPM](https://www.npmjs.com/get-npm) or [Yarn](https://yarnpkg.com/lang/en/docs/install).
     * For Python, use [pip](https://pip.pypa.io/en/stable/installing/).

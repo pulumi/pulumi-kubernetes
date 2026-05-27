@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Changed
+
+- Align the documented minimum supported Kubernetes version and local SDK install instructions with current provider behavior.
+
 ## 4.31.1 (May 19, 2026)
 
 ### Changed

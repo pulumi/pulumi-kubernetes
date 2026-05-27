@@ -21,14 +21,12 @@ $ make ensure
 
 Run the following command to build and install the source.
 
-The output will be stored in `/opt/pulumi/node_modules/@pulumi/kubernetes`.
-
 ```bash
 $ make ensure build install
 ```
 
-`cd` into your Pulumi program directory.  After `make` has completed,
-link the recent `@pulumi/kubernetes` build from `/opt/` by running the following command:
+`make install` links the local Node.js SDK build from `sdk/nodejs/bin`.
+`cd` into your Pulumi program directory and link `@pulumi/kubernetes` by running:
 
 ```
 $ yarn link @pulumi/kubernetes
@@ -38,7 +36,7 @@ $ yarn link @pulumi/kubernetes
 
 The examples and integration tests in this repository will create and destroy
 real Kubernetes objects while running. Before running these tests, make sure that you have
-[configured Pulumi with your Kubernetes cluster](https://pulumi.io/install/kubernetes.html)
+[configured Pulumi with your Kubernetes cluster](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/)
 successfully at least once before.
 
 You can run Kubernetes tests against `minikube` or against real Kubernetes
