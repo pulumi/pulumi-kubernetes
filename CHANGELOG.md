@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- [#4396](https://github.com/pulumi/pulumi-kubernetes/issues/4396) Fix panic when creating a `kubernetes.io/service-account-token` Secret with a non-existent ServiceAccount.
+
 ### Changed
 
 - Align the documented minimum supported Kubernetes version and local SDK install instructions with current provider behavior.

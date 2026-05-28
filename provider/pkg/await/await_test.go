@@ -1405,6 +1405,71 @@ func TestAwaiterInterfaceTimeout(t *testing.T) {
 	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
 }
 
+// TestCreation_AwaiterReturnsNilObject is a regression test for
+// https://github.com/pulumi/pulumi-kubernetes/issues/4396: Creation must
+// return a non-nil object even when the awaiter never observed the resource.
+func TestCreation_AwaiterReturnsNilObject(t *testing.T) {
+	secretWithoutData := &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "v1",
+			"kind":       "Secret",
+			"metadata": map[string]any{
+				"name":      "my-secret",
+				"namespace": "default",
+			},
+			"type": "kubernetes.io/service-account-token",
+		},
+	}
+
+	host := &fakehost.HostClient{}
+	client, disco, _, _ := fake.NewSimpleDynamicClient()
+	resources, err := openapi.GetResourceSchemasForClient(disco)
+	require.NoError(t, err)
+
+	urn := resource.NewURN(
+		tokens.QName("teststack"),
+		tokens.PackageName("testproj"),
+		tokens.Type(""),
+		tokens.Type("kubernetes:core/v1:Secret"),
+		"testresource",
+	)
+
+	// Simulate the awaiter never observing the object (poll returned nil).
+	awaitNilObject := func(_ awaitConfig) (*unstructured.Unstructured, error) {
+		return nil, fmt.Errorf("service account does not exist")
+	}
+
+	config := CreateConfig{
+		ProviderConfig: ProviderConfig{
+			Context:           context.Background(),
+			Host:              host,
+			URN:               urn,
+			InitialAPIVersion: corev1.SchemeGroupVersion.String(),
+			FieldManager:      "test",
+			ClusterVersion:    testServerVersion,
+			ClientSet:         client,
+			DedupLogger:       logging.NewLogger(context.Background(), host, urn),
+			Resources:         resources,
+			awaiters: map[string]awaitSpec{
+				"v1/Secret": {await: wrap(awaitNilObject)},
+			},
+			Factories: informers.NewFactories(t.Context()),
+		},
+		Inputs: secretWithoutData,
+	}
+
+	outputs, awaitErr := Creation(config)
+
+	assert.NotNil(t, outputs, "Creation should return the API-created object even when the awaiter returns nil")
+
+	partialErr, isPartialErr := awaitErr.(PartialError)
+	assert.True(t, isPartialErr, "await error should be a PartialError")
+
+	if isPartialErr && partialErr.Object() != nil {
+		assert.Equal(t, "my-secret", partialErr.Object().GetName())
+	}
+}
+
 // --------------------------------------------------------------------------
 
 // Helpers

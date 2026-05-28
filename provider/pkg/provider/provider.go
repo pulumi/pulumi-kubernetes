@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"cmp"
 	"context"
 	"encoding/json"
 	"errors"
@@ -1829,8 +1830,9 @@ func (k *kubeProvider) Create(
 				"resource %q was not successfully created by the Kubernetes API server: %w", urn, awaitErr)
 		}
 
-		// Resource was created, but failed to become fully initialized.
-		initialized = partialErr.Object()
+		// Resource was created but failed to fully initialize. Fall back to
+		// the API-created outputs if the awaiter didn't observe any state.
+		initialized = cmp.Or(partialErr.Object(), initialized)
 	}
 	contract.Assertf(initialized.GetName() != "", "expected live object name to be nonempty: %v", initialized)
 

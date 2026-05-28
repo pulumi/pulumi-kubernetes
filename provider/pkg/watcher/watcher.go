@@ -129,9 +129,12 @@ func (ow *ObjectWatcher) watch(
 		case <-ow.ctx.Done():
 			return obj, cancellationErr(ow.objName, obj)
 		case res := <-results:
-			obj = res.Obj
+			// Preserve the last non-nil object so a poll error doesn't lose state.
+			if res.Obj != nil {
+				obj = res.Obj
+			}
 			if stop, err := until(res.Obj, res.Err); err != nil {
-				return res.Obj, err
+				return obj, err
 			} else if stop {
 				return res.Obj, nil
 			}
