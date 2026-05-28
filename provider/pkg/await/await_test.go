@@ -1405,6 +1405,86 @@ func TestAwaiterInterfaceTimeout(t *testing.T) {
 	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
 }
 
+// TestCreation_ServiceAccountTokenSecret tests that creating a
+// kubernetes.io/service-account-token Secret whose referenced ServiceAccount
+// does not exist returns a PartialError rather than panicking. The bug
+// (https://github.com/pulumi/pulumi-kubernetes/issues/4396) was that when the
+// awaiter's internal poll returned (nil, err) the PartialError's Object() was
+// nil; provider.go then overrode the initialized variable with nil and
+// GetName() panicked. The fix ensures the last known non-nil object from the
+// watcher is preserved, and provider.go falls back to the API-created outputs
+// when PartialError.Object() is nil.
+func TestCreation_ServiceAccountTokenSecret(t *testing.T) {
+	secretWithoutData := &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "v1",
+			"kind":       "Secret",
+			"metadata": map[string]any{
+				"name":      "my-secret",
+				"namespace": "default",
+			},
+			"type": "kubernetes.io/service-account-token",
+			// data intentionally absent — SA doesn't exist, controller won't populate it
+		},
+	}
+
+	host := &fakehost.HostClient{}
+	client, disco, _, _ := fake.NewSimpleDynamicClient()
+	resources, err := openapi.GetResourceSchemasForClient(disco)
+	require.NoError(t, err)
+
+	urn := resource.NewURN(
+		tokens.QName("teststack"),
+		tokens.PackageName("testproj"),
+		tokens.Type(""),
+		tokens.Type("kubernetes:core/v1:Secret"),
+		"testresource",
+	)
+
+	// Use a custom awaiter that simulates the failure mode: the awaiter's internal
+	// poll never produced a non-nil object, so it returns (nil, err). This is the
+	// exact condition that triggered the nil-pointer panic in provider.go before
+	// the fix.
+	awaitNilObject := func(_ awaitConfig) (*unstructured.Unstructured, error) {
+		return nil, fmt.Errorf("service account does not exist")
+	}
+
+	config := CreateConfig{
+		ProviderConfig: ProviderConfig{
+			Context:           context.Background(),
+			Host:              host,
+			URN:               urn,
+			InitialAPIVersion: corev1.SchemeGroupVersion.String(),
+			FieldManager:      "test",
+			ClusterVersion:    testServerVersion,
+			ClientSet:         client,
+			DedupLogger:       logging.NewLogger(context.Background(), host, urn),
+			Resources:         resources,
+			awaiters: map[string]awaitSpec{
+				"v1/Secret": {await: wrap(awaitNilObject)},
+			},
+			Factories: informers.NewFactories(t.Context()),
+		},
+		Inputs: secretWithoutData,
+	}
+
+	outputs, awaitErr := Creation(config)
+
+	// Creation must return the API-created outputs (non-nil) even when the
+	// awaiter itself could not observe any state.
+	assert.NotNil(t, outputs, "Creation should return the API-created object even when the awaiter returns nil")
+
+	// The error must be a PartialError so the provider can checkpoint state.
+	partialErr, isPartialErr := awaitErr.(PartialError)
+	assert.True(t, isPartialErr, "await error should be a PartialError")
+
+	// PartialError.Object() may be nil when the awaiter never observed the
+	// object. The provider.go fix guards against using this nil value directly.
+	if isPartialErr && partialErr.Object() != nil {
+		assert.Equal(t, "my-secret", partialErr.Object().GetName())
+	}
+}
+
 // --------------------------------------------------------------------------
 
 // Helpers

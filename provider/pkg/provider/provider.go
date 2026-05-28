@@ -1830,7 +1830,12 @@ func (k *kubeProvider) Create(
 		}
 
 		// Resource was created, but failed to become fully initialized.
-		initialized = partialErr.Object()
+		// partialErr.Object() may be nil if the awaiter never observed the object
+		// (e.g., a transient poll error before any successful Get). Fall back to
+		// the outputs returned by the API server at creation time.
+		if obj := partialErr.Object(); obj != nil {
+			initialized = obj
+		}
 	}
 	contract.Assertf(initialized.GetName() != "", "expected live object name to be nonempty: %v", initialized)
 

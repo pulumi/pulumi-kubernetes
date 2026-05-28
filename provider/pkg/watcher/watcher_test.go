@@ -16,6 +16,7 @@ package watcher
 
 import (
 	"context"
+	"fmt"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -173,4 +174,36 @@ func Test_RetryUntil_Cancel(t *testing.T) {
 	if err == nil {
 		t.Error("Expected watch to terminate with an initialization error")
 	}
+}
+
+// Test_WatchUntil_PollErrorAfterSuccess verifies that when a poll succeeds
+// initially but later fails (returning nil), WatchUntil returns the last
+// known non-nil object alongside the error rather than returning nil.
+// This prevents nil pointer panics in callers that assume a non-nil object
+// is returned whenever the resource was successfully created.
+func Test_WatchUntil_PollErrorAfterSuccess(t *testing.T) {
+	knownObj := &unstructured.Unstructured{Object: map[string]any{
+		"metadata": map[string]any{"name": "my-secret"},
+	}}
+
+	calls := 0
+	obj, err := testObjWatcher(
+		context.Background(),
+		func() (*unstructured.Unstructured, error) {
+			calls++
+			if calls == 1 {
+				// First poll returns the object successfully.
+				return knownObj, nil
+			}
+			// Subsequent polls fail (e.g., transient API error).
+			return nil, fmt.Errorf("transient error")
+		}).
+		WatchUntil(
+			func(*unstructured.Unstructured) bool { return false }, // never satisfied
+			1*time.Second,
+		)
+
+	assert.NotNil(t, obj, "WatchUntil should return the last known non-nil object on poll failure")
+	assert.Equal(t, "my-secret", obj.GetName())
+	assert.Error(t, err)
 }

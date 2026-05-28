@@ -129,9 +129,15 @@ func (ow *ObjectWatcher) watch(
 		case <-ow.ctx.Done():
 			return obj, cancellationErr(ow.objName, obj)
 		case res := <-results:
-			obj = res.Obj
+			// Only update the tracked object when we receive a non-nil result so
+			// that a transient poll error doesn't clobber the last known state.
+			if res.Obj != nil {
+				obj = res.Obj
+			}
 			if stop, err := until(res.Obj, res.Err); err != nil {
-				return res.Obj, err
+				// Return the last known non-nil object alongside the error so
+				// callers can checkpoint partial state instead of panicking on nil.
+				return obj, err
 			} else if stop {
 				return res.Obj, nil
 			}
