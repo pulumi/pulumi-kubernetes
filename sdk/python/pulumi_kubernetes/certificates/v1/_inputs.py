@@ -16,17 +16,135 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
-    'CertificateSigningRequestConditionArgs',
-    'CertificateSigningRequestConditionArgsDict',
-    'CertificateSigningRequestSpecPatchArgs',
-    'CertificateSigningRequestSpecPatchArgsDict',
-    'CertificateSigningRequestSpecArgs',
-    'CertificateSigningRequestSpecArgsDict',
-    'CertificateSigningRequestStatusArgs',
-    'CertificateSigningRequestStatusArgsDict',
     'CertificateSigningRequestArgs',
     'CertificateSigningRequestArgsDict',
+    'CertificateSigningRequestConditionArgs',
+    'CertificateSigningRequestConditionArgsDict',
+    'CertificateSigningRequestSpecArgs',
+    'CertificateSigningRequestSpecArgsDict',
+    'CertificateSigningRequestSpecPatchArgs',
+    'CertificateSigningRequestSpecPatchArgsDict',
+    'CertificateSigningRequestStatusArgs',
+    'CertificateSigningRequestStatusArgsDict',
 ]
+
+class CertificateSigningRequestArgsDict(TypedDict):
+    """
+    CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
+
+    Kubelets use this API to obtain:
+     1. client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client-kubelet" signerName).
+     2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
+
+    This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
+    """
+    spec: pulumi.Input['CertificateSigningRequestSpecArgsDict']
+    """
+    spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+    """
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    status: NotRequired[pulumi.Input[Optional['CertificateSigningRequestStatusArgsDict']]]
+    """
+    status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
+    """
+
+@pulumi.input_type
+class CertificateSigningRequestArgs:
+    def __init__(__self__, *,
+                 spec: pulumi.Input['CertificateSigningRequestSpecArgs'],
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 status: pulumi.Input[Optional['CertificateSigningRequestStatusArgs']] = None):
+        """
+        CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
+
+        Kubelets use this API to obtain:
+         1. client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client-kubelet" signerName).
+         2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
+
+        This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
+
+        :param pulumi.Input['CertificateSigningRequestSpecArgs'] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['CertificateSigningRequestStatusArgs'] status: status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
+        """
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'CertificateSigningRequest')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['CertificateSigningRequestSpecArgs']:
+        """
+        spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['CertificateSigningRequestSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]:
+        """
+        status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]):
+        pulumi.set(self, "status", value)
+
 
 class CertificateSigningRequestConditionArgsDict(TypedDict):
     """
@@ -188,6 +306,310 @@ class CertificateSigningRequestConditionArgs:
     @reason.setter
     def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
+
+
+class CertificateSigningRequestSpecArgsDict(TypedDict):
+    """
+    CertificateSigningRequestSpec contains the certificate request.
+    """
+    request: pulumi.Input[_builtins.str]
+    """
+    request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
+    """
+    signer_name: pulumi.Input[_builtins.str]
+    """
+    signerName indicates the requested signer, and is a qualified name.
+
+    List/watch requests for CertificateSigningRequests can filter on this field using a "spec.signerName=NAME" fieldSelector.
+
+    Well-known Kubernetes signers are:
+     1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
+      Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+     2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
+      Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+     3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
+      Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+
+    More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
+
+    Custom signerNames can also be specified. The signer defines:
+     1. Trust distribution: how trust (CA bundles) are distributed.
+     2. Permitted subjects: and behavior when a disallowed subject is requested.
+     3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
+     4. Required, permitted, or forbidden key usages / extended key usages.
+     5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
+     6. Whether or not requests for CA certificates are allowed.
+    """
+    expiration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+
+    The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+
+    Certificate signers may not honor this field for various reasons:
+
+      1. Old signer that is unaware of the field (such as the in-tree
+         implementations prior to v1.22)
+      2. Signer whose configured maximum is shorter than the requested duration
+      3. Signer whose configured minimum is longer than the requested duration
+
+    The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+    """
+    extra: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]]
+    """
+    extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+    """
+    groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+    """
+    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+    """
+    usages: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    usages specifies a set of key usages requested in the issued certificate.
+
+    Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
+
+    Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
+
+    Valid values are:
+     "signing", "digital signature", "content commitment",
+     "key encipherment", "key agreement", "data encipherment",
+     "cert sign", "crl sign", "encipher only", "decipher only", "any",
+     "server auth", "client auth",
+     "code signing", "email protection", "s/mime",
+     "ipsec end system", "ipsec tunnel", "ipsec user",
+     "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
+    """
+    username: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+    """
+
+@pulumi.input_type
+class CertificateSigningRequestSpecArgs:
+    def __init__(__self__, *,
+                 request: pulumi.Input[_builtins.str],
+                 signer_name: pulumi.Input[_builtins.str],
+                 expiration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 extra: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
+                 groups: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 uid: pulumi.Input[Optional[_builtins.str]] = None,
+                 usages: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 username: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        CertificateSigningRequestSpec contains the certificate request.
+
+        :param pulumi.Input[_builtins.str] request: request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
+        :param pulumi.Input[_builtins.str] signer_name: signerName indicates the requested signer, and is a qualified name.
+               
+               List/watch requests for CertificateSigningRequests can filter on this field using a "spec.signerName=NAME" fieldSelector.
+               
+               Well-known Kubernetes signers are:
+                1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
+                 Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+                2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
+                 Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+                3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
+                 Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+               
+               More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
+               
+               Custom signerNames can also be specified. The signer defines:
+                1. Trust distribution: how trust (CA bundles) are distributed.
+                2. Permitted subjects: and behavior when a disallowed subject is requested.
+                3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
+                4. Required, permitted, or forbidden key usages / extended key usages.
+                5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
+                6. Whether or not requests for CA certificates are allowed.
+        :param pulumi.Input[_builtins.int] expiration_seconds: expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+               
+               The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+               
+               Certificate signers may not honor this field for various reasons:
+               
+                 1. Old signer that is unaware of the field (such as the in-tree
+                    implementations prior to v1.22)
+                 2. Signer whose configured maximum is shorter than the requested duration
+                 3. Signer whose configured minimum is longer than the requested duration
+               
+               The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+        :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]] extra: extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] groups: groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        :param pulumi.Input[_builtins.str] uid: uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] usages: usages specifies a set of key usages requested in the issued certificate.
+               
+               Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
+               
+               Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
+               
+               Valid values are:
+                "signing", "digital signature", "content commitment",
+                "key encipherment", "key agreement", "data encipherment",
+                "cert sign", "crl sign", "encipher only", "decipher only", "any",
+                "server auth", "client auth",
+                "code signing", "email protection", "s/mime",
+                "ipsec end system", "ipsec tunnel", "ipsec user",
+                "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
+        :param pulumi.Input[_builtins.str] username: username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        """
+        pulumi.set(__self__, "request", request)
+        pulumi.set(__self__, "signer_name", signer_name)
+        if expiration_seconds is not None:
+            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
+        if extra is not None:
+            pulumi.set(__self__, "extra", extra)
+        if groups is not None:
+            pulumi.set(__self__, "groups", groups)
+        if uid is not None:
+            pulumi.set(__self__, "uid", uid)
+        if usages is not None:
+            pulumi.set(__self__, "usages", usages)
+        if username is not None:
+            pulumi.set(__self__, "username", username)
+
+    @_builtins.property
+    @pulumi.getter
+    def request(self) -> pulumi.Input[_builtins.str]:
+        """
+        request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
+        """
+        return pulumi.get(self, "request")
+
+    @request.setter
+    def request(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "request", value)
+
+    @_builtins.property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        signerName indicates the requested signer, and is a qualified name.
+
+        List/watch requests for CertificateSigningRequests can filter on this field using a "spec.signerName=NAME" fieldSelector.
+
+        Well-known Kubernetes signers are:
+         1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
+          Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+         2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
+          Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+         3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
+          Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+
+        More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
+
+        Custom signerNames can also be specified. The signer defines:
+         1. Trust distribution: how trust (CA bundles) are distributed.
+         2. Permitted subjects: and behavior when a disallowed subject is requested.
+         3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
+         4. Required, permitted, or forbidden key usages / extended key usages.
+         5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
+         6. Whether or not requests for CA certificates are allowed.
+        """
+        return pulumi.get(self, "signer_name")
+
+    @signer_name.setter
+    def signer_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "signer_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="expirationSeconds")
+    def expiration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+
+        The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+
+        Certificate signers may not honor this field for various reasons:
+
+          1. Old signer that is unaware of the field (such as the in-tree
+             implementations prior to v1.22)
+          2. Signer whose configured maximum is shorter than the requested duration
+          3. Signer whose configured minimum is longer than the requested duration
+
+        The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+        """
+        return pulumi.get(self, "expiration_seconds")
+
+    @expiration_seconds.setter
+    def expiration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "expiration_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def extra(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
+        """
+        extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        """
+        return pulumi.get(self, "extra")
+
+    @extra.setter
+    def extra(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
+        pulumi.set(self, "extra", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        """
+        return pulumi.get(self, "groups")
+
+    @groups.setter
+    def groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "groups", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        """
+        return pulumi.get(self, "uid")
+
+    @uid.setter
+    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "uid", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def usages(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        usages specifies a set of key usages requested in the issued certificate.
+
+        Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
+
+        Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
+
+        Valid values are:
+         "signing", "digital signature", "content commitment",
+         "key encipherment", "key agreement", "data encipherment",
+         "cert sign", "crl sign", "encipher only", "decipher only", "any",
+         "server auth", "client auth",
+         "code signing", "email protection", "s/mime",
+         "ipsec end system", "ipsec tunnel", "ipsec user",
+         "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
+        """
+        return pulumi.get(self, "usages")
+
+    @usages.setter
+    def usages(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "usages", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def username(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
+        """
+        return pulumi.get(self, "username")
+
+    @username.setter
+    def username(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "username", value)
 
 
 class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
@@ -496,310 +918,6 @@ class CertificateSigningRequestSpecPatchArgs:
         pulumi.set(self, "username", value)
 
 
-class CertificateSigningRequestSpecArgsDict(TypedDict):
-    """
-    CertificateSigningRequestSpec contains the certificate request.
-    """
-    request: pulumi.Input[_builtins.str]
-    """
-    request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
-    """
-    signer_name: pulumi.Input[_builtins.str]
-    """
-    signerName indicates the requested signer, and is a qualified name.
-
-    List/watch requests for CertificateSigningRequests can filter on this field using a "spec.signerName=NAME" fieldSelector.
-
-    Well-known Kubernetes signers are:
-     1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-      Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
-     2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-      Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
-     3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-      Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
-
-    More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
-
-    Custom signerNames can also be specified. The signer defines:
-     1. Trust distribution: how trust (CA bundles) are distributed.
-     2. Permitted subjects: and behavior when a disallowed subject is requested.
-     3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
-     4. Required, permitted, or forbidden key usages / extended key usages.
-     5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
-     6. Whether or not requests for CA certificates are allowed.
-    """
-    expiration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
-
-    The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
-
-    Certificate signers may not honor this field for various reasons:
-
-      1. Old signer that is unaware of the field (such as the in-tree
-         implementations prior to v1.22)
-      2. Signer whose configured maximum is shorter than the requested duration
-      3. Signer whose configured minimum is longer than the requested duration
-
-    The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
-    """
-    extra: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]]
-    """
-    extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-    """
-    groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-    """
-    uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-    """
-    usages: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    usages specifies a set of key usages requested in the issued certificate.
-
-    Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
-
-    Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
-
-    Valid values are:
-     "signing", "digital signature", "content commitment",
-     "key encipherment", "key agreement", "data encipherment",
-     "cert sign", "crl sign", "encipher only", "decipher only", "any",
-     "server auth", "client auth",
-     "code signing", "email protection", "s/mime",
-     "ipsec end system", "ipsec tunnel", "ipsec user",
-     "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
-    """
-    username: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-    """
-
-@pulumi.input_type
-class CertificateSigningRequestSpecArgs:
-    def __init__(__self__, *,
-                 request: pulumi.Input[_builtins.str],
-                 signer_name: pulumi.Input[_builtins.str],
-                 expiration_seconds: pulumi.Input[Optional[_builtins.int]] = None,
-                 extra: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
-                 groups: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 uid: pulumi.Input[Optional[_builtins.str]] = None,
-                 usages: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 username: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        CertificateSigningRequestSpec contains the certificate request.
-
-        :param pulumi.Input[_builtins.str] request: request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
-        :param pulumi.Input[_builtins.str] signer_name: signerName indicates the requested signer, and is a qualified name.
-               
-               List/watch requests for CertificateSigningRequests can filter on this field using a "spec.signerName=NAME" fieldSelector.
-               
-               Well-known Kubernetes signers are:
-                1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-                 Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
-                2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-                 Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
-                3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-                 Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
-               
-               More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
-               
-               Custom signerNames can also be specified. The signer defines:
-                1. Trust distribution: how trust (CA bundles) are distributed.
-                2. Permitted subjects: and behavior when a disallowed subject is requested.
-                3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
-                4. Required, permitted, or forbidden key usages / extended key usages.
-                5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
-                6. Whether or not requests for CA certificates are allowed.
-        :param pulumi.Input[_builtins.int] expiration_seconds: expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
-               
-               The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
-               
-               Certificate signers may not honor this field for various reasons:
-               
-                 1. Old signer that is unaware of the field (such as the in-tree
-                    implementations prior to v1.22)
-                 2. Signer whose configured maximum is shorter than the requested duration
-                 3. Signer whose configured minimum is longer than the requested duration
-               
-               The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
-        :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]] extra: extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] groups: groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        :param pulumi.Input[_builtins.str] uid: uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] usages: usages specifies a set of key usages requested in the issued certificate.
-               
-               Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
-               
-               Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
-               
-               Valid values are:
-                "signing", "digital signature", "content commitment",
-                "key encipherment", "key agreement", "data encipherment",
-                "cert sign", "crl sign", "encipher only", "decipher only", "any",
-                "server auth", "client auth",
-                "code signing", "email protection", "s/mime",
-                "ipsec end system", "ipsec tunnel", "ipsec user",
-                "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
-        :param pulumi.Input[_builtins.str] username: username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        """
-        pulumi.set(__self__, "request", request)
-        pulumi.set(__self__, "signer_name", signer_name)
-        if expiration_seconds is not None:
-            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
-        if extra is not None:
-            pulumi.set(__self__, "extra", extra)
-        if groups is not None:
-            pulumi.set(__self__, "groups", groups)
-        if uid is not None:
-            pulumi.set(__self__, "uid", uid)
-        if usages is not None:
-            pulumi.set(__self__, "usages", usages)
-        if username is not None:
-            pulumi.set(__self__, "username", username)
-
-    @_builtins.property
-    @pulumi.getter
-    def request(self) -> pulumi.Input[_builtins.str]:
-        """
-        request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
-        """
-        return pulumi.get(self, "request")
-
-    @request.setter
-    def request(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "request", value)
-
-    @_builtins.property
-    @pulumi.getter(name="signerName")
-    def signer_name(self) -> pulumi.Input[_builtins.str]:
-        """
-        signerName indicates the requested signer, and is a qualified name.
-
-        List/watch requests for CertificateSigningRequests can filter on this field using a "spec.signerName=NAME" fieldSelector.
-
-        Well-known Kubernetes signers are:
-         1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-          Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
-         2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-          Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
-         3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-          Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
-
-        More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
-
-        Custom signerNames can also be specified. The signer defines:
-         1. Trust distribution: how trust (CA bundles) are distributed.
-         2. Permitted subjects: and behavior when a disallowed subject is requested.
-         3. Required, permitted, or forbidden x509 extensions in the request (including whether subjectAltNames are allowed, which types, restrictions on allowed values) and behavior when a disallowed extension is requested.
-         4. Required, permitted, or forbidden key usages / extended key usages.
-         5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
-         6. Whether or not requests for CA certificates are allowed.
-        """
-        return pulumi.get(self, "signer_name")
-
-    @signer_name.setter
-    def signer_name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "signer_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="expirationSeconds")
-    def expiration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
-
-        The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
-
-        Certificate signers may not honor this field for various reasons:
-
-          1. Old signer that is unaware of the field (such as the in-tree
-             implementations prior to v1.22)
-          2. Signer whose configured maximum is shorter than the requested duration
-          3. Signer whose configured minimum is longer than the requested duration
-
-        The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
-        """
-        return pulumi.get(self, "expiration_seconds")
-
-    @expiration_seconds.setter
-    def expiration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "expiration_seconds", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def extra(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]:
-        """
-        extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        """
-        return pulumi.get(self, "extra")
-
-    @extra.setter
-    def extra(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]]):
-        pulumi.set(self, "extra", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        """
-        return pulumi.get(self, "groups")
-
-    @groups.setter
-    def groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "groups", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def uid(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        """
-        return pulumi.get(self, "uid")
-
-    @uid.setter
-    def uid(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "uid", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def usages(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        usages specifies a set of key usages requested in the issued certificate.
-
-        Requests for TLS client certificates typically request: "digital signature", "key encipherment", "client auth".
-
-        Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
-
-        Valid values are:
-         "signing", "digital signature", "content commitment",
-         "key encipherment", "key agreement", "data encipherment",
-         "cert sign", "crl sign", "encipher only", "decipher only", "any",
-         "server auth", "client auth",
-         "code signing", "email protection", "s/mime",
-         "ipsec end system", "ipsec tunnel", "ipsec user",
-         "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
-        """
-        return pulumi.get(self, "usages")
-
-    @usages.setter
-    def usages(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "usages", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def username(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-        """
-        return pulumi.get(self, "username")
-
-    @username.setter
-    def username(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "username", value)
-
-
 class CertificateSigningRequestStatusArgsDict(TypedDict):
     """
     CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
@@ -915,123 +1033,5 @@ class CertificateSigningRequestStatusArgs:
     @conditions.setter
     def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
-
-
-class CertificateSigningRequestArgsDict(TypedDict):
-    """
-    CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
-
-    Kubelets use this API to obtain:
-     1. client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client-kubelet" signerName).
-     2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
-
-    This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
-    """
-    spec: pulumi.Input['CertificateSigningRequestSpecArgsDict']
-    """
-    spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
-    """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-    """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
-    status: NotRequired[pulumi.Input[Optional['CertificateSigningRequestStatusArgsDict']]]
-    """
-    status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
-    """
-
-@pulumi.input_type
-class CertificateSigningRequestArgs:
-    def __init__(__self__, *,
-                 spec: pulumi.Input['CertificateSigningRequestSpecArgs'],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 status: pulumi.Input[Optional['CertificateSigningRequestStatusArgs']] = None):
-        """
-        CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
-
-        Kubelets use this API to obtain:
-         1. client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client-kubelet" signerName).
-         2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
-
-        This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
-
-        :param pulumi.Input['CertificateSigningRequestSpecArgs'] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['CertificateSigningRequestStatusArgs'] status: status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
-        """
-        pulumi.set(__self__, "spec", spec)
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'CertificateSigningRequest')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['CertificateSigningRequestSpecArgs']:
-        """
-        spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['CertificateSigningRequestSpecArgs']):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_version", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def status(self) -> pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]:
-        """
-        status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: pulumi.Input[Optional['CertificateSigningRequestStatusArgs']]):
-        pulumi.set(self, "status", value)
 
 

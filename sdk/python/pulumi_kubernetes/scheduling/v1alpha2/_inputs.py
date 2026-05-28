@@ -16,63 +16,78 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
-    'BasicSchedulingPolicyPatchArgs',
-    'BasicSchedulingPolicyPatchArgsDict',
     'BasicSchedulingPolicyArgs',
     'BasicSchedulingPolicyArgsDict',
-    'GangSchedulingPolicyPatchArgs',
-    'GangSchedulingPolicyPatchArgsDict',
+    'BasicSchedulingPolicyPatchArgs',
+    'BasicSchedulingPolicyPatchArgsDict',
     'GangSchedulingPolicyArgs',
     'GangSchedulingPolicyArgsDict',
+    'GangSchedulingPolicyPatchArgs',
+    'GangSchedulingPolicyPatchArgsDict',
+    'PodGroupArgs',
+    'PodGroupArgsDict',
+    'PodGroupResourceClaimArgs',
+    'PodGroupResourceClaimArgsDict',
     'PodGroupResourceClaimPatchArgs',
     'PodGroupResourceClaimPatchArgsDict',
     'PodGroupResourceClaimStatusArgs',
     'PodGroupResourceClaimStatusArgsDict',
-    'PodGroupResourceClaimArgs',
-    'PodGroupResourceClaimArgsDict',
-    'PodGroupSchedulingConstraintsPatchArgs',
-    'PodGroupSchedulingConstraintsPatchArgsDict',
     'PodGroupSchedulingConstraintsArgs',
     'PodGroupSchedulingConstraintsArgsDict',
-    'PodGroupSchedulingPolicyPatchArgs',
-    'PodGroupSchedulingPolicyPatchArgsDict',
+    'PodGroupSchedulingConstraintsPatchArgs',
+    'PodGroupSchedulingConstraintsPatchArgsDict',
     'PodGroupSchedulingPolicyArgs',
     'PodGroupSchedulingPolicyArgsDict',
-    'PodGroupSpecPatchArgs',
-    'PodGroupSpecPatchArgsDict',
+    'PodGroupSchedulingPolicyPatchArgs',
+    'PodGroupSchedulingPolicyPatchArgsDict',
     'PodGroupSpecArgs',
     'PodGroupSpecArgsDict',
+    'PodGroupSpecPatchArgs',
+    'PodGroupSpecPatchArgsDict',
     'PodGroupStatusArgs',
     'PodGroupStatusArgsDict',
-    'PodGroupTemplatePatchArgs',
-    'PodGroupTemplatePatchArgsDict',
-    'PodGroupTemplateReferencePatchArgs',
-    'PodGroupTemplateReferencePatchArgsDict',
-    'PodGroupTemplateReferenceArgs',
-    'PodGroupTemplateReferenceArgsDict',
     'PodGroupTemplateArgs',
     'PodGroupTemplateArgsDict',
-    'PodGroupArgs',
-    'PodGroupArgsDict',
-    'TopologyConstraintPatchArgs',
-    'TopologyConstraintPatchArgsDict',
+    'PodGroupTemplatePatchArgs',
+    'PodGroupTemplatePatchArgsDict',
+    'PodGroupTemplateReferenceArgs',
+    'PodGroupTemplateReferenceArgsDict',
+    'PodGroupTemplateReferencePatchArgs',
+    'PodGroupTemplateReferencePatchArgsDict',
     'TopologyConstraintArgs',
     'TopologyConstraintArgsDict',
-    'TypedLocalObjectReferencePatchArgs',
-    'TypedLocalObjectReferencePatchArgsDict',
+    'TopologyConstraintPatchArgs',
+    'TopologyConstraintPatchArgsDict',
     'TypedLocalObjectReferenceArgs',
     'TypedLocalObjectReferenceArgsDict',
-    'WorkloadPodGroupTemplateReferencePatchArgs',
-    'WorkloadPodGroupTemplateReferencePatchArgsDict',
-    'WorkloadPodGroupTemplateReferenceArgs',
-    'WorkloadPodGroupTemplateReferenceArgsDict',
-    'WorkloadSpecPatchArgs',
-    'WorkloadSpecPatchArgsDict',
-    'WorkloadSpecArgs',
-    'WorkloadSpecArgsDict',
+    'TypedLocalObjectReferencePatchArgs',
+    'TypedLocalObjectReferencePatchArgsDict',
     'WorkloadArgs',
     'WorkloadArgsDict',
+    'WorkloadPodGroupTemplateReferenceArgs',
+    'WorkloadPodGroupTemplateReferenceArgsDict',
+    'WorkloadPodGroupTemplateReferencePatchArgs',
+    'WorkloadPodGroupTemplateReferencePatchArgsDict',
+    'WorkloadSpecArgs',
+    'WorkloadSpecArgsDict',
+    'WorkloadSpecPatchArgs',
+    'WorkloadSpecPatchArgsDict',
 ]
+
+class BasicSchedulingPolicyArgsDict(TypedDict):
+    """
+    BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+    """
+    pass
+
+@pulumi.input_type
+class BasicSchedulingPolicyArgs:
+    def __init__(__self__):
+        """
+        BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+        """
+        pass
+
 
 class BasicSchedulingPolicyPatchArgsDict(TypedDict):
     """
@@ -89,19 +104,37 @@ class BasicSchedulingPolicyPatchArgs:
         pass
 
 
-class BasicSchedulingPolicyArgsDict(TypedDict):
+class GangSchedulingPolicyArgsDict(TypedDict):
     """
-    BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+    GangSchedulingPolicy defines the parameters for gang scheduling.
     """
-    pass
+    min_count: pulumi.Input[_builtins.int]
+    """
+    MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+    """
 
 @pulumi.input_type
-class BasicSchedulingPolicyArgs:
-    def __init__(__self__):
+class GangSchedulingPolicyArgs:
+    def __init__(__self__, *,
+                 min_count: pulumi.Input[_builtins.int]):
         """
-        BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+        GangSchedulingPolicy defines the parameters for gang scheduling.
+
+        :param pulumi.Input[_builtins.int] min_count: MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
         """
-        pass
+        pulumi.set(__self__, "min_count", min_count)
+
+    @_builtins.property
+    @pulumi.getter(name="minCount")
+    def min_count(self) -> pulumi.Input[_builtins.int]:
+        """
+        MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+        """
+        return pulumi.get(self, "min_count")
+
+    @min_count.setter
+    def min_count(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "min_count", value)
 
 
 class GangSchedulingPolicyPatchArgsDict(TypedDict):
@@ -138,37 +171,218 @@ class GangSchedulingPolicyPatchArgs:
         pulumi.set(self, "min_count", value)
 
 
-class GangSchedulingPolicyArgsDict(TypedDict):
+class PodGroupArgsDict(TypedDict):
     """
-    GangSchedulingPolicy defines the parameters for gang scheduling.
+    PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
     """
-    min_count: pulumi.Input[_builtins.int]
+    spec: pulumi.Input['PodGroupSpecArgsDict']
     """
-    MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+    Spec defines the desired state of the PodGroup.
+    """
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    """
+    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    status: NotRequired[pulumi.Input[Optional['PodGroupStatusArgsDict']]]
+    """
+    Status represents the current observed state of the PodGroup.
     """
 
 @pulumi.input_type
-class GangSchedulingPolicyArgs:
+class PodGroupArgs:
     def __init__(__self__, *,
-                 min_count: pulumi.Input[_builtins.int]):
+                 spec: pulumi.Input['PodGroupSpecArgs'],
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 status: pulumi.Input[Optional['PodGroupStatusArgs']] = None):
         """
-        GangSchedulingPolicy defines the parameters for gang scheduling.
+        PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
 
-        :param pulumi.Input[_builtins.int] min_count: MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+        :param pulumi.Input['PodGroupSpecArgs'] spec: Spec defines the desired state of the PodGroup.
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['PodGroupStatusArgs'] status: Status represents the current observed state of the PodGroup.
         """
-        pulumi.set(__self__, "min_count", min_count)
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'scheduling.k8s.io/v1alpha2')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'PodGroup')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
 
     @_builtins.property
-    @pulumi.getter(name="minCount")
-    def min_count(self) -> pulumi.Input[_builtins.int]:
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['PodGroupSpecArgs']:
         """
-        MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+        Spec defines the desired state of the PodGroup.
         """
-        return pulumi.get(self, "min_count")
+        return pulumi.get(self, "spec")
 
-    @min_count.setter
-    def min_count(self, value: pulumi.Input[_builtins.int]):
-        pulumi.set(self, "min_count", value)
+    @spec.setter
+    def spec(self, value: pulumi.Input['PodGroupSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> pulumi.Input[Optional['PodGroupStatusArgs']]:
+        """
+        Status represents the current observed state of the PodGroup.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: pulumi.Input[Optional['PodGroupStatusArgs']]):
+        pulumi.set(self, "status", value)
+
+
+class PodGroupResourceClaimArgsDict(TypedDict):
+    """
+    PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+
+    It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+    """
+    resource_claim_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+
+    Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+    """
+    resource_claim_template_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+
+    The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+
+    This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+
+    Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+    """
+
+@pulumi.input_type
+class PodGroupResourceClaimArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 resource_claim_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource_claim_template_name: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+
+        It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+
+        :param pulumi.Input[_builtins.str] name: Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+        :param pulumi.Input[_builtins.str] resource_claim_name: ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+               
+               Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+        :param pulumi.Input[_builtins.str] resource_claim_template_name: ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+               
+               The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+               
+               This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+               
+               Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+        """
+        pulumi.set(__self__, "name", name)
+        if resource_claim_name is not None:
+            pulumi.set(__self__, "resource_claim_name", resource_claim_name)
+        if resource_claim_template_name is not None:
+            pulumi.set(__self__, "resource_claim_template_name", resource_claim_template_name)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClaimName")
+    def resource_claim_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+
+        Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+        """
+        return pulumi.get(self, "resource_claim_name")
+
+    @resource_claim_name.setter
+    def resource_claim_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "resource_claim_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClaimTemplateName")
+    def resource_claim_template_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+
+        The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+
+        This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+
+        Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+        """
+        return pulumi.get(self, "resource_claim_template_name")
+
+    @resource_claim_template_name.setter
+    def resource_claim_template_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "resource_claim_template_name", value)
 
 
 class PodGroupResourceClaimPatchArgsDict(TypedDict):
@@ -326,105 +540,38 @@ class PodGroupResourceClaimStatusArgs:
         pulumi.set(self, "resource_claim_name", value)
 
 
-class PodGroupResourceClaimArgsDict(TypedDict):
+class PodGroupSchedulingConstraintsArgsDict(TypedDict):
     """
-    PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
-
-    It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+    PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
     """
-    name: pulumi.Input[_builtins.str]
+    topology: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologyConstraintArgsDict']]]]]
     """
-    Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
-    """
-    resource_claim_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
-
-    Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
-    """
-    resource_claim_template_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
-
-    The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
-
-    This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
-
-    Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+    Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
     """
 
 @pulumi.input_type
-class PodGroupResourceClaimArgs:
+class PodGroupSchedulingConstraintsArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[_builtins.str],
-                 resource_claim_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 resource_claim_template_name: pulumi.Input[Optional[_builtins.str]] = None):
+                 topology: pulumi.Input[Optional[Sequence[pulumi.Input['TopologyConstraintArgs']]]] = None):
         """
-        PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+        PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
 
-        It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
-
-        :param pulumi.Input[_builtins.str] name: Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
-        :param pulumi.Input[_builtins.str] resource_claim_name: ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
-               
-               Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
-        :param pulumi.Input[_builtins.str] resource_claim_template_name: ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
-               
-               The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
-               
-               This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
-               
-               Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+        :param pulumi.Input[Sequence[pulumi.Input['TopologyConstraintArgs']]] topology: Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
         """
-        pulumi.set(__self__, "name", name)
-        if resource_claim_name is not None:
-            pulumi.set(__self__, "resource_claim_name", resource_claim_name)
-        if resource_claim_template_name is not None:
-            pulumi.set(__self__, "resource_claim_template_name", resource_claim_template_name)
+        if topology is not None:
+            pulumi.set(__self__, "topology", topology)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[_builtins.str]:
+    def topology(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['TopologyConstraintArgs']]]]:
         """
-        Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+        Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
         """
-        return pulumi.get(self, "name")
+        return pulumi.get(self, "topology")
 
-    @name.setter
-    def name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="resourceClaimName")
-    def resource_claim_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
-
-        Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
-        """
-        return pulumi.get(self, "resource_claim_name")
-
-    @resource_claim_name.setter
-    def resource_claim_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "resource_claim_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="resourceClaimTemplateName")
-    def resource_claim_template_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
-
-        The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
-
-        This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
-
-        Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
-        """
-        return pulumi.get(self, "resource_claim_template_name")
-
-    @resource_claim_template_name.setter
-    def resource_claim_template_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "resource_claim_template_name", value)
+    @topology.setter
+    def topology(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['TopologyConstraintArgs']]]]):
+        pulumi.set(self, "topology", value)
 
 
 class PodGroupSchedulingConstraintsPatchArgsDict(TypedDict):
@@ -461,38 +608,58 @@ class PodGroupSchedulingConstraintsPatchArgs:
         pulumi.set(self, "topology", value)
 
 
-class PodGroupSchedulingConstraintsArgsDict(TypedDict):
+class PodGroupSchedulingPolicyArgsDict(TypedDict):
     """
-    PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+    PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.
     """
-    topology: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TopologyConstraintArgsDict']]]]]
+    basic: NotRequired[pulumi.Input[Optional['BasicSchedulingPolicyArgsDict']]]
     """
-    Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+    Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+    """
+    gang: NotRequired[pulumi.Input[Optional['GangSchedulingPolicyArgsDict']]]
+    """
+    Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
     """
 
 @pulumi.input_type
-class PodGroupSchedulingConstraintsArgs:
+class PodGroupSchedulingPolicyArgs:
     def __init__(__self__, *,
-                 topology: pulumi.Input[Optional[Sequence[pulumi.Input['TopologyConstraintArgs']]]] = None):
+                 basic: pulumi.Input[Optional['BasicSchedulingPolicyArgs']] = None,
+                 gang: pulumi.Input[Optional['GangSchedulingPolicyArgs']] = None):
         """
-        PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+        PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.
 
-        :param pulumi.Input[Sequence[pulumi.Input['TopologyConstraintArgs']]] topology: Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+        :param pulumi.Input['BasicSchedulingPolicyArgs'] basic: Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+        :param pulumi.Input['GangSchedulingPolicyArgs'] gang: Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
         """
-        if topology is not None:
-            pulumi.set(__self__, "topology", topology)
+        if basic is not None:
+            pulumi.set(__self__, "basic", basic)
+        if gang is not None:
+            pulumi.set(__self__, "gang", gang)
 
     @_builtins.property
     @pulumi.getter
-    def topology(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['TopologyConstraintArgs']]]]:
+    def basic(self) -> pulumi.Input[Optional['BasicSchedulingPolicyArgs']]:
         """
-        Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+        Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
         """
-        return pulumi.get(self, "topology")
+        return pulumi.get(self, "basic")
 
-    @topology.setter
-    def topology(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['TopologyConstraintArgs']]]]):
-        pulumi.set(self, "topology", value)
+    @basic.setter
+    def basic(self, value: pulumi.Input[Optional['BasicSchedulingPolicyArgs']]):
+        pulumi.set(self, "basic", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def gang(self) -> pulumi.Input[Optional['GangSchedulingPolicyArgs']]:
+        """
+        Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+        """
+        return pulumi.get(self, "gang")
+
+    @gang.setter
+    def gang(self, value: pulumi.Input[Optional['GangSchedulingPolicyArgs']]):
+        pulumi.set(self, "gang", value)
 
 
 class PodGroupSchedulingPolicyPatchArgsDict(TypedDict):
@@ -549,58 +716,169 @@ class PodGroupSchedulingPolicyPatchArgs:
         pulumi.set(self, "gang", value)
 
 
-class PodGroupSchedulingPolicyArgsDict(TypedDict):
+class PodGroupSpecArgsDict(TypedDict):
     """
-    PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.
+    PodGroupSpec defines the desired state of a PodGroup.
     """
-    basic: NotRequired[pulumi.Input[Optional['BasicSchedulingPolicyArgsDict']]]
+    scheduling_policy: pulumi.Input['PodGroupSchedulingPolicyArgsDict']
     """
-    Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+    SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
     """
-    gang: NotRequired[pulumi.Input[Optional['GangSchedulingPolicyArgsDict']]]
+    disruption_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+    DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+    """
+    pod_group_template_ref: NotRequired[pulumi.Input[Optional['PodGroupTemplateReferenceArgsDict']]]
+    """
+    PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
+    """
+    priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+    """
+    priority_class_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+    """
+    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgsDict']]]]]
+    """
+    ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+
+    This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+
+    This field is immutable.
+    """
+    scheduling_constraints: NotRequired[pulumi.Input[Optional['PodGroupSchedulingConstraintsArgsDict']]]
+    """
+    SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
     """
 
 @pulumi.input_type
-class PodGroupSchedulingPolicyArgs:
+class PodGroupSpecArgs:
     def __init__(__self__, *,
-                 basic: pulumi.Input[Optional['BasicSchedulingPolicyArgs']] = None,
-                 gang: pulumi.Input[Optional['GangSchedulingPolicyArgs']] = None):
+                 scheduling_policy: pulumi.Input['PodGroupSchedulingPolicyArgs'],
+                 disruption_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 pod_group_template_ref: pulumi.Input[Optional['PodGroupTemplateReferenceArgs']] = None,
+                 priority: pulumi.Input[Optional[_builtins.int]] = None,
+                 priority_class_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource_claims: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]] = None,
+                 scheduling_constraints: pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']] = None):
         """
-        PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.
+        PodGroupSpec defines the desired state of a PodGroup.
 
-        :param pulumi.Input['BasicSchedulingPolicyArgs'] basic: Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
-        :param pulumi.Input['GangSchedulingPolicyArgs'] gang: Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+        :param pulumi.Input['PodGroupSchedulingPolicyArgs'] scheduling_policy: SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
+        :param pulumi.Input[_builtins.str] disruption_mode: DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        :param pulumi.Input['PodGroupTemplateReferenceArgs'] pod_group_template_ref: PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
+        :param pulumi.Input[_builtins.int] priority: Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        :param pulumi.Input[_builtins.str] priority_class_name: PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        :param pulumi.Input[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]] resource_claims: ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+               
+               This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+               
+               This field is immutable.
+        :param pulumi.Input['PodGroupSchedulingConstraintsArgs'] scheduling_constraints: SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
         """
-        if basic is not None:
-            pulumi.set(__self__, "basic", basic)
-        if gang is not None:
-            pulumi.set(__self__, "gang", gang)
+        pulumi.set(__self__, "scheduling_policy", scheduling_policy)
+        if disruption_mode is not None:
+            pulumi.set(__self__, "disruption_mode", disruption_mode)
+        if pod_group_template_ref is not None:
+            pulumi.set(__self__, "pod_group_template_ref", pod_group_template_ref)
+        if priority is not None:
+            pulumi.set(__self__, "priority", priority)
+        if priority_class_name is not None:
+            pulumi.set(__self__, "priority_class_name", priority_class_name)
+        if resource_claims is not None:
+            pulumi.set(__self__, "resource_claims", resource_claims)
+        if scheduling_constraints is not None:
+            pulumi.set(__self__, "scheduling_constraints", scheduling_constraints)
+
+    @_builtins.property
+    @pulumi.getter(name="schedulingPolicy")
+    def scheduling_policy(self) -> pulumi.Input['PodGroupSchedulingPolicyArgs']:
+        """
+        SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
+        """
+        return pulumi.get(self, "scheduling_policy")
+
+    @scheduling_policy.setter
+    def scheduling_policy(self, value: pulumi.Input['PodGroupSchedulingPolicyArgs']):
+        pulumi.set(self, "scheduling_policy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disruptionMode")
+    def disruption_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        """
+        return pulumi.get(self, "disruption_mode")
+
+    @disruption_mode.setter
+    def disruption_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "disruption_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroupTemplateRef")
+    def pod_group_template_ref(self) -> pulumi.Input[Optional['PodGroupTemplateReferenceArgs']]:
+        """
+        PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
+        """
+        return pulumi.get(self, "pod_group_template_ref")
+
+    @pod_group_template_ref.setter
+    def pod_group_template_ref(self, value: pulumi.Input[Optional['PodGroupTemplateReferenceArgs']]):
+        pulumi.set(self, "pod_group_template_ref", value)
 
     @_builtins.property
     @pulumi.getter
-    def basic(self) -> pulumi.Input[Optional['BasicSchedulingPolicyArgs']]:
+    def priority(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+        Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
         """
-        return pulumi.get(self, "basic")
+        return pulumi.get(self, "priority")
 
-    @basic.setter
-    def basic(self, value: pulumi.Input[Optional['BasicSchedulingPolicyArgs']]):
-        pulumi.set(self, "basic", value)
+    @priority.setter
+    def priority(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "priority", value)
 
     @_builtins.property
-    @pulumi.getter
-    def gang(self) -> pulumi.Input[Optional['GangSchedulingPolicyArgs']]:
+    @pulumi.getter(name="priorityClassName")
+    def priority_class_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+        PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
         """
-        return pulumi.get(self, "gang")
+        return pulumi.get(self, "priority_class_name")
 
-    @gang.setter
-    def gang(self, value: pulumi.Input[Optional['GangSchedulingPolicyArgs']]):
-        pulumi.set(self, "gang", value)
+    @priority_class_name.setter
+    def priority_class_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "priority_class_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClaims")
+    def resource_claims(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]]:
+        """
+        ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+
+        This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+
+        This field is immutable.
+        """
+        return pulumi.get(self, "resource_claims")
+
+    @resource_claims.setter
+    def resource_claims(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]]):
+        pulumi.set(self, "resource_claims", value)
+
+    @_builtins.property
+    @pulumi.getter(name="schedulingConstraints")
+    def scheduling_constraints(self) -> pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']]:
+        """
+        SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+        """
+        return pulumi.get(self, "scheduling_constraints")
+
+    @scheduling_constraints.setter
+    def scheduling_constraints(self, value: pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']]):
+        pulumi.set(self, "scheduling_constraints", value)
 
 
 class PodGroupSpecPatchArgsDict(TypedDict):
@@ -769,171 +1047,6 @@ class PodGroupSpecPatchArgs:
         pulumi.set(self, "scheduling_policy", value)
 
 
-class PodGroupSpecArgsDict(TypedDict):
-    """
-    PodGroupSpec defines the desired state of a PodGroup.
-    """
-    scheduling_policy: pulumi.Input['PodGroupSchedulingPolicyArgsDict']
-    """
-    SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
-    """
-    disruption_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-    """
-    pod_group_template_ref: NotRequired[pulumi.Input[Optional['PodGroupTemplateReferenceArgsDict']]]
-    """
-    PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
-    """
-    priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-    """
-    priority_class_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-    """
-    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgsDict']]]]]
-    """
-    ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
-
-    This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
-
-    This field is immutable.
-    """
-    scheduling_constraints: NotRequired[pulumi.Input[Optional['PodGroupSchedulingConstraintsArgsDict']]]
-    """
-    SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
-    """
-
-@pulumi.input_type
-class PodGroupSpecArgs:
-    def __init__(__self__, *,
-                 scheduling_policy: pulumi.Input['PodGroupSchedulingPolicyArgs'],
-                 disruption_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 pod_group_template_ref: pulumi.Input[Optional['PodGroupTemplateReferenceArgs']] = None,
-                 priority: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_class_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 resource_claims: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]] = None,
-                 scheduling_constraints: pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']] = None):
-        """
-        PodGroupSpec defines the desired state of a PodGroup.
-
-        :param pulumi.Input['PodGroupSchedulingPolicyArgs'] scheduling_policy: SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
-        :param pulumi.Input[_builtins.str] disruption_mode: DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        :param pulumi.Input['PodGroupTemplateReferenceArgs'] pod_group_template_ref: PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
-        :param pulumi.Input[_builtins.int] priority: Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        :param pulumi.Input[_builtins.str] priority_class_name: PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        :param pulumi.Input[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]] resource_claims: ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
-               
-               This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
-               
-               This field is immutable.
-        :param pulumi.Input['PodGroupSchedulingConstraintsArgs'] scheduling_constraints: SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
-        """
-        pulumi.set(__self__, "scheduling_policy", scheduling_policy)
-        if disruption_mode is not None:
-            pulumi.set(__self__, "disruption_mode", disruption_mode)
-        if pod_group_template_ref is not None:
-            pulumi.set(__self__, "pod_group_template_ref", pod_group_template_ref)
-        if priority is not None:
-            pulumi.set(__self__, "priority", priority)
-        if priority_class_name is not None:
-            pulumi.set(__self__, "priority_class_name", priority_class_name)
-        if resource_claims is not None:
-            pulumi.set(__self__, "resource_claims", resource_claims)
-        if scheduling_constraints is not None:
-            pulumi.set(__self__, "scheduling_constraints", scheduling_constraints)
-
-    @_builtins.property
-    @pulumi.getter(name="schedulingPolicy")
-    def scheduling_policy(self) -> pulumi.Input['PodGroupSchedulingPolicyArgs']:
-        """
-        SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
-        """
-        return pulumi.get(self, "scheduling_policy")
-
-    @scheduling_policy.setter
-    def scheduling_policy(self, value: pulumi.Input['PodGroupSchedulingPolicyArgs']):
-        pulumi.set(self, "scheduling_policy", value)
-
-    @_builtins.property
-    @pulumi.getter(name="disruptionMode")
-    def disruption_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        """
-        return pulumi.get(self, "disruption_mode")
-
-    @disruption_mode.setter
-    def disruption_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "disruption_mode", value)
-
-    @_builtins.property
-    @pulumi.getter(name="podGroupTemplateRef")
-    def pod_group_template_ref(self) -> pulumi.Input[Optional['PodGroupTemplateReferenceArgs']]:
-        """
-        PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
-        """
-        return pulumi.get(self, "pod_group_template_ref")
-
-    @pod_group_template_ref.setter
-    def pod_group_template_ref(self, value: pulumi.Input[Optional['PodGroupTemplateReferenceArgs']]):
-        pulumi.set(self, "pod_group_template_ref", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def priority(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        """
-        return pulumi.get(self, "priority")
-
-    @priority.setter
-    def priority(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "priority", value)
-
-    @_builtins.property
-    @pulumi.getter(name="priorityClassName")
-    def priority_class_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        """
-        return pulumi.get(self, "priority_class_name")
-
-    @priority_class_name.setter
-    def priority_class_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "priority_class_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="resourceClaims")
-    def resource_claims(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]]:
-        """
-        ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
-
-        This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
-
-        This field is immutable.
-        """
-        return pulumi.get(self, "resource_claims")
-
-    @resource_claims.setter
-    def resource_claims(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]]):
-        pulumi.set(self, "resource_claims", value)
-
-    @_builtins.property
-    @pulumi.getter(name="schedulingConstraints")
-    def scheduling_constraints(self) -> pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']]:
-        """
-        SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
-        """
-        return pulumi.get(self, "scheduling_constraints")
-
-    @scheduling_constraints.setter
-    def scheduling_constraints(self, value: pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']]):
-        pulumi.set(self, "scheduling_constraints", value)
-
-
 class PodGroupStatusArgsDict(TypedDict):
     """
     PodGroupStatus represents information about the status of a pod group.
@@ -1019,6 +1132,170 @@ class PodGroupStatusArgs:
     @resource_claim_statuses.setter
     def resource_claim_statuses(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimStatusArgs']]]]):
         pulumi.set(self, "resource_claim_statuses", value)
+
+
+class PodGroupTemplateArgsDict(TypedDict):
+    """
+    PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+    """
+    scheduling_policy: pulumi.Input['PodGroupSchedulingPolicyArgsDict']
+    """
+    SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+    """
+    disruption_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+    """
+    priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+    """
+    priority_class_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+    """
+    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgsDict']]]]]
+    """
+    ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+
+    This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+
+    This field is immutable.
+    """
+    scheduling_constraints: NotRequired[pulumi.Input[Optional['PodGroupSchedulingConstraintsArgsDict']]]
+    """
+    SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+    """
+
+@pulumi.input_type
+class PodGroupTemplateArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 scheduling_policy: pulumi.Input['PodGroupSchedulingPolicyArgs'],
+                 disruption_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 priority: pulumi.Input[Optional[_builtins.int]] = None,
+                 priority_class_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource_claims: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]] = None,
+                 scheduling_constraints: pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']] = None):
+        """
+        PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+
+        :param pulumi.Input[_builtins.str] name: Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+        :param pulumi.Input['PodGroupSchedulingPolicyArgs'] scheduling_policy: SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+        :param pulumi.Input[_builtins.str] disruption_mode: DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        :param pulumi.Input[_builtins.int] priority: Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        :param pulumi.Input[_builtins.str] priority_class_name: PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        :param pulumi.Input[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]] resource_claims: ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+               
+               This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+               
+               This field is immutable.
+        :param pulumi.Input['PodGroupSchedulingConstraintsArgs'] scheduling_constraints: SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "scheduling_policy", scheduling_policy)
+        if disruption_mode is not None:
+            pulumi.set(__self__, "disruption_mode", disruption_mode)
+        if priority is not None:
+            pulumi.set(__self__, "priority", priority)
+        if priority_class_name is not None:
+            pulumi.set(__self__, "priority_class_name", priority_class_name)
+        if resource_claims is not None:
+            pulumi.set(__self__, "resource_claims", resource_claims)
+        if scheduling_constraints is not None:
+            pulumi.set(__self__, "scheduling_constraints", scheduling_constraints)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="schedulingPolicy")
+    def scheduling_policy(self) -> pulumi.Input['PodGroupSchedulingPolicyArgs']:
+        """
+        SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+        """
+        return pulumi.get(self, "scheduling_policy")
+
+    @scheduling_policy.setter
+    def scheduling_policy(self, value: pulumi.Input['PodGroupSchedulingPolicyArgs']):
+        pulumi.set(self, "scheduling_policy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disruptionMode")
+    def disruption_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        """
+        return pulumi.get(self, "disruption_mode")
+
+    @disruption_mode.setter
+    def disruption_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "disruption_mode", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def priority(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        """
+        return pulumi.get(self, "priority")
+
+    @priority.setter
+    def priority(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "priority", value)
+
+    @_builtins.property
+    @pulumi.getter(name="priorityClassName")
+    def priority_class_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+        """
+        return pulumi.get(self, "priority_class_name")
+
+    @priority_class_name.setter
+    def priority_class_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "priority_class_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClaims")
+    def resource_claims(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]]:
+        """
+        ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+
+        This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+
+        This field is immutable.
+        """
+        return pulumi.get(self, "resource_claims")
+
+    @resource_claims.setter
+    def resource_claims(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]]):
+        pulumi.set(self, "resource_claims", value)
+
+    @_builtins.property
+    @pulumi.getter(name="schedulingConstraints")
+    def scheduling_constraints(self) -> pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']]:
+        """
+        SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+        """
+        return pulumi.get(self, "scheduling_constraints")
+
+    @scheduling_constraints.setter
+    def scheduling_constraints(self, value: pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']]):
+        pulumi.set(self, "scheduling_constraints", value)
 
 
 class PodGroupTemplatePatchArgsDict(TypedDict):
@@ -1187,40 +1464,6 @@ class PodGroupTemplatePatchArgs:
         pulumi.set(self, "scheduling_policy", value)
 
 
-class PodGroupTemplateReferencePatchArgsDict(TypedDict):
-    """
-    PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
-    """
-    workload: NotRequired[pulumi.Input[Optional['WorkloadPodGroupTemplateReferencePatchArgsDict']]]
-    """
-    Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
-    """
-
-@pulumi.input_type
-class PodGroupTemplateReferencePatchArgs:
-    def __init__(__self__, *,
-                 workload: pulumi.Input[Optional['WorkloadPodGroupTemplateReferencePatchArgs']] = None):
-        """
-        PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
-
-        :param pulumi.Input['WorkloadPodGroupTemplateReferencePatchArgs'] workload: Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
-        """
-        if workload is not None:
-            pulumi.set(__self__, "workload", workload)
-
-    @_builtins.property
-    @pulumi.getter
-    def workload(self) -> pulumi.Input[Optional['WorkloadPodGroupTemplateReferencePatchArgs']]:
-        """
-        Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
-        """
-        return pulumi.get(self, "workload")
-
-    @workload.setter
-    def workload(self, value: pulumi.Input[Optional['WorkloadPodGroupTemplateReferencePatchArgs']]):
-        pulumi.set(self, "workload", value)
-
-
 class PodGroupTemplateReferenceArgsDict(TypedDict):
     """
     PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
@@ -1255,315 +1498,38 @@ class PodGroupTemplateReferenceArgs:
         pulumi.set(self, "workload", value)
 
 
-class PodGroupTemplateArgsDict(TypedDict):
+class PodGroupTemplateReferencePatchArgsDict(TypedDict):
     """
-    PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+    PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
     """
-    name: pulumi.Input[_builtins.str]
+    workload: NotRequired[pulumi.Input[Optional['WorkloadPodGroupTemplateReferencePatchArgsDict']]]
     """
-    Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
-    """
-    scheduling_policy: pulumi.Input['PodGroupSchedulingPolicyArgsDict']
-    """
-    SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
-    """
-    disruption_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-    """
-    priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-    """
-    priority_class_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-    """
-    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgsDict']]]]]
-    """
-    ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
-
-    This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
-
-    This field is immutable.
-    """
-    scheduling_constraints: NotRequired[pulumi.Input[Optional['PodGroupSchedulingConstraintsArgsDict']]]
-    """
-    SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+    Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
     """
 
 @pulumi.input_type
-class PodGroupTemplateArgs:
+class PodGroupTemplateReferencePatchArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[_builtins.str],
-                 scheduling_policy: pulumi.Input['PodGroupSchedulingPolicyArgs'],
-                 disruption_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 priority: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_class_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 resource_claims: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]] = None,
-                 scheduling_constraints: pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']] = None):
+                 workload: pulumi.Input[Optional['WorkloadPodGroupTemplateReferencePatchArgs']] = None):
         """
-        PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+        PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
 
-        :param pulumi.Input[_builtins.str] name: Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
-        :param pulumi.Input['PodGroupSchedulingPolicyArgs'] scheduling_policy: SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
-        :param pulumi.Input[_builtins.str] disruption_mode: DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        :param pulumi.Input[_builtins.int] priority: Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        :param pulumi.Input[_builtins.str] priority_class_name: PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        :param pulumi.Input[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]] resource_claims: ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
-               
-               This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
-               
-               This field is immutable.
-        :param pulumi.Input['PodGroupSchedulingConstraintsArgs'] scheduling_constraints: SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+        :param pulumi.Input['WorkloadPodGroupTemplateReferencePatchArgs'] workload: Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
         """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "scheduling_policy", scheduling_policy)
-        if disruption_mode is not None:
-            pulumi.set(__self__, "disruption_mode", disruption_mode)
-        if priority is not None:
-            pulumi.set(__self__, "priority", priority)
-        if priority_class_name is not None:
-            pulumi.set(__self__, "priority_class_name", priority_class_name)
-        if resource_claims is not None:
-            pulumi.set(__self__, "resource_claims", resource_claims)
-        if scheduling_constraints is not None:
-            pulumi.set(__self__, "scheduling_constraints", scheduling_constraints)
+        if workload is not None:
+            pulumi.set(__self__, "workload", workload)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[_builtins.str]:
+    def workload(self) -> pulumi.Input[Optional['WorkloadPodGroupTemplateReferencePatchArgs']]:
         """
-        Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+        Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
         """
-        return pulumi.get(self, "name")
+        return pulumi.get(self, "workload")
 
-    @name.setter
-    def name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="schedulingPolicy")
-    def scheduling_policy(self) -> pulumi.Input['PodGroupSchedulingPolicyArgs']:
-        """
-        SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
-        """
-        return pulumi.get(self, "scheduling_policy")
-
-    @scheduling_policy.setter
-    def scheduling_policy(self, value: pulumi.Input['PodGroupSchedulingPolicyArgs']):
-        pulumi.set(self, "scheduling_policy", value)
-
-    @_builtins.property
-    @pulumi.getter(name="disruptionMode")
-    def disruption_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        """
-        return pulumi.get(self, "disruption_mode")
-
-    @disruption_mode.setter
-    def disruption_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "disruption_mode", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def priority(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        """
-        return pulumi.get(self, "priority")
-
-    @priority.setter
-    def priority(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "priority", value)
-
-    @_builtins.property
-    @pulumi.getter(name="priorityClassName")
-    def priority_class_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
-        """
-        return pulumi.get(self, "priority_class_name")
-
-    @priority_class_name.setter
-    def priority_class_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "priority_class_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="resourceClaims")
-    def resource_claims(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]]:
-        """
-        ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
-
-        This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
-
-        This field is immutable.
-        """
-        return pulumi.get(self, "resource_claims")
-
-    @resource_claims.setter
-    def resource_claims(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupResourceClaimArgs']]]]):
-        pulumi.set(self, "resource_claims", value)
-
-    @_builtins.property
-    @pulumi.getter(name="schedulingConstraints")
-    def scheduling_constraints(self) -> pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']]:
-        """
-        SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
-        """
-        return pulumi.get(self, "scheduling_constraints")
-
-    @scheduling_constraints.setter
-    def scheduling_constraints(self, value: pulumi.Input[Optional['PodGroupSchedulingConstraintsArgs']]):
-        pulumi.set(self, "scheduling_constraints", value)
-
-
-class PodGroupArgsDict(TypedDict):
-    """
-    PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
-    """
-    spec: pulumi.Input['PodGroupSpecArgsDict']
-    """
-    Spec defines the desired state of the PodGroup.
-    """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-    """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
-    """
-    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-    """
-    status: NotRequired[pulumi.Input[Optional['PodGroupStatusArgsDict']]]
-    """
-    Status represents the current observed state of the PodGroup.
-    """
-
-@pulumi.input_type
-class PodGroupArgs:
-    def __init__(__self__, *,
-                 spec: pulumi.Input['PodGroupSpecArgs'],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 status: pulumi.Input[Optional['PodGroupStatusArgs']] = None):
-        """
-        PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
-
-        :param pulumi.Input['PodGroupSpecArgs'] spec: Spec defines the desired state of the PodGroup.
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PodGroupStatusArgs'] status: Status represents the current observed state of the PodGroup.
-        """
-        pulumi.set(__self__, "spec", spec)
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'scheduling.k8s.io/v1alpha2')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'PodGroup')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['PodGroupSpecArgs']:
-        """
-        Spec defines the desired state of the PodGroup.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['PodGroupSpecArgs']):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_version", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def status(self) -> pulumi.Input[Optional['PodGroupStatusArgs']]:
-        """
-        Status represents the current observed state of the PodGroup.
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: pulumi.Input[Optional['PodGroupStatusArgs']]):
-        pulumi.set(self, "status", value)
-
-
-class TopologyConstraintPatchArgsDict(TypedDict):
-    """
-    TopologyConstraint defines a topology constraint for a PodGroup.
-    """
-    key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
-    """
-
-@pulumi.input_type
-class TopologyConstraintPatchArgs:
-    def __init__(__self__, *,
-                 key: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        TopologyConstraint defines a topology constraint for a PodGroup.
-
-        :param pulumi.Input[_builtins.str] key: Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
-        """
-        if key is not None:
-            pulumi.set(__self__, "key", key)
-
-    @_builtins.property
-    @pulumi.getter
-    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
-        """
-        return pulumi.get(self, "key")
-
-    @key.setter
-    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "key", value)
+    @workload.setter
+    def workload(self, value: pulumi.Input[Optional['WorkloadPodGroupTemplateReferencePatchArgs']]):
+        pulumi.set(self, "workload", value)
 
 
 class TopologyConstraintArgsDict(TypedDict):
@@ -1599,78 +1565,38 @@ class TopologyConstraintArgs:
         pulumi.set(self, "key", value)
 
 
-class TypedLocalObjectReferencePatchArgsDict(TypedDict):
+class TopologyConstraintPatchArgsDict(TypedDict):
     """
-    TypedLocalObjectReference allows to reference typed object inside the same namespace.
+    TopologyConstraint defines a topology constraint for a PodGroup.
     """
-    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    key: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
-    """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is the type of resource being referenced. It must be a path segment name.
-    """
-    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Name is the name of resource being referenced. It must be a path segment name.
+    Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
     """
 
 @pulumi.input_type
-class TypedLocalObjectReferencePatchArgs:
+class TopologyConstraintPatchArgs:
     def __init__(__self__, *,
-                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None):
+                 key: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        TypedLocalObjectReference allows to reference typed object inside the same namespace.
+        TopologyConstraint defines a topology constraint for a PodGroup.
 
-        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
-        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. It must be a path segment name.
-        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced. It must be a path segment name.
+        :param pulumi.Input[_builtins.str] key: Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
         """
-        if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
-        if kind is not None:
-            pulumi.set(__self__, "kind", kind)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-
-    @_builtins.property
-    @pulumi.getter(name="apiGroup")
-    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
-        """
-        return pulumi.get(self, "api_group")
-
-    @api_group.setter
-    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_group", value)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Kind is the type of resource being referenced. It must be a path segment name.
+        Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
         """
-        return pulumi.get(self, "kind")
+        return pulumi.get(self, "key")
 
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Name is the name of resource being referenced. It must be a path segment name.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "name", value)
+    @key.setter
+    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "key", value)
 
 
 class TypedLocalObjectReferenceArgsDict(TypedDict):
@@ -1745,217 +1671,78 @@ class TypedLocalObjectReferenceArgs:
         pulumi.set(self, "api_group", value)
 
 
-class WorkloadPodGroupTemplateReferencePatchArgsDict(TypedDict):
+class TypedLocalObjectReferencePatchArgsDict(TypedDict):
     """
-    WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+    TypedLocalObjectReference allows to reference typed object inside the same namespace.
     """
-    pod_group_template_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+    APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
     """
-    workload_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    WorkloadName defines the name of the Workload object.
+    Kind is the type of resource being referenced. It must be a path segment name.
     """
-
-@pulumi.input_type
-class WorkloadPodGroupTemplateReferencePatchArgs:
-    def __init__(__self__, *,
-                 pod_group_template_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 workload_name: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
-
-        :param pulumi.Input[_builtins.str] pod_group_template_name: PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
-        :param pulumi.Input[_builtins.str] workload_name: WorkloadName defines the name of the Workload object.
-        """
-        if pod_group_template_name is not None:
-            pulumi.set(__self__, "pod_group_template_name", pod_group_template_name)
-        if workload_name is not None:
-            pulumi.set(__self__, "workload_name", workload_name)
-
-    @_builtins.property
-    @pulumi.getter(name="podGroupTemplateName")
-    def pod_group_template_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
-        """
-        return pulumi.get(self, "pod_group_template_name")
-
-    @pod_group_template_name.setter
-    def pod_group_template_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "pod_group_template_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="workloadName")
-    def workload_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        WorkloadName defines the name of the Workload object.
-        """
-        return pulumi.get(self, "workload_name")
-
-    @workload_name.setter
-    def workload_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "workload_name", value)
-
-
-class WorkloadPodGroupTemplateReferenceArgsDict(TypedDict):
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
-    """
-    pod_group_template_name: pulumi.Input[_builtins.str]
-    """
-    PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
-    """
-    workload_name: pulumi.Input[_builtins.str]
-    """
-    WorkloadName defines the name of the Workload object.
+    Name is the name of resource being referenced. It must be a path segment name.
     """
 
 @pulumi.input_type
-class WorkloadPodGroupTemplateReferenceArgs:
+class TypedLocalObjectReferencePatchArgs:
     def __init__(__self__, *,
-                 pod_group_template_name: pulumi.Input[_builtins.str],
-                 workload_name: pulumi.Input[_builtins.str]):
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+        TypedLocalObjectReference allows to reference typed object inside the same namespace.
 
-        :param pulumi.Input[_builtins.str] pod_group_template_name: PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
-        :param pulumi.Input[_builtins.str] workload_name: WorkloadName defines the name of the Workload object.
+        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. It must be a path segment name.
+        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced. It must be a path segment name.
         """
-        pulumi.set(__self__, "pod_group_template_name", pod_group_template_name)
-        pulumi.set(__self__, "workload_name", workload_name)
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
 
     @_builtins.property
-    @pulumi.getter(name="podGroupTemplateName")
-    def pod_group_template_name(self) -> pulumi.Input[_builtins.str]:
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+        APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
         """
-        return pulumi.get(self, "pod_group_template_name")
+        return pulumi.get(self, "api_group")
 
-    @pod_group_template_name.setter
-    def pod_group_template_name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "pod_group_template_name", value)
+    @api_group.setter
+    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_group", value)
 
     @_builtins.property
-    @pulumi.getter(name="workloadName")
-    def workload_name(self) -> pulumi.Input[_builtins.str]:
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        WorkloadName defines the name of the Workload object.
+        Kind is the type of resource being referenced. It must be a path segment name.
         """
-        return pulumi.get(self, "workload_name")
+        return pulumi.get(self, "kind")
 
-    @workload_name.setter
-    def workload_name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "workload_name", value)
-
-
-class WorkloadSpecPatchArgsDict(TypedDict):
-    """
-    WorkloadSpec defines the desired state of a Workload.
-    """
-    controller_ref: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferencePatchArgsDict']]]
-    """
-    ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
-    """
-    pod_group_templates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupTemplatePatchArgsDict']]]]]
-    """
-    PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
-    """
-
-@pulumi.input_type
-class WorkloadSpecPatchArgs:
-    def __init__(__self__, *,
-                 controller_ref: pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']] = None,
-                 pod_group_templates: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupTemplatePatchArgs']]]] = None):
-        """
-        WorkloadSpec defines the desired state of a Workload.
-
-        :param pulumi.Input['TypedLocalObjectReferencePatchArgs'] controller_ref: ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
-        :param pulumi.Input[Sequence[pulumi.Input['PodGroupTemplatePatchArgs']]] pod_group_templates: PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
-        """
-        if controller_ref is not None:
-            pulumi.set(__self__, "controller_ref", controller_ref)
-        if pod_group_templates is not None:
-            pulumi.set(__self__, "pod_group_templates", pod_group_templates)
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
 
     @_builtins.property
-    @pulumi.getter(name="controllerRef")
-    def controller_ref(self) -> pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']]:
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+        Name is the name of resource being referenced. It must be a path segment name.
         """
-        return pulumi.get(self, "controller_ref")
+        return pulumi.get(self, "name")
 
-    @controller_ref.setter
-    def controller_ref(self, value: pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']]):
-        pulumi.set(self, "controller_ref", value)
-
-    @_builtins.property
-    @pulumi.getter(name="podGroupTemplates")
-    def pod_group_templates(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupTemplatePatchArgs']]]]:
-        """
-        PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
-        """
-        return pulumi.get(self, "pod_group_templates")
-
-    @pod_group_templates.setter
-    def pod_group_templates(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupTemplatePatchArgs']]]]):
-        pulumi.set(self, "pod_group_templates", value)
-
-
-class WorkloadSpecArgsDict(TypedDict):
-    """
-    WorkloadSpec defines the desired state of a Workload.
-    """
-    pod_group_templates: pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgsDict']]]
-    """
-    PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
-    """
-    controller_ref: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferenceArgsDict']]]
-    """
-    ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
-    """
-
-@pulumi.input_type
-class WorkloadSpecArgs:
-    def __init__(__self__, *,
-                 pod_group_templates: pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgs']]],
-                 controller_ref: pulumi.Input[Optional['TypedLocalObjectReferenceArgs']] = None):
-        """
-        WorkloadSpec defines the desired state of a Workload.
-
-        :param pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgs']]] pod_group_templates: PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
-        :param pulumi.Input['TypedLocalObjectReferenceArgs'] controller_ref: ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
-        """
-        pulumi.set(__self__, "pod_group_templates", pod_group_templates)
-        if controller_ref is not None:
-            pulumi.set(__self__, "controller_ref", controller_ref)
-
-    @_builtins.property
-    @pulumi.getter(name="podGroupTemplates")
-    def pod_group_templates(self) -> pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgs']]]:
-        """
-        PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
-        """
-        return pulumi.get(self, "pod_group_templates")
-
-    @pod_group_templates.setter
-    def pod_group_templates(self, value: pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgs']]]):
-        pulumi.set(self, "pod_group_templates", value)
-
-    @_builtins.property
-    @pulumi.getter(name="controllerRef")
-    def controller_ref(self) -> pulumi.Input[Optional['TypedLocalObjectReferenceArgs']]:
-        """
-        ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
-        """
-        return pulumi.get(self, "controller_ref")
-
-    @controller_ref.setter
-    def controller_ref(self, value: pulumi.Input[Optional['TypedLocalObjectReferenceArgs']]):
-        pulumi.set(self, "controller_ref", value)
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
 
 
 class WorkloadArgsDict(TypedDict):
@@ -2049,5 +1836,218 @@ class WorkloadArgs:
     @metadata.setter
     def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
+
+
+class WorkloadPodGroupTemplateReferenceArgsDict(TypedDict):
+    """
+    WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+    """
+    pod_group_template_name: pulumi.Input[_builtins.str]
+    """
+    PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+    """
+    workload_name: pulumi.Input[_builtins.str]
+    """
+    WorkloadName defines the name of the Workload object.
+    """
+
+@pulumi.input_type
+class WorkloadPodGroupTemplateReferenceArgs:
+    def __init__(__self__, *,
+                 pod_group_template_name: pulumi.Input[_builtins.str],
+                 workload_name: pulumi.Input[_builtins.str]):
+        """
+        WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+
+        :param pulumi.Input[_builtins.str] pod_group_template_name: PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+        :param pulumi.Input[_builtins.str] workload_name: WorkloadName defines the name of the Workload object.
+        """
+        pulumi.set(__self__, "pod_group_template_name", pod_group_template_name)
+        pulumi.set(__self__, "workload_name", workload_name)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroupTemplateName")
+    def pod_group_template_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+        """
+        return pulumi.get(self, "pod_group_template_name")
+
+    @pod_group_template_name.setter
+    def pod_group_template_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "pod_group_template_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="workloadName")
+    def workload_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        WorkloadName defines the name of the Workload object.
+        """
+        return pulumi.get(self, "workload_name")
+
+    @workload_name.setter
+    def workload_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "workload_name", value)
+
+
+class WorkloadPodGroupTemplateReferencePatchArgsDict(TypedDict):
+    """
+    WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+    """
+    pod_group_template_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+    """
+    workload_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    WorkloadName defines the name of the Workload object.
+    """
+
+@pulumi.input_type
+class WorkloadPodGroupTemplateReferencePatchArgs:
+    def __init__(__self__, *,
+                 pod_group_template_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 workload_name: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+
+        :param pulumi.Input[_builtins.str] pod_group_template_name: PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+        :param pulumi.Input[_builtins.str] workload_name: WorkloadName defines the name of the Workload object.
+        """
+        if pod_group_template_name is not None:
+            pulumi.set(__self__, "pod_group_template_name", pod_group_template_name)
+        if workload_name is not None:
+            pulumi.set(__self__, "workload_name", workload_name)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroupTemplateName")
+    def pod_group_template_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+        """
+        return pulumi.get(self, "pod_group_template_name")
+
+    @pod_group_template_name.setter
+    def pod_group_template_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "pod_group_template_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="workloadName")
+    def workload_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        WorkloadName defines the name of the Workload object.
+        """
+        return pulumi.get(self, "workload_name")
+
+    @workload_name.setter
+    def workload_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "workload_name", value)
+
+
+class WorkloadSpecArgsDict(TypedDict):
+    """
+    WorkloadSpec defines the desired state of a Workload.
+    """
+    pod_group_templates: pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgsDict']]]
+    """
+    PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
+    """
+    controller_ref: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferenceArgsDict']]]
+    """
+    ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+    """
+
+@pulumi.input_type
+class WorkloadSpecArgs:
+    def __init__(__self__, *,
+                 pod_group_templates: pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgs']]],
+                 controller_ref: pulumi.Input[Optional['TypedLocalObjectReferenceArgs']] = None):
+        """
+        WorkloadSpec defines the desired state of a Workload.
+
+        :param pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgs']]] pod_group_templates: PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
+        :param pulumi.Input['TypedLocalObjectReferenceArgs'] controller_ref: ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+        """
+        pulumi.set(__self__, "pod_group_templates", pod_group_templates)
+        if controller_ref is not None:
+            pulumi.set(__self__, "controller_ref", controller_ref)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroupTemplates")
+    def pod_group_templates(self) -> pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgs']]]:
+        """
+        PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
+        """
+        return pulumi.get(self, "pod_group_templates")
+
+    @pod_group_templates.setter
+    def pod_group_templates(self, value: pulumi.Input[Sequence[pulumi.Input['PodGroupTemplateArgs']]]):
+        pulumi.set(self, "pod_group_templates", value)
+
+    @_builtins.property
+    @pulumi.getter(name="controllerRef")
+    def controller_ref(self) -> pulumi.Input[Optional['TypedLocalObjectReferenceArgs']]:
+        """
+        ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+        """
+        return pulumi.get(self, "controller_ref")
+
+    @controller_ref.setter
+    def controller_ref(self, value: pulumi.Input[Optional['TypedLocalObjectReferenceArgs']]):
+        pulumi.set(self, "controller_ref", value)
+
+
+class WorkloadSpecPatchArgsDict(TypedDict):
+    """
+    WorkloadSpec defines the desired state of a Workload.
+    """
+    controller_ref: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferencePatchArgsDict']]]
+    """
+    ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+    """
+    pod_group_templates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupTemplatePatchArgsDict']]]]]
+    """
+    PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
+    """
+
+@pulumi.input_type
+class WorkloadSpecPatchArgs:
+    def __init__(__self__, *,
+                 controller_ref: pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']] = None,
+                 pod_group_templates: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupTemplatePatchArgs']]]] = None):
+        """
+        WorkloadSpec defines the desired state of a Workload.
+
+        :param pulumi.Input['TypedLocalObjectReferencePatchArgs'] controller_ref: ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+        :param pulumi.Input[Sequence[pulumi.Input['PodGroupTemplatePatchArgs']]] pod_group_templates: PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
+        """
+        if controller_ref is not None:
+            pulumi.set(__self__, "controller_ref", controller_ref)
+        if pod_group_templates is not None:
+            pulumi.set(__self__, "pod_group_templates", pod_group_templates)
+
+    @_builtins.property
+    @pulumi.getter(name="controllerRef")
+    def controller_ref(self) -> pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']]:
+        """
+        ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+        """
+        return pulumi.get(self, "controller_ref")
+
+    @controller_ref.setter
+    def controller_ref(self, value: pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']]):
+        pulumi.set(self, "controller_ref", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroupTemplates")
+    def pod_group_templates(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupTemplatePatchArgs']]]]:
+        """
+        PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
+        """
+        return pulumi.get(self, "pod_group_templates")
+
+    @pod_group_templates.setter
+    def pod_group_templates(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupTemplatePatchArgs']]]]):
+        pulumi.set(self, "pod_group_templates", value)
 
 

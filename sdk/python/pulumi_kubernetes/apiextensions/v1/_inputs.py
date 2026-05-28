@@ -16,73 +16,204 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
-    'CustomResourceColumnDefinitionPatchArgs',
-    'CustomResourceColumnDefinitionPatchArgsDict',
     'CustomResourceColumnDefinitionArgs',
     'CustomResourceColumnDefinitionArgsDict',
-    'CustomResourceConversionPatchArgs',
-    'CustomResourceConversionPatchArgsDict',
+    'CustomResourceColumnDefinitionPatchArgs',
+    'CustomResourceColumnDefinitionPatchArgsDict',
     'CustomResourceConversionArgs',
     'CustomResourceConversionArgsDict',
-    'CustomResourceDefinitionConditionArgs',
-    'CustomResourceDefinitionConditionArgsDict',
-    'CustomResourceDefinitionNamesPatchArgs',
-    'CustomResourceDefinitionNamesPatchArgsDict',
-    'CustomResourceDefinitionNamesArgs',
-    'CustomResourceDefinitionNamesArgsDict',
-    'CustomResourceDefinitionSpecPatchArgs',
-    'CustomResourceDefinitionSpecPatchArgsDict',
-    'CustomResourceDefinitionSpecArgs',
-    'CustomResourceDefinitionSpecArgsDict',
-    'CustomResourceDefinitionStatusArgs',
-    'CustomResourceDefinitionStatusArgsDict',
-    'CustomResourceDefinitionVersionPatchArgs',
-    'CustomResourceDefinitionVersionPatchArgsDict',
-    'CustomResourceDefinitionVersionArgs',
-    'CustomResourceDefinitionVersionArgsDict',
+    'CustomResourceConversionPatchArgs',
+    'CustomResourceConversionPatchArgsDict',
     'CustomResourceDefinitionArgs',
     'CustomResourceDefinitionArgsDict',
-    'CustomResourceSubresourceScalePatchArgs',
-    'CustomResourceSubresourceScalePatchArgsDict',
+    'CustomResourceDefinitionConditionArgs',
+    'CustomResourceDefinitionConditionArgsDict',
+    'CustomResourceDefinitionNamesArgs',
+    'CustomResourceDefinitionNamesArgsDict',
+    'CustomResourceDefinitionNamesPatchArgs',
+    'CustomResourceDefinitionNamesPatchArgsDict',
+    'CustomResourceDefinitionSpecArgs',
+    'CustomResourceDefinitionSpecArgsDict',
+    'CustomResourceDefinitionSpecPatchArgs',
+    'CustomResourceDefinitionSpecPatchArgsDict',
+    'CustomResourceDefinitionStatusArgs',
+    'CustomResourceDefinitionStatusArgsDict',
+    'CustomResourceDefinitionVersionArgs',
+    'CustomResourceDefinitionVersionArgsDict',
+    'CustomResourceDefinitionVersionPatchArgs',
+    'CustomResourceDefinitionVersionPatchArgsDict',
     'CustomResourceSubresourceScaleArgs',
     'CustomResourceSubresourceScaleArgsDict',
-    'CustomResourceSubresourcesPatchArgs',
-    'CustomResourceSubresourcesPatchArgsDict',
+    'CustomResourceSubresourceScalePatchArgs',
+    'CustomResourceSubresourceScalePatchArgsDict',
     'CustomResourceSubresourcesArgs',
     'CustomResourceSubresourcesArgsDict',
-    'CustomResourceValidationPatchArgs',
-    'CustomResourceValidationPatchArgsDict',
+    'CustomResourceSubresourcesPatchArgs',
+    'CustomResourceSubresourcesPatchArgsDict',
     'CustomResourceValidationArgs',
     'CustomResourceValidationArgsDict',
-    'ExternalDocumentationPatchArgs',
-    'ExternalDocumentationPatchArgsDict',
+    'CustomResourceValidationPatchArgs',
+    'CustomResourceValidationPatchArgsDict',
     'ExternalDocumentationArgs',
     'ExternalDocumentationArgsDict',
-    'JSONSchemaPropsPatchArgs',
-    'JSONSchemaPropsPatchArgsDict',
+    'ExternalDocumentationPatchArgs',
+    'ExternalDocumentationPatchArgsDict',
     'JSONSchemaPropsArgs',
     'JSONSchemaPropsArgsDict',
-    'SelectableFieldPatchArgs',
-    'SelectableFieldPatchArgsDict',
+    'JSONSchemaPropsPatchArgs',
+    'JSONSchemaPropsPatchArgsDict',
     'SelectableFieldArgs',
     'SelectableFieldArgsDict',
-    'ServiceReferencePatchArgs',
-    'ServiceReferencePatchArgsDict',
+    'SelectableFieldPatchArgs',
+    'SelectableFieldPatchArgsDict',
     'ServiceReferenceArgs',
     'ServiceReferenceArgsDict',
-    'ValidationRulePatchArgs',
-    'ValidationRulePatchArgsDict',
+    'ServiceReferencePatchArgs',
+    'ServiceReferencePatchArgsDict',
     'ValidationRuleArgs',
     'ValidationRuleArgsDict',
-    'WebhookClientConfigPatchArgs',
-    'WebhookClientConfigPatchArgsDict',
+    'ValidationRulePatchArgs',
+    'ValidationRulePatchArgsDict',
     'WebhookClientConfigArgs',
     'WebhookClientConfigArgsDict',
-    'WebhookConversionPatchArgs',
-    'WebhookConversionPatchArgsDict',
+    'WebhookClientConfigPatchArgs',
+    'WebhookClientConfigPatchArgsDict',
     'WebhookConversionArgs',
     'WebhookConversionArgsDict',
+    'WebhookConversionPatchArgs',
+    'WebhookConversionPatchArgsDict',
 ]
+
+class CustomResourceColumnDefinitionArgsDict(TypedDict):
+    """
+    CustomResourceColumnDefinition specifies a column for server side printing.
+    """
+    json_path: pulumi.Input[_builtins.str]
+    """
+    jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    name is a human readable name for the column.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
+    """
+    description: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    description is a human readable description of this column.
+    """
+    format: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
+    """
+    priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
+    """
+
+@pulumi.input_type
+class CustomResourceColumnDefinitionArgs:
+    def __init__(__self__, *,
+                 json_path: pulumi.Input[_builtins.str],
+                 name: pulumi.Input[_builtins.str],
+                 type: pulumi.Input[_builtins.str],
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 format: pulumi.Input[Optional[_builtins.str]] = None,
+                 priority: pulumi.Input[Optional[_builtins.int]] = None):
+        """
+        CustomResourceColumnDefinition specifies a column for server side printing.
+
+        :param pulumi.Input[_builtins.str] json_path: jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
+        :param pulumi.Input[_builtins.str] name: name is a human readable name for the column.
+        :param pulumi.Input[_builtins.str] type: type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
+        :param pulumi.Input[_builtins.str] description: description is a human readable description of this column.
+        :param pulumi.Input[_builtins.str] format: format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
+        :param pulumi.Input[_builtins.int] priority: priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
+        """
+        pulumi.set(__self__, "json_path", json_path)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "type", type)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if format is not None:
+            pulumi.set(__self__, "format", format)
+        if priority is not None:
+            pulumi.set(__self__, "priority", priority)
+
+    @_builtins.property
+    @pulumi.getter(name="jsonPath")
+    def json_path(self) -> pulumi.Input[_builtins.str]:
+        """
+        jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
+        """
+        return pulumi.get(self, "json_path")
+
+    @json_path.setter
+    def json_path(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "json_path", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        name is a human readable name for the column.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        description is a human readable description of this column.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def format(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
+        """
+        return pulumi.get(self, "format")
+
+    @format.setter
+    def format(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "format", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def priority(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
+        """
+        return pulumi.get(self, "priority")
+
+    @priority.setter
+    def priority(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "priority", value)
+
 
 class CustomResourceColumnDefinitionPatchArgsDict(TypedDict):
     """
@@ -218,135 +349,60 @@ class CustomResourceColumnDefinitionPatchArgs:
         pulumi.set(self, "type", value)
 
 
-class CustomResourceColumnDefinitionArgsDict(TypedDict):
+class CustomResourceConversionArgsDict(TypedDict):
     """
-    CustomResourceColumnDefinition specifies a column for server side printing.
+    CustomResourceConversion describes how to convert different versions of a CR.
     """
-    json_path: pulumi.Input[_builtins.str]
+    strategy: pulumi.Input[_builtins.str]
     """
-    jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
+    strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
+      is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
     """
-    name: pulumi.Input[_builtins.str]
+    webhook: NotRequired[pulumi.Input[Optional['WebhookConversionArgsDict']]]
     """
-    name is a human readable name for the column.
-    """
-    type: pulumi.Input[_builtins.str]
-    """
-    type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-    """
-    description: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    description is a human readable description of this column.
-    """
-    format: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-    """
-    priority: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
+    webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
     """
 
 @pulumi.input_type
-class CustomResourceColumnDefinitionArgs:
+class CustomResourceConversionArgs:
     def __init__(__self__, *,
-                 json_path: pulumi.Input[_builtins.str],
-                 name: pulumi.Input[_builtins.str],
-                 type: pulumi.Input[_builtins.str],
-                 description: pulumi.Input[Optional[_builtins.str]] = None,
-                 format: pulumi.Input[Optional[_builtins.str]] = None,
-                 priority: pulumi.Input[Optional[_builtins.int]] = None):
+                 strategy: pulumi.Input[_builtins.str],
+                 webhook: pulumi.Input[Optional['WebhookConversionArgs']] = None):
         """
-        CustomResourceColumnDefinition specifies a column for server side printing.
+        CustomResourceConversion describes how to convert different versions of a CR.
 
-        :param pulumi.Input[_builtins.str] json_path: jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
-        :param pulumi.Input[_builtins.str] name: name is a human readable name for the column.
-        :param pulumi.Input[_builtins.str] type: type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-        :param pulumi.Input[_builtins.str] description: description is a human readable description of this column.
-        :param pulumi.Input[_builtins.str] format: format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-        :param pulumi.Input[_builtins.int] priority: priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
+        :param pulumi.Input[_builtins.str] strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
+                 is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
+        :param pulumi.Input['WebhookConversionArgs'] webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
         """
-        pulumi.set(__self__, "json_path", json_path)
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "type", type)
-        if description is not None:
-            pulumi.set(__self__, "description", description)
-        if format is not None:
-            pulumi.set(__self__, "format", format)
-        if priority is not None:
-            pulumi.set(__self__, "priority", priority)
-
-    @_builtins.property
-    @pulumi.getter(name="jsonPath")
-    def json_path(self) -> pulumi.Input[_builtins.str]:
-        """
-        jsonPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
-        """
-        return pulumi.get(self, "json_path")
-
-    @json_path.setter
-    def json_path(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "json_path", value)
+        pulumi.set(__self__, "strategy", strategy)
+        if webhook is not None:
+            pulumi.set(__self__, "webhook", webhook)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[_builtins.str]:
+    def strategy(self) -> pulumi.Input[_builtins.str]:
         """
-        name is a human readable name for the column.
+        strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
+          is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
         """
-        return pulumi.get(self, "name")
+        return pulumi.get(self, "strategy")
 
-    @name.setter
-    def name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "name", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> pulumi.Input[_builtins.str]:
-        """
-        type is an OpenAPI type definition for this column. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-        """
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "type", value)
+    @strategy.setter
+    def strategy(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "strategy", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def webhook(self) -> pulumi.Input[Optional['WebhookConversionArgs']]:
         """
-        description is a human readable description of this column.
+        webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
         """
-        return pulumi.get(self, "description")
+        return pulumi.get(self, "webhook")
 
-    @description.setter
-    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "description", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def format(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        format is an optional OpenAPI type definition for this column. The 'name' format is applied to the primary identifier column to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for details.
-        """
-        return pulumi.get(self, "format")
-
-    @format.setter
-    def format(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "format", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def priority(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a priority greater than 0.
-        """
-        return pulumi.get(self, "priority")
-
-    @priority.setter
-    def priority(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "priority", value)
+    @webhook.setter
+    def webhook(self, value: pulumi.Input[Optional['WebhookConversionArgs']]):
+        pulumi.set(self, "webhook", value)
 
 
 class CustomResourceConversionPatchArgsDict(TypedDict):
@@ -406,60 +462,117 @@ class CustomResourceConversionPatchArgs:
         pulumi.set(self, "webhook", value)
 
 
-class CustomResourceConversionArgsDict(TypedDict):
+class CustomResourceDefinitionArgsDict(TypedDict):
     """
-    CustomResourceConversion describes how to convert different versions of a CR.
+    CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
     """
-    strategy: pulumi.Input[_builtins.str]
+    spec: pulumi.Input['CustomResourceDefinitionSpecArgsDict']
     """
-    strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
-      is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
+    spec describes how the user wants the resources to appear
     """
-    webhook: NotRequired[pulumi.Input[Optional['WebhookConversionArgsDict']]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    """
+    Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    status: NotRequired[pulumi.Input[Optional['CustomResourceDefinitionStatusArgsDict']]]
+    """
+    status indicates the actual state of the CustomResourceDefinition
     """
 
 @pulumi.input_type
-class CustomResourceConversionArgs:
+class CustomResourceDefinitionArgs:
     def __init__(__self__, *,
-                 strategy: pulumi.Input[_builtins.str],
-                 webhook: pulumi.Input[Optional['WebhookConversionArgs']] = None):
+                 spec: pulumi.Input['CustomResourceDefinitionSpecArgs'],
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 status: pulumi.Input[Optional['CustomResourceDefinitionStatusArgs']] = None):
         """
-        CustomResourceConversion describes how to convert different versions of a CR.
+        CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
 
-        :param pulumi.Input[_builtins.str] strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
-                 is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
-        :param pulumi.Input['WebhookConversionArgs'] webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
+        :param pulumi.Input['CustomResourceDefinitionSpecArgs'] spec: spec describes how the user wants the resources to appear
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['CustomResourceDefinitionStatusArgs'] status: status indicates the actual state of the CustomResourceDefinition
         """
-        pulumi.set(__self__, "strategy", strategy)
-        if webhook is not None:
-            pulumi.set(__self__, "webhook", webhook)
-
-    @_builtins.property
-    @pulumi.getter
-    def strategy(self) -> pulumi.Input[_builtins.str]:
-        """
-        strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
-          is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
-        """
-        return pulumi.get(self, "strategy")
-
-    @strategy.setter
-    def strategy(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "strategy", value)
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'apiextensions.k8s.io/v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'CustomResourceDefinition')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
 
     @_builtins.property
     @pulumi.getter
-    def webhook(self) -> pulumi.Input[Optional['WebhookConversionArgs']]:
+    def spec(self) -> pulumi.Input['CustomResourceDefinitionSpecArgs']:
         """
-        webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
+        spec describes how the user wants the resources to appear
         """
-        return pulumi.get(self, "webhook")
+        return pulumi.get(self, "spec")
 
-    @webhook.setter
-    def webhook(self, value: pulumi.Input[Optional['WebhookConversionArgs']]):
-        pulumi.set(self, "webhook", value)
+    @spec.setter
+    def spec(self, value: pulumi.Input['CustomResourceDefinitionSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> pulumi.Input[Optional['CustomResourceDefinitionStatusArgs']]:
+        """
+        status indicates the actual state of the CustomResourceDefinition
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: pulumi.Input[Optional['CustomResourceDefinitionStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 class CustomResourceDefinitionConditionArgsDict(TypedDict):
@@ -592,6 +705,138 @@ class CustomResourceDefinitionConditionArgs:
     @reason.setter
     def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
+
+
+class CustomResourceDefinitionNamesArgsDict(TypedDict):
+    """
+    CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+    """
+    kind: pulumi.Input[_builtins.str]
+    """
+    kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
+    """
+    plural: pulumi.Input[_builtins.str]
+    """
+    plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
+    """
+    categories: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
+    """
+    list_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
+    """
+    short_names: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
+    """
+    singular: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
+    """
+
+@pulumi.input_type
+class CustomResourceDefinitionNamesArgs:
+    def __init__(__self__, *,
+                 kind: pulumi.Input[_builtins.str],
+                 plural: pulumi.Input[_builtins.str],
+                 categories: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 list_kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 short_names: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 singular: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+
+        :param pulumi.Input[_builtins.str] kind: kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
+        :param pulumi.Input[_builtins.str] plural: plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
+        :param pulumi.Input[_builtins.str] list_kind: listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] short_names: shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
+        :param pulumi.Input[_builtins.str] singular: singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
+        """
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "plural", plural)
+        if categories is not None:
+            pulumi.set(__self__, "categories", categories)
+        if list_kind is not None:
+            pulumi.set(__self__, "list_kind", list_kind)
+        if short_names is not None:
+            pulumi.set(__self__, "short_names", short_names)
+        if singular is not None:
+            pulumi.set(__self__, "singular", singular)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[_builtins.str]:
+        """
+        kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def plural(self) -> pulumi.Input[_builtins.str]:
+        """
+        plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
+        """
+        return pulumi.get(self, "plural")
+
+    @plural.setter
+    def plural(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "plural", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def categories(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
+        """
+        return pulumi.get(self, "categories")
+
+    @categories.setter
+    def categories(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "categories", value)
+
+    @_builtins.property
+    @pulumi.getter(name="listKind")
+    def list_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
+        """
+        return pulumi.get(self, "list_kind")
+
+    @list_kind.setter
+    def list_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "list_kind", value)
+
+    @_builtins.property
+    @pulumi.getter(name="shortNames")
+    def short_names(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
+        """
+        return pulumi.get(self, "short_names")
+
+    @short_names.setter
+    def short_names(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "short_names", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def singular(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
+        """
+        return pulumi.get(self, "singular")
+
+    @singular.setter
+    def singular(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "singular", value)
 
 
 class CustomResourceDefinitionNamesPatchArgsDict(TypedDict):
@@ -728,136 +973,134 @@ class CustomResourceDefinitionNamesPatchArgs:
         pulumi.set(self, "singular", value)
 
 
-class CustomResourceDefinitionNamesArgsDict(TypedDict):
+class CustomResourceDefinitionSpecArgsDict(TypedDict):
     """
-    CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+    CustomResourceDefinitionSpec describes how a user wants their resource to appear
     """
-    kind: pulumi.Input[_builtins.str]
+    group: pulumi.Input[_builtins.str]
     """
-    kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
+    group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
     """
-    plural: pulumi.Input[_builtins.str]
+    names: pulumi.Input['CustomResourceDefinitionNamesArgsDict']
     """
-    plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
+    names specify the resource and kind names for the custom resource.
     """
-    categories: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    scope: pulumi.Input[_builtins.str]
     """
-    categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
+    scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
     """
-    list_kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    versions: pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgsDict']]]
     """
-    listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
+    versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
     """
-    short_names: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    conversion: NotRequired[pulumi.Input[Optional['CustomResourceConversionArgsDict']]]
     """
-    shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
+    conversion defines conversion settings for the CRD.
     """
-    singular: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    preserve_unknown_fields: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
-    singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
+    preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
     """
 
 @pulumi.input_type
-class CustomResourceDefinitionNamesArgs:
+class CustomResourceDefinitionSpecArgs:
     def __init__(__self__, *,
-                 kind: pulumi.Input[_builtins.str],
-                 plural: pulumi.Input[_builtins.str],
-                 categories: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 list_kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 short_names: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 singular: pulumi.Input[Optional[_builtins.str]] = None):
+                 group: pulumi.Input[_builtins.str],
+                 names: pulumi.Input['CustomResourceDefinitionNamesArgs'],
+                 scope: pulumi.Input[_builtins.str],
+                 versions: pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]],
+                 conversion: pulumi.Input[Optional['CustomResourceConversionArgs']] = None,
+                 preserve_unknown_fields: pulumi.Input[Optional[_builtins.bool]] = None):
         """
-        CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+        CustomResourceDefinitionSpec describes how a user wants their resource to appear
 
-        :param pulumi.Input[_builtins.str] kind: kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
-        :param pulumi.Input[_builtins.str] plural: plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] categories: categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
-        :param pulumi.Input[_builtins.str] list_kind: listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] short_names: shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
-        :param pulumi.Input[_builtins.str] singular: singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
+        :param pulumi.Input[_builtins.str] group: group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
+        :param pulumi.Input['CustomResourceDefinitionNamesArgs'] names: names specify the resource and kind names for the custom resource.
+        :param pulumi.Input[_builtins.str] scope: scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
+        :param pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]] versions: versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+        :param pulumi.Input['CustomResourceConversionArgs'] conversion: conversion defines conversion settings for the CRD.
+        :param pulumi.Input[_builtins.bool] preserve_unknown_fields: preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
         """
-        pulumi.set(__self__, "kind", kind)
-        pulumi.set(__self__, "plural", plural)
-        if categories is not None:
-            pulumi.set(__self__, "categories", categories)
-        if list_kind is not None:
-            pulumi.set(__self__, "list_kind", list_kind)
-        if short_names is not None:
-            pulumi.set(__self__, "short_names", short_names)
-        if singular is not None:
-            pulumi.set(__self__, "singular", singular)
+        pulumi.set(__self__, "group", group)
+        pulumi.set(__self__, "names", names)
+        pulumi.set(__self__, "scope", scope)
+        pulumi.set(__self__, "versions", versions)
+        if conversion is not None:
+            pulumi.set(__self__, "conversion", conversion)
+        if preserve_unknown_fields is not None:
+            pulumi.set(__self__, "preserve_unknown_fields", preserve_unknown_fields)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[_builtins.str]:
+    def group(self) -> pulumi.Input[_builtins.str]:
         """
-        kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
+        group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
         """
-        return pulumi.get(self, "kind")
+        return pulumi.get(self, "group")
 
-    @kind.setter
-    def kind(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def plural(self) -> pulumi.Input[_builtins.str]:
-        """
-        plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase.
-        """
-        return pulumi.get(self, "plural")
-
-    @plural.setter
-    def plural(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "plural", value)
+    @group.setter
+    def group(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "group", value)
 
     @_builtins.property
     @pulumi.getter
-    def categories(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    def names(self) -> pulumi.Input['CustomResourceDefinitionNamesArgs']:
         """
-        categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
+        names specify the resource and kind names for the custom resource.
         """
-        return pulumi.get(self, "categories")
+        return pulumi.get(self, "names")
 
-    @categories.setter
-    def categories(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "categories", value)
-
-    @_builtins.property
-    @pulumi.getter(name="listKind")
-    def list_kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        listKind is the serialized kind of the list for this resource. Defaults to "`kind`List".
-        """
-        return pulumi.get(self, "list_kind")
-
-    @list_kind.setter
-    def list_kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "list_kind", value)
-
-    @_builtins.property
-    @pulumi.getter(name="shortNames")
-    def short_names(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase.
-        """
-        return pulumi.get(self, "short_names")
-
-    @short_names.setter
-    def short_names(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "short_names", value)
+    @names.setter
+    def names(self, value: pulumi.Input['CustomResourceDefinitionNamesArgs']):
+        pulumi.set(self, "names", value)
 
     @_builtins.property
     @pulumi.getter
-    def singular(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def scope(self) -> pulumi.Input[_builtins.str]:
         """
-        singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
+        scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
         """
-        return pulumi.get(self, "singular")
+        return pulumi.get(self, "scope")
 
-    @singular.setter
-    def singular(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "singular", value)
+    @scope.setter
+    def scope(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "scope", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def versions(self) -> pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]]:
+        """
+        versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
+        """
+        return pulumi.get(self, "versions")
+
+    @versions.setter
+    def versions(self, value: pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]]):
+        pulumi.set(self, "versions", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def conversion(self) -> pulumi.Input[Optional['CustomResourceConversionArgs']]:
+        """
+        conversion defines conversion settings for the CRD.
+        """
+        return pulumi.get(self, "conversion")
+
+    @conversion.setter
+    def conversion(self, value: pulumi.Input[Optional['CustomResourceConversionArgs']]):
+        pulumi.set(self, "conversion", value)
+
+    @_builtins.property
+    @pulumi.getter(name="preserveUnknownFields")
+    def preserve_unknown_fields(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
+        """
+        return pulumi.get(self, "preserve_unknown_fields")
+
+    @preserve_unknown_fields.setter
+    def preserve_unknown_fields(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "preserve_unknown_fields", value)
 
 
 class CustomResourceDefinitionSpecPatchArgsDict(TypedDict):
@@ -994,136 +1237,6 @@ class CustomResourceDefinitionSpecPatchArgs:
         pulumi.set(self, "versions", value)
 
 
-class CustomResourceDefinitionSpecArgsDict(TypedDict):
-    """
-    CustomResourceDefinitionSpec describes how a user wants their resource to appear
-    """
-    group: pulumi.Input[_builtins.str]
-    """
-    group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
-    """
-    names: pulumi.Input['CustomResourceDefinitionNamesArgsDict']
-    """
-    names specify the resource and kind names for the custom resource.
-    """
-    scope: pulumi.Input[_builtins.str]
-    """
-    scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
-    """
-    versions: pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgsDict']]]
-    """
-    versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
-    """
-    conversion: NotRequired[pulumi.Input[Optional['CustomResourceConversionArgsDict']]]
-    """
-    conversion defines conversion settings for the CRD.
-    """
-    preserve_unknown_fields: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
-    """
-
-@pulumi.input_type
-class CustomResourceDefinitionSpecArgs:
-    def __init__(__self__, *,
-                 group: pulumi.Input[_builtins.str],
-                 names: pulumi.Input['CustomResourceDefinitionNamesArgs'],
-                 scope: pulumi.Input[_builtins.str],
-                 versions: pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]],
-                 conversion: pulumi.Input[Optional['CustomResourceConversionArgs']] = None,
-                 preserve_unknown_fields: pulumi.Input[Optional[_builtins.bool]] = None):
-        """
-        CustomResourceDefinitionSpec describes how a user wants their resource to appear
-
-        :param pulumi.Input[_builtins.str] group: group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
-        :param pulumi.Input['CustomResourceDefinitionNamesArgs'] names: names specify the resource and kind names for the custom resource.
-        :param pulumi.Input[_builtins.str] scope: scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
-        :param pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]] versions: versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
-        :param pulumi.Input['CustomResourceConversionArgs'] conversion: conversion defines conversion settings for the CRD.
-        :param pulumi.Input[_builtins.bool] preserve_unknown_fields: preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
-        """
-        pulumi.set(__self__, "group", group)
-        pulumi.set(__self__, "names", names)
-        pulumi.set(__self__, "scope", scope)
-        pulumi.set(__self__, "versions", versions)
-        if conversion is not None:
-            pulumi.set(__self__, "conversion", conversion)
-        if preserve_unknown_fields is not None:
-            pulumi.set(__self__, "preserve_unknown_fields", preserve_unknown_fields)
-
-    @_builtins.property
-    @pulumi.getter
-    def group(self) -> pulumi.Input[_builtins.str]:
-        """
-        group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
-        """
-        return pulumi.get(self, "group")
-
-    @group.setter
-    def group(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "group", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def names(self) -> pulumi.Input['CustomResourceDefinitionNamesArgs']:
-        """
-        names specify the resource and kind names for the custom resource.
-        """
-        return pulumi.get(self, "names")
-
-    @names.setter
-    def names(self, value: pulumi.Input['CustomResourceDefinitionNamesArgs']):
-        pulumi.set(self, "names", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def scope(self) -> pulumi.Input[_builtins.str]:
-        """
-        scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
-        """
-        return pulumi.get(self, "scope")
-
-    @scope.setter
-    def scope(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "scope", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def versions(self) -> pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]]:
-        """
-        versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
-        """
-        return pulumi.get(self, "versions")
-
-    @versions.setter
-    def versions(self, value: pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]]):
-        pulumi.set(self, "versions", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def conversion(self) -> pulumi.Input[Optional['CustomResourceConversionArgs']]:
-        """
-        conversion defines conversion settings for the CRD.
-        """
-        return pulumi.get(self, "conversion")
-
-    @conversion.setter
-    def conversion(self, value: pulumi.Input[Optional['CustomResourceConversionArgs']]):
-        pulumi.set(self, "conversion", value)
-
-    @_builtins.property
-    @pulumi.getter(name="preserveUnknownFields")
-    def preserve_unknown_fields(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
-        """
-        return pulumi.get(self, "preserve_unknown_fields")
-
-    @preserve_unknown_fields.setter
-    def preserve_unknown_fields(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "preserve_unknown_fields", value)
-
-
 class CustomResourceDefinitionStatusArgsDict(TypedDict):
     """
     CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
@@ -1214,6 +1327,197 @@ class CustomResourceDefinitionStatusArgs:
     @observed_generation.setter
     def observed_generation(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "observed_generation", value)
+
+
+class CustomResourceDefinitionVersionArgsDict(TypedDict):
+    """
+    CustomResourceDefinitionVersion describes a version for CRD.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
+    """
+    served: pulumi.Input[_builtins.bool]
+    """
+    served is a flag enabling/disabling this version from being served via REST APIs
+    """
+    storage: pulumi.Input[_builtins.bool]
+    """
+    storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
+    """
+    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgsDict']]]]]
+    """
+    additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
+    """
+    deprecated: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+    """
+    deprecation_warning: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+    """
+    schema: NotRequired[pulumi.Input[Optional['CustomResourceValidationArgsDict']]]
+    """
+    schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
+    """
+    selectable_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SelectableFieldArgsDict']]]]]
+    """
+    selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+    """
+    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesArgsDict']]]
+    """
+    subresources specify what subresources this version of the defined custom resource have.
+    """
+
+@pulumi.input_type
+class CustomResourceDefinitionVersionArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 served: pulumi.Input[_builtins.bool],
+                 storage: pulumi.Input[_builtins.bool],
+                 additional_printer_columns: pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]] = None,
+                 deprecated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 deprecation_warning: pulumi.Input[Optional[_builtins.str]] = None,
+                 schema: pulumi.Input[Optional['CustomResourceValidationArgs']] = None,
+                 selectable_fields: pulumi.Input[Optional[Sequence[pulumi.Input['SelectableFieldArgs']]]] = None,
+                 subresources: pulumi.Input[Optional['CustomResourceSubresourcesArgs']] = None):
+        """
+        CustomResourceDefinitionVersion describes a version for CRD.
+
+        :param pulumi.Input[_builtins.str] name: name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
+        :param pulumi.Input[_builtins.bool] served: served is a flag enabling/disabling this version from being served via REST APIs
+        :param pulumi.Input[_builtins.bool] storage: storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
+        :param pulumi.Input[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
+        :param pulumi.Input[_builtins.bool] deprecated: deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+        :param pulumi.Input[_builtins.str] deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+        :param pulumi.Input['CustomResourceValidationArgs'] schema: schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
+        :param pulumi.Input[Sequence[pulumi.Input['SelectableFieldArgs']]] selectable_fields: selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+        :param pulumi.Input['CustomResourceSubresourcesArgs'] subresources: subresources specify what subresources this version of the defined custom resource have.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "served", served)
+        pulumi.set(__self__, "storage", storage)
+        if additional_printer_columns is not None:
+            pulumi.set(__self__, "additional_printer_columns", additional_printer_columns)
+        if deprecated is not None:
+            pulumi.set(__self__, "deprecated", deprecated)
+        if deprecation_warning is not None:
+            pulumi.set(__self__, "deprecation_warning", deprecation_warning)
+        if schema is not None:
+            pulumi.set(__self__, "schema", schema)
+        if selectable_fields is not None:
+            pulumi.set(__self__, "selectable_fields", selectable_fields)
+        if subresources is not None:
+            pulumi.set(__self__, "subresources", subresources)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def served(self) -> pulumi.Input[_builtins.bool]:
+        """
+        served is a flag enabling/disabling this version from being served via REST APIs
+        """
+        return pulumi.get(self, "served")
+
+    @served.setter
+    def served(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "served", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def storage(self) -> pulumi.Input[_builtins.bool]:
+        """
+        storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
+        """
+        return pulumi.get(self, "storage")
+
+    @storage.setter
+    def storage(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "storage", value)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalPrinterColumns")
+    def additional_printer_columns(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]]:
+        """
+        additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
+        """
+        return pulumi.get(self, "additional_printer_columns")
+
+    @additional_printer_columns.setter
+    def additional_printer_columns(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]]):
+        pulumi.set(self, "additional_printer_columns", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def deprecated(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
+        """
+        return pulumi.get(self, "deprecated")
+
+    @deprecated.setter
+    def deprecated(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "deprecated", value)
+
+    @_builtins.property
+    @pulumi.getter(name="deprecationWarning")
+    def deprecation_warning(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
+        """
+        return pulumi.get(self, "deprecation_warning")
+
+    @deprecation_warning.setter
+    def deprecation_warning(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "deprecation_warning", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def schema(self) -> pulumi.Input[Optional['CustomResourceValidationArgs']]:
+        """
+        schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
+        """
+        return pulumi.get(self, "schema")
+
+    @schema.setter
+    def schema(self, value: pulumi.Input[Optional['CustomResourceValidationArgs']]):
+        pulumi.set(self, "schema", value)
+
+    @_builtins.property
+    @pulumi.getter(name="selectableFields")
+    def selectable_fields(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['SelectableFieldArgs']]]]:
+        """
+        selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
+        """
+        return pulumi.get(self, "selectable_fields")
+
+    @selectable_fields.setter
+    def selectable_fields(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['SelectableFieldArgs']]]]):
+        pulumi.set(self, "selectable_fields", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def subresources(self) -> pulumi.Input[Optional['CustomResourceSubresourcesArgs']]:
+        """
+        subresources specify what subresources this version of the defined custom resource have.
+        """
+        return pulumi.get(self, "subresources")
+
+    @subresources.setter
+    def subresources(self, value: pulumi.Input[Optional['CustomResourceSubresourcesArgs']]):
+        pulumi.set(self, "subresources", value)
 
 
 class CustomResourceDefinitionVersionPatchArgsDict(TypedDict):
@@ -1410,308 +1714,76 @@ class CustomResourceDefinitionVersionPatchArgs:
         pulumi.set(self, "subresources", value)
 
 
-class CustomResourceDefinitionVersionArgsDict(TypedDict):
+class CustomResourceSubresourceScaleArgsDict(TypedDict):
     """
-    CustomResourceDefinitionVersion describes a version for CRD.
+    CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
     """
-    name: pulumi.Input[_builtins.str]
+    spec_replicas_path: pulumi.Input[_builtins.str]
     """
-    name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
+    specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
     """
-    served: pulumi.Input[_builtins.bool]
+    status_replicas_path: pulumi.Input[_builtins.str]
     """
-    served is a flag enabling/disabling this version from being served via REST APIs
+    statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
     """
-    storage: pulumi.Input[_builtins.bool]
+    label_selector_path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
-    """
-    additional_printer_columns: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgsDict']]]]]
-    """
-    additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
-    """
-    deprecated: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
-    """
-    deprecation_warning: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
-    """
-    schema: NotRequired[pulumi.Input[Optional['CustomResourceValidationArgsDict']]]
-    """
-    schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
-    """
-    selectable_fields: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['SelectableFieldArgsDict']]]]]
-    """
-    selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
-    """
-    subresources: NotRequired[pulumi.Input[Optional['CustomResourceSubresourcesArgsDict']]]
-    """
-    subresources specify what subresources this version of the defined custom resource have.
+    labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
     """
 
 @pulumi.input_type
-class CustomResourceDefinitionVersionArgs:
+class CustomResourceSubresourceScaleArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[_builtins.str],
-                 served: pulumi.Input[_builtins.bool],
-                 storage: pulumi.Input[_builtins.bool],
-                 additional_printer_columns: pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]] = None,
-                 deprecated: pulumi.Input[Optional[_builtins.bool]] = None,
-                 deprecation_warning: pulumi.Input[Optional[_builtins.str]] = None,
-                 schema: pulumi.Input[Optional['CustomResourceValidationArgs']] = None,
-                 selectable_fields: pulumi.Input[Optional[Sequence[pulumi.Input['SelectableFieldArgs']]]] = None,
-                 subresources: pulumi.Input[Optional['CustomResourceSubresourcesArgs']] = None):
+                 spec_replicas_path: pulumi.Input[_builtins.str],
+                 status_replicas_path: pulumi.Input[_builtins.str],
+                 label_selector_path: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        CustomResourceDefinitionVersion describes a version for CRD.
+        CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
 
-        :param pulumi.Input[_builtins.str] name: name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
-        :param pulumi.Input[_builtins.bool] served: served is a flag enabling/disabling this version from being served via REST APIs
-        :param pulumi.Input[_builtins.bool] storage: storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
-        :param pulumi.Input[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]] additional_printer_columns: additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
-        :param pulumi.Input[_builtins.bool] deprecated: deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
-        :param pulumi.Input[_builtins.str] deprecation_warning: deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
-        :param pulumi.Input['CustomResourceValidationArgs'] schema: schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
-        :param pulumi.Input[Sequence[pulumi.Input['SelectableFieldArgs']]] selectable_fields: selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
-        :param pulumi.Input['CustomResourceSubresourcesArgs'] subresources: subresources specify what subresources this version of the defined custom resource have.
+        :param pulumi.Input[_builtins.str] spec_replicas_path: specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
+        :param pulumi.Input[_builtins.str] status_replicas_path: statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
+        :param pulumi.Input[_builtins.str] label_selector_path: labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
         """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "served", served)
-        pulumi.set(__self__, "storage", storage)
-        if additional_printer_columns is not None:
-            pulumi.set(__self__, "additional_printer_columns", additional_printer_columns)
-        if deprecated is not None:
-            pulumi.set(__self__, "deprecated", deprecated)
-        if deprecation_warning is not None:
-            pulumi.set(__self__, "deprecation_warning", deprecation_warning)
-        if schema is not None:
-            pulumi.set(__self__, "schema", schema)
-        if selectable_fields is not None:
-            pulumi.set(__self__, "selectable_fields", selectable_fields)
-        if subresources is not None:
-            pulumi.set(__self__, "subresources", subresources)
+        pulumi.set(__self__, "spec_replicas_path", spec_replicas_path)
+        pulumi.set(__self__, "status_replicas_path", status_replicas_path)
+        if label_selector_path is not None:
+            pulumi.set(__self__, "label_selector_path", label_selector_path)
 
     @_builtins.property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[_builtins.str]:
+    @pulumi.getter(name="specReplicasPath")
+    def spec_replicas_path(self) -> pulumi.Input[_builtins.str]:
         """
-        name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true.
+        specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
         """
-        return pulumi.get(self, "name")
+        return pulumi.get(self, "spec_replicas_path")
 
-    @name.setter
-    def name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "name", value)
+    @spec_replicas_path.setter
+    def spec_replicas_path(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "spec_replicas_path", value)
 
     @_builtins.property
-    @pulumi.getter
-    def served(self) -> pulumi.Input[_builtins.bool]:
+    @pulumi.getter(name="statusReplicasPath")
+    def status_replicas_path(self) -> pulumi.Input[_builtins.str]:
         """
-        served is a flag enabling/disabling this version from being served via REST APIs
+        statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
         """
-        return pulumi.get(self, "served")
+        return pulumi.get(self, "status_replicas_path")
 
-    @served.setter
-    def served(self, value: pulumi.Input[_builtins.bool]):
-        pulumi.set(self, "served", value)
+    @status_replicas_path.setter
+    def status_replicas_path(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "status_replicas_path", value)
 
     @_builtins.property
-    @pulumi.getter
-    def storage(self) -> pulumi.Input[_builtins.bool]:
+    @pulumi.getter(name="labelSelectorPath")
+    def label_selector_path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        storage indicates this version should be used when persisting custom resources to storage. There must be exactly one version with storage=true.
+        labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
         """
-        return pulumi.get(self, "storage")
+        return pulumi.get(self, "label_selector_path")
 
-    @storage.setter
-    def storage(self, value: pulumi.Input[_builtins.bool]):
-        pulumi.set(self, "storage", value)
-
-    @_builtins.property
-    @pulumi.getter(name="additionalPrinterColumns")
-    def additional_printer_columns(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]]:
-        """
-        additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If no columns are specified, a single column displaying the age of the custom resource is used.
-        """
-        return pulumi.get(self, "additional_printer_columns")
-
-    @additional_printer_columns.setter
-    def additional_printer_columns(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]]):
-        pulumi.set(self, "additional_printer_columns", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def deprecated(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        deprecated indicates this version of the custom resource API is deprecated. When set to true, API requests to this version receive a warning header in the server response. Defaults to false.
-        """
-        return pulumi.get(self, "deprecated")
-
-    @deprecated.setter
-    def deprecated(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "deprecated", value)
-
-    @_builtins.property
-    @pulumi.getter(name="deprecationWarning")
-    def deprecation_warning(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        deprecationWarning overrides the default warning returned to API clients. May only be set when `deprecated` is true. The default warning indicates this version is deprecated and recommends use of the newest served version of equal or greater stability, if one exists.
-        """
-        return pulumi.get(self, "deprecation_warning")
-
-    @deprecation_warning.setter
-    def deprecation_warning(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "deprecation_warning", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def schema(self) -> pulumi.Input[Optional['CustomResourceValidationArgs']]:
-        """
-        schema describes the schema used for validation, pruning, and defaulting of this version of the custom resource.
-        """
-        return pulumi.get(self, "schema")
-
-    @schema.setter
-    def schema(self, value: pulumi.Input[Optional['CustomResourceValidationArgs']]):
-        pulumi.set(self, "schema", value)
-
-    @_builtins.property
-    @pulumi.getter(name="selectableFields")
-    def selectable_fields(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['SelectableFieldArgs']]]]:
-        """
-        selectableFields specifies paths to fields that may be used as field selectors. A maximum of 8 selectable fields are allowed. See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors
-        """
-        return pulumi.get(self, "selectable_fields")
-
-    @selectable_fields.setter
-    def selectable_fields(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['SelectableFieldArgs']]]]):
-        pulumi.set(self, "selectable_fields", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def subresources(self) -> pulumi.Input[Optional['CustomResourceSubresourcesArgs']]:
-        """
-        subresources specify what subresources this version of the defined custom resource have.
-        """
-        return pulumi.get(self, "subresources")
-
-    @subresources.setter
-    def subresources(self, value: pulumi.Input[Optional['CustomResourceSubresourcesArgs']]):
-        pulumi.set(self, "subresources", value)
-
-
-class CustomResourceDefinitionArgsDict(TypedDict):
-    """
-    CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
-    """
-    spec: pulumi.Input['CustomResourceDefinitionSpecArgsDict']
-    """
-    spec describes how the user wants the resources to appear
-    """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-    """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
-    """
-    Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-    """
-    status: NotRequired[pulumi.Input[Optional['CustomResourceDefinitionStatusArgsDict']]]
-    """
-    status indicates the actual state of the CustomResourceDefinition
-    """
-
-@pulumi.input_type
-class CustomResourceDefinitionArgs:
-    def __init__(__self__, *,
-                 spec: pulumi.Input['CustomResourceDefinitionSpecArgs'],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 status: pulumi.Input[Optional['CustomResourceDefinitionStatusArgs']] = None):
-        """
-        CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.
-
-        :param pulumi.Input['CustomResourceDefinitionSpecArgs'] spec: spec describes how the user wants the resources to appear
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['CustomResourceDefinitionStatusArgs'] status: status indicates the actual state of the CustomResourceDefinition
-        """
-        pulumi.set(__self__, "spec", spec)
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'apiextensions.k8s.io/v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'CustomResourceDefinition')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['CustomResourceDefinitionSpecArgs']:
-        """
-        spec describes how the user wants the resources to appear
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['CustomResourceDefinitionSpecArgs']):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_version", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def status(self) -> pulumi.Input[Optional['CustomResourceDefinitionStatusArgs']]:
-        """
-        status indicates the actual state of the CustomResourceDefinition
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: pulumi.Input[Optional['CustomResourceDefinitionStatusArgs']]):
-        pulumi.set(self, "status", value)
+    @label_selector_path.setter
+    def label_selector_path(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "label_selector_path", value)
 
 
 class CustomResourceSubresourceScalePatchArgsDict(TypedDict):
@@ -1788,76 +1860,58 @@ class CustomResourceSubresourceScalePatchArgs:
         pulumi.set(self, "status_replicas_path", value)
 
 
-class CustomResourceSubresourceScaleArgsDict(TypedDict):
+class CustomResourceSubresourcesArgsDict(TypedDict):
     """
-    CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+    CustomResourceSubresources defines the status and scale subresources for CustomResources.
     """
-    spec_replicas_path: pulumi.Input[_builtins.str]
+    scale: NotRequired[pulumi.Input[Optional['CustomResourceSubresourceScaleArgsDict']]]
     """
-    specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
+    scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
     """
-    status_replicas_path: pulumi.Input[_builtins.str]
+    status: NotRequired[Any]
     """
-    statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
-    """
-    label_selector_path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
+    status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
     """
 
 @pulumi.input_type
-class CustomResourceSubresourceScaleArgs:
+class CustomResourceSubresourcesArgs:
     def __init__(__self__, *,
-                 spec_replicas_path: pulumi.Input[_builtins.str],
-                 status_replicas_path: pulumi.Input[_builtins.str],
-                 label_selector_path: pulumi.Input[Optional[_builtins.str]] = None):
+                 scale: pulumi.Input[Optional['CustomResourceSubresourceScaleArgs']] = None,
+                 status: Optional[Any] = None):
         """
-        CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
+        CustomResourceSubresources defines the status and scale subresources for CustomResources.
 
-        :param pulumi.Input[_builtins.str] spec_replicas_path: specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
-        :param pulumi.Input[_builtins.str] status_replicas_path: statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
-        :param pulumi.Input[_builtins.str] label_selector_path: labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
+        :param pulumi.Input['CustomResourceSubresourceScaleArgs'] scale: scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
+        :param Any status: status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
         """
-        pulumi.set(__self__, "spec_replicas_path", spec_replicas_path)
-        pulumi.set(__self__, "status_replicas_path", status_replicas_path)
-        if label_selector_path is not None:
-            pulumi.set(__self__, "label_selector_path", label_selector_path)
+        if scale is not None:
+            pulumi.set(__self__, "scale", scale)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
 
     @_builtins.property
-    @pulumi.getter(name="specReplicasPath")
-    def spec_replicas_path(self) -> pulumi.Input[_builtins.str]:
+    @pulumi.getter
+    def scale(self) -> pulumi.Input[Optional['CustomResourceSubresourceScaleArgs']]:
         """
-        specReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `spec.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.spec`. If there is no value under the given path in the custom resource, the `/scale` subresource will return an error on GET.
+        scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
         """
-        return pulumi.get(self, "spec_replicas_path")
+        return pulumi.get(self, "scale")
 
-    @spec_replicas_path.setter
-    def spec_replicas_path(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "spec_replicas_path", value)
-
-    @_builtins.property
-    @pulumi.getter(name="statusReplicasPath")
-    def status_replicas_path(self) -> pulumi.Input[_builtins.str]:
-        """
-        statusReplicasPath defines the JSON path inside of a custom resource that corresponds to Scale `status.replicas`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status`. If there is no value under the given path in the custom resource, the `status.replicas` value in the `/scale` subresource will default to 0.
-        """
-        return pulumi.get(self, "status_replicas_path")
-
-    @status_replicas_path.setter
-    def status_replicas_path(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "status_replicas_path", value)
+    @scale.setter
+    def scale(self, value: pulumi.Input[Optional['CustomResourceSubresourceScaleArgs']]):
+        pulumi.set(self, "scale", value)
 
     @_builtins.property
-    @pulumi.getter(name="labelSelectorPath")
-    def label_selector_path(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter
+    def status(self) -> Optional[Any]:
         """
-        labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
+        status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
         """
-        return pulumi.get(self, "label_selector_path")
+        return pulumi.get(self, "status")
 
-    @label_selector_path.setter
-    def label_selector_path(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "label_selector_path", value)
+    @status.setter
+    def status(self, value: Optional[Any]):
+        pulumi.set(self, "status", value)
 
 
 class CustomResourceSubresourcesPatchArgsDict(TypedDict):
@@ -1914,94 +1968,6 @@ class CustomResourceSubresourcesPatchArgs:
         pulumi.set(self, "status", value)
 
 
-class CustomResourceSubresourcesArgsDict(TypedDict):
-    """
-    CustomResourceSubresources defines the status and scale subresources for CustomResources.
-    """
-    scale: NotRequired[pulumi.Input[Optional['CustomResourceSubresourceScaleArgsDict']]]
-    """
-    scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
-    """
-    status: NotRequired[Any]
-    """
-    status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
-    """
-
-@pulumi.input_type
-class CustomResourceSubresourcesArgs:
-    def __init__(__self__, *,
-                 scale: pulumi.Input[Optional['CustomResourceSubresourceScaleArgs']] = None,
-                 status: Optional[Any] = None):
-        """
-        CustomResourceSubresources defines the status and scale subresources for CustomResources.
-
-        :param pulumi.Input['CustomResourceSubresourceScaleArgs'] scale: scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
-        :param Any status: status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
-        """
-        if scale is not None:
-            pulumi.set(__self__, "scale", scale)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @_builtins.property
-    @pulumi.getter
-    def scale(self) -> pulumi.Input[Optional['CustomResourceSubresourceScaleArgs']]:
-        """
-        scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
-        """
-        return pulumi.get(self, "scale")
-
-    @scale.setter
-    def scale(self, value: pulumi.Input[Optional['CustomResourceSubresourceScaleArgs']]):
-        pulumi.set(self, "scale", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def status(self) -> Optional[Any]:
-        """
-        status indicates the custom resource should serve a `/status` subresource. When enabled: 1. requests to the custom resource primary endpoint ignore changes to the `status` stanza of the object. 2. requests to the custom resource `/status` subresource ignore changes to anything other than the `status` stanza of the object.
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[Any]):
-        pulumi.set(self, "status", value)
-
-
-class CustomResourceValidationPatchArgsDict(TypedDict):
-    """
-    CustomResourceValidation is a list of validation methods for CustomResources.
-    """
-    open_apiv3_schema: NotRequired[pulumi.Input[Optional['JSONSchemaPropsPatchArgsDict']]]
-    """
-    openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
-    """
-
-@pulumi.input_type
-class CustomResourceValidationPatchArgs:
-    def __init__(__self__, *,
-                 open_apiv3_schema: pulumi.Input[Optional['JSONSchemaPropsPatchArgs']] = None):
-        """
-        CustomResourceValidation is a list of validation methods for CustomResources.
-
-        :param pulumi.Input['JSONSchemaPropsPatchArgs'] open_apiv3_schema: openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
-        """
-        if open_apiv3_schema is not None:
-            pulumi.set(__self__, "open_apiv3_schema", open_apiv3_schema)
-
-    @_builtins.property
-    @pulumi.getter(name="openAPIV3Schema")
-    def open_apiv3_schema(self) -> pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]:
-        """
-        openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
-        """
-        return pulumi.get(self, "open_apiv3_schema")
-
-    @open_apiv3_schema.setter
-    def open_apiv3_schema(self, value: pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]):
-        pulumi.set(self, "open_apiv3_schema", value)
-
-
 class CustomResourceValidationArgsDict(TypedDict):
     """
     CustomResourceValidation is a list of validation methods for CustomResources.
@@ -2036,43 +2002,38 @@ class CustomResourceValidationArgs:
         pulumi.set(self, "open_apiv3_schema", value)
 
 
-class ExternalDocumentationPatchArgsDict(TypedDict):
+class CustomResourceValidationPatchArgsDict(TypedDict):
     """
-    ExternalDocumentation allows referencing an external resource for extended documentation.
+    CustomResourceValidation is a list of validation methods for CustomResources.
     """
-    description: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    url: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    open_apiv3_schema: NotRequired[pulumi.Input[Optional['JSONSchemaPropsPatchArgsDict']]]
+    """
+    openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
+    """
 
 @pulumi.input_type
-class ExternalDocumentationPatchArgs:
+class CustomResourceValidationPatchArgs:
     def __init__(__self__, *,
-                 description: pulumi.Input[Optional[_builtins.str]] = None,
-                 url: pulumi.Input[Optional[_builtins.str]] = None):
+                 open_apiv3_schema: pulumi.Input[Optional['JSONSchemaPropsPatchArgs']] = None):
         """
-        ExternalDocumentation allows referencing an external resource for extended documentation.
+        CustomResourceValidation is a list of validation methods for CustomResources.
+
+        :param pulumi.Input['JSONSchemaPropsPatchArgs'] open_apiv3_schema: openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
         """
-        if description is not None:
-            pulumi.set(__self__, "description", description)
-        if url is not None:
-            pulumi.set(__self__, "url", url)
+        if open_apiv3_schema is not None:
+            pulumi.set(__self__, "open_apiv3_schema", open_apiv3_schema)
 
     @_builtins.property
-    @pulumi.getter
-    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "description")
+    @pulumi.getter(name="openAPIV3Schema")
+    def open_apiv3_schema(self) -> pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]:
+        """
+        openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
+        """
+        return pulumi.get(self, "open_apiv3_schema")
 
-    @description.setter
-    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "description", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def url(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "url")
-
-    @url.setter
-    def url(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "url", value)
+    @open_apiv3_schema.setter
+    def open_apiv3_schema(self, value: pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]):
+        pulumi.set(self, "open_apiv3_schema", value)
 
 
 class ExternalDocumentationArgsDict(TypedDict):
@@ -2114,384 +2075,25 @@ class ExternalDocumentationArgs:
         pulumi.set(self, "url", value)
 
 
-class JSONSchemaPropsPatchArgsDict(TypedDict):
+class ExternalDocumentationPatchArgsDict(TypedDict):
     """
-    JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+    ExternalDocumentation allows referencing an external resource for extended documentation.
     """
-    _ref: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    _schema: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    additional_items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', _builtins.bool]]]]
-    additional_properties: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', _builtins.bool]]]]
-    all_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgsDict']]]]]
-    any_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgsDict']]]]]
-    default: NotRequired[Any]
-    """
-    default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
-    """
-    definitions: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
-    dependencies: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgsDict', Sequence[pulumi.Input[_builtins.str]]]]]]]]
     description: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    enum: NotRequired[pulumi.Input[Optional[Sequence[Any]]]]
-    example: NotRequired[Any]
-    exclusive_maximum: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    exclusive_minimum: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    external_docs: NotRequired[pulumi.Input[Optional['ExternalDocumentationPatchArgsDict']]]
-    format: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
-
-    - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\\\d{3})\\\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\\\d{3}[- ]?\\\\d{2}[- ]?\\\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
-    """
-    id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', Sequence[Any]]]]]
-    max_items: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    max_length: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    max_properties: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    maximum: NotRequired[pulumi.Input[Optional[_builtins.float]]]
-    min_items: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    min_length: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    min_properties: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    minimum: NotRequired[pulumi.Input[Optional[_builtins.float]]]
-    multiple_of: NotRequired[pulumi.Input[Optional[_builtins.float]]]
-    not_: NotRequired[pulumi.Input[Optional['JSONSchemaPropsPatchArgsDict']]]
-    nullable: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    one_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgsDict']]]]]
-    pattern: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    pattern_properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
-    properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
-    required: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    title: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    unique_items: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    x_kubernetes_embedded_resource: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    x-kubernetes-embedded-resource defines that the value is an embedded Kubernetes runtime.Object, with TypeMeta and ObjectMeta. The type must be object. It is allowed to further restrict the embedded object. kind, apiVersion and metadata are validated automatically. x-kubernetes-preserve-unknown-fields is allowed to be true, but does not have to be if the object is fully specified (up to kind, apiVersion, metadata).
-    """
-    x_kubernetes_int_or_string: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
-
-    1) anyOf:
-       - type: integer
-       - type: string
-    2) allOf:
-       - anyOf:
-         - type: integer
-         - type: string
-       - ... zero or more
-    """
-    x_kubernetes_list_map_keys: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
-
-    This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-
-    The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
-    """
-    x_kubernetes_list_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
-
-    1) `atomic`: the list is treated as a single entity, like a scalar.
-         Atomic lists will be entirely replaced when updated. This extension
-         may be used on any type of list (struct, scalar, ...).
-    2) `set`:
-         Sets are lists that must not have multiple items with the same value. Each
-         value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
-         array with x-kubernetes-list-type `atomic`.
-    3) `map`:
-         These lists are like maps in that their elements have a non-index key
-         used to identify them. Order is preserved upon merge. The map tag
-         must only be used on a list with elements of type object.
-    Defaults to atomic for arrays.
-    """
-    x_kubernetes_map_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
-
-    1) `granular`:
-         These maps are actual maps (key-value pairs) and each fields are independent
-         from each other (they can each be manipulated by separate actors). This is
-         the default behaviour for all maps.
-    2) `atomic`: the list is treated as a single entity, like a scalar.
-         Atomic maps will be entirely replaced when updated.
-    """
-    x_kubernetes_preserve_unknown_fields: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
-    """
-    x_kubernetes_validations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ValidationRulePatchArgsDict']]]]]
-    """
-    x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
-    """
+    url: NotRequired[pulumi.Input[Optional[_builtins.str]]]
 
 @pulumi.input_type
-class JSONSchemaPropsPatchArgs:
+class ExternalDocumentationPatchArgs:
     def __init__(__self__, *,
-                 _ref: pulumi.Input[Optional[_builtins.str]] = None,
-                 _schema: pulumi.Input[Optional[_builtins.str]] = None,
-                 additional_items: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]] = None,
-                 additional_properties: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]] = None,
-                 all_of: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]] = None,
-                 any_of: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]] = None,
-                 default: Optional[Any] = None,
-                 definitions: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]] = None,
-                 dependencies: pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgs', Sequence[pulumi.Input[_builtins.str]]]]]]] = None,
                  description: pulumi.Input[Optional[_builtins.str]] = None,
-                 enum: pulumi.Input[Optional[Sequence[Any]]] = None,
-                 example: Optional[Any] = None,
-                 exclusive_maximum: pulumi.Input[Optional[_builtins.bool]] = None,
-                 exclusive_minimum: pulumi.Input[Optional[_builtins.bool]] = None,
-                 external_docs: pulumi.Input[Optional['ExternalDocumentationPatchArgs']] = None,
-                 format: pulumi.Input[Optional[_builtins.str]] = None,
-                 id: pulumi.Input[Optional[_builtins.str]] = None,
-                 items: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', Sequence[Any]]]] = None,
-                 max_items: pulumi.Input[Optional[_builtins.int]] = None,
-                 max_length: pulumi.Input[Optional[_builtins.int]] = None,
-                 max_properties: pulumi.Input[Optional[_builtins.int]] = None,
-                 maximum: pulumi.Input[Optional[_builtins.float]] = None,
-                 min_items: pulumi.Input[Optional[_builtins.int]] = None,
-                 min_length: pulumi.Input[Optional[_builtins.int]] = None,
-                 min_properties: pulumi.Input[Optional[_builtins.int]] = None,
-                 minimum: pulumi.Input[Optional[_builtins.float]] = None,
-                 multiple_of: pulumi.Input[Optional[_builtins.float]] = None,
-                 not_: pulumi.Input[Optional['JSONSchemaPropsPatchArgs']] = None,
-                 nullable: pulumi.Input[Optional[_builtins.bool]] = None,
-                 one_of: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]] = None,
-                 pattern: pulumi.Input[Optional[_builtins.str]] = None,
-                 pattern_properties: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]] = None,
-                 properties: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]] = None,
-                 required: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 title: pulumi.Input[Optional[_builtins.str]] = None,
-                 type: pulumi.Input[Optional[_builtins.str]] = None,
-                 unique_items: pulumi.Input[Optional[_builtins.bool]] = None,
-                 x_kubernetes_embedded_resource: pulumi.Input[Optional[_builtins.bool]] = None,
-                 x_kubernetes_int_or_string: pulumi.Input[Optional[_builtins.bool]] = None,
-                 x_kubernetes_list_map_keys: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 x_kubernetes_list_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 x_kubernetes_map_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 x_kubernetes_preserve_unknown_fields: pulumi.Input[Optional[_builtins.bool]] = None,
-                 x_kubernetes_validations: pulumi.Input[Optional[Sequence[pulumi.Input['ValidationRulePatchArgs']]]] = None):
+                 url: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
-
-        :param Any default: default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
-        :param pulumi.Input[_builtins.str] format: format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
-               
-               - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\\\d{3})\\\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\\\d{3}[- ]?\\\\d{2}[- ]?\\\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
-        :param pulumi.Input[_builtins.bool] x_kubernetes_embedded_resource: x-kubernetes-embedded-resource defines that the value is an embedded Kubernetes runtime.Object, with TypeMeta and ObjectMeta. The type must be object. It is allowed to further restrict the embedded object. kind, apiVersion and metadata are validated automatically. x-kubernetes-preserve-unknown-fields is allowed to be true, but does not have to be if the object is fully specified (up to kind, apiVersion, metadata).
-        :param pulumi.Input[_builtins.bool] x_kubernetes_int_or_string: x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
-               
-               1) anyOf:
-                  - type: integer
-                  - type: string
-               2) allOf:
-                  - anyOf:
-                    - type: integer
-                    - type: string
-                  - ... zero or more
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] x_kubernetes_list_map_keys: x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
-               
-               This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-               
-               The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
-        :param pulumi.Input[_builtins.str] x_kubernetes_list_type: x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
-               
-               1) `atomic`: the list is treated as a single entity, like a scalar.
-                    Atomic lists will be entirely replaced when updated. This extension
-                    may be used on any type of list (struct, scalar, ...).
-               2) `set`:
-                    Sets are lists that must not have multiple items with the same value. Each
-                    value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
-                    array with x-kubernetes-list-type `atomic`.
-               3) `map`:
-                    These lists are like maps in that their elements have a non-index key
-                    used to identify them. Order is preserved upon merge. The map tag
-                    must only be used on a list with elements of type object.
-               Defaults to atomic for arrays.
-        :param pulumi.Input[_builtins.str] x_kubernetes_map_type: x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
-               
-               1) `granular`:
-                    These maps are actual maps (key-value pairs) and each fields are independent
-                    from each other (they can each be manipulated by separate actors). This is
-                    the default behaviour for all maps.
-               2) `atomic`: the list is treated as a single entity, like a scalar.
-                    Atomic maps will be entirely replaced when updated.
-        :param pulumi.Input[_builtins.bool] x_kubernetes_preserve_unknown_fields: x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
-        :param pulumi.Input[Sequence[pulumi.Input['ValidationRulePatchArgs']]] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
+        ExternalDocumentation allows referencing an external resource for extended documentation.
         """
-        if _ref is not None:
-            pulumi.set(__self__, "_ref", _ref)
-        if _schema is not None:
-            pulumi.set(__self__, "_schema", _schema)
-        if additional_items is not None:
-            pulumi.set(__self__, "additional_items", additional_items)
-        if additional_properties is not None:
-            pulumi.set(__self__, "additional_properties", additional_properties)
-        if all_of is not None:
-            pulumi.set(__self__, "all_of", all_of)
-        if any_of is not None:
-            pulumi.set(__self__, "any_of", any_of)
-        if default is not None:
-            pulumi.set(__self__, "default", default)
-        if definitions is not None:
-            pulumi.set(__self__, "definitions", definitions)
-        if dependencies is not None:
-            pulumi.set(__self__, "dependencies", dependencies)
         if description is not None:
             pulumi.set(__self__, "description", description)
-        if enum is not None:
-            pulumi.set(__self__, "enum", enum)
-        if example is not None:
-            pulumi.set(__self__, "example", example)
-        if exclusive_maximum is not None:
-            pulumi.set(__self__, "exclusive_maximum", exclusive_maximum)
-        if exclusive_minimum is not None:
-            pulumi.set(__self__, "exclusive_minimum", exclusive_minimum)
-        if external_docs is not None:
-            pulumi.set(__self__, "external_docs", external_docs)
-        if format is not None:
-            pulumi.set(__self__, "format", format)
-        if id is not None:
-            pulumi.set(__self__, "id", id)
-        if items is not None:
-            pulumi.set(__self__, "items", items)
-        if max_items is not None:
-            pulumi.set(__self__, "max_items", max_items)
-        if max_length is not None:
-            pulumi.set(__self__, "max_length", max_length)
-        if max_properties is not None:
-            pulumi.set(__self__, "max_properties", max_properties)
-        if maximum is not None:
-            pulumi.set(__self__, "maximum", maximum)
-        if min_items is not None:
-            pulumi.set(__self__, "min_items", min_items)
-        if min_length is not None:
-            pulumi.set(__self__, "min_length", min_length)
-        if min_properties is not None:
-            pulumi.set(__self__, "min_properties", min_properties)
-        if minimum is not None:
-            pulumi.set(__self__, "minimum", minimum)
-        if multiple_of is not None:
-            pulumi.set(__self__, "multiple_of", multiple_of)
-        if not_ is not None:
-            pulumi.set(__self__, "not_", not_)
-        if nullable is not None:
-            pulumi.set(__self__, "nullable", nullable)
-        if one_of is not None:
-            pulumi.set(__self__, "one_of", one_of)
-        if pattern is not None:
-            pulumi.set(__self__, "pattern", pattern)
-        if pattern_properties is not None:
-            pulumi.set(__self__, "pattern_properties", pattern_properties)
-        if properties is not None:
-            pulumi.set(__self__, "properties", properties)
-        if required is not None:
-            pulumi.set(__self__, "required", required)
-        if title is not None:
-            pulumi.set(__self__, "title", title)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-        if unique_items is not None:
-            pulumi.set(__self__, "unique_items", unique_items)
-        if x_kubernetes_embedded_resource is not None:
-            pulumi.set(__self__, "x_kubernetes_embedded_resource", x_kubernetes_embedded_resource)
-        if x_kubernetes_int_or_string is not None:
-            pulumi.set(__self__, "x_kubernetes_int_or_string", x_kubernetes_int_or_string)
-        if x_kubernetes_list_map_keys is not None:
-            pulumi.set(__self__, "x_kubernetes_list_map_keys", x_kubernetes_list_map_keys)
-        if x_kubernetes_list_type is not None:
-            pulumi.set(__self__, "x_kubernetes_list_type", x_kubernetes_list_type)
-        if x_kubernetes_map_type is not None:
-            pulumi.set(__self__, "x_kubernetes_map_type", x_kubernetes_map_type)
-        if x_kubernetes_preserve_unknown_fields is not None:
-            pulumi.set(__self__, "x_kubernetes_preserve_unknown_fields", x_kubernetes_preserve_unknown_fields)
-        if x_kubernetes_validations is not None:
-            pulumi.set(__self__, "x_kubernetes_validations", x_kubernetes_validations)
-
-    @_builtins.property
-    @pulumi.getter(name="$ref")
-    def _ref(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "_ref")
-
-    @_ref.setter
-    def _ref(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "_ref", value)
-
-    @_builtins.property
-    @pulumi.getter(name="$schema")
-    def _schema(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "_schema")
-
-    @_schema.setter
-    def _schema(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "_schema", value)
-
-    @_builtins.property
-    @pulumi.getter(name="additionalItems")
-    def additional_items(self) -> pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]:
-        return pulumi.get(self, "additional_items")
-
-    @additional_items.setter
-    def additional_items(self, value: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]):
-        pulumi.set(self, "additional_items", value)
-
-    @_builtins.property
-    @pulumi.getter(name="additionalProperties")
-    def additional_properties(self) -> pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]:
-        return pulumi.get(self, "additional_properties")
-
-    @additional_properties.setter
-    def additional_properties(self, value: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]):
-        pulumi.set(self, "additional_properties", value)
-
-    @_builtins.property
-    @pulumi.getter(name="allOf")
-    def all_of(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]:
-        return pulumi.get(self, "all_of")
-
-    @all_of.setter
-    def all_of(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]):
-        pulumi.set(self, "all_of", value)
-
-    @_builtins.property
-    @pulumi.getter(name="anyOf")
-    def any_of(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]:
-        return pulumi.get(self, "any_of")
-
-    @any_of.setter
-    def any_of(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]):
-        pulumi.set(self, "any_of", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def default(self) -> Optional[Any]:
-        """
-        default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
-        """
-        return pulumi.get(self, "default")
-
-    @default.setter
-    def default(self, value: Optional[Any]):
-        pulumi.set(self, "default", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def definitions(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]:
-        return pulumi.get(self, "definitions")
-
-    @definitions.setter
-    def definitions(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]):
-        pulumi.set(self, "definitions", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def dependencies(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgs', Sequence[pulumi.Input[_builtins.str]]]]]]]:
-        return pulumi.get(self, "dependencies")
-
-    @dependencies.setter
-    def dependencies(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgs', Sequence[pulumi.Input[_builtins.str]]]]]]]):
-        pulumi.set(self, "dependencies", value)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
 
     @_builtins.property
     @pulumi.getter
@@ -2504,368 +2106,12 @@ class JSONSchemaPropsPatchArgs:
 
     @_builtins.property
     @pulumi.getter
-    def enum(self) -> pulumi.Input[Optional[Sequence[Any]]]:
-        return pulumi.get(self, "enum")
-
-    @enum.setter
-    def enum(self, value: pulumi.Input[Optional[Sequence[Any]]]):
-        pulumi.set(self, "enum", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def example(self) -> Optional[Any]:
-        return pulumi.get(self, "example")
-
-    @example.setter
-    def example(self, value: Optional[Any]):
-        pulumi.set(self, "example", value)
-
-    @_builtins.property
-    @pulumi.getter(name="exclusiveMaximum")
-    def exclusive_maximum(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "exclusive_maximum")
-
-    @exclusive_maximum.setter
-    def exclusive_maximum(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "exclusive_maximum", value)
-
-    @_builtins.property
-    @pulumi.getter(name="exclusiveMinimum")
-    def exclusive_minimum(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "exclusive_minimum")
-
-    @exclusive_minimum.setter
-    def exclusive_minimum(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "exclusive_minimum", value)
-
-    @_builtins.property
-    @pulumi.getter(name="externalDocs")
-    def external_docs(self) -> pulumi.Input[Optional['ExternalDocumentationPatchArgs']]:
-        return pulumi.get(self, "external_docs")
-
-    @external_docs.setter
-    def external_docs(self, value: pulumi.Input[Optional['ExternalDocumentationPatchArgs']]):
-        pulumi.set(self, "external_docs", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def format(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
-
-        - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\\\d{3})\\\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\\\d{3}[- ]?\\\\d{2}[- ]?\\\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
-        """
-        return pulumi.get(self, "format")
-
-    @format.setter
-    def format(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "format", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def id(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "id")
-
-    @id.setter
-    def id(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "id", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def items(self) -> pulumi.Input[Optional[Union['JSONSchemaPropsArgs', Sequence[Any]]]]:
-        return pulumi.get(self, "items")
-
-    @items.setter
-    def items(self, value: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', Sequence[Any]]]]):
-        pulumi.set(self, "items", value)
-
-    @_builtins.property
-    @pulumi.getter(name="maxItems")
-    def max_items(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "max_items")
-
-    @max_items.setter
-    def max_items(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "max_items", value)
-
-    @_builtins.property
-    @pulumi.getter(name="maxLength")
-    def max_length(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "max_length")
-
-    @max_length.setter
-    def max_length(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "max_length", value)
-
-    @_builtins.property
-    @pulumi.getter(name="maxProperties")
-    def max_properties(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "max_properties")
-
-    @max_properties.setter
-    def max_properties(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "max_properties", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def maximum(self) -> pulumi.Input[Optional[_builtins.float]]:
-        return pulumi.get(self, "maximum")
-
-    @maximum.setter
-    def maximum(self, value: pulumi.Input[Optional[_builtins.float]]):
-        pulumi.set(self, "maximum", value)
-
-    @_builtins.property
-    @pulumi.getter(name="minItems")
-    def min_items(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "min_items")
-
-    @min_items.setter
-    def min_items(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "min_items", value)
-
-    @_builtins.property
-    @pulumi.getter(name="minLength")
-    def min_length(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "min_length")
-
-    @min_length.setter
-    def min_length(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "min_length", value)
-
-    @_builtins.property
-    @pulumi.getter(name="minProperties")
-    def min_properties(self) -> pulumi.Input[Optional[_builtins.int]]:
-        return pulumi.get(self, "min_properties")
-
-    @min_properties.setter
-    def min_properties(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "min_properties", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def minimum(self) -> pulumi.Input[Optional[_builtins.float]]:
-        return pulumi.get(self, "minimum")
-
-    @minimum.setter
-    def minimum(self, value: pulumi.Input[Optional[_builtins.float]]):
-        pulumi.set(self, "minimum", value)
-
-    @_builtins.property
-    @pulumi.getter(name="multipleOf")
-    def multiple_of(self) -> pulumi.Input[Optional[_builtins.float]]:
-        return pulumi.get(self, "multiple_of")
-
-    @multiple_of.setter
-    def multiple_of(self, value: pulumi.Input[Optional[_builtins.float]]):
-        pulumi.set(self, "multiple_of", value)
-
-    @_builtins.property
-    @pulumi.getter(name="not")
-    def not_(self) -> pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]:
-        return pulumi.get(self, "not_")
-
-    @not_.setter
-    def not_(self, value: pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]):
-        pulumi.set(self, "not_", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def nullable(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "nullable")
-
-    @nullable.setter
-    def nullable(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "nullable", value)
-
-    @_builtins.property
-    @pulumi.getter(name="oneOf")
-    def one_of(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]:
-        return pulumi.get(self, "one_of")
-
-    @one_of.setter
-    def one_of(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]):
-        pulumi.set(self, "one_of", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def pattern(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "pattern")
-
-    @pattern.setter
-    def pattern(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "pattern", value)
-
-    @_builtins.property
-    @pulumi.getter(name="patternProperties")
-    def pattern_properties(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]:
-        return pulumi.get(self, "pattern_properties")
-
-    @pattern_properties.setter
-    def pattern_properties(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]):
-        pulumi.set(self, "pattern_properties", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def properties(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]:
-        return pulumi.get(self, "properties")
-
-    @properties.setter
-    def properties(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]):
-        pulumi.set(self, "properties", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def required(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        return pulumi.get(self, "required")
-
-    @required.setter
-    def required(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "required", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def title(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "title")
-
-    @title.setter
-    def title(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "title", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "type", value)
-
-    @_builtins.property
-    @pulumi.getter(name="uniqueItems")
-    def unique_items(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        return pulumi.get(self, "unique_items")
-
-    @unique_items.setter
-    def unique_items(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "unique_items", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def x_kubernetes_embedded_resource(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        x-kubernetes-embedded-resource defines that the value is an embedded Kubernetes runtime.Object, with TypeMeta and ObjectMeta. The type must be object. It is allowed to further restrict the embedded object. kind, apiVersion and metadata are validated automatically. x-kubernetes-preserve-unknown-fields is allowed to be true, but does not have to be if the object is fully specified (up to kind, apiVersion, metadata).
-        """
-        return pulumi.get(self, "x_kubernetes_embedded_resource")
-
-    @x_kubernetes_embedded_resource.setter
-    def x_kubernetes_embedded_resource(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "x_kubernetes_embedded_resource", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def x_kubernetes_int_or_string(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
-
-        1) anyOf:
-           - type: integer
-           - type: string
-        2) allOf:
-           - anyOf:
-             - type: integer
-             - type: string
-           - ... zero or more
-        """
-        return pulumi.get(self, "x_kubernetes_int_or_string")
-
-    @x_kubernetes_int_or_string.setter
-    def x_kubernetes_int_or_string(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "x_kubernetes_int_or_string", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def x_kubernetes_list_map_keys(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
-
-        This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-
-        The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
-        """
-        return pulumi.get(self, "x_kubernetes_list_map_keys")
-
-    @x_kubernetes_list_map_keys.setter
-    def x_kubernetes_list_map_keys(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "x_kubernetes_list_map_keys", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def x_kubernetes_list_type(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
-
-        1) `atomic`: the list is treated as a single entity, like a scalar.
-             Atomic lists will be entirely replaced when updated. This extension
-             may be used on any type of list (struct, scalar, ...).
-        2) `set`:
-             Sets are lists that must not have multiple items with the same value. Each
-             value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
-             array with x-kubernetes-list-type `atomic`.
-        3) `map`:
-             These lists are like maps in that their elements have a non-index key
-             used to identify them. Order is preserved upon merge. The map tag
-             must only be used on a list with elements of type object.
-        Defaults to atomic for arrays.
-        """
-        return pulumi.get(self, "x_kubernetes_list_type")
-
-    @x_kubernetes_list_type.setter
-    def x_kubernetes_list_type(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "x_kubernetes_list_type", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def x_kubernetes_map_type(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
-
-        1) `granular`:
-             These maps are actual maps (key-value pairs) and each fields are independent
-             from each other (they can each be manipulated by separate actors). This is
-             the default behaviour for all maps.
-        2) `atomic`: the list is treated as a single entity, like a scalar.
-             Atomic maps will be entirely replaced when updated.
-        """
-        return pulumi.get(self, "x_kubernetes_map_type")
-
-    @x_kubernetes_map_type.setter
-    def x_kubernetes_map_type(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "x_kubernetes_map_type", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def x_kubernetes_preserve_unknown_fields(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
-        """
-        return pulumi.get(self, "x_kubernetes_preserve_unknown_fields")
-
-    @x_kubernetes_preserve_unknown_fields.setter
-    def x_kubernetes_preserve_unknown_fields(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "x_kubernetes_preserve_unknown_fields", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def x_kubernetes_validations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ValidationRulePatchArgs']]]]:
-        """
-        x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
-        """
-        return pulumi.get(self, "x_kubernetes_validations")
-
-    @x_kubernetes_validations.setter
-    def x_kubernetes_validations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ValidationRulePatchArgs']]]]):
-        pulumi.set(self, "x_kubernetes_validations", value)
+    def url(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "url", value)
 
 
 class JSONSchemaPropsArgsDict(TypedDict):
@@ -3622,6 +2868,793 @@ class JSONSchemaPropsArgs:
         pulumi.set(self, "x_kubernetes_validations", value)
 
 
+class JSONSchemaPropsPatchArgsDict(TypedDict):
+    """
+    JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+    """
+    _ref: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    _schema: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    additional_items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', _builtins.bool]]]]
+    additional_properties: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', _builtins.bool]]]]
+    all_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgsDict']]]]]
+    any_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgsDict']]]]]
+    default: NotRequired[Any]
+    """
+    default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
+    """
+    definitions: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
+    dependencies: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgsDict', Sequence[pulumi.Input[_builtins.str]]]]]]]]
+    description: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    enum: NotRequired[pulumi.Input[Optional[Sequence[Any]]]]
+    example: NotRequired[Any]
+    exclusive_maximum: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    exclusive_minimum: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    external_docs: NotRequired[pulumi.Input[Optional['ExternalDocumentationPatchArgsDict']]]
+    format: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
+
+    - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\\\d{3})\\\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\\\d{3}[- ]?\\\\d{2}[- ]?\\\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+    """
+    id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    items: NotRequired[pulumi.Input[Optional[Union['JSONSchemaPropsArgsDict', Sequence[Any]]]]]
+    max_items: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    max_length: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    max_properties: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    maximum: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    min_items: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    min_length: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    min_properties: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    minimum: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    multiple_of: NotRequired[pulumi.Input[Optional[_builtins.float]]]
+    not_: NotRequired[pulumi.Input[Optional['JSONSchemaPropsPatchArgsDict']]]
+    nullable: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    one_of: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgsDict']]]]]
+    pattern: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    pattern_properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
+    properties: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgsDict']]]]]
+    required: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    title: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    unique_items: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    x_kubernetes_embedded_resource: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    x-kubernetes-embedded-resource defines that the value is an embedded Kubernetes runtime.Object, with TypeMeta and ObjectMeta. The type must be object. It is allowed to further restrict the embedded object. kind, apiVersion and metadata are validated automatically. x-kubernetes-preserve-unknown-fields is allowed to be true, but does not have to be if the object is fully specified (up to kind, apiVersion, metadata).
+    """
+    x_kubernetes_int_or_string: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
+
+    1) anyOf:
+       - type: integer
+       - type: string
+    2) allOf:
+       - anyOf:
+         - type: integer
+         - type: string
+       - ... zero or more
+    """
+    x_kubernetes_list_map_keys: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
+
+    This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
+
+    The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
+    """
+    x_kubernetes_list_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
+
+    1) `atomic`: the list is treated as a single entity, like a scalar.
+         Atomic lists will be entirely replaced when updated. This extension
+         may be used on any type of list (struct, scalar, ...).
+    2) `set`:
+         Sets are lists that must not have multiple items with the same value. Each
+         value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+         array with x-kubernetes-list-type `atomic`.
+    3) `map`:
+         These lists are like maps in that their elements have a non-index key
+         used to identify them. Order is preserved upon merge. The map tag
+         must only be used on a list with elements of type object.
+    Defaults to atomic for arrays.
+    """
+    x_kubernetes_map_type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
+
+    1) `granular`:
+         These maps are actual maps (key-value pairs) and each fields are independent
+         from each other (they can each be manipulated by separate actors). This is
+         the default behaviour for all maps.
+    2) `atomic`: the list is treated as a single entity, like a scalar.
+         Atomic maps will be entirely replaced when updated.
+    """
+    x_kubernetes_preserve_unknown_fields: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
+    """
+    x_kubernetes_validations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ValidationRulePatchArgsDict']]]]]
+    """
+    x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
+    """
+
+@pulumi.input_type
+class JSONSchemaPropsPatchArgs:
+    def __init__(__self__, *,
+                 _ref: pulumi.Input[Optional[_builtins.str]] = None,
+                 _schema: pulumi.Input[Optional[_builtins.str]] = None,
+                 additional_items: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]] = None,
+                 additional_properties: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]] = None,
+                 all_of: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]] = None,
+                 any_of: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]] = None,
+                 default: Optional[Any] = None,
+                 definitions: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]] = None,
+                 dependencies: pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgs', Sequence[pulumi.Input[_builtins.str]]]]]]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 enum: pulumi.Input[Optional[Sequence[Any]]] = None,
+                 example: Optional[Any] = None,
+                 exclusive_maximum: pulumi.Input[Optional[_builtins.bool]] = None,
+                 exclusive_minimum: pulumi.Input[Optional[_builtins.bool]] = None,
+                 external_docs: pulumi.Input[Optional['ExternalDocumentationPatchArgs']] = None,
+                 format: pulumi.Input[Optional[_builtins.str]] = None,
+                 id: pulumi.Input[Optional[_builtins.str]] = None,
+                 items: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', Sequence[Any]]]] = None,
+                 max_items: pulumi.Input[Optional[_builtins.int]] = None,
+                 max_length: pulumi.Input[Optional[_builtins.int]] = None,
+                 max_properties: pulumi.Input[Optional[_builtins.int]] = None,
+                 maximum: pulumi.Input[Optional[_builtins.float]] = None,
+                 min_items: pulumi.Input[Optional[_builtins.int]] = None,
+                 min_length: pulumi.Input[Optional[_builtins.int]] = None,
+                 min_properties: pulumi.Input[Optional[_builtins.int]] = None,
+                 minimum: pulumi.Input[Optional[_builtins.float]] = None,
+                 multiple_of: pulumi.Input[Optional[_builtins.float]] = None,
+                 not_: pulumi.Input[Optional['JSONSchemaPropsPatchArgs']] = None,
+                 nullable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 one_of: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]] = None,
+                 pattern: pulumi.Input[Optional[_builtins.str]] = None,
+                 pattern_properties: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]] = None,
+                 properties: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]] = None,
+                 required: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 title: pulumi.Input[Optional[_builtins.str]] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None,
+                 unique_items: pulumi.Input[Optional[_builtins.bool]] = None,
+                 x_kubernetes_embedded_resource: pulumi.Input[Optional[_builtins.bool]] = None,
+                 x_kubernetes_int_or_string: pulumi.Input[Optional[_builtins.bool]] = None,
+                 x_kubernetes_list_map_keys: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 x_kubernetes_list_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_kubernetes_map_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_kubernetes_preserve_unknown_fields: pulumi.Input[Optional[_builtins.bool]] = None,
+                 x_kubernetes_validations: pulumi.Input[Optional[Sequence[pulumi.Input['ValidationRulePatchArgs']]]] = None):
+        """
+        JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+
+        :param Any default: default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
+        :param pulumi.Input[_builtins.str] format: format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
+               
+               - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\\\d{3})\\\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\\\d{3}[- ]?\\\\d{2}[- ]?\\\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+        :param pulumi.Input[_builtins.bool] x_kubernetes_embedded_resource: x-kubernetes-embedded-resource defines that the value is an embedded Kubernetes runtime.Object, with TypeMeta and ObjectMeta. The type must be object. It is allowed to further restrict the embedded object. kind, apiVersion and metadata are validated automatically. x-kubernetes-preserve-unknown-fields is allowed to be true, but does not have to be if the object is fully specified (up to kind, apiVersion, metadata).
+        :param pulumi.Input[_builtins.bool] x_kubernetes_int_or_string: x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
+               
+               1) anyOf:
+                  - type: integer
+                  - type: string
+               2) allOf:
+                  - anyOf:
+                    - type: integer
+                    - type: string
+                  - ... zero or more
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] x_kubernetes_list_map_keys: x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
+               
+               This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
+               
+               The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
+        :param pulumi.Input[_builtins.str] x_kubernetes_list_type: x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
+               
+               1) `atomic`: the list is treated as a single entity, like a scalar.
+                    Atomic lists will be entirely replaced when updated. This extension
+                    may be used on any type of list (struct, scalar, ...).
+               2) `set`:
+                    Sets are lists that must not have multiple items with the same value. Each
+                    value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+                    array with x-kubernetes-list-type `atomic`.
+               3) `map`:
+                    These lists are like maps in that their elements have a non-index key
+                    used to identify them. Order is preserved upon merge. The map tag
+                    must only be used on a list with elements of type object.
+               Defaults to atomic for arrays.
+        :param pulumi.Input[_builtins.str] x_kubernetes_map_type: x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
+               
+               1) `granular`:
+                    These maps are actual maps (key-value pairs) and each fields are independent
+                    from each other (they can each be manipulated by separate actors). This is
+                    the default behaviour for all maps.
+               2) `atomic`: the list is treated as a single entity, like a scalar.
+                    Atomic maps will be entirely replaced when updated.
+        :param pulumi.Input[_builtins.bool] x_kubernetes_preserve_unknown_fields: x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
+        :param pulumi.Input[Sequence[pulumi.Input['ValidationRulePatchArgs']]] x_kubernetes_validations: x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
+        """
+        if _ref is not None:
+            pulumi.set(__self__, "_ref", _ref)
+        if _schema is not None:
+            pulumi.set(__self__, "_schema", _schema)
+        if additional_items is not None:
+            pulumi.set(__self__, "additional_items", additional_items)
+        if additional_properties is not None:
+            pulumi.set(__self__, "additional_properties", additional_properties)
+        if all_of is not None:
+            pulumi.set(__self__, "all_of", all_of)
+        if any_of is not None:
+            pulumi.set(__self__, "any_of", any_of)
+        if default is not None:
+            pulumi.set(__self__, "default", default)
+        if definitions is not None:
+            pulumi.set(__self__, "definitions", definitions)
+        if dependencies is not None:
+            pulumi.set(__self__, "dependencies", dependencies)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if enum is not None:
+            pulumi.set(__self__, "enum", enum)
+        if example is not None:
+            pulumi.set(__self__, "example", example)
+        if exclusive_maximum is not None:
+            pulumi.set(__self__, "exclusive_maximum", exclusive_maximum)
+        if exclusive_minimum is not None:
+            pulumi.set(__self__, "exclusive_minimum", exclusive_minimum)
+        if external_docs is not None:
+            pulumi.set(__self__, "external_docs", external_docs)
+        if format is not None:
+            pulumi.set(__self__, "format", format)
+        if id is not None:
+            pulumi.set(__self__, "id", id)
+        if items is not None:
+            pulumi.set(__self__, "items", items)
+        if max_items is not None:
+            pulumi.set(__self__, "max_items", max_items)
+        if max_length is not None:
+            pulumi.set(__self__, "max_length", max_length)
+        if max_properties is not None:
+            pulumi.set(__self__, "max_properties", max_properties)
+        if maximum is not None:
+            pulumi.set(__self__, "maximum", maximum)
+        if min_items is not None:
+            pulumi.set(__self__, "min_items", min_items)
+        if min_length is not None:
+            pulumi.set(__self__, "min_length", min_length)
+        if min_properties is not None:
+            pulumi.set(__self__, "min_properties", min_properties)
+        if minimum is not None:
+            pulumi.set(__self__, "minimum", minimum)
+        if multiple_of is not None:
+            pulumi.set(__self__, "multiple_of", multiple_of)
+        if not_ is not None:
+            pulumi.set(__self__, "not_", not_)
+        if nullable is not None:
+            pulumi.set(__self__, "nullable", nullable)
+        if one_of is not None:
+            pulumi.set(__self__, "one_of", one_of)
+        if pattern is not None:
+            pulumi.set(__self__, "pattern", pattern)
+        if pattern_properties is not None:
+            pulumi.set(__self__, "pattern_properties", pattern_properties)
+        if properties is not None:
+            pulumi.set(__self__, "properties", properties)
+        if required is not None:
+            pulumi.set(__self__, "required", required)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if unique_items is not None:
+            pulumi.set(__self__, "unique_items", unique_items)
+        if x_kubernetes_embedded_resource is not None:
+            pulumi.set(__self__, "x_kubernetes_embedded_resource", x_kubernetes_embedded_resource)
+        if x_kubernetes_int_or_string is not None:
+            pulumi.set(__self__, "x_kubernetes_int_or_string", x_kubernetes_int_or_string)
+        if x_kubernetes_list_map_keys is not None:
+            pulumi.set(__self__, "x_kubernetes_list_map_keys", x_kubernetes_list_map_keys)
+        if x_kubernetes_list_type is not None:
+            pulumi.set(__self__, "x_kubernetes_list_type", x_kubernetes_list_type)
+        if x_kubernetes_map_type is not None:
+            pulumi.set(__self__, "x_kubernetes_map_type", x_kubernetes_map_type)
+        if x_kubernetes_preserve_unknown_fields is not None:
+            pulumi.set(__self__, "x_kubernetes_preserve_unknown_fields", x_kubernetes_preserve_unknown_fields)
+        if x_kubernetes_validations is not None:
+            pulumi.set(__self__, "x_kubernetes_validations", x_kubernetes_validations)
+
+    @_builtins.property
+    @pulumi.getter(name="$ref")
+    def _ref(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "_ref")
+
+    @_ref.setter
+    def _ref(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "_ref", value)
+
+    @_builtins.property
+    @pulumi.getter(name="$schema")
+    def _schema(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "_schema")
+
+    @_schema.setter
+    def _schema(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "_schema", value)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalItems")
+    def additional_items(self) -> pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]:
+        return pulumi.get(self, "additional_items")
+
+    @additional_items.setter
+    def additional_items(self, value: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]):
+        pulumi.set(self, "additional_items", value)
+
+    @_builtins.property
+    @pulumi.getter(name="additionalProperties")
+    def additional_properties(self) -> pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]:
+        return pulumi.get(self, "additional_properties")
+
+    @additional_properties.setter
+    def additional_properties(self, value: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', _builtins.bool]]]):
+        pulumi.set(self, "additional_properties", value)
+
+    @_builtins.property
+    @pulumi.getter(name="allOf")
+    def all_of(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]:
+        return pulumi.get(self, "all_of")
+
+    @all_of.setter
+    def all_of(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]):
+        pulumi.set(self, "all_of", value)
+
+    @_builtins.property
+    @pulumi.getter(name="anyOf")
+    def any_of(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]:
+        return pulumi.get(self, "any_of")
+
+    @any_of.setter
+    def any_of(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]):
+        pulumi.set(self, "any_of", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def default(self) -> Optional[Any]:
+        """
+        default is a default value for undefined object fields. Defaulting is a beta feature under the CustomResourceDefaulting feature gate. Defaulting requires spec.preserveUnknownFields to be false.
+        """
+        return pulumi.get(self, "default")
+
+    @default.setter
+    def default(self, value: Optional[Any]):
+        pulumi.set(self, "default", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def definitions(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]:
+        return pulumi.get(self, "definitions")
+
+    @definitions.setter
+    def definitions(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]):
+        pulumi.set(self, "definitions", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def dependencies(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgs', Sequence[pulumi.Input[_builtins.str]]]]]]]:
+        return pulumi.get(self, "dependencies")
+
+    @dependencies.setter
+    def dependencies(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[Union['JSONSchemaPropsArgs', Sequence[pulumi.Input[_builtins.str]]]]]]]):
+        pulumi.set(self, "dependencies", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def enum(self) -> pulumi.Input[Optional[Sequence[Any]]]:
+        return pulumi.get(self, "enum")
+
+    @enum.setter
+    def enum(self, value: pulumi.Input[Optional[Sequence[Any]]]):
+        pulumi.set(self, "enum", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def example(self) -> Optional[Any]:
+        return pulumi.get(self, "example")
+
+    @example.setter
+    def example(self, value: Optional[Any]):
+        pulumi.set(self, "example", value)
+
+    @_builtins.property
+    @pulumi.getter(name="exclusiveMaximum")
+    def exclusive_maximum(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "exclusive_maximum")
+
+    @exclusive_maximum.setter
+    def exclusive_maximum(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "exclusive_maximum", value)
+
+    @_builtins.property
+    @pulumi.getter(name="exclusiveMinimum")
+    def exclusive_minimum(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "exclusive_minimum")
+
+    @exclusive_minimum.setter
+    def exclusive_minimum(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "exclusive_minimum", value)
+
+    @_builtins.property
+    @pulumi.getter(name="externalDocs")
+    def external_docs(self) -> pulumi.Input[Optional['ExternalDocumentationPatchArgs']]:
+        return pulumi.get(self, "external_docs")
+
+    @external_docs.setter
+    def external_docs(self, value: pulumi.Input[Optional['ExternalDocumentationPatchArgs']]):
+        pulumi.set(self, "external_docs", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def format(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        format is an OpenAPI v3 format string. Unknown formats are ignored. The following formats are validated:
+
+        - bsonobjectid: a bson object ID, i.e. a 24 characters hex string - uri: an URI as parsed by Golang net/url.ParseRequestURI - email: an email address as parsed by Golang net/mail.ParseAddress - hostname: a valid representation for an Internet host name, as defined by RFC 1034, section 3.1 [RFC1034]. - ipv4: an IPv4 IP as parsed by Golang net.ParseIP - ipv6: an IPv6 IP as parsed by Golang net.ParseIP - cidr: a CIDR as parsed by Golang net.ParseCIDR - mac: a MAC address as parsed by Golang net.ParseMAC - uuid: an UUID that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid3: an UUID3 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?3[0-9a-f]{3}-?[0-9a-f]{4}-?[0-9a-f]{12}$ - uuid4: an UUID4 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?4[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - uuid5: an UUID5 that allows uppercase defined by the regex (?i)^[0-9a-f]{8}-?[0-9a-f]{4}-?5[0-9a-f]{3}-?[89ab][0-9a-f]{3}-?[0-9a-f]{12}$ - isbn: an ISBN10 or ISBN13 number string like "0321751043" or "978-0321751041" - isbn10: an ISBN10 number string like "0321751043" - isbn13: an ISBN13 number string like "978-0321751041" - creditcard: a credit card number defined by the regex ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\\\d{3})\\\\d{11})$ with any non digit characters mixed in - ssn: a U.S. social security number following the regex ^\\\\d{3}[- ]?\\\\d{2}[- ]?\\\\d{4}$ - hexcolor: an hexadecimal color code like "#FFFFFF: following the regex ^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$ - rgbcolor: an RGB color code like rgb like "rgb(255,255,2559" - byte: base64 encoded binary data - password: any kind of string - date: a date string like "2006-01-02" as defined by full-date in RFC3339 - duration: a duration string like "22 ns" as parsed by Golang time.ParseDuration or compatible with Scala duration format - datetime: a date time string like "2014-12-15T19:30:20.000Z" as defined by date-time in RFC3339.
+        """
+        return pulumi.get(self, "format")
+
+    @format.setter
+    def format(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "format", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def items(self) -> pulumi.Input[Optional[Union['JSONSchemaPropsArgs', Sequence[Any]]]]:
+        return pulumi.get(self, "items")
+
+    @items.setter
+    def items(self, value: pulumi.Input[Optional[Union['JSONSchemaPropsArgs', Sequence[Any]]]]):
+        pulumi.set(self, "items", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxItems")
+    def max_items(self) -> pulumi.Input[Optional[_builtins.int]]:
+        return pulumi.get(self, "max_items")
+
+    @max_items.setter
+    def max_items(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "max_items", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxLength")
+    def max_length(self) -> pulumi.Input[Optional[_builtins.int]]:
+        return pulumi.get(self, "max_length")
+
+    @max_length.setter
+    def max_length(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "max_length", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxProperties")
+    def max_properties(self) -> pulumi.Input[Optional[_builtins.int]]:
+        return pulumi.get(self, "max_properties")
+
+    @max_properties.setter
+    def max_properties(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "max_properties", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def maximum(self) -> pulumi.Input[Optional[_builtins.float]]:
+        return pulumi.get(self, "maximum")
+
+    @maximum.setter
+    def maximum(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "maximum", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minItems")
+    def min_items(self) -> pulumi.Input[Optional[_builtins.int]]:
+        return pulumi.get(self, "min_items")
+
+    @min_items.setter
+    def min_items(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "min_items", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minLength")
+    def min_length(self) -> pulumi.Input[Optional[_builtins.int]]:
+        return pulumi.get(self, "min_length")
+
+    @min_length.setter
+    def min_length(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "min_length", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minProperties")
+    def min_properties(self) -> pulumi.Input[Optional[_builtins.int]]:
+        return pulumi.get(self, "min_properties")
+
+    @min_properties.setter
+    def min_properties(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "min_properties", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def minimum(self) -> pulumi.Input[Optional[_builtins.float]]:
+        return pulumi.get(self, "minimum")
+
+    @minimum.setter
+    def minimum(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "minimum", value)
+
+    @_builtins.property
+    @pulumi.getter(name="multipleOf")
+    def multiple_of(self) -> pulumi.Input[Optional[_builtins.float]]:
+        return pulumi.get(self, "multiple_of")
+
+    @multiple_of.setter
+    def multiple_of(self, value: pulumi.Input[Optional[_builtins.float]]):
+        pulumi.set(self, "multiple_of", value)
+
+    @_builtins.property
+    @pulumi.getter(name="not")
+    def not_(self) -> pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]:
+        return pulumi.get(self, "not_")
+
+    @not_.setter
+    def not_(self, value: pulumi.Input[Optional['JSONSchemaPropsPatchArgs']]):
+        pulumi.set(self, "not_", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def nullable(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "nullable")
+
+    @nullable.setter
+    def nullable(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "nullable", value)
+
+    @_builtins.property
+    @pulumi.getter(name="oneOf")
+    def one_of(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]:
+        return pulumi.get(self, "one_of")
+
+    @one_of.setter
+    def one_of(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['JSONSchemaPropsPatchArgs']]]]):
+        pulumi.set(self, "one_of", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def pattern(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "pattern")
+
+    @pattern.setter
+    def pattern(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "pattern", value)
+
+    @_builtins.property
+    @pulumi.getter(name="patternProperties")
+    def pattern_properties(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]:
+        return pulumi.get(self, "pattern_properties")
+
+    @pattern_properties.setter
+    def pattern_properties(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]):
+        pulumi.set(self, "pattern_properties", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def properties(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]:
+        return pulumi.get(self, "properties")
+
+    @properties.setter
+    def properties(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input['JSONSchemaPropsArgs']]]]):
+        pulumi.set(self, "properties", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def required(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        return pulumi.get(self, "required")
+
+    @required.setter
+    def required(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "required", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "title")
+
+    @title.setter
+    def title(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "title", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="uniqueItems")
+    def unique_items(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        return pulumi.get(self, "unique_items")
+
+    @unique_items.setter
+    def unique_items(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "unique_items", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def x_kubernetes_embedded_resource(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        x-kubernetes-embedded-resource defines that the value is an embedded Kubernetes runtime.Object, with TypeMeta and ObjectMeta. The type must be object. It is allowed to further restrict the embedded object. kind, apiVersion and metadata are validated automatically. x-kubernetes-preserve-unknown-fields is allowed to be true, but does not have to be if the object is fully specified (up to kind, apiVersion, metadata).
+        """
+        return pulumi.get(self, "x_kubernetes_embedded_resource")
+
+    @x_kubernetes_embedded_resource.setter
+    def x_kubernetes_embedded_resource(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "x_kubernetes_embedded_resource", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def x_kubernetes_int_or_string(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
+
+        1) anyOf:
+           - type: integer
+           - type: string
+        2) allOf:
+           - anyOf:
+             - type: integer
+             - type: string
+           - ... zero or more
+        """
+        return pulumi.get(self, "x_kubernetes_int_or_string")
+
+    @x_kubernetes_int_or_string.setter
+    def x_kubernetes_int_or_string(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "x_kubernetes_int_or_string", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def x_kubernetes_list_map_keys(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
+
+        This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
+
+        The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
+        """
+        return pulumi.get(self, "x_kubernetes_list_map_keys")
+
+    @x_kubernetes_list_map_keys.setter
+    def x_kubernetes_list_map_keys(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "x_kubernetes_list_map_keys", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def x_kubernetes_list_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
+
+        1) `atomic`: the list is treated as a single entity, like a scalar.
+             Atomic lists will be entirely replaced when updated. This extension
+             may be used on any type of list (struct, scalar, ...).
+        2) `set`:
+             Sets are lists that must not have multiple items with the same value. Each
+             value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+             array with x-kubernetes-list-type `atomic`.
+        3) `map`:
+             These lists are like maps in that their elements have a non-index key
+             used to identify them. Order is preserved upon merge. The map tag
+             must only be used on a list with elements of type object.
+        Defaults to atomic for arrays.
+        """
+        return pulumi.get(self, "x_kubernetes_list_type")
+
+    @x_kubernetes_list_type.setter
+    def x_kubernetes_list_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "x_kubernetes_list_type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def x_kubernetes_map_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
+
+        1) `granular`:
+             These maps are actual maps (key-value pairs) and each fields are independent
+             from each other (they can each be manipulated by separate actors). This is
+             the default behaviour for all maps.
+        2) `atomic`: the list is treated as a single entity, like a scalar.
+             Atomic maps will be entirely replaced when updated.
+        """
+        return pulumi.get(self, "x_kubernetes_map_type")
+
+    @x_kubernetes_map_type.setter
+    def x_kubernetes_map_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "x_kubernetes_map_type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def x_kubernetes_preserve_unknown_fields(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
+        """
+        return pulumi.get(self, "x_kubernetes_preserve_unknown_fields")
+
+    @x_kubernetes_preserve_unknown_fields.setter
+    def x_kubernetes_preserve_unknown_fields(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "x_kubernetes_preserve_unknown_fields", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def x_kubernetes_validations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ValidationRulePatchArgs']]]]:
+        """
+        x-kubernetes-validations describes a list of validation rules written in the CEL expression language.
+        """
+        return pulumi.get(self, "x_kubernetes_validations")
+
+    @x_kubernetes_validations.setter
+    def x_kubernetes_validations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ValidationRulePatchArgs']]]]):
+        pulumi.set(self, "x_kubernetes_validations", value)
+
+
+class SelectableFieldArgsDict(TypedDict):
+    """
+    SelectableField specifies the JSON path of a field that may be used with field selectors.
+    """
+    json_path: pulumi.Input[_builtins.str]
+    """
+    jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+    """
+
+@pulumi.input_type
+class SelectableFieldArgs:
+    def __init__(__self__, *,
+                 json_path: pulumi.Input[_builtins.str]):
+        """
+        SelectableField specifies the JSON path of a field that may be used with field selectors.
+
+        :param pulumi.Input[_builtins.str] json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        pulumi.set(__self__, "json_path", json_path)
+
+    @_builtins.property
+    @pulumi.getter(name="jsonPath")
+    def json_path(self) -> pulumi.Input[_builtins.str]:
+        """
+        jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        """
+        return pulumi.get(self, "json_path")
+
+    @json_path.setter
+    def json_path(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "json_path", value)
+
+
 class SelectableFieldPatchArgsDict(TypedDict):
     """
     SelectableField specifies the JSON path of a field that may be used with field selectors.
@@ -3656,37 +3689,96 @@ class SelectableFieldPatchArgs:
         pulumi.set(self, "json_path", value)
 
 
-class SelectableFieldArgsDict(TypedDict):
+class ServiceReferenceArgsDict(TypedDict):
     """
-    SelectableField specifies the JSON path of a field that may be used with field selectors.
+    ServiceReference holds a reference to Service.legacy.k8s.io
     """
-    json_path: pulumi.Input[_builtins.str]
+    name: pulumi.Input[_builtins.str]
     """
-    jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+    name is the name of the service. Required
+    """
+    namespace: pulumi.Input[_builtins.str]
+    """
+    namespace is the namespace of the service. Required
+    """
+    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    path is an optional URL path at which the webhook will be contacted.
+    """
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
     """
 
 @pulumi.input_type
-class SelectableFieldArgs:
+class ServiceReferenceArgs:
     def __init__(__self__, *,
-                 json_path: pulumi.Input[_builtins.str]):
+                 name: pulumi.Input[_builtins.str],
+                 namespace: pulumi.Input[_builtins.str],
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None):
         """
-        SelectableField specifies the JSON path of a field that may be used with field selectors.
+        ServiceReference holds a reference to Service.legacy.k8s.io
 
-        :param pulumi.Input[_builtins.str] json_path: jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        :param pulumi.Input[_builtins.str] name: name is the name of the service. Required
+        :param pulumi.Input[_builtins.str] namespace: namespace is the namespace of the service. Required
+        :param pulumi.Input[_builtins.str] path: path is an optional URL path at which the webhook will be contacted.
+        :param pulumi.Input[_builtins.int] port: port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
         """
-        pulumi.set(__self__, "json_path", json_path)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "namespace", namespace)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
 
     @_builtins.property
-    @pulumi.getter(name="jsonPath")
-    def json_path(self) -> pulumi.Input[_builtins.str]:
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
         """
-        jsonPath is a simple JSON path which is evaluated against each custom resource to produce a field selector value. Only JSON paths without the array notation are allowed. Must point to a field of type string, boolean or integer. Types with enum values and strings with formats are allowed. If jsonPath refers to absent field in a resource, the jsonPath evaluates to an empty string. Must not point to metdata fields. Required.
+        name is the name of the service. Required
         """
-        return pulumi.get(self, "json_path")
+        return pulumi.get(self, "name")
 
-    @json_path.setter
-    def json_path(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "json_path", value)
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def namespace(self) -> pulumi.Input[_builtins.str]:
+        """
+        namespace is the namespace of the service. Required
+        """
+        return pulumi.get(self, "namespace")
+
+    @namespace.setter
+    def namespace(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "namespace", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        path is an optional URL path at which the webhook will be contacted.
+        """
+        return pulumi.get(self, "path")
+
+    @path.setter
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "path", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "port", value)
 
 
 class ServiceReferencePatchArgsDict(TypedDict):
@@ -3783,96 +3875,251 @@ class ServiceReferencePatchArgs:
         pulumi.set(self, "port", value)
 
 
-class ServiceReferenceArgsDict(TypedDict):
+class ValidationRuleArgsDict(TypedDict):
     """
-    ServiceReference holds a reference to Service.legacy.k8s.io
+    ValidationRule describes a validation rule written in the CEL expression language.
     """
-    name: pulumi.Input[_builtins.str]
+    rule: pulumi.Input[_builtins.str]
     """
-    name is the name of the service. Required
+    Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
+
+    If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
+
+    The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+
+    Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
+      - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+      - An array where the items schema is of an "unknown type"
+      - An object where the additionalProperties schema is of an "unknown type"
+
+    Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+    	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+    	  "import", "let", "loop", "package", "namespace", "return".
+    Examples:
+      - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
+      - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
+      - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
+
+    Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+      - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+        non-intersecting elements in `Y` are appended, retaining their partial order.
+      - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+        are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+        non-intersecting keys are appended, retaining their partial order.
+
+    If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+
+    By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+     variable whose value() is the same type as `self`.
+    See the documentation for the `optionalOldSelf` field for details.
+
+    Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
     """
-    namespace: pulumi.Input[_builtins.str]
+    field_path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    namespace is the namespace of the service. Required
+    fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
     """
-    path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    path is an optional URL path at which the webhook will be contacted.
+    Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
     """
-    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    message_expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
+    MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+    """
+    optional_old_self: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+
+    When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+
+    You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+
+    May not be set unless `oldSelf` is used in `rule`.
+    """
+    reason: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
     """
 
 @pulumi.input_type
-class ServiceReferenceArgs:
+class ValidationRuleArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[_builtins.str],
-                 namespace: pulumi.Input[_builtins.str],
-                 path: pulumi.Input[Optional[_builtins.str]] = None,
-                 port: pulumi.Input[Optional[_builtins.int]] = None):
+                 rule: pulumi.Input[_builtins.str],
+                 field_path: pulumi.Input[Optional[_builtins.str]] = None,
+                 message: pulumi.Input[Optional[_builtins.str]] = None,
+                 message_expression: pulumi.Input[Optional[_builtins.str]] = None,
+                 optional_old_self: pulumi.Input[Optional[_builtins.bool]] = None,
+                 reason: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        ServiceReference holds a reference to Service.legacy.k8s.io
+        ValidationRule describes a validation rule written in the CEL expression language.
 
-        :param pulumi.Input[_builtins.str] name: name is the name of the service. Required
-        :param pulumi.Input[_builtins.str] namespace: namespace is the namespace of the service. Required
-        :param pulumi.Input[_builtins.str] path: path is an optional URL path at which the webhook will be contacted.
-        :param pulumi.Input[_builtins.int] port: port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
+        :param pulumi.Input[_builtins.str] rule: Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
+               
+               If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
+               
+               The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+               
+               Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
+                 - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+                 - An array where the items schema is of an "unknown type"
+                 - An object where the additionalProperties schema is of an "unknown type"
+               
+               Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+               	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+               	  "import", "let", "loop", "package", "namespace", "return".
+               Examples:
+                 - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
+                 - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
+                 - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
+               
+               Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+                 - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+                   non-intersecting elements in `Y` are appended, retaining their partial order.
+                 - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+                   are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+                   non-intersecting keys are appended, retaining their partial order.
+               
+               If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+               
+               By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+                variable whose value() is the same type as `self`.
+               See the documentation for the `optionalOldSelf` field for details.
+               
+               Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+        :param pulumi.Input[_builtins.str] field_path: fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
+        :param pulumi.Input[_builtins.str] message: Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
+        :param pulumi.Input[_builtins.str] message_expression: MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+        :param pulumi.Input[_builtins.bool] optional_old_self: optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+               
+               When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+               
+               You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+               
+               May not be set unless `oldSelf` is used in `rule`.
+        :param pulumi.Input[_builtins.str] reason: reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
         """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "namespace", namespace)
-        if path is not None:
-            pulumi.set(__self__, "path", path)
-        if port is not None:
-            pulumi.set(__self__, "port", port)
+        pulumi.set(__self__, "rule", rule)
+        if field_path is not None:
+            pulumi.set(__self__, "field_path", field_path)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if message_expression is not None:
+            pulumi.set(__self__, "message_expression", message_expression)
+        if optional_old_self is not None:
+            pulumi.set(__self__, "optional_old_self", optional_old_self)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[_builtins.str]:
+    def rule(self) -> pulumi.Input[_builtins.str]:
         """
-        name is the name of the service. Required
-        """
-        return pulumi.get(self, "name")
+        Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
 
-    @name.setter
-    def name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "name", value)
+        If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
+
+        The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+
+        Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
+          - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+          - An array where the items schema is of an "unknown type"
+          - An object where the additionalProperties schema is of an "unknown type"
+
+        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+        	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+        	  "import", "let", "loop", "package", "namespace", "return".
+        Examples:
+          - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
+          - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
+          - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
+
+        Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+          - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+            non-intersecting elements in `Y` are appended, retaining their partial order.
+          - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+            are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+            non-intersecting keys are appended, retaining their partial order.
+
+        If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
+
+        By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
+         variable whose value() is the same type as `self`.
+        See the documentation for the `optionalOldSelf` field for details.
+
+        Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+        """
+        return pulumi.get(self, "rule")
+
+    @rule.setter
+    def rule(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "rule", value)
+
+    @_builtins.property
+    @pulumi.getter(name="fieldPath")
+    def field_path(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
+        """
+        return pulumi.get(self, "field_path")
+
+    @field_path.setter
+    def field_path(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "field_path", value)
 
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> pulumi.Input[_builtins.str]:
+    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        namespace is the namespace of the service. Required
+        Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
         """
-        return pulumi.get(self, "namespace")
+        return pulumi.get(self, "message")
 
-    @namespace.setter
-    def namespace(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "namespace", value)
+    @message.setter
+    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "message", value)
+
+    @_builtins.property
+    @pulumi.getter(name="messageExpression")
+    def message_expression(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+        """
+        return pulumi.get(self, "message_expression")
+
+    @message_expression.setter
+    def message_expression(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "message_expression", value)
+
+    @_builtins.property
+    @pulumi.getter(name="optionalOldSelf")
+    def optional_old_self(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+
+        When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+
+        You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+
+        May not be set unless `oldSelf` is used in `rule`.
+        """
+        return pulumi.get(self, "optional_old_self")
+
+    @optional_old_self.setter
+    def optional_old_self(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "optional_old_self", value)
 
     @_builtins.property
     @pulumi.getter
-    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        path is an optional URL path at which the webhook will be contacted.
+        reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
         """
-        return pulumi.get(self, "path")
+        return pulumi.get(self, "reason")
 
-    @path.setter
-    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "path", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        port is an optional service port at which the webhook will be contacted. `port` should be a valid port number (1-65535, inclusive). Defaults to 443 for backward compatibility.
-        """
-        return pulumi.get(self, "port")
-
-    @port.setter
-    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "port", value)
+    @reason.setter
+    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "reason", value)
 
 
 class ValidationRulePatchArgsDict(TypedDict):
@@ -4123,251 +4370,114 @@ class ValidationRulePatchArgs:
         pulumi.set(self, "rule", value)
 
 
-class ValidationRuleArgsDict(TypedDict):
+class WebhookClientConfigArgsDict(TypedDict):
     """
-    ValidationRule describes a validation rule written in the CEL expression language.
+    WebhookClientConfig contains the information to make a TLS connection with the webhook.
     """
-    rule: pulumi.Input[_builtins.str]
+    ca_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
+    caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+    """
+    service: NotRequired[pulumi.Input[Optional['ServiceReferenceArgsDict']]]
+    """
+    service is a reference to the service for this webhook. Either service or url must be specified.
 
-    If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
-
-    The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
-
-    Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
-      - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
-      - An array where the items schema is of an "unknown type"
-      - An object where the additionalProperties schema is of an "unknown type"
-
-    Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
-    	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
-    	  "import", "let", "loop", "package", "namespace", "return".
-    Examples:
-      - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
-      - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
-      - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
-
-    Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-      - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-        non-intersecting elements in `Y` are appended, retaining their partial order.
-      - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-        are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-        non-intersecting keys are appended, retaining their partial order.
-
-    If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
-
-    By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
-     variable whose value() is the same type as `self`.
-    See the documentation for the `optionalOldSelf` field for details.
-
-    Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+    If the webhook is running within the cluster, then you should use `service`.
     """
-    field_path: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    url: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
-    """
-    message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
-    """
-    message_expression: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
-    """
-    optional_old_self: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
+    url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
 
-    When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
+    The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
 
-    You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
+    Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
 
-    May not be set unless `oldSelf` is used in `rule`.
-    """
-    reason: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
+    The scheme must be "https"; the URL must begin with "https://".
+
+    A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+
+    Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
     """
 
 @pulumi.input_type
-class ValidationRuleArgs:
+class WebhookClientConfigArgs:
     def __init__(__self__, *,
-                 rule: pulumi.Input[_builtins.str],
-                 field_path: pulumi.Input[Optional[_builtins.str]] = None,
-                 message: pulumi.Input[Optional[_builtins.str]] = None,
-                 message_expression: pulumi.Input[Optional[_builtins.str]] = None,
-                 optional_old_self: pulumi.Input[Optional[_builtins.bool]] = None,
-                 reason: pulumi.Input[Optional[_builtins.str]] = None):
+                 ca_bundle: pulumi.Input[Optional[_builtins.str]] = None,
+                 service: pulumi.Input[Optional['ServiceReferenceArgs']] = None,
+                 url: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        ValidationRule describes a validation rule written in the CEL expression language.
+        WebhookClientConfig contains the information to make a TLS connection with the webhook.
 
-        :param pulumi.Input[_builtins.str] rule: Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
+        :param pulumi.Input[_builtins.str] ca_bundle: caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+        :param pulumi.Input['ServiceReferenceArgs'] service: service is a reference to the service for this webhook. Either service or url must be specified.
                
-               If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
+               If the webhook is running within the cluster, then you should use `service`.
+        :param pulumi.Input[_builtins.str] url: url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
                
-               The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+               The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
                
-               Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
-                 - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
-                 - An array where the items schema is of an "unknown type"
-                 - An object where the additionalProperties schema is of an "unknown type"
+               Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
                
-               Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
-               	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
-               	  "import", "let", "loop", "package", "namespace", "return".
-               Examples:
-                 - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
-                 - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
-                 - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
+               The scheme must be "https"; the URL must begin with "https://".
                
-               Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-                 - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-                   non-intersecting elements in `Y` are appended, retaining their partial order.
-                 - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-                   are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-                   non-intersecting keys are appended, retaining their partial order.
+               A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
                
-               If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
-               
-               By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
-                variable whose value() is the same type as `self`.
-               See the documentation for the `optionalOldSelf` field for details.
-               
-               Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
-        :param pulumi.Input[_builtins.str] field_path: fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
-        :param pulumi.Input[_builtins.str] message: Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
-        :param pulumi.Input[_builtins.str] message_expression: MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
-        :param pulumi.Input[_builtins.bool] optional_old_self: optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
-               
-               When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
-               
-               You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
-               
-               May not be set unless `oldSelf` is used in `rule`.
-        :param pulumi.Input[_builtins.str] reason: reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
+               Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
         """
-        pulumi.set(__self__, "rule", rule)
-        if field_path is not None:
-            pulumi.set(__self__, "field_path", field_path)
-        if message is not None:
-            pulumi.set(__self__, "message", message)
-        if message_expression is not None:
-            pulumi.set(__self__, "message_expression", message_expression)
-        if optional_old_self is not None:
-            pulumi.set(__self__, "optional_old_self", optional_old_self)
-        if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+        if ca_bundle is not None:
+            pulumi.set(__self__, "ca_bundle", ca_bundle)
+        if service is not None:
+            pulumi.set(__self__, "service", service)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+
+    @_builtins.property
+    @pulumi.getter(name="caBundle")
+    def ca_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+        """
+        return pulumi.get(self, "ca_bundle")
+
+    @ca_bundle.setter
+    def ca_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "ca_bundle", value)
 
     @_builtins.property
     @pulumi.getter
-    def rule(self) -> pulumi.Input[_builtins.str]:
+    def service(self) -> pulumi.Input[Optional['ServiceReferenceArgs']]:
         """
-        Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
+        service is a reference to the service for this webhook. Either service or url must be specified.
 
-        If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
-
-        The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
-
-        Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
-          - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
-          - An array where the items schema is of an "unknown type"
-          - An object where the additionalProperties schema is of an "unknown type"
-
-        Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
-        	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
-        	  "import", "let", "loop", "package", "namespace", "return".
-        Examples:
-          - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
-          - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
-          - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
-
-        Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-          - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-            non-intersecting elements in `Y` are appended, retaining their partial order.
-          - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-            are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-            non-intersecting keys are appended, retaining their partial order.
-
-        If `rule` makes use of the `oldSelf` variable it is implicitly a `transition rule`.
-
-        By default, the `oldSelf` variable is the same type as `self`. When `optionalOldSelf` is true, the `oldSelf` variable is a CEL optional
-         variable whose value() is the same type as `self`.
-        See the documentation for the `optionalOldSelf` field for details.
-
-        Transition rules by default are applied only on UPDATE requests and are skipped if an old value could not be found. You can opt a transition rule into unconditional evaluation by setting `optionalOldSelf` to true.
+        If the webhook is running within the cluster, then you should use `service`.
         """
-        return pulumi.get(self, "rule")
+        return pulumi.get(self, "service")
 
-    @rule.setter
-    def rule(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "rule", value)
-
-    @_builtins.property
-    @pulumi.getter(name="fieldPath")
-    def field_path(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
-        """
-        return pulumi.get(self, "field_path")
-
-    @field_path.setter
-    def field_path(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "field_path", value)
+    @service.setter
+    def service(self, value: pulumi.Input[Optional['ServiceReferenceArgs']]):
+        pulumi.set(self, "service", value)
 
     @_builtins.property
     @pulumi.getter
-    def message(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
+        url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+
+        The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
+
+        Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
+
+        The scheme must be "https"; the URL must begin with "https://".
+
+        A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
+
+        Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
         """
-        return pulumi.get(self, "message")
+        return pulumi.get(self, "url")
 
-    @message.setter
-    def message(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "message", value)
-
-    @_builtins.property
-    @pulumi.getter(name="messageExpression")
-    def message_expression(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
-        """
-        return pulumi.get(self, "message_expression")
-
-    @message_expression.setter
-    def message_expression(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "message_expression", value)
-
-    @_builtins.property
-    @pulumi.getter(name="optionalOldSelf")
-    def optional_old_self(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        optionalOldSelf is used to opt a transition rule into evaluation even when the object is first created, or if the old object is missing the value.
-
-        When enabled `oldSelf` will be a CEL optional whose value will be `None` if there is no old value, or when the object is initially created.
-
-        You may check for presence of oldSelf using `oldSelf.hasValue()` and unwrap it after checking using `oldSelf.value()`. Check the CEL documentation for Optional types for more information: https://pkg.go.dev/github.com/google/cel-go/cel#OptionalTypes
-
-        May not be set unless `oldSelf` is used in `rule`.
-        """
-        return pulumi.get(self, "optional_old_self")
-
-    @optional_old_self.setter
-    def optional_old_self(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "optional_old_self", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def reason(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
-        """
-        return pulumi.get(self, "reason")
-
-    @reason.setter
-    def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "reason", value)
+    @url.setter
+    def url(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "url", value)
 
 
 class WebhookClientConfigPatchArgsDict(TypedDict):
@@ -4480,114 +4590,57 @@ class WebhookClientConfigPatchArgs:
         pulumi.set(self, "url", value)
 
 
-class WebhookClientConfigArgsDict(TypedDict):
+class WebhookConversionArgsDict(TypedDict):
     """
-    WebhookClientConfig contains the information to make a TLS connection with the webhook.
+    WebhookConversion describes how to call a conversion webhook
     """
-    ca_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    conversion_review_versions: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
     """
-    caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+    conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
     """
-    service: NotRequired[pulumi.Input[Optional['ServiceReferenceArgsDict']]]
+    client_config: NotRequired[pulumi.Input[Optional['WebhookClientConfigArgsDict']]]
     """
-    service is a reference to the service for this webhook. Either service or url must be specified.
-
-    If the webhook is running within the cluster, then you should use `service`.
-    """
-    url: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
-
-    The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
-
-    Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
-
-    The scheme must be "https"; the URL must begin with "https://".
-
-    A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-
-    Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
+    clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
     """
 
 @pulumi.input_type
-class WebhookClientConfigArgs:
+class WebhookConversionArgs:
     def __init__(__self__, *,
-                 ca_bundle: pulumi.Input[Optional[_builtins.str]] = None,
-                 service: pulumi.Input[Optional['ServiceReferenceArgs']] = None,
-                 url: pulumi.Input[Optional[_builtins.str]] = None):
+                 conversion_review_versions: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
+                 client_config: pulumi.Input[Optional['WebhookClientConfigArgs']] = None):
         """
-        WebhookClientConfig contains the information to make a TLS connection with the webhook.
+        WebhookConversion describes how to call a conversion webhook
 
-        :param pulumi.Input[_builtins.str] ca_bundle: caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
-        :param pulumi.Input['ServiceReferenceArgs'] service: service is a reference to the service for this webhook. Either service or url must be specified.
-               
-               If the webhook is running within the cluster, then you should use `service`.
-        :param pulumi.Input[_builtins.str] url: url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
-               
-               The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
-               
-               Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
-               
-               The scheme must be "https"; the URL must begin with "https://".
-               
-               A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-               
-               Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
+        :param pulumi.Input['WebhookClientConfigArgs'] client_config: clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
         """
-        if ca_bundle is not None:
-            pulumi.set(__self__, "ca_bundle", ca_bundle)
-        if service is not None:
-            pulumi.set(__self__, "service", service)
-        if url is not None:
-            pulumi.set(__self__, "url", url)
+        pulumi.set(__self__, "conversion_review_versions", conversion_review_versions)
+        if client_config is not None:
+            pulumi.set(__self__, "client_config", client_config)
 
     @_builtins.property
-    @pulumi.getter(name="caBundle")
-    def ca_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter(name="conversionReviewVersions")
+    def conversion_review_versions(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
         """
-        caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+        conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
         """
-        return pulumi.get(self, "ca_bundle")
+        return pulumi.get(self, "conversion_review_versions")
 
-    @ca_bundle.setter
-    def ca_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "ca_bundle", value)
+    @conversion_review_versions.setter
+    def conversion_review_versions(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "conversion_review_versions", value)
 
     @_builtins.property
-    @pulumi.getter
-    def service(self) -> pulumi.Input[Optional['ServiceReferenceArgs']]:
+    @pulumi.getter(name="clientConfig")
+    def client_config(self) -> pulumi.Input[Optional['WebhookClientConfigArgs']]:
         """
-        service is a reference to the service for this webhook. Either service or url must be specified.
-
-        If the webhook is running within the cluster, then you should use `service`.
+        clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
         """
-        return pulumi.get(self, "service")
+        return pulumi.get(self, "client_config")
 
-    @service.setter
-    def service(self, value: pulumi.Input[Optional['ServiceReferenceArgs']]):
-        pulumi.set(self, "service", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def url(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
-
-        The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
-
-        Please note that using `localhost` or `127.0.0.1` as a `host` is risky unless you take great care to run this webhook on all hosts which run an apiserver which might need to make calls to this webhook. Such installs are likely to be non-portable, i.e., not easy to turn up in a new cluster.
-
-        The scheme must be "https"; the URL must begin with "https://".
-
-        A path is optional, and if present may be any string permissible in a URL. You may use the path to pass an arbitrary string to the webhook, for example, a cluster identifier.
-
-        Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
-        """
-        return pulumi.get(self, "url")
-
-    @url.setter
-    def url(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "url", value)
+    @client_config.setter
+    def client_config(self, value: pulumi.Input[Optional['WebhookClientConfigArgs']]):
+        pulumi.set(self, "client_config", value)
 
 
 class WebhookConversionPatchArgsDict(TypedDict):
@@ -4642,58 +4695,5 @@ class WebhookConversionPatchArgs:
     @conversion_review_versions.setter
     def conversion_review_versions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "conversion_review_versions", value)
-
-
-class WebhookConversionArgsDict(TypedDict):
-    """
-    WebhookConversion describes how to call a conversion webhook
-    """
-    conversion_review_versions: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
-    """
-    conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
-    """
-    client_config: NotRequired[pulumi.Input[Optional['WebhookClientConfigArgsDict']]]
-    """
-    clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
-    """
-
-@pulumi.input_type
-class WebhookConversionArgs:
-    def __init__(__self__, *,
-                 conversion_review_versions: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
-                 client_config: pulumi.Input[Optional['WebhookClientConfigArgs']] = None):
-        """
-        WebhookConversion describes how to call a conversion webhook
-
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] conversion_review_versions: conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
-        :param pulumi.Input['WebhookClientConfigArgs'] client_config: clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
-        """
-        pulumi.set(__self__, "conversion_review_versions", conversion_review_versions)
-        if client_config is not None:
-            pulumi.set(__self__, "client_config", client_config)
-
-    @_builtins.property
-    @pulumi.getter(name="conversionReviewVersions")
-    def conversion_review_versions(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
-        """
-        conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail.
-        """
-        return pulumi.get(self, "conversion_review_versions")
-
-    @conversion_review_versions.setter
-    def conversion_review_versions(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
-        pulumi.set(self, "conversion_review_versions", value)
-
-    @_builtins.property
-    @pulumi.getter(name="clientConfig")
-    def client_config(self) -> pulumi.Input[Optional['WebhookClientConfigArgs']]:
-        """
-        clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
-        """
-        return pulumi.get(self, "client_config")
-
-    @client_config.setter
-    def client_config(self, value: pulumi.Input[Optional['WebhookClientConfigArgs']]):
-        pulumi.set(self, "client_config", value)
 
 

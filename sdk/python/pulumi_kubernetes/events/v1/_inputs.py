@@ -17,119 +17,13 @@ from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
-    'EventSeriesPatchArgs',
-    'EventSeriesPatchArgsDict',
-    'EventSeriesArgs',
-    'EventSeriesArgsDict',
     'EventArgs',
     'EventArgsDict',
+    'EventSeriesArgs',
+    'EventSeriesArgsDict',
+    'EventSeriesPatchArgs',
+    'EventSeriesPatchArgsDict',
 ]
-
-class EventSeriesPatchArgsDict(TypedDict):
-    """
-    EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
-    """
-    count: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    count is the number of occurrences in this series up to the last heartbeat time.
-    """
-    last_observed_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    lastObservedTime is the time when last Event from the series was seen before last heartbeat.
-    """
-
-@pulumi.input_type
-class EventSeriesPatchArgs:
-    def __init__(__self__, *,
-                 count: pulumi.Input[Optional[_builtins.int]] = None,
-                 last_observed_time: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
-
-        :param pulumi.Input[_builtins.int] count: count is the number of occurrences in this series up to the last heartbeat time.
-        :param pulumi.Input[_builtins.str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
-        """
-        if count is not None:
-            pulumi.set(__self__, "count", count)
-        if last_observed_time is not None:
-            pulumi.set(__self__, "last_observed_time", last_observed_time)
-
-    @_builtins.property
-    @pulumi.getter
-    def count(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        count is the number of occurrences in this series up to the last heartbeat time.
-        """
-        return pulumi.get(self, "count")
-
-    @count.setter
-    def count(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "count", value)
-
-    @_builtins.property
-    @pulumi.getter(name="lastObservedTime")
-    def last_observed_time(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
-        """
-        return pulumi.get(self, "last_observed_time")
-
-    @last_observed_time.setter
-    def last_observed_time(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "last_observed_time", value)
-
-
-class EventSeriesArgsDict(TypedDict):
-    """
-    EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
-    """
-    count: pulumi.Input[_builtins.int]
-    """
-    count is the number of occurrences in this series up to the last heartbeat time.
-    """
-    last_observed_time: pulumi.Input[_builtins.str]
-    """
-    lastObservedTime is the time when last Event from the series was seen before last heartbeat.
-    """
-
-@pulumi.input_type
-class EventSeriesArgs:
-    def __init__(__self__, *,
-                 count: pulumi.Input[_builtins.int],
-                 last_observed_time: pulumi.Input[_builtins.str]):
-        """
-        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
-
-        :param pulumi.Input[_builtins.int] count: count is the number of occurrences in this series up to the last heartbeat time.
-        :param pulumi.Input[_builtins.str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
-        """
-        pulumi.set(__self__, "count", count)
-        pulumi.set(__self__, "last_observed_time", last_observed_time)
-
-    @_builtins.property
-    @pulumi.getter
-    def count(self) -> pulumi.Input[_builtins.int]:
-        """
-        count is the number of occurrences in this series up to the last heartbeat time.
-        """
-        return pulumi.get(self, "count")
-
-    @count.setter
-    def count(self, value: pulumi.Input[_builtins.int]):
-        pulumi.set(self, "count", value)
-
-    @_builtins.property
-    @pulumi.getter(name="lastObservedTime")
-    def last_observed_time(self) -> pulumi.Input[_builtins.str]:
-        """
-        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
-        """
-        return pulumi.get(self, "last_observed_time")
-
-    @last_observed_time.setter
-    def last_observed_time(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "last_observed_time", value)
-
 
 class EventArgsDict(TypedDict):
     """
@@ -482,5 +376,111 @@ class EventArgs:
     @type.setter
     def type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "type", value)
+
+
+class EventSeriesArgsDict(TypedDict):
+    """
+    EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+    """
+    count: pulumi.Input[_builtins.int]
+    """
+    count is the number of occurrences in this series up to the last heartbeat time.
+    """
+    last_observed_time: pulumi.Input[_builtins.str]
+    """
+    lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+    """
+
+@pulumi.input_type
+class EventSeriesArgs:
+    def __init__(__self__, *,
+                 count: pulumi.Input[_builtins.int],
+                 last_observed_time: pulumi.Input[_builtins.str]):
+        """
+        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+
+        :param pulumi.Input[_builtins.int] count: count is the number of occurrences in this series up to the last heartbeat time.
+        :param pulumi.Input[_builtins.str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        """
+        pulumi.set(__self__, "count", count)
+        pulumi.set(__self__, "last_observed_time", last_observed_time)
+
+    @_builtins.property
+    @pulumi.getter
+    def count(self) -> pulumi.Input[_builtins.int]:
+        """
+        count is the number of occurrences in this series up to the last heartbeat time.
+        """
+        return pulumi.get(self, "count")
+
+    @count.setter
+    def count(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "count", value)
+
+    @_builtins.property
+    @pulumi.getter(name="lastObservedTime")
+    def last_observed_time(self) -> pulumi.Input[_builtins.str]:
+        """
+        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        """
+        return pulumi.get(self, "last_observed_time")
+
+    @last_observed_time.setter
+    def last_observed_time(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "last_observed_time", value)
+
+
+class EventSeriesPatchArgsDict(TypedDict):
+    """
+    EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+    """
+    count: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    count is the number of occurrences in this series up to the last heartbeat time.
+    """
+    last_observed_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+    """
+
+@pulumi.input_type
+class EventSeriesPatchArgs:
+    def __init__(__self__, *,
+                 count: pulumi.Input[Optional[_builtins.int]] = None,
+                 last_observed_time: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
+
+        :param pulumi.Input[_builtins.int] count: count is the number of occurrences in this series up to the last heartbeat time.
+        :param pulumi.Input[_builtins.str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        """
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if last_observed_time is not None:
+            pulumi.set(__self__, "last_observed_time", last_observed_time)
+
+    @_builtins.property
+    @pulumi.getter
+    def count(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        count is the number of occurrences in this series up to the last heartbeat time.
+        """
+        return pulumi.get(self, "count")
+
+    @count.setter
+    def count(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "count", value)
+
+    @_builtins.property
+    @pulumi.getter(name="lastObservedTime")
+    def last_observed_time(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        """
+        return pulumi.get(self, "last_observed_time")
+
+    @last_observed_time.setter
+    def last_observed_time(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "last_observed_time", value)
 
 

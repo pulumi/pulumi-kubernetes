@@ -17,55 +17,21 @@ from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
-    'OverheadPatchArgs',
-    'OverheadPatchArgsDict',
     'OverheadArgs',
     'OverheadArgsDict',
-    'RuntimeClassSpecPatchArgs',
-    'RuntimeClassSpecPatchArgsDict',
-    'RuntimeClassSpecArgs',
-    'RuntimeClassSpecArgsDict',
+    'OverheadPatchArgs',
+    'OverheadPatchArgsDict',
     'RuntimeClassArgs',
     'RuntimeClassArgsDict',
-    'SchedulingPatchArgs',
-    'SchedulingPatchArgsDict',
+    'RuntimeClassSpecArgs',
+    'RuntimeClassSpecArgsDict',
+    'RuntimeClassSpecPatchArgs',
+    'RuntimeClassSpecPatchArgsDict',
     'SchedulingArgs',
     'SchedulingArgsDict',
+    'SchedulingPatchArgs',
+    'SchedulingPatchArgsDict',
 ]
-
-class OverheadPatchArgsDict(TypedDict):
-    """
-    Overhead structure represents the resource overhead associated with running a pod.
-    """
-    pod_fixed: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
-    """
-    PodFixed represents the fixed resource overhead associated with running a pod.
-    """
-
-@pulumi.input_type
-class OverheadPatchArgs:
-    def __init__(__self__, *,
-                 pod_fixed: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
-        """
-        Overhead structure represents the resource overhead associated with running a pod.
-
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] pod_fixed: PodFixed represents the fixed resource overhead associated with running a pod.
-        """
-        if pod_fixed is not None:
-            pulumi.set(__self__, "pod_fixed", pod_fixed)
-
-    @_builtins.property
-    @pulumi.getter(name="podFixed")
-    def pod_fixed(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
-        """
-        PodFixed represents the fixed resource overhead associated with running a pod.
-        """
-        return pulumi.get(self, "pod_fixed")
-
-    @pod_fixed.setter
-    def pod_fixed(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "pod_fixed", value)
-
 
 class OverheadArgsDict(TypedDict):
     """
@@ -101,151 +67,38 @@ class OverheadArgs:
         pulumi.set(self, "pod_fixed", value)
 
 
-class RuntimeClassSpecPatchArgsDict(TypedDict):
+class OverheadPatchArgsDict(TypedDict):
     """
-    RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
+    Overhead structure represents the resource overhead associated with running a pod.
     """
-    overhead: NotRequired[pulumi.Input[Optional['OverheadPatchArgsDict']]]
+    pod_fixed: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
     """
-    Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
-    """
-    runtime_handler: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
-    """
-    scheduling: NotRequired[pulumi.Input[Optional['SchedulingPatchArgsDict']]]
-    """
-    Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+    PodFixed represents the fixed resource overhead associated with running a pod.
     """
 
 @pulumi.input_type
-class RuntimeClassSpecPatchArgs:
+class OverheadPatchArgs:
     def __init__(__self__, *,
-                 overhead: pulumi.Input[Optional['OverheadPatchArgs']] = None,
-                 runtime_handler: pulumi.Input[Optional[_builtins.str]] = None,
-                 scheduling: pulumi.Input[Optional['SchedulingPatchArgs']] = None):
+                 pod_fixed: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
-        RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
+        Overhead structure represents the resource overhead associated with running a pod.
 
-        :param pulumi.Input['OverheadPatchArgs'] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
-        :param pulumi.Input[_builtins.str] runtime_handler: RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
-        :param pulumi.Input['SchedulingPatchArgs'] scheduling: Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] pod_fixed: PodFixed represents the fixed resource overhead associated with running a pod.
         """
-        if overhead is not None:
-            pulumi.set(__self__, "overhead", overhead)
-        if runtime_handler is not None:
-            pulumi.set(__self__, "runtime_handler", runtime_handler)
-        if scheduling is not None:
-            pulumi.set(__self__, "scheduling", scheduling)
+        if pod_fixed is not None:
+            pulumi.set(__self__, "pod_fixed", pod_fixed)
 
     @_builtins.property
-    @pulumi.getter
-    def overhead(self) -> pulumi.Input[Optional['OverheadPatchArgs']]:
+    @pulumi.getter(name="podFixed")
+    def pod_fixed(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+        PodFixed represents the fixed resource overhead associated with running a pod.
         """
-        return pulumi.get(self, "overhead")
+        return pulumi.get(self, "pod_fixed")
 
-    @overhead.setter
-    def overhead(self, value: pulumi.Input[Optional['OverheadPatchArgs']]):
-        pulumi.set(self, "overhead", value)
-
-    @_builtins.property
-    @pulumi.getter(name="runtimeHandler")
-    def runtime_handler(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
-        """
-        return pulumi.get(self, "runtime_handler")
-
-    @runtime_handler.setter
-    def runtime_handler(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "runtime_handler", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def scheduling(self) -> pulumi.Input[Optional['SchedulingPatchArgs']]:
-        """
-        Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
-        """
-        return pulumi.get(self, "scheduling")
-
-    @scheduling.setter
-    def scheduling(self, value: pulumi.Input[Optional['SchedulingPatchArgs']]):
-        pulumi.set(self, "scheduling", value)
-
-
-class RuntimeClassSpecArgsDict(TypedDict):
-    """
-    RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
-    """
-    runtime_handler: pulumi.Input[_builtins.str]
-    """
-    RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
-    """
-    overhead: NotRequired[pulumi.Input[Optional['OverheadArgsDict']]]
-    """
-    Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
-    """
-    scheduling: NotRequired[pulumi.Input[Optional['SchedulingArgsDict']]]
-    """
-    Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
-    """
-
-@pulumi.input_type
-class RuntimeClassSpecArgs:
-    def __init__(__self__, *,
-                 runtime_handler: pulumi.Input[_builtins.str],
-                 overhead: pulumi.Input[Optional['OverheadArgs']] = None,
-                 scheduling: pulumi.Input[Optional['SchedulingArgs']] = None):
-        """
-        RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
-
-        :param pulumi.Input[_builtins.str] runtime_handler: RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
-        :param pulumi.Input['OverheadArgs'] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
-        :param pulumi.Input['SchedulingArgs'] scheduling: Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
-        """
-        pulumi.set(__self__, "runtime_handler", runtime_handler)
-        if overhead is not None:
-            pulumi.set(__self__, "overhead", overhead)
-        if scheduling is not None:
-            pulumi.set(__self__, "scheduling", scheduling)
-
-    @_builtins.property
-    @pulumi.getter(name="runtimeHandler")
-    def runtime_handler(self) -> pulumi.Input[_builtins.str]:
-        """
-        RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
-        """
-        return pulumi.get(self, "runtime_handler")
-
-    @runtime_handler.setter
-    def runtime_handler(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "runtime_handler", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def overhead(self) -> pulumi.Input[Optional['OverheadArgs']]:
-        """
-        Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
-        """
-        return pulumi.get(self, "overhead")
-
-    @overhead.setter
-    def overhead(self, value: pulumi.Input[Optional['OverheadArgs']]):
-        pulumi.set(self, "overhead", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def scheduling(self) -> pulumi.Input[Optional['SchedulingArgs']]:
-        """
-        Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
-        """
-        return pulumi.get(self, "scheduling")
-
-    @scheduling.setter
-    def scheduling(self, value: pulumi.Input[Optional['SchedulingArgs']]):
-        pulumi.set(self, "scheduling", value)
+    @pod_fixed.setter
+    def pod_fixed(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "pod_fixed", value)
 
 
 class RuntimeClassArgsDict(TypedDict):
@@ -341,58 +194,151 @@ class RuntimeClassArgs:
         pulumi.set(self, "metadata", value)
 
 
-class SchedulingPatchArgsDict(TypedDict):
+class RuntimeClassSpecArgsDict(TypedDict):
     """
-    Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+    RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
     """
-    node_selector: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    runtime_handler: pulumi.Input[_builtins.str]
     """
-    nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+    RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
     """
-    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgsDict']]]]]
+    overhead: NotRequired[pulumi.Input[Optional['OverheadArgsDict']]]
     """
-    tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+    Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+    """
+    scheduling: NotRequired[pulumi.Input[Optional['SchedulingArgsDict']]]
+    """
+    Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
     """
 
 @pulumi.input_type
-class SchedulingPatchArgs:
+class RuntimeClassSpecArgs:
     def __init__(__self__, *,
-                 node_selector: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 tolerations: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]] = None):
+                 runtime_handler: pulumi.Input[_builtins.str],
+                 overhead: pulumi.Input[Optional['OverheadArgs']] = None,
+                 scheduling: pulumi.Input[Optional['SchedulingArgs']] = None):
         """
-        Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+        RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
 
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
-        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        :param pulumi.Input[_builtins.str] runtime_handler: RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
+        :param pulumi.Input['OverheadArgs'] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+        :param pulumi.Input['SchedulingArgs'] scheduling: Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
-        if node_selector is not None:
-            pulumi.set(__self__, "node_selector", node_selector)
-        if tolerations is not None:
-            pulumi.set(__self__, "tolerations", tolerations)
+        pulumi.set(__self__, "runtime_handler", runtime_handler)
+        if overhead is not None:
+            pulumi.set(__self__, "overhead", overhead)
+        if scheduling is not None:
+            pulumi.set(__self__, "scheduling", scheduling)
 
     @_builtins.property
-    @pulumi.getter(name="nodeSelector")
-    def node_selector(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+    @pulumi.getter(name="runtimeHandler")
+    def runtime_handler(self) -> pulumi.Input[_builtins.str]:
         """
-        nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+        RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
         """
-        return pulumi.get(self, "node_selector")
+        return pulumi.get(self, "runtime_handler")
 
-    @node_selector.setter
-    def node_selector(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "node_selector", value)
+    @runtime_handler.setter
+    def runtime_handler(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "runtime_handler", value)
 
     @_builtins.property
     @pulumi.getter
-    def tolerations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]:
+    def overhead(self) -> pulumi.Input[Optional['OverheadArgs']]:
         """
-        tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
         """
-        return pulumi.get(self, "tolerations")
+        return pulumi.get(self, "overhead")
 
-    @tolerations.setter
-    def tolerations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]):
-        pulumi.set(self, "tolerations", value)
+    @overhead.setter
+    def overhead(self, value: pulumi.Input[Optional['OverheadArgs']]):
+        pulumi.set(self, "overhead", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def scheduling(self) -> pulumi.Input[Optional['SchedulingArgs']]:
+        """
+        Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+        """
+        return pulumi.get(self, "scheduling")
+
+    @scheduling.setter
+    def scheduling(self, value: pulumi.Input[Optional['SchedulingArgs']]):
+        pulumi.set(self, "scheduling", value)
+
+
+class RuntimeClassSpecPatchArgsDict(TypedDict):
+    """
+    RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
+    """
+    overhead: NotRequired[pulumi.Input[Optional['OverheadPatchArgsDict']]]
+    """
+    Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+    """
+    runtime_handler: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
+    """
+    scheduling: NotRequired[pulumi.Input[Optional['SchedulingPatchArgsDict']]]
+    """
+    Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+    """
+
+@pulumi.input_type
+class RuntimeClassSpecPatchArgs:
+    def __init__(__self__, *,
+                 overhead: pulumi.Input[Optional['OverheadPatchArgs']] = None,
+                 runtime_handler: pulumi.Input[Optional[_builtins.str]] = None,
+                 scheduling: pulumi.Input[Optional['SchedulingPatchArgs']] = None):
+        """
+        RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
+
+        :param pulumi.Input['OverheadPatchArgs'] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+        :param pulumi.Input[_builtins.str] runtime_handler: RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
+        :param pulumi.Input['SchedulingPatchArgs'] scheduling: Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+        """
+        if overhead is not None:
+            pulumi.set(__self__, "overhead", overhead)
+        if runtime_handler is not None:
+            pulumi.set(__self__, "runtime_handler", runtime_handler)
+        if scheduling is not None:
+            pulumi.set(__self__, "scheduling", scheduling)
+
+    @_builtins.property
+    @pulumi.getter
+    def overhead(self) -> pulumi.Input[Optional['OverheadPatchArgs']]:
+        """
+        Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+        """
+        return pulumi.get(self, "overhead")
+
+    @overhead.setter
+    def overhead(self, value: pulumi.Input[Optional['OverheadPatchArgs']]):
+        pulumi.set(self, "overhead", value)
+
+    @_builtins.property
+    @pulumi.getter(name="runtimeHandler")
+    def runtime_handler(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must conform to the DNS Label (RFC 1123) requirements and is immutable.
+        """
+        return pulumi.get(self, "runtime_handler")
+
+    @runtime_handler.setter
+    def runtime_handler(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "runtime_handler", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def scheduling(self) -> pulumi.Input[Optional['SchedulingPatchArgs']]:
+        """
+        Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+        """
+        return pulumi.get(self, "scheduling")
+
+    @scheduling.setter
+    def scheduling(self, value: pulumi.Input[Optional['SchedulingPatchArgs']]):
+        pulumi.set(self, "scheduling", value)
 
 
 class SchedulingArgsDict(TypedDict):
@@ -446,6 +392,60 @@ class SchedulingArgs:
 
     @tolerations.setter
     def tolerations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]):
+        pulumi.set(self, "tolerations", value)
+
+
+class SchedulingPatchArgsDict(TypedDict):
+    """
+    Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+    """
+    node_selector: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+    """
+    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgsDict']]]]]
+    """
+    tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+    """
+
+@pulumi.input_type
+class SchedulingPatchArgs:
+    def __init__(__self__, *,
+                 node_selector: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 tolerations: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]] = None):
+        """
+        Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        """
+        if node_selector is not None:
+            pulumi.set(__self__, "node_selector", node_selector)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeSelector")
+    def node_selector(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+        """
+        return pulumi.get(self, "node_selector")
+
+    @node_selector.setter
+    def node_selector(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "node_selector", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def tolerations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]:
+        """
+        tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @tolerations.setter
+    def tolerations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]):
         pulumi.set(self, "tolerations", value)
 
 
