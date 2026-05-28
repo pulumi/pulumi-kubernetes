@@ -1830,10 +1830,8 @@ func (k *kubeProvider) Create(
 				"resource %q was not successfully created by the Kubernetes API server: %w", urn, awaitErr)
 		}
 
-		// Resource was created, but failed to become fully initialized.
-		// partialErr.Object() may be nil if the awaiter never observed the object
-		// (e.g., a transient poll error before any successful Get), so fall back
-		// to the outputs returned by the API server at creation time.
+		// Resource was created but failed to fully initialize. Fall back to
+		// the API-created outputs if the awaiter didn't observe any state.
 		initialized = cmp.Or(partialErr.Object(), initialized)
 	}
 	contract.Assertf(initialized.GetName() != "", "expected live object name to be nonempty: %v", initialized)

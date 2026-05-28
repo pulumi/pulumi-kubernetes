@@ -176,11 +176,8 @@ func Test_RetryUntil_Cancel(t *testing.T) {
 	}
 }
 
-// Test_WatchUntil_PollErrorAfterSuccess verifies that when a poll succeeds
-// initially but later fails (returning nil), WatchUntil returns the last
-// known non-nil object alongside the error rather than returning nil.
-// This prevents nil pointer panics in callers that assume a non-nil object
-// is returned whenever the resource was successfully created.
+// Test_WatchUntil_PollErrorAfterSuccess verifies that a poll error after an
+// initial success returns the last known non-nil object, not nil.
 func Test_WatchUntil_PollErrorAfterSuccess(t *testing.T) {
 	knownObj := &unstructured.Unstructured{Object: map[string]any{
 		"metadata": map[string]any{"name": "my-secret"},
@@ -192,14 +189,12 @@ func Test_WatchUntil_PollErrorAfterSuccess(t *testing.T) {
 		func() (*unstructured.Unstructured, error) {
 			calls++
 			if calls == 1 {
-				// First poll returns the object successfully.
 				return knownObj, nil
 			}
-			// Subsequent polls fail (e.g., transient API error).
 			return nil, fmt.Errorf("transient error")
 		}).
 		WatchUntil(
-			func(*unstructured.Unstructured) bool { return false }, // never satisfied
+			func(*unstructured.Unstructured) bool { return false },
 			1*time.Second,
 		)
 
