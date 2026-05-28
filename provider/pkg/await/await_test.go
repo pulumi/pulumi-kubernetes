@@ -1405,10 +1405,10 @@ func TestAwaiterInterfaceTimeout(t *testing.T) {
 	assert.True(t, isPartialErr, "Timed out watcher should emit `await.PartialError`")
 }
 
-// TestCreation_ServiceAccountTokenSecret tests that Creation returns a non-nil
-// object even when the awaiter never observed the resource (i.e. returns nil).
-// Regression test for https://github.com/pulumi/pulumi-kubernetes/issues/4396.
-func TestCreation_ServiceAccountTokenSecret(t *testing.T) {
+// TestCreation_AwaiterReturnsNilObject is a regression test for
+// https://github.com/pulumi/pulumi-kubernetes/issues/4396: Creation must
+// return a non-nil object even when the awaiter never observed the resource.
+func TestCreation_AwaiterReturnsNilObject(t *testing.T) {
 	secretWithoutData := &unstructured.Unstructured{
 		Object: map[string]any{
 			"apiVersion": "v1",
