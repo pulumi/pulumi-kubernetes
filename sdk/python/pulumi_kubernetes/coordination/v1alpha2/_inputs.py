@@ -16,146 +16,105 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
-    'LeaseCandidateSpecPatchArgs',
-    'LeaseCandidateSpecPatchArgsDict',
-    'LeaseCandidateSpecArgs',
-    'LeaseCandidateSpecArgsDict',
     'LeaseCandidateArgs',
     'LeaseCandidateArgsDict',
+    'LeaseCandidateSpecArgs',
+    'LeaseCandidateSpecArgsDict',
+    'LeaseCandidateSpecPatchArgs',
+    'LeaseCandidateSpecPatchArgsDict',
 ]
 
-class LeaseCandidateSpecPatchArgsDict(TypedDict):
+class LeaseCandidateArgsDict(TypedDict):
     """
-    LeaseCandidateSpec is a specification of a Lease.
+    LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
     """
-    binary_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    spec: pulumi.Input['LeaseCandidateSpecArgsDict']
     """
-    BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+    spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    emulation_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    lease_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    ping_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
-    PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
-    """
-    renew_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
-    """
-    strategy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+    More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
 @pulumi.input_type
-class LeaseCandidateSpecPatchArgs:
+class LeaseCandidateArgs:
     def __init__(__self__, *,
-                 binary_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 emulation_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 lease_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 ping_time: pulumi.Input[Optional[_builtins.str]] = None,
-                 renew_time: pulumi.Input[Optional[_builtins.str]] = None,
-                 strategy: pulumi.Input[Optional[_builtins.str]] = None):
+                 spec: pulumi.Input['LeaseCandidateSpecArgs'],
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
         """
-        LeaseCandidateSpec is a specification of a Lease.
+        LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
 
-        :param pulumi.Input[_builtins.str] binary_version: BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
-        :param pulumi.Input[_builtins.str] emulation_version: EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
-        :param pulumi.Input[_builtins.str] lease_name: LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
-        :param pulumi.Input[_builtins.str] ping_time: PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
-        :param pulumi.Input[_builtins.str] renew_time: RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
-        :param pulumi.Input[_builtins.str] strategy: Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+        :param pulumi.Input['LeaseCandidateSpecArgs'] spec: spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
-        if binary_version is not None:
-            pulumi.set(__self__, "binary_version", binary_version)
-        if emulation_version is not None:
-            pulumi.set(__self__, "emulation_version", emulation_version)
-        if lease_name is not None:
-            pulumi.set(__self__, "lease_name", lease_name)
-        if ping_time is not None:
-            pulumi.set(__self__, "ping_time", ping_time)
-        if renew_time is not None:
-            pulumi.set(__self__, "renew_time", renew_time)
-        if strategy is not None:
-            pulumi.set(__self__, "strategy", strategy)
-
-    @_builtins.property
-    @pulumi.getter(name="binaryVersion")
-    def binary_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
-        """
-        return pulumi.get(self, "binary_version")
-
-    @binary_version.setter
-    def binary_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "binary_version", value)
-
-    @_builtins.property
-    @pulumi.getter(name="emulationVersion")
-    def emulation_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
-        """
-        return pulumi.get(self, "emulation_version")
-
-    @emulation_version.setter
-    def emulation_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "emulation_version", value)
-
-    @_builtins.property
-    @pulumi.getter(name="leaseName")
-    def lease_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
-        """
-        return pulumi.get(self, "lease_name")
-
-    @lease_name.setter
-    def lease_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "lease_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="pingTime")
-    def ping_time(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
-        """
-        return pulumi.get(self, "ping_time")
-
-    @ping_time.setter
-    def ping_time(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "ping_time", value)
-
-    @_builtins.property
-    @pulumi.getter(name="renewTime")
-    def renew_time(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
-        """
-        return pulumi.get(self, "renew_time")
-
-    @renew_time.setter
-    def renew_time(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "renew_time", value)
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'coordination.k8s.io/v1alpha2')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'LeaseCandidate')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
 
     @_builtins.property
     @pulumi.getter
-    def strategy(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def spec(self) -> pulumi.Input['LeaseCandidateSpecArgs']:
         """
-        Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+        spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
-        return pulumi.get(self, "strategy")
+        return pulumi.get(self, "spec")
 
-    @strategy.setter
-    def strategy(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "strategy", value)
+    @spec.setter
+    def spec(self, value: pulumi.Input['LeaseCandidateSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
+        """
+        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
 
 
 class LeaseCandidateSpecArgsDict(TypedDict):
@@ -289,96 +248,137 @@ class LeaseCandidateSpecArgs:
         pulumi.set(self, "renew_time", value)
 
 
-class LeaseCandidateArgsDict(TypedDict):
+class LeaseCandidateSpecPatchArgsDict(TypedDict):
     """
-    LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
+    LeaseCandidateSpec is a specification of a Lease.
     """
-    spec: pulumi.Input['LeaseCandidateSpecArgsDict']
+    binary_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
     """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    emulation_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    lease_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
     """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    ping_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+    """
+    renew_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+    """
+    strategy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
     """
 
 @pulumi.input_type
-class LeaseCandidateArgs:
+class LeaseCandidateSpecPatchArgs:
     def __init__(__self__, *,
-                 spec: pulumi.Input['LeaseCandidateSpecArgs'],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
+                 binary_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 emulation_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 lease_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 ping_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 renew_time: pulumi.Input[Optional[_builtins.str]] = None,
+                 strategy: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.
+        LeaseCandidateSpec is a specification of a Lease.
 
-        :param pulumi.Input['LeaseCandidateSpecArgs'] spec: spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[_builtins.str] binary_version: BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+        :param pulumi.Input[_builtins.str] emulation_version: EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+        :param pulumi.Input[_builtins.str] lease_name: LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+        :param pulumi.Input[_builtins.str] ping_time: PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+        :param pulumi.Input[_builtins.str] renew_time: RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+        :param pulumi.Input[_builtins.str] strategy: Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
         """
-        pulumi.set(__self__, "spec", spec)
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'coordination.k8s.io/v1alpha2')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'LeaseCandidate')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+        if binary_version is not None:
+            pulumi.set(__self__, "binary_version", binary_version)
+        if emulation_version is not None:
+            pulumi.set(__self__, "emulation_version", emulation_version)
+        if lease_name is not None:
+            pulumi.set(__self__, "lease_name", lease_name)
+        if ping_time is not None:
+            pulumi.set(__self__, "ping_time", ping_time)
+        if renew_time is not None:
+            pulumi.set(__self__, "renew_time", renew_time)
+        if strategy is not None:
+            pulumi.set(__self__, "strategy", strategy)
+
+    @_builtins.property
+    @pulumi.getter(name="binaryVersion")
+    def binary_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+        """
+        return pulumi.get(self, "binary_version")
+
+    @binary_version.setter
+    def binary_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "binary_version", value)
+
+    @_builtins.property
+    @pulumi.getter(name="emulationVersion")
+    def emulation_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+        """
+        return pulumi.get(self, "emulation_version")
+
+    @emulation_version.setter
+    def emulation_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "emulation_version", value)
+
+    @_builtins.property
+    @pulumi.getter(name="leaseName")
+    def lease_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+        """
+        return pulumi.get(self, "lease_name")
+
+    @lease_name.setter
+    def lease_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "lease_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="pingTime")
+    def ping_time(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+        """
+        return pulumi.get(self, "ping_time")
+
+    @ping_time.setter
+    def ping_time(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "ping_time", value)
+
+    @_builtins.property
+    @pulumi.getter(name="renewTime")
+    def renew_time(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+        """
+        return pulumi.get(self, "renew_time")
+
+    @renew_time.setter
+    def renew_time(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "renew_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> pulumi.Input['LeaseCandidateSpecArgs']:
+    def strategy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
         """
-        return pulumi.get(self, "spec")
+        return pulumi.get(self, "strategy")
 
-    @spec.setter
-    def spec(self, value: pulumi.Input['LeaseCandidateSpecArgs']):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_version", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        """
-        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
+    @strategy.setter
+    def strategy(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "strategy", value)
 
 

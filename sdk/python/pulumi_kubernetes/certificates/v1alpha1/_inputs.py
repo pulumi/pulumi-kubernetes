@@ -16,192 +16,13 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
-    'ClusterTrustBundleSpecPatchArgs',
-    'ClusterTrustBundleSpecPatchArgsDict',
-    'ClusterTrustBundleSpecArgs',
-    'ClusterTrustBundleSpecArgsDict',
     'ClusterTrustBundleArgs',
     'ClusterTrustBundleArgsDict',
+    'ClusterTrustBundleSpecArgs',
+    'ClusterTrustBundleSpecArgsDict',
+    'ClusterTrustBundleSpecPatchArgs',
+    'ClusterTrustBundleSpecPatchArgsDict',
 ]
-
-class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
-    """
-    ClusterTrustBundleSpec contains the signer and trust anchors.
-    """
-    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    signerName indicates the associated signer, if any.
-
-    In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
-
-    If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
-
-    If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
-
-    List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
-    """
-    trust_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
-
-    The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
-
-    Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
-    """
-
-@pulumi.input_type
-class ClusterTrustBundleSpecPatchArgs:
-    def __init__(__self__, *,
-                 signer_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 trust_bundle: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        ClusterTrustBundleSpec contains the signer and trust anchors.
-
-        :param pulumi.Input[_builtins.str] signer_name: signerName indicates the associated signer, if any.
-               
-               In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
-               
-               If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
-               
-               If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
-               
-               List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
-        :param pulumi.Input[_builtins.str] trust_bundle: trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
-               
-               The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
-               
-               Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
-        """
-        if signer_name is not None:
-            pulumi.set(__self__, "signer_name", signer_name)
-        if trust_bundle is not None:
-            pulumi.set(__self__, "trust_bundle", trust_bundle)
-
-    @_builtins.property
-    @pulumi.getter(name="signerName")
-    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        signerName indicates the associated signer, if any.
-
-        In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
-
-        If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
-
-        If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
-
-        List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
-        """
-        return pulumi.get(self, "signer_name")
-
-    @signer_name.setter
-    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "signer_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="trustBundle")
-    def trust_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
-
-        The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
-
-        Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
-        """
-        return pulumi.get(self, "trust_bundle")
-
-    @trust_bundle.setter
-    def trust_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "trust_bundle", value)
-
-
-class ClusterTrustBundleSpecArgsDict(TypedDict):
-    """
-    ClusterTrustBundleSpec contains the signer and trust anchors.
-    """
-    trust_bundle: pulumi.Input[_builtins.str]
-    """
-    trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
-
-    The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
-
-    Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
-    """
-    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    signerName indicates the associated signer, if any.
-
-    In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
-
-    If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
-
-    If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
-
-    List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
-    """
-
-@pulumi.input_type
-class ClusterTrustBundleSpecArgs:
-    def __init__(__self__, *,
-                 trust_bundle: pulumi.Input[_builtins.str],
-                 signer_name: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        ClusterTrustBundleSpec contains the signer and trust anchors.
-
-        :param pulumi.Input[_builtins.str] trust_bundle: trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
-               
-               The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
-               
-               Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
-        :param pulumi.Input[_builtins.str] signer_name: signerName indicates the associated signer, if any.
-               
-               In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
-               
-               If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
-               
-               If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
-               
-               List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
-        """
-        pulumi.set(__self__, "trust_bundle", trust_bundle)
-        if signer_name is not None:
-            pulumi.set(__self__, "signer_name", signer_name)
-
-    @_builtins.property
-    @pulumi.getter(name="trustBundle")
-    def trust_bundle(self) -> pulumi.Input[_builtins.str]:
-        """
-        trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
-
-        The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
-
-        Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
-        """
-        return pulumi.get(self, "trust_bundle")
-
-    @trust_bundle.setter
-    def trust_bundle(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "trust_bundle", value)
-
-    @_builtins.property
-    @pulumi.getter(name="signerName")
-    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        signerName indicates the associated signer, if any.
-
-        In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
-
-        If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
-
-        If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
-
-        List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
-        """
-        return pulumi.get(self, "signer_name")
-
-    @signer_name.setter
-    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "signer_name", value)
-
 
 class ClusterTrustBundleArgsDict(TypedDict):
     """
@@ -302,5 +123,184 @@ class ClusterTrustBundleArgs:
     @metadata.setter
     def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
+
+
+class ClusterTrustBundleSpecArgsDict(TypedDict):
+    """
+    ClusterTrustBundleSpec contains the signer and trust anchors.
+    """
+    trust_bundle: pulumi.Input[_builtins.str]
+    """
+    trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+
+    The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+
+    Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+    """
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    signerName indicates the associated signer, if any.
+
+    In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+
+    If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+
+    If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+
+    List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+    """
+
+@pulumi.input_type
+class ClusterTrustBundleSpecArgs:
+    def __init__(__self__, *,
+                 trust_bundle: pulumi.Input[_builtins.str],
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        ClusterTrustBundleSpec contains the signer and trust anchors.
+
+        :param pulumi.Input[_builtins.str] trust_bundle: trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+               
+               The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+               
+               Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+        :param pulumi.Input[_builtins.str] signer_name: signerName indicates the associated signer, if any.
+               
+               In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+               
+               If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+               
+               If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+               
+               List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+        """
+        pulumi.set(__self__, "trust_bundle", trust_bundle)
+        if signer_name is not None:
+            pulumi.set(__self__, "signer_name", signer_name)
+
+    @_builtins.property
+    @pulumi.getter(name="trustBundle")
+    def trust_bundle(self) -> pulumi.Input[_builtins.str]:
+        """
+        trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+
+        The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+
+        Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+        """
+        return pulumi.get(self, "trust_bundle")
+
+    @trust_bundle.setter
+    def trust_bundle(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "trust_bundle", value)
+
+    @_builtins.property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        signerName indicates the associated signer, if any.
+
+        In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+
+        If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+
+        If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+
+        List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+        """
+        return pulumi.get(self, "signer_name")
+
+    @signer_name.setter
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "signer_name", value)
+
+
+class ClusterTrustBundleSpecPatchArgsDict(TypedDict):
+    """
+    ClusterTrustBundleSpec contains the signer and trust anchors.
+    """
+    signer_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    signerName indicates the associated signer, if any.
+
+    In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+
+    If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+
+    If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+
+    List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+    """
+    trust_bundle: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+
+    The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+
+    Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+    """
+
+@pulumi.input_type
+class ClusterTrustBundleSpecPatchArgs:
+    def __init__(__self__, *,
+                 signer_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 trust_bundle: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        ClusterTrustBundleSpec contains the signer and trust anchors.
+
+        :param pulumi.Input[_builtins.str] signer_name: signerName indicates the associated signer, if any.
+               
+               In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+               
+               If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+               
+               If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+               
+               List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+        :param pulumi.Input[_builtins.str] trust_bundle: trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+               
+               The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+               
+               Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+        """
+        if signer_name is not None:
+            pulumi.set(__self__, "signer_name", signer_name)
+        if trust_bundle is not None:
+            pulumi.set(__self__, "trust_bundle", trust_bundle)
+
+    @_builtins.property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        signerName indicates the associated signer, if any.
+
+        In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+
+        If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+
+        If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+
+        List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+        """
+        return pulumi.get(self, "signer_name")
+
+    @signer_name.setter
+    def signer_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "signer_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="trustBundle")
+    def trust_bundle(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+
+        The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+
+        Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+        """
+        return pulumi.get(self, "trust_bundle")
+
+    @trust_bundle.setter
+    def trust_bundle(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "trust_bundle", value)
 
 

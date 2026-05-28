@@ -17,23 +17,174 @@ from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
-    'EndpointConditionsPatchArgs',
-    'EndpointConditionsPatchArgsDict',
-    'EndpointConditionsArgs',
-    'EndpointConditionsArgsDict',
-    'EndpointPatchArgs',
-    'EndpointPatchArgsDict',
-    'EndpointPortPatchArgs',
-    'EndpointPortPatchArgsDict',
-    'EndpointPortArgs',
-    'EndpointPortArgsDict',
-    'EndpointSliceArgs',
-    'EndpointSliceArgsDict',
     'EndpointArgs',
     'EndpointArgsDict',
+    'EndpointConditionsArgs',
+    'EndpointConditionsArgsDict',
+    'EndpointConditionsPatchArgs',
+    'EndpointConditionsPatchArgsDict',
+    'EndpointPatchArgs',
+    'EndpointPatchArgsDict',
+    'EndpointPortArgs',
+    'EndpointPortArgsDict',
+    'EndpointPortPatchArgs',
+    'EndpointPortPatchArgsDict',
+    'EndpointSliceArgs',
+    'EndpointSliceArgsDict',
 ]
 
-class EndpointConditionsPatchArgsDict(TypedDict):
+class EndpointArgsDict(TypedDict):
+    """
+    Endpoint represents a single logical "backend" implementing a service.
+    """
+    addresses: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+    """
+    conditions: NotRequired[pulumi.Input[Optional['EndpointConditionsArgsDict']]]
+    """
+    conditions contains information about the current status of the endpoint.
+    """
+    hostname: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
+    """
+    node_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+    """
+    target_ref: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgsDict']]]
+    """
+    targetRef is a reference to a Kubernetes object that represents this endpoint.
+    """
+    topology: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+      where the endpoint is located. This should match the corresponding
+      node label.
+    * topology.kubernetes.io/zone: the value indicates the zone where the
+      endpoint is located. This should match the corresponding node label.
+    * topology.kubernetes.io/region: the value indicates the region where the
+      endpoint is located. This should match the corresponding node label.
+    """
+
+@pulumi.input_type
+class EndpointArgs:
+    def __init__(__self__, *,
+                 addresses: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
+                 conditions: pulumi.Input[Optional['EndpointConditionsArgs']] = None,
+                 hostname: pulumi.Input[Optional[_builtins.str]] = None,
+                 node_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 target_ref: pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']] = None,
+                 topology: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
+        """
+        Endpoint represents a single logical "backend" implementing a service.
+
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+        :param pulumi.Input['EndpointConditionsArgs'] conditions: conditions contains information about the current status of the endpoint.
+        :param pulumi.Input[_builtins.str] hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
+        :param pulumi.Input[_builtins.str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        :param pulumi.Input['_core.v1.ObjectReferenceArgs'] target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] topology: topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+                 where the endpoint is located. This should match the corresponding
+                 node label.
+               * topology.kubernetes.io/zone: the value indicates the zone where the
+                 endpoint is located. This should match the corresponding node label.
+               * topology.kubernetes.io/region: the value indicates the region where the
+                 endpoint is located. This should match the corresponding node label.
+        """
+        pulumi.set(__self__, "addresses", addresses)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if target_ref is not None:
+            pulumi.set(__self__, "target_ref", target_ref)
+        if topology is not None:
+            pulumi.set(__self__, "topology", topology)
+
+    @_builtins.property
+    @pulumi.getter
+    def addresses(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
+        """
+        addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+        """
+        return pulumi.get(self, "addresses")
+
+    @addresses.setter
+    def addresses(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "addresses", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def conditions(self) -> pulumi.Input[Optional['EndpointConditionsArgs']]:
+        """
+        conditions contains information about the current status of the endpoint.
+        """
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: pulumi.Input[Optional['EndpointConditionsArgs']]):
+        pulumi.set(self, "conditions", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def hostname(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
+        """
+        return pulumi.get(self, "hostname")
+
+    @hostname.setter
+    def hostname(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "hostname", value)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        """
+        return pulumi.get(self, "node_name")
+
+    @node_name.setter
+    def node_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "node_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="targetRef")
+    def target_ref(self) -> pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]:
+        """
+        targetRef is a reference to a Kubernetes object that represents this endpoint.
+        """
+        return pulumi.get(self, "target_ref")
+
+    @target_ref.setter
+    def target_ref(self, value: pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]):
+        pulumi.set(self, "target_ref", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def topology(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+          where the endpoint is located. This should match the corresponding
+          node label.
+        * topology.kubernetes.io/zone: the value indicates the zone where the
+          endpoint is located. This should match the corresponding node label.
+        * topology.kubernetes.io/region: the value indicates the region where the
+          endpoint is located. This should match the corresponding node label.
+        """
+        return pulumi.get(self, "topology")
+
+    @topology.setter
+    def topology(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "topology", value)
+
+
+class EndpointConditionsArgsDict(TypedDict):
     """
     EndpointConditions represents the current condition of an endpoint.
     """
@@ -51,7 +202,7 @@ class EndpointConditionsPatchArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class EndpointConditionsPatchArgs:
+class EndpointConditionsArgs:
     def __init__(__self__, *,
                  ready: pulumi.Input[Optional[_builtins.bool]] = None,
                  serving: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -107,7 +258,7 @@ class EndpointConditionsPatchArgs:
         pulumi.set(self, "terminating", value)
 
 
-class EndpointConditionsArgsDict(TypedDict):
+class EndpointConditionsPatchArgsDict(TypedDict):
     """
     EndpointConditions represents the current condition of an endpoint.
     """
@@ -125,7 +276,7 @@ class EndpointConditionsArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class EndpointConditionsArgs:
+class EndpointConditionsPatchArgs:
     def __init__(__self__, *,
                  ready: pulumi.Input[Optional[_builtins.bool]] = None,
                  serving: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -333,7 +484,7 @@ class EndpointPatchArgs:
         pulumi.set(self, "topology", value)
 
 
-class EndpointPortPatchArgsDict(TypedDict):
+class EndpointPortArgsDict(TypedDict):
     """
     EndpointPort represents a Port used by an EndpointSlice
     """
@@ -355,7 +506,7 @@ class EndpointPortPatchArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class EndpointPortPatchArgs:
+class EndpointPortArgs:
     def __init__(__self__, *,
                  app_protocol: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
@@ -427,7 +578,7 @@ class EndpointPortPatchArgs:
         pulumi.set(self, "protocol", value)
 
 
-class EndpointPortArgsDict(TypedDict):
+class EndpointPortPatchArgsDict(TypedDict):
     """
     EndpointPort represents a Port used by an EndpointSlice
     """
@@ -449,7 +600,7 @@ class EndpointPortArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class EndpointPortArgs:
+class EndpointPortPatchArgs:
     def __init__(__self__, *,
                  app_protocol: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
@@ -651,156 +802,5 @@ class EndpointSliceArgs:
     @ports.setter
     def ports(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['EndpointPortArgs']]]]):
         pulumi.set(self, "ports", value)
-
-
-class EndpointArgsDict(TypedDict):
-    """
-    Endpoint represents a single logical "backend" implementing a service.
-    """
-    addresses: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
-    """
-    addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
-    """
-    conditions: NotRequired[pulumi.Input[Optional['EndpointConditionsArgsDict']]]
-    """
-    conditions contains information about the current status of the endpoint.
-    """
-    hostname: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
-    """
-    node_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
-    """
-    target_ref: NotRequired[pulumi.Input[Optional['_core.v1.ObjectReferenceArgsDict']]]
-    """
-    targetRef is a reference to a Kubernetes object that represents this endpoint.
-    """
-    topology: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
-    """
-    topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
-      where the endpoint is located. This should match the corresponding
-      node label.
-    * topology.kubernetes.io/zone: the value indicates the zone where the
-      endpoint is located. This should match the corresponding node label.
-    * topology.kubernetes.io/region: the value indicates the region where the
-      endpoint is located. This should match the corresponding node label.
-    """
-
-@pulumi.input_type
-class EndpointArgs:
-    def __init__(__self__, *,
-                 addresses: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
-                 conditions: pulumi.Input[Optional['EndpointConditionsArgs']] = None,
-                 hostname: pulumi.Input[Optional[_builtins.str]] = None,
-                 node_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 target_ref: pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']] = None,
-                 topology: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
-        """
-        Endpoint represents a single logical "backend" implementing a service.
-
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
-        :param pulumi.Input['EndpointConditionsArgs'] conditions: conditions contains information about the current status of the endpoint.
-        :param pulumi.Input[_builtins.str] hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
-        :param pulumi.Input[_builtins.str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
-        :param pulumi.Input['_core.v1.ObjectReferenceArgs'] target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] topology: topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
-                 where the endpoint is located. This should match the corresponding
-                 node label.
-               * topology.kubernetes.io/zone: the value indicates the zone where the
-                 endpoint is located. This should match the corresponding node label.
-               * topology.kubernetes.io/region: the value indicates the region where the
-                 endpoint is located. This should match the corresponding node label.
-        """
-        pulumi.set(__self__, "addresses", addresses)
-        if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
-        if hostname is not None:
-            pulumi.set(__self__, "hostname", hostname)
-        if node_name is not None:
-            pulumi.set(__self__, "node_name", node_name)
-        if target_ref is not None:
-            pulumi.set(__self__, "target_ref", target_ref)
-        if topology is not None:
-            pulumi.set(__self__, "topology", topology)
-
-    @_builtins.property
-    @pulumi.getter
-    def addresses(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
-        """
-        addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
-        """
-        return pulumi.get(self, "addresses")
-
-    @addresses.setter
-    def addresses(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
-        pulumi.set(self, "addresses", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def conditions(self) -> pulumi.Input[Optional['EndpointConditionsArgs']]:
-        """
-        conditions contains information about the current status of the endpoint.
-        """
-        return pulumi.get(self, "conditions")
-
-    @conditions.setter
-    def conditions(self, value: pulumi.Input[Optional['EndpointConditionsArgs']]):
-        pulumi.set(self, "conditions", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def hostname(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
-        """
-        return pulumi.get(self, "hostname")
-
-    @hostname.setter
-    def hostname(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "hostname", value)
-
-    @_builtins.property
-    @pulumi.getter(name="nodeName")
-    def node_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
-        """
-        return pulumi.get(self, "node_name")
-
-    @node_name.setter
-    def node_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "node_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="targetRef")
-    def target_ref(self) -> pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]:
-        """
-        targetRef is a reference to a Kubernetes object that represents this endpoint.
-        """
-        return pulumi.get(self, "target_ref")
-
-    @target_ref.setter
-    def target_ref(self, value: pulumi.Input[Optional['_core.v1.ObjectReferenceArgs']]):
-        pulumi.set(self, "target_ref", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def topology(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
-        """
-        topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
-          where the endpoint is located. This should match the corresponding
-          node label.
-        * topology.kubernetes.io/zone: the value indicates the zone where the
-          endpoint is located. This should match the corresponding node label.
-        * topology.kubernetes.io/region: the value indicates the region where the
-          endpoint is located. This should match the corresponding node label.
-        """
-        return pulumi.get(self, "topology")
-
-    @topology.setter
-    def topology(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "topology", value)
 
 

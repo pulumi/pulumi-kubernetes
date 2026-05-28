@@ -19,78 +19,78 @@ from ... import meta as _meta
 __all__ = [
     'ControllerRevisionArgs',
     'ControllerRevisionArgsDict',
-    'DaemonSetConditionArgs',
-    'DaemonSetConditionArgsDict',
-    'DaemonSetSpecPatchArgs',
-    'DaemonSetSpecPatchArgsDict',
-    'DaemonSetSpecArgs',
-    'DaemonSetSpecArgsDict',
-    'DaemonSetStatusArgs',
-    'DaemonSetStatusArgsDict',
-    'DaemonSetUpdateStrategyPatchArgs',
-    'DaemonSetUpdateStrategyPatchArgsDict',
-    'DaemonSetUpdateStrategyArgs',
-    'DaemonSetUpdateStrategyArgsDict',
     'DaemonSetArgs',
     'DaemonSetArgsDict',
-    'DeploymentConditionArgs',
-    'DeploymentConditionArgsDict',
-    'DeploymentSpecPatchArgs',
-    'DeploymentSpecPatchArgsDict',
-    'DeploymentSpecArgs',
-    'DeploymentSpecArgsDict',
-    'DeploymentStatusArgs',
-    'DeploymentStatusArgsDict',
-    'DeploymentStrategyPatchArgs',
-    'DeploymentStrategyPatchArgsDict',
-    'DeploymentStrategyArgs',
-    'DeploymentStrategyArgsDict',
+    'DaemonSetConditionArgs',
+    'DaemonSetConditionArgsDict',
+    'DaemonSetSpecArgs',
+    'DaemonSetSpecArgsDict',
+    'DaemonSetSpecPatchArgs',
+    'DaemonSetSpecPatchArgsDict',
+    'DaemonSetStatusArgs',
+    'DaemonSetStatusArgsDict',
+    'DaemonSetUpdateStrategyArgs',
+    'DaemonSetUpdateStrategyArgsDict',
+    'DaemonSetUpdateStrategyPatchArgs',
+    'DaemonSetUpdateStrategyPatchArgsDict',
     'DeploymentArgs',
     'DeploymentArgsDict',
-    'ReplicaSetConditionArgs',
-    'ReplicaSetConditionArgsDict',
-    'ReplicaSetSpecPatchArgs',
-    'ReplicaSetSpecPatchArgsDict',
-    'ReplicaSetSpecArgs',
-    'ReplicaSetSpecArgsDict',
-    'ReplicaSetStatusArgs',
-    'ReplicaSetStatusArgsDict',
+    'DeploymentConditionArgs',
+    'DeploymentConditionArgsDict',
+    'DeploymentSpecArgs',
+    'DeploymentSpecArgsDict',
+    'DeploymentSpecPatchArgs',
+    'DeploymentSpecPatchArgsDict',
+    'DeploymentStatusArgs',
+    'DeploymentStatusArgsDict',
+    'DeploymentStrategyArgs',
+    'DeploymentStrategyArgsDict',
+    'DeploymentStrategyPatchArgs',
+    'DeploymentStrategyPatchArgsDict',
     'ReplicaSetArgs',
     'ReplicaSetArgsDict',
-    'RollingUpdateDaemonSetPatchArgs',
-    'RollingUpdateDaemonSetPatchArgsDict',
+    'ReplicaSetConditionArgs',
+    'ReplicaSetConditionArgsDict',
+    'ReplicaSetSpecArgs',
+    'ReplicaSetSpecArgsDict',
+    'ReplicaSetSpecPatchArgs',
+    'ReplicaSetSpecPatchArgsDict',
+    'ReplicaSetStatusArgs',
+    'ReplicaSetStatusArgsDict',
     'RollingUpdateDaemonSetArgs',
     'RollingUpdateDaemonSetArgsDict',
-    'RollingUpdateDeploymentPatchArgs',
-    'RollingUpdateDeploymentPatchArgsDict',
+    'RollingUpdateDaemonSetPatchArgs',
+    'RollingUpdateDaemonSetPatchArgsDict',
     'RollingUpdateDeploymentArgs',
     'RollingUpdateDeploymentArgsDict',
-    'RollingUpdateStatefulSetStrategyPatchArgs',
-    'RollingUpdateStatefulSetStrategyPatchArgsDict',
+    'RollingUpdateDeploymentPatchArgs',
+    'RollingUpdateDeploymentPatchArgsDict',
     'RollingUpdateStatefulSetStrategyArgs',
     'RollingUpdateStatefulSetStrategyArgsDict',
-    'StatefulSetConditionArgs',
-    'StatefulSetConditionArgsDict',
-    'StatefulSetOrdinalsPatchArgs',
-    'StatefulSetOrdinalsPatchArgsDict',
-    'StatefulSetOrdinalsArgs',
-    'StatefulSetOrdinalsArgsDict',
-    'StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs',
-    'StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgsDict',
-    'StatefulSetPersistentVolumeClaimRetentionPolicyArgs',
-    'StatefulSetPersistentVolumeClaimRetentionPolicyArgsDict',
-    'StatefulSetSpecPatchArgs',
-    'StatefulSetSpecPatchArgsDict',
-    'StatefulSetSpecArgs',
-    'StatefulSetSpecArgsDict',
-    'StatefulSetStatusArgs',
-    'StatefulSetStatusArgsDict',
-    'StatefulSetUpdateStrategyPatchArgs',
-    'StatefulSetUpdateStrategyPatchArgsDict',
-    'StatefulSetUpdateStrategyArgs',
-    'StatefulSetUpdateStrategyArgsDict',
+    'RollingUpdateStatefulSetStrategyPatchArgs',
+    'RollingUpdateStatefulSetStrategyPatchArgsDict',
     'StatefulSetArgs',
     'StatefulSetArgsDict',
+    'StatefulSetConditionArgs',
+    'StatefulSetConditionArgsDict',
+    'StatefulSetOrdinalsArgs',
+    'StatefulSetOrdinalsArgsDict',
+    'StatefulSetOrdinalsPatchArgs',
+    'StatefulSetOrdinalsPatchArgsDict',
+    'StatefulSetPersistentVolumeClaimRetentionPolicyArgs',
+    'StatefulSetPersistentVolumeClaimRetentionPolicyArgsDict',
+    'StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs',
+    'StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgsDict',
+    'StatefulSetSpecArgs',
+    'StatefulSetSpecArgsDict',
+    'StatefulSetSpecPatchArgs',
+    'StatefulSetSpecPatchArgsDict',
+    'StatefulSetStatusArgs',
+    'StatefulSetStatusArgsDict',
+    'StatefulSetUpdateStrategyArgs',
+    'StatefulSetUpdateStrategyArgsDict',
+    'StatefulSetUpdateStrategyPatchArgs',
+    'StatefulSetUpdateStrategyPatchArgsDict',
 ]
 
 class ControllerRevisionArgsDict(TypedDict):
@@ -206,6 +206,120 @@ class ControllerRevisionArgs:
         pulumi.set(self, "metadata", value)
 
 
+class DaemonSetArgsDict(TypedDict):
+    """
+    DaemonSet represents the configuration of a daemon set.
+    """
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    """
+    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input[Optional['DaemonSetSpecArgsDict']]]
+    """
+    The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
+    status: NotRequired[pulumi.Input[Optional['DaemonSetStatusArgsDict']]]
+    """
+    The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
+
+@pulumi.input_type
+class DaemonSetArgs:
+    def __init__(__self__, *,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['DaemonSetSpecArgs']] = None,
+                 status: pulumi.Input[Optional['DaemonSetStatusArgs']] = None):
+        """
+        DaemonSet represents the configuration of a daemon set.
+
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['DaemonSetSpecArgs'] spec: The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['DaemonSetStatusArgs'] status: The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'apps/v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'DaemonSet')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input[Optional['DaemonSetSpecArgs']]:
+        """
+        The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input[Optional['DaemonSetSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> pulumi.Input[Optional['DaemonSetStatusArgs']]:
+        """
+        The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: pulumi.Input[Optional['DaemonSetStatusArgs']]):
+        pulumi.set(self, "status", value)
+
+
 class DaemonSetConditionArgsDict(TypedDict):
     """
     DaemonSetCondition describes the state of a DaemonSet at a certain point.
@@ -316,6 +430,118 @@ class DaemonSetConditionArgs:
     @reason.setter
     def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
+
+
+class DaemonSetSpecArgsDict(TypedDict):
+    """
+    DaemonSetSpec is the specification of a daemon set.
+    """
+    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
+    """
+    A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+    """
+    template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
+    """
+    An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+    """
+    revision_history_limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+    """
+    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyArgsDict']]]
+    """
+    An update strategy to replace existing DaemonSet pods with new pods.
+    """
+
+@pulumi.input_type
+class DaemonSetSpecArgs:
+    def __init__(__self__, *,
+                 selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
+                 template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
+                 min_ready_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 revision_history_limit: pulumi.Input[Optional[_builtins.int]] = None,
+                 update_strategy: pulumi.Input[Optional['DaemonSetUpdateStrategyArgs']] = None):
+        """
+        DaemonSetSpec is the specification of a daemon set.
+
+        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        :param pulumi.Input[_builtins.int] min_ready_seconds: The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+        :param pulumi.Input[_builtins.int] revision_history_limit: The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+        :param pulumi.Input['DaemonSetUpdateStrategyArgs'] update_strategy: An update strategy to replace existing DaemonSet pods with new pods.
+        """
+        pulumi.set(__self__, "selector", selector)
+        pulumi.set(__self__, "template", template)
+        if min_ready_seconds is not None:
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
+        if revision_history_limit is not None:
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
+        if update_strategy is not None:
+            pulumi.set(__self__, "update_strategy", update_strategy)
+
+    @_builtins.property
+    @pulumi.getter
+    def selector(self) -> pulumi.Input['_meta.v1.LabelSelectorArgs']:
+        """
+        A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        """
+        return pulumi.get(self, "selector")
+
+    @selector.setter
+    def selector(self, value: pulumi.Input['_meta.v1.LabelSelectorArgs']):
+        pulumi.set(self, "selector", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def template(self) -> pulumi.Input['_core.v1.PodTemplateSpecArgs']:
+        """
+        An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        """
+        return pulumi.get(self, "template")
+
+    @template.setter
+    def template(self, value: pulumi.Input['_core.v1.PodTemplateSpecArgs']):
+        pulumi.set(self, "template", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minReadySeconds")
+    def min_ready_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+        """
+        return pulumi.get(self, "min_ready_seconds")
+
+    @min_ready_seconds.setter
+    def min_ready_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "min_ready_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="revisionHistoryLimit")
+    def revision_history_limit(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+        """
+        return pulumi.get(self, "revision_history_limit")
+
+    @revision_history_limit.setter
+    def revision_history_limit(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "revision_history_limit", value)
+
+    @_builtins.property
+    @pulumi.getter(name="updateStrategy")
+    def update_strategy(self) -> pulumi.Input[Optional['DaemonSetUpdateStrategyArgs']]:
+        """
+        An update strategy to replace existing DaemonSet pods with new pods.
+        """
+        return pulumi.get(self, "update_strategy")
+
+    @update_strategy.setter
+    def update_strategy(self, value: pulumi.Input[Optional['DaemonSetUpdateStrategyArgs']]):
+        pulumi.set(self, "update_strategy", value)
 
 
 class DaemonSetSpecPatchArgsDict(TypedDict):
@@ -429,118 +655,6 @@ class DaemonSetSpecPatchArgs:
 
     @update_strategy.setter
     def update_strategy(self, value: pulumi.Input[Optional['DaemonSetUpdateStrategyPatchArgs']]):
-        pulumi.set(self, "update_strategy", value)
-
-
-class DaemonSetSpecArgsDict(TypedDict):
-    """
-    DaemonSetSpec is the specification of a daemon set.
-    """
-    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
-    """
-    A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-    """
-    template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
-    """
-    An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-    """
-    min_ready_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
-    """
-    revision_history_limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-    """
-    update_strategy: NotRequired[pulumi.Input[Optional['DaemonSetUpdateStrategyArgsDict']]]
-    """
-    An update strategy to replace existing DaemonSet pods with new pods.
-    """
-
-@pulumi.input_type
-class DaemonSetSpecArgs:
-    def __init__(__self__, *,
-                 selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
-                 template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
-                 min_ready_seconds: pulumi.Input[Optional[_builtins.int]] = None,
-                 revision_history_limit: pulumi.Input[Optional[_builtins.int]] = None,
-                 update_strategy: pulumi.Input[Optional['DaemonSetUpdateStrategyArgs']] = None):
-        """
-        DaemonSetSpec is the specification of a daemon set.
-
-        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-        :param pulumi.Input[_builtins.int] min_ready_seconds: The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
-        :param pulumi.Input[_builtins.int] revision_history_limit: The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-        :param pulumi.Input['DaemonSetUpdateStrategyArgs'] update_strategy: An update strategy to replace existing DaemonSet pods with new pods.
-        """
-        pulumi.set(__self__, "selector", selector)
-        pulumi.set(__self__, "template", template)
-        if min_ready_seconds is not None:
-            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
-        if revision_history_limit is not None:
-            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
-        if update_strategy is not None:
-            pulumi.set(__self__, "update_strategy", update_strategy)
-
-    @_builtins.property
-    @pulumi.getter
-    def selector(self) -> pulumi.Input['_meta.v1.LabelSelectorArgs']:
-        """
-        A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        """
-        return pulumi.get(self, "selector")
-
-    @selector.setter
-    def selector(self, value: pulumi.Input['_meta.v1.LabelSelectorArgs']):
-        pulumi.set(self, "selector", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def template(self) -> pulumi.Input['_core.v1.PodTemplateSpecArgs']:
-        """
-        An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
-        """
-        return pulumi.get(self, "template")
-
-    @template.setter
-    def template(self, value: pulumi.Input['_core.v1.PodTemplateSpecArgs']):
-        pulumi.set(self, "template", value)
-
-    @_builtins.property
-    @pulumi.getter(name="minReadySeconds")
-    def min_ready_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
-        """
-        return pulumi.get(self, "min_ready_seconds")
-
-    @min_ready_seconds.setter
-    def min_ready_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "min_ready_seconds", value)
-
-    @_builtins.property
-    @pulumi.getter(name="revisionHistoryLimit")
-    def revision_history_limit(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-        """
-        return pulumi.get(self, "revision_history_limit")
-
-    @revision_history_limit.setter
-    def revision_history_limit(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "revision_history_limit", value)
-
-    @_builtins.property
-    @pulumi.getter(name="updateStrategy")
-    def update_strategy(self) -> pulumi.Input[Optional['DaemonSetUpdateStrategyArgs']]:
-        """
-        An update strategy to replace existing DaemonSet pods with new pods.
-        """
-        return pulumi.get(self, "update_strategy")
-
-    @update_strategy.setter
-    def update_strategy(self, value: pulumi.Input[Optional['DaemonSetUpdateStrategyArgs']]):
         pulumi.set(self, "update_strategy", value)
 
 
@@ -754,60 +868,6 @@ class DaemonSetStatusArgs:
         pulumi.set(self, "updated_number_scheduled", value)
 
 
-class DaemonSetUpdateStrategyPatchArgsDict(TypedDict):
-    """
-    DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
-    """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgsDict']]]
-    """
-    Rolling update config params. Present only if type = "RollingUpdate".
-    """
-    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
-    """
-
-@pulumi.input_type
-class DaemonSetUpdateStrategyPatchArgs:
-    def __init__(__self__, *,
-                 rolling_update: pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgs']] = None,
-                 type: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
-
-        :param pulumi.Input['RollingUpdateDaemonSetPatchArgs'] rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
-        :param pulumi.Input[_builtins.str] type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
-        """
-        if rolling_update is not None:
-            pulumi.set(__self__, "rolling_update", rolling_update)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @_builtins.property
-    @pulumi.getter(name="rollingUpdate")
-    def rolling_update(self) -> pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgs']]:
-        """
-        Rolling update config params. Present only if type = "RollingUpdate".
-        """
-        return pulumi.get(self, "rolling_update")
-
-    @rolling_update.setter
-    def rolling_update(self, value: pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgs']]):
-        pulumi.set(self, "rolling_update", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
-        """
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "type", value)
-
-
 class DaemonSetUpdateStrategyArgsDict(TypedDict):
     """
     DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
@@ -862,9 +922,85 @@ class DaemonSetUpdateStrategyArgs:
         pulumi.set(self, "type", value)
 
 
-class DaemonSetArgsDict(TypedDict):
+class DaemonSetUpdateStrategyPatchArgsDict(TypedDict):
     """
-    DaemonSet represents the configuration of a daemon set.
+    DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+    """
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgsDict']]]
+    """
+    Rolling update config params. Present only if type = "RollingUpdate".
+    """
+    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+    """
+
+@pulumi.input_type
+class DaemonSetUpdateStrategyPatchArgs:
+    def __init__(__self__, *,
+                 rolling_update: pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgs']] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+
+        :param pulumi.Input['RollingUpdateDaemonSetPatchArgs'] rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
+        :param pulumi.Input[_builtins.str] type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+        """
+        if rolling_update is not None:
+            pulumi.set(__self__, "rolling_update", rolling_update)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter(name="rollingUpdate")
+    def rolling_update(self) -> pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgs']]:
+        """
+        Rolling update config params. Present only if type = "RollingUpdate".
+        """
+        return pulumi.get(self, "rolling_update")
+
+    @rolling_update.setter
+    def rolling_update(self, value: pulumi.Input[Optional['RollingUpdateDaemonSetPatchArgs']]):
+        pulumi.set(self, "rolling_update", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "type", value)
+
+
+class DeploymentArgsDict(TypedDict):
+    """
+    Deployment enables declarative updates for Pods and ReplicaSets.
+
+    This resource waits until its status is ready before registering success
+    for create/update, and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
+
+    1. The Deployment has begun to be updated by the Deployment controller. If the current
+       generation of the Deployment is > 1, then this means that the current generation must
+       be different from the generation reported by the last outputs.
+    2. There exists a ReplicaSet whose revision is equal to the current revision of the
+       Deployment.
+    3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+       member is set to 'True'.
+    4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+       'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+       'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+       because it doesn't do a rollout (i.e., it simply creates the Deployment and
+       corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+
+    If the Deployment has not reached a Ready state after 10 minutes, it will
+    time out and mark the resource update as Failed. You can override the default timeout value
+    by setting the 'customTimeouts' option on the resource.
     """
     api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -878,36 +1014,58 @@ class DaemonSetArgsDict(TypedDict):
     """
     Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['DaemonSetSpecArgsDict']]]
+    spec: NotRequired[pulumi.Input[Optional['DeploymentSpecArgsDict']]]
     """
-    The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    Specification of the desired behavior of the Deployment.
     """
-    status: NotRequired[pulumi.Input[Optional['DaemonSetStatusArgsDict']]]
+    status: NotRequired[pulumi.Input[Optional['DeploymentStatusArgsDict']]]
     """
-    The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    Most recently observed status of the Deployment.
     """
 
 @pulumi.input_type
-class DaemonSetArgs:
+class DeploymentArgs:
     def __init__(__self__, *,
                  api_version: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[_builtins.str]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: pulumi.Input[Optional['DaemonSetSpecArgs']] = None,
-                 status: pulumi.Input[Optional['DaemonSetStatusArgs']] = None):
+                 spec: pulumi.Input[Optional['DeploymentSpecArgs']] = None,
+                 status: pulumi.Input[Optional['DeploymentStatusArgs']] = None):
         """
-        DaemonSet represents the configuration of a daemon set.
+        Deployment enables declarative updates for Pods and ReplicaSets.
+
+        This resource waits until its status is ready before registering success
+        for create/update, and populating output properties from the current state of the resource.
+        The following conditions are used to determine whether the resource creation has
+        succeeded or failed:
+
+        1. The Deployment has begun to be updated by the Deployment controller. If the current
+           generation of the Deployment is > 1, then this means that the current generation must
+           be different from the generation reported by the last outputs.
+        2. There exists a ReplicaSet whose revision is equal to the current revision of the
+           Deployment.
+        3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+           member is set to 'True'.
+        4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+           'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+           'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+           because it doesn't do a rollout (i.e., it simply creates the Deployment and
+           corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+
+        If the Deployment has not reached a Ready state after 10 minutes, it will
+        time out and mark the resource update as Failed. You can override the default timeout value
+        by setting the 'customTimeouts' option on the resource.
 
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['DaemonSetSpecArgs'] spec: The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['DaemonSetStatusArgs'] status: The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['DeploymentSpecArgs'] spec: Specification of the desired behavior of the Deployment.
+        :param pulumi.Input['DeploymentStatusArgs'] status: Most recently observed status of the Deployment.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'apps/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'DaemonSet')
+            pulumi.set(__self__, "kind", 'Deployment')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
@@ -953,26 +1111,26 @@ class DaemonSetArgs:
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['DaemonSetSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['DeploymentSpecArgs']]:
         """
-        The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Specification of the desired behavior of the Deployment.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: pulumi.Input[Optional['DaemonSetSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['DeploymentSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> pulumi.Input[Optional['DaemonSetStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['DeploymentStatusArgs']]:
         """
-        The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Most recently observed status of the Deployment.
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: pulumi.Input[Optional['DaemonSetStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['DeploymentStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
@@ -1106,6 +1264,178 @@ class DeploymentConditionArgs:
     @reason.setter
     def reason(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "reason", value)
+
+
+class DeploymentSpecArgsDict(TypedDict):
+    """
+    DeploymentSpec is the specification of the desired behavior of the Deployment.
+    """
+    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
+    """
+    Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
+    """
+    template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
+    """
+    Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+    """
+    paused: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Indicates that the deployment is paused.
+    """
+    progress_deadline_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+    """
+    replicas: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+    """
+    revision_history_limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+    """
+    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyArgsDict']]]
+    """
+    The deployment strategy to use to replace existing pods with new ones.
+    """
+
+@pulumi.input_type
+class DeploymentSpecArgs:
+    def __init__(__self__, *,
+                 selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
+                 template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
+                 min_ready_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 paused: pulumi.Input[Optional[_builtins.bool]] = None,
+                 progress_deadline_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 replicas: pulumi.Input[Optional[_builtins.int]] = None,
+                 revision_history_limit: pulumi.Input[Optional[_builtins.int]] = None,
+                 strategy: pulumi.Input[Optional['DeploymentStrategyArgs']] = None):
+        """
+        DeploymentSpec is the specification of the desired behavior of the Deployment.
+
+        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
+        :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
+        :param pulumi.Input[_builtins.int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        :param pulumi.Input[_builtins.bool] paused: Indicates that the deployment is paused.
+        :param pulumi.Input[_builtins.int] progress_deadline_seconds: The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+        :param pulumi.Input[_builtins.int] replicas: Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+        :param pulumi.Input[_builtins.int] revision_history_limit: The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+        :param pulumi.Input['DeploymentStrategyArgs'] strategy: The deployment strategy to use to replace existing pods with new ones.
+        """
+        pulumi.set(__self__, "selector", selector)
+        pulumi.set(__self__, "template", template)
+        if min_ready_seconds is not None:
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
+        if paused is not None:
+            pulumi.set(__self__, "paused", paused)
+        if progress_deadline_seconds is not None:
+            pulumi.set(__self__, "progress_deadline_seconds", progress_deadline_seconds)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if revision_history_limit is not None:
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
+        if strategy is not None:
+            pulumi.set(__self__, "strategy", strategy)
+
+    @_builtins.property
+    @pulumi.getter
+    def selector(self) -> pulumi.Input['_meta.v1.LabelSelectorArgs']:
+        """
+        Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
+        """
+        return pulumi.get(self, "selector")
+
+    @selector.setter
+    def selector(self, value: pulumi.Input['_meta.v1.LabelSelectorArgs']):
+        pulumi.set(self, "selector", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def template(self) -> pulumi.Input['_core.v1.PodTemplateSpecArgs']:
+        """
+        Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
+        """
+        return pulumi.get(self, "template")
+
+    @template.setter
+    def template(self, value: pulumi.Input['_core.v1.PodTemplateSpecArgs']):
+        pulumi.set(self, "template", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minReadySeconds")
+    def min_ready_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        """
+        return pulumi.get(self, "min_ready_seconds")
+
+    @min_ready_seconds.setter
+    def min_ready_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "min_ready_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def paused(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Indicates that the deployment is paused.
+        """
+        return pulumi.get(self, "paused")
+
+    @paused.setter
+    def paused(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "paused", value)
+
+    @_builtins.property
+    @pulumi.getter(name="progressDeadlineSeconds")
+    def progress_deadline_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+        """
+        return pulumi.get(self, "progress_deadline_seconds")
+
+    @progress_deadline_seconds.setter
+    def progress_deadline_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "progress_deadline_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def replicas(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+        """
+        return pulumi.get(self, "replicas")
+
+    @replicas.setter
+    def replicas(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "replicas", value)
+
+    @_builtins.property
+    @pulumi.getter(name="revisionHistoryLimit")
+    def revision_history_limit(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+        """
+        return pulumi.get(self, "revision_history_limit")
+
+    @revision_history_limit.setter
+    def revision_history_limit(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "revision_history_limit", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def strategy(self) -> pulumi.Input[Optional['DeploymentStrategyArgs']]:
+        """
+        The deployment strategy to use to replace existing pods with new ones.
+        """
+        return pulumi.get(self, "strategy")
+
+    @strategy.setter
+    def strategy(self, value: pulumi.Input[Optional['DeploymentStrategyArgs']]):
+        pulumi.set(self, "strategy", value)
 
 
 class DeploymentSpecPatchArgsDict(TypedDict):
@@ -1280,178 +1610,6 @@ class DeploymentSpecPatchArgs:
     @template.setter
     def template(self, value: pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]):
         pulumi.set(self, "template", value)
-
-
-class DeploymentSpecArgsDict(TypedDict):
-    """
-    DeploymentSpec is the specification of the desired behavior of the Deployment.
-    """
-    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
-    """
-    Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
-    """
-    template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
-    """
-    Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
-    """
-    min_ready_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-    """
-    paused: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    Indicates that the deployment is paused.
-    """
-    progress_deadline_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
-    """
-    replicas: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
-    """
-    revision_history_limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-    """
-    strategy: NotRequired[pulumi.Input[Optional['DeploymentStrategyArgsDict']]]
-    """
-    The deployment strategy to use to replace existing pods with new ones.
-    """
-
-@pulumi.input_type
-class DeploymentSpecArgs:
-    def __init__(__self__, *,
-                 selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
-                 template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
-                 min_ready_seconds: pulumi.Input[Optional[_builtins.int]] = None,
-                 paused: pulumi.Input[Optional[_builtins.bool]] = None,
-                 progress_deadline_seconds: pulumi.Input[Optional[_builtins.int]] = None,
-                 replicas: pulumi.Input[Optional[_builtins.int]] = None,
-                 revision_history_limit: pulumi.Input[Optional[_builtins.int]] = None,
-                 strategy: pulumi.Input[Optional['DeploymentStrategyArgs']] = None):
-        """
-        DeploymentSpec is the specification of the desired behavior of the Deployment.
-
-        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
-        :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
-        :param pulumi.Input[_builtins.int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        :param pulumi.Input[_builtins.bool] paused: Indicates that the deployment is paused.
-        :param pulumi.Input[_builtins.int] progress_deadline_seconds: The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
-        :param pulumi.Input[_builtins.int] replicas: Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
-        :param pulumi.Input[_builtins.int] revision_history_limit: The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-        :param pulumi.Input['DeploymentStrategyArgs'] strategy: The deployment strategy to use to replace existing pods with new ones.
-        """
-        pulumi.set(__self__, "selector", selector)
-        pulumi.set(__self__, "template", template)
-        if min_ready_seconds is not None:
-            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
-        if paused is not None:
-            pulumi.set(__self__, "paused", paused)
-        if progress_deadline_seconds is not None:
-            pulumi.set(__self__, "progress_deadline_seconds", progress_deadline_seconds)
-        if replicas is not None:
-            pulumi.set(__self__, "replicas", replicas)
-        if revision_history_limit is not None:
-            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
-        if strategy is not None:
-            pulumi.set(__self__, "strategy", strategy)
-
-    @_builtins.property
-    @pulumi.getter
-    def selector(self) -> pulumi.Input['_meta.v1.LabelSelectorArgs']:
-        """
-        Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
-        """
-        return pulumi.get(self, "selector")
-
-    @selector.setter
-    def selector(self, value: pulumi.Input['_meta.v1.LabelSelectorArgs']):
-        pulumi.set(self, "selector", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def template(self) -> pulumi.Input['_core.v1.PodTemplateSpecArgs']:
-        """
-        Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
-        """
-        return pulumi.get(self, "template")
-
-    @template.setter
-    def template(self, value: pulumi.Input['_core.v1.PodTemplateSpecArgs']):
-        pulumi.set(self, "template", value)
-
-    @_builtins.property
-    @pulumi.getter(name="minReadySeconds")
-    def min_ready_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        """
-        return pulumi.get(self, "min_ready_seconds")
-
-    @min_ready_seconds.setter
-    def min_ready_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "min_ready_seconds", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def paused(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        Indicates that the deployment is paused.
-        """
-        return pulumi.get(self, "paused")
-
-    @paused.setter
-    def paused(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "paused", value)
-
-    @_builtins.property
-    @pulumi.getter(name="progressDeadlineSeconds")
-    def progress_deadline_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
-        """
-        return pulumi.get(self, "progress_deadline_seconds")
-
-    @progress_deadline_seconds.setter
-    def progress_deadline_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "progress_deadline_seconds", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def replicas(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
-        """
-        return pulumi.get(self, "replicas")
-
-    @replicas.setter
-    def replicas(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "replicas", value)
-
-    @_builtins.property
-    @pulumi.getter(name="revisionHistoryLimit")
-    def revision_history_limit(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
-        """
-        return pulumi.get(self, "revision_history_limit")
-
-    @revision_history_limit.setter
-    def revision_history_limit(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "revision_history_limit", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def strategy(self) -> pulumi.Input[Optional['DeploymentStrategyArgs']]:
-        """
-        The deployment strategy to use to replace existing pods with new ones.
-        """
-        return pulumi.get(self, "strategy")
-
-    @strategy.setter
-    def strategy(self, value: pulumi.Input[Optional['DeploymentStrategyArgs']]):
-        pulumi.set(self, "strategy", value)
 
 
 class DeploymentStatusArgsDict(TypedDict):
@@ -1654,60 +1812,6 @@ class DeploymentStatusArgs:
         pulumi.set(self, "updated_replicas", value)
 
 
-class DeploymentStrategyPatchArgsDict(TypedDict):
-    """
-    DeploymentStrategy describes how to replace existing pods with new ones.
-    """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentPatchArgsDict']]]
-    """
-    Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
-    """
-    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
-    """
-
-@pulumi.input_type
-class DeploymentStrategyPatchArgs:
-    def __init__(__self__, *,
-                 rolling_update: pulumi.Input[Optional['RollingUpdateDeploymentPatchArgs']] = None,
-                 type: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        DeploymentStrategy describes how to replace existing pods with new ones.
-
-        :param pulumi.Input['RollingUpdateDeploymentPatchArgs'] rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
-        :param pulumi.Input[_builtins.str] type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
-        """
-        if rolling_update is not None:
-            pulumi.set(__self__, "rolling_update", rolling_update)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @_builtins.property
-    @pulumi.getter(name="rollingUpdate")
-    def rolling_update(self) -> pulumi.Input[Optional['RollingUpdateDeploymentPatchArgs']]:
-        """
-        Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
-        """
-        return pulumi.get(self, "rolling_update")
-
-    @rolling_update.setter
-    def rolling_update(self, value: pulumi.Input[Optional['RollingUpdateDeploymentPatchArgs']]):
-        pulumi.set(self, "rolling_update", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
-        """
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "type", value)
-
-
 class DeploymentStrategyArgsDict(TypedDict):
     """
     DeploymentStrategy describes how to replace existing pods with new ones.
@@ -1762,31 +1866,63 @@ class DeploymentStrategyArgs:
         pulumi.set(self, "type", value)
 
 
-class DeploymentArgsDict(TypedDict):
+class DeploymentStrategyPatchArgsDict(TypedDict):
     """
-    Deployment enables declarative updates for Pods and ReplicaSets.
+    DeploymentStrategy describes how to replace existing pods with new ones.
+    """
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateDeploymentPatchArgsDict']]]
+    """
+    Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+    """
+    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+    """
 
-    This resource waits until its status is ready before registering success
-    for create/update, and populating output properties from the current state of the resource.
-    The following conditions are used to determine whether the resource creation has
-    succeeded or failed:
+@pulumi.input_type
+class DeploymentStrategyPatchArgs:
+    def __init__(__self__, *,
+                 rolling_update: pulumi.Input[Optional['RollingUpdateDeploymentPatchArgs']] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        DeploymentStrategy describes how to replace existing pods with new ones.
 
-    1. The Deployment has begun to be updated by the Deployment controller. If the current
-       generation of the Deployment is > 1, then this means that the current generation must
-       be different from the generation reported by the last outputs.
-    2. There exists a ReplicaSet whose revision is equal to the current revision of the
-       Deployment.
-    3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
-       member is set to 'True'.
-    4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
-       'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
-       'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
-       because it doesn't do a rollout (i.e., it simply creates the Deployment and
-       corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+        :param pulumi.Input['RollingUpdateDeploymentPatchArgs'] rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+        :param pulumi.Input[_builtins.str] type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+        """
+        if rolling_update is not None:
+            pulumi.set(__self__, "rolling_update", rolling_update)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
 
-    If the Deployment has not reached a Ready state after 10 minutes, it will
-    time out and mark the resource update as Failed. You can override the default timeout value
-    by setting the 'customTimeouts' option on the resource.
+    @_builtins.property
+    @pulumi.getter(name="rollingUpdate")
+    def rolling_update(self) -> pulumi.Input[Optional['RollingUpdateDeploymentPatchArgs']]:
+        """
+        Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+        """
+        return pulumi.get(self, "rolling_update")
+
+    @rolling_update.setter
+    def rolling_update(self, value: pulumi.Input[Optional['RollingUpdateDeploymentPatchArgs']]):
+        pulumi.set(self, "rolling_update", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "type", value)
+
+
+class ReplicaSetArgsDict(TypedDict):
+    """
+    ReplicaSet ensures that a specified number of pod replicas are running at any given time.
     """
     api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -1798,60 +1934,38 @@ class DeploymentArgsDict(TypedDict):
     """
     metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
-    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['DeploymentSpecArgsDict']]]
+    spec: NotRequired[pulumi.Input[Optional['ReplicaSetSpecArgsDict']]]
     """
-    Specification of the desired behavior of the Deployment.
+    Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
-    status: NotRequired[pulumi.Input[Optional['DeploymentStatusArgsDict']]]
+    status: NotRequired[pulumi.Input[Optional['ReplicaSetStatusArgsDict']]]
     """
-    Most recently observed status of the Deployment.
+    Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
     """
 
 @pulumi.input_type
-class DeploymentArgs:
+class ReplicaSetArgs:
     def __init__(__self__, *,
                  api_version: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[_builtins.str]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: pulumi.Input[Optional['DeploymentSpecArgs']] = None,
-                 status: pulumi.Input[Optional['DeploymentStatusArgs']] = None):
+                 spec: pulumi.Input[Optional['ReplicaSetSpecArgs']] = None,
+                 status: pulumi.Input[Optional['ReplicaSetStatusArgs']] = None):
         """
-        Deployment enables declarative updates for Pods and ReplicaSets.
-
-        This resource waits until its status is ready before registering success
-        for create/update, and populating output properties from the current state of the resource.
-        The following conditions are used to determine whether the resource creation has
-        succeeded or failed:
-
-        1. The Deployment has begun to be updated by the Deployment controller. If the current
-           generation of the Deployment is > 1, then this means that the current generation must
-           be different from the generation reported by the last outputs.
-        2. There exists a ReplicaSet whose revision is equal to the current revision of the
-           Deployment.
-        3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
-           member is set to 'True'.
-        4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
-           'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
-           'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
-           because it doesn't do a rollout (i.e., it simply creates the Deployment and
-           corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
-
-        If the Deployment has not reached a Ready state after 10 minutes, it will
-        time out and mark the resource update as Failed. You can override the default timeout value
-        by setting the 'customTimeouts' option on the resource.
+        ReplicaSet ensures that a specified number of pod replicas are running at any given time.
 
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['DeploymentSpecArgs'] spec: Specification of the desired behavior of the Deployment.
-        :param pulumi.Input['DeploymentStatusArgs'] status: Most recently observed status of the Deployment.
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['ReplicaSetSpecArgs'] spec: Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['ReplicaSetStatusArgs'] status: Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'apps/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Deployment')
+            pulumi.set(__self__, "kind", 'ReplicaSet')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
@@ -1887,7 +2001,7 @@ class DeploymentArgs:
     @pulumi.getter
     def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
@@ -1897,26 +2011,26 @@ class DeploymentArgs:
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['DeploymentSpecArgs']]:
+    def spec(self) -> pulumi.Input[Optional['ReplicaSetSpecArgs']]:
         """
-        Specification of the desired behavior of the Deployment.
+        Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: pulumi.Input[Optional['DeploymentSpecArgs']]):
+    def spec(self, value: pulumi.Input[Optional['ReplicaSetSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter
-    def status(self) -> pulumi.Input[Optional['DeploymentStatusArgs']]:
+    def status(self) -> pulumi.Input[Optional['ReplicaSetStatusArgs']]:
         """
-        Most recently observed status of the Deployment.
+        Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: pulumi.Input[Optional['DeploymentStatusArgs']]):
+    def status(self, value: pulumi.Input[Optional['ReplicaSetStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
@@ -2032,6 +2146,99 @@ class ReplicaSetConditionArgs:
         pulumi.set(self, "reason", value)
 
 
+class ReplicaSetSpecArgsDict(TypedDict):
+    """
+    ReplicaSetSpec is the specification of a ReplicaSet.
+    """
+    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
+    """
+    Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+    """
+    replicas: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
+    """
+    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecArgsDict']]]
+    """
+    Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
+    """
+
+@pulumi.input_type
+class ReplicaSetSpecArgs:
+    def __init__(__self__, *,
+                 selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
+                 min_ready_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 replicas: pulumi.Input[Optional[_builtins.int]] = None,
+                 template: pulumi.Input[Optional['_core.v1.PodTemplateSpecArgs']] = None):
+        """
+        ReplicaSetSpec is the specification of a ReplicaSet.
+
+        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        :param pulumi.Input[_builtins.int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        :param pulumi.Input[_builtins.int] replicas: Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
+        :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
+        """
+        pulumi.set(__self__, "selector", selector)
+        if min_ready_seconds is not None:
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+
+    @_builtins.property
+    @pulumi.getter
+    def selector(self) -> pulumi.Input['_meta.v1.LabelSelectorArgs']:
+        """
+        Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        """
+        return pulumi.get(self, "selector")
+
+    @selector.setter
+    def selector(self, value: pulumi.Input['_meta.v1.LabelSelectorArgs']):
+        pulumi.set(self, "selector", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minReadySeconds")
+    def min_ready_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        """
+        return pulumi.get(self, "min_ready_seconds")
+
+    @min_ready_seconds.setter
+    def min_ready_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "min_ready_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def replicas(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
+        """
+        return pulumi.get(self, "replicas")
+
+    @replicas.setter
+    def replicas(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "replicas", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def template(self) -> pulumi.Input[Optional['_core.v1.PodTemplateSpecArgs']]:
+        """
+        Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
+        """
+        return pulumi.get(self, "template")
+
+    @template.setter
+    def template(self, value: pulumi.Input[Optional['_core.v1.PodTemplateSpecArgs']]):
+        pulumi.set(self, "template", value)
+
+
 class ReplicaSetSpecPatchArgsDict(TypedDict):
     """
     ReplicaSetSpec is the specification of a ReplicaSet.
@@ -2123,99 +2330,6 @@ class ReplicaSetSpecPatchArgs:
 
     @template.setter
     def template(self, value: pulumi.Input[Optional['_core.v1.PodTemplateSpecPatchArgs']]):
-        pulumi.set(self, "template", value)
-
-
-class ReplicaSetSpecArgsDict(TypedDict):
-    """
-    ReplicaSetSpec is the specification of a ReplicaSet.
-    """
-    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
-    """
-    Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-    """
-    min_ready_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-    """
-    replicas: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
-    """
-    template: NotRequired[pulumi.Input[Optional['_core.v1.PodTemplateSpecArgsDict']]]
-    """
-    Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
-    """
-
-@pulumi.input_type
-class ReplicaSetSpecArgs:
-    def __init__(__self__, *,
-                 selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
-                 min_ready_seconds: pulumi.Input[Optional[_builtins.int]] = None,
-                 replicas: pulumi.Input[Optional[_builtins.int]] = None,
-                 template: pulumi.Input[Optional['_core.v1.PodTemplateSpecArgs']] = None):
-        """
-        ReplicaSetSpec is the specification of a ReplicaSet.
-
-        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param pulumi.Input[_builtins.int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        :param pulumi.Input[_builtins.int] replicas: Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
-        :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
-        """
-        pulumi.set(__self__, "selector", selector)
-        if min_ready_seconds is not None:
-            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
-        if replicas is not None:
-            pulumi.set(__self__, "replicas", replicas)
-        if template is not None:
-            pulumi.set(__self__, "template", template)
-
-    @_builtins.property
-    @pulumi.getter
-    def selector(self) -> pulumi.Input['_meta.v1.LabelSelectorArgs']:
-        """
-        Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        """
-        return pulumi.get(self, "selector")
-
-    @selector.setter
-    def selector(self, value: pulumi.Input['_meta.v1.LabelSelectorArgs']):
-        pulumi.set(self, "selector", value)
-
-    @_builtins.property
-    @pulumi.getter(name="minReadySeconds")
-    def min_ready_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        """
-        return pulumi.get(self, "min_ready_seconds")
-
-    @min_ready_seconds.setter
-    def min_ready_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "min_ready_seconds", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def replicas(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
-        """
-        return pulumi.get(self, "replicas")
-
-    @replicas.setter
-    def replicas(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "replicas", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def template(self) -> pulumi.Input[Optional['_core.v1.PodTemplateSpecArgs']]:
-        """
-        Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#pod-template
-        """
-        return pulumi.get(self, "template")
-
-    @template.setter
-    def template(self, value: pulumi.Input[Optional['_core.v1.PodTemplateSpecArgs']]):
         pulumi.set(self, "template", value)
 
 
@@ -2378,174 +2492,6 @@ class ReplicaSetStatusArgs:
         pulumi.set(self, "terminating_replicas", value)
 
 
-class ReplicaSetArgsDict(TypedDict):
-    """
-    ReplicaSet ensures that a specified number of pod replicas are running at any given time.
-    """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-    """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
-    """
-    If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-    """
-    spec: NotRequired[pulumi.Input[Optional['ReplicaSetSpecArgsDict']]]
-    """
-    Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-    """
-    status: NotRequired[pulumi.Input[Optional['ReplicaSetStatusArgsDict']]]
-    """
-    Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-    """
-
-@pulumi.input_type
-class ReplicaSetArgs:
-    def __init__(__self__, *,
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: pulumi.Input[Optional['ReplicaSetSpecArgs']] = None,
-                 status: pulumi.Input[Optional['ReplicaSetStatusArgs']] = None):
-        """
-        ReplicaSet ensures that a specified number of pod replicas are running at any given time.
-
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['ReplicaSetSpecArgs'] spec: Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['ReplicaSetStatusArgs'] status: Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'apps/v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'ReplicaSet')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @_builtins.property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_version", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        """
-        If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['ReplicaSetSpecArgs']]:
-        """
-        Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input[Optional['ReplicaSetSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def status(self) -> pulumi.Input[Optional['ReplicaSetStatusArgs']]:
-        """
-        Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: pulumi.Input[Optional['ReplicaSetStatusArgs']]):
-        pulumi.set(self, "status", value)
-
-
-class RollingUpdateDaemonSetPatchArgsDict(TypedDict):
-    """
-    Spec to control the desired behavior of daemon set rolling update.
-    """
-    max_surge: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
-    """
-    The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
-    """
-    max_unavailable: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
-    """
-    The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
-    """
-
-@pulumi.input_type
-class RollingUpdateDaemonSetPatchArgs:
-    def __init__(__self__, *,
-                 max_surge: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
-                 max_unavailable: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None):
-        """
-        Spec to control the desired behavior of daemon set rolling update.
-
-        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_surge: The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
-        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
-        """
-        if max_surge is not None:
-            pulumi.set(__self__, "max_surge", max_surge)
-        if max_unavailable is not None:
-            pulumi.set(__self__, "max_unavailable", max_unavailable)
-
-    @_builtins.property
-    @pulumi.getter(name="maxSurge")
-    def max_surge(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
-        """
-        The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
-        """
-        return pulumi.get(self, "max_surge")
-
-    @max_surge.setter
-    def max_surge(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
-        pulumi.set(self, "max_surge", value)
-
-    @_builtins.property
-    @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
-        """
-        The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
-        """
-        return pulumi.get(self, "max_unavailable")
-
-    @max_unavailable.setter
-    def max_unavailable(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
-        pulumi.set(self, "max_unavailable", value)
-
-
 class RollingUpdateDaemonSetArgsDict(TypedDict):
     """
     Spec to control the desired behavior of daemon set rolling update.
@@ -2600,29 +2546,29 @@ class RollingUpdateDaemonSetArgs:
         pulumi.set(self, "max_unavailable", value)
 
 
-class RollingUpdateDeploymentPatchArgsDict(TypedDict):
+class RollingUpdateDaemonSetPatchArgsDict(TypedDict):
     """
-    Spec to control the desired behavior of rolling update.
+    Spec to control the desired behavior of daemon set rolling update.
     """
     max_surge: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
     """
-    The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+    The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
     """
     max_unavailable: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
     """
-    The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+    The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
     """
 
 @pulumi.input_type
-class RollingUpdateDeploymentPatchArgs:
+class RollingUpdateDaemonSetPatchArgs:
     def __init__(__self__, *,
                  max_surge: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
                  max_unavailable: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None):
         """
-        Spec to control the desired behavior of rolling update.
+        Spec to control the desired behavior of daemon set rolling update.
 
-        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
-        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_surge: The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
+        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
         if max_surge is not None:
             pulumi.set(__self__, "max_surge", max_surge)
@@ -2633,7 +2579,7 @@ class RollingUpdateDeploymentPatchArgs:
     @pulumi.getter(name="maxSurge")
     def max_surge(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
         """
-        The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+        The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
         """
         return pulumi.get(self, "max_surge")
 
@@ -2645,7 +2591,7 @@ class RollingUpdateDeploymentPatchArgs:
     @pulumi.getter(name="maxUnavailable")
     def max_unavailable(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
         """
-        The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+        The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
         return pulumi.get(self, "max_unavailable")
 
@@ -2708,58 +2654,58 @@ class RollingUpdateDeploymentArgs:
         pulumi.set(self, "max_unavailable", value)
 
 
-class RollingUpdateStatefulSetStrategyPatchArgsDict(TypedDict):
+class RollingUpdateDeploymentPatchArgsDict(TypedDict):
     """
-    RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+    Spec to control the desired behavior of rolling update.
+    """
+    max_surge: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
+    """
+    The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
     """
     max_unavailable: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
     """
-    The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
-    """
-    partition: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
+    The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
     """
 
 @pulumi.input_type
-class RollingUpdateStatefulSetStrategyPatchArgs:
+class RollingUpdateDeploymentPatchArgs:
     def __init__(__self__, *,
-                 max_unavailable: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
-                 partition: pulumi.Input[Optional[_builtins.int]] = None):
+                 max_surge: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 max_unavailable: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None):
         """
-        RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+        Spec to control the desired behavior of rolling update.
 
-        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
-        :param pulumi.Input[_builtins.int] partition: Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
+        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
+        if max_surge is not None:
+            pulumi.set(__self__, "max_surge", max_surge)
         if max_unavailable is not None:
             pulumi.set(__self__, "max_unavailable", max_unavailable)
-        if partition is not None:
-            pulumi.set(__self__, "partition", partition)
+
+    @_builtins.property
+    @pulumi.getter(name="maxSurge")
+    def max_surge(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
+        """
+        The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+        """
+        return pulumi.get(self, "max_surge")
+
+    @max_surge.setter
+    def max_surge(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
+        pulumi.set(self, "max_surge", value)
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
     def max_unavailable(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
         """
-        The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
+        The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
         return pulumi.get(self, "max_unavailable")
 
     @max_unavailable.setter
     def max_unavailable(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
         pulumi.set(self, "max_unavailable", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def partition(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
-        """
-        return pulumi.get(self, "partition")
-
-    @partition.setter
-    def partition(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "partition", value)
 
 
 class RollingUpdateStatefulSetStrategyArgsDict(TypedDict):
@@ -2814,6 +2760,208 @@ class RollingUpdateStatefulSetStrategyArgs:
     @partition.setter
     def partition(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "partition", value)
+
+
+class RollingUpdateStatefulSetStrategyPatchArgsDict(TypedDict):
+    """
+    RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+    """
+    max_unavailable: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
+    """
+    The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
+    """
+    partition: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
+    """
+
+@pulumi.input_type
+class RollingUpdateStatefulSetStrategyPatchArgs:
+    def __init__(__self__, *,
+                 max_unavailable: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 partition: pulumi.Input[Optional[_builtins.int]] = None):
+        """
+        RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+
+        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
+        :param pulumi.Input[_builtins.int] partition: Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
+        """
+        if max_unavailable is not None:
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
+        if partition is not None:
+            pulumi.set(__self__, "partition", partition)
+
+    @_builtins.property
+    @pulumi.getter(name="maxUnavailable")
+    def max_unavailable(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
+        """
+        The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
+        """
+        return pulumi.get(self, "max_unavailable")
+
+    @max_unavailable.setter
+    def max_unavailable(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
+        pulumi.set(self, "max_unavailable", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def partition(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Partition indicates the ordinal at which the StatefulSet should be partitioned for updates. During a rolling update, all pods from ordinal Replicas-1 to Partition are updated. All pods from ordinal Partition-1 to 0 remain untouched. This is helpful in being able to do a canary based deployment. The default value is 0.
+        """
+        return pulumi.get(self, "partition")
+
+    @partition.setter
+    def partition(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "partition", value)
+
+
+class StatefulSetArgsDict(TypedDict):
+    """
+    StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+      - Network: A single stable DNS and hostname.
+      - Storage: As many VolumeClaims as requested.
+
+    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+
+    This resource waits until its status is ready before registering success
+    for create/update, and populating output properties from the current state of the resource.
+    The following conditions are used to determine whether the resource creation has
+    succeeded or failed:
+
+    1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+       and '.status.readyReplicas'.
+    2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+
+    If the StatefulSet has not reached a Ready state after 10 minutes, it will
+    time out and mark the resource update as Failed. You can override the default timeout value
+    by setting the 'customTimeouts' option on the resource.
+    """
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    """
+    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    """
+    spec: NotRequired[pulumi.Input[Optional['StatefulSetSpecArgsDict']]]
+    """
+    Spec defines the desired identities of pods in this set.
+    """
+    status: NotRequired[pulumi.Input[Optional['StatefulSetStatusArgsDict']]]
+    """
+    Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
+    """
+
+@pulumi.input_type
+class StatefulSetArgs:
+    def __init__(__self__, *,
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['StatefulSetSpecArgs']] = None,
+                 status: pulumi.Input[Optional['StatefulSetStatusArgs']] = None):
+        """
+        StatefulSet represents a set of pods with consistent identities. Identities are defined as:
+          - Network: A single stable DNS and hostname.
+          - Storage: As many VolumeClaims as requested.
+
+        The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+
+        This resource waits until its status is ready before registering success
+        for create/update, and populating output properties from the current state of the resource.
+        The following conditions are used to determine whether the resource creation has
+        succeeded or failed:
+
+        1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+           and '.status.readyReplicas'.
+        2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+
+        If the StatefulSet has not reached a Ready state after 10 minutes, it will
+        time out and mark the resource update as Failed. You can override the default timeout value
+        by setting the 'customTimeouts' option on the resource.
+
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['StatefulSetSpecArgs'] spec: Spec defines the desired identities of pods in this set.
+        :param pulumi.Input['StatefulSetStatusArgs'] status: Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'apps/v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'StatefulSet')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input[Optional['StatefulSetSpecArgs']]:
+        """
+        Spec defines the desired identities of pods in this set.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input[Optional['StatefulSetSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> pulumi.Input[Optional['StatefulSetStatusArgs']]:
+        """
+        Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: pulumi.Input[Optional['StatefulSetStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 class StatefulSetConditionArgsDict(TypedDict):
@@ -2928,6 +3076,49 @@ class StatefulSetConditionArgs:
         pulumi.set(self, "reason", value)
 
 
+class StatefulSetOrdinalsArgsDict(TypedDict):
+    """
+    StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+    """
+    start: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+      [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+    If unset, defaults to 0. Replica indices will be in the range:
+      [0, .spec.replicas).
+    """
+
+@pulumi.input_type
+class StatefulSetOrdinalsArgs:
+    def __init__(__self__, *,
+                 start: pulumi.Input[Optional[_builtins.int]] = None):
+        """
+        StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+
+        :param pulumi.Input[_builtins.int] start: start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+                 [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+               If unset, defaults to 0. Replica indices will be in the range:
+                 [0, .spec.replicas).
+        """
+        if start is not None:
+            pulumi.set(__self__, "start", start)
+
+    @_builtins.property
+    @pulumi.getter
+    def start(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+          [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+        If unset, defaults to 0. Replica indices will be in the range:
+          [0, .spec.replicas).
+        """
+        return pulumi.get(self, "start")
+
+    @start.setter
+    def start(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "start", value)
+
+
 class StatefulSetOrdinalsPatchArgsDict(TypedDict):
     """
     StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
@@ -2971,47 +3162,58 @@ class StatefulSetOrdinalsPatchArgs:
         pulumi.set(self, "start", value)
 
 
-class StatefulSetOrdinalsArgsDict(TypedDict):
+class StatefulSetPersistentVolumeClaimRetentionPolicyArgsDict(TypedDict):
     """
-    StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+    StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
     """
-    start: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    when_deleted: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
-      [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
-    If unset, defaults to 0. Replica indices will be in the range:
-      [0, .spec.replicas).
+    WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+    """
+    when_scaled: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
     """
 
 @pulumi.input_type
-class StatefulSetOrdinalsArgs:
+class StatefulSetPersistentVolumeClaimRetentionPolicyArgs:
     def __init__(__self__, *,
-                 start: pulumi.Input[Optional[_builtins.int]] = None):
+                 when_deleted: pulumi.Input[Optional[_builtins.str]] = None,
+                 when_scaled: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+        StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
 
-        :param pulumi.Input[_builtins.int] start: start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
-                 [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
-               If unset, defaults to 0. Replica indices will be in the range:
-                 [0, .spec.replicas).
+        :param pulumi.Input[_builtins.str] when_deleted: WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+        :param pulumi.Input[_builtins.str] when_scaled: WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
         """
-        if start is not None:
-            pulumi.set(__self__, "start", start)
+        if when_deleted is not None:
+            pulumi.set(__self__, "when_deleted", when_deleted)
+        if when_scaled is not None:
+            pulumi.set(__self__, "when_scaled", when_scaled)
 
     @_builtins.property
-    @pulumi.getter
-    def start(self) -> pulumi.Input[Optional[_builtins.int]]:
+    @pulumi.getter(name="whenDeleted")
+    def when_deleted(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
-          [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
-        If unset, defaults to 0. Replica indices will be in the range:
-          [0, .spec.replicas).
+        WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
         """
-        return pulumi.get(self, "start")
+        return pulumi.get(self, "when_deleted")
 
-    @start.setter
-    def start(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "start", value)
+    @when_deleted.setter
+    def when_deleted(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "when_deleted", value)
+
+    @_builtins.property
+    @pulumi.getter(name="whenScaled")
+    def when_scaled(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+        """
+        return pulumi.get(self, "when_scaled")
+
+    @when_scaled.setter
+    def when_scaled(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "when_scaled", value)
 
 
 class StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgsDict(TypedDict):
@@ -3068,58 +3270,236 @@ class StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs:
         pulumi.set(self, "when_scaled", value)
 
 
-class StatefulSetPersistentVolumeClaimRetentionPolicyArgsDict(TypedDict):
+class StatefulSetSpecArgsDict(TypedDict):
     """
-    StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+    A StatefulSetSpec is the specification of a StatefulSet.
     """
-    when_deleted: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
     """
-    WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+    selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
     """
-    when_scaled: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
     """
-    WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+    template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
+    """
+    min_ready_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+    """
+    ordinals: NotRequired[pulumi.Input[Optional['StatefulSetOrdinalsArgsDict']]]
+    """
+    ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
+    """
+    persistent_volume_claim_retention_policy: NotRequired[pulumi.Input[Optional['StatefulSetPersistentVolumeClaimRetentionPolicyArgsDict']]]
+    """
+    persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
+    """
+    pod_management_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+    """
+    replicas: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
+    """
+    revision_history_limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
+    """
+    service_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
+    """
+    update_strategy: NotRequired[pulumi.Input[Optional['StatefulSetUpdateStrategyArgsDict']]]
+    """
+    updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
+    """
+    volume_claim_templates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgsDict']]]]]
+    """
+    volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
     """
 
 @pulumi.input_type
-class StatefulSetPersistentVolumeClaimRetentionPolicyArgs:
+class StatefulSetSpecArgs:
     def __init__(__self__, *,
-                 when_deleted: pulumi.Input[Optional[_builtins.str]] = None,
-                 when_scaled: pulumi.Input[Optional[_builtins.str]] = None):
+                 selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
+                 template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
+                 min_ready_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 ordinals: pulumi.Input[Optional['StatefulSetOrdinalsArgs']] = None,
+                 persistent_volume_claim_retention_policy: pulumi.Input[Optional['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']] = None,
+                 pod_management_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 replicas: pulumi.Input[Optional[_builtins.int]] = None,
+                 revision_history_limit: pulumi.Input[Optional[_builtins.int]] = None,
+                 service_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 update_strategy: pulumi.Input[Optional['StatefulSetUpdateStrategyArgs']] = None,
+                 volume_claim_templates: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]] = None):
         """
-        StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+        A StatefulSetSpec is the specification of a StatefulSet.
 
-        :param pulumi.Input[_builtins.str] when_deleted: WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
-        :param pulumi.Input[_builtins.str] when_scaled: WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
+        :param pulumi.Input[_builtins.int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        :param pulumi.Input['StatefulSetOrdinalsArgs'] ordinals: ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
+        :param pulumi.Input['StatefulSetPersistentVolumeClaimRetentionPolicyArgs'] persistent_volume_claim_retention_policy: persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
+        :param pulumi.Input[_builtins.str] pod_management_policy: podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+        :param pulumi.Input[_builtins.int] replicas: replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
+        :param pulumi.Input[_builtins.int] revision_history_limit: revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
+        :param pulumi.Input[_builtins.str] service_name: serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
+        :param pulumi.Input['StatefulSetUpdateStrategyArgs'] update_strategy: updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
+        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
         """
-        if when_deleted is not None:
-            pulumi.set(__self__, "when_deleted", when_deleted)
-        if when_scaled is not None:
-            pulumi.set(__self__, "when_scaled", when_scaled)
+        pulumi.set(__self__, "selector", selector)
+        pulumi.set(__self__, "template", template)
+        if min_ready_seconds is not None:
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
+        if ordinals is not None:
+            pulumi.set(__self__, "ordinals", ordinals)
+        if persistent_volume_claim_retention_policy is not None:
+            pulumi.set(__self__, "persistent_volume_claim_retention_policy", persistent_volume_claim_retention_policy)
+        if pod_management_policy is not None:
+            pulumi.set(__self__, "pod_management_policy", pod_management_policy)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if revision_history_limit is not None:
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
+        if service_name is not None:
+            pulumi.set(__self__, "service_name", service_name)
+        if update_strategy is not None:
+            pulumi.set(__self__, "update_strategy", update_strategy)
+        if volume_claim_templates is not None:
+            pulumi.set(__self__, "volume_claim_templates", volume_claim_templates)
 
     @_builtins.property
-    @pulumi.getter(name="whenDeleted")
-    def when_deleted(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter
+    def selector(self) -> pulumi.Input['_meta.v1.LabelSelectorArgs']:
         """
-        WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+        selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         """
-        return pulumi.get(self, "when_deleted")
+        return pulumi.get(self, "selector")
 
-    @when_deleted.setter
-    def when_deleted(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "when_deleted", value)
+    @selector.setter
+    def selector(self, value: pulumi.Input['_meta.v1.LabelSelectorArgs']):
+        pulumi.set(self, "selector", value)
 
     @_builtins.property
-    @pulumi.getter(name="whenScaled")
-    def when_scaled(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter
+    def template(self) -> pulumi.Input['_core.v1.PodTemplateSpecArgs']:
         """
-        WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+        template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
         """
-        return pulumi.get(self, "when_scaled")
+        return pulumi.get(self, "template")
 
-    @when_scaled.setter
-    def when_scaled(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "when_scaled", value)
+    @template.setter
+    def template(self, value: pulumi.Input['_core.v1.PodTemplateSpecArgs']):
+        pulumi.set(self, "template", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minReadySeconds")
+    def min_ready_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        """
+        return pulumi.get(self, "min_ready_seconds")
+
+    @min_ready_seconds.setter
+    def min_ready_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "min_ready_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def ordinals(self) -> pulumi.Input[Optional['StatefulSetOrdinalsArgs']]:
+        """
+        ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
+        """
+        return pulumi.get(self, "ordinals")
+
+    @ordinals.setter
+    def ordinals(self, value: pulumi.Input[Optional['StatefulSetOrdinalsArgs']]):
+        pulumi.set(self, "ordinals", value)
+
+    @_builtins.property
+    @pulumi.getter(name="persistentVolumeClaimRetentionPolicy")
+    def persistent_volume_claim_retention_policy(self) -> pulumi.Input[Optional['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']]:
+        """
+        persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
+        """
+        return pulumi.get(self, "persistent_volume_claim_retention_policy")
+
+    @persistent_volume_claim_retention_policy.setter
+    def persistent_volume_claim_retention_policy(self, value: pulumi.Input[Optional['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']]):
+        pulumi.set(self, "persistent_volume_claim_retention_policy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podManagementPolicy")
+    def pod_management_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+        """
+        return pulumi.get(self, "pod_management_policy")
+
+    @pod_management_policy.setter
+    def pod_management_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "pod_management_policy", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def replicas(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
+        """
+        return pulumi.get(self, "replicas")
+
+    @replicas.setter
+    def replicas(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "replicas", value)
+
+    @_builtins.property
+    @pulumi.getter(name="revisionHistoryLimit")
+    def revision_history_limit(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
+        """
+        return pulumi.get(self, "revision_history_limit")
+
+    @revision_history_limit.setter
+    def revision_history_limit(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "revision_history_limit", value)
+
+    @_builtins.property
+    @pulumi.getter(name="serviceName")
+    def service_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
+        """
+        return pulumi.get(self, "service_name")
+
+    @service_name.setter
+    def service_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "service_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="updateStrategy")
+    def update_strategy(self) -> pulumi.Input[Optional['StatefulSetUpdateStrategyArgs']]:
+        """
+        updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
+        """
+        return pulumi.get(self, "update_strategy")
+
+    @update_strategy.setter
+    def update_strategy(self, value: pulumi.Input[Optional['StatefulSetUpdateStrategyArgs']]):
+        pulumi.set(self, "update_strategy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="volumeClaimTemplates")
+    def volume_claim_templates(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]]:
+        """
+        volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
+        """
+        return pulumi.get(self, "volume_claim_templates")
+
+    @volume_claim_templates.setter
+    def volume_claim_templates(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]]):
+        pulumi.set(self, "volume_claim_templates", value)
 
 
 class StatefulSetSpecPatchArgsDict(TypedDict):
@@ -3356,238 +3736,6 @@ class StatefulSetSpecPatchArgs:
         pulumi.set(self, "volume_claim_templates", value)
 
 
-class StatefulSetSpecArgsDict(TypedDict):
-    """
-    A StatefulSetSpec is the specification of a StatefulSet.
-    """
-    selector: pulumi.Input['_meta.v1.LabelSelectorArgsDict']
-    """
-    selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-    """
-    template: pulumi.Input['_core.v1.PodTemplateSpecArgsDict']
-    """
-    template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
-    """
-    min_ready_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-    """
-    ordinals: NotRequired[pulumi.Input[Optional['StatefulSetOrdinalsArgsDict']]]
-    """
-    ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
-    """
-    persistent_volume_claim_retention_policy: NotRequired[pulumi.Input[Optional['StatefulSetPersistentVolumeClaimRetentionPolicyArgsDict']]]
-    """
-    persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
-    """
-    pod_management_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
-    """
-    replicas: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
-    """
-    revision_history_limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
-    """
-    service_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-    """
-    update_strategy: NotRequired[pulumi.Input[Optional['StatefulSetUpdateStrategyArgsDict']]]
-    """
-    updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
-    """
-    volume_claim_templates: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgsDict']]]]]
-    """
-    volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
-    """
-
-@pulumi.input_type
-class StatefulSetSpecArgs:
-    def __init__(__self__, *,
-                 selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
-                 template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
-                 min_ready_seconds: pulumi.Input[Optional[_builtins.int]] = None,
-                 ordinals: pulumi.Input[Optional['StatefulSetOrdinalsArgs']] = None,
-                 persistent_volume_claim_retention_policy: pulumi.Input[Optional['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']] = None,
-                 pod_management_policy: pulumi.Input[Optional[_builtins.str]] = None,
-                 replicas: pulumi.Input[Optional[_builtins.int]] = None,
-                 revision_history_limit: pulumi.Input[Optional[_builtins.int]] = None,
-                 service_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 update_strategy: pulumi.Input[Optional['StatefulSetUpdateStrategyArgs']] = None,
-                 volume_claim_templates: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]] = None):
-        """
-        A StatefulSetSpec is the specification of a StatefulSet.
-
-        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
-        :param pulumi.Input[_builtins.int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        :param pulumi.Input['StatefulSetOrdinalsArgs'] ordinals: ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
-        :param pulumi.Input['StatefulSetPersistentVolumeClaimRetentionPolicyArgs'] persistent_volume_claim_retention_policy: persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
-        :param pulumi.Input[_builtins.str] pod_management_policy: podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
-        :param pulumi.Input[_builtins.int] replicas: replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
-        :param pulumi.Input[_builtins.int] revision_history_limit: revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
-        :param pulumi.Input[_builtins.str] service_name: serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-        :param pulumi.Input['StatefulSetUpdateStrategyArgs'] update_strategy: updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
-        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
-        """
-        pulumi.set(__self__, "selector", selector)
-        pulumi.set(__self__, "template", template)
-        if min_ready_seconds is not None:
-            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
-        if ordinals is not None:
-            pulumi.set(__self__, "ordinals", ordinals)
-        if persistent_volume_claim_retention_policy is not None:
-            pulumi.set(__self__, "persistent_volume_claim_retention_policy", persistent_volume_claim_retention_policy)
-        if pod_management_policy is not None:
-            pulumi.set(__self__, "pod_management_policy", pod_management_policy)
-        if replicas is not None:
-            pulumi.set(__self__, "replicas", replicas)
-        if revision_history_limit is not None:
-            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
-        if service_name is not None:
-            pulumi.set(__self__, "service_name", service_name)
-        if update_strategy is not None:
-            pulumi.set(__self__, "update_strategy", update_strategy)
-        if volume_claim_templates is not None:
-            pulumi.set(__self__, "volume_claim_templates", volume_claim_templates)
-
-    @_builtins.property
-    @pulumi.getter
-    def selector(self) -> pulumi.Input['_meta.v1.LabelSelectorArgs']:
-        """
-        selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        """
-        return pulumi.get(self, "selector")
-
-    @selector.setter
-    def selector(self, value: pulumi.Input['_meta.v1.LabelSelectorArgs']):
-        pulumi.set(self, "selector", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def template(self) -> pulumi.Input['_core.v1.PodTemplateSpecArgs']:
-        """
-        template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
-        """
-        return pulumi.get(self, "template")
-
-    @template.setter
-    def template(self, value: pulumi.Input['_core.v1.PodTemplateSpecArgs']):
-        pulumi.set(self, "template", value)
-
-    @_builtins.property
-    @pulumi.getter(name="minReadySeconds")
-    def min_ready_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
-        """
-        return pulumi.get(self, "min_ready_seconds")
-
-    @min_ready_seconds.setter
-    def min_ready_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "min_ready_seconds", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def ordinals(self) -> pulumi.Input[Optional['StatefulSetOrdinalsArgs']]:
-        """
-        ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested.
-        """
-        return pulumi.get(self, "ordinals")
-
-    @ordinals.setter
-    def ordinals(self, value: pulumi.Input[Optional['StatefulSetOrdinalsArgs']]):
-        pulumi.set(self, "ordinals", value)
-
-    @_builtins.property
-    @pulumi.getter(name="persistentVolumeClaimRetentionPolicy")
-    def persistent_volume_claim_retention_policy(self) -> pulumi.Input[Optional['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']]:
-        """
-        persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down.
-        """
-        return pulumi.get(self, "persistent_volume_claim_retention_policy")
-
-    @persistent_volume_claim_retention_policy.setter
-    def persistent_volume_claim_retention_policy(self, value: pulumi.Input[Optional['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']]):
-        pulumi.set(self, "persistent_volume_claim_retention_policy", value)
-
-    @_builtins.property
-    @pulumi.getter(name="podManagementPolicy")
-    def pod_management_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
-        """
-        return pulumi.get(self, "pod_management_policy")
-
-    @pod_management_policy.setter
-    def pod_management_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "pod_management_policy", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def replicas(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
-        """
-        return pulumi.get(self, "replicas")
-
-    @replicas.setter
-    def replicas(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "replicas", value)
-
-    @_builtins.property
-    @pulumi.getter(name="revisionHistoryLimit")
-    def revision_history_limit(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
-        """
-        return pulumi.get(self, "revision_history_limit")
-
-    @revision_history_limit.setter
-    def revision_history_limit(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "revision_history_limit", value)
-
-    @_builtins.property
-    @pulumi.getter(name="serviceName")
-    def service_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
-        """
-        return pulumi.get(self, "service_name")
-
-    @service_name.setter
-    def service_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "service_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="updateStrategy")
-    def update_strategy(self) -> pulumi.Input[Optional['StatefulSetUpdateStrategyArgs']]:
-        """
-        updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
-        """
-        return pulumi.get(self, "update_strategy")
-
-    @update_strategy.setter
-    def update_strategy(self, value: pulumi.Input[Optional['StatefulSetUpdateStrategyArgs']]):
-        pulumi.set(self, "update_strategy", value)
-
-    @_builtins.property
-    @pulumi.getter(name="volumeClaimTemplates")
-    def volume_claim_templates(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]]:
-        """
-        volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
-        """
-        return pulumi.get(self, "volume_claim_templates")
-
-    @volume_claim_templates.setter
-    def volume_claim_templates(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]]):
-        pulumi.set(self, "volume_claim_templates", value)
-
-
 class StatefulSetStatusArgsDict(TypedDict):
     """
     StatefulSetStatus represents the current state of a StatefulSet.
@@ -3801,60 +3949,6 @@ class StatefulSetStatusArgs:
         pulumi.set(self, "updated_replicas", value)
 
 
-class StatefulSetUpdateStrategyPatchArgsDict(TypedDict):
-    """
-    StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
-    """
-    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgsDict']]]
-    """
-    RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
-    """
-    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
-    """
-
-@pulumi.input_type
-class StatefulSetUpdateStrategyPatchArgs:
-    def __init__(__self__, *,
-                 rolling_update: pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgs']] = None,
-                 type: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
-
-        :param pulumi.Input['RollingUpdateStatefulSetStrategyPatchArgs'] rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
-        :param pulumi.Input[_builtins.str] type: Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
-        """
-        if rolling_update is not None:
-            pulumi.set(__self__, "rolling_update", rolling_update)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @_builtins.property
-    @pulumi.getter(name="rollingUpdate")
-    def rolling_update(self) -> pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgs']]:
-        """
-        RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
-        """
-        return pulumi.get(self, "rolling_update")
-
-    @rolling_update.setter
-    def rolling_update(self, value: pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgs']]):
-        pulumi.set(self, "rolling_update", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
-        """
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "type", value)
-
-
 class StatefulSetUpdateStrategyArgsDict(TypedDict):
     """
     StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
@@ -3909,151 +4003,57 @@ class StatefulSetUpdateStrategyArgs:
         pulumi.set(self, "type", value)
 
 
-class StatefulSetArgsDict(TypedDict):
+class StatefulSetUpdateStrategyPatchArgsDict(TypedDict):
     """
-    StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-      - Network: A single stable DNS and hostname.
-      - Storage: As many VolumeClaims as requested.
-
-    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
-
-    This resource waits until its status is ready before registering success
-    for create/update, and populating output properties from the current state of the resource.
-    The following conditions are used to determine whether the resource creation has
-    succeeded or failed:
-
-    1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
-       and '.status.readyReplicas'.
-    2. The value of '.status.updateRevision' matches '.status.currentRevision'.
-
-    If the StatefulSet has not reached a Ready state after 10 minutes, it will
-    time out and mark the resource update as Failed. You can override the default timeout value
-    by setting the 'customTimeouts' option on the resource.
+    StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
     """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    rolling_update: NotRequired[pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgsDict']]]
     """
-    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
-    """
-    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-    """
-    spec: NotRequired[pulumi.Input[Optional['StatefulSetSpecArgsDict']]]
-    """
-    Spec defines the desired identities of pods in this set.
-    """
-    status: NotRequired[pulumi.Input[Optional['StatefulSetStatusArgsDict']]]
-    """
-    Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
+    Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
     """
 
 @pulumi.input_type
-class StatefulSetArgs:
+class StatefulSetUpdateStrategyPatchArgs:
     def __init__(__self__, *,
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: pulumi.Input[Optional['StatefulSetSpecArgs']] = None,
-                 status: pulumi.Input[Optional['StatefulSetStatusArgs']] = None):
+                 rolling_update: pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgs']] = None,
+                 type: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-          - Network: A single stable DNS and hostname.
-          - Storage: As many VolumeClaims as requested.
+        StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
 
-        The StatefulSet guarantees that a given network identity will always map to the same storage identity.
-
-        This resource waits until its status is ready before registering success
-        for create/update, and populating output properties from the current state of the resource.
-        The following conditions are used to determine whether the resource creation has
-        succeeded or failed:
-
-        1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
-           and '.status.readyReplicas'.
-        2. The value of '.status.updateRevision' matches '.status.currentRevision'.
-
-        If the StatefulSet has not reached a Ready state after 10 minutes, it will
-        time out and mark the resource update as Failed. You can override the default timeout value
-        by setting the 'customTimeouts' option on the resource.
-
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['StatefulSetSpecArgs'] spec: Spec defines the desired identities of pods in this set.
-        :param pulumi.Input['StatefulSetStatusArgs'] status: Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
+        :param pulumi.Input['RollingUpdateStatefulSetStrategyPatchArgs'] rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
+        :param pulumi.Input[_builtins.str] type: Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
         """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'apps/v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'StatefulSet')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
+        if rolling_update is not None:
+            pulumi.set(__self__, "rolling_update", rolling_update)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
 
     @_builtins.property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter(name="rollingUpdate")
+    def rolling_update(self) -> pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgs']]:
         """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
         """
-        return pulumi.get(self, "api_version")
+        return pulumi.get(self, "rolling_update")
 
-    @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_version", value)
+    @rolling_update.setter
+    def rolling_update(self, value: pulumi.Input[Optional['RollingUpdateStatefulSetStrategyPatchArgs']]):
+        pulumi.set(self, "rolling_update", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
         """
-        return pulumi.get(self, "kind")
+        return pulumi.get(self, "type")
 
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['StatefulSetSpecArgs']]:
-        """
-        Spec defines the desired identities of pods in this set.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input[Optional['StatefulSetSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def status(self) -> pulumi.Input[Optional['StatefulSetStatusArgs']]:
-        """
-        Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: pulumi.Input[Optional['StatefulSetStatusArgs']]):
-        pulumi.set(self, "status", value)
+    @type.setter
+    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "type", value)
 
 

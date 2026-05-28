@@ -17,19 +17,19 @@ from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
-    'OverheadPatchArgs',
-    'OverheadPatchArgsDict',
     'OverheadArgs',
     'OverheadArgsDict',
+    'OverheadPatchArgs',
+    'OverheadPatchArgsDict',
     'RuntimeClassArgs',
     'RuntimeClassArgsDict',
-    'SchedulingPatchArgs',
-    'SchedulingPatchArgsDict',
     'SchedulingArgs',
     'SchedulingArgsDict',
+    'SchedulingPatchArgs',
+    'SchedulingPatchArgsDict',
 ]
 
-class OverheadPatchArgsDict(TypedDict):
+class OverheadArgsDict(TypedDict):
     """
     Overhead structure represents the resource overhead associated with running a pod.
     """
@@ -39,7 +39,7 @@ class OverheadPatchArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class OverheadPatchArgs:
+class OverheadArgs:
     def __init__(__self__, *,
                  pod_fixed: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
@@ -63,7 +63,7 @@ class OverheadPatchArgs:
         pulumi.set(self, "pod_fixed", value)
 
 
-class OverheadArgsDict(TypedDict):
+class OverheadPatchArgsDict(TypedDict):
     """
     Overhead structure represents the resource overhead associated with running a pod.
     """
@@ -73,7 +73,7 @@ class OverheadArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class OverheadArgs:
+class OverheadPatchArgs:
     def __init__(__self__, *,
                  pod_fixed: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None):
         """
@@ -233,60 +233,6 @@ class RuntimeClassArgs:
         pulumi.set(self, "scheduling", value)
 
 
-class SchedulingPatchArgsDict(TypedDict):
-    """
-    Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
-    """
-    node_selector: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
-    """
-    nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
-    """
-    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgsDict']]]]]
-    """
-    tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
-    """
-
-@pulumi.input_type
-class SchedulingPatchArgs:
-    def __init__(__self__, *,
-                 node_selector: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 tolerations: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]] = None):
-        """
-        Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
-
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
-        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
-        """
-        if node_selector is not None:
-            pulumi.set(__self__, "node_selector", node_selector)
-        if tolerations is not None:
-            pulumi.set(__self__, "tolerations", tolerations)
-
-    @_builtins.property
-    @pulumi.getter(name="nodeSelector")
-    def node_selector(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
-        """
-        nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
-        """
-        return pulumi.get(self, "node_selector")
-
-    @node_selector.setter
-    def node_selector(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "node_selector", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def tolerations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]:
-        """
-        tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
-        """
-        return pulumi.get(self, "tolerations")
-
-    @tolerations.setter
-    def tolerations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]):
-        pulumi.set(self, "tolerations", value)
-
-
 class SchedulingArgsDict(TypedDict):
     """
     Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
@@ -338,6 +284,60 @@ class SchedulingArgs:
 
     @tolerations.setter
     def tolerations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]]):
+        pulumi.set(self, "tolerations", value)
+
+
+class SchedulingPatchArgsDict(TypedDict):
+    """
+    Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+    """
+    node_selector: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+    """
+    tolerations: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgsDict']]]]]
+    """
+    tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+    """
+
+@pulumi.input_type
+class SchedulingPatchArgs:
+    def __init__(__self__, *,
+                 node_selector: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 tolerations: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]] = None):
+        """
+        Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        """
+        if node_selector is not None:
+            pulumi.set(__self__, "node_selector", node_selector)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeSelector")
+    def node_selector(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+        """
+        return pulumi.get(self, "node_selector")
+
+    @node_selector.setter
+    def node_selector(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "node_selector", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def tolerations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]:
+        """
+        tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @tolerations.setter
+    def tolerations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]):
         pulumi.set(self, "tolerations", value)
 
 

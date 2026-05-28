@@ -17,467 +17,143 @@ from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
-    'CSIDriverSpecPatchArgs',
-    'CSIDriverSpecPatchArgsDict',
-    'CSIDriverSpecArgs',
-    'CSIDriverSpecArgsDict',
     'CSIDriverArgs',
     'CSIDriverArgsDict',
-    'CSINodeDriverPatchArgs',
-    'CSINodeDriverPatchArgsDict',
-    'CSINodeDriverArgs',
-    'CSINodeDriverArgsDict',
-    'CSINodeSpecPatchArgs',
-    'CSINodeSpecPatchArgsDict',
-    'CSINodeSpecArgs',
-    'CSINodeSpecArgsDict',
+    'CSIDriverSpecArgs',
+    'CSIDriverSpecArgsDict',
+    'CSIDriverSpecPatchArgs',
+    'CSIDriverSpecPatchArgsDict',
     'CSINodeArgs',
     'CSINodeArgsDict',
+    'CSINodeDriverArgs',
+    'CSINodeDriverArgsDict',
+    'CSINodeDriverPatchArgs',
+    'CSINodeDriverPatchArgsDict',
+    'CSINodeSpecArgs',
+    'CSINodeSpecArgsDict',
+    'CSINodeSpecPatchArgs',
+    'CSINodeSpecPatchArgsDict',
     'CSIStorageCapacityArgs',
     'CSIStorageCapacityArgsDict',
     'StorageClassArgs',
     'StorageClassArgsDict',
-    'TokenRequestPatchArgs',
-    'TokenRequestPatchArgsDict',
     'TokenRequestArgs',
     'TokenRequestArgsDict',
-    'VolumeAttachmentSourcePatchArgs',
-    'VolumeAttachmentSourcePatchArgsDict',
-    'VolumeAttachmentSourceArgs',
-    'VolumeAttachmentSourceArgsDict',
-    'VolumeAttachmentSpecPatchArgs',
-    'VolumeAttachmentSpecPatchArgsDict',
-    'VolumeAttachmentSpecArgs',
-    'VolumeAttachmentSpecArgsDict',
-    'VolumeAttachmentStatusArgs',
-    'VolumeAttachmentStatusArgsDict',
+    'TokenRequestPatchArgs',
+    'TokenRequestPatchArgsDict',
     'VolumeAttachmentArgs',
     'VolumeAttachmentArgsDict',
+    'VolumeAttachmentSourceArgs',
+    'VolumeAttachmentSourceArgsDict',
+    'VolumeAttachmentSourcePatchArgs',
+    'VolumeAttachmentSourcePatchArgsDict',
+    'VolumeAttachmentSpecArgs',
+    'VolumeAttachmentSpecArgsDict',
+    'VolumeAttachmentSpecPatchArgs',
+    'VolumeAttachmentSpecPatchArgsDict',
+    'VolumeAttachmentStatusArgs',
+    'VolumeAttachmentStatusArgsDict',
     'VolumeAttributesClassArgs',
     'VolumeAttributesClassArgsDict',
     'VolumeErrorArgs',
     'VolumeErrorArgsDict',
-    'VolumeNodeResourcesPatchArgs',
-    'VolumeNodeResourcesPatchArgsDict',
     'VolumeNodeResourcesArgs',
     'VolumeNodeResourcesArgsDict',
+    'VolumeNodeResourcesPatchArgs',
+    'VolumeNodeResourcesPatchArgsDict',
 ]
 
-class CSIDriverSpecPatchArgsDict(TypedDict):
+class CSIDriverArgsDict(TypedDict):
     """
-    CSIDriverSpec is the specification of a CSIDriver.
+    CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
     """
-    attach_required: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    spec: pulumi.Input['CSIDriverSpecArgsDict']
     """
-    attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
-
-    This field is immutable.
+    spec represents the specification of the CSI Driver.
     """
-    fs_group_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
-
-    This field was immutable in Kubernetes < 1.29 and now is mutable.
-
-    Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    node_allocatable_update_period_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
-
-    This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
-
-    This field is mutable.
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    pod_info_on_mount: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
-    podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
-
-    The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
-
-    The following VolumeContext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume
-                                    defined by a CSIVolumeSource, otherwise "false"
-
-    "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
-
-    This field was immutable in Kubernetes < 1.29 and now is mutable.
-    """
-    prevent_pod_scheduling_if_missing: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
-
-    Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
-
-    For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
-
-    This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
-    """
-    requires_republish: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
-
-    Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
-    """
-    se_linux_mount: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    seLinuxMount specifies if the CSI driver supports "-o context" mount option.
-
-    When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
-
-    When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
-
-    Default is "false".
-    """
-    service_account_token_in_secrets: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
-
-    When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
-
-    When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
-
-    This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
-
-    Default behavior if unset is to pass tokens in the VolumeContext field.
-    """
-    storage_capacity: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
-
-    The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
-
-    Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
-
-    This field was immutable in Kubernetes <= 1.22 and now is mutable.
-    """
-    token_requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgsDict']]]]]
-    """
-    tokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
-      "<audience>": {
-        "token": <token>,
-        "expirationTimestamp": <expiration timestamp in RFC3339>,
-      },
-      ...
-    }
-
-    Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
-    """
-    volume_lifecycle_modes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
-
-    The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
-
-    For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
-
-    This field is beta. This field is immutable.
+    Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
 
 @pulumi.input_type
-class CSIDriverSpecPatchArgs:
+class CSIDriverArgs:
     def __init__(__self__, *,
-                 attach_required: pulumi.Input[Optional[_builtins.bool]] = None,
-                 fs_group_policy: pulumi.Input[Optional[_builtins.str]] = None,
-                 node_allocatable_update_period_seconds: pulumi.Input[Optional[_builtins.int]] = None,
-                 pod_info_on_mount: pulumi.Input[Optional[_builtins.bool]] = None,
-                 prevent_pod_scheduling_if_missing: pulumi.Input[Optional[_builtins.bool]] = None,
-                 requires_republish: pulumi.Input[Optional[_builtins.bool]] = None,
-                 se_linux_mount: pulumi.Input[Optional[_builtins.bool]] = None,
-                 service_account_token_in_secrets: pulumi.Input[Optional[_builtins.bool]] = None,
-                 storage_capacity: pulumi.Input[Optional[_builtins.bool]] = None,
-                 token_requests: pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgs']]]] = None,
-                 volume_lifecycle_modes: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 spec: pulumi.Input['CSIDriverSpecArgs'],
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
         """
-        CSIDriverSpec is the specification of a CSIDriver.
+        CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
 
-        :param pulumi.Input[_builtins.bool] attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
-               
-               This field is immutable.
-        :param pulumi.Input[_builtins.str] fs_group_policy: fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
-               
-               This field was immutable in Kubernetes < 1.29 and now is mutable.
-               
-               Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
-        :param pulumi.Input[_builtins.int] node_allocatable_update_period_seconds: nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
-               
-               This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
-               
-               This field is mutable.
-        :param pulumi.Input[_builtins.bool] pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
-               
-               The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
-               
-               The following VolumeContext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume
-                                               defined by a CSIVolumeSource, otherwise "false"
-               
-               "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
-               
-               This field was immutable in Kubernetes < 1.29 and now is mutable.
-        :param pulumi.Input[_builtins.bool] prevent_pod_scheduling_if_missing: PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
-               
-               Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
-               
-               For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
-               
-               This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
-        :param pulumi.Input[_builtins.bool] requires_republish: requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
-               
-               Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
-        :param pulumi.Input[_builtins.bool] se_linux_mount: seLinuxMount specifies if the CSI driver supports "-o context" mount option.
-               
-               When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
-               
-               When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
-               
-               Default is "false".
-        :param pulumi.Input[_builtins.bool] service_account_token_in_secrets: serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
-               
-               When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
-               
-               When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
-               
-               This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
-               
-               Default behavior if unset is to pass tokens in the VolumeContext field.
-        :param pulumi.Input[_builtins.bool] storage_capacity: storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
-               
-               The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
-               
-               Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
-               
-               This field was immutable in Kubernetes <= 1.22 and now is mutable.
-        :param pulumi.Input[Sequence[pulumi.Input['TokenRequestPatchArgs']]] token_requests: tokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
-                 "<audience>": {
-                   "token": <token>,
-                   "expirationTimestamp": <expiration timestamp in RFC3339>,
-                 },
-                 ...
-               }
-               
-               Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] volume_lifecycle_modes: volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
-               
-               The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
-               
-               For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
-               
-               This field is beta. This field is immutable.
+        :param pulumi.Input['CSIDriverSpecArgs'] spec: spec represents the specification of the CSI Driver.
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
-        if attach_required is not None:
-            pulumi.set(__self__, "attach_required", attach_required)
-        if fs_group_policy is not None:
-            pulumi.set(__self__, "fs_group_policy", fs_group_policy)
-        if node_allocatable_update_period_seconds is not None:
-            pulumi.set(__self__, "node_allocatable_update_period_seconds", node_allocatable_update_period_seconds)
-        if pod_info_on_mount is not None:
-            pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
-        if prevent_pod_scheduling_if_missing is not None:
-            pulumi.set(__self__, "prevent_pod_scheduling_if_missing", prevent_pod_scheduling_if_missing)
-        if requires_republish is not None:
-            pulumi.set(__self__, "requires_republish", requires_republish)
-        if se_linux_mount is not None:
-            pulumi.set(__self__, "se_linux_mount", se_linux_mount)
-        if service_account_token_in_secrets is not None:
-            pulumi.set(__self__, "service_account_token_in_secrets", service_account_token_in_secrets)
-        if storage_capacity is not None:
-            pulumi.set(__self__, "storage_capacity", storage_capacity)
-        if token_requests is not None:
-            pulumi.set(__self__, "token_requests", token_requests)
-        if volume_lifecycle_modes is not None:
-            pulumi.set(__self__, "volume_lifecycle_modes", volume_lifecycle_modes)
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'CSIDriver')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
 
     @_builtins.property
-    @pulumi.getter(name="attachRequired")
-    def attach_required(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['CSIDriverSpecArgs']:
         """
-        attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
-
-        This field is immutable.
+        spec represents the specification of the CSI Driver.
         """
-        return pulumi.get(self, "attach_required")
+        return pulumi.get(self, "spec")
 
-    @attach_required.setter
-    def attach_required(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "attach_required", value)
+    @spec.setter
+    def spec(self, value: pulumi.Input['CSIDriverSpecArgs']):
+        pulumi.set(self, "spec", value)
 
     @_builtins.property
-    @pulumi.getter(name="fsGroupPolicy")
-    def fs_group_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
-
-        This field was immutable in Kubernetes < 1.29 and now is mutable.
-
-        Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
-        return pulumi.get(self, "fs_group_policy")
+        return pulumi.get(self, "api_version")
 
-    @fs_group_policy.setter
-    def fs_group_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "fs_group_policy", value)
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
 
     @_builtins.property
-    @pulumi.getter(name="nodeAllocatableUpdatePeriodSeconds")
-    def node_allocatable_update_period_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
-
-        This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
-
-        This field is mutable.
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
-        return pulumi.get(self, "node_allocatable_update_period_seconds")
+        return pulumi.get(self, "kind")
 
-    @node_allocatable_update_period_seconds.setter
-    def node_allocatable_update_period_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "node_allocatable_update_period_seconds", value)
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
 
     @_builtins.property
-    @pulumi.getter(name="podInfoOnMount")
-    def pod_info_on_mount(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
-        podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
-
-        The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
-
-        The following VolumeContext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume
-                                        defined by a CSIVolumeSource, otherwise "false"
-
-        "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
-
-        This field was immutable in Kubernetes < 1.29 and now is mutable.
+        Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
-        return pulumi.get(self, "pod_info_on_mount")
+        return pulumi.get(self, "metadata")
 
-    @pod_info_on_mount.setter
-    def pod_info_on_mount(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "pod_info_on_mount", value)
-
-    @_builtins.property
-    @pulumi.getter(name="preventPodSchedulingIfMissing")
-    def prevent_pod_scheduling_if_missing(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
-
-        Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
-
-        For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
-
-        This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
-        """
-        return pulumi.get(self, "prevent_pod_scheduling_if_missing")
-
-    @prevent_pod_scheduling_if_missing.setter
-    def prevent_pod_scheduling_if_missing(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "prevent_pod_scheduling_if_missing", value)
-
-    @_builtins.property
-    @pulumi.getter(name="requiresRepublish")
-    def requires_republish(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
-
-        Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
-        """
-        return pulumi.get(self, "requires_republish")
-
-    @requires_republish.setter
-    def requires_republish(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "requires_republish", value)
-
-    @_builtins.property
-    @pulumi.getter(name="seLinuxMount")
-    def se_linux_mount(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        seLinuxMount specifies if the CSI driver supports "-o context" mount option.
-
-        When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
-
-        When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
-
-        Default is "false".
-        """
-        return pulumi.get(self, "se_linux_mount")
-
-    @se_linux_mount.setter
-    def se_linux_mount(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "se_linux_mount", value)
-
-    @_builtins.property
-    @pulumi.getter(name="serviceAccountTokenInSecrets")
-    def service_account_token_in_secrets(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
-
-        When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
-
-        When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
-
-        This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
-
-        Default behavior if unset is to pass tokens in the VolumeContext field.
-        """
-        return pulumi.get(self, "service_account_token_in_secrets")
-
-    @service_account_token_in_secrets.setter
-    def service_account_token_in_secrets(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "service_account_token_in_secrets", value)
-
-    @_builtins.property
-    @pulumi.getter(name="storageCapacity")
-    def storage_capacity(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
-
-        The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
-
-        Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
-
-        This field was immutable in Kubernetes <= 1.22 and now is mutable.
-        """
-        return pulumi.get(self, "storage_capacity")
-
-    @storage_capacity.setter
-    def storage_capacity(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "storage_capacity", value)
-
-    @_builtins.property
-    @pulumi.getter(name="tokenRequests")
-    def token_requests(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgs']]]]:
-        """
-        tokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
-          "<audience>": {
-            "token": <token>,
-            "expirationTimestamp": <expiration timestamp in RFC3339>,
-          },
-          ...
-        }
-
-        Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
-        """
-        return pulumi.get(self, "token_requests")
-
-    @token_requests.setter
-    def token_requests(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgs']]]]):
-        pulumi.set(self, "token_requests", value)
-
-    @_builtins.property
-    @pulumi.getter(name="volumeLifecycleModes")
-    def volume_lifecycle_modes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
-
-        The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
-
-        For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
-
-        This field is beta. This field is immutable.
-        """
-        return pulumi.get(self, "volume_lifecycle_modes")
-
-    @volume_lifecycle_modes.setter
-    def volume_lifecycle_modes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "volume_lifecycle_modes", value)
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
 
 
 class CSIDriverSpecArgsDict(TypedDict):
@@ -897,13 +573,430 @@ class CSIDriverSpecArgs:
         pulumi.set(self, "volume_lifecycle_modes", value)
 
 
-class CSIDriverArgsDict(TypedDict):
+class CSIDriverSpecPatchArgsDict(TypedDict):
     """
-    CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+    CSIDriverSpec is the specification of a CSIDriver.
     """
-    spec: pulumi.Input['CSIDriverSpecArgsDict']
+    attach_required: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
-    spec represents the specification of the CSI Driver.
+    attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+
+    This field is immutable.
+    """
+    fs_group_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
+
+    This field was immutable in Kubernetes < 1.29 and now is mutable.
+
+    Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
+    """
+    node_allocatable_update_period_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+
+    This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+
+    This field is mutable.
+    """
+    pod_info_on_mount: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
+
+    The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
+
+    The following VolumeContext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume
+                                    defined by a CSIVolumeSource, otherwise "false"
+
+    "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
+
+    This field was immutable in Kubernetes < 1.29 and now is mutable.
+    """
+    prevent_pod_scheduling_if_missing: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+
+    Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+
+    For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+
+    This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+    """
+    requires_republish: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+
+    Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
+    """
+    se_linux_mount: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    seLinuxMount specifies if the CSI driver supports "-o context" mount option.
+
+    When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+
+    When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+
+    Default is "false".
+    """
+    service_account_token_in_secrets: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+
+    When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+
+    When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+
+    This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+
+    Default behavior if unset is to pass tokens in the VolumeContext field.
+    """
+    storage_capacity: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
+
+    The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
+
+    Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
+
+    This field was immutable in Kubernetes <= 1.22 and now is mutable.
+    """
+    token_requests: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgsDict']]]]]
+    """
+    tokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+      "<audience>": {
+        "token": <token>,
+        "expirationTimestamp": <expiration timestamp in RFC3339>,
+      },
+      ...
+    }
+
+    Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
+    """
+    volume_lifecycle_modes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
+
+    The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
+
+    For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
+
+    This field is beta. This field is immutable.
+    """
+
+@pulumi.input_type
+class CSIDriverSpecPatchArgs:
+    def __init__(__self__, *,
+                 attach_required: pulumi.Input[Optional[_builtins.bool]] = None,
+                 fs_group_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 node_allocatable_update_period_seconds: pulumi.Input[Optional[_builtins.int]] = None,
+                 pod_info_on_mount: pulumi.Input[Optional[_builtins.bool]] = None,
+                 prevent_pod_scheduling_if_missing: pulumi.Input[Optional[_builtins.bool]] = None,
+                 requires_republish: pulumi.Input[Optional[_builtins.bool]] = None,
+                 se_linux_mount: pulumi.Input[Optional[_builtins.bool]] = None,
+                 service_account_token_in_secrets: pulumi.Input[Optional[_builtins.bool]] = None,
+                 storage_capacity: pulumi.Input[Optional[_builtins.bool]] = None,
+                 token_requests: pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgs']]]] = None,
+                 volume_lifecycle_modes: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        CSIDriverSpec is the specification of a CSIDriver.
+
+        :param pulumi.Input[_builtins.bool] attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+               
+               This field is immutable.
+        :param pulumi.Input[_builtins.str] fs_group_policy: fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
+               
+               This field was immutable in Kubernetes < 1.29 and now is mutable.
+               
+               Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
+        :param pulumi.Input[_builtins.int] node_allocatable_update_period_seconds: nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+               
+               This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+               
+               This field is mutable.
+        :param pulumi.Input[_builtins.bool] pod_info_on_mount: podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
+               
+               The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
+               
+               The following VolumeContext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume
+                                               defined by a CSIVolumeSource, otherwise "false"
+               
+               "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
+               
+               This field was immutable in Kubernetes < 1.29 and now is mutable.
+        :param pulumi.Input[_builtins.bool] prevent_pod_scheduling_if_missing: PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+               
+               Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+               
+               For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+               
+               This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+        :param pulumi.Input[_builtins.bool] requires_republish: requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+               
+               Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
+        :param pulumi.Input[_builtins.bool] se_linux_mount: seLinuxMount specifies if the CSI driver supports "-o context" mount option.
+               
+               When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+               
+               When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+               
+               Default is "false".
+        :param pulumi.Input[_builtins.bool] service_account_token_in_secrets: serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+               
+               When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+               
+               When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+               
+               This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+               
+               Default behavior if unset is to pass tokens in the VolumeContext field.
+        :param pulumi.Input[_builtins.bool] storage_capacity: storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
+               
+               The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
+               
+               Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
+               
+               This field was immutable in Kubernetes <= 1.22 and now is mutable.
+        :param pulumi.Input[Sequence[pulumi.Input['TokenRequestPatchArgs']]] token_requests: tokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+                 "<audience>": {
+                   "token": <token>,
+                   "expirationTimestamp": <expiration timestamp in RFC3339>,
+                 },
+                 ...
+               }
+               
+               Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] volume_lifecycle_modes: volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
+               
+               The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
+               
+               For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
+               
+               This field is beta. This field is immutable.
+        """
+        if attach_required is not None:
+            pulumi.set(__self__, "attach_required", attach_required)
+        if fs_group_policy is not None:
+            pulumi.set(__self__, "fs_group_policy", fs_group_policy)
+        if node_allocatable_update_period_seconds is not None:
+            pulumi.set(__self__, "node_allocatable_update_period_seconds", node_allocatable_update_period_seconds)
+        if pod_info_on_mount is not None:
+            pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
+        if prevent_pod_scheduling_if_missing is not None:
+            pulumi.set(__self__, "prevent_pod_scheduling_if_missing", prevent_pod_scheduling_if_missing)
+        if requires_republish is not None:
+            pulumi.set(__self__, "requires_republish", requires_republish)
+        if se_linux_mount is not None:
+            pulumi.set(__self__, "se_linux_mount", se_linux_mount)
+        if service_account_token_in_secrets is not None:
+            pulumi.set(__self__, "service_account_token_in_secrets", service_account_token_in_secrets)
+        if storage_capacity is not None:
+            pulumi.set(__self__, "storage_capacity", storage_capacity)
+        if token_requests is not None:
+            pulumi.set(__self__, "token_requests", token_requests)
+        if volume_lifecycle_modes is not None:
+            pulumi.set(__self__, "volume_lifecycle_modes", volume_lifecycle_modes)
+
+    @_builtins.property
+    @pulumi.getter(name="attachRequired")
+    def attach_required(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+
+        This field is immutable.
+        """
+        return pulumi.get(self, "attach_required")
+
+    @attach_required.setter
+    def attach_required(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "attach_required", value)
+
+    @_builtins.property
+    @pulumi.getter(name="fsGroupPolicy")
+    def fs_group_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
+
+        This field was immutable in Kubernetes < 1.29 and now is mutable.
+
+        Defaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce.
+        """
+        return pulumi.get(self, "fs_group_policy")
+
+    @fs_group_policy.setter
+    def fs_group_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "fs_group_policy", value)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAllocatableUpdatePeriodSeconds")
+    def node_allocatable_update_period_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+
+        This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+
+        This field is mutable.
+        """
+        return pulumi.get(self, "node_allocatable_update_period_seconds")
+
+    @node_allocatable_update_period_seconds.setter
+    def node_allocatable_update_period_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "node_allocatable_update_period_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podInfoOnMount")
+    def pod_info_on_mount(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
+
+        The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
+
+        The following VolumeContext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume
+                                        defined by a CSIVolumeSource, otherwise "false"
+
+        "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
+
+        This field was immutable in Kubernetes < 1.29 and now is mutable.
+        """
+        return pulumi.get(self, "pod_info_on_mount")
+
+    @pod_info_on_mount.setter
+    def pod_info_on_mount(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "pod_info_on_mount", value)
+
+    @_builtins.property
+    @pulumi.getter(name="preventPodSchedulingIfMissing")
+    def prevent_pod_scheduling_if_missing(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+
+        Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+
+        For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+
+        This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+        """
+        return pulumi.get(self, "prevent_pod_scheduling_if_missing")
+
+    @prevent_pod_scheduling_if_missing.setter
+    def prevent_pod_scheduling_if_missing(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "prevent_pod_scheduling_if_missing", value)
+
+    @_builtins.property
+    @pulumi.getter(name="requiresRepublish")
+    def requires_republish(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+
+        Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
+        """
+        return pulumi.get(self, "requires_republish")
+
+    @requires_republish.setter
+    def requires_republish(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "requires_republish", value)
+
+    @_builtins.property
+    @pulumi.getter(name="seLinuxMount")
+    def se_linux_mount(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        seLinuxMount specifies if the CSI driver supports "-o context" mount option.
+
+        When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+
+        When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+
+        Default is "false".
+        """
+        return pulumi.get(self, "se_linux_mount")
+
+    @se_linux_mount.setter
+    def se_linux_mount(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "se_linux_mount", value)
+
+    @_builtins.property
+    @pulumi.getter(name="serviceAccountTokenInSecrets")
+    def service_account_token_in_secrets(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+
+        When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+
+        When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+
+        This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+
+        Default behavior if unset is to pass tokens in the VolumeContext field.
+        """
+        return pulumi.get(self, "service_account_token_in_secrets")
+
+    @service_account_token_in_secrets.setter
+    def service_account_token_in_secrets(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "service_account_token_in_secrets", value)
+
+    @_builtins.property
+    @pulumi.getter(name="storageCapacity")
+    def storage_capacity(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
+
+        The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
+
+        Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
+
+        This field was immutable in Kubernetes <= 1.22 and now is mutable.
+        """
+        return pulumi.get(self, "storage_capacity")
+
+    @storage_capacity.setter
+    def storage_capacity(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "storage_capacity", value)
+
+    @_builtins.property
+    @pulumi.getter(name="tokenRequests")
+    def token_requests(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgs']]]]:
+        """
+        tokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+          "<audience>": {
+            "token": <token>,
+            "expirationTimestamp": <expiration timestamp in RFC3339>,
+          },
+          ...
+        }
+
+        Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
+        """
+        return pulumi.get(self, "token_requests")
+
+    @token_requests.setter
+    def token_requests(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['TokenRequestPatchArgs']]]]):
+        pulumi.set(self, "token_requests", value)
+
+    @_builtins.property
+    @pulumi.getter(name="volumeLifecycleModes")
+    def volume_lifecycle_modes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
+
+        The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
+
+        For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
+
+        This field is beta. This field is immutable.
+        """
+        return pulumi.get(self, "volume_lifecycle_modes")
+
+    @volume_lifecycle_modes.setter
+    def volume_lifecycle_modes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "volume_lifecycle_modes", value)
+
+
+class CSINodeArgsDict(TypedDict):
+    """
+    CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
+    """
+    spec: pulumi.Input['CSINodeSpecArgsDict']
+    """
+    spec is the specification of CSINode
     """
     api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -915,42 +1008,42 @@ class CSIDriverArgsDict(TypedDict):
     """
     metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
-    Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    Standard object's metadata. metadata.name must be the Kubernetes node name.
     """
 
 @pulumi.input_type
-class CSIDriverArgs:
+class CSINodeArgs:
     def __init__(__self__, *,
-                 spec: pulumi.Input['CSIDriverSpecArgs'],
+                 spec: pulumi.Input['CSINodeSpecArgs'],
                  api_version: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[_builtins.str]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
         """
-        CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
+        CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
 
-        :param pulumi.Input['CSIDriverSpecArgs'] spec: spec represents the specification of the CSI Driver.
+        :param pulumi.Input['CSINodeSpecArgs'] spec: spec is the specification of CSINode
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. metadata.name must be the Kubernetes node name.
         """
         pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'CSIDriver')
+            pulumi.set(__self__, "kind", 'CSINode')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> pulumi.Input['CSIDriverSpecArgs']:
+    def spec(self) -> pulumi.Input['CSINodeSpecArgs']:
         """
-        spec represents the specification of the CSI Driver.
+        spec is the specification of CSINode
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: pulumi.Input['CSIDriverSpecArgs']):
+    def spec(self, value: pulumi.Input['CSINodeSpecArgs']):
         pulumi.set(self, "spec", value)
 
     @_builtins.property
@@ -981,13 +1074,105 @@ class CSIDriverArgs:
     @pulumi.getter
     def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
-        Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        Standard object's metadata. metadata.name must be the Kubernetes node name.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
     def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
+
+
+class CSINodeDriverArgsDict(TypedDict):
+    """
+    CSINodeDriver holds information about the specification of one CSI driver installed on a node
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+    """
+    node_id: pulumi.Input[_builtins.str]
+    """
+    nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
+    """
+    allocatable: NotRequired[pulumi.Input[Optional['VolumeNodeResourcesArgsDict']]]
+    """
+    allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
+    """
+    topology_keys: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
+    """
+
+@pulumi.input_type
+class CSINodeDriverArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 node_id: pulumi.Input[_builtins.str],
+                 allocatable: pulumi.Input[Optional['VolumeNodeResourcesArgs']] = None,
+                 topology_keys: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        CSINodeDriver holds information about the specification of one CSI driver installed on a node
+
+        :param pulumi.Input[_builtins.str] name: name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+        :param pulumi.Input[_builtins.str] node_id: nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
+        :param pulumi.Input['VolumeNodeResourcesArgs'] allocatable: allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] topology_keys: topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "node_id", node_id)
+        if allocatable is not None:
+            pulumi.set(__self__, "allocatable", allocatable)
+        if topology_keys is not None:
+            pulumi.set(__self__, "topology_keys", topology_keys)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeID")
+    def node_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
+        """
+        return pulumi.get(self, "node_id")
+
+    @node_id.setter
+    def node_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "node_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def allocatable(self) -> pulumi.Input[Optional['VolumeNodeResourcesArgs']]:
+        """
+        allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
+        """
+        return pulumi.get(self, "allocatable")
+
+    @allocatable.setter
+    def allocatable(self, value: pulumi.Input[Optional['VolumeNodeResourcesArgs']]):
+        pulumi.set(self, "allocatable", value)
+
+    @_builtins.property
+    @pulumi.getter(name="topologyKeys")
+    def topology_keys(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
+        """
+        return pulumi.get(self, "topology_keys")
+
+    @topology_keys.setter
+    def topology_keys(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "topology_keys", value)
 
 
 class CSINodeDriverPatchArgsDict(TypedDict):
@@ -1084,96 +1269,37 @@ class CSINodeDriverPatchArgs:
         pulumi.set(self, "topology_keys", value)
 
 
-class CSINodeDriverArgsDict(TypedDict):
+class CSINodeSpecArgsDict(TypedDict):
     """
-    CSINodeDriver holds information about the specification of one CSI driver installed on a node
+    CSINodeSpec holds information about the specification of all CSI drivers installed on a node
     """
-    name: pulumi.Input[_builtins.str]
+    drivers: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgsDict']]]
     """
-    name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
-    """
-    node_id: pulumi.Input[_builtins.str]
-    """
-    nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
-    """
-    allocatable: NotRequired[pulumi.Input[Optional['VolumeNodeResourcesArgsDict']]]
-    """
-    allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
-    """
-    topology_keys: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
+    drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
     """
 
 @pulumi.input_type
-class CSINodeDriverArgs:
+class CSINodeSpecArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[_builtins.str],
-                 node_id: pulumi.Input[_builtins.str],
-                 allocatable: pulumi.Input[Optional['VolumeNodeResourcesArgs']] = None,
-                 topology_keys: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 drivers: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]):
         """
-        CSINodeDriver holds information about the specification of one CSI driver installed on a node
+        CSINodeSpec holds information about the specification of all CSI drivers installed on a node
 
-        :param pulumi.Input[_builtins.str] name: name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
-        :param pulumi.Input[_builtins.str] node_id: nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
-        :param pulumi.Input['VolumeNodeResourcesArgs'] allocatable: allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] topology_keys: topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
+        :param pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]] drivers: drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
         """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "node_id", node_id)
-        if allocatable is not None:
-            pulumi.set(__self__, "allocatable", allocatable)
-        if topology_keys is not None:
-            pulumi.set(__self__, "topology_keys", topology_keys)
+        pulumi.set(__self__, "drivers", drivers)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[_builtins.str]:
+    def drivers(self) -> pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]:
         """
-        name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+        drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
         """
-        return pulumi.get(self, "name")
+        return pulumi.get(self, "drivers")
 
-    @name.setter
-    def name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="nodeID")
-    def node_id(self) -> pulumi.Input[_builtins.str]:
-        """
-        nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
-        """
-        return pulumi.get(self, "node_id")
-
-    @node_id.setter
-    def node_id(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "node_id", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def allocatable(self) -> pulumi.Input[Optional['VolumeNodeResourcesArgs']]:
-        """
-        allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
-        """
-        return pulumi.get(self, "allocatable")
-
-    @allocatable.setter
-    def allocatable(self, value: pulumi.Input[Optional['VolumeNodeResourcesArgs']]):
-        pulumi.set(self, "allocatable", value)
-
-    @_builtins.property
-    @pulumi.getter(name="topologyKeys")
-    def topology_keys(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
-        """
-        return pulumi.get(self, "topology_keys")
-
-    @topology_keys.setter
-    def topology_keys(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "topology_keys", value)
+    @drivers.setter
+    def drivers(self, value: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]):
+        pulumi.set(self, "drivers", value)
 
 
 class CSINodeSpecPatchArgsDict(TypedDict):
@@ -1208,132 +1334,6 @@ class CSINodeSpecPatchArgs:
     @drivers.setter
     def drivers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CSINodeDriverPatchArgs']]]]):
         pulumi.set(self, "drivers", value)
-
-
-class CSINodeSpecArgsDict(TypedDict):
-    """
-    CSINodeSpec holds information about the specification of all CSI drivers installed on a node
-    """
-    drivers: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgsDict']]]
-    """
-    drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
-    """
-
-@pulumi.input_type
-class CSINodeSpecArgs:
-    def __init__(__self__, *,
-                 drivers: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]):
-        """
-        CSINodeSpec holds information about the specification of all CSI drivers installed on a node
-
-        :param pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]] drivers: drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
-        """
-        pulumi.set(__self__, "drivers", drivers)
-
-    @_builtins.property
-    @pulumi.getter
-    def drivers(self) -> pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]:
-        """
-        drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
-        """
-        return pulumi.get(self, "drivers")
-
-    @drivers.setter
-    def drivers(self, value: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]):
-        pulumi.set(self, "drivers", value)
-
-
-class CSINodeArgsDict(TypedDict):
-    """
-    CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
-    """
-    spec: pulumi.Input['CSINodeSpecArgsDict']
-    """
-    spec is the specification of CSINode
-    """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-    """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
-    """
-    Standard object's metadata. metadata.name must be the Kubernetes node name.
-    """
-
-@pulumi.input_type
-class CSINodeArgs:
-    def __init__(__self__, *,
-                 spec: pulumi.Input['CSINodeSpecArgs'],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
-        """
-        CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
-
-        :param pulumi.Input['CSINodeSpecArgs'] spec: spec is the specification of CSINode
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. metadata.name must be the Kubernetes node name.
-        """
-        pulumi.set(__self__, "spec", spec)
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'CSINode')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['CSINodeSpecArgs']:
-        """
-        spec is the specification of CSINode
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['CSINodeSpecArgs']):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_version", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. metadata.name must be the Kubernetes node name.
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
 
 
 class CSIStorageCapacityArgsDict(TypedDict):
@@ -1746,60 +1746,6 @@ class StorageClassArgs:
         pulumi.set(self, "volume_binding_mode", value)
 
 
-class TokenRequestPatchArgsDict(TypedDict):
-    """
-    TokenRequest contains parameters of a service account token.
-    """
-    audience: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
-    """
-    expiration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
-    """
-    expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
-    """
-
-@pulumi.input_type
-class TokenRequestPatchArgs:
-    def __init__(__self__, *,
-                 audience: pulumi.Input[Optional[_builtins.str]] = None,
-                 expiration_seconds: pulumi.Input[Optional[_builtins.int]] = None):
-        """
-        TokenRequest contains parameters of a service account token.
-
-        :param pulumi.Input[_builtins.str] audience: audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
-        :param pulumi.Input[_builtins.int] expiration_seconds: expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
-        """
-        if audience is not None:
-            pulumi.set(__self__, "audience", audience)
-        if expiration_seconds is not None:
-            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
-
-    @_builtins.property
-    @pulumi.getter
-    def audience(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
-        """
-        return pulumi.get(self, "audience")
-
-    @audience.setter
-    def audience(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "audience", value)
-
-    @_builtins.property
-    @pulumi.getter(name="expirationSeconds")
-    def expiration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
-        """
-        expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
-        """
-        return pulumi.get(self, "expiration_seconds")
-
-    @expiration_seconds.setter
-    def expiration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
-        pulumi.set(self, "expiration_seconds", value)
-
-
 class TokenRequestArgsDict(TypedDict):
     """
     TokenRequest contains parameters of a service account token.
@@ -1853,350 +1799,58 @@ class TokenRequestArgs:
         pulumi.set(self, "expiration_seconds", value)
 
 
-class VolumeAttachmentSourcePatchArgsDict(TypedDict):
+class TokenRequestPatchArgsDict(TypedDict):
     """
-    VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
+    TokenRequest contains parameters of a service account token.
     """
-    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgsDict']]]
+    audience: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
+    audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
     """
-    persistent_volume_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    expiration_seconds: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
-    persistentVolumeName represents the name of the persistent volume to attach.
-    """
-
-@pulumi.input_type
-class VolumeAttachmentSourcePatchArgs:
-    def __init__(__self__, *,
-                 inline_volume_spec: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']] = None,
-                 persistent_volume_name: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
-
-        :param pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs'] inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
-        :param pulumi.Input[_builtins.str] persistent_volume_name: persistentVolumeName represents the name of the persistent volume to attach.
-        """
-        if inline_volume_spec is not None:
-            pulumi.set(__self__, "inline_volume_spec", inline_volume_spec)
-        if persistent_volume_name is not None:
-            pulumi.set(__self__, "persistent_volume_name", persistent_volume_name)
-
-    @_builtins.property
-    @pulumi.getter(name="inlineVolumeSpec")
-    def inline_volume_spec(self) -> pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']]:
-        """
-        inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
-        """
-        return pulumi.get(self, "inline_volume_spec")
-
-    @inline_volume_spec.setter
-    def inline_volume_spec(self, value: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']]):
-        pulumi.set(self, "inline_volume_spec", value)
-
-    @_builtins.property
-    @pulumi.getter(name="persistentVolumeName")
-    def persistent_volume_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        persistentVolumeName represents the name of the persistent volume to attach.
-        """
-        return pulumi.get(self, "persistent_volume_name")
-
-    @persistent_volume_name.setter
-    def persistent_volume_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "persistent_volume_name", value)
-
-
-class VolumeAttachmentSourceArgsDict(TypedDict):
-    """
-    VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
-    """
-    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgsDict']]]
-    """
-    inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
-    """
-    persistent_volume_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    persistentVolumeName represents the name of the persistent volume to attach.
+    expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
     """
 
 @pulumi.input_type
-class VolumeAttachmentSourceArgs:
+class TokenRequestPatchArgs:
     def __init__(__self__, *,
-                 inline_volume_spec: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']] = None,
-                 persistent_volume_name: pulumi.Input[Optional[_builtins.str]] = None):
+                 audience: pulumi.Input[Optional[_builtins.str]] = None,
+                 expiration_seconds: pulumi.Input[Optional[_builtins.int]] = None):
         """
-        VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
+        TokenRequest contains parameters of a service account token.
 
-        :param pulumi.Input['_core.v1.PersistentVolumeSpecArgs'] inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
-        :param pulumi.Input[_builtins.str] persistent_volume_name: persistentVolumeName represents the name of the persistent volume to attach.
+        :param pulumi.Input[_builtins.str] audience: audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
+        :param pulumi.Input[_builtins.int] expiration_seconds: expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
         """
-        if inline_volume_spec is not None:
-            pulumi.set(__self__, "inline_volume_spec", inline_volume_spec)
-        if persistent_volume_name is not None:
-            pulumi.set(__self__, "persistent_volume_name", persistent_volume_name)
-
-    @_builtins.property
-    @pulumi.getter(name="inlineVolumeSpec")
-    def inline_volume_spec(self) -> pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']]:
-        """
-        inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
-        """
-        return pulumi.get(self, "inline_volume_spec")
-
-    @inline_volume_spec.setter
-    def inline_volume_spec(self, value: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']]):
-        pulumi.set(self, "inline_volume_spec", value)
-
-    @_builtins.property
-    @pulumi.getter(name="persistentVolumeName")
-    def persistent_volume_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        persistentVolumeName represents the name of the persistent volume to attach.
-        """
-        return pulumi.get(self, "persistent_volume_name")
-
-    @persistent_volume_name.setter
-    def persistent_volume_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "persistent_volume_name", value)
-
-
-class VolumeAttachmentSpecPatchArgsDict(TypedDict):
-    """
-    VolumeAttachmentSpec is the specification of a VolumeAttachment request.
-    """
-    attacher: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-    """
-    node_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    nodeName represents the node that the volume should be attached to.
-    """
-    source: NotRequired[pulumi.Input[Optional['VolumeAttachmentSourcePatchArgsDict']]]
-    """
-    source represents the volume that should be attached.
-    """
-
-@pulumi.input_type
-class VolumeAttachmentSpecPatchArgs:
-    def __init__(__self__, *,
-                 attacher: pulumi.Input[Optional[_builtins.str]] = None,
-                 node_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 source: pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']] = None):
-        """
-        VolumeAttachmentSpec is the specification of a VolumeAttachment request.
-
-        :param pulumi.Input[_builtins.str] attacher: attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-        :param pulumi.Input[_builtins.str] node_name: nodeName represents the node that the volume should be attached to.
-        :param pulumi.Input['VolumeAttachmentSourcePatchArgs'] source: source represents the volume that should be attached.
-        """
-        if attacher is not None:
-            pulumi.set(__self__, "attacher", attacher)
-        if node_name is not None:
-            pulumi.set(__self__, "node_name", node_name)
-        if source is not None:
-            pulumi.set(__self__, "source", source)
+        if audience is not None:
+            pulumi.set(__self__, "audience", audience)
+        if expiration_seconds is not None:
+            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
 
     @_builtins.property
     @pulumi.getter
-    def attacher(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def audience(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+        audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
         """
-        return pulumi.get(self, "attacher")
+        return pulumi.get(self, "audience")
 
-    @attacher.setter
-    def attacher(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "attacher", value)
+    @audience.setter
+    def audience(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "audience", value)
 
     @_builtins.property
-    @pulumi.getter(name="nodeName")
-    def node_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter(name="expirationSeconds")
+    def expiration_seconds(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        nodeName represents the node that the volume should be attached to.
+        expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
         """
-        return pulumi.get(self, "node_name")
+        return pulumi.get(self, "expiration_seconds")
 
-    @node_name.setter
-    def node_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "node_name", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def source(self) -> pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']]:
-        """
-        source represents the volume that should be attached.
-        """
-        return pulumi.get(self, "source")
-
-    @source.setter
-    def source(self, value: pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']]):
-        pulumi.set(self, "source", value)
-
-
-class VolumeAttachmentSpecArgsDict(TypedDict):
-    """
-    VolumeAttachmentSpec is the specification of a VolumeAttachment request.
-    """
-    attacher: pulumi.Input[_builtins.str]
-    """
-    attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-    """
-    node_name: pulumi.Input[_builtins.str]
-    """
-    nodeName represents the node that the volume should be attached to.
-    """
-    source: pulumi.Input['VolumeAttachmentSourceArgsDict']
-    """
-    source represents the volume that should be attached.
-    """
-
-@pulumi.input_type
-class VolumeAttachmentSpecArgs:
-    def __init__(__self__, *,
-                 attacher: pulumi.Input[_builtins.str],
-                 node_name: pulumi.Input[_builtins.str],
-                 source: pulumi.Input['VolumeAttachmentSourceArgs']):
-        """
-        VolumeAttachmentSpec is the specification of a VolumeAttachment request.
-
-        :param pulumi.Input[_builtins.str] attacher: attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-        :param pulumi.Input[_builtins.str] node_name: nodeName represents the node that the volume should be attached to.
-        :param pulumi.Input['VolumeAttachmentSourceArgs'] source: source represents the volume that should be attached.
-        """
-        pulumi.set(__self__, "attacher", attacher)
-        pulumi.set(__self__, "node_name", node_name)
-        pulumi.set(__self__, "source", source)
-
-    @_builtins.property
-    @pulumi.getter
-    def attacher(self) -> pulumi.Input[_builtins.str]:
-        """
-        attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
-        """
-        return pulumi.get(self, "attacher")
-
-    @attacher.setter
-    def attacher(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "attacher", value)
-
-    @_builtins.property
-    @pulumi.getter(name="nodeName")
-    def node_name(self) -> pulumi.Input[_builtins.str]:
-        """
-        nodeName represents the node that the volume should be attached to.
-        """
-        return pulumi.get(self, "node_name")
-
-    @node_name.setter
-    def node_name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "node_name", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def source(self) -> pulumi.Input['VolumeAttachmentSourceArgs']:
-        """
-        source represents the volume that should be attached.
-        """
-        return pulumi.get(self, "source")
-
-    @source.setter
-    def source(self, value: pulumi.Input['VolumeAttachmentSourceArgs']):
-        pulumi.set(self, "source", value)
-
-
-class VolumeAttachmentStatusArgsDict(TypedDict):
-    """
-    VolumeAttachmentStatus is the status of a VolumeAttachment request.
-    """
-    attached: pulumi.Input[_builtins.bool]
-    """
-    attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-    """
-    attach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgsDict']]]
-    """
-    attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-    """
-    attachment_metadata: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
-    """
-    attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-    """
-    detach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgsDict']]]
-    """
-    detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
-    """
-
-@pulumi.input_type
-class VolumeAttachmentStatusArgs:
-    def __init__(__self__, *,
-                 attached: pulumi.Input[_builtins.bool],
-                 attach_error: pulumi.Input[Optional['VolumeErrorArgs']] = None,
-                 attachment_metadata: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
-                 detach_error: pulumi.Input[Optional['VolumeErrorArgs']] = None):
-        """
-        VolumeAttachmentStatus is the status of a VolumeAttachment request.
-
-        :param pulumi.Input[_builtins.bool] attached: attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-        :param pulumi.Input['VolumeErrorArgs'] attach_error: attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] attachment_metadata: attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-        :param pulumi.Input['VolumeErrorArgs'] detach_error: detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
-        """
-        pulumi.set(__self__, "attached", attached)
-        if attach_error is not None:
-            pulumi.set(__self__, "attach_error", attach_error)
-        if attachment_metadata is not None:
-            pulumi.set(__self__, "attachment_metadata", attachment_metadata)
-        if detach_error is not None:
-            pulumi.set(__self__, "detach_error", detach_error)
-
-    @_builtins.property
-    @pulumi.getter
-    def attached(self) -> pulumi.Input[_builtins.bool]:
-        """
-        attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-        """
-        return pulumi.get(self, "attached")
-
-    @attached.setter
-    def attached(self, value: pulumi.Input[_builtins.bool]):
-        pulumi.set(self, "attached", value)
-
-    @_builtins.property
-    @pulumi.getter(name="attachError")
-    def attach_error(self) -> pulumi.Input[Optional['VolumeErrorArgs']]:
-        """
-        attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-        """
-        return pulumi.get(self, "attach_error")
-
-    @attach_error.setter
-    def attach_error(self, value: pulumi.Input[Optional['VolumeErrorArgs']]):
-        pulumi.set(self, "attach_error", value)
-
-    @_builtins.property
-    @pulumi.getter(name="attachmentMetadata")
-    def attachment_metadata(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
-        """
-        attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
-        """
-        return pulumi.get(self, "attachment_metadata")
-
-    @attachment_metadata.setter
-    def attachment_metadata(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "attachment_metadata", value)
-
-    @_builtins.property
-    @pulumi.getter(name="detachError")
-    def detach_error(self) -> pulumi.Input[Optional['VolumeErrorArgs']]:
-        """
-        detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
-        """
-        return pulumi.get(self, "detach_error")
-
-    @detach_error.setter
-    def detach_error(self, value: pulumi.Input[Optional['VolumeErrorArgs']]):
-        pulumi.set(self, "detach_error", value)
+    @expiration_seconds.setter
+    def expiration_seconds(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "expiration_seconds", value)
 
 
 class VolumeAttachmentArgsDict(TypedDict):
@@ -2314,6 +1968,352 @@ class VolumeAttachmentArgs:
     @status.setter
     def status(self, value: pulumi.Input[Optional['VolumeAttachmentStatusArgs']]):
         pulumi.set(self, "status", value)
+
+
+class VolumeAttachmentSourceArgsDict(TypedDict):
+    """
+    VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
+    """
+    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgsDict']]]
+    """
+    inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
+    """
+    persistent_volume_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    persistentVolumeName represents the name of the persistent volume to attach.
+    """
+
+@pulumi.input_type
+class VolumeAttachmentSourceArgs:
+    def __init__(__self__, *,
+                 inline_volume_spec: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']] = None,
+                 persistent_volume_name: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
+
+        :param pulumi.Input['_core.v1.PersistentVolumeSpecArgs'] inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
+        :param pulumi.Input[_builtins.str] persistent_volume_name: persistentVolumeName represents the name of the persistent volume to attach.
+        """
+        if inline_volume_spec is not None:
+            pulumi.set(__self__, "inline_volume_spec", inline_volume_spec)
+        if persistent_volume_name is not None:
+            pulumi.set(__self__, "persistent_volume_name", persistent_volume_name)
+
+    @_builtins.property
+    @pulumi.getter(name="inlineVolumeSpec")
+    def inline_volume_spec(self) -> pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']]:
+        """
+        inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
+        """
+        return pulumi.get(self, "inline_volume_spec")
+
+    @inline_volume_spec.setter
+    def inline_volume_spec(self, value: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecArgs']]):
+        pulumi.set(self, "inline_volume_spec", value)
+
+    @_builtins.property
+    @pulumi.getter(name="persistentVolumeName")
+    def persistent_volume_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        persistentVolumeName represents the name of the persistent volume to attach.
+        """
+        return pulumi.get(self, "persistent_volume_name")
+
+    @persistent_volume_name.setter
+    def persistent_volume_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "persistent_volume_name", value)
+
+
+class VolumeAttachmentSourcePatchArgsDict(TypedDict):
+    """
+    VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
+    """
+    inline_volume_spec: NotRequired[pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgsDict']]]
+    """
+    inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
+    """
+    persistent_volume_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    persistentVolumeName represents the name of the persistent volume to attach.
+    """
+
+@pulumi.input_type
+class VolumeAttachmentSourcePatchArgs:
+    def __init__(__self__, *,
+                 inline_volume_spec: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']] = None,
+                 persistent_volume_name: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
+
+        :param pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs'] inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
+        :param pulumi.Input[_builtins.str] persistent_volume_name: persistentVolumeName represents the name of the persistent volume to attach.
+        """
+        if inline_volume_spec is not None:
+            pulumi.set(__self__, "inline_volume_spec", inline_volume_spec)
+        if persistent_volume_name is not None:
+            pulumi.set(__self__, "persistent_volume_name", persistent_volume_name)
+
+    @_builtins.property
+    @pulumi.getter(name="inlineVolumeSpec")
+    def inline_volume_spec(self) -> pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']]:
+        """
+        inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
+        """
+        return pulumi.get(self, "inline_volume_spec")
+
+    @inline_volume_spec.setter
+    def inline_volume_spec(self, value: pulumi.Input[Optional['_core.v1.PersistentVolumeSpecPatchArgs']]):
+        pulumi.set(self, "inline_volume_spec", value)
+
+    @_builtins.property
+    @pulumi.getter(name="persistentVolumeName")
+    def persistent_volume_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        persistentVolumeName represents the name of the persistent volume to attach.
+        """
+        return pulumi.get(self, "persistent_volume_name")
+
+    @persistent_volume_name.setter
+    def persistent_volume_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "persistent_volume_name", value)
+
+
+class VolumeAttachmentSpecArgsDict(TypedDict):
+    """
+    VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+    """
+    attacher: pulumi.Input[_builtins.str]
+    """
+    attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+    """
+    node_name: pulumi.Input[_builtins.str]
+    """
+    nodeName represents the node that the volume should be attached to.
+    """
+    source: pulumi.Input['VolumeAttachmentSourceArgsDict']
+    """
+    source represents the volume that should be attached.
+    """
+
+@pulumi.input_type
+class VolumeAttachmentSpecArgs:
+    def __init__(__self__, *,
+                 attacher: pulumi.Input[_builtins.str],
+                 node_name: pulumi.Input[_builtins.str],
+                 source: pulumi.Input['VolumeAttachmentSourceArgs']):
+        """
+        VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+
+        :param pulumi.Input[_builtins.str] attacher: attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+        :param pulumi.Input[_builtins.str] node_name: nodeName represents the node that the volume should be attached to.
+        :param pulumi.Input['VolumeAttachmentSourceArgs'] source: source represents the volume that should be attached.
+        """
+        pulumi.set(__self__, "attacher", attacher)
+        pulumi.set(__self__, "node_name", node_name)
+        pulumi.set(__self__, "source", source)
+
+    @_builtins.property
+    @pulumi.getter
+    def attacher(self) -> pulumi.Input[_builtins.str]:
+        """
+        attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+        """
+        return pulumi.get(self, "attacher")
+
+    @attacher.setter
+    def attacher(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "attacher", value)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        nodeName represents the node that the volume should be attached to.
+        """
+        return pulumi.get(self, "node_name")
+
+    @node_name.setter
+    def node_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "node_name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> pulumi.Input['VolumeAttachmentSourceArgs']:
+        """
+        source represents the volume that should be attached.
+        """
+        return pulumi.get(self, "source")
+
+    @source.setter
+    def source(self, value: pulumi.Input['VolumeAttachmentSourceArgs']):
+        pulumi.set(self, "source", value)
+
+
+class VolumeAttachmentSpecPatchArgsDict(TypedDict):
+    """
+    VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+    """
+    attacher: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+    """
+    node_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    nodeName represents the node that the volume should be attached to.
+    """
+    source: NotRequired[pulumi.Input[Optional['VolumeAttachmentSourcePatchArgsDict']]]
+    """
+    source represents the volume that should be attached.
+    """
+
+@pulumi.input_type
+class VolumeAttachmentSpecPatchArgs:
+    def __init__(__self__, *,
+                 attacher: pulumi.Input[Optional[_builtins.str]] = None,
+                 node_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 source: pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']] = None):
+        """
+        VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+
+        :param pulumi.Input[_builtins.str] attacher: attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+        :param pulumi.Input[_builtins.str] node_name: nodeName represents the node that the volume should be attached to.
+        :param pulumi.Input['VolumeAttachmentSourcePatchArgs'] source: source represents the volume that should be attached.
+        """
+        if attacher is not None:
+            pulumi.set(__self__, "attacher", attacher)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if source is not None:
+            pulumi.set(__self__, "source", source)
+
+    @_builtins.property
+    @pulumi.getter
+    def attacher(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+        """
+        return pulumi.get(self, "attacher")
+
+    @attacher.setter
+    def attacher(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "attacher", value)
+
+    @_builtins.property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        nodeName represents the node that the volume should be attached to.
+        """
+        return pulumi.get(self, "node_name")
+
+    @node_name.setter
+    def node_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "node_name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']]:
+        """
+        source represents the volume that should be attached.
+        """
+        return pulumi.get(self, "source")
+
+    @source.setter
+    def source(self, value: pulumi.Input[Optional['VolumeAttachmentSourcePatchArgs']]):
+        pulumi.set(self, "source", value)
+
+
+class VolumeAttachmentStatusArgsDict(TypedDict):
+    """
+    VolumeAttachmentStatus is the status of a VolumeAttachment request.
+    """
+    attached: pulumi.Input[_builtins.bool]
+    """
+    attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+    """
+    attach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgsDict']]]
+    """
+    attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+    """
+    attachment_metadata: NotRequired[pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]]
+    """
+    attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+    """
+    detach_error: NotRequired[pulumi.Input[Optional['VolumeErrorArgsDict']]]
+    """
+    detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+    """
+
+@pulumi.input_type
+class VolumeAttachmentStatusArgs:
+    def __init__(__self__, *,
+                 attached: pulumi.Input[_builtins.bool],
+                 attach_error: pulumi.Input[Optional['VolumeErrorArgs']] = None,
+                 attachment_metadata: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
+                 detach_error: pulumi.Input[Optional['VolumeErrorArgs']] = None):
+        """
+        VolumeAttachmentStatus is the status of a VolumeAttachment request.
+
+        :param pulumi.Input[_builtins.bool] attached: attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        :param pulumi.Input['VolumeErrorArgs'] attach_error: attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] attachment_metadata: attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        :param pulumi.Input['VolumeErrorArgs'] detach_error: detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+        """
+        pulumi.set(__self__, "attached", attached)
+        if attach_error is not None:
+            pulumi.set(__self__, "attach_error", attach_error)
+        if attachment_metadata is not None:
+            pulumi.set(__self__, "attachment_metadata", attachment_metadata)
+        if detach_error is not None:
+            pulumi.set(__self__, "detach_error", detach_error)
+
+    @_builtins.property
+    @pulumi.getter
+    def attached(self) -> pulumi.Input[_builtins.bool]:
+        """
+        attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        """
+        return pulumi.get(self, "attached")
+
+    @attached.setter
+    def attached(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "attached", value)
+
+    @_builtins.property
+    @pulumi.getter(name="attachError")
+    def attach_error(self) -> pulumi.Input[Optional['VolumeErrorArgs']]:
+        """
+        attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        """
+        return pulumi.get(self, "attach_error")
+
+    @attach_error.setter
+    def attach_error(self, value: pulumi.Input[Optional['VolumeErrorArgs']]):
+        pulumi.set(self, "attach_error", value)
+
+    @_builtins.property
+    @pulumi.getter(name="attachmentMetadata")
+    def attachment_metadata(self) -> pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]:
+        """
+        attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        """
+        return pulumi.get(self, "attachment_metadata")
+
+    @attachment_metadata.setter
+    def attachment_metadata(self, value: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "attachment_metadata", value)
+
+    @_builtins.property
+    @pulumi.getter(name="detachError")
+    def detach_error(self) -> pulumi.Input[Optional['VolumeErrorArgs']]:
+        """
+        detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+        """
+        return pulumi.get(self, "detach_error")
+
+    @detach_error.setter
+    def detach_error(self, value: pulumi.Input[Optional['VolumeErrorArgs']]):
+        pulumi.set(self, "detach_error", value)
 
 
 class VolumeAttributesClassArgsDict(TypedDict):
@@ -2515,7 +2515,7 @@ class VolumeErrorArgs:
         pulumi.set(self, "time", value)
 
 
-class VolumeNodeResourcesPatchArgsDict(TypedDict):
+class VolumeNodeResourcesArgsDict(TypedDict):
     """
     VolumeNodeResources is a set of resource limits for scheduling of volumes.
     """
@@ -2525,7 +2525,7 @@ class VolumeNodeResourcesPatchArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class VolumeNodeResourcesPatchArgs:
+class VolumeNodeResourcesArgs:
     def __init__(__self__, *,
                  count: pulumi.Input[Optional[_builtins.int]] = None):
         """
@@ -2549,7 +2549,7 @@ class VolumeNodeResourcesPatchArgs:
         pulumi.set(self, "count", value)
 
 
-class VolumeNodeResourcesArgsDict(TypedDict):
+class VolumeNodeResourcesPatchArgsDict(TypedDict):
     """
     VolumeNodeResources is a set of resource limits for scheduling of volumes.
     """
@@ -2559,7 +2559,7 @@ class VolumeNodeResourcesArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class VolumeNodeResourcesArgs:
+class VolumeNodeResourcesPatchArgs:
     def __init__(__self__, *,
                  count: pulumi.Input[Optional[_builtins.int]] = None):
         """

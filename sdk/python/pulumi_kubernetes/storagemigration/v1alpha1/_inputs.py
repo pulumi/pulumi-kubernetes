@@ -16,23 +16,23 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
-    'GroupVersionResourcePatchArgs',
-    'GroupVersionResourcePatchArgsDict',
     'GroupVersionResourceArgs',
     'GroupVersionResourceArgsDict',
+    'GroupVersionResourcePatchArgs',
+    'GroupVersionResourcePatchArgsDict',
     'MigrationConditionArgs',
     'MigrationConditionArgsDict',
-    'StorageVersionMigrationSpecPatchArgs',
-    'StorageVersionMigrationSpecPatchArgsDict',
-    'StorageVersionMigrationSpecArgs',
-    'StorageVersionMigrationSpecArgsDict',
-    'StorageVersionMigrationStatusArgs',
-    'StorageVersionMigrationStatusArgsDict',
     'StorageVersionMigrationArgs',
     'StorageVersionMigrationArgsDict',
+    'StorageVersionMigrationSpecArgs',
+    'StorageVersionMigrationSpecArgsDict',
+    'StorageVersionMigrationSpecPatchArgs',
+    'StorageVersionMigrationSpecPatchArgsDict',
+    'StorageVersionMigrationStatusArgs',
+    'StorageVersionMigrationStatusArgsDict',
 ]
 
-class GroupVersionResourcePatchArgsDict(TypedDict):
+class GroupVersionResourceArgsDict(TypedDict):
     """
     The names of the group, the version, and the resource.
     """
@@ -50,7 +50,7 @@ class GroupVersionResourcePatchArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class GroupVersionResourcePatchArgs:
+class GroupVersionResourceArgs:
     def __init__(__self__, *,
                  group: pulumi.Input[Optional[_builtins.str]] = None,
                  resource: pulumi.Input[Optional[_builtins.str]] = None,
@@ -106,7 +106,7 @@ class GroupVersionResourcePatchArgs:
         pulumi.set(self, "version", value)
 
 
-class GroupVersionResourceArgsDict(TypedDict):
+class GroupVersionResourcePatchArgsDict(TypedDict):
     """
     The names of the group, the version, and the resource.
     """
@@ -124,7 +124,7 @@ class GroupVersionResourceArgsDict(TypedDict):
     """
 
 @pulumi.input_type
-class GroupVersionResourceArgs:
+class GroupVersionResourcePatchArgs:
     def __init__(__self__, *,
                  group: pulumi.Input[Optional[_builtins.str]] = None,
                  resource: pulumi.Input[Optional[_builtins.str]] = None,
@@ -292,167 +292,6 @@ class MigrationConditionArgs:
         pulumi.set(self, "reason", value)
 
 
-class StorageVersionMigrationSpecPatchArgsDict(TypedDict):
-    """
-    Spec of the storage version migration.
-    """
-    continue_token: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
-    """
-    resource: NotRequired[pulumi.Input[Optional['GroupVersionResourcePatchArgsDict']]]
-    """
-    The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
-    """
-
-@pulumi.input_type
-class StorageVersionMigrationSpecPatchArgs:
-    def __init__(__self__, *,
-                 continue_token: pulumi.Input[Optional[_builtins.str]] = None,
-                 resource: pulumi.Input[Optional['GroupVersionResourcePatchArgs']] = None):
-        """
-        Spec of the storage version migration.
-
-        :param pulumi.Input[_builtins.str] continue_token: The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
-        :param pulumi.Input['GroupVersionResourcePatchArgs'] resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
-        """
-        if continue_token is not None:
-            pulumi.set(__self__, "continue_token", continue_token)
-        if resource is not None:
-            pulumi.set(__self__, "resource", resource)
-
-    @_builtins.property
-    @pulumi.getter(name="continueToken")
-    def continue_token(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
-        """
-        return pulumi.get(self, "continue_token")
-
-    @continue_token.setter
-    def continue_token(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "continue_token", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def resource(self) -> pulumi.Input[Optional['GroupVersionResourcePatchArgs']]:
-        """
-        The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
-        """
-        return pulumi.get(self, "resource")
-
-    @resource.setter
-    def resource(self, value: pulumi.Input[Optional['GroupVersionResourcePatchArgs']]):
-        pulumi.set(self, "resource", value)
-
-
-class StorageVersionMigrationSpecArgsDict(TypedDict):
-    """
-    Spec of the storage version migration.
-    """
-    resource: pulumi.Input['GroupVersionResourceArgsDict']
-    """
-    The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
-    """
-    continue_token: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
-    """
-
-@pulumi.input_type
-class StorageVersionMigrationSpecArgs:
-    def __init__(__self__, *,
-                 resource: pulumi.Input['GroupVersionResourceArgs'],
-                 continue_token: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        Spec of the storage version migration.
-
-        :param pulumi.Input['GroupVersionResourceArgs'] resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
-        :param pulumi.Input[_builtins.str] continue_token: The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
-        """
-        pulumi.set(__self__, "resource", resource)
-        if continue_token is not None:
-            pulumi.set(__self__, "continue_token", continue_token)
-
-    @_builtins.property
-    @pulumi.getter
-    def resource(self) -> pulumi.Input['GroupVersionResourceArgs']:
-        """
-        The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
-        """
-        return pulumi.get(self, "resource")
-
-    @resource.setter
-    def resource(self, value: pulumi.Input['GroupVersionResourceArgs']):
-        pulumi.set(self, "resource", value)
-
-    @_builtins.property
-    @pulumi.getter(name="continueToken")
-    def continue_token(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
-        """
-        return pulumi.get(self, "continue_token")
-
-    @continue_token.setter
-    def continue_token(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "continue_token", value)
-
-
-class StorageVersionMigrationStatusArgsDict(TypedDict):
-    """
-    Status of the storage version migration.
-    """
-    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgsDict']]]]]
-    """
-    The latest available observations of the migration's current state.
-    """
-    resource_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
-    """
-
-@pulumi.input_type
-class StorageVersionMigrationStatusArgs:
-    def __init__(__self__, *,
-                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgs']]]] = None,
-                 resource_version: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        Status of the storage version migration.
-
-        :param pulumi.Input[Sequence[pulumi.Input['MigrationConditionArgs']]] conditions: The latest available observations of the migration's current state.
-        :param pulumi.Input[_builtins.str] resource_version: ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
-        """
-        if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
-        if resource_version is not None:
-            pulumi.set(__self__, "resource_version", resource_version)
-
-    @_builtins.property
-    @pulumi.getter
-    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgs']]]]:
-        """
-        The latest available observations of the migration's current state.
-        """
-        return pulumi.get(self, "conditions")
-
-    @conditions.setter
-    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgs']]]]):
-        pulumi.set(self, "conditions", value)
-
-    @_builtins.property
-    @pulumi.getter(name="resourceVersion")
-    def resource_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
-        """
-        return pulumi.get(self, "resource_version")
-
-    @resource_version.setter
-    def resource_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "resource_version", value)
-
-
 class StorageVersionMigrationArgsDict(TypedDict):
     """
     StorageVersionMigration represents a migration of stored data to the latest storage version.
@@ -565,5 +404,166 @@ class StorageVersionMigrationArgs:
     @status.setter
     def status(self, value: pulumi.Input[Optional['StorageVersionMigrationStatusArgs']]):
         pulumi.set(self, "status", value)
+
+
+class StorageVersionMigrationSpecArgsDict(TypedDict):
+    """
+    Spec of the storage version migration.
+    """
+    resource: pulumi.Input['GroupVersionResourceArgsDict']
+    """
+    The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+    """
+    continue_token: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+    """
+
+@pulumi.input_type
+class StorageVersionMigrationSpecArgs:
+    def __init__(__self__, *,
+                 resource: pulumi.Input['GroupVersionResourceArgs'],
+                 continue_token: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Spec of the storage version migration.
+
+        :param pulumi.Input['GroupVersionResourceArgs'] resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+        :param pulumi.Input[_builtins.str] continue_token: The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+        """
+        pulumi.set(__self__, "resource", resource)
+        if continue_token is not None:
+            pulumi.set(__self__, "continue_token", continue_token)
+
+    @_builtins.property
+    @pulumi.getter
+    def resource(self) -> pulumi.Input['GroupVersionResourceArgs']:
+        """
+        The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+        """
+        return pulumi.get(self, "resource")
+
+    @resource.setter
+    def resource(self, value: pulumi.Input['GroupVersionResourceArgs']):
+        pulumi.set(self, "resource", value)
+
+    @_builtins.property
+    @pulumi.getter(name="continueToken")
+    def continue_token(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+        """
+        return pulumi.get(self, "continue_token")
+
+    @continue_token.setter
+    def continue_token(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "continue_token", value)
+
+
+class StorageVersionMigrationSpecPatchArgsDict(TypedDict):
+    """
+    Spec of the storage version migration.
+    """
+    continue_token: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+    """
+    resource: NotRequired[pulumi.Input[Optional['GroupVersionResourcePatchArgsDict']]]
+    """
+    The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+    """
+
+@pulumi.input_type
+class StorageVersionMigrationSpecPatchArgs:
+    def __init__(__self__, *,
+                 continue_token: pulumi.Input[Optional[_builtins.str]] = None,
+                 resource: pulumi.Input[Optional['GroupVersionResourcePatchArgs']] = None):
+        """
+        Spec of the storage version migration.
+
+        :param pulumi.Input[_builtins.str] continue_token: The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+        :param pulumi.Input['GroupVersionResourcePatchArgs'] resource: The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+        """
+        if continue_token is not None:
+            pulumi.set(__self__, "continue_token", continue_token)
+        if resource is not None:
+            pulumi.set(__self__, "resource", resource)
+
+    @_builtins.property
+    @pulumi.getter(name="continueToken")
+    def continue_token(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The token used in the list options to get the next chunk of objects to migrate. When the .status.conditions indicates the migration is "Running", users can use this token to check the progress of the migration.
+        """
+        return pulumi.get(self, "continue_token")
+
+    @continue_token.setter
+    def continue_token(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "continue_token", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def resource(self) -> pulumi.Input[Optional['GroupVersionResourcePatchArgs']]:
+        """
+        The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+        """
+        return pulumi.get(self, "resource")
+
+    @resource.setter
+    def resource(self, value: pulumi.Input[Optional['GroupVersionResourcePatchArgs']]):
+        pulumi.set(self, "resource", value)
+
+
+class StorageVersionMigrationStatusArgsDict(TypedDict):
+    """
+    Status of the storage version migration.
+    """
+    conditions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgsDict']]]]]
+    """
+    The latest available observations of the migration's current state.
+    """
+    resource_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
+    """
+
+@pulumi.input_type
+class StorageVersionMigrationStatusArgs:
+    def __init__(__self__, *,
+                 conditions: pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgs']]]] = None,
+                 resource_version: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        Status of the storage version migration.
+
+        :param pulumi.Input[Sequence[pulumi.Input['MigrationConditionArgs']]] conditions: The latest available observations of the migration's current state.
+        :param pulumi.Input[_builtins.str] resource_version: ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if resource_version is not None:
+            pulumi.set(__self__, "resource_version", resource_version)
+
+    @_builtins.property
+    @pulumi.getter
+    def conditions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgs']]]]:
+        """
+        The latest available observations of the migration's current state.
+        """
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['MigrationConditionArgs']]]]):
+        pulumi.set(self, "conditions", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceVersion")
+    def resource_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
+        """
+        return pulumi.get(self, "resource_version")
+
+    @resource_version.setter
+    def resource_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "resource_version", value)
 
 

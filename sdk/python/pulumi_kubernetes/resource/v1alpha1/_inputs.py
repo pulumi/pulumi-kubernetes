@@ -19,42 +19,42 @@ from ... import meta as _meta
 __all__ = [
     'AllocationResultArgs',
     'AllocationResultArgsDict',
-    'PodSchedulingSpecPatchArgs',
-    'PodSchedulingSpecPatchArgsDict',
-    'PodSchedulingSpecArgs',
-    'PodSchedulingSpecArgsDict',
-    'PodSchedulingStatusArgs',
-    'PodSchedulingStatusArgsDict',
     'PodSchedulingArgs',
     'PodSchedulingArgsDict',
-    'ResourceClaimConsumerReferenceArgs',
-    'ResourceClaimConsumerReferenceArgsDict',
-    'ResourceClaimParametersReferencePatchArgs',
-    'ResourceClaimParametersReferencePatchArgsDict',
-    'ResourceClaimParametersReferenceArgs',
-    'ResourceClaimParametersReferenceArgsDict',
-    'ResourceClaimSchedulingStatusArgs',
-    'ResourceClaimSchedulingStatusArgsDict',
-    'ResourceClaimSpecPatchArgs',
-    'ResourceClaimSpecPatchArgsDict',
-    'ResourceClaimSpecArgs',
-    'ResourceClaimSpecArgsDict',
-    'ResourceClaimStatusArgs',
-    'ResourceClaimStatusArgsDict',
-    'ResourceClaimTemplateSpecPatchArgs',
-    'ResourceClaimTemplateSpecPatchArgsDict',
-    'ResourceClaimTemplateSpecArgs',
-    'ResourceClaimTemplateSpecArgsDict',
-    'ResourceClaimTemplateArgs',
-    'ResourceClaimTemplateArgsDict',
+    'PodSchedulingSpecArgs',
+    'PodSchedulingSpecArgsDict',
+    'PodSchedulingSpecPatchArgs',
+    'PodSchedulingSpecPatchArgsDict',
+    'PodSchedulingStatusArgs',
+    'PodSchedulingStatusArgsDict',
     'ResourceClaimArgs',
     'ResourceClaimArgsDict',
-    'ResourceClassParametersReferencePatchArgs',
-    'ResourceClassParametersReferencePatchArgsDict',
-    'ResourceClassParametersReferenceArgs',
-    'ResourceClassParametersReferenceArgsDict',
+    'ResourceClaimConsumerReferenceArgs',
+    'ResourceClaimConsumerReferenceArgsDict',
+    'ResourceClaimParametersReferenceArgs',
+    'ResourceClaimParametersReferenceArgsDict',
+    'ResourceClaimParametersReferencePatchArgs',
+    'ResourceClaimParametersReferencePatchArgsDict',
+    'ResourceClaimSchedulingStatusArgs',
+    'ResourceClaimSchedulingStatusArgsDict',
+    'ResourceClaimSpecArgs',
+    'ResourceClaimSpecArgsDict',
+    'ResourceClaimSpecPatchArgs',
+    'ResourceClaimSpecPatchArgsDict',
+    'ResourceClaimStatusArgs',
+    'ResourceClaimStatusArgsDict',
+    'ResourceClaimTemplateArgs',
+    'ResourceClaimTemplateArgsDict',
+    'ResourceClaimTemplateSpecArgs',
+    'ResourceClaimTemplateSpecArgsDict',
+    'ResourceClaimTemplateSpecPatchArgs',
+    'ResourceClaimTemplateSpecPatchArgsDict',
     'ResourceClassArgs',
     'ResourceClassArgsDict',
+    'ResourceClassParametersReferenceArgs',
+    'ResourceClassParametersReferenceArgsDict',
+    'ResourceClassParametersReferencePatchArgs',
+    'ResourceClassParametersReferencePatchArgsDict',
 ]
 
 class AllocationResultArgsDict(TypedDict):
@@ -141,160 +141,6 @@ class AllocationResultArgs:
     @shareable.setter
     def shareable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "shareable", value)
-
-
-class PodSchedulingSpecPatchArgsDict(TypedDict):
-    """
-    PodSchedulingSpec describes where resources for the Pod are needed.
-    """
-    potential_nodes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    PotentialNodes lists nodes where the Pod might be able to run.
-
-    The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
-    """
-    selected_node: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
-    """
-
-@pulumi.input_type
-class PodSchedulingSpecPatchArgs:
-    def __init__(__self__, *,
-                 potential_nodes: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 selected_node: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        PodSchedulingSpec describes where resources for the Pod are needed.
-
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] potential_nodes: PotentialNodes lists nodes where the Pod might be able to run.
-               
-               The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
-        :param pulumi.Input[_builtins.str] selected_node: SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
-        """
-        if potential_nodes is not None:
-            pulumi.set(__self__, "potential_nodes", potential_nodes)
-        if selected_node is not None:
-            pulumi.set(__self__, "selected_node", selected_node)
-
-    @_builtins.property
-    @pulumi.getter(name="potentialNodes")
-    def potential_nodes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        PotentialNodes lists nodes where the Pod might be able to run.
-
-        The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
-        """
-        return pulumi.get(self, "potential_nodes")
-
-    @potential_nodes.setter
-    def potential_nodes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "potential_nodes", value)
-
-    @_builtins.property
-    @pulumi.getter(name="selectedNode")
-    def selected_node(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
-        """
-        return pulumi.get(self, "selected_node")
-
-    @selected_node.setter
-    def selected_node(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "selected_node", value)
-
-
-class PodSchedulingSpecArgsDict(TypedDict):
-    """
-    PodSchedulingSpec describes where resources for the Pod are needed.
-    """
-    potential_nodes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    PotentialNodes lists nodes where the Pod might be able to run.
-
-    The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
-    """
-    selected_node: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
-    """
-
-@pulumi.input_type
-class PodSchedulingSpecArgs:
-    def __init__(__self__, *,
-                 potential_nodes: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 selected_node: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        PodSchedulingSpec describes where resources for the Pod are needed.
-
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] potential_nodes: PotentialNodes lists nodes where the Pod might be able to run.
-               
-               The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
-        :param pulumi.Input[_builtins.str] selected_node: SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
-        """
-        if potential_nodes is not None:
-            pulumi.set(__self__, "potential_nodes", potential_nodes)
-        if selected_node is not None:
-            pulumi.set(__self__, "selected_node", selected_node)
-
-    @_builtins.property
-    @pulumi.getter(name="potentialNodes")
-    def potential_nodes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
-        """
-        PotentialNodes lists nodes where the Pod might be able to run.
-
-        The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
-        """
-        return pulumi.get(self, "potential_nodes")
-
-    @potential_nodes.setter
-    def potential_nodes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "potential_nodes", value)
-
-    @_builtins.property
-    @pulumi.getter(name="selectedNode")
-    def selected_node(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
-        """
-        return pulumi.get(self, "selected_node")
-
-    @selected_node.setter
-    def selected_node(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "selected_node", value)
-
-
-class PodSchedulingStatusArgsDict(TypedDict):
-    """
-    PodSchedulingStatus describes where resources for the Pod can be allocated.
-    """
-    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgsDict']]]]]
-    """
-    ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
-    """
-
-@pulumi.input_type
-class PodSchedulingStatusArgs:
-    def __init__(__self__, *,
-                 resource_claims: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]] = None):
-        """
-        PodSchedulingStatus describes where resources for the Pod can be allocated.
-
-        :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]] resource_claims: ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
-        """
-        if resource_claims is not None:
-            pulumi.set(__self__, "resource_claims", resource_claims)
-
-    @_builtins.property
-    @pulumi.getter(name="resourceClaims")
-    def resource_claims(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]]:
-        """
-        ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
-        """
-        return pulumi.get(self, "resource_claims")
-
-    @resource_claims.setter
-    def resource_claims(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]]):
-        pulumi.set(self, "resource_claims", value)
 
 
 class PodSchedulingArgsDict(TypedDict):
@@ -414,778 +260,158 @@ class PodSchedulingArgs:
         pulumi.set(self, "status", value)
 
 
-class ResourceClaimConsumerReferenceArgsDict(TypedDict):
+class PodSchedulingSpecArgsDict(TypedDict):
     """
-    ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+    PodSchedulingSpec describes where resources for the Pod are needed.
     """
-    name: pulumi.Input[_builtins.str]
+    potential_nodes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
-    Name is the name of resource being referenced.
+    PotentialNodes lists nodes where the Pod might be able to run.
+
+    The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
     """
-    resource: pulumi.Input[_builtins.str]
+    selected_node: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    Resource is the type of resource being referenced, for example "pods".
-    """
-    uid: pulumi.Input[_builtins.str]
-    """
-    UID identifies exactly one incarnation of the resource.
-    """
-    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+    SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
     """
 
 @pulumi.input_type
-class ResourceClaimConsumerReferenceArgs:
+class PodSchedulingSpecArgs:
     def __init__(__self__, *,
-                 name: pulumi.Input[_builtins.str],
-                 resource: pulumi.Input[_builtins.str],
-                 uid: pulumi.Input[_builtins.str],
-                 api_group: pulumi.Input[Optional[_builtins.str]] = None):
+                 potential_nodes: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 selected_node: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+        PodSchedulingSpec describes where resources for the Pod are needed.
 
-        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced.
-        :param pulumi.Input[_builtins.str] resource: Resource is the type of resource being referenced, for example "pods".
-        :param pulumi.Input[_builtins.str] uid: UID identifies exactly one incarnation of the resource.
-        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-        """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "resource", resource)
-        pulumi.set(__self__, "uid", uid)
-        if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[_builtins.str]:
-        """
-        Name is the name of resource being referenced.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "name", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def resource(self) -> pulumi.Input[_builtins.str]:
-        """
-        Resource is the type of resource being referenced, for example "pods".
-        """
-        return pulumi.get(self, "resource")
-
-    @resource.setter
-    def resource(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "resource", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def uid(self) -> pulumi.Input[_builtins.str]:
-        """
-        UID identifies exactly one incarnation of the resource.
-        """
-        return pulumi.get(self, "uid")
-
-    @uid.setter
-    def uid(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "uid", value)
-
-    @_builtins.property
-    @pulumi.getter(name="apiGroup")
-    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-        """
-        return pulumi.get(self, "api_group")
-
-    @api_group.setter
-    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_group", value)
-
-
-class ResourceClaimParametersReferencePatchArgsDict(TypedDict):
-    """
-    ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
-    """
-    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-    """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
-    """
-    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Name is the name of resource being referenced.
-    """
-
-@pulumi.input_type
-class ResourceClaimParametersReferencePatchArgs:
-    def __init__(__self__, *,
-                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
-
-        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
-        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced.
-        """
-        if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
-        if kind is not None:
-            pulumi.set(__self__, "kind", kind)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-
-    @_builtins.property
-    @pulumi.getter(name="apiGroup")
-    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-        """
-        return pulumi.get(self, "api_group")
-
-    @api_group.setter
-    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_group", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Name is the name of resource being referenced.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "name", value)
-
-
-class ResourceClaimParametersReferenceArgsDict(TypedDict):
-    """
-    ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
-    """
-    kind: pulumi.Input[_builtins.str]
-    """
-    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
-    """
-    name: pulumi.Input[_builtins.str]
-    """
-    Name is the name of resource being referenced.
-    """
-    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-    """
-
-@pulumi.input_type
-class ResourceClaimParametersReferenceArgs:
-    def __init__(__self__, *,
-                 kind: pulumi.Input[_builtins.str],
-                 name: pulumi.Input[_builtins.str],
-                 api_group: pulumi.Input[Optional[_builtins.str]] = None):
-        """
-        ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
-
-        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
-        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced.
-        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-        """
-        pulumi.set(__self__, "kind", kind)
-        pulumi.set(__self__, "name", name)
-        if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[_builtins.str]:
-        """
-        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[_builtins.str]:
-        """
-        Name is the name of resource being referenced.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="apiGroup")
-    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-        """
-        return pulumi.get(self, "api_group")
-
-    @api_group.setter
-    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_group", value)
-
-
-class ResourceClaimSchedulingStatusArgsDict(TypedDict):
-    """
-    ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
-    """
-    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Name matches the pod.spec.resourceClaims[*].Name field.
-    """
-    unsuitable_nodes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
-    """
-    UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
-
-    The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
-    """
-
-@pulumi.input_type
-class ResourceClaimSchedulingStatusArgs:
-    def __init__(__self__, *,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 unsuitable_nodes: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
-        """
-        ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
-
-        :param pulumi.Input[_builtins.str] name: Name matches the pod.spec.resourceClaims[*].Name field.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] unsuitable_nodes: UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] potential_nodes: PotentialNodes lists nodes where the Pod might be able to run.
                
-               The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
+               The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
+        :param pulumi.Input[_builtins.str] selected_node: SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
         """
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if unsuitable_nodes is not None:
-            pulumi.set(__self__, "unsuitable_nodes", unsuitable_nodes)
+        if potential_nodes is not None:
+            pulumi.set(__self__, "potential_nodes", potential_nodes)
+        if selected_node is not None:
+            pulumi.set(__self__, "selected_node", selected_node)
 
     @_builtins.property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter(name="potentialNodes")
+    def potential_nodes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Name matches the pod.spec.resourceClaims[*].Name field.
-        """
-        return pulumi.get(self, "name")
+        PotentialNodes lists nodes where the Pod might be able to run.
 
-    @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "name", value)
+        The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
+        """
+        return pulumi.get(self, "potential_nodes")
+
+    @potential_nodes.setter
+    def potential_nodes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "potential_nodes", value)
 
     @_builtins.property
-    @pulumi.getter(name="unsuitableNodes")
-    def unsuitable_nodes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    @pulumi.getter(name="selectedNode")
+    def selected_node(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
-
-        The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
+        SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
         """
-        return pulumi.get(self, "unsuitable_nodes")
+        return pulumi.get(self, "selected_node")
 
-    @unsuitable_nodes.setter
-    def unsuitable_nodes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "unsuitable_nodes", value)
+    @selected_node.setter
+    def selected_node(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "selected_node", value)
 
 
-class ResourceClaimSpecPatchArgsDict(TypedDict):
+class PodSchedulingSpecPatchArgsDict(TypedDict):
     """
-    ResourceClaimSpec defines how a resource is to be allocated.
+    PodSchedulingSpec describes where resources for the Pod are needed.
     """
-    allocation_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    potential_nodes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
-    Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
-    """
-    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgsDict']]]
-    """
-    ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+    PotentialNodes lists nodes where the Pod might be able to run.
 
-    The object must be in the same namespace as the ResourceClaim.
+    The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
     """
-    resource_class_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    selected_node: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+    SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
     """
 
 @pulumi.input_type
-class ResourceClaimSpecPatchArgs:
+class PodSchedulingSpecPatchArgs:
     def __init__(__self__, *,
-                 allocation_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 parameters_ref: pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']] = None,
-                 resource_class_name: pulumi.Input[Optional[_builtins.str]] = None):
+                 potential_nodes: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 selected_node: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        ResourceClaimSpec defines how a resource is to be allocated.
+        PodSchedulingSpec describes where resources for the Pod are needed.
 
-        :param pulumi.Input[_builtins.str] allocation_mode: Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
-        :param pulumi.Input['ResourceClaimParametersReferencePatchArgs'] parameters_ref: ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] potential_nodes: PotentialNodes lists nodes where the Pod might be able to run.
                
-               The object must be in the same namespace as the ResourceClaim.
-        :param pulumi.Input[_builtins.str] resource_class_name: ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+               The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
+        :param pulumi.Input[_builtins.str] selected_node: SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
         """
-        if allocation_mode is not None:
-            pulumi.set(__self__, "allocation_mode", allocation_mode)
-        if parameters_ref is not None:
-            pulumi.set(__self__, "parameters_ref", parameters_ref)
-        if resource_class_name is not None:
-            pulumi.set(__self__, "resource_class_name", resource_class_name)
+        if potential_nodes is not None:
+            pulumi.set(__self__, "potential_nodes", potential_nodes)
+        if selected_node is not None:
+            pulumi.set(__self__, "selected_node", selected_node)
 
     @_builtins.property
-    @pulumi.getter(name="allocationMode")
-    def allocation_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter(name="potentialNodes")
+    def potential_nodes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
-        """
-        return pulumi.get(self, "allocation_mode")
+        PotentialNodes lists nodes where the Pod might be able to run.
 
-    @allocation_mode.setter
-    def allocation_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "allocation_mode", value)
+        The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
+        """
+        return pulumi.get(self, "potential_nodes")
+
+    @potential_nodes.setter
+    def potential_nodes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "potential_nodes", value)
 
     @_builtins.property
-    @pulumi.getter(name="parametersRef")
-    def parameters_ref(self) -> pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']]:
+    @pulumi.getter(name="selectedNode")
+    def selected_node(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
-
-        The object must be in the same namespace as the ResourceClaim.
+        SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
         """
-        return pulumi.get(self, "parameters_ref")
+        return pulumi.get(self, "selected_node")
 
-    @parameters_ref.setter
-    def parameters_ref(self, value: pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']]):
-        pulumi.set(self, "parameters_ref", value)
-
-    @_builtins.property
-    @pulumi.getter(name="resourceClassName")
-    def resource_class_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
-        """
-        return pulumi.get(self, "resource_class_name")
-
-    @resource_class_name.setter
-    def resource_class_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "resource_class_name", value)
+    @selected_node.setter
+    def selected_node(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "selected_node", value)
 
 
-class ResourceClaimSpecArgsDict(TypedDict):
+class PodSchedulingStatusArgsDict(TypedDict):
     """
-    ResourceClaimSpec defines how a resource is to be allocated.
+    PodSchedulingStatus describes where resources for the Pod can be allocated.
     """
-    resource_class_name: pulumi.Input[_builtins.str]
+    resource_claims: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgsDict']]]]]
     """
-    ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
-    """
-    allocation_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
-    """
-    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferenceArgsDict']]]
-    """
-    ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
-
-    The object must be in the same namespace as the ResourceClaim.
+    ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
     """
 
 @pulumi.input_type
-class ResourceClaimSpecArgs:
+class PodSchedulingStatusArgs:
     def __init__(__self__, *,
-                 resource_class_name: pulumi.Input[_builtins.str],
-                 allocation_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 parameters_ref: pulumi.Input[Optional['ResourceClaimParametersReferenceArgs']] = None):
+                 resource_claims: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]] = None):
         """
-        ResourceClaimSpec defines how a resource is to be allocated.
+        PodSchedulingStatus describes where resources for the Pod can be allocated.
 
-        :param pulumi.Input[_builtins.str] resource_class_name: ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
-        :param pulumi.Input[_builtins.str] allocation_mode: Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
-        :param pulumi.Input['ResourceClaimParametersReferenceArgs'] parameters_ref: ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
-               
-               The object must be in the same namespace as the ResourceClaim.
+        :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]] resource_claims: ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
         """
-        pulumi.set(__self__, "resource_class_name", resource_class_name)
-        if allocation_mode is not None:
-            pulumi.set(__self__, "allocation_mode", allocation_mode)
-        if parameters_ref is not None:
-            pulumi.set(__self__, "parameters_ref", parameters_ref)
+        if resource_claims is not None:
+            pulumi.set(__self__, "resource_claims", resource_claims)
 
     @_builtins.property
-    @pulumi.getter(name="resourceClassName")
-    def resource_class_name(self) -> pulumi.Input[_builtins.str]:
+    @pulumi.getter(name="resourceClaims")
+    def resource_claims(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]]:
         """
-        ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+        ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
         """
-        return pulumi.get(self, "resource_class_name")
+        return pulumi.get(self, "resource_claims")
 
-    @resource_class_name.setter
-    def resource_class_name(self, value: pulumi.Input[_builtins.str]):
-        pulumi.set(self, "resource_class_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="allocationMode")
-    def allocation_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
-        """
-        return pulumi.get(self, "allocation_mode")
-
-    @allocation_mode.setter
-    def allocation_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "allocation_mode", value)
-
-    @_builtins.property
-    @pulumi.getter(name="parametersRef")
-    def parameters_ref(self) -> pulumi.Input[Optional['ResourceClaimParametersReferenceArgs']]:
-        """
-        ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
-
-        The object must be in the same namespace as the ResourceClaim.
-        """
-        return pulumi.get(self, "parameters_ref")
-
-    @parameters_ref.setter
-    def parameters_ref(self, value: pulumi.Input[Optional['ResourceClaimParametersReferenceArgs']]):
-        pulumi.set(self, "parameters_ref", value)
-
-
-class ResourceClaimStatusArgsDict(TypedDict):
-    """
-    ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
-    """
-    allocation: NotRequired[pulumi.Input[Optional['AllocationResultArgsDict']]]
-    """
-    Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
-    """
-    deallocation_requested: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
-    """
-    DeallocationRequested indicates that a ResourceClaim is to be deallocated.
-
-    The driver then must deallocate this claim and reset the field together with clearing the Allocation field.
-
-    While DeallocationRequested is set, no new consumers may be added to ReservedFor.
-    """
-    driver_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
-    """
-    reserved_for: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgsDict']]]]]
-    """
-    ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
-
-    There can be at most 32 such reservations. This may get increased in the future, but not reduced.
-    """
-
-@pulumi.input_type
-class ResourceClaimStatusArgs:
-    def __init__(__self__, *,
-                 allocation: pulumi.Input[Optional['AllocationResultArgs']] = None,
-                 deallocation_requested: pulumi.Input[Optional[_builtins.bool]] = None,
-                 driver_name: pulumi.Input[Optional[_builtins.str]] = None,
-                 reserved_for: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]] = None):
-        """
-        ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
-
-        :param pulumi.Input['AllocationResultArgs'] allocation: Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
-        :param pulumi.Input[_builtins.bool] deallocation_requested: DeallocationRequested indicates that a ResourceClaim is to be deallocated.
-               
-               The driver then must deallocate this claim and reset the field together with clearing the Allocation field.
-               
-               While DeallocationRequested is set, no new consumers may be added to ReservedFor.
-        :param pulumi.Input[_builtins.str] driver_name: DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
-        :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]] reserved_for: ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
-               
-               There can be at most 32 such reservations. This may get increased in the future, but not reduced.
-        """
-        if allocation is not None:
-            pulumi.set(__self__, "allocation", allocation)
-        if deallocation_requested is not None:
-            pulumi.set(__self__, "deallocation_requested", deallocation_requested)
-        if driver_name is not None:
-            pulumi.set(__self__, "driver_name", driver_name)
-        if reserved_for is not None:
-            pulumi.set(__self__, "reserved_for", reserved_for)
-
-    @_builtins.property
-    @pulumi.getter
-    def allocation(self) -> pulumi.Input[Optional['AllocationResultArgs']]:
-        """
-        Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
-        """
-        return pulumi.get(self, "allocation")
-
-    @allocation.setter
-    def allocation(self, value: pulumi.Input[Optional['AllocationResultArgs']]):
-        pulumi.set(self, "allocation", value)
-
-    @_builtins.property
-    @pulumi.getter(name="deallocationRequested")
-    def deallocation_requested(self) -> pulumi.Input[Optional[_builtins.bool]]:
-        """
-        DeallocationRequested indicates that a ResourceClaim is to be deallocated.
-
-        The driver then must deallocate this claim and reset the field together with clearing the Allocation field.
-
-        While DeallocationRequested is set, no new consumers may be added to ReservedFor.
-        """
-        return pulumi.get(self, "deallocation_requested")
-
-    @deallocation_requested.setter
-    def deallocation_requested(self, value: pulumi.Input[Optional[_builtins.bool]]):
-        pulumi.set(self, "deallocation_requested", value)
-
-    @_builtins.property
-    @pulumi.getter(name="driverName")
-    def driver_name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
-        """
-        return pulumi.get(self, "driver_name")
-
-    @driver_name.setter
-    def driver_name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "driver_name", value)
-
-    @_builtins.property
-    @pulumi.getter(name="reservedFor")
-    def reserved_for(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]]:
-        """
-        ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
-
-        There can be at most 32 such reservations. This may get increased in the future, but not reduced.
-        """
-        return pulumi.get(self, "reserved_for")
-
-    @reserved_for.setter
-    def reserved_for(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]]):
-        pulumi.set(self, "reserved_for", value)
-
-
-class ResourceClaimTemplateSpecPatchArgsDict(TypedDict):
-    """
-    ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgsDict']]]
-    """
-    ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-    """
-    spec: NotRequired[pulumi.Input[Optional['ResourceClaimSpecPatchArgsDict']]]
-    """
-    Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
-    """
-
-@pulumi.input_type
-class ResourceClaimTemplateSpecPatchArgs:
-    def __init__(__self__, *,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']] = None,
-                 spec: pulumi.Input[Optional['ResourceClaimSpecPatchArgs']] = None):
-        """
-        ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
-
-        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-        :param pulumi.Input['ResourceClaimSpecPatchArgs'] spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
-        """
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]:
-        """
-        ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['ResourceClaimSpecPatchArgs']]:
-        """
-        Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input[Optional['ResourceClaimSpecPatchArgs']]):
-        pulumi.set(self, "spec", value)
-
-
-class ResourceClaimTemplateSpecArgsDict(TypedDict):
-    """
-    ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
-    """
-    spec: pulumi.Input['ResourceClaimSpecArgsDict']
-    """
-    Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
-    """
-    ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-    """
-
-@pulumi.input_type
-class ResourceClaimTemplateSpecArgs:
-    def __init__(__self__, *,
-                 spec: pulumi.Input['ResourceClaimSpecArgs'],
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
-        """
-        ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
-
-        :param pulumi.Input['ResourceClaimSpecArgs'] spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-        """
-        pulumi.set(__self__, "spec", spec)
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['ResourceClaimSpecArgs']:
-        """
-        Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['ResourceClaimSpecArgs']):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        """
-        ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-
-class ResourceClaimTemplateArgsDict(TypedDict):
-    """
-    ResourceClaimTemplate is used to produce ResourceClaim objects.
-    """
-    spec: pulumi.Input['ResourceClaimTemplateSpecArgsDict']
-    """
-    Describes the ResourceClaim that is to be generated.
-
-    This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
-    """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-    """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
-    """
-    Standard object metadata
-    """
-
-@pulumi.input_type
-class ResourceClaimTemplateArgs:
-    def __init__(__self__, *,
-                 spec: pulumi.Input['ResourceClaimTemplateSpecArgs'],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
-        """
-        ResourceClaimTemplate is used to produce ResourceClaim objects.
-
-        :param pulumi.Input['ResourceClaimTemplateSpecArgs'] spec: Describes the ResourceClaim that is to be generated.
-               
-               This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
-        """
-        pulumi.set(__self__, "spec", spec)
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'ResourceClaimTemplate')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['ResourceClaimTemplateSpecArgs']:
-        """
-        Describes the ResourceClaim that is to be generated.
-
-        This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['ResourceClaimTemplateSpecArgs']):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_version", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
+    @resource_claims.setter
+    def resource_claims(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]]):
+        pulumi.set(self, "resource_claims", value)
 
 
 class ResourceClaimArgsDict(TypedDict):
@@ -1305,50 +531,83 @@ class ResourceClaimArgs:
         pulumi.set(self, "status", value)
 
 
-class ResourceClassParametersReferencePatchArgsDict(TypedDict):
+class ResourceClaimConsumerReferenceArgsDict(TypedDict):
     """
-    ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+    ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name is the name of resource being referenced.
+    """
+    resource: pulumi.Input[_builtins.str]
+    """
+    Resource is the type of resource being referenced, for example "pods".
+    """
+    uid: pulumi.Input[_builtins.str]
+    """
+    UID identifies exactly one incarnation of the resource.
     """
     api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
-    """
-    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Name is the name of resource being referenced.
-    """
-    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
-    """
 
 @pulumi.input_type
-class ResourceClassParametersReferencePatchArgs:
+class ResourceClaimConsumerReferenceArgs:
     def __init__(__self__, *,
-                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 namespace: pulumi.Input[Optional[_builtins.str]] = None):
+                 name: pulumi.Input[_builtins.str],
+                 resource: pulumi.Input[_builtins.str],
+                 uid: pulumi.Input[_builtins.str],
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+        ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
 
-        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
         :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced.
-        :param pulumi.Input[_builtins.str] namespace: Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+        :param pulumi.Input[_builtins.str] resource: Resource is the type of resource being referenced, for example "pods".
+        :param pulumi.Input[_builtins.str] uid: UID identifies exactly one incarnation of the resource.
+        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
         """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "resource", resource)
+        pulumi.set(__self__, "uid", uid)
         if api_group is not None:
             pulumi.set(__self__, "api_group", api_group)
-        if kind is not None:
-            pulumi.set(__self__, "kind", kind)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name is the name of resource being referenced.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def resource(self) -> pulumi.Input[_builtins.str]:
+        """
+        Resource is the type of resource being referenced, for example "pods".
+        """
+        return pulumi.get(self, "resource")
+
+    @resource.setter
+    def resource(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "resource", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def uid(self) -> pulumi.Input[_builtins.str]:
+        """
+        UID identifies exactly one incarnation of the resource.
+        """
+        return pulumi.get(self, "uid")
+
+    @uid.setter
+    def uid(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "uid", value)
 
     @_builtins.property
     @pulumi.getter(name="apiGroup")
@@ -1362,50 +621,14 @@ class ResourceClassParametersReferencePatchArgs:
     def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_group", value)
 
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
-        """
-        return pulumi.get(self, "kind")
 
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Name is the name of resource being referenced.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "name", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
-        """
-        return pulumi.get(self, "namespace")
-
-    @namespace.setter
-    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "namespace", value)
-
-
-class ResourceClassParametersReferenceArgsDict(TypedDict):
+class ResourceClaimParametersReferenceArgsDict(TypedDict):
     """
-    ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+    ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
     """
     kind: pulumi.Input[_builtins.str]
     """
-    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
     """
     name: pulumi.Input[_builtins.str]
     """
@@ -1415,38 +638,30 @@ class ResourceClassParametersReferenceArgsDict(TypedDict):
     """
     APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
     """
-    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
-    """
 
 @pulumi.input_type
-class ResourceClassParametersReferenceArgs:
+class ResourceClaimParametersReferenceArgs:
     def __init__(__self__, *,
                  kind: pulumi.Input[_builtins.str],
                  name: pulumi.Input[_builtins.str],
-                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
-                 namespace: pulumi.Input[Optional[_builtins.str]] = None):
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+        ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
 
-        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
         :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced.
         :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-        :param pulumi.Input[_builtins.str] namespace: Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
         """
         pulumi.set(__self__, "kind", kind)
         pulumi.set(__self__, "name", name)
         if api_group is not None:
             pulumi.set(__self__, "api_group", api_group)
-        if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
 
     @_builtins.property
     @pulumi.getter
     def kind(self) -> pulumi.Input[_builtins.str]:
         """
-        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
         """
         return pulumi.get(self, "kind")
 
@@ -1478,17 +693,616 @@ class ResourceClassParametersReferenceArgs:
     def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_group", value)
 
+
+class ResourceClaimParametersReferencePatchArgsDict(TypedDict):
+    """
+    ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
+    """
+    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+    """
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
+    """
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Name is the name of resource being referenced.
+    """
+
+@pulumi.input_type
+class ResourceClaimParametersReferencePatchArgs:
+    def __init__(__self__, *,
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
+
+        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
+        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced.
+        """
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @_builtins.property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        """
+        return pulumi.get(self, "api_group")
+
+    @api_group.setter
+    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_group", value)
+
     @_builtins.property
     @pulumi.getter
-    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
         """
-        return pulumi.get(self, "namespace")
+        return pulumi.get(self, "kind")
 
-    @namespace.setter
-    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "namespace", value)
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name is the name of resource being referenced.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+
+class ResourceClaimSchedulingStatusArgsDict(TypedDict):
+    """
+    ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
+    """
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Name matches the pod.spec.resourceClaims[*].Name field.
+    """
+    unsuitable_nodes: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
+
+    The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
+    """
+
+@pulumi.input_type
+class ResourceClaimSchedulingStatusArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 unsuitable_nodes: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
+        """
+        ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
+
+        :param pulumi.Input[_builtins.str] name: Name matches the pod.spec.resourceClaims[*].Name field.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] unsuitable_nodes: UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
+               
+               The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if unsuitable_nodes is not None:
+            pulumi.set(__self__, "unsuitable_nodes", unsuitable_nodes)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name matches the pod.spec.resourceClaims[*].Name field.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="unsuitableNodes")
+    def unsuitable_nodes(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
+
+        The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
+        """
+        return pulumi.get(self, "unsuitable_nodes")
+
+    @unsuitable_nodes.setter
+    def unsuitable_nodes(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "unsuitable_nodes", value)
+
+
+class ResourceClaimSpecArgsDict(TypedDict):
+    """
+    ResourceClaimSpec defines how a resource is to be allocated.
+    """
+    resource_class_name: pulumi.Input[_builtins.str]
+    """
+    ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+    """
+    allocation_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+    """
+    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferenceArgsDict']]]
+    """
+    ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+
+    The object must be in the same namespace as the ResourceClaim.
+    """
+
+@pulumi.input_type
+class ResourceClaimSpecArgs:
+    def __init__(__self__, *,
+                 resource_class_name: pulumi.Input[_builtins.str],
+                 allocation_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 parameters_ref: pulumi.Input[Optional['ResourceClaimParametersReferenceArgs']] = None):
+        """
+        ResourceClaimSpec defines how a resource is to be allocated.
+
+        :param pulumi.Input[_builtins.str] resource_class_name: ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+        :param pulumi.Input[_builtins.str] allocation_mode: Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+        :param pulumi.Input['ResourceClaimParametersReferenceArgs'] parameters_ref: ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+               
+               The object must be in the same namespace as the ResourceClaim.
+        """
+        pulumi.set(__self__, "resource_class_name", resource_class_name)
+        if allocation_mode is not None:
+            pulumi.set(__self__, "allocation_mode", allocation_mode)
+        if parameters_ref is not None:
+            pulumi.set(__self__, "parameters_ref", parameters_ref)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClassName")
+    def resource_class_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+        """
+        return pulumi.get(self, "resource_class_name")
+
+    @resource_class_name.setter
+    def resource_class_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "resource_class_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="allocationMode")
+    def allocation_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+        """
+        return pulumi.get(self, "allocation_mode")
+
+    @allocation_mode.setter
+    def allocation_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "allocation_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="parametersRef")
+    def parameters_ref(self) -> pulumi.Input[Optional['ResourceClaimParametersReferenceArgs']]:
+        """
+        ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+
+        The object must be in the same namespace as the ResourceClaim.
+        """
+        return pulumi.get(self, "parameters_ref")
+
+    @parameters_ref.setter
+    def parameters_ref(self, value: pulumi.Input[Optional['ResourceClaimParametersReferenceArgs']]):
+        pulumi.set(self, "parameters_ref", value)
+
+
+class ResourceClaimSpecPatchArgsDict(TypedDict):
+    """
+    ResourceClaimSpec defines how a resource is to be allocated.
+    """
+    allocation_mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+    """
+    parameters_ref: NotRequired[pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgsDict']]]
+    """
+    ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+
+    The object must be in the same namespace as the ResourceClaim.
+    """
+    resource_class_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+    """
+
+@pulumi.input_type
+class ResourceClaimSpecPatchArgs:
+    def __init__(__self__, *,
+                 allocation_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 parameters_ref: pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']] = None,
+                 resource_class_name: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        ResourceClaimSpec defines how a resource is to be allocated.
+
+        :param pulumi.Input[_builtins.str] allocation_mode: Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+        :param pulumi.Input['ResourceClaimParametersReferencePatchArgs'] parameters_ref: ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+               
+               The object must be in the same namespace as the ResourceClaim.
+        :param pulumi.Input[_builtins.str] resource_class_name: ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+        """
+        if allocation_mode is not None:
+            pulumi.set(__self__, "allocation_mode", allocation_mode)
+        if parameters_ref is not None:
+            pulumi.set(__self__, "parameters_ref", parameters_ref)
+        if resource_class_name is not None:
+            pulumi.set(__self__, "resource_class_name", resource_class_name)
+
+    @_builtins.property
+    @pulumi.getter(name="allocationMode")
+    def allocation_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+        """
+        return pulumi.get(self, "allocation_mode")
+
+    @allocation_mode.setter
+    def allocation_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "allocation_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="parametersRef")
+    def parameters_ref(self) -> pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']]:
+        """
+        ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+
+        The object must be in the same namespace as the ResourceClaim.
+        """
+        return pulumi.get(self, "parameters_ref")
+
+    @parameters_ref.setter
+    def parameters_ref(self, value: pulumi.Input[Optional['ResourceClaimParametersReferencePatchArgs']]):
+        pulumi.set(self, "parameters_ref", value)
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClassName")
+    def resource_class_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+        """
+        return pulumi.get(self, "resource_class_name")
+
+    @resource_class_name.setter
+    def resource_class_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "resource_class_name", value)
+
+
+class ResourceClaimStatusArgsDict(TypedDict):
+    """
+    ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
+    """
+    allocation: NotRequired[pulumi.Input[Optional['AllocationResultArgsDict']]]
+    """
+    Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
+    """
+    deallocation_requested: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    DeallocationRequested indicates that a ResourceClaim is to be deallocated.
+
+    The driver then must deallocate this claim and reset the field together with clearing the Allocation field.
+
+    While DeallocationRequested is set, no new consumers may be added to ReservedFor.
+    """
+    driver_name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
+    """
+    reserved_for: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgsDict']]]]]
+    """
+    ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
+
+    There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+    """
+
+@pulumi.input_type
+class ResourceClaimStatusArgs:
+    def __init__(__self__, *,
+                 allocation: pulumi.Input[Optional['AllocationResultArgs']] = None,
+                 deallocation_requested: pulumi.Input[Optional[_builtins.bool]] = None,
+                 driver_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 reserved_for: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]] = None):
+        """
+        ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
+
+        :param pulumi.Input['AllocationResultArgs'] allocation: Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
+        :param pulumi.Input[_builtins.bool] deallocation_requested: DeallocationRequested indicates that a ResourceClaim is to be deallocated.
+               
+               The driver then must deallocate this claim and reset the field together with clearing the Allocation field.
+               
+               While DeallocationRequested is set, no new consumers may be added to ReservedFor.
+        :param pulumi.Input[_builtins.str] driver_name: DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
+        :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]] reserved_for: ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
+               
+               There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+        """
+        if allocation is not None:
+            pulumi.set(__self__, "allocation", allocation)
+        if deallocation_requested is not None:
+            pulumi.set(__self__, "deallocation_requested", deallocation_requested)
+        if driver_name is not None:
+            pulumi.set(__self__, "driver_name", driver_name)
+        if reserved_for is not None:
+            pulumi.set(__self__, "reserved_for", reserved_for)
+
+    @_builtins.property
+    @pulumi.getter
+    def allocation(self) -> pulumi.Input[Optional['AllocationResultArgs']]:
+        """
+        Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
+        """
+        return pulumi.get(self, "allocation")
+
+    @allocation.setter
+    def allocation(self, value: pulumi.Input[Optional['AllocationResultArgs']]):
+        pulumi.set(self, "allocation", value)
+
+    @_builtins.property
+    @pulumi.getter(name="deallocationRequested")
+    def deallocation_requested(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        DeallocationRequested indicates that a ResourceClaim is to be deallocated.
+
+        The driver then must deallocate this claim and reset the field together with clearing the Allocation field.
+
+        While DeallocationRequested is set, no new consumers may be added to ReservedFor.
+        """
+        return pulumi.get(self, "deallocation_requested")
+
+    @deallocation_requested.setter
+    def deallocation_requested(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "deallocation_requested", value)
+
+    @_builtins.property
+    @pulumi.getter(name="driverName")
+    def driver_name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
+        """
+        return pulumi.get(self, "driver_name")
+
+    @driver_name.setter
+    def driver_name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "driver_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="reservedFor")
+    def reserved_for(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]]:
+        """
+        ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
+
+        There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+        """
+        return pulumi.get(self, "reserved_for")
+
+    @reserved_for.setter
+    def reserved_for(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]]):
+        pulumi.set(self, "reserved_for", value)
+
+
+class ResourceClaimTemplateArgsDict(TypedDict):
+    """
+    ResourceClaimTemplate is used to produce ResourceClaim objects.
+    """
+    spec: pulumi.Input['ResourceClaimTemplateSpecArgsDict']
+    """
+    Describes the ResourceClaim that is to be generated.
+
+    This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+    """
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    """
+    Standard object metadata
+    """
+
+@pulumi.input_type
+class ResourceClaimTemplateArgs:
+    def __init__(__self__, *,
+                 spec: pulumi.Input['ResourceClaimTemplateSpecArgs'],
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
+        """
+        ResourceClaimTemplate is used to produce ResourceClaim objects.
+
+        :param pulumi.Input['ResourceClaimTemplateSpecArgs'] spec: Describes the ResourceClaim that is to be generated.
+               
+               This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
+        """
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ResourceClaimTemplate')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['ResourceClaimTemplateSpecArgs']:
+        """
+        Describes the ResourceClaim that is to be generated.
+
+        This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['ResourceClaimTemplateSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+
+class ResourceClaimTemplateSpecArgsDict(TypedDict):
+    """
+    ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+    """
+    spec: pulumi.Input['ResourceClaimSpecArgsDict']
+    """
+    Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+    """
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    """
+    ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+    """
+
+@pulumi.input_type
+class ResourceClaimTemplateSpecArgs:
+    def __init__(__self__, *,
+                 spec: pulumi.Input['ResourceClaimSpecArgs'],
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
+        """
+        ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+
+        :param pulumi.Input['ResourceClaimSpecArgs'] spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        """
+        pulumi.set(__self__, "spec", spec)
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['ResourceClaimSpecArgs']:
+        """
+        Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['ResourceClaimSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
+        """
+        ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+
+class ResourceClaimTemplateSpecPatchArgsDict(TypedDict):
+    """
+    ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+    """
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgsDict']]]
+    """
+    ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+    """
+    spec: NotRequired[pulumi.Input[Optional['ResourceClaimSpecPatchArgsDict']]]
+    """
+    Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+    """
+
+@pulumi.input_type
+class ResourceClaimTemplateSpecPatchArgs:
+    def __init__(__self__, *,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']] = None,
+                 spec: pulumi.Input[Optional['ResourceClaimSpecPatchArgs']] = None):
+        """
+        ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+
+        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        :param pulumi.Input['ResourceClaimSpecPatchArgs'] spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+        """
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]:
+        """
+        ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input[Optional['ResourceClaimSpecPatchArgs']]:
+        """
+        Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input[Optional['ResourceClaimSpecPatchArgs']]):
+        pulumi.set(self, "spec", value)
 
 
 class ResourceClassArgsDict(TypedDict):
@@ -1638,5 +1452,191 @@ class ResourceClassArgs:
     @suitable_nodes.setter
     def suitable_nodes(self, value: pulumi.Input[Optional['_core.v1.NodeSelectorArgs']]):
         pulumi.set(self, "suitable_nodes", value)
+
+
+class ResourceClassParametersReferenceArgsDict(TypedDict):
+    """
+    ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+    """
+    kind: pulumi.Input[_builtins.str]
+    """
+    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name is the name of resource being referenced.
+    """
+    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+    """
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+    """
+
+@pulumi.input_type
+class ResourceClassParametersReferenceArgs:
+    def __init__(__self__, *,
+                 kind: pulumi.Input[_builtins.str],
+                 name: pulumi.Input[_builtins.str],
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+
+        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced.
+        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        :param pulumi.Input[_builtins.str] namespace: Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+        """
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "name", name)
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
+        if namespace is not None:
+            pulumi.set(__self__, "namespace", namespace)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[_builtins.str]:
+        """
+        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name is the name of resource being referenced.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        """
+        return pulumi.get(self, "api_group")
+
+    @api_group.setter
+    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_group", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+        """
+        return pulumi.get(self, "namespace")
+
+    @namespace.setter
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "namespace", value)
+
+
+class ResourceClassParametersReferencePatchArgsDict(TypedDict):
+    """
+    ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+    """
+    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+    """
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+    """
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Name is the name of resource being referenced.
+    """
+    namespace: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+    """
+
+@pulumi.input_type
+class ResourceClassParametersReferencePatchArgs:
+    def __init__(__self__, *,
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 namespace: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+
+        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced.
+        :param pulumi.Input[_builtins.str] namespace: Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+        """
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if namespace is not None:
+            pulumi.set(__self__, "namespace", namespace)
+
+    @_builtins.property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+        """
+        return pulumi.get(self, "api_group")
+
+    @api_group.setter
+    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_group", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name is the name of resource being referenced.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def namespace(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+        """
+        return pulumi.get(self, "namespace")
+
+    @namespace.setter
+    def namespace(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "namespace", value)
 
 

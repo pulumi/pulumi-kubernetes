@@ -16,132 +16,128 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
-    'PodDisruptionBudgetSpecPatchArgs',
-    'PodDisruptionBudgetSpecPatchArgsDict',
-    'PodDisruptionBudgetSpecArgs',
-    'PodDisruptionBudgetSpecArgsDict',
-    'PodDisruptionBudgetStatusArgs',
-    'PodDisruptionBudgetStatusArgsDict',
     'PodDisruptionBudgetArgs',
     'PodDisruptionBudgetArgsDict',
+    'PodDisruptionBudgetSpecArgs',
+    'PodDisruptionBudgetSpecArgsDict',
+    'PodDisruptionBudgetSpecPatchArgs',
+    'PodDisruptionBudgetSpecPatchArgsDict',
+    'PodDisruptionBudgetStatusArgs',
+    'PodDisruptionBudgetStatusArgsDict',
 ]
 
-class PodDisruptionBudgetSpecPatchArgsDict(TypedDict):
+class PodDisruptionBudgetArgsDict(TypedDict):
     """
-    PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+    PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
     """
-    max_unavailable: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
+    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    min_available: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
-    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
     """
-    Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    unhealthy_pod_eviction_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    spec: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetSpecArgsDict']]]
     """
-    UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
-
-    Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
-
-    IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
-
-    AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
-
-    Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+    Specification of the desired behavior of the PodDisruptionBudget.
+    """
+    status: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetStatusArgsDict']]]
+    """
+    Most recently observed status of the PodDisruptionBudget.
     """
 
 @pulumi.input_type
-class PodDisruptionBudgetSpecPatchArgs:
+class PodDisruptionBudgetArgs:
     def __init__(__self__, *,
-                 max_unavailable: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
-                 min_available: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
-                 selector: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']] = None,
-                 unhealthy_pod_eviction_policy: pulumi.Input[Optional[_builtins.str]] = None):
+                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']] = None,
+                 status: pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']] = None):
         """
-        PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+        PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 
-        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
-        :param pulumi.Input[Union[_builtins.int, _builtins.str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
-        :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
-        :param pulumi.Input[_builtins.str] unhealthy_pod_eviction_policy: UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
-               
-               Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
-               
-               IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
-               
-               AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
-               
-               Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['PodDisruptionBudgetSpecArgs'] spec: Specification of the desired behavior of the PodDisruptionBudget.
+        :param pulumi.Input['PodDisruptionBudgetStatusArgs'] status: Most recently observed status of the PodDisruptionBudget.
         """
-        if max_unavailable is not None:
-            pulumi.set(__self__, "max_unavailable", max_unavailable)
-        if min_available is not None:
-            pulumi.set(__self__, "min_available", min_available)
-        if selector is not None:
-            pulumi.set(__self__, "selector", selector)
-        if unhealthy_pod_eviction_policy is not None:
-            pulumi.set(__self__, "unhealthy_pod_eviction_policy", unhealthy_pod_eviction_policy)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'policy/v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'PodDisruptionBudget')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
 
     @_builtins.property
-    @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
-        return pulumi.get(self, "max_unavailable")
+        return pulumi.get(self, "api_version")
 
-    @max_unavailable.setter
-    def max_unavailable(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
-        pulumi.set(self, "max_unavailable", value)
-
-    @_builtins.property
-    @pulumi.getter(name="minAvailable")
-    def min_available(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
-        """
-        An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
-        """
-        return pulumi.get(self, "min_available")
-
-    @min_available.setter
-    def min_available(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
-        pulumi.set(self, "min_available", value)
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]:
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
-        return pulumi.get(self, "selector")
+        return pulumi.get(self, "kind")
 
-    @selector.setter
-    def selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]):
-        pulumi.set(self, "selector", value)
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
 
     @_builtins.property
-    @pulumi.getter(name="unhealthyPodEvictionPolicy")
-    def unhealthy_pod_eviction_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
-        UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
-
-        Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
-
-        IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
-
-        AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
-
-        Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
-        return pulumi.get(self, "unhealthy_pod_eviction_policy")
+        return pulumi.get(self, "metadata")
 
-    @unhealthy_pod_eviction_policy.setter
-    def unhealthy_pod_eviction_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "unhealthy_pod_eviction_policy", value)
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]:
+        """
+        Specification of the desired behavior of the PodDisruptionBudget.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']]:
+        """
+        Most recently observed status of the PodDisruptionBudget.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 class PodDisruptionBudgetSpecArgsDict(TypedDict):
@@ -239,6 +235,124 @@ class PodDisruptionBudgetSpecArgs:
 
     @selector.setter
     def selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorArgs']]):
+        pulumi.set(self, "selector", value)
+
+    @_builtins.property
+    @pulumi.getter(name="unhealthyPodEvictionPolicy")
+    def unhealthy_pod_eviction_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+
+        Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+
+        IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+
+        AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+
+        Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+        """
+        return pulumi.get(self, "unhealthy_pod_eviction_policy")
+
+    @unhealthy_pod_eviction_policy.setter
+    def unhealthy_pod_eviction_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "unhealthy_pod_eviction_policy", value)
+
+
+class PodDisruptionBudgetSpecPatchArgsDict(TypedDict):
+    """
+    PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+    """
+    max_unavailable: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
+    """
+    An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+    """
+    min_available: NotRequired[pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]]
+    """
+    An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+    """
+    selector: NotRequired[pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgsDict']]]
+    """
+    Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+    """
+    unhealthy_pod_eviction_policy: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+
+    Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+
+    IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+
+    AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+
+    Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+    """
+
+@pulumi.input_type
+class PodDisruptionBudgetSpecPatchArgs:
+    def __init__(__self__, *,
+                 max_unavailable: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 min_available: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]] = None,
+                 selector: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']] = None,
+                 unhealthy_pod_eviction_policy: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+
+        :param pulumi.Input[Union[_builtins.int, _builtins.str]] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        :param pulumi.Input[Union[_builtins.int, _builtins.str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        :param pulumi.Input[_builtins.str] unhealthy_pod_eviction_policy: UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+               
+               Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+               
+               IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+               
+               AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+               
+               Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+        """
+        if max_unavailable is not None:
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
+        if min_available is not None:
+            pulumi.set(__self__, "min_available", min_available)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if unhealthy_pod_eviction_policy is not None:
+            pulumi.set(__self__, "unhealthy_pod_eviction_policy", unhealthy_pod_eviction_policy)
+
+    @_builtins.property
+    @pulumi.getter(name="maxUnavailable")
+    def max_unavailable(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
+        """
+        An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        """
+        return pulumi.get(self, "max_unavailable")
+
+    @max_unavailable.setter
+    def max_unavailable(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
+        pulumi.set(self, "max_unavailable", value)
+
+    @_builtins.property
+    @pulumi.getter(name="minAvailable")
+    def min_available(self) -> pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]:
+        """
+        An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        """
+        return pulumi.get(self, "min_available")
+
+    @min_available.setter
+    def min_available(self, value: pulumi.Input[Optional[Union[_builtins.int, _builtins.str]]]):
+        pulumi.set(self, "min_available", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def selector(self) -> pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]:
+        """
+        Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        """
+        return pulumi.get(self, "selector")
+
+    @selector.setter
+    def selector(self, value: pulumi.Input[Optional['_meta.v1.LabelSelectorPatchArgs']]):
         pulumi.set(self, "selector", value)
 
     @_builtins.property
@@ -434,119 +548,5 @@ class PodDisruptionBudgetStatusArgs:
     @observed_generation.setter
     def observed_generation(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "observed_generation", value)
-
-
-class PodDisruptionBudgetArgsDict(TypedDict):
-    """
-    PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
-    """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-    """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-    """
-    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
-    """
-    Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-    """
-    spec: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetSpecArgsDict']]]
-    """
-    Specification of the desired behavior of the PodDisruptionBudget.
-    """
-    status: NotRequired[pulumi.Input[Optional['PodDisruptionBudgetStatusArgsDict']]]
-    """
-    Most recently observed status of the PodDisruptionBudget.
-    """
-
-@pulumi.input_type
-class PodDisruptionBudgetArgs:
-    def __init__(__self__, *,
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']] = None,
-                 status: pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']] = None):
-        """
-        PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
-
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PodDisruptionBudgetSpecArgs'] spec: Specification of the desired behavior of the PodDisruptionBudget.
-        :param pulumi.Input['PodDisruptionBudgetStatusArgs'] status: Most recently observed status of the PodDisruptionBudget.
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'policy/v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'PodDisruptionBudget')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @_builtins.property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "api_version", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "kind", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]:
-        """
-        Specification of the desired behavior of the PodDisruptionBudget.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def status(self) -> pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']]:
-        """
-        Most recently observed status of the PodDisruptionBudget.
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: pulumi.Input[Optional['PodDisruptionBudgetStatusArgs']]):
-        pulumi.set(self, "status", value)
 
 
