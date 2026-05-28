@@ -35,6 +35,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/yaml"
 	cliutilsobject "sigs.k8s.io/cli-utils/pkg/object"
 	cliutilsgraph "sigs.k8s.io/cli-utils/pkg/object/graph"
@@ -138,30 +139,36 @@ func yamlDecode(text string) ([]unstructured.Unstructured, error) {
 // - canonicalize the kind (core/v1 -> v1)
 // - expands any list types into their individual resources
 // - applies the default namespace to namespaced resources that do not have a namespace
+//
+// The second return value lists the GroupVersionKinds whose namespace scope could not be
+// determined (no reachable cluster and no matching CustomResourceDefinition). Those objects are
+// left without a namespace rather than failing; callers should surface them with
+// WarnUnresolvedNamespaceScope.
 func Normalize(
 	objs []unstructured.Unstructured,
 	defaultNamespace string,
 	clientSet *clients.DynamicClientSet,
-) ([]unstructured.Unstructured, error) {
+) ([]unstructured.Unstructured, []schema.GroupVersionKind, error) {
 	contract.Requiref(clientSet != nil, "clientSet", "expected != nil")
 
 	var err error
 	objs, err = expand(objs)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
+	var unresolved []schema.GroupVersionKind
 	for _, obj := range objs {
 		gvk := obj.GroupVersionKind()
 
 		// Ensure there is a kind and API version.
 		if gvk.Kind == "" || gvk.GroupVersion().Empty() {
-			return nil, fmt.Errorf("Kubernetes resources require a kind and apiVersion: `%s`", printUnstructured(&obj))
+			return nil, nil, fmt.Errorf("Kubernetes resources require a kind and apiVersion: `%s`", printUnstructured(&obj))
 		}
 
 		// Validate that it has the requisite metadata and name properties.
 		if obj.GetName() == "" {
-			return nil, fmt.Errorf("Kubernetes resources require a .metadata.name: `%s`", printUnstructured(&obj))
+			return nil, nil, fmt.Errorf("Kubernetes resources require a .metadata.name: `%s`", printUnstructured(&obj))
 		}
 
 		// canonicalize the "core" group for the sake of a depends-on annotation that might reference this object.
@@ -170,17 +177,51 @@ func Normalize(
 			obj.SetGroupVersionKind(gvk)
 		}
 
-		// determine whether the kind is namespaced, which may involve a call to the API server.
-		// note that the object list is searched for a matching CRD before resorting to a discovery call.
-		isNamespaced, err := clients.IsNamespacedKind(gvk, clientSet, objs...)
-		if err != nil {
-			return nil, err
+		// The kind's scope only matters when we might apply a default namespace.
+		if obj.GetNamespace() != "" {
+			continue
 		}
-		if isNamespaced && obj.GetNamespace() == "" {
+
+		// Determine whether the kind is namespaced, which may involve a call to the API server.
+		// The object list is searched for a matching CRD before resorting to a discovery call.
+		isNamespaced, err := clients.IsNamespacedKind(gvk, clientSet, objs...)
+		switch {
+		case clients.IsNoNamespaceInfoErr(err):
+			// Scope can't be determined offline (no reachable cluster, and no matching CRD bundled or
+			// declared in the program). Leave the namespace unset rather than failing the operation;
+			// apply-time resolves it. Cluster-scoped kinds are correct as-is, and namespaced kinds fall
+			// back to the apply-time namespace.
+			unresolved = append(unresolved, gvk)
+		case err != nil:
+			return nil, nil, err
+		case isNamespaced:
 			obj.SetNamespace(defaultNamespace)
 		}
 	}
-	return objs, nil
+	return objs, unresolved, nil
+}
+
+// WarnUnresolvedNamespaceScope logs a warning for kinds whose namespace scope Normalize could not
+// determine, so their rendered manifests omit a namespace. It is a no-op when gvks is empty.
+func WarnUnresolvedNamespaceScope(ctx *pulumi.Context, gvks []schema.GroupVersionKind) {
+	if len(gvks) == 0 {
+		return
+	}
+	seen := map[string]bool{}
+	kinds := make([]string, 0, len(gvks))
+	for _, gvk := range gvks {
+		s := gvk.String()
+		if seen[s] {
+			continue
+		}
+		seen[s] = true
+		kinds = append(kinds, s)
+	}
+	msg := fmt.Sprintf("Unable to determine whether the following kinds are namespaced without a reachable "+
+		"cluster or a matching CustomResourceDefinition, so they are rendered without a namespace: %s. Set "+
+		".metadata.namespace explicitly, or include the CustomResourceDefinition, to control the namespace.",
+		strings.Join(kinds, ", "))
+	_ = ctx.Log.Warn(msg, nil)
 }
 
 func expand(objs []unstructured.Unstructured) ([]unstructured.Unstructured, error) {
