@@ -183,7 +183,7 @@ func parseKubeconfigPropertyValue(kubeconfig resource.PropertyValue) (*clientapi
 		raw := kubeconfig.ObjectValue().Mappable()
 		jsonBytes, err := json.Marshal(raw)
 		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal kubeconfig: %v", err)
+			return nil, fmt.Errorf("failed to unmarshal kubeconfig: %w", err)
 		}
 		cfg = string(jsonBytes)
 	} else {
@@ -191,7 +191,7 @@ func parseKubeconfigPropertyValue(kubeconfig resource.PropertyValue) (*clientapi
 	}
 	config, err := parseKubeconfigString(cfg)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
+		return nil, fmt.Errorf("failed to parse kubeconfig: %w", err)
 	}
 	return config, nil
 }

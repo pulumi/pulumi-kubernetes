@@ -167,7 +167,7 @@ func (d *memCacheClient) GroupsAndMaybeResources() (
 		for gv, cacheEntry := range d.groupToServerResources {
 			groupVersion, err := schema.ParseGroupVersion(gv)
 			if err != nil {
-				return nil, nil, nil, fmt.Errorf("failed to parse group version (%v): %v", gv, err)
+				return nil, nil, nil, fmt.Errorf("failed to parse group version (%v): %w", gv, err)
 			}
 			if cacheEntry.err != nil {
 				failedGVs[groupVersion] = cacheEntry.err

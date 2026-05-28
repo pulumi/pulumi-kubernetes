@@ -1254,11 +1254,7 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 		release.Status = &ReleaseStatus{}
 	}
 
-	release.Status.Version = r.Chart.Metadata.Version
-	release.Status.Namespace = r.Namespace
-	release.Status.Name = r.Name
 	release.Status.Status = r.Info.Status.String()
-
 	release.Status.Name = r.Name
 	release.Status.Namespace = r.Namespace
 	release.Status.Revision = &r.Version
