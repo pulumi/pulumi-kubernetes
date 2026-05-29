@@ -59,6 +59,13 @@ type schemaGenerator struct {
 	// listed as a language dependency. The value is the version of the Pulumi Kubernetes provider
 	// to depend on.
 	pulumiKubernetesDependency string
+
+	// extensionName, when non-empty, signals that this schema describes an extension
+	// SDK and provides its identity. The Go importBasePath is rooted at the extension
+	// name (e.g. "gateway-api-crds/kubernetes") so the generated SDK doesn't collide
+	// with the base pulumi-kubernetes Go module. Other languages pick up the same
+	// identity from PackageSpec.Name after the engine renames it post-bind.
+	extensionName string
 }
 
 type schemaGeneratorOption interface {
@@ -123,6 +130,21 @@ func (o *withPulumiKubernetesDependency) apply(sg *schemaGenerator) {
 
 func WithPulumiKubernetesDependency(version string) schemaGeneratorOption {
 	return &withPulumiKubernetesDependency{pulumiVersion: version}
+}
+
+type withExtensionNameOption struct {
+	extensionName string
+}
+
+func (o *withExtensionNameOption) apply(sg *schemaGenerator) {
+	sg.extensionName = o.extensionName
+}
+
+// WithExtensionName signals that this schema describes an extension SDK and
+// roots the Go importBasePath at the extension's name (preserving the trailing
+// "kubernetes" segment so the API layout matches crd2pulumi's).
+func WithExtensionName(name string) schemaGeneratorOption {
+	return &withExtensionNameOption{extensionName: name}
 }
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
@@ -372,6 +394,12 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 	pkg.Parameterization = gen.parameterization
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
+	if gen.extensionName != "" {
+		// Extension SDK: root the Go module at the extension name and keep
+		// "kubernetes" as the trailing path segment so types still import as
+		// `<ext>/kubernetes/<group>/<v>` — the crd2pulumi layout.
+		goImportPath = gen.extensionName + "/kubernetes"
+	}
 
 	csharpNamespaces := map[string]string{
 		"apiextensions": "ApiExtensions",
