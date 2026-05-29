@@ -46,7 +46,7 @@ func ResourceClient(kind kinds.Kind, namespace string, client *DynamicClientSet)
 
 	c, err := client.ResourceClient(*gvk, namespace)
 	if err != nil {
-		return nil, fmt.Errorf("failed to get client: %v", err)
+		return nil, fmt.Errorf("failed to get client: %w", err)
 	}
 
 	return c, nil
@@ -71,7 +71,7 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 
 	disco, err := discovery.NewDiscoveryClientForConfig(clientConfig)
 	if err != nil {
-		return nil, fmt.Errorf("failed to initialize discovery client: %v", err)
+		return nil, fmt.Errorf("failed to initialize discovery client: %w", err)
 	}
 
 	// Cache the discovery information (OpenAPI schema, etc.) so we don't have to retrieve it for
@@ -82,7 +82,7 @@ func NewDynamicClientSet(clientConfig *rest.Config) (*DynamicClientSet, error) {
 	// Create dynamic resource client
 	client, err := dynamic.NewForConfig(clientConfig)
 	if err != nil {
-		return nil, fmt.Errorf("failed to initialize dynamic client: %v", err)
+		return nil, fmt.Errorf("failed to initialize dynamic client: %w", err)
 	}
 
 	return &DynamicClientSet{
