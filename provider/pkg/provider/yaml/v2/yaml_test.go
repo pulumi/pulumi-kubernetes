@@ -553,7 +553,7 @@ var _ = gk.Describe("Normalize", func() {
 				}}
 			})
 			gk.It("should fail", func(_ /* ctx */ context.Context) {
-				_, err := Normalize(objs, defaultNamespace, clientSet)
+				_, _, err := Normalize(objs, defaultNamespace, clientSet)
 				gm.Expect(err).Should(gm.MatchError(gm.ContainSubstring("Kubernetes resources require a kind and apiVersion")))
 			})
 		})
@@ -569,7 +569,7 @@ var _ = gk.Describe("Normalize", func() {
 				}}
 			})
 			gk.It("should fail", func(_ /* ctx */ context.Context) {
-				_, err := Normalize(objs, defaultNamespace, clientSet)
+				_, _, err := Normalize(objs, defaultNamespace, clientSet)
 				gm.Expect(err).Should(gm.MatchError(gm.ContainSubstring("Kubernetes resources require a .metadata.name")))
 			})
 		})
@@ -590,7 +590,7 @@ var _ = gk.Describe("Normalize", func() {
 			})
 
 			gk.It("should apply the default namespace", func(_ /* ctx */ context.Context) {
-				objs, err := Normalize(objs, defaultNamespace, clientSet)
+				objs, _, err := Normalize(objs, defaultNamespace, clientSet)
 				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 				gm.Expect(objs).To(gm.HaveExactElements(
 					matchUnstructured(gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"namespace": gm.Equal("default")})}),
@@ -612,7 +612,7 @@ var _ = gk.Describe("Normalize", func() {
 			})
 
 			gk.It("should not apply the default namespace", func(_ /* ctx */ context.Context) {
-				objs, err := Normalize(objs, defaultNamespace, clientSet)
+				objs, _, err := Normalize(objs, defaultNamespace, clientSet)
 				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 				gm.Expect(objs).To(gm.HaveExactElements(
 					matchUnstructured(gs.Keys{"metadata": gm.Not(gm.HaveKey("namespace"))}),
@@ -629,7 +629,7 @@ var _ = gk.Describe("Normalize", func() {
 				objs = resources
 			})
 			gk.It("should flatten the list", func(_ /* ctx */ context.Context) {
-				objs, err := Normalize(objs, defaultNamespace, clientSet)
+				objs, _, err := Normalize(objs, defaultNamespace, clientSet)
 				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 				gm.Expect(objs).To(gm.HaveExactElements(
 					matchUnstructured(gs.Keys{"metadata": gs.MatchKeys(gs.IgnoreExtras, gs.Keys{"name": gm.Equal("map-1")})}),
@@ -653,7 +653,7 @@ var _ = gk.Describe("Normalize", func() {
 			})
 
 			gk.It("should replace with 'v1", func(_ /* ctx */ context.Context) {
-				objs, err := Normalize(objs, defaultNamespace, clientSet)
+				objs, _, err := Normalize(objs, defaultNamespace, clientSet)
 				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 				gm.Expect(objs).To(gm.HaveExactElements(
 					matchUnstructured(gs.Keys{"apiVersion": gm.Equal("v1"), "kind": gm.Equal("Secret")}),
@@ -662,6 +662,32 @@ var _ = gk.Describe("Normalize", func() {
 		})
 	})
 })
+
+func TestNormalizeLeavesNamespaceUnsetWhenClusterOffline(t *testing.T) {
+	t.Parallel()
+
+	clientSet, err := clients.NewDynamicClientSet(nil)
+	assert.NoError(t, err)
+
+	objs := []unstructured.Unstructured{{
+		Object: map[string]any{
+			"apiVersion": "pulumi.com/v1",
+			"kind":       "Stack",
+			"metadata": map[string]any{
+				"name": "test-stack",
+			},
+		},
+	}}
+
+	got, unresolved, err := Normalize(objs, "default", clientSet)
+	assert.NoError(t, err)
+	if assert.Len(t, got, 1) {
+		assert.Empty(t, got[0].GetNamespace())
+	}
+	if assert.Len(t, unresolved, 1) {
+		assert.Equal(t, "pulumi.com/v1, Kind=Stack", unresolved[0].String())
+	}
+}
 
 func TestIsGlobPattern(t *testing.T) {
 	t.Parallel()

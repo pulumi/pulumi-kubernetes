@@ -155,10 +155,11 @@ func (r *DirectoryProvider) Construct(
 	if directoryArgs.Namespace != "" {
 		ns = directoryArgs.Namespace
 	}
-	objs, err = provideryamlv2.Normalize(objs, ns, r.opts.ClientSet)
+	objs, unresolvedScope, err := provideryamlv2.Normalize(objs, ns, r.opts.ClientSet)
 	if err != nil {
 		return nil, err
 	}
+	provideryamlv2.WarnUnresolvedNamespaceScope(ctx, unresolvedScope)
 
 	// Register the objects as Pulumi resources.
 	registerOpts := provideryamlv2.RegisterOptions{

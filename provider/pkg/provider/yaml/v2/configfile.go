@@ -109,10 +109,11 @@ func (k *ConfigFileProvider) Construct(
 			}
 
 			// Normalize the objects (apply a default namespace, etc.)
-			objs, err = Normalize(objs, k.defaultNamespace, k.clientSet)
+			objs, unresolvedScope, err := Normalize(objs, k.defaultNamespace, k.clientSet)
 			if err != nil {
 				return pulumi.ArrayOutput{}, err
 			}
+			WarnUnresolvedNamespaceScope(ctx, unresolvedScope)
 
 			// Register the objects as Pulumi resources.
 			registerOpts := RegisterOptions{

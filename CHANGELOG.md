@@ -6,6 +6,7 @@
 ### Fixed
 
 - [#4396](https://github.com/pulumi/pulumi-kubernetes/issues/4396) Fix panic when creating a `kubernetes.io/service-account-token` Secret with a non-existent ServiceAccount.
+- [#4394](https://github.com/pulumi/pulumi-kubernetes/issues/4394) Don't fail YAML render when a custom resource's namespace scope can't be determined offline. The resource is rendered without a namespace and a warning is logged, rather than erroring.
 
 ### Changed
 
