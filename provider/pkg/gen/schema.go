@@ -60,11 +60,7 @@ type schemaGenerator struct {
 	// to depend on.
 	pulumiKubernetesDependency string
 
-	// extensionName, when non-empty, signals that this schema describes an extension
-	// SDK and provides its identity. The Go importBasePath is rooted at the extension
-	// name (e.g. "gateway-api-crds/kubernetes") so the generated SDK doesn't collide
-	// with the base pulumi-kubernetes Go module. Other languages pick up the same
-	// identity from PackageSpec.Name after the engine renames it post-bind.
+	// extensionName roots the Go importBasePath when non-empty.
 	extensionName string
 }
 
@@ -140,9 +136,7 @@ func (o *withExtensionNameOption) apply(sg *schemaGenerator) {
 	sg.extensionName = o.extensionName
 }
 
-// WithExtensionName signals that this schema describes an extension SDK and
-// roots the Go importBasePath at the extension's name (preserving the trailing
-// "kubernetes" segment so the API layout matches crd2pulumi's).
+// WithExtensionName roots the Go importBasePath at <name>/kubernetes.
 func WithExtensionName(name string) schemaGeneratorOption {
 	return &withExtensionNameOption{extensionName: name}
 }
@@ -390,14 +384,11 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 		Language:  map[string]pschema.RawMessage{},
 	}
 
-	// Parameterize the schema if the parameterization option is set.
-	pkg.Parameterization = gen.parameterization
+	// Kubernetes only does CRD extension parameterization.
+	pkg.ExtensionParameterization = gen.parameterization
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	if gen.extensionName != "" {
-		// Extension SDK: root the Go module at the extension name and keep
-		// "kubernetes" as the trailing path segment so types still import as
-		// `<ext>/kubernetes/<group>/<v>` — the crd2pulumi layout.
 		goImportPath = gen.extensionName + "/kubernetes"
 	}
 
