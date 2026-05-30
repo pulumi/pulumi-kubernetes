@@ -415,7 +415,9 @@ func (k *kubeProvider) CheckConfig(
 				Reason:   fmt.Sprintf(errTemplate, "context"),
 			})
 		}
-		if truthyValue("kubeconfig", news) {
+		// SDKs default kubeconfig from $KUBECONFIG. In render mode we still want ambient
+		// kubeconfig loading to work, so don't reject that specific defaulted value.
+		if truthyValue("kubeconfig", news) && !matchesAmbientKubeconfigEnv(news["kubeconfig"]) {
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Property: "kubeconfig",
 				Reason:   fmt.Sprintf(errTemplate, "kubeconfig"),
@@ -438,6 +440,14 @@ func (k *kubeProvider) CheckConfig(
 		}
 	}
 	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
+}
+
+func matchesAmbientKubeconfigEnv(v resource.PropertyValue) bool {
+	if !v.IsString() {
+		return false
+	}
+	kubeconfig, ok := os.LookupEnv("KUBECONFIG")
+	return ok && kubeconfig != "" && v.StringValue() == kubeconfig
 }
 
 // DiffConfig diffs the configuration for this provider.
