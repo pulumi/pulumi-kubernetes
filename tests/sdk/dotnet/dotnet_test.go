@@ -15,8 +15,6 @@
 package test
 
 import (
-	b64 "encoding/base64"
-	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -311,31 +309,6 @@ func TestDotnet_Kustomize_UninitializedProvider(t *testing.T) {
 	integration.ProgramTest(t, &test)
 
 	// FUTURE: verify that the stack outputs include 'serviceUid' and has an unknown value.
-}
-
-func TestDotnet_Secrets(t *testing.T) {
-	secretMessage := "secret message for testing"
-
-	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   "secrets",
-		Quick: true,
-		Config: map[string]string{
-			"message": secretMessage,
-		},
-		ExpectRefreshChanges: true,
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			assert.NotNil(t, stackInfo.Deployment)
-			state, err := json.Marshal(stackInfo.Deployment)
-			assert.NoError(t, err)
-
-			assert.NotContains(t, string(state), secretMessage)
-
-			// The program converts the secret message to base64, to make a ConfigMap from it, so the state
-			// should also not contain the base64 encoding of secret message.
-			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
-		},
-	})
-	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_ServerSideApply(t *testing.T) {

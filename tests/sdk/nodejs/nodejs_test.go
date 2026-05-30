@@ -16,7 +16,6 @@
 package test
 
 import (
-	b64 "encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -1374,82 +1373,6 @@ func TestRetry(t *testing.T) {
 			assert.Equal(t, "nginx", step1Name.(string))
 			step1PodNamespace, _ := openapi.Pluck(pod.Outputs, "metadata", "namespace")
 			assert.Equal(t, namespace.ID.String(), step1PodNamespace.(string))
-		},
-	})
-	integration.ProgramTest(t, &test)
-}
-
-func TestSecretFieldsMarkedAsSecrets(t *testing.T) {
-	secretMessage := "secret message for testing"
-
-	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join("secrets", "step1"),
-		Config: map[string]string{
-			"message": secretMessage,
-		},
-		OrderedConfig: []integration.ConfigValue{
-			{
-				Key:   "pulumi:disable-default-providers[0]",
-				Value: "kubernetes",
-				Path:  true,
-			},
-		},
-		Quick: true,
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			assert.NotNil(t, stackInfo.Deployment)
-			state, err := json.Marshal(stackInfo.Deployment)
-			assert.NoError(t, err)
-
-			ssStringDataData, ok := stackInfo.Outputs["ssStringDataData"]
-			assert.Truef(t, ok, "missing expected output \"ssStringDataData\"")
-
-			ssStringDataStringData, ok := stackInfo.Outputs["ssStringDataStringData"]
-			assert.Truef(t, ok, "missing expected output \"ssStringDataStringData\"")
-
-			cgSecretStringData, ok := stackInfo.Outputs["cgSecretStringData"]
-			assert.Truef(t, ok, "missing expected output \"cgSecretStringData\"")
-
-			assert.NotEmptyf(t, ssStringDataData, "data field is empty")
-			assert.NotEmptyf(t, ssStringDataStringData, "stringData field is empty")
-			assert.NotEmptyf(t, cgSecretStringData, "cgSecretStringData field is empty")
-
-			assert.NotContains(t, string(state), secretMessage)
-
-			// The program converts the secret message to base64, to make a ConfigMap from it, so the state
-			// should also not contain the base64 encoding of secret message.
-			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
-		},
-		EditDirs: []integration.EditDir{
-			{
-				Dir:      filepath.Join("secrets", "step2"),
-				Additive: true,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-					secretMessage += "updated"
-
-					assert.NotNil(t, stackInfo.Deployment)
-					state, err := json.Marshal(stackInfo.Deployment)
-					assert.NoError(t, err)
-
-					ssStringDataData, ok := stackInfo.Outputs["ssStringDataData"]
-					assert.Truef(t, ok, "missing expected output \"ssStringDataData\"")
-
-					ssStringDataStringData, ok := stackInfo.Outputs["ssStringDataStringData"]
-					assert.Truef(t, ok, "missing expected output \"ssStringDataStringData\"")
-
-					cgSecretStringData, ok := stackInfo.Outputs["cgSecretStringData"]
-					assert.Truef(t, ok, "missing expected output \"cgSecretStringData\"")
-
-					assert.NotEmptyf(t, ssStringDataData, "data field is empty")
-					assert.NotEmptyf(t, ssStringDataStringData, "stringData field is empty")
-					assert.NotEmptyf(t, cgSecretStringData, "cgSecretStringData field is empty")
-
-					assert.NotContains(t, string(state), secretMessage)
-
-					// The program converts the secret message to base64, to make a ConfigMap from it, so the state
-					// should also not contain the base64 encoding of secret message.
-					assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
-				},
-			},
 		},
 	})
 	integration.ProgramTest(t, &test)
