@@ -13,10 +13,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 )
 
-// TestSecrets verifies the Kubernetes provider keeps secret-derived ConfigMap
-// and Secret field values out of plaintext state. The ConfigGroup case from
-// the legacy per-language tests is intentionally omitted: the four direct
-// resources cover the core "secret values don't leak to state" behavior.
 func TestSecrets(t *testing.T) {
 	t.Parallel()
 
