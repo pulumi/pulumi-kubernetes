@@ -126,6 +126,11 @@ public final class Config {
  * be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
  * to the Pulumi program. This feature is in developer preview, and is disabled by default.
  * 
+ * Render mode attempts to connect to the cluster identified by your kubeconfig to determine whether
+ * custom resources are namespaced or cluster-scoped. When no cluster is reachable, rendering proceeds
+ * anyway. Affected resources are written without a namespace scope, falling back to kubectl&#39;s default
+ * namespace behavior on apply, and a warning naming each unresolved kind is emitted.
+ * 
  * Note that some computed Outputs such as status fields will not be populated
  * since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
  * and may result in an error if they are referenced by other resources. Also note that any secret values
