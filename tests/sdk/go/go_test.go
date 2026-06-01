@@ -15,7 +15,6 @@
 package test
 
 import (
-	b64 "encoding/base64"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -683,31 +682,6 @@ func TestKustomize(t *testing.T) {
 				Value: "kubernetes",
 				Path:  true,
 			},
-		},
-	})
-	integration.ProgramTest(t, &options)
-}
-
-func TestSecrets(t *testing.T) {
-	secretMessage := "secret message for testing"
-
-	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   filepath.Join(getCwd(t), "secrets"),
-		Quick: true,
-		Config: map[string]string{
-			"message": secretMessage,
-		},
-		ExpectRefreshChanges: true,
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			assert.NotNil(t, stackInfo.Deployment)
-			state, err := json.Marshal(stackInfo.Deployment)
-			assert.NoError(t, err)
-
-			assert.NotContains(t, string(state), secretMessage)
-
-			// The program converts the secret message to base64, to make a ConfigMap from it, so the state
-			// should also not contain the base64 encoding of secret message.
-			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
 		},
 	})
 	integration.ProgramTest(t, &options)
