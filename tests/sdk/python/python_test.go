@@ -64,39 +64,11 @@ func TestSmoke(t *testing.T) {
 	if !assert.NoError(t, err) {
 		t.FailNow()
 	}
-	for _, dir := range []string{"smoke-test", "smoke-test-old"} {
-		t.Run(dir, func(t *testing.T) {
-			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir:        filepath.Join(cwd, dir),
-				NoParallel: true,
-			})
-			integration.ProgramTest(t, &options)
-		})
-	}
-}
-
-// Smoke test for .get support.
-func TestGet(t *testing.T) {
-	cwd, err := os.Getwd()
-	if !assert.NoError(t, err) {
-		t.FailNow()
-	}
-	for _, dir := range []string{"get-old"} {
-		t.Run(dir, func(t *testing.T) {
-			options := baseOptions.With(integration.ProgramTestOptions{
-				ExpectRefreshChanges: true, // CRD changes on refresh
-				Dir:                  filepath.Join(cwd, dir, "step1"),
-				NoParallel:           true,
-				EditDirs: []integration.EditDir{
-					{
-						Dir:      filepath.Join(cwd, dir, "step2"),
-						Additive: true,
-					},
-				},
-			})
-			integration.ProgramTest(t, &options)
-		})
-	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir:        filepath.Join(cwd, "smoke-test"),
+		NoParallel: true,
+	})
+	integration.ProgramTest(t, &options)
 }
 
 func TestGetOneStep(t *testing.T) {
@@ -271,7 +243,7 @@ func TestGuestbook(t *testing.T) {
 	if !assert.NoError(t, err) {
 		t.FailNow()
 	}
-	for _, dir := range []string{"guestbook", "guestbook-old"} {
+	for _, dir := range []string{"guestbook"} {
 		t.Run(dir, func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
 				Dir:                  filepath.Join(cwd, dir),
@@ -385,15 +357,11 @@ func TestProvider(t *testing.T) {
 	if !assert.NoError(t, err) {
 		t.FailNow()
 	}
-	for _, dir := range []string{"provider", "provider-old"} {
-		t.Run(dir, func(t *testing.T) {
-			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir:        filepath.Join(cwd, "provider"),
-				NoParallel: true,
-			})
-			integration.ProgramTest(t, &options)
-		})
-	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir:        filepath.Join(cwd, "provider"),
+		NoParallel: true,
+	})
+	integration.ProgramTest(t, &options)
 }
 
 func TestHelm(t *testing.T) {

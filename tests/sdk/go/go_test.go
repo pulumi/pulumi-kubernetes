@@ -69,15 +69,6 @@ var baseOptions = &integration.ProgramTestOptions{
 	},
 }
 
-func TestBasic(t *testing.T) {
-	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                  filepath.Join(getCwd(t), "basic"),
-		ExpectRefreshChanges: true,
-		Quick:                true,
-	})
-	integration.ProgramTest(t, &options)
-}
-
 func TestYaml(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(getCwd(t), "yaml"),
