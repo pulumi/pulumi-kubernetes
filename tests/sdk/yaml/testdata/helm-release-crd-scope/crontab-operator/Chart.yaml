@@ -1,0 +1,5 @@
+apiVersion: v2
+name: crontab-operator
+description: Test chart that installs the CronTab CRD from its crds/ directory.
+type: application
+version: 0.1.0
