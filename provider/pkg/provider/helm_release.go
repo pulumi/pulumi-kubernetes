@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -57,6 +58,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/helm"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host"
+	provideryamlv2 "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider/yaml/v2"
 )
 
 // Default timeout for awaited install and uninstall operations
@@ -386,6 +388,8 @@ func (r *helmReleaseProvider) Check(
 			// as opposed to the program input (which is a constraint such as ">= 1.2.3").
 			// with this we may determine whether the Helm release needs to be upgraded.
 			newRelease.Version = chart.Metadata.Version
+
+			r.cacheReleaseCRDs(ctx, chart, newRelease)
 		}
 	}
 
@@ -485,6 +489,112 @@ func (r *helmReleaseProvider) helmLoad(
 	}
 
 	return c, nil
+}
+
+// cacheReleaseCRDs records the CRDs a release's chart ships in the shared cache so custom resources
+// elsewhere in the program can resolve their namespace scope at preview, before the CRD is installed
+// on the cluster.
+func (r *helmReleaseProvider) cacheReleaseCRDs(ctx context.Context, chart *helmchart.Chart, rel *Release) {
+	if r.clientSet == nil || chart == nil {
+		return
+	}
+	cache := &r.clientSet.CRDCache
+
+	// CRDs in the chart's crds/ directory.
+	if err := cacheChartCRDs(ctx, chart, cache); err != nil {
+		logger.V(9).Infof("caching crds/ CRDs for release %q: %v", rel.Name, err)
+	}
+
+	// CRDs templated into the chart's manifest.
+	if !chartTemplatesMentionCRD(chart) {
+		return
+	}
+	manifest, err := r.renderChartManifest(chart, rel)
+	if err != nil {
+		logger.V(9).Infof("rendering chart to find CRDs for release %q: %v", rel.Name, err)
+		return
+	}
+	if err := cacheCRDsFromManifest(ctx, manifest, cache); err != nil {
+		logger.V(9).Infof("caching templated CRDs for release %q: %v", rel.Name, err)
+	}
+}
+
+// renderChartManifest runs a client-side helm template (no cluster) and returns the rendered manifest.
+func (r *helmReleaseProvider) renderChartManifest(chart *helmchart.Chart, rel *Release) (string, error) {
+	conf, err := r.getActionConfig(rel.Namespace)
+	if err != nil {
+		return "", err
+	}
+	install := action.NewInstall(conf)
+	install.ClientOnly = true
+	install.DryRun = true
+	install.ReleaseName = rel.Name
+	if install.ReleaseName == "" {
+		install.ReleaseName = "release-name"
+	}
+	install.Namespace = rel.Namespace
+	values, err := getValues(rel)
+	if err != nil {
+		return "", err
+	}
+	rendered, err := install.Run(chart, values)
+	if err != nil {
+		return "", err
+	}
+	if rendered == nil {
+		return "", nil
+	}
+	return rendered.Manifest, nil
+}
+
+func cacheChartCRDs(ctx context.Context, chart *helmchart.Chart, cache *clients.CRDCache) error {
+	if chart == nil || cache == nil {
+		return nil
+	}
+	for _, crd := range chart.CRDObjects() {
+		if err := cacheCRDsFromManifest(ctx, string(crd.File.Data), cache); err != nil {
+			return fmt.Errorf("parsing CRD file %q: %w", crd.Name, err)
+		}
+	}
+	return nil
+}
+
+func cacheCRDsFromManifest(ctx context.Context, manifest string, cache *clients.CRDCache) error {
+	if cache == nil {
+		return nil
+	}
+	objects, err := provideryamlv2.Parse(ctx, provideryamlv2.ParseOptions{YAML: manifest})
+	if err != nil {
+		return err
+	}
+	for i := range objects {
+		object := &objects[i]
+		if !clients.IsCRD(object) {
+			continue
+		}
+		if err := cache.AddCRD(object); err != nil {
+			return fmt.Errorf("caching CRD %q: %w", object.GetName(), err)
+		}
+	}
+	return nil
+}
+
+// chartTemplatesMentionCRD reports whether the chart or its subcharts template a CRD.
+func chartTemplatesMentionCRD(chart *helmchart.Chart) bool {
+	if chart == nil {
+		return false
+	}
+	for _, t := range chart.Templates {
+		if bytes.Contains(t.Data, []byte("CustomResourceDefinition")) {
+			return true
+		}
+	}
+	for _, dep := range chart.Dependencies() {
+		if chartTemplatesMentionCRD(dep) {
+			return true
+		}
+	}
+	return false
 }
 
 func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, newRelease *Release) error {

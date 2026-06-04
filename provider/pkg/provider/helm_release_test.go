@@ -15,14 +15,20 @@
 package provider
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	helmchart "helm.sh/helm/v3/pkg/chart"
+	"helm.sh/helm/v3/pkg/chart/loader"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/asset"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
 
 func TestDecodeRelease(t *testing.T) {
@@ -238,4 +244,56 @@ func TestDecodeRelease_NullPreservedThroughWire(t *testing.T) {
 	tag, hasTag := image["tag"]
 	assert.True(t, hasTag, "tag key should be present in image values (got %v)", image)
 	assert.Nil(t, tag, "tag value should be nil (the user's explicit null)")
+}
+
+func TestCacheChartCRDsResolvesScope(t *testing.T) {
+	chart, err := loader.Load("./helm/v4/testdata/reference")
+	require.NoError(t, err)
+
+	clientSet := &clients.DynamicClientSet{}
+	gvk := schema.GroupVersionKind{Group: "stable.example.com", Version: "v1", Kind: "CronTab"}
+
+	_, err = clients.IsNamespacedKind(gvk, clientSet)
+	require.True(t, clients.IsNoNamespaceInfoErr(err))
+
+	require.NoError(t, cacheChartCRDs(context.Background(), chart, &clientSet.CRDCache))
+
+	namespaced, err := clients.IsNamespacedKind(gvk, clientSet)
+	require.NoError(t, err)
+	require.True(t, namespaced)
+}
+
+func TestCacheCRDsFromManifest(t *testing.T) {
+	manifest := `
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: not-a-crd
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: widgets.example.com
+spec:
+  group: example.com
+  names:
+    kind: Widget
+  scope: Cluster
+`
+	cache := &clients.CRDCache{}
+	require.NoError(t, cacheCRDsFromManifest(context.Background(), manifest, cache))
+	require.NotNil(t, cache.GetCRD(schema.GroupKind{Group: "example.com", Kind: "Widget"}))
+	require.Nil(t, cache.GetCRD(schema.GroupKind{Group: "", Kind: "ConfigMap"}))
+}
+
+func TestChartTemplatesMentionCRD(t *testing.T) {
+	withCRD := &helmchart.Chart{Templates: []*helmchart.File{
+		{Name: "templates/crd.yaml", Data: []byte("kind: CustomResourceDefinition\n")},
+	}}
+	require.True(t, chartTemplatesMentionCRD(withCRD))
+
+	withoutCRD := &helmchart.Chart{Templates: []*helmchart.File{
+		{Name: "templates/deployment.yaml", Data: []byte("kind: Deployment\n")},
+	}}
+	require.False(t, chartTemplatesMentionCRD(withoutCRD))
 }
