@@ -151,6 +151,27 @@ var _ = gk.Describe("RPC:CheckConfig", func() {
 			})
 		})
 
+		gk.Context("when kubeconfig does not match ambient KUBECONFIG", func() {
+			gk.BeforeEach(func() {
+				path := WriteKubeconfigToFile(config)
+				gm.Expect(os.Setenv("KUBECONFIG", path)).To(gm.Succeed())
+				gk.DeferCleanup(func() {
+					os.Unsetenv("KUBECONFIG")
+				})
+				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(config))
+			})
+			gk.It("should fail because an explicit kubeconfig is disallowed", func() {
+				resp, err := k.CheckConfig(context.Background(), req)
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.HaveExactElements(
+					CheckFailure(
+						"kubeconfig",
+						gm.Equal(`"kubeconfig" arg is not compatible with "renderYamlToDirectory" arg`),
+					),
+				))
+			})
+		})
+
 		gk.Context("when context is specified", func() {
 			gk.BeforeEach(func() {
 				news["context"] = resource.NewStringProperty(config.CurrentContext)
