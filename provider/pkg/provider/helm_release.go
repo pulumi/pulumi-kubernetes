@@ -15,7 +15,6 @@
 package provider
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -498,28 +497,19 @@ func (r *helmReleaseProvider) cacheReleaseCRDs(ctx context.Context, chart *helmc
 	if r.clientSet == nil || chart == nil {
 		return
 	}
-	cache := &r.clientSet.CRDCache
-
-	// CRDs in the chart's crds/ directory.
-	if err := cacheChartCRDs(ctx, chart, cache); err != nil {
-		logger.V(9).Infof("caching crds/ CRDs for release %q: %v", rel.Name, err)
-	}
-
-	// CRDs templated into the chart's manifest.
-	if !chartTemplatesMentionCRD(chart) {
-		return
-	}
 	manifest, err := r.renderChartManifest(chart, rel)
 	if err != nil {
 		logger.V(9).Infof("rendering chart to find CRDs for release %q: %v", rel.Name, err)
 		return
 	}
-	if err := cacheCRDsFromManifest(ctx, manifest, cache); err != nil {
-		logger.V(9).Infof("caching templated CRDs for release %q: %v", rel.Name, err)
+	if err := cacheCRDsFromManifest(ctx, manifest, &r.clientSet.CRDCache); err != nil {
+		logger.V(9).Infof("caching CRDs for release %q: %v", rel.Name, err)
 	}
 }
 
-// renderChartManifest runs a client-side helm template (no cluster) and returns the rendered manifest.
+// renderChartManifest runs a client-side helm template (no cluster) and returns the rendered
+// manifest. IncludeCRDs (honoring skipCrds) makes Helm emit the crds/ CRDs across the chart and its
+// subcharts; templated CRDs render regardless.
 func (r *helmReleaseProvider) renderChartManifest(chart *helmchart.Chart, rel *Release) (string, error) {
 	conf, err := r.getActionConfig(rel.Namespace)
 	if err != nil {
@@ -528,6 +518,7 @@ func (r *helmReleaseProvider) renderChartManifest(chart *helmchart.Chart, rel *R
 	install := action.NewInstall(conf)
 	install.ClientOnly = true
 	install.DryRun = true
+	install.IncludeCRDs = !rel.SkipCrds
 	install.ReleaseName = rel.Name
 	if install.ReleaseName == "" {
 		install.ReleaseName = "release-name"
@@ -545,18 +536,6 @@ func (r *helmReleaseProvider) renderChartManifest(chart *helmchart.Chart, rel *R
 		return "", nil
 	}
 	return rendered.Manifest, nil
-}
-
-func cacheChartCRDs(ctx context.Context, chart *helmchart.Chart, cache *clients.CRDCache) error {
-	if chart == nil || cache == nil {
-		return nil
-	}
-	for _, crd := range chart.CRDObjects() {
-		if err := cacheCRDsFromManifest(ctx, string(crd.File.Data), cache); err != nil {
-			return fmt.Errorf("parsing CRD file %q: %w", crd.Name, err)
-		}
-	}
-	return nil
 }
 
 func cacheCRDsFromManifest(ctx context.Context, manifest string, cache *clients.CRDCache) error {
@@ -577,24 +556,6 @@ func cacheCRDsFromManifest(ctx context.Context, manifest string, cache *clients.
 		}
 	}
 	return nil
-}
-
-// chartTemplatesMentionCRD reports whether the chart or its subcharts template a CRD.
-func chartTemplatesMentionCRD(chart *helmchart.Chart) bool {
-	if chart == nil {
-		return false
-	}
-	for _, t := range chart.Templates {
-		if bytes.Contains(t.Data, []byte("CustomResourceDefinition")) {
-			return true
-		}
-	}
-	for _, dep := range chart.Dependencies() {
-		if chartTemplatesMentionCRD(dep) {
-			return true
-		}
-	}
-	return false
 }
 
 func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, newRelease *Release) error {
