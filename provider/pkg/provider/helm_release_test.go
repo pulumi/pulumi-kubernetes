@@ -15,14 +15,18 @@
 package provider
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/asset"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
 
 func TestDecodeRelease(t *testing.T) {
@@ -238,4 +242,27 @@ func TestDecodeRelease_NullPreservedThroughWire(t *testing.T) {
 	tag, hasTag := image["tag"]
 	assert.True(t, hasTag, "tag key should be present in image values (got %v)", image)
 	assert.Nil(t, tag, "tag value should be nil (the user's explicit null)")
+}
+
+func TestCacheCRDsFromManifest(t *testing.T) {
+	manifest := `
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: not-a-crd
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: widgets.example.com
+spec:
+  group: example.com
+  names:
+    kind: Widget
+  scope: Cluster
+`
+	cache := &clients.CRDCache{}
+	require.NoError(t, cacheCRDsFromManifest(context.Background(), manifest, cache))
+	require.NotNil(t, cache.GetCRD(schema.GroupKind{Group: "example.com", Kind: "Widget"}))
+	require.Nil(t, cache.GetCRD(schema.GroupKind{Group: "", Kind: "ConfigMap"}))
 }
