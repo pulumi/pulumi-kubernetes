@@ -16,6 +16,7 @@ package provider
 
 import (
 	"context"
+	"os"
 
 	_ "embed"
 
@@ -123,6 +124,43 @@ var _ = gk.Describe("RPC:CheckConfig", func() {
 				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(config))
 			})
 			gk.It("should fail because yaml mode disallows kubeconfig", func() {
+				resp, err := k.CheckConfig(context.Background(), req)
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.HaveExactElements(
+					CheckFailure(
+						"kubeconfig",
+						gm.Equal(`"kubeconfig" arg is not compatible with "renderYamlToDirectory" arg`),
+					),
+				))
+			})
+		})
+
+		gk.Context("when kubeconfig matches ambient KUBECONFIG", func() {
+			gk.BeforeEach(func() {
+				path := WriteKubeconfigToFile(config)
+				gm.Expect(os.Setenv("KUBECONFIG", path)).To(gm.Succeed())
+				gk.DeferCleanup(func() {
+					os.Unsetenv("KUBECONFIG")
+				})
+				news["kubeconfig"] = resource.NewStringProperty(path)
+			})
+			gk.It("should succeed", func() {
+				resp, err := k.CheckConfig(context.Background(), req)
+				gm.Expect(err).ToNot(gm.HaveOccurred())
+				gm.Expect(resp.Failures).To(gm.BeEmpty())
+			})
+		})
+
+		gk.Context("when kubeconfig does not match ambient KUBECONFIG", func() {
+			gk.BeforeEach(func() {
+				path := WriteKubeconfigToFile(config)
+				gm.Expect(os.Setenv("KUBECONFIG", path)).To(gm.Succeed())
+				gk.DeferCleanup(func() {
+					os.Unsetenv("KUBECONFIG")
+				})
+				news["kubeconfig"] = resource.NewStringProperty(WriteKubeconfigToString(config))
+			})
+			gk.It("should fail because an explicit kubeconfig is disallowed", func() {
 				resp, err := k.CheckConfig(context.Background(), req)
 				gm.Expect(err).ToNot(gm.HaveOccurred())
 				gm.Expect(resp.Failures).To(gm.HaveExactElements(
