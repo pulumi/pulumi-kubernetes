@@ -410,6 +410,53 @@ var _ = gk.Describe("Construct", func() {
 			})
 		})
 
+		gk.Describe("Helm hooks", func() {
+			// The reference chart contains a non-test hook (a ConfigMap annotated
+			// "helm.sh/hook": pre-install) and a test hook (a Pod annotated
+			// "helm.sh/hook": test).
+			preInstallHook := pgm.MatchResourceReferenceValue(
+				"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:ConfigMap::"+
+					"test:default/test-reference-pre-install",
+				"test:default/test-reference-pre-install",
+			)
+			testHook := pgm.MatchResourceReferenceValue(
+				"urn:pulumi:stack::project::kubernetes:helm/v4:Chart$kubernetes:core/v1:Pod::"+
+					"test:default/test-reference-test-connection",
+				"test:default/test-reference-test-connection",
+			)
+
+			gk.Context("by default (not in render mode)", func() {
+				gk.It("should drop all hook resources", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
+					outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+					gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+						"resources": pgm.MatchArrayValue(gm.And(
+							gm.Not(gm.ContainElement(preInstallHook)),
+							gm.Not(gm.ContainElement(testHook)),
+						)),
+					}))
+				})
+			})
+
+			gk.Context("in renderYamlToDirectory mode", func() {
+				gk.BeforeEach(func() {
+					opts.RenderYAMLToDirectory = true
+				})
+				gk.It("should include non-test hooks but exclude test hooks", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
+					outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+					gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+						"resources": pgm.MatchArrayValue(gm.And(
+							gm.ContainElement(preInstallHook),
+							gm.Not(gm.ContainElement(testHook)),
+						)),
+					}))
+				})
+			})
+		})
+
 		gk.Describe("Post Renderer", func() {
 			gk.Context("given a postRenderer", func() {
 				var tempdir string

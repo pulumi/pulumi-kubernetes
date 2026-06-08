@@ -17,11 +17,14 @@ package v4
 import (
 	"context"
 	"fmt"
+	"regexp"
+	"strings"
 
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chartutil"
 	helmkube "helm.sh/helm/v3/pkg/kube"
 	"helm.sh/helm/v3/pkg/postrender"
+	"helm.sh/helm/v3/pkg/release"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/discovery"
 
@@ -248,8 +251,21 @@ func (r *ChartProvider) Construct(
 	}
 
 	// Parse the YAML file into an array of Kubernetes objects.
+	//
+	// Helm hook resources (those annotated with `helm.sh/hook`) are separated
+	// from the regular manifest by the Helm SDK and are not applied by Pulumi.
+	// In render-only mode (`renderYamlToDirectory`) Pulumi is not in charge of
+	// the resource lifecycle; it merely emits YAML for another tool (e.g. ArgoCD)
+	// to apply. In that case, include the hook resources in the output as-is so
+	// they are not silently dropped, mirroring `helm template`. Test hooks
+	// (`helm.sh/hook: test`) are excluded since they are not part of a normal
+	// deployment.
+	manifest := release.Manifest
+	if r.opts.RenderYAMLToDirectory {
+		manifest = manifestWithHooks(release)
+	}
 	parseOpts := provideryamlv2.ParseOptions{
-		YAML: release.Manifest,
+		YAML: manifest,
 	}
 	objs, err := provideryamlv2.Parse(ctx.Context(), parseOpts)
 	if err != nil {
@@ -314,6 +330,25 @@ func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstru
 	}
 
 	return obj, resourceOpts
+}
+
+// testHookAnnotation matches test-related Helm hook annotations (test, test-success, test-failure).
+var testHookAnnotation = regexp.MustCompile(`"?helm.sh/hook"?:.*test`)
+
+// manifestWithHooks returns the release manifest with hook resources appended,
+// mirroring the output of `helm template`. Test hooks are skipped because they
+// are only meant to run during `helm test` and are not part of a deployment.
+func manifestWithHooks(rel *release.Release) string {
+	var b strings.Builder
+	b.WriteString(rel.Manifest)
+	for _, hook := range rel.Hooks {
+		if testHookAnnotation.MatchString(hook.Manifest) {
+			continue
+		}
+		b.WriteString("\n---\n")
+		b.WriteString(hook.Manifest)
+	}
+	return b.String()
 }
 
 func setKubeVersionAndAPIVersions(clientSet *clients.DynamicClientSet, cmd *kubehelm.TemplateCommand) error {
