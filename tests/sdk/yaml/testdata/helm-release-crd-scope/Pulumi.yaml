@@ -14,8 +14,8 @@ resources:
         - ${operator}
     properties:
       objs:
-        - apiVersion: stable.example.com/v1
-          kind: CronTab
+        - apiVersion: crd-scope.example.com/v1
+          kind: ScopedCronTab
           metadata:
             name: my-crontab
           spec:
