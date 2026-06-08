@@ -20,7 +20,7 @@ func TestHelmReleaseCRDScopeWritesToCache(t *testing.T) {
 
 	preview := test.Preview(t)
 	assert.Contains(t, preview.StdOut, "default/my-crontab",
-		"CronTab should resolve as namespaced at preview")
+		"ScopedCronTab should resolve as namespaced at preview")
 
 	test.Up(t)
 
@@ -28,12 +28,12 @@ func TestHelmReleaseCRDScopeWritesToCache(t *testing.T) {
 	require.NoError(t, json.Unmarshal(test.ExportStack(t).Deployment, &deployment))
 	var found bool
 	for _, r := range deployment.Resources {
-		if r.Type != "kubernetes:stable.example.com/v1:CronTab" {
+		if r.Type != "kubernetes:crd-scope.example.com/v1:ScopedCronTab" {
 			continue
 		}
 		found = true
 		assert.Contains(t, string(r.URN), "default/my-crontab",
-			"CronTab should be namespaced in state")
+			"ScopedCronTab should be namespaced in state")
 	}
-	assert.True(t, found, "expected a CronTab custom resource in the stack")
+	assert.True(t, found, "expected a ScopedCronTab custom resource in the stack")
 }
