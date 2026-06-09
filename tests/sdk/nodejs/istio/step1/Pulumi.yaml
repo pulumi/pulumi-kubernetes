@@ -1,3 +1,0 @@
-name: istio
-description: A simple installation of Istio on GKE.
-runtime: nodejs

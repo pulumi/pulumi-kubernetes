@@ -1,3 +1,0 @@
-name: get-tests
-description: A program that tests that we can use `CustomResource#get` on Kubernetes resources.
-runtime: nodejs
