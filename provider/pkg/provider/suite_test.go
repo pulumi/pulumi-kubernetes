@@ -226,6 +226,18 @@ func WithResourceProvider(typ string, provider providerresource.ResourceProvider
 	}
 }
 
+func WithV3SchemaError(err error) NewProviderOption {
+	return func(options *newProviderOptions) {
+		options.copts = append(options.copts, fakeclients.WithOpenAPIV3Error(err))
+	}
+}
+
+func WithV2SchemaError(err error) NewProviderOption {
+	return func(options *newProviderOptions) {
+		options.copts = append(options.copts, fakeclients.WithOpenAPIV2Error(err))
+	}
+}
+
 func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvider {
 	options := newProviderOptions{}
 	for _, opt := range opts {

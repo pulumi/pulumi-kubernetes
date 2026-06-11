@@ -18,6 +18,7 @@ import (
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/apimachinery/pkg/runtime"
 	kubeversion "k8s.io/apimachinery/pkg/version"
+	clientopenapi "k8s.io/client-go/openapi"
 	"k8s.io/client-go/restmapper"
 	kubetesting "k8s.io/client-go/testing"
 	"k8s.io/kubectl/pkg/scheme"
@@ -49,10 +50,35 @@ func WithServerVersion(version kubeversion.Info) NewDynamicClientOption {
 	}
 }
 
+// WithOpenAPIV3Error configures the fake discovery client to return an error from its OpenAPI v3
+// endpoint, so that the v3→v2 fallback path in getResources() can be exercised in tests.
+func WithOpenAPIV3Error(err error) NewDynamicClientOption {
+	return func(options *newDynamicClientOptions) {
+		options.v3Err = err
+	}
+}
+
+// WithOpenAPIV2Error configures the fake discovery client to return an error from its OpenAPI v2
+// endpoint, so that the double-failure path in getResources() can be exercised in tests.
+func WithOpenAPIV2Error(err error) NewDynamicClientOption {
+	return func(options *newDynamicClientOptions) {
+		options.v2Err = err
+	}
+}
+
 type newDynamicClientOptions struct {
 	ServerVersion kubeversion.Info
 	Scheme        *runtime.Scheme
 	Objects       []runtime.Object
+	v3Err         error
+	v2Err         error
+}
+
+// errorV3Client is an openapi.Client whose Paths() always returns the given error.
+type errorV3Client struct{ err error }
+
+func (e *errorV3Client) Paths() (map[string]clientopenapi.GroupVersion, error) {
+	return nil, e.err
 }
 
 // NewSimpleDynamicClient creates a simple dynamic client for testing purposes,
@@ -70,6 +96,10 @@ func NewSimpleDynamicClient(opts ...NewDynamicClientOption) (*clients.DynamicCli
 
 	// make a fake discovery client that produces the core/v1 schema, and a mapper based on that.
 	disco := NewSimpleDiscovery(options.ServerVersion)
+	if options.v3Err != nil {
+		disco.v3Client = &errorV3Client{err: options.v3Err}
+	}
+	disco.v2Err = options.v2Err
 	resources, err := restmapper.GetAPIGroupResources(disco)
 	if err != nil {
 		panic(err)

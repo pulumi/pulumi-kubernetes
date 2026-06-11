@@ -88,6 +88,10 @@ func loadServerResources() ([]*metav1.APIResourceList, error) {
 // SimpleDiscovery provides a fake discovery client with core Kubernetes types.
 type SimpleDiscovery struct {
 	*discoveryfake.FakeDiscovery
+	// v3Client overrides OpenAPIV3(); if nil the embedded testdata fixtures are used.
+	v3Client clientopenapi.Client
+	// v2Err, if non-nil, is returned by OpenAPISchema() to simulate a v2 failure.
+	v2Err error
 }
 
 var _ discovery.CachedDiscoveryInterface = &SimpleDiscovery{}
@@ -98,14 +102,19 @@ func (*SimpleDiscovery) Fresh() bool {
 
 func (*SimpleDiscovery) Invalidate() {}
 
-func (*SimpleDiscovery) OpenAPISchema() (*openapi_v2.Document, error) {
+func (d *SimpleDiscovery) OpenAPISchema() (*openapi_v2.Document, error) {
+	if d.v2Err != nil {
+		return nil, d.v2Err
+	}
 	return LoadOpenAPISchema()
 }
 
-// OpenAPIV3 returns a fake OpenAPI v3 client backed by the test fixtures in testdata/openapi_v3/.
-// Each JSON file in that directory is served as a separate GV path (filename without .json becomes
-// the path, with underscores converted to slashes).
-func (*SimpleDiscovery) OpenAPIV3() clientopenapi.Client {
+// OpenAPIV3 returns a fake OpenAPI v3 client. If a v3Client override has been set (e.g. to
+// simulate a failure) it is returned; otherwise the embedded testdata/openapi_v3 fixtures are used.
+func (d *SimpleDiscovery) OpenAPIV3() clientopenapi.Client {
+	if d.v3Client != nil {
+		return d.v3Client
+	}
 	return loadFakeV3Client()
 }
 
