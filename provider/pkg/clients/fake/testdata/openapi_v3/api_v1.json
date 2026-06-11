@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.0",
+  "info": {"title": "Kubernetes", "version": "unversioned"},
+  "paths": {},
+  "components": {
+    "schemas": {
+      "io.k8s.api.core.v1.ConfigMap": {
+        "type": "object",
+        "x-kubernetes-group-version-kind": [
+          {"group": "", "version": "v1", "kind": "ConfigMap"}
+        ],
+        "properties": {
+          "apiVersion": {"type": "string"},
+          "binaryData": {"type": "object"},
+          "data": {"type": "object"},
+          "kind": {"type": "string"},
+          "metadata": {"type": "object"}
+        }
+      },
+      "io.k8s.api.core.v1.Pod": {
+        "type": "object",
+        "x-kubernetes-group-version-kind": [
+          {"group": "", "version": "v1", "kind": "Pod"}
+        ],
+        "properties": {
+          "apiVersion": {"type": "string"},
+          "kind": {"type": "string"},
+          "metadata": {"type": "object"},
+          "spec": {"type": "object"},
+          "status": {"type": "object"}
+        }
+      }
+    }
+  }
+}

@@ -234,9 +234,16 @@ func (k *kubeProvider) getResources() (k8sopenapi.Resources, error) {
 	k.resourcesMutex.Lock()
 	defer k.resourcesMutex.Unlock()
 
-	rs, err := openapi.GetResourceSchemasForClient(k.clientSet.DiscoveryClientCached)
+	// Try v3 first: schemas are fetched per-GV and benefit from the per-GV cache
+	// in cachedopenapi.NewClient, avoiding the full schema download on every Configure().
+	rs, err := openapi.GetResourceSchemasForClientV3(k.clientSet.DiscoveryClientCached.OpenAPIV3())
 	if err != nil {
-		return nil, err
+		// Fall back to v2 for older clusters (< v1.24) or transient v3 failures.
+		logger.V(9).Infof("OpenAPI v3 schema unavailable (%v), falling back to v2", err)
+		rs, err = openapi.GetResourceSchemasForClient(k.clientSet.DiscoveryClientCached)
+		if err != nil {
+			return nil, err
+		}
 	}
 	k.resources = rs
 	return k.resources, nil

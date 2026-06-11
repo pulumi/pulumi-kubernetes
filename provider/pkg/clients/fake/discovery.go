@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"io"
 	"io/fs"
+	"strings"
 	"sync"
 
 	openapi_v2 "github.com/google/gnostic-models/openapiv2"
@@ -28,12 +29,16 @@ import (
 	kubeversion "k8s.io/apimachinery/pkg/version"
 	"k8s.io/client-go/discovery"
 	discoveryfake "k8s.io/client-go/discovery/fake"
+	clientopenapi "k8s.io/client-go/openapi"
 	"k8s.io/client-go/restmapper"
 	kubetesting "k8s.io/client-go/testing"
 )
 
 //go:embed swagger.json
 var swagger []byte
+
+//go:embed testdata/openapi_v3
+var openapiV3FS embed.FS
 
 // _schema caches our OpenAPI schema since it is moderately slow to re-parse
 // during tests.
@@ -95,6 +100,65 @@ func (*SimpleDiscovery) Invalidate() {}
 
 func (*SimpleDiscovery) OpenAPISchema() (*openapi_v2.Document, error) {
 	return LoadOpenAPISchema()
+}
+
+// OpenAPIV3 returns a fake OpenAPI v3 client backed by the test fixtures in testdata/openapi_v3/.
+// Each JSON file in that directory is served as a separate GV path (filename without .json becomes
+// the path, with underscores converted to slashes).
+func (*SimpleDiscovery) OpenAPIV3() clientopenapi.Client {
+	return loadFakeV3Client()
+}
+
+// loadFakeV3Client reads all *.json fixtures from the embedded testdata/openapi_v3 directory
+// and returns a fake Client whose Paths() returns one entry per file.
+func loadFakeV3Client() clientopenapi.Client {
+	paths := map[string][]byte{}
+	err := fs.WalkDir(openapiV3FS, "testdata/openapi_v3", func(path string, d fs.DirEntry, _ error) error {
+		if d.IsDir() || !strings.HasSuffix(d.Name(), ".json") {
+			return nil
+		}
+		data, err := openapiV3FS.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		// Convert filename (e.g. "apis_apps_v1.json") to a GV path ("apis/apps/v1").
+		gvPath := strings.TrimSuffix(d.Name(), ".json")
+		gvPath = strings.ReplaceAll(gvPath, "_", "/")
+		// Preserve "api/v1" — the single underscore maps correctly.
+		// "apis/apps/v1" also maps correctly since we replace all underscores.
+		paths[gvPath] = data
+		return nil
+	})
+	if err != nil {
+		panic(err)
+	}
+	return &fakeV3Client{paths: paths}
+}
+
+// fakeV3Client implements clientopenapi.Client using a map of GV path → raw JSON bytes.
+type fakeV3Client struct {
+	paths map[string][]byte
+}
+
+func (f *fakeV3Client) Paths() (map[string]clientopenapi.GroupVersion, error) {
+	out := make(map[string]clientopenapi.GroupVersion, len(f.paths))
+	for path, data := range f.paths {
+		out[path] = &fakeGroupVersion{data: data}
+	}
+	return out, nil
+}
+
+// fakeGroupVersion implements clientopenapi.GroupVersion returning fixed JSON bytes.
+type fakeGroupVersion struct {
+	data []byte
+}
+
+func (g *fakeGroupVersion) Schema(_ string) ([]byte, error) {
+	return g.data, nil
+}
+
+func (g *fakeGroupVersion) ServerRelativeURL() string {
+	return ""
 }
 
 func NewSimpleDiscovery(serverVersion kubeversion.Info) *SimpleDiscovery {
