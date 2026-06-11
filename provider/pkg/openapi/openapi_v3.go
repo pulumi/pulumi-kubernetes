@@ -15,13 +15,13 @@
 package openapi
 
 import (
+	openapi_v3 "github.com/google/gnostic-models/openapiv3"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	clientopenapi "k8s.io/client-go/openapi"
 	"k8s.io/kube-openapi/pkg/util/proto"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 
-	openapi_v3 "github.com/google/gnostic-models/openapiv3"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 )
 

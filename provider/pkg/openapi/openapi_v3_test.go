@@ -19,11 +19,10 @@ import (
 	"testing"
 
 	openapi_v2 "github.com/google/gnostic-models/openapiv2"
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	clientopenapi "k8s.io/client-go/openapi"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	clientopenapi "k8s.io/client-go/openapi"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
 )
@@ -99,12 +98,12 @@ func (f *fakeV3Client) Paths() (map[string]clientopenapi.GroupVersion, error) {
 type fakeV3GV struct{ data []byte }
 
 func (g *fakeV3GV) Schema(_ string) ([]byte, error) { return g.data, nil }
-func (g *fakeV3GV) ServerRelativeURL() string        { return "" }
+func (g *fakeV3GV) ServerRelativeURL() string       { return "" }
 
 type errorV3GV struct{ err error }
 
 func (g *errorV3GV) Schema(_ string) ([]byte, error) { return nil, g.err }
-func (g *errorV3GV) ServerRelativeURL() string        { return "" }
+func (g *errorV3GV) ServerRelativeURL() string       { return "" }
 
 // partialErrorV3Client wraps fakeV3Client and injects an additional error GV.
 type partialErrorV3Client struct {
