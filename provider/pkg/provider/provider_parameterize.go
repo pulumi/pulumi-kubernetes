@@ -360,7 +360,7 @@ func generateSchema(
 	}
 
 	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema,
-		gen.WithParameterization(&pulumischema.ParameterizationSpec{
+		gen.WithParameterization(&pulumischema.ExtensionParameterizationSpec{
 			BaseProvider: pulumischema.BaseProviderSpec{
 				Name:    baseProvName,
 				Version: strings.TrimPrefix(baseProvVersion, "v"),
@@ -459,7 +459,7 @@ func (k *kubeProvider) parameterizeRequestArgs(
 // parameters that were persisted in Pulumi.yaml.
 //
 // The Value.Value bytes contain the marshaled OpenAPI spec that was originally
-// stored as the Parameter field in the ParameterizationSpec during the Args
+// stored as the Parameter field in the ExtensionParameterizationSpec during the Args
 // path. We unmarshal it, regenerate the Pulumi schema, and cache it.
 func (k *kubeProvider) parameterizeRequestValue(
 	p *pulumirpc.ParameterizeRequest_Value,

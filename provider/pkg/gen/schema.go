@@ -22,6 +22,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/blang/semver"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen/examples"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
@@ -50,7 +51,7 @@ type schemaGenerator struct {
 	resourceOverlays map[string]pschema.ResourceSpec
 
 	// parameterization indicates whether the schema should be parameterized.
-	parameterization *pschema.ParameterizationSpec
+	parameterization *pschema.ExtensionParameterizationSpec
 
 	// allowHyphens indicates whether hyphens should be allowed in property names.
 	allowHyphens bool
@@ -93,14 +94,14 @@ func WithResourceOverlays(resourceOverlays map[string]pschema.ResourceSpec) sche
 }
 
 type withParameterizationOption struct {
-	parameterization *pschema.ParameterizationSpec
+	parameterization *pschema.ExtensionParameterizationSpec
 }
 
 func (o *withParameterizationOption) apply(sg *schemaGenerator) {
 	sg.parameterization = o.parameterization
 }
 
-func WithParameterization(parameterization *pschema.ParameterizationSpec) schemaGeneratorOption {
+func WithParameterization(parameterization *pschema.ExtensionParameterizationSpec) schemaGeneratorOption {
 	return &withParameterizationOption{parameterization: parameterization}
 }
 
@@ -387,9 +388,26 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 	// Kubernetes only does CRD extension parameterization.
 	pkg.ExtensionParameterization = gen.parameterization
 
+	// In extension mode the base provider's shared types (meta/v1 ObjectMeta, ...)
+	// are not emitted into the extension schema; they're referenced externally so
+	// codegen imports them from the base provider's SDK. extension carries the
+	// base coordinates for those external references and the base dependency.
+	var extension *extensionContext
+	if gen.extensionName != "" && gen.parameterization != nil {
+		base := gen.parameterization.BaseProvider
+		extension = &extensionContext{
+			baseName:    base.Name,
+			baseVersion: "v" + strings.TrimPrefix(base.Version, "v"),
+		}
+		if v, err := semver.ParseTolerant(base.Version); err == nil {
+			pkg.Dependencies = []pschema.PackageDescriptor{{Name: base.Name, Version: &v}}
+		}
+	}
+
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 	if gen.extensionName != "" {
 		goImportPath = gen.extensionName + "/kubernetes"
+		pkg.Name = gen.extensionName
 	}
 
 	csharpNamespaces := map[string]string{
@@ -424,10 +442,15 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 	}
 
 	definitions := swagger["definitions"].(map[string]any)
-	groupsSlice := createGroups(definitions, gen.allowHyphens)
+	groupsSlice := createGroups(definitions, gen.allowHyphens, extension)
 
 	for _, group := range groupsSlice {
 		if group.Group() == "apiserverinternal" {
+			continue
+		}
+		// In extension mode, the base-provider meta group is referenced
+		// externally, not generated into the extension SDK.
+		if extension != nil && group.Group() == baseProviderGroup {
 			continue
 		}
 		for _, version := range group.Versions() {
