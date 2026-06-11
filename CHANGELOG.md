@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- [#4434](https://github.com/pulumi/pulumi-kubernetes/pull/4434) Fix slow provider registration caused by repeatedly downloading the full Kubernetes API schema. Schemas are now fetched and cached incrementally. Older clusters (pre-v1.24) fall back to the previous behaviour automatically.
+
 ## 4.32.0 (June 5, 2026)
 
 ### Fixed
