@@ -66,12 +66,21 @@ func WithOpenAPIV2Error(err error) NewDynamicClientOption {
 	}
 }
 
+// WithV3EmptySchemaPath injects a GV path into the fake v3 client that returns empty schema
+// bytes, simulating an API server returning an empty response for that path.
+func WithV3EmptySchemaPath(path string) NewDynamicClientOption {
+	return func(options *newDynamicClientOptions) {
+		options.v3EmptyPath = path
+	}
+}
+
 type newDynamicClientOptions struct {
 	ServerVersion kubeversion.Info
 	Scheme        *runtime.Scheme
 	Objects       []runtime.Object
 	v3Err         error
 	v2Err         error
+	v3EmptyPath   string
 }
 
 // errorV3Client is an openapi.Client whose Paths() always returns the given error.
@@ -96,8 +105,14 @@ func NewSimpleDynamicClient(opts ...NewDynamicClientOption) (*clients.DynamicCli
 
 	// make a fake discovery client that produces the core/v1 schema, and a mapper based on that.
 	disco := NewSimpleDiscovery(options.ServerVersion)
-	if options.v3Err != nil {
+	switch {
+	case options.v3Err != nil:
 		disco.v3Client = &errorV3Client{err: options.v3Err}
+	case options.v3EmptyPath != "":
+		disco.v3Client = &emptyPathV3Client{
+			inner: loadFakeV3Client(),
+			path:  options.v3EmptyPath,
+		}
 	}
 	disco.v2Err = options.v2Err
 	resources, err := restmapper.GetAPIGroupResources(disco)

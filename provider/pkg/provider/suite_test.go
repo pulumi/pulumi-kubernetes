@@ -238,6 +238,12 @@ func WithV2SchemaError(err error) NewProviderOption {
 	}
 }
 
+func WithV3EmptySchemaPath(path string) NewProviderOption {
+	return func(options *newProviderOptions) {
+		options.copts = append(options.copts, fakeclients.WithV3EmptySchemaPath(path))
+	}
+}
+
 func (c *providerTestContext) NewProvider(opts ...NewProviderOption) *kubeProvider {
 	options := newProviderOptions{}
 	for _, opt := range opts {

@@ -343,6 +343,19 @@ var _ = gk.Describe("RPC:Configure", func() {
 			})
 		})
 
+		gk.Context("when an OpenAPI v3 path returns empty schema bytes", func() {
+			gk.BeforeEach(func() {
+				opts = append(opts, WithV3EmptySchemaPath("apis/fake.io/v1"))
+			})
+			gk.It("should skip the bad path and return a non-nil resource cache", func() {
+				_, err := k.Configure(context.Background(), req)
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				rs, err := k.getResources()
+				gm.Expect(err).ShouldNot(gm.HaveOccurred())
+				gm.Expect(rs).ToNot(gm.BeNil())
+			})
+		})
+
 		gk.Context("when both OpenAPI v3 and v2 are unavailable", func() {
 			gk.BeforeEach(func() {
 				opts = append(opts, WithV3SchemaError(fmt.Errorf("v3 unavailable")))

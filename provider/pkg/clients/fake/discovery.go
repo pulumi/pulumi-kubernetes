@@ -162,6 +162,22 @@ type fakeGroupVersion struct {
 	data []byte
 }
 
+// emptyPathV3Client wraps an existing Client and adds a single extra path that returns empty
+// schema bytes, simulating an API server that returns an empty body for that path.
+type emptyPathV3Client struct {
+	inner clientopenapi.Client
+	path  string
+}
+
+func (e *emptyPathV3Client) Paths() (map[string]clientopenapi.GroupVersion, error) {
+	paths, err := e.inner.Paths()
+	if err != nil {
+		return nil, err
+	}
+	paths[e.path] = &fakeGroupVersion{data: []byte{}}
+	return paths, nil
+}
+
 func (g *fakeGroupVersion) Schema(_ string) ([]byte, error) {
 	return g.data, nil
 }

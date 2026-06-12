@@ -15,6 +15,8 @@
 package openapi
 
 import (
+	"fmt"
+
 	openapi_v3 "github.com/google/gnostic-models/openapiv3"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -46,7 +48,12 @@ func GetResourceSchemasForClientV3(client clientopenapi.Client) (k8sopenapi.Reso
 			continue
 		}
 
-		doc, err := openapi_v3.ParseDocument(schemaBytes)
+		if len(schemaBytes) == 0 {
+			logger.V(9).Infof("skipping OpenAPI v3 path %q: empty schema bytes", path)
+			continue
+		}
+
+		doc, err := safeParseDocument(schemaBytes)
 		if err != nil {
 			logger.V(9).Infof("skipping OpenAPI v3 path %q: failed to parse document: %v", path, err)
 			continue
@@ -153,6 +160,17 @@ func gvksFromSchema(s proto.Schema) []schema.GroupVersionKind {
 		})
 	}
 	return result
+}
+
+// safeParseDocument wraps openapi_v3.ParseDocument to convert panics (which the
+// gnostic-models library can emit on malformed input) into errors.
+func safeParseDocument(data []byte) (doc *openapi_v3.Document, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("ParseDocument panicked: %v", r)
+		}
+	}()
+	return openapi_v3.ParseDocument(data)
 }
 
 // extractGVK extracts group/version/kind strings from a YAML-unmarshaled map,
