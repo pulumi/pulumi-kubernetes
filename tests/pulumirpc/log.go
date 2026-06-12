@@ -174,12 +174,13 @@ func ParseRegisterResource(entry DebugInterceptorLogEntry) (*RegisterResource, b
 		return nil, false
 	}
 	request := &pulumirpc.RegisterResourceRequest{}
-	err := protojson.Unmarshal(entry.Request, request)
+	unmarshalOpts := protojson.UnmarshalOptions{DiscardUnknown: true}
+	err := unmarshalOpts.Unmarshal(entry.Request, request)
 	if err != nil {
 		return nil, false
 	}
 	response := &pulumirpc.RegisterResourceResponse{}
-	err = protojson.Unmarshal(entry.Response, response)
+	err = unmarshalOpts.Unmarshal(entry.Response, response)
 	if err != nil {
 		return nil, false
 	}
@@ -241,12 +242,13 @@ func ParseInvoke(entry DebugInterceptorLogEntry) (*Invoke, bool) {
 		return nil, false
 	}
 	request := &pulumirpc.ResourceInvokeRequest{}
-	err := protojson.Unmarshal(entry.Request, request)
+	unmarshalOpts := protojson.UnmarshalOptions{DiscardUnknown: true}
+	err := unmarshalOpts.Unmarshal(entry.Request, request)
 	if err != nil {
 		return nil, false
 	}
 	response := &pulumirpc.InvokeResponse{}
-	err = protojson.Unmarshal(entry.Response, response)
+	err = unmarshalOpts.Unmarshal(entry.Response, response)
 	if err != nil {
 		return nil, false
 	}
