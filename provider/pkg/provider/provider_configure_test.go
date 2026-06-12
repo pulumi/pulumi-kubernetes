@@ -36,15 +36,17 @@ var _ = gk.Describe("RPC:Configure", func() {
 	var opts []NewProviderOption
 	var k *kubeProvider
 	var req *pulumirpc.ConfigureRequest
+	var vars map[string]string
 	var ambient *clientcmdapi.Config
 
 	gk.BeforeEach(func() {
 		opts = []NewProviderOption{}
 
 		// initialize the ConfigureRequest to be customized in nested BeforeEach blocks
+		vars = map[string]string{}
 		req = &pulumirpc.ConfigureRequest{
 			AcceptSecrets: true,
-			Variables:     map[string]string{},
+			Variables:     vars, //nolint:staticcheck // Variables still sent by engine; Args migration deferred
 		}
 
 		// initialize a fake ambient kubeconfig
@@ -98,7 +100,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 	gk.Describe("Namespacing", func() {
 		gk.Context("when configured to use a particular namespace", func() {
 			gk.JustBeforeEach(func() {
-				req.Variables["kubernetes:config:namespace"] = "pulumi"
+				vars["kubernetes:config:namespace"] = "pulumi"
 			})
 			gk.It("should use the configured namespace as the default namespace", func() {
 				_, err := k.Configure(context.Background(), req)
@@ -164,7 +166,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 		gk.Describe("use case: kubeconfig string", func() {
 			gk.Context("with an invalid value", func() {
 				gk.JustBeforeEach(func() {
-					req.Variables["kubernetes:config:kubeconfig"] = "invalid"
+					vars["kubernetes:config:kubeconfig"] = "invalid"
 				})
 				commonChecks()
 				clusterUnreachableChecks()
@@ -172,7 +174,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 
 			gk.Context("with a valid kubeconfig as a string value", func() {
 				gk.JustBeforeEach(func() {
-					req.Variables["kubernetes:config:kubeconfig"] = WriteKubeconfigToString(other)
+					vars["kubernetes:config:kubeconfig"] = WriteKubeconfigToString(other)
 				})
 				commonChecks()
 				connectedChecks("other")
@@ -188,7 +190,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 		gk.Describe("use case: kubeconfig file", func() {
 			gk.Context("with a non-existent config file", func() {
 				gk.BeforeEach(func() {
-					req.Variables["kubernetes:config:kubeconfig"] = "./nosuchfile"
+					vars["kubernetes:config:kubeconfig"] = "./nosuchfile"
 				})
 				commonChecks()
 				clusterUnreachableChecks()
@@ -205,7 +207,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 					gm.Expect(err).ToNot(gm.HaveOccurred())
 					err = f.Close()
 					gm.Expect(err).ToNot(gm.HaveOccurred())
-					req.Variables["kubernetes:config:kubeconfig"] = f.Name()
+					vars["kubernetes:config:kubeconfig"] = f.Name()
 				})
 				commonChecks()
 				clusterUnreachableChecks()
@@ -213,7 +215,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 
 			gk.Context("with a valid config file", func() {
 				gk.BeforeEach(func() {
-					req.Variables["kubernetes:config:kubeconfig"] = WriteKubeconfigToFile(other)
+					vars["kubernetes:config:kubeconfig"] = WriteKubeconfigToFile(other)
 				})
 				commonChecks()
 				connectedChecks("other")
@@ -230,7 +232,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 	gk.Describe("Kube Context", func() {
 		gk.Context("when configured to use a particular context", func() {
 			gk.JustBeforeEach(func() {
-				req.Variables["kubernetes:config:context"] = "context2"
+				vars["kubernetes:config:context"] = "context2"
 			})
 			gk.It("should use the configured context", func() {
 				_, err := k.Configure(context.Background(), req)
@@ -243,7 +245,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 	gk.Describe("Kube Cluster", func() {
 		gk.Context("when configured to use a particular cluster", func() {
 			gk.JustBeforeEach(func() {
-				req.Variables["kubernetes:config:cluster"] = "cluster2"
+				vars["kubernetes:config:cluster"] = "cluster2"
 			})
 			gk.It("should use the configured context", func() {
 				_, err := k.Configure(context.Background(), req)
@@ -266,7 +268,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 			})
 			gk.JustBeforeEach(func() {
 				data, _ := json.Marshal(kubeClientSettings)
-				req.Variables["kubernetes:config:kubeClientSettings"] = string(data)
+				vars["kubernetes:config:kubeClientSettings"] = string(data)
 			})
 			gk.It("should use the configured settings", func() {
 				_, err := k.Configure(context.Background(), req)
@@ -293,7 +295,7 @@ var _ = gk.Describe("RPC:Configure", func() {
 			})
 			gk.JustBeforeEach(func() {
 				data, _ := json.Marshal(helmReleaseSettings)
-				req.Variables["kubernetes:config:helmReleaseSettings"] = string(data)
+				vars["kubernetes:config:helmReleaseSettings"] = string(data)
 			})
 			gk.It("should use the configured settings", func() {
 				_, err := k.Configure(context.Background(), req)
