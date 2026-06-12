@@ -854,7 +854,7 @@ func TestOptionPropagation(t *testing.T) {
 			// --- ConfigGroup ---
 
 			// ConfigGroup "cg-options" with most options.
-			g.Expect(rr.Named("",
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
 				"kubernetes:yaml:ConfigGroup", "cg-options")).To(gm.HaveExactElements(
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
@@ -930,7 +930,7 @@ func TestOptionPropagation(t *testing.T) {
 			))
 
 			// ConfigGroup "cg-nullopts" with a stack transform to apply a "provider" option.
-			g.Expect(rr.Named("",
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
 				"kubernetes:yaml:ConfigGroup", "cg-nullopts")).To(gm.HaveExactElements(
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
@@ -946,7 +946,7 @@ func TestOptionPropagation(t *testing.T) {
 			// --- ConfigFile ---
 
 			// ConfigFile "cf-options" with most options
-			g.Expect(rr.Named("",
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
 				"kubernetes:yaml:ConfigFile", "cf-options")).To(gm.HaveExactElements(
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
@@ -1014,7 +1014,7 @@ func TestOptionPropagation(t *testing.T) {
 			))
 
 			// ConfigFile "cf-nullopts" with a stack transform to apply a "provider" option.
-			g.Expect(rr.Named("",
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
 				"kubernetes:yaml:ConfigFile", "cf-nullopts")).To(gm.HaveExactElements(
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
 					"Request": gs.MatchFields(gs.IgnoreExtras, gs.Fields{
@@ -1030,7 +1030,7 @@ func TestOptionPropagation(t *testing.T) {
 			// --- Directory ---
 
 			// Directory "kustomize-options" with most options
-			g.Expect(rr.Named("",
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
 				"kubernetes:kustomize:Directory", "kustomize-options")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("kustomize-options") to the component itself.
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
@@ -1101,7 +1101,7 @@ func TestOptionPropagation(t *testing.T) {
 			))
 
 			// Directory "kustomize-nullopts" with a stack transform to apply a "provider" option.
-			g.Expect(rr.Named("",
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
 				"kubernetes:kustomize:Directory", "kustomize-nullopts")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("kustomize-nullopts") to the component itself.
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
@@ -1118,7 +1118,7 @@ func TestOptionPropagation(t *testing.T) {
 			// --- Chart ---
 
 			// Chart "chart-options"
-			g.Expect(rr.Named("",
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
 				"kubernetes:helm.sh/v3:Chart", "chart-options")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("chart-options") to the component itself.
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{
@@ -1194,7 +1194,7 @@ func TestOptionPropagation(t *testing.T) {
 			))
 
 			// Chart "chart-nullopts" with a stack transform to apply a "provider" option.
-			g.Expect(rr.Named("",
+			g.Expect(rr.Named(stackInfo.RootResource.URN,
 				"kubernetes:helm.sh/v3:Chart", "chart-nullopts")).To(gm.HaveExactElements(
 				// quirk: NodeJS SDK applies resource_prefix ("chart-options") to the component itself.
 				gs.MatchFields(gs.IgnoreExtras, gs.Fields{

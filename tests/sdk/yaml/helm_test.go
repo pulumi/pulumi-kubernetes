@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/ecr"
+	"github.com/aws/aws-sdk-go/aws"         //nolint:staticcheck // aws-sdk-go v1 retained for this ECR test fixture
+	"github.com/aws/aws-sdk-go/aws/session" //nolint:staticcheck // aws-sdk-go v1 retained for this ECR test fixture
+	"github.com/aws/aws-sdk-go/service/ecr" //nolint:staticcheck // aws-sdk-go v1 retained for this ECR test fixture
 	"github.com/stretchr/testify/require"
 	"oras.land/oras-go/v2"
 	"oras.land/oras-go/v2/content/memory"

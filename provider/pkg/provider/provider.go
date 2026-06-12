@@ -581,7 +581,7 @@ func (k *kubeProvider) Configure(
 	helmFlags := helmSettings.RESTClientGetter().(*genericclioptions.ConfigFlags)
 	helmSettings.Debug = true // enable verbose logging (piped to glog at level 6)
 
-	vars := req.GetVariables()
+	vars := req.GetVariables() //nolint:staticcheck // Variables still sent by engine; Args migration deferred
 
 	//
 	// Set simple configuration settings.
