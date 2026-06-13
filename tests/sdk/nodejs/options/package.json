@@ -5,8 +5,8 @@
         "@types/node": "^16"
     },
     "dependencies": {
-        "@pulumi/pulumi": "3.244.0",
-        "@pulumi/kubernetes": "4.31.1",
+        "@pulumi/pulumi": "3.246.0",
+        "@pulumi/kubernetes": "4.32.0",
         "@pulumiverse/time": "^0.0.16"
     }
 }
