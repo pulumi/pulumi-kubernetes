@@ -83,7 +83,7 @@ jobs:
         owner: ${{ github.repository_owner }}
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@3a647064cf4697c7c6352b9a1d9e554450cbe957 # v1.6.1
+      uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
       with:
         set-env: PROVIDER_VERSION
       env:
@@ -136,7 +136,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Check worktree clean
       id: worktreeClean
-      uses: pulumi/git-status-check-action@54000b91124a8dd9fd6a872cb41f5dd246a46e7c # v1.1.1
+      uses: pulumi/git-status-check-action@0d90c81496aa8d6a31d9c6a0d6297feea2f54057 # v2.0.0
       with:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
@@ -262,7 +262,7 @@ jobs:
         owner: ${{ github.repository_owner }}
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@3a647064cf4697c7c6352b9a1d9e554450cbe957 # v1.6.1
+      uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
       with:
         set-env: PROVIDER_VERSION
       env:
@@ -286,7 +286,7 @@ jobs:
       run: make ${{ matrix.language }}_sdk
     - name: Check worktree clean
       id: worktreeClean
-      uses: pulumi/git-status-check-action@54000b91124a8dd9fd6a872cb41f5dd246a46e7c # v1.1.1
+      uses: pulumi/git-status-check-action@0d90c81496aa8d6a31d9c6a0d6297feea2f54057 # v2.0.0
       with:
         allowed-changes: |-
           sdk/**/pulumi-plugin.json
@@ -401,7 +401,7 @@ jobs:
         owner: ${{ github.repository_owner }}
     - id: version
       name: Set Provider Version
-      uses: pulumi/provider-version-action@3a647064cf4697c7c6352b9a1d9e554450cbe957 # v1.6.1
+      uses: pulumi/provider-version-action@c4f719182e607d0d8322f148f168d3372838e681 # v2.0.0
       with:
         set-env: PROVIDER_VERSION
       env:
