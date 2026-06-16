@@ -891,4 +891,3 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 	err = pt.TestPreviewUpdateAndEdits()
 	require.NoError(t, err)
 }
-
