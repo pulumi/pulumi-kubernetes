@@ -560,7 +560,7 @@ jobs:
       run: tar -zxf ${{github.workspace}}/sdk/java.tar.gz -C
         ${{github.workspace}}/sdk/java
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@5e2ebd065dc2488b7a6ad670704656cbbe1e8f60 # v6.1.1
+      uses: gradle/actions/setup-gradle@3f131e8634966bd73d06cc69884922b02e6faf92 # v6.2.0
       with:
         gradle-version: "7.6"
     - name: Publish Java SDK
