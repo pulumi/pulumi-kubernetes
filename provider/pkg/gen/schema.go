@@ -243,7 +243,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 			},
 		},
 
-		Provider: pschema.ResourceSpec{
+		Provider: &pschema.ResourceSpec{
 			ObjectTypeSpec: pschema.ObjectTypeSpec{
 				Description: "The provider type for the kubernetes package.",
 				Type:        "object",
@@ -387,6 +387,14 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 
 	// Kubernetes only does CRD extension parameterization.
 	pkg.ExtensionParameterization = gen.parameterization
+
+	// An extension package's tokens live in the base provider's namespace, so it
+	// must not declare a provider of its own — the binder rejects a schema that has
+	// both an extensionParameterization and a provider block. Kubernetes remains the
+	// serving plugin via ExtensionParameterization.BaseProvider, not this block.
+	if gen.parameterization != nil {
+		pkg.Provider = nil
+	}
 
 	// In extension mode the base provider's shared types (meta/v1 ObjectMeta, ...)
 	// are not emitted into the extension schema; they're referenced externally so

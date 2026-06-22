@@ -27,7 +27,6 @@ import (
 	"sync"
 
 	"github.com/go-openapi/jsonreference"
-	"github.com/spf13/pflag"
 	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/controller/openapi/builder"
 	"k8s.io/apimachinery/pkg/util/yaml"
@@ -98,27 +97,39 @@ func (p ParameterizedArgs) String() string {
 		p.ExtensionName, p.ExtensionVersion, strings.Join(p.CRDManifestPaths, ", "))
 }
 
-// parseCrdArgs parses the user provided arguments for provider parameterization.
+// parseCrdArgs parses the user-provided parameterization arguments. Each argument
+// is a key=value pair, e.g. "name=foo version=1.0 crd-manifests=crds.yaml". The
+// crd-manifests key may be repeated to supply multiple manifests. This key=value
+// form (rather than CLI-style -n/-v/-c flags) keeps the args that get persisted to
+// Pulumi.yaml free of flag syntax.
 func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	var extensionName string
 	var extensionVersion string
 	var yamlPaths []string
 
-	flags := pflag.NewFlagSet("crdargs", pflag.PanicOnError)
-	flags.StringVarP(&extensionName, "name", "n", "", "The name of the CRD extension.")
-	flags.StringVarP(&extensionVersion, "version", "v", "", "The version of the CRD extension.")
-	flags.StringArrayVarP(&yamlPaths, "crd-manifests", "c", nil, "The paths to the CRD manifests.")
-	err := flags.Parse(args)
-	if err != nil {
-		return nil, fmt.Errorf("error parsing parameterization args: %w", err)
+	for _, arg := range args {
+		key, value, ok := strings.Cut(arg, "=")
+		if !ok {
+			return nil, fmt.Errorf("invalid parameterization argument %q: expected key=value", arg)
+		}
+		switch key {
+		case "name":
+			extensionName = value
+		case "version":
+			extensionVersion = value
+		case "crd-manifests":
+			yamlPaths = append(yamlPaths, value)
+		default:
+			return nil, fmt.Errorf("unknown parameterization argument %q: expected name, version, or crd-manifests", key)
+		}
 	}
 
 	if extensionVersion == "" {
-		return nil, errors.New("extension version must be provided")
+		return nil, errors.New("extension version must be provided (version=<version>)")
 	}
 
 	if len(yamlPaths) == 0 {
-		return nil, errors.New("no locations of yaml files given")
+		return nil, errors.New("no CRD manifests given (crd-manifests=<path>)")
 	}
 
 	return &ParameterizedArgs{
@@ -361,7 +372,7 @@ func generateSchema(
 
 	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema,
 		gen.WithParameterization(&pulumischema.ExtensionParameterizationSpec{
-			BaseProvider: pulumischema.BaseProviderSpec{
+			BaseProvider: pulumischema.BaseProviderRefSpec{
 				Name:    baseProvName,
 				Version: strings.TrimPrefix(baseProvVersion, "v"),
 			},
