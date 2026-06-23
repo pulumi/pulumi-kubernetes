@@ -203,7 +203,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Yaml.V2
         public Input<string>? ResourcePrefix { get; set; }
 
         /// <summary>
-        /// Indicates that child resources should skip the await logic.
+        /// Indicates that child resources should skip the await logic. Defaults to `false`.
         /// </summary>
         [Input("skipAwait")]
         public Input<bool>? SkipAwait { get; set; }

@@ -1323,7 +1323,7 @@ var kustomizeDirectoryV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Indicates that child resources should skip the await logic.",
+			Description: "Indicates that child resources should skip the await logic. Defaults to `false`.",
 		},
 	},
 	RequiredInputs: []string{
@@ -1418,7 +1418,7 @@ var yamlConfigFileV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Indicates that child resources should skip the await logic.",
+			Description: "Indicates that child resources should skip the await logic. Defaults to `false`.",
 		},
 	},
 	RequiredInputs: []string{
@@ -1564,7 +1564,7 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Indicates that child resources should skip the await logic.",
+			Description: "Indicates that child resources should skip the await logic. Defaults to `false`.",
 		},
 		"yaml": {
 			TypeSpec: pschema.TypeSpec{
