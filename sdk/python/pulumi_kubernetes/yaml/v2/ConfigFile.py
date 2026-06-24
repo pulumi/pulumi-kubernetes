@@ -27,7 +27,7 @@ class ConfigFileArgs:
 
         :param pulumi.Input[_builtins.str] file: Path or URL to a Kubernetes manifest file. File must exist.
         :param pulumi.Input[_builtins.str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
-        :param pulumi.Input[_builtins.bool] skip_await: Indicates that child resources should skip the await logic.
+        :param pulumi.Input[_builtins.bool] skip_await: Indicates that child resources should skip the await logic. Defaults to `false`.
         """
         pulumi.set(__self__, "file", file)
         if resource_prefix is not None:
@@ -63,7 +63,7 @@ class ConfigFileArgs:
     @pulumi.getter(name="skipAwait")
     def skip_await(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Indicates that child resources should skip the await logic.
+        Indicates that child resources should skip the await logic. Defaults to `false`.
         """
         return pulumi.get(self, "skip_await")
 
@@ -138,7 +138,7 @@ class ConfigFile(pulumi.ComponentResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] file: Path or URL to a Kubernetes manifest file. File must exist.
         :param pulumi.Input[_builtins.str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
-        :param pulumi.Input[_builtins.bool] skip_await: Indicates that child resources should skip the await logic.
+        :param pulumi.Input[_builtins.bool] skip_await: Indicates that child resources should skip the await logic. Defaults to `false`.
         """
         ...
     @overload

@@ -6,6 +6,7 @@
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.36.2.
+- [#4454](https://github.com/pulumi/pulumi-kubernetes/issues/4454) Document that `skipAwait` defaults to `false` on `yaml/v2.ConfigFile`, `yaml/v2.ConfigGroup`, and `kustomize/v2.Directory`.
 
 ## 4.32.0 (June 5, 2026)
 

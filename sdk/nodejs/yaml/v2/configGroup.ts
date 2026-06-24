@@ -162,7 +162,7 @@ export interface ConfigGroupArgs {
      */
     resourcePrefix?: pulumi.Input<string | undefined>;
     /**
-     * Indicates that child resources should skip the await logic.
+     * Indicates that child resources should skip the await logic. Defaults to `false`.
      */
     skipAwait?: pulumi.Input<boolean | undefined>;
     /**

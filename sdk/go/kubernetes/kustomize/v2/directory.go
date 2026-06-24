@@ -105,7 +105,7 @@ type directoryArgs struct {
 	Namespace *string `pulumi:"namespace"`
 	// A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
 	ResourcePrefix *string `pulumi:"resourcePrefix"`
-	// Indicates that child resources should skip the await logic.
+	// Indicates that child resources should skip the await logic. Defaults to `false`.
 	SkipAwait *bool `pulumi:"skipAwait"`
 }
 
@@ -120,7 +120,7 @@ type DirectoryArgs struct {
 	Namespace pulumi.StringPtrInput
 	// A prefix for the auto-generated resource names. Defaults to the name of the Directory resource. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
 	ResourcePrefix pulumi.StringPtrInput
-	// Indicates that child resources should skip the await logic.
+	// Indicates that child resources should skip the await logic. Defaults to `false`.
 	SkipAwait pulumi.BoolPtrInput
 }
 
