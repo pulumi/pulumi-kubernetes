@@ -343,7 +343,7 @@ func mergeSpecs(specs []*spec.Swagger) (*spec.Swagger, error) {
 // generateSchema generates the Pulumi schema with parameterization for the given OpenAPI spec.
 func generateSchema(
 	swagger *spec.Swagger,
-	packageVersion, baseProvName, baseProvVersion string,
+	extensionName, packageVersion, baseProvName, baseProvVersion string,
 ) *pulumischema.PackageSpec {
 	// TODO(rquitales): We need to handle field name normalization here so that
 	// we can generate typed SDKs that contain valid field names, for example,
@@ -359,13 +359,16 @@ func generateSchema(
 		log.Fatalf("error unmarshalling OpenAPI spec: %v", err)
 	}
 
-	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema, gen.WithParameterization(&pulumischema.ParameterizationSpec{
-		BaseProvider: pulumischema.BaseProviderSpec{
-			Name:    baseProvName,
-			Version: baseProvVersion,
-		},
-		Parameter: marshaledOpenAPISchema,
-	}))
+	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema,
+		gen.WithParameterization(&pulumischema.ExtensionParameterizationSpec{
+			BaseProvider: pulumischema.BaseProviderSpec{
+				Name:    baseProvName,
+				Version: strings.TrimPrefix(baseProvVersion, "v"),
+			},
+			Parameter: marshaledOpenAPISchema,
+		}),
+		gen.WithExtensionName(extensionName),
+	)
 
 	pSchema.Version = packageVersion
 
@@ -441,7 +444,7 @@ func (k *kubeProvider) parameterizeRequestArgs(
 		extensionName = deriveExtensionName(args.CRDManifestPaths)
 	}
 
-	crdsPackageSpec := generateSchema(mergedSpecs, args.ExtensionVersion, k.name, k.version)
+	crdsPackageSpec := generateSchema(mergedSpecs, extensionName, args.ExtensionVersion, k.name, k.version)
 
 	if crdsPackageSpec != nil {
 		k.crdSchemas.add(extensionName, args.ExtensionVersion, crdsPackageSpec)
@@ -456,7 +459,7 @@ func (k *kubeProvider) parameterizeRequestArgs(
 // parameters that were persisted in Pulumi.yaml.
 //
 // The Value.Value bytes contain the marshaled OpenAPI spec that was originally
-// stored as the Parameter field in the ParameterizationSpec during the Args
+// stored as the Parameter field in the ExtensionParameterizationSpec during the Args
 // path. We unmarshal it, regenerate the Pulumi schema, and cache it.
 func (k *kubeProvider) parameterizeRequestValue(
 	p *pulumirpc.ParameterizeRequest_Value,
@@ -488,7 +491,7 @@ func (k *kubeProvider) parameterizeRequestValue(
 		return nil, fmt.Errorf("parameterize value: error unmarshalling saved OpenAPI spec: %w", err)
 	}
 
-	crdsPackageSpec := generateSchema(&swagger, extensionVersion, k.name, k.version)
+	crdsPackageSpec := generateSchema(&swagger, extensionName, extensionVersion, k.name, k.version)
 	if crdsPackageSpec != nil {
 		k.crdSchemas.add(extensionName, extensionVersion, crdsPackageSpec)
 	}
