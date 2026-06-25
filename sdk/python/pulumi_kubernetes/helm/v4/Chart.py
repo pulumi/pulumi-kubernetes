@@ -23,6 +23,7 @@ class ChartArgs:
                  chart: pulumi.Input[_builtins.str],
                  dependency_update: pulumi.Input[Optional[_builtins.bool]] = None,
                  devel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 include_hooks: pulumi.Input[Optional[_builtins.bool]] = None,
                  keyring: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  namespace: pulumi.Input[Optional[_builtins.str]] = None,
@@ -42,6 +43,7 @@ class ChartArgs:
         :param pulumi.Input[_builtins.str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input[_builtins.bool] dependency_update: Run helm dependency update before installing the chart.
         :param pulumi.Input[_builtins.bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
+        :param pulumi.Input[_builtins.bool] include_hooks: By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] keyring: Location of public keys used for verification. Used only if `verify` is true
         :param pulumi.Input[_builtins.str] name: Release name.
         :param pulumi.Input[_builtins.str] namespace: Namespace for the release.
@@ -61,6 +63,8 @@ class ChartArgs:
             pulumi.set(__self__, "dependency_update", dependency_update)
         if devel is not None:
             pulumi.set(__self__, "devel", devel)
+        if include_hooks is not None:
+            pulumi.set(__self__, "include_hooks", include_hooks)
         if keyring is not None:
             pulumi.set(__self__, "keyring", keyring)
         if name is not None:
@@ -123,6 +127,18 @@ class ChartArgs:
     @devel.setter
     def devel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "devel", value)
+
+    @_builtins.property
+    @pulumi.getter(name="includeHooks")
+    def include_hooks(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
+        """
+        return pulumi.get(self, "include_hooks")
+
+    @include_hooks.setter
+    def include_hooks(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "include_hooks", value)
 
     @_builtins.property
     @pulumi.getter
@@ -290,6 +306,7 @@ class Chart(pulumi.ComponentResource):
                  chart: pulumi.Input[Optional[_builtins.str]] = None,
                  dependency_update: pulumi.Input[Optional[_builtins.bool]] = None,
                  devel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 include_hooks: pulumi.Input[Optional[_builtins.bool]] = None,
                  keyring: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  namespace: pulumi.Input[Optional[_builtins.str]] = None,
@@ -478,6 +495,7 @@ class Chart(pulumi.ComponentResource):
         :param pulumi.Input[_builtins.str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input[_builtins.bool] dependency_update: Run helm dependency update before installing the chart.
         :param pulumi.Input[_builtins.bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
+        :param pulumi.Input[_builtins.bool] include_hooks: By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] keyring: Location of public keys used for verification. Used only if `verify` is true
         :param pulumi.Input[_builtins.str] name: Release name.
         :param pulumi.Input[_builtins.str] namespace: Namespace for the release.
@@ -685,6 +703,7 @@ class Chart(pulumi.ComponentResource):
                  chart: pulumi.Input[Optional[_builtins.str]] = None,
                  dependency_update: pulumi.Input[Optional[_builtins.bool]] = None,
                  devel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 include_hooks: pulumi.Input[Optional[_builtins.bool]] = None,
                  keyring: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  namespace: pulumi.Input[Optional[_builtins.str]] = None,
@@ -714,6 +733,7 @@ class Chart(pulumi.ComponentResource):
             __props__.__dict__["chart"] = chart
             __props__.__dict__["dependency_update"] = dependency_update
             __props__.__dict__["devel"] = devel
+            __props__.__dict__["include_hooks"] = include_hooks
             __props__.__dict__["keyring"] = keyring
             __props__.__dict__["name"] = name
             __props__.__dict__["namespace"] = namespace

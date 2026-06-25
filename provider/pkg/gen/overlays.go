@@ -240,6 +240,16 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			},
 			Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
 		},
+		"includeHooks": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted " +
+				"from the rendered output. When the provider is configured with `renderYamlToDirectory`, set " +
+				"this to true to include hook resources in the rendered manifests so that another tool " +
+				"(e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This " +
+				"setting has no effect outside of render mode, where hooks are not supported.",
+		},
 		"postRenderer": {
 			TypeSpec: pschema.TypeSpec{
 				Ref: "#/types/kubernetes:helm.sh/v4:PostRenderer",

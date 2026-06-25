@@ -32,6 +32,11 @@ type ResourceProviderOptions struct { // nolint:revive // stutters
 	ClientSet        *clients.DynamicClientSet
 	DefaultNamespace string
 	HelmOptions      *HelmOptions
+
+	// RenderYAMLToDirectory indicates that the provider is in render-only mode
+	// (the `renderYamlToDirectory` provider config is set). In this mode the
+	// provider emits YAML rather than applying resources to a cluster.
+	RenderYAMLToDirectory bool
 }
 
 type HelmOptions struct {

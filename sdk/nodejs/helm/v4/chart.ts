@@ -208,6 +208,7 @@ export class Chart extends pulumi.ComponentResource {
             resourceInputs["chart"] = args?.chart;
             resourceInputs["dependencyUpdate"] = args?.dependencyUpdate;
             resourceInputs["devel"] = args?.devel;
+            resourceInputs["includeHooks"] = args?.includeHooks;
             resourceInputs["keyring"] = args?.keyring;
             resourceInputs["name"] = args?.name;
             resourceInputs["namespace"] = args?.namespace;
@@ -246,6 +247,10 @@ export interface ChartArgs {
      * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
      */
     devel?: pulumi.Input<boolean | undefined>;
+    /**
+     * By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
+     */
+    includeHooks?: pulumi.Input<boolean | undefined>;
     /**
      * Location of public keys used for verification. Used only if `verify` is true
      */
