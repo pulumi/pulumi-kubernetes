@@ -325,7 +325,7 @@ func TestHelmChartV4RenderYamlIncludesHooks(t *testing.T) {
 		Dir:         "helm-chart-v4-render-yaml-hooks",
 		Quick:       true,
 		SkipRefresh: true,
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+		ExtraRuntimeValidation: func(t *testing.T, _ integration.RuntimeValidationStackInfo) {
 			manifestDir := filepath.Join(dir, "1-manifest")
 			files, err := os.ReadDir(manifestDir)
 			assert.NoError(t, err)
