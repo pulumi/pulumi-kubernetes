@@ -69,6 +69,21 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
+     * 
+     */
+    @Import(name="includeHooks")
+    private @Nullable Output<Boolean> includeHooks;
+
+    /**
+     * @return By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
+     * 
+     */
+    public Optional<Output<Boolean>> includeHooks() {
+        return Optional.ofNullable(this.includeHooks);
+    }
+
+    /**
      * Location of public keys used for verification. Used only if `verify` is true
      * 
      */
@@ -269,6 +284,7 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
         this.chart = $.chart;
         this.dependencyUpdate = $.dependencyUpdate;
         this.devel = $.devel;
+        this.includeHooks = $.includeHooks;
         this.keyring = $.keyring;
         this.name = $.name;
         this.namespace = $.namespace;
@@ -363,6 +379,27 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder devel(Boolean devel) {
             return devel(Output.of(devel));
+        }
+
+        /**
+         * @param includeHooks By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder includeHooks(@Nullable Output<Boolean> includeHooks) {
+            $.includeHooks = includeHooks;
+            return this;
+        }
+
+        /**
+         * @param includeHooks By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder includeHooks(Boolean includeHooks) {
+            return includeHooks(Output.of(includeHooks));
         }
 
         /**

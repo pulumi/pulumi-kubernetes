@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Added
+
+- [#3284](https://github.com/pulumi/pulumi-kubernetes/issues/3284) Add `includeHooks` to `kubernetes.helm.sh/v4:Chart`. When set together with the provider's `renderYamlToDirectory`, Helm hook resources (annotated `helm.sh/hook`) are included in the rendered output instead of being dropped, so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are excluded. The flag has no effect outside of render mode.
+
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.36.2.

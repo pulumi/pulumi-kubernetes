@@ -1,0 +1,12 @@
+{
+    "name": "helm-chart-v4-render-yaml-hooks",
+    "version": "0.1.0",
+    "dependencies": {
+        "@pulumi/pulumi": "latest"
+    },
+    "devDependencies": {
+    },
+    "peerDependencies": {
+        "@pulumi/kubernetes": "latest"
+    }
+}

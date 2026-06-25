@@ -304,3 +304,47 @@ func TestHelmChartV4WithYamlRenderModeRendersWithoutClusterConnection(t *testing
 			To(gm.BeNumerically(">", 0), "Manifest directory should contain rendered Helm chart resources")
 	}
 }
+
+// TestHelmChartV4RenderYamlIncludesHooks verifies that, in renderYamlToDirectory mode with
+// includeHooks set, the Helm v4 Chart renders non-test hook resources (mirroring `helm template`)
+// while excluding test hooks. See https://github.com/pulumi/pulumi-kubernetes/issues/3284.
+func TestHelmChartV4RenderYamlIncludesHooks(t *testing.T) {
+	t.Parallel()
+	g := gm.NewWithT(t)
+
+	// Create a temporary directory to hold rendered YAML manifests.
+	dir, err := os.MkdirTemp("", "helm-chart-v4-render-yaml-hooks-test")
+	g.Expect(err).ToNot(gm.HaveOccurred())
+	defer os.RemoveAll(dir)
+
+	test := pulumitest.NewPulumiTest(t, "helm-chart-v4-render-yaml-hooks")
+	t.Cleanup(func() {
+		test.Destroy(t)
+	})
+
+	// Set the config value for renderDir
+	err = test.CurrentStack().SetConfig(context.Background(), "renderDir", auto.ConfigValue{
+		Value:  dir,
+		Secret: false,
+	})
+	g.Expect(err).ToNot(gm.HaveOccurred())
+
+	preview := test.Preview(t)
+	t.Log(preview.StdOut)
+
+	up := test.Up(t)
+	t.Log(up.StdOut)
+
+	manifestDir := filepath.Join(dir, "1-manifest")
+	files, err := os.ReadDir(manifestDir)
+	g.Expect(err).ToNot(gm.HaveOccurred())
+
+	// The normal ConfigMap and the pre-install hook ConfigMap should both be rendered.
+	g.Expect(checkFileNamePrefix(files, "v1-configmap-default-hooks-config")).
+		To(gm.BeTrue(), "normal ConfigMap should be rendered")
+	g.Expect(checkFileNamePrefix(files, "v1-configmap-default-hooks-pre-install")).
+		To(gm.BeTrue(), "pre-install hook ConfigMap should be rendered when includeHooks is set")
+	// The test hook Pod should be excluded.
+	g.Expect(checkFileNamePrefix(files, "v1-pod-default-hooks-test")).
+		To(gm.BeFalse(), "test hook Pod should be excluded from rendered output")
+}

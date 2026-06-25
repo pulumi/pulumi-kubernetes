@@ -17,7 +17,6 @@ package v4
 import (
 	"context"
 	"fmt"
-	"regexp"
 	"strings"
 
 	"helm.sh/helm/v3/pkg/action"
@@ -60,6 +59,7 @@ type ChartArgs struct {
 	Values       pulumi.MapInput          `pulumi:"values,optional"`
 	ValuesFiles  pulumi.AssetArrayInput   `pulumi:"valueYamlFiles,optional"`
 	SkipCrds     pulumi.BoolInput         `pulumi:"skipCrds,optional"`
+	IncludeHooks pulumi.BoolInput         `pulumi:"includeHooks,optional"`
 	PostRenderer helmv4.PostRendererInput `pulumi:"postRenderer,optional"`
 
 	ResourcePrefix pulumi.StringInput `pulumi:"resourcePrefix,optional"`
@@ -81,6 +81,7 @@ type chartArgs struct {
 	Values       map[string]any
 	ValuesFiles  []pulumi.Asset
 	SkipCrds     bool
+	IncludeHooks bool
 	PostRenderer *helmv4.PostRenderer
 
 	ResourcePrefix *string
@@ -92,7 +93,7 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	result, err := internals.UnsafeAwaitOutput(ctx, pulumi.All(
 		args.Name, args.Namespace,
 		args.Chart, args.Version, args.Devel, args.RepositoryOpts, args.DependencyUpdate, args.Verify, args.Keyring,
-		args.Values, args.ValuesFiles, args.SkipCrds, args.PostRenderer,
+		args.Values, args.ValuesFiles, args.SkipCrds, args.IncludeHooks, args.PostRenderer,
 		args.ResourcePrefix, args.SkipAwait, args.PlainHTTP))
 	if err != nil || !result.Known {
 		return nil, result, err
@@ -117,6 +118,7 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	r.Values, _ = pop().(map[string]any)
 	r.ValuesFiles, _ = pop().([]pulumi.Asset)
 	r.SkipCrds, _ = pop().(bool)
+	r.IncludeHooks, _ = pop().(bool)
 	if v, ok := pop().(helmv4.PostRenderer); ok {
 		r.PostRenderer = &v
 	}
@@ -254,15 +256,24 @@ func (r *ChartProvider) Construct(
 	//
 	// Helm hook resources (those annotated with `helm.sh/hook`) are separated
 	// from the regular manifest by the Helm SDK and are not applied by Pulumi.
-	// In render-only mode (`renderYamlToDirectory`) Pulumi is not in charge of
-	// the resource lifecycle; it merely emits YAML for another tool (e.g. ArgoCD)
-	// to apply. In that case, include the hook resources in the output as-is so
-	// they are not silently dropped, mirroring `helm template`. Test hooks
-	// (`helm.sh/hook: test`) are excluded since they are not part of a normal
-	// deployment.
+	// When the user opts in via `includeHooks` AND the provider is in render-only
+	// mode (`renderYamlToDirectory`), include the hook resources in the output
+	// as-is so they are not silently dropped, mirroring `helm template`. This is
+	// useful when another tool (e.g. Argo CD) is responsible for applying the
+	// rendered manifests. Test hooks (`helm.sh/hook: test`) are always excluded
+	// since they are not part of a normal deployment.
+	//
+	// Outside of render mode hooks are not supported (they would be registered as
+	// ordinary Pulumi-managed resources with no hook semantics), so `includeHooks`
+	// is ignored there and a warning is emitted.
 	manifest := release.Manifest
-	if r.opts.RenderYAMLToDirectory {
-		manifest = manifestWithHooks(release)
+	if chartArgs.IncludeHooks {
+		if r.opts.RenderYAMLToDirectory {
+			manifest = manifestWithHooks(release)
+		} else {
+			_ = ctx.Log.Warn("includeHooks is only supported when the provider is configured with "+
+				"renderYamlToDirectory; Helm hooks will be ignored.", &pulumi.LogArgs{Resource: comp})
+		}
 	}
 	parseOpts := provideryamlv2.ParseOptions{
 		YAML: manifest,
@@ -332,8 +343,15 @@ func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstru
 	return obj, resourceOpts
 }
 
-// testHookAnnotation matches test-related Helm hook annotations (test, test-success, test-failure).
-var testHookAnnotation = regexp.MustCompile(`"?helm.sh/hook"?:.*test`)
+// isTestHook reports whether the given Helm hook fires on the test event.
+func isTestHook(h *release.Hook) bool {
+	for _, e := range h.Events {
+		if e == release.HookTest {
+			return true
+		}
+	}
+	return false
+}
 
 // manifestWithHooks returns the release manifest with hook resources appended,
 // mirroring the output of `helm template`. Test hooks are skipped because they
@@ -342,7 +360,7 @@ func manifestWithHooks(rel *release.Release) string {
 	var b strings.Builder
 	b.WriteString(rel.Manifest)
 	for _, hook := range rel.Hooks {
-		if testHookAnnotation.MatchString(hook.Manifest) {
+		if isTestHook(hook) {
 			continue
 		}
 		b.WriteString("\n---\n")

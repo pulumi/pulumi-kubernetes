@@ -425,7 +425,7 @@ var _ = gk.Describe("Construct", func() {
 				"test:default/test-reference-test-connection",
 			)
 
-			gk.Context("by default (not in render mode)", func() {
+			gk.Context("by default (includeHooks unset)", func() {
 				gk.It("should drop all hook resources", func(ctx context.Context) {
 					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
 					gm.Expect(err).ShouldNot(gm.HaveOccurred())
@@ -439,9 +439,10 @@ var _ = gk.Describe("Construct", func() {
 				})
 			})
 
-			gk.Context("in renderYamlToDirectory mode", func() {
+			gk.Context("given includeHooks in renderYamlToDirectory mode", func() {
 				gk.BeforeEach(func() {
 					opts.RenderYAMLToDirectory = true
+					inputs["includeHooks"] = resource.NewBoolProperty(true)
 				})
 				gk.It("should include non-test hooks but exclude test hooks", func(ctx context.Context) {
 					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
@@ -453,6 +454,29 @@ var _ = gk.Describe("Construct", func() {
 							gm.Not(gm.ContainElement(testHook)),
 						)),
 					}))
+				})
+			})
+
+			gk.Context("given includeHooks but NOT in render mode", func() {
+				gk.BeforeEach(func() {
+					opts.RenderYAMLToDirectory = false
+					inputs["includeHooks"] = resource.NewBoolProperty(true)
+				})
+				gk.It("should ignore hooks and emit a warning", func(ctx context.Context) {
+					resp, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
+					outputs := unmarshalProperties(gk.GinkgoTB(), resp.State)
+					gm.Expect(outputs).To(pgm.MatchProps(gs.IgnoreExtras, pgm.Props{
+						"resources": pgm.MatchArrayValue(gm.And(
+							gm.Not(gm.ContainElement(preInstallHook)),
+							gm.Not(gm.ContainElement(testHook)),
+						)),
+					}))
+					var msgs []string
+					for _, l := range tc.engine.Logs() {
+						msgs = append(msgs, l.GetMessage())
+					}
+					gm.Expect(msgs).To(gm.ContainElement(gm.ContainSubstring("includeHooks")))
 				})
 			})
 		})
