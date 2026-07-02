@@ -156,7 +156,6 @@ class Status(pulumi.CustomResource):
         """
         Status is a return value for calls that don't return other objects.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -175,7 +174,6 @@ class Status(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Status is a return value for calls that don't return other objects.
-
 
         :param str resource_name: The name of the resource.
         :param StatusArgs args: The arguments to use to populate this resource's properties.

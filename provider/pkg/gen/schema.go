@@ -226,7 +226,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 			},
 		},
 
-		Provider: pschema.ResourceSpec{
+		Provider: &pschema.ResourceSpec{
 			ObjectTypeSpec: pschema.ObjectTypeSpec{
 				Description: "The provider type for the kubernetes package.",
 				Type:        "object",

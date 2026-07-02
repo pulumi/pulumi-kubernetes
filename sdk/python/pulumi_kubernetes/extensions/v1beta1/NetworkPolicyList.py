@@ -105,7 +105,6 @@ class NetworkPolicyList(pulumi.CustomResource):
         """
         DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -121,7 +120,6 @@ class NetworkPolicyList(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList. Network Policy List is a list of NetworkPolicy objects.
-
 
         :param str resource_name: The name of the resource.
         :param NetworkPolicyListArgs args: The arguments to use to populate this resource's properties.

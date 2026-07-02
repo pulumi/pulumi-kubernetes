@@ -106,7 +106,6 @@ class LimitRange(pulumi.CustomResource):
         """
         LimitRange sets resource usage limits for each kind of resource in a Namespace.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -122,7 +121,6 @@ class LimitRange(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         LimitRange sets resource usage limits for each kind of resource in a Namespace.
-
 
         :param str resource_name: The name of the resource.
         :param LimitRangeInitArgs args: The arguments to use to populate this resource's properties.

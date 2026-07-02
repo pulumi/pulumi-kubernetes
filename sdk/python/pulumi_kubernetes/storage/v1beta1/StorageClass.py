@@ -208,7 +208,6 @@ class StorageClass(pulumi.CustomResource):
 
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
@@ -232,7 +231,6 @@ class StorageClass(pulumi.CustomResource):
         StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
-
 
         :param str resource_name: The name of the resource.
         :param StorageClassInitArgs args: The arguments to use to populate this resource's properties.

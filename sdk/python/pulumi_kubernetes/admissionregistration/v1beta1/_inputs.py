@@ -126,11 +126,11 @@ class ApplyConfigurationArgsDict(TypedDict):
 
     Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
 
-    	Object{
-    	  spec: Object.spec{
-    	    serviceAccountName: "example"
-    	  }
-    	}
+        Object{
+          spec: Object.spec{
+            serviceAccountName: "example"
+          }
+        }
 
     Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
 
@@ -163,11 +163,11 @@ class ApplyConfigurationArgs:
                
                Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
                
-               	Object{
-               	  spec: Object.spec{
-               	    serviceAccountName: "example"
-               	  }
-               	}
+                   Object{
+                     spec: Object.spec{
+                       serviceAccountName: "example"
+                     }
+                   }
                
                Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
                
@@ -199,11 +199,11 @@ class ApplyConfigurationArgs:
 
         Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
 
-        	Object{
-        	  spec: Object.spec{
-        	    serviceAccountName: "example"
-        	  }
-        	}
+            Object{
+              spec: Object.spec{
+                serviceAccountName: "example"
+              }
+            }
 
         Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
 
@@ -241,11 +241,11 @@ class ApplyConfigurationPatchArgsDict(TypedDict):
 
     Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
 
-    	Object{
-    	  spec: Object.spec{
-    	    serviceAccountName: "example"
-    	  }
-    	}
+        Object{
+          spec: Object.spec{
+            serviceAccountName: "example"
+          }
+        }
 
     Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
 
@@ -278,11 +278,11 @@ class ApplyConfigurationPatchArgs:
                
                Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
                
-               	Object{
-               	  spec: Object.spec{
-               	    serviceAccountName: "example"
-               	  }
-               	}
+                   Object{
+                     spec: Object.spec{
+                       serviceAccountName: "example"
+                     }
+                   }
                
                Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
                
@@ -314,11 +314,11 @@ class ApplyConfigurationPatchArgs:
 
         Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
 
-        	Object{
-        	  spec: Object.spec{
-        	    serviceAccountName: "example"
-        	  }
-        	}
+            Object{
+              spec: Object.spec{
+                serviceAccountName: "example"
+              }
+            }
 
         Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
 
@@ -576,30 +576,30 @@ class JSONPatchArgsDict(TypedDict):
 
     For example, this CEL expression returns a JSON patch to conditionally modify a value:
 
-    	  [
-    	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-    	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-    	  ]
+          [
+            JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+            JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+          ]
 
     To define an object for the patch value, use Object types. For example:
 
-    	  [
-    	    JSONPatch{
-    	      op: "add",
-    	      path: "/spec/selector",
-    	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-    	    }
-    	  ]
+          [
+            JSONPatch{
+              op: "add",
+              path: "/spec/selector",
+              value: Object.spec.selector{matchLabels: {"environment": "test"}}
+            }
+          ]
 
     To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
 
-    	  [
-    	    JSONPatch{
-    	      op: "add",
-    	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-    	      value: "test"
-    	    },
-    	  ]
+          [
+            JSONPatch{
+              op: "add",
+              path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+              value: "test"
+            },
+          ]
 
     CEL expressions have access to the types needed to create JSON patches and objects:
 
@@ -639,30 +639,30 @@ class JSONPatchArgs:
                
                For example, this CEL expression returns a JSON patch to conditionally modify a value:
                
-               	  [
-               	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-               	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-               	  ]
+                     [
+                       JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+                       JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+                     ]
                
                To define an object for the patch value, use Object types. For example:
                
-               	  [
-               	    JSONPatch{
-               	      op: "add",
-               	      path: "/spec/selector",
-               	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-               	    }
-               	  ]
+                     [
+                       JSONPatch{
+                         op: "add",
+                         path: "/spec/selector",
+                         value: Object.spec.selector{matchLabels: {"environment": "test"}}
+                       }
+                     ]
                
                To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
                
-               	  [
-               	    JSONPatch{
-               	      op: "add",
-               	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-               	      value: "test"
-               	    },
-               	  ]
+                     [
+                       JSONPatch{
+                         op: "add",
+                         path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+                         value: "test"
+                       },
+                     ]
                
                CEL expressions have access to the types needed to create JSON patches and objects:
                
@@ -701,30 +701,30 @@ class JSONPatchArgs:
 
         For example, this CEL expression returns a JSON patch to conditionally modify a value:
 
-        	  [
-        	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-        	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-        	  ]
+              [
+                JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+                JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+              ]
 
         To define an object for the patch value, use Object types. For example:
 
-        	  [
-        	    JSONPatch{
-        	      op: "add",
-        	      path: "/spec/selector",
-        	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-        	    }
-        	  ]
+              [
+                JSONPatch{
+                  op: "add",
+                  path: "/spec/selector",
+                  value: Object.spec.selector{matchLabels: {"environment": "test"}}
+                }
+              ]
 
         To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
 
-        	  [
-        	    JSONPatch{
-        	      op: "add",
-        	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-        	      value: "test"
-        	    },
-        	  ]
+              [
+                JSONPatch{
+                  op: "add",
+                  path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+                  value: "test"
+                },
+              ]
 
         CEL expressions have access to the types needed to create JSON patches and objects:
 
@@ -769,30 +769,30 @@ class JSONPatchPatchArgsDict(TypedDict):
 
     For example, this CEL expression returns a JSON patch to conditionally modify a value:
 
-    	  [
-    	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-    	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-    	  ]
+          [
+            JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+            JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+          ]
 
     To define an object for the patch value, use Object types. For example:
 
-    	  [
-    	    JSONPatch{
-    	      op: "add",
-    	      path: "/spec/selector",
-    	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-    	    }
-    	  ]
+          [
+            JSONPatch{
+              op: "add",
+              path: "/spec/selector",
+              value: Object.spec.selector{matchLabels: {"environment": "test"}}
+            }
+          ]
 
     To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
 
-    	  [
-    	    JSONPatch{
-    	      op: "add",
-    	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-    	      value: "test"
-    	    },
-    	  ]
+          [
+            JSONPatch{
+              op: "add",
+              path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+              value: "test"
+            },
+          ]
 
     CEL expressions have access to the types needed to create JSON patches and objects:
 
@@ -832,30 +832,30 @@ class JSONPatchPatchArgs:
                
                For example, this CEL expression returns a JSON patch to conditionally modify a value:
                
-               	  [
-               	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-               	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-               	  ]
+                     [
+                       JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+                       JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+                     ]
                
                To define an object for the patch value, use Object types. For example:
                
-               	  [
-               	    JSONPatch{
-               	      op: "add",
-               	      path: "/spec/selector",
-               	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-               	    }
-               	  ]
+                     [
+                       JSONPatch{
+                         op: "add",
+                         path: "/spec/selector",
+                         value: Object.spec.selector{matchLabels: {"environment": "test"}}
+                       }
+                     ]
                
                To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
                
-               	  [
-               	    JSONPatch{
-               	      op: "add",
-               	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-               	      value: "test"
-               	    },
-               	  ]
+                     [
+                       JSONPatch{
+                         op: "add",
+                         path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+                         value: "test"
+                       },
+                     ]
                
                CEL expressions have access to the types needed to create JSON patches and objects:
                
@@ -894,30 +894,30 @@ class JSONPatchPatchArgs:
 
         For example, this CEL expression returns a JSON patch to conditionally modify a value:
 
-        	  [
-        	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-        	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-        	  ]
+              [
+                JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+                JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+              ]
 
         To define an object for the patch value, use Object types. For example:
 
-        	  [
-        	    JSONPatch{
-        	      op: "add",
-        	      path: "/spec/selector",
-        	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-        	    }
-        	  ]
+              [
+                JSONPatch{
+                  op: "add",
+                  path: "/spec/selector",
+                  value: Object.spec.selector{matchLabels: {"environment": "test"}}
+                }
+              ]
 
         To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
 
-        	  [
-        	    JSONPatch{
-        	      op: "add",
-        	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-        	      value: "test"
-        	    },
-        	  ]
+              [
+                JSONPatch{
+                  op: "add",
+                  path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+                  value: "test"
+                },
+              ]
 
         CEL expressions have access to the types needed to create JSON patches and objects:
 
@@ -6264,7 +6264,7 @@ class ValidationArgsDict(TypedDict):
       - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
         are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
         non-intersecting keys are appended, retaining their partial order.
-    Required.
+        Required.
     """
     message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -6314,7 +6314,7 @@ class ValidationArgs:
                  - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
                    are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
                    non-intersecting keys are appended, retaining their partial order.
-               Required.
+                   Required.
         :param pulumi.Input[_builtins.str] message: Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
         :param pulumi.Input[_builtins.str] message_expression: messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
         :param pulumi.Input[_builtins.str] reason: Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
@@ -6356,7 +6356,7 @@ class ValidationArgs:
           - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
             are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
             non-intersecting keys are appended, retaining their partial order.
-        Required.
+            Required.
         """
         return pulumi.get(self, "expression")
 
@@ -6432,7 +6432,7 @@ class ValidationPatchArgsDict(TypedDict):
       - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
         are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
         non-intersecting keys are appended, retaining their partial order.
-    Required.
+        Required.
     """
     message: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -6482,7 +6482,7 @@ class ValidationPatchArgs:
                  - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
                    are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
                    non-intersecting keys are appended, retaining their partial order.
-               Required.
+                   Required.
         :param pulumi.Input[_builtins.str] message: Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
         :param pulumi.Input[_builtins.str] message_expression: messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
         :param pulumi.Input[_builtins.str] reason: Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
@@ -6525,7 +6525,7 @@ class ValidationPatchArgs:
           - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
             are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
             non-intersecting keys are appended, retaining their partial order.
-        Required.
+            Required.
         """
         return pulumi.get(self, "expression")
 

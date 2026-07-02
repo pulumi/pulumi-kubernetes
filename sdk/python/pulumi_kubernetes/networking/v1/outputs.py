@@ -115,7 +115,7 @@ class HTTPIngressPath(dict):
                * ImplementationSpecific: Interpretation of the Path matching is up to
                  the IngressClass. Implementations can treat this as a separate PathType
                  or treat it identically to Prefix or Exact path types.
-               Implementations are required to support all path types.
+                 Implementations are required to support all path types.
         :param _builtins.str path: path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
         """
         pulumi.set(__self__, "backend", backend)
@@ -145,7 +145,7 @@ class HTTPIngressPath(dict):
         * ImplementationSpecific: Interpretation of the Path matching is up to
           the IngressClass. Implementations can treat this as a separate PathType
           or treat it identically to Prefix or Exact path types.
-        Implementations are required to support all path types.
+          Implementations are required to support all path types.
         """
         return pulumi.get(self, "path_type")
 
@@ -199,7 +199,7 @@ class HTTPIngressPathPatch(dict):
                * ImplementationSpecific: Interpretation of the Path matching is up to
                  the IngressClass. Implementations can treat this as a separate PathType
                  or treat it identically to Prefix or Exact path types.
-               Implementations are required to support all path types.
+                 Implementations are required to support all path types.
         """
         if backend is not None:
             pulumi.set(__self__, "backend", backend)
@@ -238,7 +238,7 @@ class HTTPIngressPathPatch(dict):
         * ImplementationSpecific: Interpretation of the Path matching is up to
           the IngressClass. Implementations can treat this as a separate PathType
           or treat it identically to Prefix or Exact path types.
-        Implementations are required to support all path types.
+          Implementations are required to support all path types.
         """
         return pulumi.get(self, "path_type")
 

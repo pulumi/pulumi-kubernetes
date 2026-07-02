@@ -356,7 +356,7 @@ class CertificateSigningRequestSpec(dict):
                 2. If it's a kubelet serving certificate, it is assigned
                    "kubernetes.io/kubelet-serving".
                 3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-               Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+                   Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         :param _builtins.str uid: UID information about the requesting user. See user.Info interface for details.
         :param Sequence[_builtins.str] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
                     https://tools.ietf.org/html/rfc5280#section-4.2.1.12
@@ -410,7 +410,7 @@ class CertificateSigningRequestSpec(dict):
          2. If it's a kubelet serving certificate, it is assigned
             "kubernetes.io/kubelet-serving".
          3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+            Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         """
         return pulumi.get(self, "signer_name")
 
@@ -482,7 +482,7 @@ class CertificateSigningRequestSpecPatch(dict):
                 2. If it's a kubelet serving certificate, it is assigned
                    "kubernetes.io/kubelet-serving".
                 3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-               Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+                   Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         :param _builtins.str uid: UID information about the requesting user. See user.Info interface for details.
         :param Sequence[_builtins.str] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
                     https://tools.ietf.org/html/rfc5280#section-4.2.1.12
@@ -537,7 +537,7 @@ class CertificateSigningRequestSpecPatch(dict):
          2. If it's a kubelet serving certificate, it is assigned
             "kubernetes.io/kubelet-serving".
          3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+            Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         """
         return pulumi.get(self, "signer_name")
 

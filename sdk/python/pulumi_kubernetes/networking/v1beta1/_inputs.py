@@ -95,7 +95,7 @@ class HTTPIngressPathArgsDict(TypedDict):
     * ImplementationSpecific: Interpretation of the Path matching is up to
       the IngressClass. Implementations can treat this as a separate PathType
       or treat it identically to Prefix or Exact path types.
-    Implementations are required to support all path types. Defaults to ImplementationSpecific.
+      Implementations are required to support all path types. Defaults to ImplementationSpecific.
     """
 
 @pulumi.input_type
@@ -119,7 +119,7 @@ class HTTPIngressPathArgs:
                * ImplementationSpecific: Interpretation of the Path matching is up to
                  the IngressClass. Implementations can treat this as a separate PathType
                  or treat it identically to Prefix or Exact path types.
-               Implementations are required to support all path types. Defaults to ImplementationSpecific.
+                 Implementations are required to support all path types. Defaults to ImplementationSpecific.
         """
         pulumi.set(__self__, "backend", backend)
         if path is not None:
@@ -165,7 +165,7 @@ class HTTPIngressPathArgs:
         * ImplementationSpecific: Interpretation of the Path matching is up to
           the IngressClass. Implementations can treat this as a separate PathType
           or treat it identically to Prefix or Exact path types.
-        Implementations are required to support all path types. Defaults to ImplementationSpecific.
+          Implementations are required to support all path types. Defaults to ImplementationSpecific.
         """
         return pulumi.get(self, "path_type")
 
@@ -198,7 +198,7 @@ class HTTPIngressPathPatchArgsDict(TypedDict):
     * ImplementationSpecific: Interpretation of the Path matching is up to
       the IngressClass. Implementations can treat this as a separate PathType
       or treat it identically to Prefix or Exact path types.
-    Implementations are required to support all path types. Defaults to ImplementationSpecific.
+      Implementations are required to support all path types. Defaults to ImplementationSpecific.
     """
 
 @pulumi.input_type
@@ -222,7 +222,7 @@ class HTTPIngressPathPatchArgs:
                * ImplementationSpecific: Interpretation of the Path matching is up to
                  the IngressClass. Implementations can treat this as a separate PathType
                  or treat it identically to Prefix or Exact path types.
-               Implementations are required to support all path types. Defaults to ImplementationSpecific.
+                 Implementations are required to support all path types. Defaults to ImplementationSpecific.
         """
         if backend is not None:
             pulumi.set(__self__, "backend", backend)
@@ -269,7 +269,7 @@ class HTTPIngressPathPatchArgs:
         * ImplementationSpecific: Interpretation of the Path matching is up to
           the IngressClass. Implementations can treat this as a separate PathType
           or treat it identically to Prefix or Exact path types.
-        Implementations are required to support all path types. Defaults to ImplementationSpecific.
+          Implementations are required to support all path types. Defaults to ImplementationSpecific.
         """
         return pulumi.get(self, "path_type")
 

@@ -323,7 +323,6 @@ class Event(pulumi.CustomResource):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] action: What action was taken/failed regarding to the regarding object.
@@ -351,7 +350,6 @@ class Event(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
-
 
         :param str resource_name: The name of the resource.
         :param EventInitArgs args: The arguments to use to populate this resource's properties.

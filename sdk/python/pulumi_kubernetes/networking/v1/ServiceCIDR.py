@@ -106,7 +106,6 @@ class ServiceCIDR(pulumi.CustomResource):
         """
         ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -122,7 +121,6 @@ class ServiceCIDR(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
-
 
         :param str resource_name: The name of the resource.
         :param ServiceCIDRInitArgs args: The arguments to use to populate this resource's properties.

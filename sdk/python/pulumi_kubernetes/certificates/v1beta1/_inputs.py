@@ -301,7 +301,7 @@ class CertificateSigningRequestSpecArgsDict(TypedDict):
      2. If it's a kubelet serving certificate, it is assigned
         "kubernetes.io/kubelet-serving".
      3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-    Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
     """
     uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -339,7 +339,7 @@ class CertificateSigningRequestSpecArgs:
                 2. If it's a kubelet serving certificate, it is assigned
                    "kubernetes.io/kubelet-serving".
                 3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-               Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+                   Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         :param pulumi.Input[_builtins.str] uid: UID information about the requesting user. See user.Info interface for details.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
                     https://tools.ietf.org/html/rfc5280#section-4.2.1.12
@@ -405,7 +405,7 @@ class CertificateSigningRequestSpecArgs:
          2. If it's a kubelet serving certificate, it is assigned
             "kubernetes.io/kubelet-serving".
          3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+            Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         """
         return pulumi.get(self, "signer_name")
 
@@ -475,7 +475,7 @@ class CertificateSigningRequestSpecPatchArgsDict(TypedDict):
      2. If it's a kubelet serving certificate, it is assigned
         "kubernetes.io/kubelet-serving".
      3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-    Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
     """
     uid: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
@@ -513,7 +513,7 @@ class CertificateSigningRequestSpecPatchArgs:
                 2. If it's a kubelet serving certificate, it is assigned
                    "kubernetes.io/kubelet-serving".
                 3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-               Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+                   Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         :param pulumi.Input[_builtins.str] uid: UID information about the requesting user. See user.Info interface for details.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
                     https://tools.ietf.org/html/rfc5280#section-4.2.1.12
@@ -580,7 +580,7 @@ class CertificateSigningRequestSpecPatchArgs:
          2. If it's a kubelet serving certificate, it is assigned
             "kubernetes.io/kubelet-serving".
          3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+            Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         """
         return pulumi.get(self, "signer_name")
 
