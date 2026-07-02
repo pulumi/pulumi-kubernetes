@@ -105,7 +105,6 @@ class EndpointsList(pulumi.CustomResource):
         """
         EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -121,7 +120,6 @@ class EndpointsList(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
-
 
         :param str resource_name: The name of the resource.
         :param EndpointsListArgs args: The arguments to use to populate this resource's properties.

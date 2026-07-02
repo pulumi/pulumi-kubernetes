@@ -112,7 +112,6 @@ class PodTemplatePatch(pulumi.CustomResource):
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         PodTemplate describes a template for creating copies of a predefined pod.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -134,7 +133,6 @@ class PodTemplatePatch(pulumi.CustomResource):
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         PodTemplate describes a template for creating copies of a predefined pod.
-
 
         :param str resource_name: The name of the resource.
         :param PodTemplatePatchArgs args: The arguments to use to populate this resource's properties.

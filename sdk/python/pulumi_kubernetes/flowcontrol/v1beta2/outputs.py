@@ -1082,7 +1082,7 @@ class NonResourcePolicyRule(dict):
                  - "/hea" is legal but matches nothing
                  - "/hea/*" also matches nothing
                  - "/healthz/*" matches all per-component health checks.
-               "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+                   "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
         :param Sequence[_builtins.str] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
         """
         pulumi.set(__self__, "non_resource_urls", non_resource_urls)
@@ -1098,7 +1098,7 @@ class NonResourcePolicyRule(dict):
           - "/hea" is legal but matches nothing
           - "/hea/*" also matches nothing
           - "/healthz/*" matches all per-component health checks.
-        "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+            "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
         """
         return pulumi.get(self, "non_resource_urls")
 
@@ -1145,7 +1145,7 @@ class NonResourcePolicyRulePatch(dict):
                  - "/hea" is legal but matches nothing
                  - "/hea/*" also matches nothing
                  - "/healthz/*" matches all per-component health checks.
-               "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+                   "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
         :param Sequence[_builtins.str] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
         """
         if non_resource_urls is not None:
@@ -1163,7 +1163,7 @@ class NonResourcePolicyRulePatch(dict):
           - "/hea" is legal but matches nothing
           - "/hea/*" also matches nothing
           - "/healthz/*" matches all per-component health checks.
-        "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+            "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
         """
         return pulumi.get(self, "non_resource_urls")
 

@@ -1109,7 +1109,7 @@ class HorizontalPodAutoscalerBehaviorArgsDict(TypedDict):
     scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
       * increase no more than 4 pods per 60 seconds
       * double the number of pods per 60 seconds
-    No stabilization is used.
+        No stabilization is used.
     """
 
 @pulumi.input_type
@@ -1124,7 +1124,7 @@ class HorizontalPodAutoscalerBehaviorArgs:
         :param pulumi.Input['HPAScalingRulesArgs'] scale_up: scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
                  * increase no more than 4 pods per 60 seconds
                  * double the number of pods per 60 seconds
-               No stabilization is used.
+                   No stabilization is used.
         """
         if scale_down is not None:
             pulumi.set(__self__, "scale_down", scale_down)
@@ -1150,7 +1150,7 @@ class HorizontalPodAutoscalerBehaviorArgs:
         scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
           * increase no more than 4 pods per 60 seconds
           * double the number of pods per 60 seconds
-        No stabilization is used.
+            No stabilization is used.
         """
         return pulumi.get(self, "scale_up")
 
@@ -1172,7 +1172,7 @@ class HorizontalPodAutoscalerBehaviorPatchArgsDict(TypedDict):
     scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
       * increase no more than 4 pods per 60 seconds
       * double the number of pods per 60 seconds
-    No stabilization is used.
+        No stabilization is used.
     """
 
 @pulumi.input_type
@@ -1187,7 +1187,7 @@ class HorizontalPodAutoscalerBehaviorPatchArgs:
         :param pulumi.Input['HPAScalingRulesPatchArgs'] scale_up: scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
                  * increase no more than 4 pods per 60 seconds
                  * double the number of pods per 60 seconds
-               No stabilization is used.
+                   No stabilization is used.
         """
         if scale_down is not None:
             pulumi.set(__self__, "scale_down", scale_down)
@@ -1213,7 +1213,7 @@ class HorizontalPodAutoscalerBehaviorPatchArgs:
         scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
           * increase no more than 4 pods per 60 seconds
           * double the number of pods per 60 seconds
-        No stabilization is used.
+            No stabilization is used.
         """
         return pulumi.get(self, "scale_up")
 

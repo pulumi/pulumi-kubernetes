@@ -86,11 +86,11 @@ export namespace admissionregistration {
              *
              * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
              *
-             * 	Object{
-             * 	  spec: Object.spec{
-             * 	    serviceAccountName: "example"
-             * 	  }
-             * 	}
+             *     Object{
+             *       spec: Object.spec{
+             *         serviceAccountName: "example"
+             *       }
+             *     }
              *
              * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
              *
@@ -123,11 +123,11 @@ export namespace admissionregistration {
              *
              * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
              *
-             * 	Object{
-             * 	  spec: Object.spec{
-             * 	    serviceAccountName: "example"
-             * 	  }
-             * 	}
+             *     Object{
+             *       spec: Object.spec{
+             *         serviceAccountName: "example"
+             *       }
+             *     }
              *
              * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
              *
@@ -224,30 +224,30 @@ export namespace admissionregistration {
              *
              * For example, this CEL expression returns a JSON patch to conditionally modify a value:
              *
-             * 	  [
-             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-             * 	  ]
+             *       [
+             *         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             *         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             *       ]
              *
              * To define an object for the patch value, use Object types. For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/spec/selector",
-             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-             * 	    }
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/spec/selector",
+             *           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             *         }
+             *       ]
              *
              * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-             * 	      value: "test"
-             * 	    },
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             *           value: "test"
+             *         },
+             *       ]
              *
              * CEL expressions have access to the types needed to create JSON patches and objects:
              *
@@ -287,30 +287,30 @@ export namespace admissionregistration {
              *
              * For example, this CEL expression returns a JSON patch to conditionally modify a value:
              *
-             * 	  [
-             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-             * 	  ]
+             *       [
+             *         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             *         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             *       ]
              *
              * To define an object for the patch value, use Object types. For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/spec/selector",
-             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-             * 	    }
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/spec/selector",
+             *           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             *         }
+             *       ]
              *
              * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-             * 	      value: "test"
-             * 	    },
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             *           value: "test"
+             *         },
+             *       ]
              *
              * CEL expressions have access to the types needed to create JSON patches and objects:
              *
@@ -1761,7 +1761,7 @@ export namespace admissionregistration {
              *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
              *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
              *     non-intersecting keys are appended, retaining their partial order.
-             * Required.
+             *     Required.
              */
             expression: pulumi.Input<string>;
             /**
@@ -1808,7 +1808,7 @@ export namespace admissionregistration {
              *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
              *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
              *     non-intersecting keys are appended, retaining their partial order.
-             * Required.
+             *     Required.
              */
             expression?: pulumi.Input<string | undefined>;
             /**
@@ -1924,11 +1924,11 @@ export namespace admissionregistration {
              *
              * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
              *
-             * 	Object{
-             * 	  spec: Object.spec{
-             * 	    serviceAccountName: "example"
-             * 	  }
-             * 	}
+             *     Object{
+             *       spec: Object.spec{
+             *         serviceAccountName: "example"
+             *       }
+             *     }
              *
              * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
              *
@@ -1961,11 +1961,11 @@ export namespace admissionregistration {
              *
              * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
              *
-             * 	Object{
-             * 	  spec: Object.spec{
-             * 	    serviceAccountName: "example"
-             * 	  }
-             * 	}
+             *     Object{
+             *       spec: Object.spec{
+             *         serviceAccountName: "example"
+             *       }
+             *     }
              *
              * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
              *
@@ -2062,30 +2062,30 @@ export namespace admissionregistration {
              *
              * For example, this CEL expression returns a JSON patch to conditionally modify a value:
              *
-             * 	  [
-             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-             * 	  ]
+             *       [
+             *         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             *         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             *       ]
              *
              * To define an object for the patch value, use Object types. For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/spec/selector",
-             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-             * 	    }
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/spec/selector",
+             *           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             *         }
+             *       ]
              *
              * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-             * 	      value: "test"
-             * 	    },
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             *           value: "test"
+             *         },
+             *       ]
              *
              * CEL expressions have access to the types needed to create JSON patches and objects:
              *
@@ -2125,30 +2125,30 @@ export namespace admissionregistration {
              *
              * For example, this CEL expression returns a JSON patch to conditionally modify a value:
              *
-             * 	  [
-             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-             * 	  ]
+             *       [
+             *         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             *         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             *       ]
              *
              * To define an object for the patch value, use Object types. For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/spec/selector",
-             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-             * 	    }
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/spec/selector",
+             *           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             *         }
+             *       ]
              *
              * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-             * 	      value: "test"
-             * 	    },
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             *           value: "test"
+             *         },
+             *       ]
              *
              * CEL expressions have access to the types needed to create JSON patches and objects:
              *
@@ -3016,7 +3016,7 @@ export namespace admissionregistration {
              *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
              *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
              *     non-intersecting keys are appended, retaining their partial order.
-             * Required.
+             *     Required.
              */
             expression: pulumi.Input<string>;
             /**
@@ -3058,7 +3058,7 @@ export namespace admissionregistration {
              *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
              *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
              *     non-intersecting keys are appended, retaining their partial order.
-             * Required.
+             *     Required.
              */
             expression?: pulumi.Input<string | undefined>;
             /**
@@ -3114,11 +3114,11 @@ export namespace admissionregistration {
              *
              * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
              *
-             * 	Object{
-             * 	  spec: Object.spec{
-             * 	    serviceAccountName: "example"
-             * 	  }
-             * 	}
+             *     Object{
+             *       spec: Object.spec{
+             *         serviceAccountName: "example"
+             *       }
+             *     }
              *
              * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
              *
@@ -3151,11 +3151,11 @@ export namespace admissionregistration {
              *
              * Apply configurations are declared in CEL using object initialization. For example, this CEL expression returns an apply configuration to set a single field:
              *
-             * 	Object{
-             * 	  spec: Object.spec{
-             * 	    serviceAccountName: "example"
-             * 	  }
-             * 	}
+             *     Object{
+             *       spec: Object.spec{
+             *         serviceAccountName: "example"
+             *       }
+             *     }
              *
              * Apply configurations may not modify atomic structs, maps or arrays due to the risk of accidental deletion of values not included in the apply configuration.
              *
@@ -3252,30 +3252,30 @@ export namespace admissionregistration {
              *
              * For example, this CEL expression returns a JSON patch to conditionally modify a value:
              *
-             * 	  [
-             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-             * 	  ]
+             *       [
+             *         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             *         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             *       ]
              *
              * To define an object for the patch value, use Object types. For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/spec/selector",
-             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-             * 	    }
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/spec/selector",
+             *           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             *         }
+             *       ]
              *
              * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-             * 	      value: "test"
-             * 	    },
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             *           value: "test"
+             *         },
+             *       ]
              *
              * CEL expressions have access to the types needed to create JSON patches and objects:
              *
@@ -3315,30 +3315,30 @@ export namespace admissionregistration {
              *
              * For example, this CEL expression returns a JSON patch to conditionally modify a value:
              *
-             * 	  [
-             * 	    JSONPatch{op: "test", path: "/spec/example", value: "Red"},
-             * 	    JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
-             * 	  ]
+             *       [
+             *         JSONPatch{op: "test", path: "/spec/example", value: "Red"},
+             *         JSONPatch{op: "replace", path: "/spec/example", value: "Green"}
+             *       ]
              *
              * To define an object for the patch value, use Object types. For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/spec/selector",
-             * 	      value: Object.spec.selector{matchLabels: {"environment": "test"}}
-             * 	    }
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/spec/selector",
+             *           value: Object.spec.selector{matchLabels: {"environment": "test"}}
+             *         }
+             *       ]
              *
              * To use strings containing '/' and '~' as JSONPatch path keys, use "jsonpatch.escapeKey". For example:
              *
-             * 	  [
-             * 	    JSONPatch{
-             * 	      op: "add",
-             * 	      path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
-             * 	      value: "test"
-             * 	    },
-             * 	  ]
+             *       [
+             *         JSONPatch{
+             *           op: "add",
+             *           path: "/metadata/labels/" + jsonpatch.escapeKey("example.com/environment"),
+             *           value: "test"
+             *         },
+             *       ]
              *
              * CEL expressions have access to the types needed to create JSON patches and objects:
              *
@@ -4745,7 +4745,7 @@ export namespace admissionregistration {
              *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
              *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
              *     non-intersecting keys are appended, retaining their partial order.
-             * Required.
+             *     Required.
              */
             expression: pulumi.Input<string>;
             /**
@@ -4792,7 +4792,7 @@ export namespace admissionregistration {
              *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
              *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
              *     non-intersecting keys are appended, retaining their partial order.
-             * Required.
+             *     Required.
              */
             expression?: pulumi.Input<string | undefined>;
             /**
@@ -5461,7 +5461,7 @@ export namespace apiextensions {
              *      These lists are like maps in that their elements have a non-index key
              *      used to identify them. Order is preserved upon merge. The map tag
              *      must only be used on a list with elements of type object.
-             * Defaults to atomic for arrays.
+             *    Defaults to atomic for arrays.
              */
             x_kubernetes_list_type?: pulumi.Input<string | undefined>;
             /**
@@ -5573,7 +5573,7 @@ export namespace apiextensions {
              *      These lists are like maps in that their elements have a non-index key
              *      used to identify them. Order is preserved upon merge. The map tag
              *      must only be used on a list with elements of type object.
-             * Defaults to atomic for arrays.
+             *    Defaults to atomic for arrays.
              */
             x_kubernetes_list_type?: pulumi.Input<string | undefined>;
             /**
@@ -6466,7 +6466,7 @@ export namespace apiextensions {
              *      These lists are like maps in that their elements have a non-index key
              *      used to identify them. Order is preserved upon merge. The map tag
              *      must only be used on a list with elements of type object.
-             * Defaults to atomic for arrays.
+             *    Defaults to atomic for arrays.
              */
             x_kubernetes_list_type?: pulumi.Input<string | undefined>;
             /**
@@ -6572,7 +6572,7 @@ export namespace apiextensions {
              *      These lists are like maps in that their elements have a non-index key
              *      used to identify them. Order is preserved upon merge. The map tag
              *      must only be used on a list with elements of type object.
-             * Defaults to atomic for arrays.
+             *    Defaults to atomic for arrays.
              */
             x_kubernetes_list_type?: pulumi.Input<string | undefined>;
             /**
@@ -8306,7 +8306,7 @@ export namespace apps {
          * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
          *  - Network: A single stable DNS and hostname.
          *  - Storage: As many VolumeClaims as requested.
-         * The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+         *    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
          *
          * This resource waits until its status is ready before registering success
          * for create/update, and populating output properties from the current state of the resource.
@@ -9137,7 +9137,7 @@ export namespace apps {
          * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
          *  - Network: A single stable DNS and hostname.
          *  - Storage: As many VolumeClaims as requested.
-         * The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+         *    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
          *
          * This resource waits until its status is ready before registering success
          * for create/update, and populating output properties from the current state of the resource.
@@ -10007,7 +10007,7 @@ export namespace autoscaling {
              * scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
              *   * increase no more than 4 pods per 60 seconds
              *   * double the number of pods per 60 seconds
-             * No stabilization is used.
+             *     No stabilization is used.
              */
             scaleUp?: pulumi.Input<inputs.autoscaling.v2.HPAScalingRules | undefined>;
         }
@@ -10024,7 +10024,7 @@ export namespace autoscaling {
              * scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
              *   * increase no more than 4 pods per 60 seconds
              *   * double the number of pods per 60 seconds
-             * No stabilization is used.
+             *     No stabilization is used.
              */
             scaleUp?: pulumi.Input<inputs.autoscaling.v2.HPAScalingRulesPatch | undefined>;
         }
@@ -11273,7 +11273,7 @@ export namespace autoscaling {
              * scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
              *   * increase no more than 4 pods per 60 seconds
              *   * double the number of pods per 60 seconds
-             * No stabilization is used.
+             *     No stabilization is used.
              */
             scaleUp?: pulumi.Input<inputs.autoscaling.v2beta2.HPAScalingRules | undefined>;
         }
@@ -11290,7 +11290,7 @@ export namespace autoscaling {
              * scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
              *   * increase no more than 4 pods per 60 seconds
              *   * double the number of pods per 60 seconds
-             * No stabilization is used.
+             *     No stabilization is used.
              */
             scaleUp?: pulumi.Input<inputs.autoscaling.v2beta2.HPAScalingRulesPatch | undefined>;
         }
@@ -11853,13 +11853,13 @@ export namespace batch {
          * 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
          *    to 'True'.
          * 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
-         * 	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
+         *     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
          *
          * If the Job has not reached a Ready state after 10 minutes, it will
          * time out and mark the resource update as Failed. You can override the default timeout value
          * by setting the 'customTimeouts' option on the resource.
          *
-         * By default, if a resource failed to become ready in a previous update, 
+         * By default, if a resource failed to become ready in a previous update,
          * Pulumi will continue to wait for readiness on the next update. If you would prefer
          * to schedule a replacement for an unready resource on the next update, you can add the
          * "pulumi.com/replaceUnready": "true" annotation to the resource definition.
@@ -12199,7 +12199,7 @@ export namespace batch {
              * - NotIn: the requirement is satisfied if at least one container exit code
              *   (might be multiple if there are multiple containers not restricted
              *   by the 'containerName' field) is not in the set of specified values.
-             * Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+             *   Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
              */
             operator: pulumi.Input<string>;
             /**
@@ -12225,7 +12225,7 @@ export namespace batch {
              * - NotIn: the requirement is satisfied if at least one container exit code
              *   (might be multiple if there are multiple containers not restricted
              *   by the 'containerName' field) is not in the set of specified values.
-             * Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+             *   Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
              */
             operator?: pulumi.Input<string | undefined>;
             /**
@@ -12287,7 +12287,7 @@ export namespace batch {
              *   incremented and a replacement pod is created.
              * - Count: indicates that the pod is handled in the default way - the
              *   counter towards the .backoffLimit is incremented.
-             * Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+             *   Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
              */
             action: pulumi.Input<string>;
             /**
@@ -12315,7 +12315,7 @@ export namespace batch {
              *   incremented and a replacement pod is created.
              * - Count: indicates that the pod is handled in the default way - the
              *   counter towards the .backoffLimit is incremented.
-             * Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+             *   Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
              */
             action?: pulumi.Input<string | undefined>;
             /**
@@ -12778,11 +12778,11 @@ export namespace certificates {
              *
              * Well-known Kubernetes signers are:
              *  1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-             *   Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+             *       Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
              *  2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-             *   Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+             *       Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
              *  3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-             *   Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+             *       Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
              *
              * More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
              *
@@ -12860,11 +12860,11 @@ export namespace certificates {
              *
              * Well-known Kubernetes signers are:
              *  1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-             *   Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+             *       Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
              *  2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-             *   Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+             *       Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
              *  3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-             *   Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+             *       Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
              *
              * More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
              *
@@ -12916,9 +12916,9 @@ export namespace certificates {
              * Validation requirements:
              *  1. certificate must contain one or more PEM blocks.
              *  2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
-             *   must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+             *       must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
              *  3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
-             *   to allow for explanatory text as described in section 5.2 of RFC7468.
+             *       to allow for explanatory text as described in section 5.2 of RFC7468.
              *
              * If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
              *
@@ -13095,7 +13095,7 @@ export namespace certificates {
              *  2. If it's a kubelet serving certificate, it is assigned
              *     "kubernetes.io/kubelet-serving".
              *  3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-             * Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+             *     Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
              */
             signerName?: pulumi.Input<string | undefined>;
             /**
@@ -13136,7 +13136,7 @@ export namespace certificates {
              *  2. If it's a kubelet serving certificate, it is assigned
              *     "kubernetes.io/kubelet-serving".
              *  3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-             * Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+             *     Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
              */
             signerName?: pulumi.Input<string | undefined>;
             /**
@@ -13632,7 +13632,7 @@ export namespace coordination {
              *   will be used.
              * - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
              *   election will not operate the Lease until resolved.
-             * (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+             *   (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
              */
             preferredStrategies: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -13666,7 +13666,7 @@ export namespace coordination {
              *   will be used.
              * - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
              *   election will not operate the Lease until resolved.
-             * (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+             *   (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
              */
             preferredStrategies?: pulumi.Input<pulumi.Input<string>[] | undefined>;
             /**
@@ -15706,15 +15706,15 @@ export namespace core {
         /**
          * EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
          *
-         * 	{
-         * 	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-         * 	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-         * 	}
+         *     {
+         *       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+         *       Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+         *     }
          *
          * The resulting set of endpoints can be viewed as:
          *
-         * 	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-         * 	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+         *     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+         *     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
          *
          * Deprecated: This API is deprecated in v1.33+.
          */
@@ -15736,15 +15736,15 @@ export namespace core {
         /**
          * EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
          *
-         * 	{
-         * 	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-         * 	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-         * 	}
+         *     {
+         *       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+         *       Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+         *     }
          *
          * The resulting set of endpoints can be viewed as:
          *
-         * 	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-         * 	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+         *     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+         *     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
          *
          * Deprecated: This API is deprecated in v1.33+.
          */
@@ -15766,17 +15766,17 @@ export namespace core {
         /**
          * Endpoints is a collection of endpoints that implement the actual service. Example:
          *
-         * 	 Name: "mysvc",
-         * 	 Subsets: [
-         * 	   {
-         * 	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-         * 	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-         * 	   },
-         * 	   {
-         * 	     Addresses: [{"ip": "10.10.3.3"}],
-         * 	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-         * 	   },
-         * 	]
+         *      Name: "mysvc",
+         *      Subsets: [
+         *        {
+         *          Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+         *          Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+         *        },
+         *        {
+         *          Addresses: [{"ip": "10.10.3.3"}],
+         *          Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+         *        },
+         *     ]
          *
          * Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
          *
@@ -17495,9 +17495,9 @@ export namespace core {
              *  - InProgress
              *    InProgress indicates that the volume is being modified.
              *  - Infeasible
-             *   Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
-             * 	  resolve the error, a valid VolumeAttributesClass needs to be specified.
-             * Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+             *      Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+             *       resolve the error, a valid VolumeAttributesClass needs to be specified.
+             *    Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
              */
             status: pulumi.Input<string>;
             /**
@@ -17518,9 +17518,9 @@ export namespace core {
              *  - InProgress
              *    InProgress indicates that the volume is being modified.
              *  - Infeasible
-             *   Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
-             * 	  resolve the error, a valid VolumeAttributesClass needs to be specified.
-             * Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+             *      Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+             *       resolve the error, a valid VolumeAttributesClass needs to be specified.
+             *    Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
              */
             status?: pulumi.Input<string | undefined>;
             /**
@@ -18385,7 +18385,7 @@ export namespace core {
              *   specified.
              * * While dataSource only allows local objects, dataSourceRef allows objects
              *   in any namespaces.
-             * (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+             *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
              */
             dataSourceRef?: pulumi.Input<inputs.core.v1.TypedObjectReference | undefined>;
             /**
@@ -18434,7 +18434,7 @@ export namespace core {
              *   specified.
              * * While dataSource only allows local objects, dataSourceRef allows objects
              *   in any namespaces.
-             * (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+             *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
              */
             dataSourceRef?: pulumi.Input<inputs.core.v1.TypedObjectReferencePatch | undefined>;
             /**
@@ -18995,7 +18995,7 @@ export namespace core {
          * 2. The Pod is initialized ("Initialized" '.status.condition' is true).
          * 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
          *    set to "Running".
-         * Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+         *    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
          *
          * If the Pod has not reached a Ready state after 10 minutes, it will
          * time out and mark the resource update as Failed. You can override the default timeout value
@@ -21303,7 +21303,7 @@ export namespace core {
          * Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
          *
          * Note: While Pulumi automatically encrypts the 'data' and 'stringData'
-         * fields, this encryption only applies to Pulumi's context, including the state file, 
+         * fields, this encryption only applies to Pulumi's context, including the state file,
          * the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
          * and the contents are visible to users with access to the Secret in Kubernetes using
          * tools like 'kubectl'.
@@ -24467,7 +24467,7 @@ export namespace extensions {
              * * ImplementationSpecific: Interpretation of the Path matching is up to
              *   the IngressClass. Implementations can treat this as a separate PathType
              *   or treat it identically to Prefix or Exact path types.
-             * Implementations are required to support all path types. Defaults to ImplementationSpecific.
+             *   Implementations are required to support all path types. Defaults to ImplementationSpecific.
              */
             pathType?: pulumi.Input<string | undefined>;
         }
@@ -24495,7 +24495,7 @@ export namespace extensions {
              * * ImplementationSpecific: Interpretation of the Path matching is up to
              *   the IngressClass. Implementations can treat this as a separate PathType
              *   or treat it identically to Prefix or Exact path types.
-             * Implementations are required to support all path types. Defaults to ImplementationSpecific.
+             *   Implementations are required to support all path types. Defaults to ImplementationSpecific.
              */
             pathType?: pulumi.Input<string | undefined>;
         }
@@ -24605,7 +24605,7 @@ export namespace extensions {
         }
 
         /**
-         * Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc. 
+         * Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
          *
          * This resource waits until its status is ready before registering success
          * for create/update, and populating output properties from the current state of the resource.
@@ -25861,7 +25861,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -25881,7 +25881,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
             /**
@@ -26451,7 +26451,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -26471,7 +26471,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
             /**
@@ -27015,7 +27015,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -27035,7 +27035,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
             /**
@@ -27647,7 +27647,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -27667,7 +27667,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
             /**
@@ -28305,7 +28305,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -28325,7 +28325,7 @@ export namespace flowcontrol {
              *   - "/hea" is legal but matches nothing
              *   - "/hea/*" also matches nothing
              *   - "/healthz/*" matches all per-component health checks.
-             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             *     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
              */
             nonResourceURLs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
             /**
@@ -29374,7 +29374,7 @@ export namespace networking {
              * * ImplementationSpecific: Interpretation of the Path matching is up to
              *   the IngressClass. Implementations can treat this as a separate PathType
              *   or treat it identically to Prefix or Exact path types.
-             * Implementations are required to support all path types.
+             *   Implementations are required to support all path types.
              */
             pathType: pulumi.Input<string>;
         }
@@ -29402,7 +29402,7 @@ export namespace networking {
              * * ImplementationSpecific: Interpretation of the Path matching is up to
              *   the IngressClass. Implementations can treat this as a separate PathType
              *   or treat it identically to Prefix or Exact path types.
-             * Implementations are required to support all path types.
+             *   Implementations are required to support all path types.
              */
             pathType?: pulumi.Input<string | undefined>;
         }
@@ -30451,7 +30451,7 @@ export namespace networking {
              * * ImplementationSpecific: Interpretation of the Path matching is up to
              *   the IngressClass. Implementations can treat this as a separate PathType
              *   or treat it identically to Prefix or Exact path types.
-             * Implementations are required to support all path types. Defaults to ImplementationSpecific.
+             *   Implementations are required to support all path types. Defaults to ImplementationSpecific.
              */
             pathType?: pulumi.Input<string | undefined>;
         }
@@ -30479,7 +30479,7 @@ export namespace networking {
              * * ImplementationSpecific: Interpretation of the Path matching is up to
              *   the IngressClass. Implementations can treat this as a separate PathType
              *   or treat it identically to Prefix or Exact path types.
-             * Implementations are required to support all path types. Defaults to ImplementationSpecific.
+             *   Implementations are required to support all path types. Defaults to ImplementationSpecific.
              */
             pathType?: pulumi.Input<string | undefined>;
         }
@@ -33685,12 +33685,12 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This subrequest is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
              *
@@ -33751,12 +33751,12 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This subrequest is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
              *
@@ -33925,13 +33925,13 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   At least one device must exist on the node for the allocation to succeed.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * At least one device must exist on the node for the allocation to succeed.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
@@ -33990,13 +33990,13 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   At least one device must exist on the node for the allocation to succeed.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * At least one device must exist on the node for the allocation to succeed.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
@@ -34078,7 +34078,7 @@ export namespace resource {
              * 		  GPU device instance of this type will account for 2Gi of memory.
              *
              * 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
-             * 	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+             *        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
              *     For example, if a Device's capacity "dra.example.com/cores" is consumed,
              *     and each "core" provides 2 "cpu"s, the mapping would be:
              *     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
@@ -36206,12 +36206,12 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
@@ -36282,12 +36282,12 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
@@ -37956,13 +37956,13 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   At least one device must exist on the node for the allocation to succeed.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * At least one device must exist on the node for the allocation to succeed.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
@@ -38111,13 +38111,13 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   At least one device must exist on the node for the allocation to succeed.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * At least one device must exist on the node for the allocation to succeed.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
@@ -38214,12 +38214,12 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This subrequest is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
              *
@@ -38280,12 +38280,12 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This subrequest is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
              *
@@ -38479,7 +38479,7 @@ export namespace resource {
              * 		  GPU device instance of this type will account for 2Gi of memory.
              *
              * 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
-             * 	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+             *        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
              *     For example, if a Device's capacity "dra.example.com/cores" is consumed,
              *     and each "core" provides 2 "cpu"s, the mapping would be:
              *     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
@@ -39887,12 +39887,12 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This subrequest is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
              *
@@ -39953,12 +39953,12 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This subrequest is for all of the matching devices in a pool.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
              *
@@ -40246,13 +40246,13 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   At least one device must exist on the node for the allocation to succeed.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * At least one device must exist on the node for the allocation to succeed.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
@@ -40311,13 +40311,13 @@ export namespace resource {
              * AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
              *
              * - ExactCount: This request is for a specific number of devices.
-             *   This is the default. The exact number is provided in the
-             *   count field.
+             * This is the default. The exact number is provided in the
+             * count field.
              *
              * - All: This request is for all of the matching devices in a pool.
-             *   At least one device must exist on the node for the allocation to succeed.
-             *   Allocation will fail if some devices are already allocated,
-             *   unless adminAccess is requested.
+             * At least one device must exist on the node for the allocation to succeed.
+             * Allocation will fail if some devices are already allocated,
+             * unless adminAccess is requested.
              *
              * If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
              *
@@ -40399,7 +40399,7 @@ export namespace resource {
              * 		  GPU device instance of this type will account for 2Gi of memory.
              *
              * 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
-             * 	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+             *        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
              *     For example, if a Device's capacity "dra.example.com/cores" is consumed,
              *     and each "core" provides 2 "cpu"s, the mapping would be:
              *     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.

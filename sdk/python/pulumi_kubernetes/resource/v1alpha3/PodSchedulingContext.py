@@ -107,7 +107,6 @@ class PodSchedulingContext(pulumi.CustomResource):
 
         This is an alpha type and requires enabling the DRAControlPlaneController feature gate.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -125,7 +124,6 @@ class PodSchedulingContext(pulumi.CustomResource):
         PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
 
         This is an alpha type and requires enabling the DRAControlPlaneController feature gate.
-
 
         :param str resource_name: The name of the resource.
         :param PodSchedulingContextInitArgs args: The arguments to use to populate this resource's properties.

@@ -146,7 +146,7 @@ class LeaseCandidateSpec(dict):
                  will be used.
                - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
                  election will not operate the Lease until resolved.
-               (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+                 (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         :param _builtins.str binary_version: BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required when strategy is "OldestEmulationVersion"
         :param _builtins.str emulation_version: EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
         :param _builtins.str ping_time: PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
@@ -179,7 +179,7 @@ class LeaseCandidateSpec(dict):
           will be used.
         - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
           election will not operate the Lease until resolved.
-        (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+          (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         """
         return pulumi.get(self, "preferred_strategies")
 
@@ -266,7 +266,7 @@ class LeaseCandidateSpecPatch(dict):
                  will be used.
                - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
                  election will not operate the Lease until resolved.
-               (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+                 (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         :param _builtins.str renew_time: RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
         """
         if binary_version is not None:
@@ -322,7 +322,7 @@ class LeaseCandidateSpecPatch(dict):
           will be used.
         - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
           election will not operate the Lease until resolved.
-        (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+          (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         """
         return pulumi.get(self, "preferred_strategies")
 

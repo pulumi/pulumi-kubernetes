@@ -118,7 +118,6 @@ class ResourceSlice(pulumi.CustomResource):
 
         For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -144,7 +143,6 @@ class ResourceSlice(pulumi.CustomResource):
         When allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.
 
         For resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.
-
 
         :param str resource_name: The name of the resource.
         :param ResourceSliceInitArgs args: The arguments to use to populate this resource's properties.

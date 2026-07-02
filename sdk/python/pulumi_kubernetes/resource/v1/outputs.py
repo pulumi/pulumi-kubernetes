@@ -3374,12 +3374,12 @@ class DeviceSubRequest(dict):
         :param _builtins.str allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
                
                - ExactCount: This request is for a specific number of devices.
-                 This is the default. The exact number is provided in the
-                 count field.
+               This is the default. The exact number is provided in the
+               count field.
                
                - All: This subrequest is for all of the matching devices in a pool.
-                 Allocation will fail if some devices are already allocated,
-                 unless adminAccess is requested.
+               Allocation will fail if some devices are already allocated,
+               unless adminAccess is requested.
                
                If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
                
@@ -3443,12 +3443,12 @@ class DeviceSubRequest(dict):
         AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
 
         - ExactCount: This request is for a specific number of devices.
-          This is the default. The exact number is provided in the
-          count field.
+        This is the default. The exact number is provided in the
+        count field.
 
         - All: This subrequest is for all of the matching devices in a pool.
-          Allocation will fail if some devices are already allocated,
-          unless adminAccess is requested.
+        Allocation will fail if some devices are already allocated,
+        unless adminAccess is requested.
 
         If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
 
@@ -3543,12 +3543,12 @@ class DeviceSubRequestPatch(dict):
         :param _builtins.str allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
                
                - ExactCount: This request is for a specific number of devices.
-                 This is the default. The exact number is provided in the
-                 count field.
+               This is the default. The exact number is provided in the
+               count field.
                
                - All: This subrequest is for all of the matching devices in a pool.
-                 Allocation will fail if some devices are already allocated,
-                 unless adminAccess is requested.
+               Allocation will fail if some devices are already allocated,
+               unless adminAccess is requested.
                
                If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
                
@@ -3600,12 +3600,12 @@ class DeviceSubRequestPatch(dict):
         AllocationMode and its related fields define how devices are allocated to satisfy this subrequest. Supported values are:
 
         - ExactCount: This request is for a specific number of devices.
-          This is the default. The exact number is provided in the
-          count field.
+        This is the default. The exact number is provided in the
+        count field.
 
         - All: This subrequest is for all of the matching devices in a pool.
-          Allocation will fail if some devices are already allocated,
-          unless adminAccess is requested.
+        Allocation will fail if some devices are already allocated,
+        unless adminAccess is requested.
 
         If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other subrequests must specify this field.
 
@@ -4074,13 +4074,13 @@ class ExactDeviceRequest(dict):
         :param _builtins.str allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
                
                - ExactCount: This request is for a specific number of devices.
-                 This is the default. The exact number is provided in the
-                 count field.
+               This is the default. The exact number is provided in the
+               count field.
                
                - All: This request is for all of the matching devices in a pool.
-                 At least one device must exist on the node for the allocation to succeed.
-                 Allocation will fail if some devices are already allocated,
-                 unless adminAccess is requested.
+               At least one device must exist on the node for the allocation to succeed.
+               Allocation will fail if some devices are already allocated,
+               unless adminAccess is requested.
                
                If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
                
@@ -4145,13 +4145,13 @@ class ExactDeviceRequest(dict):
         AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
 
         - ExactCount: This request is for a specific number of devices.
-          This is the default. The exact number is provided in the
-          count field.
+        This is the default. The exact number is provided in the
+        count field.
 
         - All: This request is for all of the matching devices in a pool.
-          At least one device must exist on the node for the allocation to succeed.
-          Allocation will fail if some devices are already allocated,
-          unless adminAccess is requested.
+        At least one device must exist on the node for the allocation to succeed.
+        Allocation will fail if some devices are already allocated,
+        unless adminAccess is requested.
 
         If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
 
@@ -4247,13 +4247,13 @@ class ExactDeviceRequestPatch(dict):
         :param _builtins.str allocation_mode: AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
                
                - ExactCount: This request is for a specific number of devices.
-                 This is the default. The exact number is provided in the
-                 count field.
+               This is the default. The exact number is provided in the
+               count field.
                
                - All: This request is for all of the matching devices in a pool.
-                 At least one device must exist on the node for the allocation to succeed.
-                 Allocation will fail if some devices are already allocated,
-                 unless adminAccess is requested.
+               At least one device must exist on the node for the allocation to succeed.
+               Allocation will fail if some devices are already allocated,
+               unless adminAccess is requested.
                
                If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
                
@@ -4312,13 +4312,13 @@ class ExactDeviceRequestPatch(dict):
         AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
 
         - ExactCount: This request is for a specific number of devices.
-          This is the default. The exact number is provided in the
-          count field.
+        This is the default. The exact number is provided in the
+        count field.
 
         - All: This request is for all of the matching devices in a pool.
-          At least one device must exist on the node for the allocation to succeed.
-          Allocation will fail if some devices are already allocated,
-          unless adminAccess is requested.
+        At least one device must exist on the node for the allocation to succeed.
+        Allocation will fail if some devices are already allocated,
+        unless adminAccess is requested.
 
         If AllocationMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
 
@@ -4573,7 +4573,7 @@ class NodeAllocatableResourceMapping(dict):
                		  GPU device instance of this type will account for 2Gi of memory.
                
                2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
-               	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+                      The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
                    For example, if a Device's capacity "dra.example.com/cores" is consumed,
                    and each "core" provides 2 "cpu"s, the mapping would be:
                    {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
@@ -4599,7 +4599,7 @@ class NodeAllocatableResourceMapping(dict):
         		  GPU device instance of this type will account for 2Gi of memory.
 
         2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
-        	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+               The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
             For example, if a Device's capacity "dra.example.com/cores" is consumed,
             and each "core" provides 2 "cpu"s, the mapping would be:
             {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.

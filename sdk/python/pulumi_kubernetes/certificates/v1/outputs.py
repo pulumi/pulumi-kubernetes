@@ -409,11 +409,11 @@ class CertificateSigningRequestSpec(dict):
                
                Well-known Kubernetes signers are:
                 1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-                 Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+                     Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
                 2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-                 Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+                     Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
                 3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-                 Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+                     Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
                
                More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
                
@@ -488,11 +488,11 @@ class CertificateSigningRequestSpec(dict):
 
         Well-known Kubernetes signers are:
          1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-          Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+              Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
          2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-          Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+              Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
          3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-          Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+              Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
 
         More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 
@@ -636,11 +636,11 @@ class CertificateSigningRequestSpecPatch(dict):
                
                Well-known Kubernetes signers are:
                 1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-                 Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+                     Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
                 2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-                 Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+                     Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
                 3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-                 Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+                     Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
                
                More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
                
@@ -738,11 +738,11 @@ class CertificateSigningRequestSpecPatch(dict):
 
         Well-known Kubernetes signers are:
          1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-          Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+              Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
          2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-          Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+              Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
          3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-          Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+              Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
 
         More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 
@@ -812,9 +812,9 @@ class CertificateSigningRequestStatus(dict):
                Validation requirements:
                 1. certificate must contain one or more PEM blocks.
                 2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
-                 must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+                     must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
                 3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
-                 to allow for explanatory text as described in section 5.2 of RFC7468.
+                     to allow for explanatory text as described in section 5.2 of RFC7468.
                
                If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
                
@@ -845,9 +845,9 @@ class CertificateSigningRequestStatus(dict):
         Validation requirements:
          1. certificate must contain one or more PEM blocks.
          2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
-          must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+              must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
          3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
-          to allow for explanatory text as described in section 5.2 of RFC7468.
+              to allow for explanatory text as described in section 5.2 of RFC7468.
 
         If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
 
@@ -890,9 +890,9 @@ class CertificateSigningRequestStatusPatch(dict):
                Validation requirements:
                 1. certificate must contain one or more PEM blocks.
                 2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
-                 must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+                     must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
                 3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
-                 to allow for explanatory text as described in section 5.2 of RFC7468.
+                     to allow for explanatory text as described in section 5.2 of RFC7468.
                
                If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
                
@@ -923,9 +923,9 @@ class CertificateSigningRequestStatusPatch(dict):
         Validation requirements:
          1. certificate must contain one or more PEM blocks.
          2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
-          must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+              must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
          3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
-          to allow for explanatory text as described in section 5.2 of RFC7468.
+              to allow for explanatory text as described in section 5.2 of RFC7468.
 
         If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
 

@@ -7190,15 +7190,15 @@ class EndpointSubset(dict):
     """
     EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
 
-    	{
-    	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-    	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    	}
+        {
+          Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+          Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+        }
 
     The resulting set of endpoints can be viewed as:
 
-    	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-    	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+        a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+        b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 
     Deprecated: This API is deprecated in v1.33+.
     """
@@ -7226,15 +7226,15 @@ class EndpointSubset(dict):
         """
         EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
 
-        	{
-        	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-        	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-        	}
+            {
+              Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+              Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+            }
 
         The resulting set of endpoints can be viewed as:
 
-        	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-        	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+            a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+            b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 
         Deprecated: This API is deprecated in v1.33+.
 
@@ -7279,15 +7279,15 @@ class EndpointSubsetPatch(dict):
     """
     EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
 
-    	{
-    	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-    	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    	}
+        {
+          Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+          Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+        }
 
     The resulting set of endpoints can be viewed as:
 
-    	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-    	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+        a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+        b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 
     Deprecated: This API is deprecated in v1.33+.
     """
@@ -7315,15 +7315,15 @@ class EndpointSubsetPatch(dict):
         """
         EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
 
-        	{
-        	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-        	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-        	}
+            {
+              Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+              Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+            }
 
         The resulting set of endpoints can be viewed as:
 
-        	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-        	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+            a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+            b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 
         Deprecated: This API is deprecated in v1.33+.
 
@@ -7368,17 +7368,17 @@ class Endpoints(dict):
     """
     Endpoints is a collection of endpoints that implement the actual service. Example:
 
-    	 Name: "mysvc",
-    	 Subsets: [
-    	   {
-    	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-    	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    	   },
-    	   {
-    	     Addresses: [{"ip": "10.10.3.3"}],
-    	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-    	   },
-    	]
+         Name: "mysvc",
+         Subsets: [
+           {
+             Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+             Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+           },
+           {
+             Addresses: [{"ip": "10.10.3.3"}],
+             Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+           },
+        ]
 
     Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
 
@@ -7409,17 +7409,17 @@ class Endpoints(dict):
         """
         Endpoints is a collection of endpoints that implement the actual service. Example:
 
-        	 Name: "mysvc",
-        	 Subsets: [
-        	   {
-        	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-        	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-        	   },
-        	   {
-        	     Addresses: [{"ip": "10.10.3.3"}],
-        	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-        	   },
-        	]
+             Name: "mysvc",
+             Subsets: [
+               {
+                 Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+                 Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+               },
+               {
+                 Addresses: [{"ip": "10.10.3.3"}],
+                 Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+               },
+            ]
 
         Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
 
@@ -13331,9 +13331,9 @@ class ModifyVolumeStatus(dict):
                 - InProgress
                   InProgress indicates that the volume is being modified.
                 - Infeasible
-                 Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
-               	  resolve the error, a valid VolumeAttributesClass needs to be specified.
-               Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+                    Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+                     resolve the error, a valid VolumeAttributesClass needs to be specified.
+                  Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
         :param _builtins.str target_volume_attributes_class_name: targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
         """
         pulumi.set(__self__, "status", status)
@@ -13351,9 +13351,9 @@ class ModifyVolumeStatus(dict):
          - InProgress
            InProgress indicates that the volume is being modified.
          - Infeasible
-          Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
-        	  resolve the error, a valid VolumeAttributesClass needs to be specified.
-        Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+             Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+              resolve the error, a valid VolumeAttributesClass needs to be specified.
+           Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
         """
         return pulumi.get(self, "status")
 
@@ -13401,9 +13401,9 @@ class ModifyVolumeStatusPatch(dict):
                 - InProgress
                   InProgress indicates that the volume is being modified.
                 - Infeasible
-                 Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
-               	  resolve the error, a valid VolumeAttributesClass needs to be specified.
-               Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+                    Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+                     resolve the error, a valid VolumeAttributesClass needs to be specified.
+                  Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
         :param _builtins.str target_volume_attributes_class_name: targetVolumeAttributesClassName is the name of the VolumeAttributesClass the PVC currently being reconciled
         """
         if status is not None:
@@ -13422,9 +13422,9 @@ class ModifyVolumeStatusPatch(dict):
          - InProgress
            InProgress indicates that the volume is being modified.
          - Infeasible
-          Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
-        	  resolve the error, a valid VolumeAttributesClass needs to be specified.
-        Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+             Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+              resolve the error, a valid VolumeAttributesClass needs to be specified.
+           Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
         """
         return pulumi.get(self, "status")
 
@@ -17336,7 +17336,7 @@ class PersistentVolumeClaimSpec(dict):
                  specified.
                * While dataSource only allows local objects, dataSourceRef allows objects
                  in any namespaces.
-               (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+                 (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
         :param 'VolumeResourceRequirementsArgs' resources: resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param '_meta.v1.LabelSelectorArgs' selector: selector is a label query over volumes to consider for binding.
         :param _builtins.str storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
@@ -17390,7 +17390,7 @@ class PersistentVolumeClaimSpec(dict):
           specified.
         * While dataSource only allows local objects, dataSourceRef allows objects
           in any namespaces.
-        (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+          (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
         """
         return pulumi.get(self, "data_source_ref")
 
@@ -17499,7 +17499,7 @@ class PersistentVolumeClaimSpecPatch(dict):
                  specified.
                * While dataSource only allows local objects, dataSourceRef allows objects
                  in any namespaces.
-               (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+                 (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
         :param 'VolumeResourceRequirementsPatchArgs' resources: resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is a label query over volumes to consider for binding.
         :param _builtins.str storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
@@ -17553,7 +17553,7 @@ class PersistentVolumeClaimSpecPatch(dict):
           specified.
         * While dataSource only allows local objects, dataSourceRef allows objects
           in any namespaces.
-        (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+          (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
         """
         return pulumi.get(self, "data_source_ref")
 
@@ -19367,7 +19367,7 @@ class Pod(dict):
     2. The Pod is initialized ("Initialized" '.status.condition' is true).
     3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
        set to "Running".
-    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+       Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 
     If the Pod has not reached a Ready state after 10 minutes, it will
     time out and mark the resource update as Failed. You can override the default timeout value
@@ -19408,7 +19408,7 @@ class Pod(dict):
         2. The Pod is initialized ("Initialized" '.status.condition' is true).
         3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
            set to "Running".
-        Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+           Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 
         If the Pod has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
@@ -27927,7 +27927,7 @@ class Secret(dict):
     Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
 
     Note: While Pulumi automatically encrypts the 'data' and 'stringData'
-    fields, this encryption only applies to Pulumi's context, including the state file, 
+    fields, this encryption only applies to Pulumi's context, including the state file,
     the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
     and the contents are visible to users with access to the Secret in Kubernetes using
     tools like 'kubectl'.
@@ -27967,7 +27967,7 @@ class Secret(dict):
         Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
 
         Note: While Pulumi automatically encrypts the 'data' and 'stringData'
-        fields, this encryption only applies to Pulumi's context, including the state file, 
+        fields, this encryption only applies to Pulumi's context, including the state file,
         the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
         and the contents are visible to users with access to the Secret in Kubernetes using
         tools like 'kubectl'.

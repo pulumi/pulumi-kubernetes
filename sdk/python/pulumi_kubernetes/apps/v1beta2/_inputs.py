@@ -2681,7 +2681,7 @@ class StatefulSetArgsDict(TypedDict):
     StatefulSet represents a set of pods with consistent identities. Identities are defined as:
      - Network: A single stable DNS and hostname.
      - Storage: As many VolumeClaims as requested.
-    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+       The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 
     This resource waits until its status is ready before registering success
     for create/update, and populating output properties from the current state of the resource.
@@ -2726,7 +2726,7 @@ class StatefulSetArgs:
         StatefulSet represents a set of pods with consistent identities. Identities are defined as:
          - Network: A single stable DNS and hostname.
          - Storage: As many VolumeClaims as requested.
-        The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+           The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 
         This resource waits until its status is ready before registering success
         for create/update, and populating output properties from the current state of the resource.

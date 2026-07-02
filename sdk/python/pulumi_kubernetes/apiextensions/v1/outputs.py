@@ -1946,7 +1946,7 @@ class JSONSchemaProps(dict):
                     These lists are like maps in that their elements have a non-index key
                     used to identify them. Order is preserved upon merge. The map tag
                     must only be used on a list with elements of type object.
-               Defaults to atomic for arrays.
+                  Defaults to atomic for arrays.
         :param _builtins.str x_kubernetes_map_type: x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
                
                1) `granular`:
@@ -2294,7 +2294,7 @@ class JSONSchemaProps(dict):
              These lists are like maps in that their elements have a non-index key
              used to identify them. Order is preserved upon merge. The map tag
              must only be used on a list with elements of type object.
-        Defaults to atomic for arrays.
+           Defaults to atomic for arrays.
         """
         return pulumi.get(self, "x_kubernetes_list_type")
 
@@ -2471,7 +2471,7 @@ class JSONSchemaPropsPatch(dict):
                     These lists are like maps in that their elements have a non-index key
                     used to identify them. Order is preserved upon merge. The map tag
                     must only be used on a list with elements of type object.
-               Defaults to atomic for arrays.
+                  Defaults to atomic for arrays.
         :param _builtins.str x_kubernetes_map_type: x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
                
                1) `granular`:
@@ -2819,7 +2819,7 @@ class JSONSchemaPropsPatch(dict):
              These lists are like maps in that their elements have a non-index key
              used to identify them. Order is preserved upon merge. The map tag
              must only be used on a list with elements of type object.
-        Defaults to atomic for arrays.
+           Defaults to atomic for arrays.
         """
         return pulumi.get(self, "x_kubernetes_list_type")
 

@@ -105,7 +105,6 @@ class RoleList(pulumi.CustomResource):
         """
         RoleList is a collection of Roles Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -121,7 +120,6 @@ class RoleList(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         RoleList is a collection of Roles Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
-
 
         :param str resource_name: The name of the resource.
         :param RoleListArgs args: The arguments to use to populate this resource's properties.
