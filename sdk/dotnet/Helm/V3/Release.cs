@@ -430,6 +430,12 @@ namespace Pulumi.Kubernetes.Helm.V3
         public Output<Pulumi.Kubernetes.Types.Outputs.Helm.V3.ReleaseStatus> Status { get; private set; } = null!;
 
         /// <summary>
+        /// If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+        /// </summary>
+        [Output("takeOwnership")]
+        public Output<bool> TakeOwnership { get; private set; } = null!;
+
+        /// <summary>
         /// Time in seconds to wait for any individual kubernetes operation.
         /// </summary>
         [Output("timeout")]
@@ -706,6 +712,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         /// </summary>
         [Input("skipCrds")]
         public Input<bool>? SkipCrds { get; set; }
+
+        /// <summary>
+        /// If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+        /// </summary>
+        [Input("takeOwnership")]
+        public Input<bool>? TakeOwnership { get; set; }
 
         /// <summary>
         /// Time in seconds to wait for any individual kubernetes operation.

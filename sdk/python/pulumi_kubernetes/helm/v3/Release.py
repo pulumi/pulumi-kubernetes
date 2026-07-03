@@ -50,6 +50,7 @@ class ReleaseArgs:
                  reuse_values: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_crds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 take_ownership: pulumi.Input[Optional[_builtins.bool]] = None,
                  timeout: pulumi.Input[Optional[_builtins.int]] = None,
                  value_yaml_files: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
                  values: pulumi.Input[Optional[Mapping[str, Any]]] = None,
@@ -87,6 +88,7 @@ class ReleaseArgs:
         :param pulumi.Input[_builtins.bool] reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         :param pulumi.Input[_builtins.bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[_builtins.bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
+        :param pulumi.Input[_builtins.bool] take_ownership: If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
         :param pulumi.Input[_builtins.int] timeout: Time in seconds to wait for any individual kubernetes operation.
         :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
@@ -151,6 +153,8 @@ class ReleaseArgs:
             pulumi.set(__self__, "skip_await", skip_await)
         if skip_crds is not None:
             pulumi.set(__self__, "skip_crds", skip_crds)
+        if take_ownership is not None:
+            pulumi.set(__self__, "take_ownership", take_ownership)
         if timeout is not None:
             pulumi.set(__self__, "timeout", timeout)
         if value_yaml_files is not None:
@@ -510,6 +514,18 @@ class ReleaseArgs:
         pulumi.set(self, "skip_crds", value)
 
     @_builtins.property
+    @pulumi.getter(name="takeOwnership")
+    def take_ownership(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+        """
+        return pulumi.get(self, "take_ownership")
+
+    @take_ownership.setter
+    def take_ownership(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "take_ownership", value)
+
+    @_builtins.property
     @pulumi.getter
     def timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
@@ -617,6 +633,7 @@ class Release(pulumi.CustomResource):
                  reuse_values: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_crds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 take_ownership: pulumi.Input[Optional[_builtins.bool]] = None,
                  timeout: pulumi.Input[Optional[_builtins.int]] = None,
                  value_yaml_files: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
                  values: pulumi.Input[Optional[Mapping[str, Any]]] = None,
@@ -820,6 +837,7 @@ class Release(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         :param pulumi.Input[_builtins.bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[_builtins.bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
+        :param pulumi.Input[_builtins.bool] take_ownership: If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
         :param pulumi.Input[_builtins.int] timeout: Time in seconds to wait for any individual kubernetes operation.
         :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
@@ -1043,6 +1061,7 @@ class Release(pulumi.CustomResource):
                  reuse_values: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_crds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 take_ownership: pulumi.Input[Optional[_builtins.bool]] = None,
                  timeout: pulumi.Input[Optional[_builtins.int]] = None,
                  value_yaml_files: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
                  values: pulumi.Input[Optional[Mapping[str, Any]]] = None,
@@ -1089,6 +1108,7 @@ class Release(pulumi.CustomResource):
             __props__.__dict__["reuse_values"] = reuse_values
             __props__.__dict__["skip_await"] = skip_await
             __props__.__dict__["skip_crds"] = skip_crds
+            __props__.__dict__["take_ownership"] = take_ownership
             __props__.__dict__["timeout"] = timeout
             __props__.__dict__["value_yaml_files"] = value_yaml_files
             __props__.__dict__["values"] = values
@@ -1147,6 +1167,7 @@ class Release(pulumi.CustomResource):
         __props__.__dict__["skip_await"] = None
         __props__.__dict__["skip_crds"] = None
         __props__.__dict__["status"] = None
+        __props__.__dict__["take_ownership"] = None
         __props__.__dict__["timeout"] = None
         __props__.__dict__["value_yaml_files"] = None
         __props__.__dict__["values"] = None
@@ -1386,6 +1407,14 @@ class Release(pulumi.CustomResource):
         Status of the deployed release.
         """
         return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter(name="takeOwnership")
+    def take_ownership(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+        """
+        return pulumi.get(self, "take_ownership")
 
     @_builtins.property
     @pulumi.getter

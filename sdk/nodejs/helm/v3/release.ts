@@ -304,6 +304,10 @@ export class Release extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly status: pulumi.Output<outputs.helm.v3.ReleaseStatus>;
     /**
+     * If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+     */
+    declare public readonly takeOwnership: pulumi.Output<boolean>;
+    /**
      * Time in seconds to wait for any individual kubernetes operation.
      */
     declare public readonly timeout: pulumi.Output<number>;
@@ -371,6 +375,7 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["reuseValues"] = args?.reuseValues;
             resourceInputs["skipAwait"] = args?.skipAwait;
             resourceInputs["skipCrds"] = args?.skipCrds;
+            resourceInputs["takeOwnership"] = args?.takeOwnership;
             resourceInputs["timeout"] = args?.timeout;
             resourceInputs["valueYamlFiles"] = args?.valueYamlFiles;
             resourceInputs["values"] = args?.values;
@@ -408,6 +413,7 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["skipAwait"] = undefined /*out*/;
             resourceInputs["skipCrds"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
+            resourceInputs["takeOwnership"] = undefined /*out*/;
             resourceInputs["timeout"] = undefined /*out*/;
             resourceInputs["valueYamlFiles"] = undefined /*out*/;
             resourceInputs["values"] = undefined /*out*/;
@@ -537,6 +543,10 @@ export interface ReleaseArgs {
      * If set, no CRDs will be installed. By default, CRDs are installed if not already present.
      */
     skipCrds?: pulumi.Input<boolean | undefined>;
+    /**
+     * If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+     */
+    takeOwnership?: pulumi.Input<boolean | undefined>;
     /**
      * Time in seconds to wait for any individual kubernetes operation.
      */

@@ -181,6 +181,16 @@ images: ["bitnami/nginx"]
 				},
 			},
 		},
+		{
+			name: "takeOwnership is decoded",
+			given: resource.PropertyMap{
+				"takeOwnership": resource.NewBoolProperty(true),
+			},
+			want: &Release{
+				TakeOwnership: true,
+				Values:        map[string]any{},
+			},
+		},
 	}
 
 	for _, tt := range tests {

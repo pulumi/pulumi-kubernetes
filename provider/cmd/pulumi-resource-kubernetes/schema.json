@@ -109539,6 +109539,10 @@
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseStatus",
                     "description": "Status of the deployed release."
                 },
+                "takeOwnership": {
+                    "type": "boolean",
+                    "description": "If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag."
+                },
                 "timeout": {
                     "type": "integer",
                     "description": "Time in seconds to wait for any individual kubernetes operation."
@@ -109599,6 +109603,7 @@
                         "maxHistory",
                         "atomic",
                         "skipCrds",
+                        "takeOwnership",
                         "renderSubchartNotes",
                         "disableOpenapiValidation",
                         "skipAwait",
@@ -109738,6 +109743,10 @@
                 "skipCrds": {
                     "type": "boolean",
                     "description": "If set, no CRDs will be installed. By default, CRDs are installed if not already present."
+                },
+                "takeOwnership": {
+                    "type": "boolean",
+                    "description": "If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag."
                 },
                 "timeout": {
                     "type": "integer",

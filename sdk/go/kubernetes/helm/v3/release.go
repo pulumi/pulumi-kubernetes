@@ -357,6 +357,8 @@ type Release struct {
 	SkipCrds pulumi.BoolPtrOutput `pulumi:"skipCrds"`
 	// Status of the deployed release.
 	Status ReleaseStatusOutput `pulumi:"status"`
+	// If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+	TakeOwnership pulumi.BoolPtrOutput `pulumi:"takeOwnership"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout pulumi.IntPtrOutput `pulumi:"timeout"`
 	// List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
@@ -472,6 +474,8 @@ type releaseArgs struct {
 	SkipAwait *bool `pulumi:"skipAwait"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds *bool `pulumi:"skipCrds"`
+	// If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+	TakeOwnership *bool `pulumi:"takeOwnership"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout *int `pulumi:"timeout"`
 	// List of assets (raw yaml files). Content is read and merged with values.
@@ -545,6 +549,8 @@ type ReleaseArgs struct {
 	SkipAwait pulumi.BoolPtrInput
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds pulumi.BoolPtrInput
+	// If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+	TakeOwnership pulumi.BoolPtrInput
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout pulumi.IntPtrInput
 	// List of assets (raw yaml files). Content is read and merged with values.
@@ -789,6 +795,11 @@ func (o ReleaseOutput) SkipCrds() pulumi.BoolPtrOutput {
 // Status of the deployed release.
 func (o ReleaseOutput) Status() ReleaseStatusOutput {
 	return o.ApplyT(func(v *Release) ReleaseStatusOutput { return v.Status }).(ReleaseStatusOutput)
+}
+
+// If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+func (o ReleaseOutput) TakeOwnership() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Release) pulumi.BoolPtrOutput { return v.TakeOwnership }).(pulumi.BoolPtrOutput)
 }
 
 // Time in seconds to wait for any individual kubernetes operation.
