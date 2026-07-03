@@ -243,6 +243,30 @@ namespace Pulumi.Kubernetes.Helm.V3
     ///     public Output&lt;string&gt; RedisMasterClusterIP { get; set; }
     /// }
     /// ```
+    /// ### Take Ownership of Existing Resources
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+    /// using Pulumi.Kubernetes.Helm.V3;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Release("nginx-ingress", new ReleaseArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             RepositoryOpts = new RepositoryOptsArgs
+    ///             {
+    ///                 Repo = "https://charts.helm.sh/stable"
+    ///             },
+    ///             TakeOwnership = true,
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
     /// 
     /// ## Import
     /// 

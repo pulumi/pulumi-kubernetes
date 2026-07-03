@@ -151,6 +151,20 @@ import * as utilities from "../../utilities";
  * const srv = k8s.core.v1.Service.get("redis-master-svc", pulumi.interpolate`${redis.status.namespace}/${redis.status.name}-master`);
  * export const redisMasterClusterIP = srv.spec.clusterIP;
  * ```
+ * ### Take Ownership of Existing Resources
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Release("nginx-ingress", {
+ *     chart: "nginx-ingress",
+ *     version: "1.24.4",
+ *     repositoryOpts: {
+ *         repo: "https://charts.helm.sh/stable",
+ *     },
+ *     takeOwnership: true,
+ * });
+ * ```
  *
  * ## Import
  *

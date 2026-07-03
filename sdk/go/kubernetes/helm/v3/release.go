@@ -288,6 +288,36 @@ import (
 //	}
 //
 // ```
+// ### Take Ownership of Existing Resources
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := helm.NewRelease(ctx, "nginx-ingress", &helm.ReleaseArgs{
+//				Chart:   pulumi.String("nginx-ingress"),
+//				Version: pulumi.String("1.24.4"),
+//				RepositoryOpts: helm.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.helm.sh/stable"),
+//				},
+//				TakeOwnership: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//
+//			return nil
+//		})
+//	}
+//
+// ```
 //
 // ## Import
 //

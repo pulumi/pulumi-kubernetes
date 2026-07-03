@@ -797,6 +797,22 @@ class Release(pulumi.CustomResource):
         srv = Service.get("redis-master-svc", Output.concat(redis.status.namespace, "/", redis.status.name, "-master"))
         pulumi.export("redisMasterClusterIP", srv.spec.cluster_ip)
         ```
+        ### Take Ownership of Existing Resources
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+                take_ownership=True,
+            ),
+        )
+        ```
 
         ## Import
 
@@ -1006,6 +1022,22 @@ class Release(pulumi.CustomResource):
         # srv will only resolve after the redis chart is installed.
         srv = Service.get("redis-master-svc", Output.concat(redis.status.namespace, "/", redis.status.name, "-master"))
         pulumi.export("redisMasterClusterIP", srv.spec.cluster_ip)
+        ```
+        ### Take Ownership of Existing Resources
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+                take_ownership=True,
+            ),
+        )
         ```
 
         ## Import
