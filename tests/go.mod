@@ -23,7 +23,7 @@ require (
 	helm.sh/helm/v3 v3.20.2
 	k8s.io/apimachinery v0.36.2
 	k8s.io/client-go v0.36.2
-	oras.land/oras-go/v2 v2.6.0
+	oras.land/oras-go/v2 v2.6.1
 )
 
 require (
