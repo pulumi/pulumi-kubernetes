@@ -452,6 +452,21 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+     * 
+     */
+    @Import(name="takeOwnership")
+    private @Nullable Output<Boolean> takeOwnership;
+
+    /**
+     * @return If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+     * 
+     */
+    public Optional<Output<Boolean>> takeOwnership() {
+        return Optional.ofNullable(this.takeOwnership);
+    }
+
+    /**
      * Time in seconds to wait for any individual kubernetes operation.
      * 
      */
@@ -573,6 +588,7 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
         this.reuseValues = $.reuseValues;
         this.skipAwait = $.skipAwait;
         this.skipCrds = $.skipCrds;
+        this.takeOwnership = $.takeOwnership;
         this.timeout = $.timeout;
         this.valueYamlFiles = $.valueYamlFiles;
         this.values = $.values;
@@ -1194,6 +1210,27 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder skipCrds(Boolean skipCrds) {
             return skipCrds(Output.of(skipCrds));
+        }
+
+        /**
+         * @param takeOwnership If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder takeOwnership(@Nullable Output<Boolean> takeOwnership) {
+            $.takeOwnership = takeOwnership;
+            return this;
+        }
+
+        /**
+         * @param takeOwnership If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder takeOwnership(Boolean takeOwnership) {
+            return takeOwnership(Output.of(takeOwnership));
         }
 
         /**

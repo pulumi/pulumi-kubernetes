@@ -122,6 +122,9 @@ type Release struct {
 	Values map[string]any `json:"values,omitempty"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
 	SkipCrds bool `json:"skipCrds,omitempty"`
+	// If set, install/upgrade will skip the check for existing resource conflicts and take ownership
+	// of the matching resources, adopting any that are not already managed by this release.
+	TakeOwnership bool `json:"takeOwnership,omitempty"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout int `json:"timeout,omitempty"`
 	// Verify the package before installing it.
@@ -617,6 +620,7 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	client.OutputDir = ""
 	client.Atomic = newRelease.Atomic
 	client.SkipCRDs = newRelease.SkipCrds
+	client.TakeOwnership = newRelease.TakeOwnership
 	client.SubNotes = newRelease.RenderSubchartNotes
 	client.DisableOpenAPIValidation = newRelease.DisableOpenapiValidation
 	client.Replace = newRelease.Replace
@@ -737,6 +741,7 @@ func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error 
 	client.SubNotes = newRelease.RenderSubchartNotes
 	client.WaitForJobs = !newRelease.SkipAwait && newRelease.WaitForJobs
 	client.Force = newRelease.ForceUpdate
+	client.TakeOwnership = newRelease.TakeOwnership
 	client.ResetValues = newRelease.ResetValues
 	client.ReuseValues = newRelease.ReuseValues
 	client.Recreate = newRelease.RecreatePods

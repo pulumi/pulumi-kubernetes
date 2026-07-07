@@ -855,6 +855,14 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				},
 				Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
 			},
+			"takeOwnership": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "boolean",
+				},
+				Description: "If set, install/upgrade will skip the check for existing resource conflicts and " +
+					"take ownership of the matching resources, adopting any that are not already managed by " +
+					"this release. This mirrors the Helm `--take-ownership` flag.",
+			},
 			"renderSubchartNotes": {
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
@@ -960,6 +968,7 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 					"maxHistory",
 					"atomic",
 					"skipCrds",
+					"takeOwnership",
 					"renderSubchartNotes",
 					"disableOpenapiValidation",
 					"skipAwait",
@@ -1133,6 +1142,14 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				Type: "boolean",
 			},
 			Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
+		},
+		"takeOwnership": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "If set, install/upgrade will skip the check for existing resource conflicts and " +
+				"take ownership of the matching resources, adopting any that are not already managed by " +
+				"this release. This mirrors the Helm `--take-ownership` flag.",
 		},
 		"renderSubchartNotes": {
 			TypeSpec: pschema.TypeSpec{
