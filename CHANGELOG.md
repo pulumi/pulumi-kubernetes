@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 4.33.0 (July 7, 2026)
+
 ### Added
 
 - [#3595](https://github.com/pulumi/pulumi-kubernetes/issues/3595) Add `takeOwnership` to `kubernetes.helm.sh/v3:Release`. When set, Helm skips the resource-conflict check and adopts existing resources into the release (equivalent to `helm upgrade`/`helm install --take-ownership`).
