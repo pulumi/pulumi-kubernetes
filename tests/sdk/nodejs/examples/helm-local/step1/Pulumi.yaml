@@ -1,3 +1,0 @@
-name: helm-chart-local
-runtime: nodejs
-description: Deploys a simple Helm chart to Kubernetes, from local disk.

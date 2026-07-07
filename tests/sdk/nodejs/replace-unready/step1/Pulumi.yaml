@@ -1,3 +1,0 @@
-name: replace-unready
-description: A program that tests the replaceUnready annotation.
-runtime: nodejs

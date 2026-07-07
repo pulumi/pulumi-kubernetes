@@ -1,5 +1,0 @@
-commonLabels:
-  app: hello
-
-resources:
-- manifest.yaml

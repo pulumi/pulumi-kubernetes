@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: helm-allow-crd-rendering-test
-  namespace: {{ .Release.Namespace }}
-spec:
-  containers:
-  - name: helm-allow-crd-rendering-test
-    image: nginx

@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: adopt-me
-  namespace: {{ .Release.Namespace }}
-data:
-  key: from-helm

@@ -1,5 +1,0 @@
-name: options-test
-runtime: dotnet
-description: Test options propagation with component resources.
-config:
-  pulumi:disable-default-providers: [kubernetes]
