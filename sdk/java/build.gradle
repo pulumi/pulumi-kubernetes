@@ -97,7 +97,7 @@ publishing {
                 inceptionYear = "2022"
                 name = "pulumi-kubernetes"
                 packaging = "jar"
-                description = "A Pulumi package for creating and managing Kubernetes resources."
+                description = $/A Pulumi package for creating and managing Kubernetes resources./$
 
                 url = "https://github.com/pulumi/pulumi-kubernetes"
 
