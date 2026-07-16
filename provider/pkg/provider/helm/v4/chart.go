@@ -17,6 +17,7 @@ package v4
 import (
 	"context"
 	"fmt"
+	"slices"
 	"strings"
 
 	"helm.sh/helm/v3/pkg/action"
@@ -345,12 +346,7 @@ func preregister(ctx *pulumi.Context, comp *ChartState, obj *unstructured.Unstru
 
 // isTestHook reports whether the given Helm hook fires on the test event.
 func isTestHook(h *release.Hook) bool {
-	for _, e := range h.Events {
-		if e == release.HookTest {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(h.Events, release.HookTest)
 }
 
 // manifestWithHooks returns the release manifest with hook resources appended,
