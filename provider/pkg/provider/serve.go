@@ -18,8 +18,8 @@ import (
 	// Load auth plugins. Removing this will likely cause compilation error.
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
 
-	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
 	lumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
