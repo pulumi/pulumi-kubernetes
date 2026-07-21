@@ -14,11 +14,12 @@ jobs:
       with:
         lfs: true
     - name: Comment PR
-      uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
+      uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
       with:
-        message: >
+        token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body: >
           PR is now waiting for a maintainer to run the acceptance tests.
 
           **Note for the maintainer:** To run the acceptance tests, please comment */run-acceptance-tests* on the PR
-        github-token: ${{ secrets.GITHUB_TOKEN }}
     if: github.event.pull_request.head.repo.full_name != github.repository
