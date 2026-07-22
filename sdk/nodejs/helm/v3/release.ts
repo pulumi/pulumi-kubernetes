@@ -75,7 +75,7 @@ import * as utilities from "../../utilities";
  * });
  * ```
  *
- * ### Depend on a Chart resource
+ * ### Depend on a Release resource
  *
  * ```typescript
  * import * as k8s from "@pulumi/kubernetes";
@@ -90,11 +90,11 @@ import * as utilities from "../../utilities";
  *     skipAwait: false,
  * });
  *
- * // Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+ * // Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
  * // resources are ready. Notice skipAwait is set to false above. This is the default and will cause Helm
  * // to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
  * new k8s.core.v1.ConfigMap("foo", {
- *     metadata: {namespace: namespaceName},
+ *     metadata: {namespace: "test-namespace"},
  *     data: {foo: "bar"}
  * }, {dependsOn: nginxIngress})
  * ```
