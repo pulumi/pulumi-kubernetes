@@ -143,7 +143,7 @@ import (
 //
 // ```
 //
-// ### Depend on a Chart resource
+// ### Depend on a Release resource
 // ```go
 // package main
 //
@@ -170,7 +170,7 @@ import (
 //				return err
 //			}
 //
-//			// Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+//			// Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
 //			// resources are ready. Notice SkipAwait is set to false above. This is the default and will cause Helm
 //			// to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
 //			_, err = corev1.NewConfigMap(ctx, "cm", &corev1.ConfigMapArgs{
