@@ -717,7 +717,7 @@ class Release(pulumi.CustomResource):
         )
         ```
 
-        ### Depend on a Chart resource
+        ### Depend on a Release resource
         ```python
         import pulumi
         from pulumi_kubernetes.core.v1 import ConfigMap, ConfigMapInitArgs
@@ -736,7 +736,7 @@ class Release(pulumi.CustomResource):
             ),
         )
 
-        # Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+        # Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
         # resources are ready. Notice skip_await is set to false above. This is the default and will cause Helm
         # to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
         ConfigMap("foo", ConfigMapInitArgs(data={"foo": "bar"}), opts=pulumi.ResourceOptions(depends_on=nginx_ingress))
@@ -943,7 +943,7 @@ class Release(pulumi.CustomResource):
         )
         ```
 
-        ### Depend on a Chart resource
+        ### Depend on a Release resource
         ```python
         import pulumi
         from pulumi_kubernetes.core.v1 import ConfigMap, ConfigMapInitArgs
@@ -962,7 +962,7 @@ class Release(pulumi.CustomResource):
             ),
         )
 
-        # Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+        # Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
         # resources are ready. Notice skip_await is set to false above. This is the default and will cause Helm
         # to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
         ConfigMap("foo", ConfigMapInitArgs(data={"foo": "bar"}), opts=pulumi.ResourceOptions(depends_on=nginx_ingress))
