@@ -61,7 +61,6 @@ type schemaGenerator struct {
 	// to depend on.
 	pulumiKubernetesDependency string
 
-	// extensionName roots the Go importBasePath when non-empty.
 	extensionName string
 }
 
@@ -137,7 +136,6 @@ func (o *withExtensionNameOption) apply(sg *schemaGenerator) {
 	sg.extensionName = o.extensionName
 }
 
-// WithExtensionName roots the Go importBasePath at <name>/kubernetes.
 func WithExtensionName(name string) schemaGeneratorOption {
 	return &withExtensionNameOption{extensionName: name}
 }
@@ -385,29 +383,26 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 		Language:  map[string]pschema.RawMessage{},
 	}
 
-	// Kubernetes only does CRD extension parameterization.
 	pkg.ExtensionParameterization = gen.parameterization
 
 	// An extension package's tokens live in the base provider's namespace, so it
-	// must not declare a provider of its own — the binder rejects a schema that has
-	// both an extensionParameterization and a provider block. Kubernetes remains the
-	// serving plugin via ExtensionParameterization.BaseProvider, not this block.
+	// must not declare a provider of its own.
 	if gen.parameterization != nil {
 		pkg.Provider = nil
 	}
 
 	// In extension mode the base provider's shared types (meta/v1 ObjectMeta, ...)
 	// are not emitted into the extension schema; they're referenced externally so
-	// codegen imports them from the base provider's SDK. extension carries the
-	// base coordinates for those external references and the base dependency.
-	var extension *extensionContext
+	// codegen imports them from the base provider's SDK. extension carries the base
+	// provider version for those external references (nil outside extension mode).
+	var extension *extensionInfo
 	if gen.extensionName != "" && gen.parameterization != nil {
 		base := gen.parameterization.BaseProvider
-		extension = &extensionContext{
-			baseName:    base.Name,
+		extension = &extensionInfo{
 			baseVersion: "v" + strings.TrimPrefix(base.Version, "v"),
 		}
-		if v, err := semver.ParseTolerant(base.Version); err == nil {
+		if v, err := semver.Parse(base.Version); err == nil {
+			v.Build = nil
 			pkg.Dependencies = []pschema.PackageDescriptor{{Name: base.Name, Version: &v}}
 		}
 	}
@@ -456,9 +451,8 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 		if group.Group() == "apiserverinternal" {
 			continue
 		}
-		// In extension mode, the base-provider meta group is referenced
-		// externally, not generated into the extension SDK.
-		if extension != nil && group.Group() == baseProviderGroup {
+
+		if extension != nil && group.Group() == apiMachineryGroup {
 			continue
 		}
 		for _, version := range group.Versions() {

@@ -338,23 +338,17 @@ const (
 	v1CRSubresourceStatus               = apiextensionsV1 + ".CustomResourceSubresourceStatus"
 )
 
-// extensionContext carries the base-provider coordinates an extension schema
-// needs to emit external references to base-provider types it does not own. It
-// is nil when generating the base provider's own schema.
-type extensionContext struct {
-	// baseName is the base provider package name, e.g. "kubernetes".
-	baseName string
-	// baseVersion is the base provider version with a leading "v", e.g.
-	// "v4.0.0-alpha.0+dev", as required by an external schema reference path.
+// extensionInfo marks extension mode and carries the base-provider version its
+// external references need. It is nil when generating the base provider's own schema.
+type extensionInfo struct {
+	// baseVersion is the base provider version with a leading "v".
 	baseVersion string
 }
 
-// baseProviderGroup is the one canonical API group a CRD extension inherits from
-// the base provider instead of owning: the apimachinery meta group (ObjectMeta,
-// ListMeta, and their closure).
-const baseProviderGroup = "meta"
+// apiMachineryGroup is the canonical group that an extension inherits from the base provider.
+const apiMachineryGroup = "meta"
 
-func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string, extension *extensionContext) pschema.TypeSpec {
+func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string, extension *extensionInfo) pschema.TypeSpec {
 	if t, exists := prop["type"]; exists {
 		switch t := t.(string); t {
 		case "array": //nolint:goconst // OpenAPI type keyword, not a free-form string constant
@@ -464,10 +458,10 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string, 
 		// An extension doesn't own its base provider's types (e.g. meta/v1
 		// ObjectMeta); emit an external reference so codegen imports them from
 		// the base provider's SDK rather than generating a duplicate copy.
-		if extension != nil && canonicalGroup == baseProviderGroup {
+		if extension != nil && canonicalGroup == apiMachineryGroup {
 			return pschema.TypeSpec{Ref: fmt.Sprintf(
-				"/%s/%s/schema.json#/types/kubernetes:%s%%2F%s:%s",
-				extension.baseName, extension.baseVersion, canonicalGroup, gvk.Version, gvk.Kind)}
+				"/kubernetes/%s/schema.json#/types/kubernetes:%s%%2F%s:%s",
+				extension.baseVersion, canonicalGroup, gvk.Version, gvk.Kind)}
 		}
 		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s",
 			canonicalGroup, gvk.Version, gvk.Kind)}
@@ -475,7 +469,7 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string, 
 	panic("Canonical group not set for ref: " + ref)
 }
 
-func makeSchemaType(prop map[string]any, canonicalGroups map[string]string, extension *extensionContext) string {
+func makeSchemaType(prop map[string]any, canonicalGroups map[string]string, extension *extensionInfo) string {
 	spec := makeSchemaTypeSpec(prop, canonicalGroups, extension)
 	b, err := json.Marshal(spec)
 	contract.AssertNoErrorf(err, "unexpected error while marshaling JSON")
@@ -488,7 +482,7 @@ func makeSchemaType(prop map[string]any, canonicalGroups map[string]string, exte
 
 // --------------------------------------------------------------------------
 
-func createGroups(definitionsJSON map[string]any, allowHyphens bool, extension *extensionContext) []GroupConfig {
+func createGroups(definitionsJSON map[string]any, allowHyphens bool, extension *extensionInfo) []GroupConfig {
 	canonicalGroups := createCanonicalGroups(definitionsJSON)
 	definitions := createDefinitions(definitionsJSON, canonicalGroups)
 	aliases := createAliases(definitions, canonicalGroups)
@@ -599,7 +593,7 @@ func createKinds(
 	canonicalGroups map[string]string,
 	aliases map[string][]any,
 	allowHyphens bool,
-	extension *extensionContext,
+	extension *extensionInfo,
 ) []KindConfig {
 	var kinds []KindConfig
 

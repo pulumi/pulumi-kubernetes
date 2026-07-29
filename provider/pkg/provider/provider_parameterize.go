@@ -93,15 +93,13 @@ type ParameterizedArgs struct {
 
 // String returns a string representation of the ParameterizedArgs. This is used for logging purposes.
 func (p ParameterizedArgs) String() string {
-	return fmt.Sprintf("name: %s, version: %s, crd-manifests: %v",
+	return fmt.Sprintf("name: %s, version: %s, crd-manifest: %v",
 		p.ExtensionName, p.ExtensionVersion, strings.Join(p.CRDManifestPaths, ", "))
 }
 
 // parseCrdArgs parses the user-provided parameterization arguments. Each argument
-// is a key=value pair, e.g. "name=foo version=1.0 crd-manifests=crds.yaml". The
-// crd-manifests key may be repeated to supply multiple manifests. This key=value
-// form (rather than CLI-style -n/-v/-c flags) keeps the args that get persisted to
-// Pulumi.yaml free of flag syntax.
+// is a key=value pair, e.g. "name=foo version=1.0 crd-manifest=crds.yaml". The
+// crd-manifest key may be repeated to supply multiple manifests.
 func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	var extensionName string
 	var extensionVersion string
@@ -117,10 +115,10 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 			extensionName = value
 		case "version":
 			extensionVersion = value
-		case "crd-manifests":
+		case "crd-manifest":
 			yamlPaths = append(yamlPaths, value)
 		default:
-			return nil, fmt.Errorf("unknown parameterization argument %q: expected name, version, or crd-manifests", key)
+			return nil, fmt.Errorf("unknown parameterization argument %q: expected name, version, or crd-manifest", key)
 		}
 	}
 
@@ -129,7 +127,7 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	}
 
 	if len(yamlPaths) == 0 {
-		return nil, errors.New("no CRD manifests given (crd-manifests=<path>)")
+		return nil, errors.New("no CRD manifests given (crd-manifest=<path>)")
 	}
 
 	return &ParameterizedArgs{
@@ -354,7 +352,7 @@ func mergeSpecs(specs []*spec.Swagger) (*spec.Swagger, error) {
 // generateSchema generates the Pulumi schema with parameterization for the given OpenAPI spec.
 func generateSchema(
 	swagger *spec.Swagger,
-	extensionName, packageVersion, baseProvName, baseProvVersion string,
+	extensionName, extensionVersion, baseProvName, baseProvVersion string,
 ) *pulumischema.PackageSpec {
 	// TODO(rquitales): We need to handle field name normalization here so that
 	// we can generate typed SDKs that contain valid field names, for example,
@@ -381,7 +379,7 @@ func generateSchema(
 		gen.WithExtensionName(extensionName),
 	)
 
-	pSchema.Version = packageVersion
+	pSchema.Version = extensionVersion
 
 	return &pSchema
 }

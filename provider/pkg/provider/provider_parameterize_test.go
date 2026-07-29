@@ -23,7 +23,7 @@ import (
 )
 
 func TestParseCrdArgsWithName(t *testing.T) {
-	args, err := parseCrdArgs([]string{"name=gateway-api", "version=1.2.1", "crd-manifests=crds.yaml"})
+	args, err := parseCrdArgs([]string{"name=gateway-api", "version=1.2.1", "crd-manifest=crds.yaml"})
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -36,7 +36,7 @@ func TestParseCrdArgsWithName(t *testing.T) {
 }
 
 func TestParseCrdArgsWithoutName(t *testing.T) {
-	args, err := parseCrdArgs([]string{"version=1.0.0", "crd-manifests=crds.yaml"})
+	args, err := parseCrdArgs([]string{"version=1.0.0", "crd-manifest=crds.yaml"})
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
