@@ -1,0 +1,25 @@
+name: extension-gateway-api
+runtime: yaml
+description: |
+  Resolve and create a GatewayClass through an extension-parameterized
+  kubernetes provider (gateway-networking). The gateway-networking package is
+  added from the local provider by the test's setup step.
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+    properties:
+      metadata:
+        name: gateway-system
+
+  test-gateway-class:
+    type: kubernetes:gateway.networking.k8s.io/v1:GatewayClass
+    properties:
+      metadata:
+        name: example-class
+      spec:
+        controllerName: example.com/gateway-controller
+
+outputs:
+  gatewayClassName: ${test-gateway-class.metadata.name}
+  namespaceName: ${ns.metadata.name}
