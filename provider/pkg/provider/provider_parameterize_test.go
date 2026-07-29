@@ -45,6 +45,16 @@ func TestParseCrdArgsWithoutName(t *testing.T) {
 	}
 }
 
+func TestParseCrdArgsDefaultsVersionWhenOmitted(t *testing.T) {
+	args, err := parseCrdArgs([]string{"name=gateway-api", "crd-manifest=crds.yaml"})
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if args.ExtensionVersion != defaultExtensionVersion {
+		t.Errorf("expected default version %q, got %q", defaultExtensionVersion, args.ExtensionVersion)
+	}
+}
+
 func TestDeriveExtensionName(t *testing.T) {
 	tests := []struct {
 		name     string

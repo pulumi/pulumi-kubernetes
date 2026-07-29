@@ -44,6 +44,10 @@ import (
 // and the manifest path's base name cannot be used.
 const defaultExtensionName = "crds"
 
+// defaultExtensionVersion is used when version=<v> is omitted. A CRD bundle has no
+// inherent version, so the value only needs to be stable.
+const defaultExtensionVersion = "1.0.0"
+
 // definitionPrefix is the JSON Schema reference prefix used in OpenAPI specs to
 // point at shared type definitions in the same document (e.g.
 // "#/definitions/Foo" resolves to definitions.Foo). Used when flattenOpenAPI
@@ -99,7 +103,8 @@ func (p ParameterizedArgs) String() string {
 
 // parseCrdArgs parses the user-provided parameterization arguments. Each argument
 // is a key=value pair, e.g. "name=foo version=1.0 crd-manifest=crds.yaml". The
-// crd-manifest key may be repeated to supply multiple manifests.
+// crd-manifest key may be repeated to supply multiple manifests. version is
+// optional and defaults to defaultExtensionVersion.
 func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	var extensionName string
 	var extensionVersion string
@@ -123,7 +128,7 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	}
 
 	if extensionVersion == "" {
-		return nil, errors.New("extension version must be provided (version=<version>)")
+		extensionVersion = defaultExtensionVersion
 	}
 
 	if len(yamlPaths) == 0 {
