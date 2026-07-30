@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Added
+
+- Support adding CustomResourceDefinitions as an extension of the base `kubernetes` provider via `pulumi package add <provider> --extension`.
+
 ## 4.32.0 (June 5, 2026)
 
 ### Fixed
