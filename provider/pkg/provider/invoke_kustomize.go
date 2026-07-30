@@ -26,7 +26,7 @@ import (
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/workspace"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/gitutil"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 )
@@ -47,7 +47,7 @@ func kustomizeDirectory(ctx context.Context, directory string, clientSet *client
 		}
 		defer contract.IgnoreError(os.RemoveAll(temp))
 
-		path, err = workspace.RetrieveGitFolder(ctx, directory, temp)
+		path, err = gitutil.RetrieveGitFolder(ctx, directory, temp)
 		if err != nil {
 			return nil, fmt.Errorf("failed to retrieve specified kustomize directory: %q: %w", directory, err)
 		}

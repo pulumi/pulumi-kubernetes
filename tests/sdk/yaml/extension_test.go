@@ -14,7 +14,7 @@ import (
 )
 
 func TestExtensionGatewayAPI(t *testing.T) {
-	_ := pulumitest.NewPulumiTest(t, "testdata/extension-gateway-api", opttest.SkipInstall())
+	test := pulumitest.NewPulumiTest(t, "testdata/extension-gateway-api", opttest.SkipInstall())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})
@@ -22,7 +22,8 @@ func TestExtensionGatewayAPI(t *testing.T) {
 	providerBin := filepath.Join(repoRoot(t), "bin", "pulumi-resource-kubernetes")
 
 	// Declare the base kubernetes package explicitly so base-namespace types
-	// (core/v1:Namespace) resolve. A
+	// (core/v1:Namespace) resolve without relying on the pulumi-yaml
+	// package-resolution fix being released.
 	// TODO #pulumi/pulumi-yaml/1162: drop the base add once the fix is released.
 	base := exec.Command("pulumi", "package", "add", providerBin)
 	base.Dir = test.WorkingDir()
