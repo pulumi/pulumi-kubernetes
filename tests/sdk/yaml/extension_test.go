@@ -14,16 +14,26 @@ import (
 )
 
 func TestExtensionGatewayAPI(t *testing.T) {
-	test := pulumitest.NewPulumiTest(t, "testdata/extension-gateway-api", opttest.SkipInstall())
-	t.Skip("Skipping until YAML resolver bug is fixed")
+	_ := pulumitest.NewPulumiTest(t, "testdata/extension-gateway-api", opttest.SkipInstall())
 	t.Cleanup(func() {
 		test.Destroy(t)
 	})
 
-	// Make the extension package from the local provider binary before running the
-	// program: `package add` parameterizes the base provider and records the
-	// extension in Pulumi.yaml, without downloading an (unpublished) dev provider.
 	providerBin := filepath.Join(repoRoot(t), "bin", "pulumi-resource-kubernetes")
+
+	// Declare the base kubernetes package explicitly so base-namespace types
+	// (core/v1:Namespace) resolve. A
+	// TODO #pulumi/pulumi-yaml/1162: drop the base add once the fix is released.
+	base := exec.Command("pulumi", "package", "add", providerBin)
+	base.Dir = test.WorkingDir()
+	base.Env = os.Environ()
+	if out, err := base.CombinedOutput(); err != nil {
+		t.Fatalf("pulumi package add (base) failed: %v\n%s", err, out)
+	}
+
+	// Add the extension from the local provider binary: `package add --extension`
+	// parameterizes the base provider and records the extension in Pulumi.yaml,
+	// without downloading an (unpublished) dev provider.
 	add := exec.Command("pulumi", "package", "add", providerBin,
 		"--extension", "name=gateway-networking crd-manifest=gateway-api-crds.yaml")
 	add.Dir = test.WorkingDir()
