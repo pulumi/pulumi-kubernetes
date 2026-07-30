@@ -140,7 +140,6 @@ class ResourceClassParameters(pulumi.CustomResource):
         """
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -158,7 +157,6 @@ class ResourceClassParameters(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
-
 
         :param str resource_name: The name of the resource.
         :param ResourceClassParametersInitArgs args: The arguments to use to populate this resource's properties.

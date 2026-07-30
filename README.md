@@ -143,7 +143,7 @@ const myApp = new k8s.yaml.ConfigFile("app", {
 ### Deploying a Helm Chart
 
 This example creates an EKS cluster with [`pulumi/eks`](https://github.com/pulumi/pulumi-eks),
-and then deploys a Helm chart from the stable repo using the 
+and then deploys a WordPress Helm chart from Bitnami's OCI registry using the
 `kubeconfig` credentials from the cluster's [Pulumi provider](https://www.pulumi.com/docs/intro/concepts/resources/providers/).
 
 ```typescript
@@ -155,8 +155,7 @@ const cluster = new eks.Cluster("my-cluster");
 
 // Deploy Wordpress into our cluster.
 const wordpress = new k8s.helm.v3.Chart("wordpress", {
-    repo: "stable",
-    chart: "wordpress",
+    chart: "oci://registry-1.docker.io/bitnamicharts/wordpress",
     values: {
         wordpressBlogName: "My Cool Kubernetes Blog!",
     },

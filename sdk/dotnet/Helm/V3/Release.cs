@@ -122,7 +122,7 @@ namespace Pulumi.Kubernetes.Helm.V3
     /// }
     /// ```
     /// 
-    /// ### Depend on a Chart resource
+    /// ### Depend on a Release resource
     /// ```csharp
     /// using System.Threading.Tasks;
     /// using Pulumi;
@@ -146,7 +146,7 @@ namespace Pulumi.Kubernetes.Helm.V3
     ///             SkipAwait = false,
     ///         });
     /// 
-    ///         // Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+    ///         // Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
     ///         // resources are ready. Notice SkipAwait is set to false above. This is the default and will cause Helm
     ///         // to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
     ///         new ConfigMap("foo", new Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapArgs
@@ -241,6 +241,30 @@ namespace Pulumi.Kubernetes.Helm.V3
     /// 
     ///     [Output]
     ///     public Output&lt;string&gt; RedisMasterClusterIP { get; set; }
+    /// }
+    /// ```
+    /// ### Take Ownership of Existing Resources
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+    /// using Pulumi.Kubernetes.Helm.V3;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Release("nginx-ingress", new ReleaseArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             RepositoryOpts = new RepositoryOptsArgs
+    ///             {
+    ///                 Repo = "https://charts.helm.sh/stable"
+    ///             },
+    ///             TakeOwnership = true,
+    ///         });
+    /// 
+    ///     }
     /// }
     /// ```
     /// 
@@ -428,6 +452,12 @@ namespace Pulumi.Kubernetes.Helm.V3
         /// </summary>
         [Output("status")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Helm.V3.ReleaseStatus> Status { get; private set; } = null!;
+
+        /// <summary>
+        /// If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+        /// </summary>
+        [Output("takeOwnership")]
+        public Output<bool> TakeOwnership { get; private set; } = null!;
 
         /// <summary>
         /// Time in seconds to wait for any individual kubernetes operation.
@@ -706,6 +736,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         /// </summary>
         [Input("skipCrds")]
         public Input<bool>? SkipCrds { get; set; }
+
+        /// <summary>
+        /// If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+        /// </summary>
+        [Input("takeOwnership")]
+        public Input<bool>? TakeOwnership { get; set; }
 
         /// <summary>
         /// Time in seconds to wait for any individual kubernetes operation.

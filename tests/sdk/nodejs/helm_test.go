@@ -304,3 +304,41 @@ func TestHelmChartV4WithYamlRenderModeRendersWithoutClusterConnection(t *testing
 			To(gm.BeNumerically(">", 0), "Manifest directory should contain rendered Helm chart resources")
 	}
 }
+
+// TestHelmChartV4RenderYamlIncludesHooks verifies that, in renderYamlToDirectory mode with
+// includeHooks set, the Helm v4 Chart renders non-test hook resources (mirroring `helm template`)
+// while excluding test hooks. See https://github.com/pulumi/pulumi-kubernetes/issues/3284.
+//
+// This uses the integration.ProgramTest framework (via baseOptions) rather than pulumitest because
+// the program references the new `includeHooks` input, which only exists in the locally built SDK;
+// baseOptions links `@pulumi/kubernetes` so the program compiles against it.
+func TestHelmChartV4RenderYamlIncludesHooks(t *testing.T) {
+	// Create a temporary directory to hold rendered YAML manifests.
+	dir, err := os.MkdirTemp("", "helm-chart-v4-render-yaml-hooks-test")
+	assert.NoError(t, err)
+	defer os.RemoveAll(dir)
+
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Config: map[string]string{
+			"renderDir": dir,
+		},
+		Dir:         "helm-chart-v4-render-yaml-hooks",
+		Quick:       true,
+		SkipRefresh: true,
+		ExtraRuntimeValidation: func(t *testing.T, _ integration.RuntimeValidationStackInfo) {
+			manifestDir := filepath.Join(dir, "1-manifest")
+			files, err := os.ReadDir(manifestDir)
+			assert.NoError(t, err)
+
+			// The normal ConfigMap and the pre-install hook ConfigMap should both be rendered.
+			assert.True(t, checkFileNamePrefix(files, "v1-configmap-default-hooks-config"),
+				"normal ConfigMap should be rendered")
+			assert.True(t, checkFileNamePrefix(files, "v1-configmap-default-hooks-pre-install"),
+				"pre-install hook ConfigMap should be rendered when includeHooks is set")
+			// The test hook Pod should be excluded.
+			assert.False(t, checkFileNamePrefix(files, "v1-pod-default-hooks-test"),
+				"test hook Pod should be excluded from rendered output")
+		},
+	})
+	integration.ProgramTest(t, &test)
+}

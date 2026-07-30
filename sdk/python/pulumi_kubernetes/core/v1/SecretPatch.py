@@ -171,7 +171,6 @@ class SecretPatch(pulumi.CustomResource):
         https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
         https://kubernetes.io/docs/concepts/configuration/secret/#risks
 
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -206,7 +205,6 @@ class SecretPatch(pulumi.CustomResource):
         For more information on securing Kubernetes Secrets, see the following links:
         https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
         https://kubernetes.io/docs/concepts/configuration/secret/#risks
-
 
         :param str resource_name: The name of the resource.
         :param SecretPatchArgs args: The arguments to use to populate this resource's properties.

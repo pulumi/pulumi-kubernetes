@@ -64,14 +64,14 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Indicates that child resources should skip the await logic.
+     * Indicates that child resources should skip the await logic. Defaults to `false`.
      * 
      */
     @Import(name="skipAwait")
     private @Nullable Output<Boolean> skipAwait;
 
     /**
-     * @return Indicates that child resources should skip the await logic.
+     * @return Indicates that child resources should skip the await logic. Defaults to `false`.
      * 
      */
     public Optional<Output<Boolean>> skipAwait() {
@@ -205,7 +205,7 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param skipAwait Indicates that child resources should skip the await logic.
+         * @param skipAwait Indicates that child resources should skip the await logic. Defaults to `false`.
          * 
          * @return builder
          * 
@@ -216,7 +216,7 @@ public final class ConfigGroupArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param skipAwait Indicates that child resources should skip the await logic.
+         * @param skipAwait Indicates that child resources should skip the await logic. Defaults to `false`.
          * 
          * @return builder
          * 

@@ -336,7 +336,7 @@ func main() {
 {{% /example %}}
  {{% example %}}
 
-### Depend on a Chart resource
+### Depend on a Release resource
 
 ```typescript
 import * as k8s from "@pulumi/kubernetes";
@@ -351,11 +351,11 @@ const nginxIngress = new k8s.helm.v3.Release("nginx-ingress", {
     skipAwait: false,
 });
 
-// Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+// Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
 // resources are ready. Notice skipAwait is set to false above. This is the default and will cause Helm
 // to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
 new k8s.core.v1.ConfigMap("foo", {
-    metadata: {namespace: namespaceName},
+    metadata: {namespace: "test-namespace"},
     data: {foo: "bar"}
 }, {dependsOn: nginxIngress})
 ```
@@ -377,7 +377,7 @@ nginx_ingress = Release(
     ),
 )
 
-# Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+# Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
 # resources are ready. Notice skip_await is set to false above. This is the default and will cause Helm
 # to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
 ConfigMap("foo", ConfigMapInitArgs(data={"foo": "bar"}), opts=pulumi.ResourceOptions(depends_on=nginx_ingress))
@@ -405,7 +405,7 @@ class HelmStack : Stack
             SkipAwait = false,
         });
 
-        // Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+        // Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
         // resources are ready. Notice SkipAwait is set to false above. This is the default and will cause Helm
         // to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
         new ConfigMap("foo", new Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapArgs
@@ -446,7 +446,7 @@ func main() {
 			return err
 		}
 
-		// Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+		// Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
 		// resources are ready. Notice SkipAwait is set to false above. This is the default and will cause Helm
 		// to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
 		_, err = corev1.NewConfigMap(ctx, "cm", &corev1.ConfigMapArgs{
@@ -740,6 +740,86 @@ func main() {
 				return svc.Spec.ClusterIP(), nil
 			})
 		ctx.Export("redisMasterClusterIP", srv)
+
+		return nil
+	})
+}
+```
+{{% /example %}}
+{{% example %}}
+### Take Ownership of Existing Resources
+
+```typescript
+import * as k8s from "@pulumi/kubernetes";
+
+const nginxIngress = new k8s.helm.v3.Release("nginx-ingress", {
+    chart: "nginx-ingress",
+    version: "1.24.4",
+    repositoryOpts: {
+        repo: "https://charts.helm.sh/stable",
+    },
+    takeOwnership: true,
+});
+```
+```python
+from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+nginx_ingress = Release(
+    "nginx-ingress",
+    ReleaseArgs(
+        chart="nginx-ingress",
+        version="1.24.4",
+        repository_opts=RepositoryOptsArgs(
+            repo="https://charts.helm.sh/stable",
+        ),
+        take_ownership=True,
+    ),
+)
+```
+```csharp
+using Pulumi;
+using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+using Pulumi.Kubernetes.Helm.V3;
+
+class HelmStack : Stack
+{
+    public HelmStack()
+    {
+        var nginx = new Release("nginx-ingress", new ReleaseArgs
+        {
+            Chart = "nginx-ingress",
+            Version = "1.24.4",
+            RepositoryOpts = new RepositoryOptsArgs
+            {
+                Repo = "https://charts.helm.sh/stable"
+            },
+            TakeOwnership = true,
+        });
+
+    }
+}
+```
+```go
+package main
+
+import (
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
+
+func main() {
+	pulumi.Run(func(ctx *pulumi.Context) error {
+		_, err := helm.NewRelease(ctx, "nginx-ingress", &helm.ReleaseArgs{
+			Chart:   pulumi.String("nginx-ingress"),
+			Version: pulumi.String("1.24.4"),
+			RepositoryOpts: helm.RepositoryOptsArgs{
+				Repo: pulumi.String("https://charts.helm.sh/stable"),
+			},
+			TakeOwnership: pulumi.Bool(true),
+		})
+		if err != nil {
+			return err
+		}
 
 		return nil
 	})

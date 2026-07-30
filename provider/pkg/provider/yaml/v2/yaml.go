@@ -275,7 +275,6 @@ type RegisterOptions struct {
 func Register(ctx *pulumi.Context, opts RegisterOptions) (pulumi.ArrayOutput, error) {
 	objs := make(cliutilsobject.UnstructuredSet, 0, len(opts.Objects))
 	for _, obj := range opts.Objects {
-		obj := obj
 		objs = append(objs, &obj)
 	}
 

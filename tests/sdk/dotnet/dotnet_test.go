@@ -891,19 +891,3 @@ func TestDotnet_OptionPropagation(t *testing.T) {
 	err = pt.TestPreviewUpdateAndEdits()
 	require.NoError(t, err)
 }
-
-func TestYamlUninitializedProvider(t *testing.T) {
-	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:                      "yaml-uninitialized-provider",
-		Quick:                    false,
-		SkipPreview:              false,
-		SkipExportImport:         true,
-		SkipUpdate:               true,
-		SkipRefresh:              true,
-		ExpectRefreshChanges:     true,
-		AllowEmptyPreviewChanges: true,
-	})
-	integration.ProgramTest(t, &test)
-
-	// FUTURE: verify that the stack outputs include 'serviceUid' and has an unknown value.
-}

@@ -30,7 +30,7 @@ class ConfigGroupArgs:
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] files: Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
         :param pulumi.Input[Sequence[Any]] objs: Objects representing Kubernetes resource configurations.
         :param pulumi.Input[_builtins.str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
-        :param pulumi.Input[_builtins.bool] skip_await: Indicates that child resources should skip the await logic.
+        :param pulumi.Input[_builtins.bool] skip_await: Indicates that child resources should skip the await logic. Defaults to `false`.
         :param pulumi.Input[_builtins.str] yaml: A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
         """
         if files is not None:
@@ -84,7 +84,7 @@ class ConfigGroupArgs:
     @pulumi.getter(name="skipAwait")
     def skip_await(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Indicates that child resources should skip the await logic.
+        Indicates that child resources should skip the await logic. Defaults to `false`.
         """
         return pulumi.get(self, "skip_await")
 
@@ -223,7 +223,7 @@ class ConfigGroup(pulumi.ComponentResource):
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] files: Set of paths and/or URLs to Kubernetes manifest files. Supports glob patterns.
         :param pulumi.Input[Sequence[Any]] objs: Objects representing Kubernetes resource configurations.
         :param pulumi.Input[_builtins.str] resource_prefix: A prefix for the auto-generated resource names. Defaults to the name of the ConfigGroup. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
-        :param pulumi.Input[_builtins.bool] skip_await: Indicates that child resources should skip the await logic.
+        :param pulumi.Input[_builtins.bool] skip_await: Indicates that child resources should skip the await logic. Defaults to `false`.
         :param pulumi.Input[_builtins.str] yaml: A Kubernetes YAML manifest containing Kubernetes resource configuration(s).
         """
         ...

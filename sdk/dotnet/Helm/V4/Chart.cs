@@ -273,6 +273,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V4
         public Input<bool>? Devel { get; set; }
 
         /// <summary>
+        /// By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
+        /// </summary>
+        [Input("includeHooks")]
+        public Input<bool>? IncludeHooks { get; set; }
+
+        /// <summary>
         /// Location of public keys used for verification. Used only if `verify` is true
         /// </summary>
         [Input("keyring")]

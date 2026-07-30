@@ -451,6 +451,20 @@ public class Release extends com.pulumi.resources.CustomResource {
         return this.status;
     }
     /**
+     * If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+     * 
+     */
+    @Export(name="takeOwnership", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> takeOwnership;
+
+    /**
+     * @return If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+     * 
+     */
+    public Output<Optional<Boolean>> takeOwnership() {
+        return Codegen.optional(this.takeOwnership);
+    }
+    /**
      * Time in seconds to wait for any individual kubernetes operation.
      * 
      */

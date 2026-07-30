@@ -382,7 +382,7 @@ var _ = gk.Describe("Register", func() {
 						"metadata": map[string]any{
 							"name": "my-secret",
 						},
-						"stringData": map[string]interface{}{
+						"stringData": map[string]any{
 							"foo": "bar",
 						},
 					},
@@ -706,7 +706,6 @@ func TestIsGlobPattern(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		tt := tt
 		t.Run(tt.pattern, func(t *testing.T) {
 			t.Parallel()
 
@@ -721,7 +720,7 @@ func TestIsGlobPattern(t *testing.T) {
 }
 
 func matchUnstructured(keys gs.Keys) gomegatypes.GomegaMatcher {
-	return gm.WithTransform(func(obj unstructured.Unstructured) map[string]interface{} {
+	return gm.WithTransform(func(obj unstructured.Unstructured) map[string]any {
 		return obj.Object
 	}, gs.MatchKeys(gs.IgnoreExtras, keys))
 }

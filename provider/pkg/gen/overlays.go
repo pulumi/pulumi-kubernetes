@@ -240,6 +240,16 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			},
 			Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
 		},
+		"includeHooks": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted " +
+				"from the rendered output. When the provider is configured with `renderYamlToDirectory`, set " +
+				"this to true to include hook resources in the rendered manifests so that another tool " +
+				"(e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This " +
+				"setting has no effect outside of render mode, where hooks are not supported.",
+		},
 		"postRenderer": {
 			TypeSpec: pschema.TypeSpec{
 				Ref: "#/types/kubernetes:helm.sh/v4:PostRenderer",
@@ -845,6 +855,14 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				},
 				Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
 			},
+			"takeOwnership": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "boolean",
+				},
+				Description: "If set, install/upgrade will skip the check for existing resource conflicts and " +
+					"take ownership of the matching resources, adopting any that are not already managed by " +
+					"this release. This mirrors the Helm `--take-ownership` flag.",
+			},
 			"renderSubchartNotes": {
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
@@ -950,6 +968,7 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 					"maxHistory",
 					"atomic",
 					"skipCrds",
+					"takeOwnership",
 					"renderSubchartNotes",
 					"disableOpenapiValidation",
 					"skipAwait",
@@ -1123,6 +1142,14 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				Type: "boolean",
 			},
 			Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
+		},
+		"takeOwnership": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "If set, install/upgrade will skip the check for existing resource conflicts and " +
+				"take ownership of the matching resources, adopting any that are not already managed by " +
+				"this release. This mirrors the Helm `--take-ownership` flag.",
 		},
 		"renderSubchartNotes": {
 			TypeSpec: pschema.TypeSpec{
@@ -1323,7 +1350,7 @@ var kustomizeDirectoryV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Indicates that child resources should skip the await logic.",
+			Description: "Indicates that child resources should skip the await logic. Defaults to `false`.",
 		},
 	},
 	RequiredInputs: []string{
@@ -1418,7 +1445,7 @@ var yamlConfigFileV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Indicates that child resources should skip the await logic.",
+			Description: "Indicates that child resources should skip the await logic. Defaults to `false`.",
 		},
 	},
 	RequiredInputs: []string{
@@ -1564,7 +1591,7 @@ var yamlConfigGroupV2Resource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Indicates that child resources should skip the await logic.",
+			Description: "Indicates that child resources should skip the await logic. Defaults to `false`.",
 		},
 		"yaml": {
 			TypeSpec: pschema.TypeSpec{

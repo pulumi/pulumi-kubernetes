@@ -7,6 +7,22 @@
 
 - Support adding CustomResourceDefinitions as an extension of the base `kubernetes` provider via `pulumi package add <provider> --extension`.
 
+### Changed
+
+- Upgrade Kubernetes schema and libraries to v1.36.3.
+
+## 4.33.0 (July 7, 2026)
+
+### Added
+
+- [#3595](https://github.com/pulumi/pulumi-kubernetes/issues/3595) Add `takeOwnership` to `kubernetes.helm.sh/v3:Release`. When set, Helm skips the resource-conflict check and adopts existing resources into the release (equivalent to `helm upgrade`/`helm install --take-ownership`).
+- [#3284](https://github.com/pulumi/pulumi-kubernetes/issues/3284) Add `includeHooks` to `kubernetes.helm.sh/v4:Chart`. When set together with the provider's `renderYamlToDirectory`, Helm hook resources (annotated `helm.sh/hook`) are included in the rendered output instead of being dropped, so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are excluded, and the flag has no effect outside of render mode. This only brings render mode up to par with `helm template`; it does not implement full Helm hook lifecycle support (ordering, weights, delete policies, execution), so #3284 remains open.
+
+### Changed
+
+- Upgrade Kubernetes schema and libraries to v1.36.2.
+- [#4454](https://github.com/pulumi/pulumi-kubernetes/issues/4454) Document that `skipAwait` defaults to `false` on `yaml/v2.ConfigFile`, `yaml/v2.ConfigGroup`, and `kustomize/v2.Directory`.
+
 ## 4.32.0 (June 5, 2026)
 
 ### Fixed

@@ -1,4 +1,0 @@
-name: minimal
-description: An empty Pulumi Kubernetes test script.
-runtime: nodejs
-

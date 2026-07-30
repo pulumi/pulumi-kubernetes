@@ -625,13 +625,13 @@ class JobArgsDict(TypedDict):
     2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
        to 'True'.
     3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
-    	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
+        'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 
     If the Job has not reached a Ready state after 10 minutes, it will
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
 
-    By default, if a resource failed to become ready in a previous update, 
+    By default, if a resource failed to become ready in a previous update,
     Pulumi will continue to wait for readiness on the next update. If you would prefer
     to schedule a replacement for an unready resource on the next update, you can add the
     "pulumi.com/replaceUnready": "true" annotation to the resource definition.
@@ -677,13 +677,13 @@ class JobArgs:
         2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
            to 'True'.
         3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
-        	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
+            'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 
         If the Job has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
 
-        By default, if a resource failed to become ready in a previous update, 
+        By default, if a resource failed to become ready in a previous update,
         Pulumi will continue to wait for readiness on the next update. If you would prefer
         to schedule a replacement for an unready resource on the next update, you can add the
         "pulumi.com/replaceUnready": "true" annotation to the resource definition.
@@ -2065,7 +2065,7 @@ class PodFailurePolicyOnExitCodesRequirementArgsDict(TypedDict):
     - NotIn: the requirement is satisfied if at least one container exit code
       (might be multiple if there are multiple containers not restricted
       by the 'containerName' field) is not in the set of specified values.
-    Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+      Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
     """
     values: pulumi.Input[Sequence[pulumi.Input[_builtins.int]]]
     """
@@ -2093,7 +2093,7 @@ class PodFailurePolicyOnExitCodesRequirementArgs:
                - NotIn: the requirement is satisfied if at least one container exit code
                  (might be multiple if there are multiple containers not restricted
                  by the 'containerName' field) is not in the set of specified values.
-               Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+                 Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] values: Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
         :param pulumi.Input[_builtins.str] container_name: Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
         """
@@ -2114,7 +2114,7 @@ class PodFailurePolicyOnExitCodesRequirementArgs:
         - NotIn: the requirement is satisfied if at least one container exit code
           (might be multiple if there are multiple containers not restricted
           by the 'containerName' field) is not in the set of specified values.
-        Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+          Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
         """
         return pulumi.get(self, "operator")
 
@@ -2165,7 +2165,7 @@ class PodFailurePolicyOnExitCodesRequirementPatchArgsDict(TypedDict):
     - NotIn: the requirement is satisfied if at least one container exit code
       (might be multiple if there are multiple containers not restricted
       by the 'containerName' field) is not in the set of specified values.
-    Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+      Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
     """
     values: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.int]]]]]
     """
@@ -2190,7 +2190,7 @@ class PodFailurePolicyOnExitCodesRequirementPatchArgs:
                - NotIn: the requirement is satisfied if at least one container exit code
                  (might be multiple if there are multiple containers not restricted
                  by the 'containerName' field) is not in the set of specified values.
-               Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+                 Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.int]]] values: Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
         """
         if container_name is not None:
@@ -2224,7 +2224,7 @@ class PodFailurePolicyOnExitCodesRequirementPatchArgs:
         - NotIn: the requirement is satisfied if at least one container exit code
           (might be multiple if there are multiple containers not restricted
           by the 'containerName' field) is not in the set of specified values.
-        Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+          Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
         """
         return pulumi.get(self, "operator")
 
@@ -2402,7 +2402,7 @@ class PodFailurePolicyRuleArgsDict(TypedDict):
       incremented and a replacement pod is created.
     - Count: indicates that the pod is handled in the default way - the
       counter towards the .backoffLimit is incremented.
-    Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+      Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
     """
     on_exit_codes: NotRequired[pulumi.Input[Optional['PodFailurePolicyOnExitCodesRequirementArgsDict']]]
     """
@@ -2432,7 +2432,7 @@ class PodFailurePolicyRuleArgs:
                  incremented and a replacement pod is created.
                - Count: indicates that the pod is handled in the default way - the
                  counter towards the .backoffLimit is incremented.
-               Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+                 Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
         :param pulumi.Input['PodFailurePolicyOnExitCodesRequirementArgs'] on_exit_codes: Represents the requirement on the container exit codes.
         :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]] on_pod_conditions: Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
         """
@@ -2456,7 +2456,7 @@ class PodFailurePolicyRuleArgs:
           incremented and a replacement pod is created.
         - Count: indicates that the pod is handled in the default way - the
           counter towards the .backoffLimit is incremented.
-        Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+          Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
         """
         return pulumi.get(self, "action")
 
@@ -2505,7 +2505,7 @@ class PodFailurePolicyRulePatchArgsDict(TypedDict):
       incremented and a replacement pod is created.
     - Count: indicates that the pod is handled in the default way - the
       counter towards the .backoffLimit is incremented.
-    Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+      Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
     """
     on_exit_codes: NotRequired[pulumi.Input[Optional['PodFailurePolicyOnExitCodesRequirementPatchArgsDict']]]
     """
@@ -2535,7 +2535,7 @@ class PodFailurePolicyRulePatchArgs:
                  incremented and a replacement pod is created.
                - Count: indicates that the pod is handled in the default way - the
                  counter towards the .backoffLimit is incremented.
-               Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+                 Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
         :param pulumi.Input['PodFailurePolicyOnExitCodesRequirementPatchArgs'] on_exit_codes: Represents the requirement on the container exit codes.
         :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]] on_pod_conditions: Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
         """
@@ -2560,7 +2560,7 @@ class PodFailurePolicyRulePatchArgs:
           incremented and a replacement pod is created.
         - Count: indicates that the pod is handled in the default way - the
           counter towards the .backoffLimit is incremented.
-        Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+          Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
         """
         return pulumi.get(self, "action")
 

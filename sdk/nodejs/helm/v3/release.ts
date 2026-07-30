@@ -75,7 +75,7 @@ import * as utilities from "../../utilities";
  * });
  * ```
  *
- * ### Depend on a Chart resource
+ * ### Depend on a Release resource
  *
  * ```typescript
  * import * as k8s from "@pulumi/kubernetes";
@@ -90,11 +90,11 @@ import * as utilities from "../../utilities";
  *     skipAwait: false,
  * });
  *
- * // Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+ * // Create a ConfigMap depending on the Release. The ConfigMap will not be created until after all of the Release
  * // resources are ready. Notice skipAwait is set to false above. This is the default and will cause Helm
  * // to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
  * new k8s.core.v1.ConfigMap("foo", {
- *     metadata: {namespace: namespaceName},
+ *     metadata: {namespace: "test-namespace"},
  *     data: {foo: "bar"}
  * }, {dependsOn: nginxIngress})
  * ```
@@ -150,6 +150,20 @@ import * as utilities from "../../utilities";
  * // srv will only resolve after the redis chart is installed.
  * const srv = k8s.core.v1.Service.get("redis-master-svc", pulumi.interpolate`${redis.status.namespace}/${redis.status.name}-master`);
  * export const redisMasterClusterIP = srv.spec.clusterIP;
+ * ```
+ * ### Take Ownership of Existing Resources
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Release("nginx-ingress", {
+ *     chart: "nginx-ingress",
+ *     version: "1.24.4",
+ *     repositoryOpts: {
+ *         repo: "https://charts.helm.sh/stable",
+ *     },
+ *     takeOwnership: true,
+ * });
  * ```
  *
  * ## Import
@@ -304,6 +318,10 @@ export class Release extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly status: pulumi.Output<outputs.helm.v3.ReleaseStatus>;
     /**
+     * If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+     */
+    declare public readonly takeOwnership: pulumi.Output<boolean>;
+    /**
      * Time in seconds to wait for any individual kubernetes operation.
      */
     declare public readonly timeout: pulumi.Output<number>;
@@ -371,6 +389,7 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["reuseValues"] = args?.reuseValues;
             resourceInputs["skipAwait"] = args?.skipAwait;
             resourceInputs["skipCrds"] = args?.skipCrds;
+            resourceInputs["takeOwnership"] = args?.takeOwnership;
             resourceInputs["timeout"] = args?.timeout;
             resourceInputs["valueYamlFiles"] = args?.valueYamlFiles;
             resourceInputs["values"] = args?.values;
@@ -408,6 +427,7 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["skipAwait"] = undefined /*out*/;
             resourceInputs["skipCrds"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
+            resourceInputs["takeOwnership"] = undefined /*out*/;
             resourceInputs["timeout"] = undefined /*out*/;
             resourceInputs["valueYamlFiles"] = undefined /*out*/;
             resourceInputs["values"] = undefined /*out*/;
@@ -537,6 +557,10 @@ export interface ReleaseArgs {
      * If set, no CRDs will be installed. By default, CRDs are installed if not already present.
      */
     skipCrds?: pulumi.Input<boolean | undefined>;
+    /**
+     * If set, install/upgrade will skip the check for existing resource conflicts and take ownership of the matching resources, adopting any that are not already managed by this release. This mirrors the Helm `--take-ownership` flag.
+     */
+    takeOwnership?: pulumi.Input<boolean | undefined>;
     /**
      * Time in seconds to wait for any individual kubernetes operation.
      */

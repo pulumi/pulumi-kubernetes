@@ -51,8 +51,9 @@ func (k *kubeProvider) getResourceProvider(typ string) (providerresource.Resourc
 	}
 
 	options := &providerresource.ResourceProviderOptions{
-		ClientSet:        k.clientSet,
-		DefaultNamespace: defaultNamespace,
+		ClientSet:             k.clientSet,
+		DefaultNamespace:      defaultNamespace,
+		RenderYAMLToDirectory: k.yamlRenderMode,
 		HelmOptions: &providerresource.HelmOptions{
 			SuppressHelmHookWarnings: k.suppressHelmHookWarnings,
 			HelmDriver:               k.helmDriver,

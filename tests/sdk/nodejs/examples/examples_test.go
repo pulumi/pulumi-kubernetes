@@ -35,15 +35,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 )
 
-func TestAccMinimal(t *testing.T) {
-	test := getBaseOptions(t).
-		With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t), "minimal"),
-		})
-
-	integration.ProgramTest(t, &test)
-}
-
 func TestAccGuestbook(t *testing.T) {
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{

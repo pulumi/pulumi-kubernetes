@@ -285,6 +285,8 @@ type chartArgs struct {
 	DependencyUpdate *bool `pulumi:"dependencyUpdate"`
 	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 	Devel *bool `pulumi:"devel"`
+	// By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
+	IncludeHooks *bool `pulumi:"includeHooks"`
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring pulumi.AssetOrArchive `pulumi:"keyring"`
 	// Release name.
@@ -321,6 +323,8 @@ type ChartArgs struct {
 	DependencyUpdate pulumi.BoolPtrInput
 	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 	Devel pulumi.BoolPtrInput
+	// By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
+	IncludeHooks pulumi.BoolPtrInput
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring pulumi.AssetOrArchiveInput
 	// Release name.

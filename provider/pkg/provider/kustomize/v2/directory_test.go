@@ -53,10 +53,10 @@ func (k *fakeKustomizer) Run(_ kfilesys.FileSystem, _ /* path */ string) (kresma
 
 func makeCm(i int) *kresource.Resource {
 	resource, err := rf.FromMap(
-		map[string]interface{}{
+		map[string]any{
 			"apiVersion": "v1",
 			"kind":       "ConfigMap",
-			"metadata": map[string]interface{}{
+			"metadata": map[string]any{
 				"name": fmt.Sprintf("cm%03d", i),
 			},
 		})

@@ -23,7 +23,7 @@ runs:
         github_token: ${{ inputs.github_token }}
 
     - name: Setup Go Cache
-      uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c # v6.1.0
+      uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
       with:
         cache: ${{ inputs.cache }}
         cache-dependency-path: |
@@ -32,10 +32,3 @@ runs:
           sdk/go/*.sum
           sdk/*.sum
           *.sum
-
-    - name: Setup Node
-      uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
-      with:
-        # we don't set node-version because we install with mise.
-        # this step is needed to setup npm auth
-        registry-url: https://registry.npmjs.org

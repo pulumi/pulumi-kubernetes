@@ -106,7 +106,7 @@ type configFileArgs struct {
 	File string `pulumi:"file"`
 	// A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
 	ResourcePrefix *string `pulumi:"resourcePrefix"`
-	// Indicates that child resources should skip the await logic.
+	// Indicates that child resources should skip the await logic. Defaults to `false`.
 	SkipAwait *bool `pulumi:"skipAwait"`
 }
 
@@ -116,7 +116,7 @@ type ConfigFileArgs struct {
 	File pulumi.StringInput
 	// A prefix for the auto-generated resource names. Defaults to the name of the ConfigFile. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
 	ResourcePrefix pulumi.StringPtrInput
-	// Indicates that child resources should skip the await logic.
+	// Indicates that child resources should skip the await logic. Defaults to `false`.
 	SkipAwait pulumi.BoolPtrInput
 }
 
