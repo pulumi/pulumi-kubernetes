@@ -11,6 +11,10 @@
 
 - Upgrade Kubernetes schema and libraries to v1.36.3.
 
+### Fixed
+
+- [#4524](https://github.com/pulumi/pulumi-kubernetes/pull/4524) Fix `pulumi.com/waitFor` rejecting JSONPath filters that use `!=`, `>=` or `<=`. The expression was split on every `=` that was not part of `==`, so `jsonpath={.status.conditions[?(@.type!="Failed")].status}=True` failed to parse. The path and value are now separated structurally, which also allows braces inside string literals. Comparing one path against another (`jsonpath={.status.readyReplicas}={.spec.replicas}`) is still unsupported, but now reports an error instead of silently never matching.
+
 ## 4.33.0 (July 7, 2026)
 
 ### Added
