@@ -2,7 +2,6 @@ package jsonpath
 
 import (
 	"fmt"
-	"regexp"
 	"slices"
 	"strings"
 
@@ -58,8 +57,6 @@ type MatchResult struct {
 	Message string
 }
 
-var _bracketExpr = regexp.MustCompile(`\{\s*(.*?)\s*\}`)
-
 // Parse parses a single JSONPath expression. Only the strict syntax of
 // `kubectl get -o jsonpath={...}` is accepted, because the "relaxed" syntax
 // used by `wait` is somewhat buggy.
@@ -72,18 +69,15 @@ func Parse(raw string) (*Parsed, error) {
 	}
 	raw = strings.TrimPrefix(raw, "jsonpath=")
 
-	// Split only on "=" and preserve "==".
-	placeholder := "�"
-	normalized := strings.ReplaceAll(raw, "==", placeholder)
-	parts := strings.Split(normalized, "=")
+	parts := splitOnValue(raw)
 
 	var value string
-	path := strings.ReplaceAll(parts[0], placeholder, "==")
+	path := parts[0]
 	if len(parts) > 2 {
 		return nil, fmt.Errorf("format should be {.path}=value or {.path}, got %q", raw)
 	}
 	if len(parts) == 2 {
-		value = strings.ReplaceAll(parts[1], placeholder, "==")
+		value = parts[1]
 		if value == "" {
 			return nil, fmt.Errorf("%s= requires a value", path)
 		}
@@ -93,11 +87,15 @@ func Parse(raw string) (*Parsed, error) {
 		return nil, fmt.Errorf("%s should omit shell quotes", path)
 	}
 
-	matches := _bracketExpr.FindStringSubmatch(path)
-	if len(matches) != 2 {
+	// Comparing one path against another isn't supported; without this the value is treated as a literal and never matches.
+	if strings.HasPrefix(value, "{") {
+		return nil, fmt.Errorf("%s=%s compares against another JSONPath, which is not supported; the value must be a literal", path, value)
+	}
+
+	pathWithoutBrackets, ok := unbracket(path)
+	if !ok {
 		return nil, fmt.Errorf("%s should be wrapped in brackets { ... }", path)
 	}
-	pathWithoutBrackets := matches[1]
 	if !strings.HasPrefix(pathWithoutBrackets, "$") {
 		pathWithoutBrackets = "$" + pathWithoutBrackets
 	}
@@ -109,4 +107,80 @@ func Parse(raw string) (*Parsed, error) {
 	}
 
 	return &Parsed{expr: expr, Path: path, Value: value}, nil
+}
+
+// splitOnValue splits raw into the bracketed JSONPath expression and an optional value, breaking only on "=" found
+// outside the brackets. Comparison operators inside the expression ("==", "!=", "<=", ">=") are left intact, while a
+// value containing a bare "=" still yields more than two elements so it can be rejected as ambiguous.
+func splitOnValue(raw string) []string {
+	var parts []string
+	var element strings.Builder
+	depth := 0
+	var quote byte // The active string-literal delimiter, when inside the brackets.
+
+	for i := 0; i < len(raw); i++ {
+		c := raw[i]
+		switch {
+		case quote != 0:
+			// Inside a string literal, where only the closing delimiter is structural.
+			if c == '\\' && i < len(raw)-1 {
+				element.WriteByte(c)
+				i++
+				c = raw[i]
+				break
+			}
+			if c == quote {
+				quote = 0
+			}
+		case depth > 0 && (c == '\'' || c == '"'):
+			quote = c
+		case c == '{':
+			depth++
+		case c == '}':
+			if depth > 0 {
+				depth--
+			}
+		case c == '=' && depth == 0:
+			parts = append(parts, element.String())
+			element.Reset()
+			continue
+		}
+		element.WriteByte(c)
+	}
+
+	return append(parts, element.String())
+}
+
+// unbracket returns the contents of the first balanced { ... } group in path, ignoring braces inside string literals.
+func unbracket(path string) (string, bool) {
+	start := strings.IndexByte(path, '{')
+	if start < 0 {
+		return "", false
+	}
+
+	depth := 0
+	var quote byte
+
+	for i := start; i < len(path); i++ {
+		c := path[i]
+		switch {
+		case quote != 0:
+			if c == '\\' && i < len(path)-1 {
+				i++
+			} else if c == quote {
+				quote = 0
+			}
+		case c == '\'' || c == '"':
+			quote = c
+		case c == '{':
+			depth++
+		case c == '}':
+			depth--
+			if depth == 0 {
+				return strings.TrimSpace(path[start+1 : i]), true
+			}
+		}
+	}
+
+	return "", false
 }
