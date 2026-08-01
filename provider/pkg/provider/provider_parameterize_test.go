@@ -23,82 +23,96 @@ import (
 	"k8s.io/kube-openapi/pkg/validation/spec"
 )
 
-func TestParseCrdArgsWithName(t *testing.T) {
-	args, err := parseCrdArgs([]string{"name=gateway-api", "version=1.2.1", "crd-manifest=crds.yaml"})
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+func TestParseCrdArgs(t *testing.T) {
+	parseTests := []struct {
+		name    string
+		args    []string
+		wantErr string // substring expected in the error message; empty means no error
+		check   func(t *testing.T, args *ParameterizedArgs)
+	}{
+		{
+			name: "with name",
+			args: []string{"name=gateway-api", "version=1.2.1", "crd-manifest=crds.yaml"},
+			check: func(t *testing.T, args *ParameterizedArgs) {
+				if args.ExtensionName != "gateway-api" {
+					t.Errorf("expected extension name %q, got %q", "gateway-api", args.ExtensionName)
+				}
+				if args.ExtensionVersion != "1.2.1" {
+					t.Errorf("expected version %q, got %q", "1.2.1", args.ExtensionVersion)
+				}
+			},
+		},
+		{
+			name: "without name",
+			args: []string{"version=1.0.0", "crd-manifest=crds.yaml"},
+			check: func(t *testing.T, args *ParameterizedArgs) {
+				if args.ExtensionName != "" {
+					t.Errorf("expected empty extension name, got %q", args.ExtensionName)
+				}
+			},
+		},
+		{
+			name: "defaults version when omitted",
+			args: []string{"name=gateway-api", "crd-manifest=crds.yaml"},
+			check: func(t *testing.T, args *ParameterizedArgs) {
+				if args.ExtensionVersion != defaultExtensionVersion {
+					t.Errorf("expected default version %q, got %q", defaultExtensionVersion, args.ExtensionVersion)
+				}
+			},
+		},
+		{
+			name: "collects multiple manifests",
+			args: []string{"crd-manifest=a.yaml", "crd-manifest=b.yaml"},
+			check: func(t *testing.T, args *ParameterizedArgs) {
+				want := []string{"a.yaml", "b.yaml"}
+				if len(args.CRDManifestPaths) != len(want) {
+					t.Fatalf("expected %d manifest paths, got %v", len(want), args.CRDManifestPaths)
+				}
+				for i, path := range want {
+					if args.CRDManifestPaths[i] != path {
+						t.Errorf("manifest path %d = %q, want %q", i, args.CRDManifestPaths[i], path)
+					}
+				}
+			},
+		},
+		{
+			name:    "rejects unknown key",
+			args:    []string{"crd-manifest=crds.yaml", "flavor=spicy"},
+			wantErr: "flavor",
+		},
+		{
+			name:    "rejects malformed arg",
+			args:    []string{"crd-manifest=crds.yaml", "noequalssign"},
+			wantErr: "key=value",
+		},
+		{
+			name:    "requires crd-manifest",
+			args:    []string{"name=gateway-api", "version=1.0.0"},
+			wantErr: "crd-manifest",
+		},
 	}
-	if args.ExtensionName != "gateway-api" {
-		t.Errorf("expected extension name %q, got %q", "gateway-api", args.ExtensionName)
-	}
-	if args.ExtensionVersion != "1.2.1" {
-		t.Errorf("expected version %q, got %q", "1.2.1", args.ExtensionVersion)
-	}
-}
 
-func TestParseCrdArgsWithoutName(t *testing.T) {
-	args, err := parseCrdArgs([]string{"version=1.0.0", "crd-manifest=crds.yaml"})
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
-	}
-	if args.ExtensionName != "" {
-		t.Errorf("expected empty extension name, got %q", args.ExtensionName)
-	}
-}
+	for _, tt := range parseTests {
+		t.Run(tt.name, func(t *testing.T) {
+			args, err := parseCrdArgs(tt.args)
 
-func TestParseCrdArgsDefaultsVersionWhenOmitted(t *testing.T) {
-	args, err := parseCrdArgs([]string{"name=gateway-api", "crd-manifest=crds.yaml"})
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
-	}
-	if args.ExtensionVersion != defaultExtensionVersion {
-		t.Errorf("expected default version %q, got %q", defaultExtensionVersion, args.ExtensionVersion)
-	}
-}
+			if tt.wantErr != "" {
+				if err == nil {
+					t.Fatalf("expected error containing %q, got nil", tt.wantErr)
+				}
+				if !strings.Contains(err.Error(), tt.wantErr) {
+					t.Errorf("error = %q, want it to contain %q", err.Error(), tt.wantErr)
+				}
+				return
+			}
 
-func TestParseCrdArgsCollectsMultipleManifests(t *testing.T) {
-	args, err := parseCrdArgs([]string{"crd-manifest=a.yaml", "crd-manifest=b.yaml"})
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
-	}
-	want := []string{"a.yaml", "b.yaml"}
-	if len(args.CRDManifestPaths) != len(want) {
-		t.Fatalf("expected %d manifest paths, got %v", len(want), args.CRDManifestPaths)
-	}
-	for i, path := range want {
-		if args.CRDManifestPaths[i] != path {
-			t.Errorf("manifest path %d = %q, want %q", i, args.CRDManifestPaths[i], path)
-		}
-	}
-}
-
-func TestParseCrdArgsRejectsUnknownKey(t *testing.T) {
-	_, err := parseCrdArgs([]string{"crd-manifest=crds.yaml", "flavor=spicy"})
-	if err == nil {
-		t.Fatal("expected error for unknown key, got nil")
-	}
-	if !strings.Contains(err.Error(), "flavor") {
-		t.Errorf("error should name the unknown key, got %q", err.Error())
-	}
-}
-
-func TestParseCrdArgsRejectsMalformedArg(t *testing.T) {
-	_, err := parseCrdArgs([]string{"crd-manifest=crds.yaml", "noequalssign"})
-	if err == nil {
-		t.Fatal("expected error for argument without '=', got nil")
-	}
-	if !strings.Contains(err.Error(), "key=value") {
-		t.Errorf("error should explain the key=value shape, got %q", err.Error())
-	}
-}
-
-func TestParseCrdArgsRequiresCrdManifest(t *testing.T) {
-	_, err := parseCrdArgs([]string{"name=gateway-api", "version=1.0.0"})
-	if err == nil {
-		t.Fatal("expected error when no crd-manifest given, got nil")
-	}
-	if !strings.Contains(err.Error(), "crd-manifest") {
-		t.Errorf("error should mention crd-manifest, got %q", err.Error())
+			if err != nil {
+				t.Fatalf("unexpected error: %v", err)
+			}
+			if tt.check != nil {
+				tt.check(t, args)
+			}
+		})
 	}
 }
 
