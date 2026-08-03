@@ -12,3 +12,6 @@ mkdir -p "$HOME/.kube/"
 pulumi stack output --show-secrets kubeconfig >~/.kube/config
 
 popd
+
+echo Installing Gateway API CRDs...
+kubectl apply -f tests/sdk/yaml/testdata/extension-gateway-api/gateway-api-crds.yaml

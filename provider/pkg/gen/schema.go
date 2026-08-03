@@ -22,6 +22,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/blang/semver"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen/examples"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
@@ -50,7 +51,7 @@ type schemaGenerator struct {
 	resourceOverlays map[string]pschema.ResourceSpec
 
 	// parameterization indicates whether the schema should be parameterized.
-	parameterization *pschema.ParameterizationSpec
+	parameterization *pschema.ExtensionParameterizationSpec
 
 	// allowHyphens indicates whether hyphens should be allowed in property names.
 	allowHyphens bool
@@ -59,6 +60,8 @@ type schemaGenerator struct {
 	// listed as a language dependency. The value is the version of the Pulumi Kubernetes provider
 	// to depend on.
 	pulumiKubernetesDependency string
+
+	extensionName string
 }
 
 type schemaGeneratorOption interface {
@@ -90,14 +93,14 @@ func WithResourceOverlays(resourceOverlays map[string]pschema.ResourceSpec) sche
 }
 
 type withParameterizationOption struct {
-	parameterization *pschema.ParameterizationSpec
+	parameterization *pschema.ExtensionParameterizationSpec
 }
 
 func (o *withParameterizationOption) apply(sg *schemaGenerator) {
 	sg.parameterization = o.parameterization
 }
 
-func WithParameterization(parameterization *pschema.ParameterizationSpec) schemaGeneratorOption {
+func WithParameterization(parameterization *pschema.ExtensionParameterizationSpec) schemaGeneratorOption {
 	return &withParameterizationOption{parameterization: parameterization}
 }
 
@@ -123,6 +126,18 @@ func (o *withPulumiKubernetesDependency) apply(sg *schemaGenerator) {
 
 func WithPulumiKubernetesDependency(version string) schemaGeneratorOption {
 	return &withPulumiKubernetesDependency{pulumiVersion: version}
+}
+
+type withExtensionNameOption struct {
+	extensionName string
+}
+
+func (o *withExtensionNameOption) apply(sg *schemaGenerator) {
+	sg.extensionName = o.extensionName
+}
+
+func WithExtensionName(name string) schemaGeneratorOption {
+	return &withExtensionNameOption{extensionName: name}
 }
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
@@ -368,10 +383,35 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 		Language:  map[string]pschema.RawMessage{},
 	}
 
-	// Parameterize the schema if the parameterization option is set.
-	pkg.Parameterization = gen.parameterization
+	pkg.ExtensionParameterization = gen.parameterization
+
+	// An extension package's tokens live in the base provider's namespace, so it
+	// must not declare a provider of its own.
+	if gen.parameterization != nil {
+		pkg.Provider = nil
+	}
+
+	// In extension mode the base provider's shared types (meta/v1 ObjectMeta, ...)
+	// are not emitted into the extension schema; they're referenced externally so
+	// codegen imports them from the base provider's SDK. extension carries the base
+	// provider version for those external references (nil outside extension mode).
+	var extension *extensionInfo
+	if gen.extensionName != "" && gen.parameterization != nil {
+		base := gen.parameterization.BaseProvider
+		extension = &extensionInfo{
+			baseVersion: "v" + strings.TrimPrefix(base.Version, "v"),
+		}
+		if v, err := semver.Parse(base.Version); err == nil {
+			v.Build = nil
+			pkg.Dependencies = []pschema.PackageDescriptor{{Name: base.Name, Version: &v}}
+		}
+	}
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
+	if gen.extensionName != "" {
+		goImportPath = gen.extensionName + "/kubernetes"
+		pkg.Name = gen.extensionName
+	}
 
 	csharpNamespaces := map[string]string{
 		"apiextensions": "ApiExtensions",
@@ -405,10 +445,14 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 	}
 
 	definitions := swagger["definitions"].(map[string]any)
-	groupsSlice := createGroups(definitions, gen.allowHyphens)
+	groupsSlice := createGroups(definitions, gen.allowHyphens, extension)
 
 	for _, group := range groupsSlice {
 		if group.Group() == "apiserverinternal" {
+			continue
+		}
+
+		if extension != nil && group.Group() == apiMachineryGroup {
 			continue
 		}
 		for _, version := range group.Versions() {

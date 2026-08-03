@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Added
+
+- Support adding CustomResourceDefinitions as an extension of the base `kubernetes` provider via `pulumi package add <provider> --extension`.
+
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.36.3.

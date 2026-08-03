@@ -27,7 +27,6 @@ import (
 	"sync"
 
 	"github.com/go-openapi/jsonreference"
-	"github.com/spf13/pflag"
 	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/controller/openapi/builder"
 	"k8s.io/apimachinery/pkg/util/yaml"
@@ -44,6 +43,10 @@ import (
 // defaultExtensionName is the final fallback when the user does not specify -n
 // and the manifest path's base name cannot be used.
 const defaultExtensionName = "crds"
+
+// defaultExtensionVersion is used when version=<v> is omitted. A CRD bundle has no
+// inherent version, so the value only needs to be stable.
+const defaultExtensionVersion = "1.0.0"
 
 // definitionPrefix is the JSON Schema reference prefix used in OpenAPI specs to
 // point at shared type definitions in the same document (e.g.
@@ -94,31 +97,42 @@ type ParameterizedArgs struct {
 
 // String returns a string representation of the ParameterizedArgs. This is used for logging purposes.
 func (p ParameterizedArgs) String() string {
-	return fmt.Sprintf("name: %s, version: %s, crd-manifests: %v",
+	return fmt.Sprintf("name: %s, version: %s, crd-manifest: %v",
 		p.ExtensionName, p.ExtensionVersion, strings.Join(p.CRDManifestPaths, ", "))
 }
 
-// parseCrdArgs parses the user provided arguments for provider parameterization.
+// parseCrdArgs parses the user-provided parameterization arguments. Each argument
+// is a key=value pair, e.g. "name=foo version=1.0 crd-manifest=crds.yaml". The
+// crd-manifest key may be repeated to supply multiple manifests. version is
+// optional and defaults to defaultExtensionVersion.
 func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	var extensionName string
 	var extensionVersion string
 	var yamlPaths []string
 
-	flags := pflag.NewFlagSet("crdargs", pflag.PanicOnError)
-	flags.StringVarP(&extensionName, "name", "n", "", "The name of the CRD extension.")
-	flags.StringVarP(&extensionVersion, "version", "v", "", "The version of the CRD extension.")
-	flags.StringArrayVarP(&yamlPaths, "crd-manifests", "c", nil, "The paths to the CRD manifests.")
-	err := flags.Parse(args)
-	if err != nil {
-		return nil, fmt.Errorf("error parsing parameterization args: %w", err)
+	for _, arg := range args {
+		key, value, ok := strings.Cut(arg, "=")
+		if !ok {
+			return nil, fmt.Errorf("invalid parameterization argument %q: expected key=value", arg)
+		}
+		switch key {
+		case "name":
+			extensionName = value
+		case "version":
+			extensionVersion = value
+		case "crd-manifest":
+			yamlPaths = append(yamlPaths, value)
+		default:
+			return nil, fmt.Errorf("unknown parameterization argument %q: expected name, version, or crd-manifest", key)
+		}
 	}
 
 	if extensionVersion == "" {
-		return nil, errors.New("extension version must be provided")
+		extensionVersion = defaultExtensionVersion
 	}
 
 	if len(yamlPaths) == 0 {
-		return nil, errors.New("no locations of yaml files given")
+		return nil, errors.New("no CRD manifests given (crd-manifest=<path>)")
 	}
 
 	return &ParameterizedArgs{
@@ -343,7 +357,7 @@ func mergeSpecs(specs []*spec.Swagger) (*spec.Swagger, error) {
 // generateSchema generates the Pulumi schema with parameterization for the given OpenAPI spec.
 func generateSchema(
 	swagger *spec.Swagger,
-	packageVersion, baseProvName, baseProvVersion string,
+	extensionName, extensionVersion, baseProvName, baseProvVersion string,
 ) *pulumischema.PackageSpec {
 	// TODO(rquitales): We need to handle field name normalization here so that
 	// we can generate typed SDKs that contain valid field names, for example,
@@ -359,15 +373,18 @@ func generateSchema(
 		log.Fatalf("error unmarshalling OpenAPI spec: %v", err)
 	}
 
-	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema, gen.WithParameterization(&pulumischema.ParameterizationSpec{
-		BaseProvider: pulumischema.BaseProviderSpec{
-			Name:    baseProvName,
-			Version: baseProvVersion,
-		},
-		Parameter: marshaledOpenAPISchema,
-	}))
+	pSchema := gen.PulumiSchema(unstructuredOpenAPISchema,
+		gen.WithParameterization(&pulumischema.ExtensionParameterizationSpec{
+			BaseProvider: pulumischema.BaseProviderRefSpec{
+				Name:    baseProvName,
+				Version: strings.TrimPrefix(baseProvVersion, "v"),
+			},
+			Parameter: marshaledOpenAPISchema,
+		}),
+		gen.WithExtensionName(extensionName),
+	)
 
-	pSchema.Version = packageVersion
+	pSchema.Version = extensionVersion
 
 	return &pSchema
 }
@@ -441,7 +458,7 @@ func (k *kubeProvider) parameterizeRequestArgs(
 		extensionName = deriveExtensionName(args.CRDManifestPaths)
 	}
 
-	crdsPackageSpec := generateSchema(mergedSpecs, args.ExtensionVersion, k.name, k.version)
+	crdsPackageSpec := generateSchema(mergedSpecs, extensionName, args.ExtensionVersion, k.name, k.version)
 
 	if crdsPackageSpec != nil {
 		k.crdSchemas.add(extensionName, args.ExtensionVersion, crdsPackageSpec)
@@ -456,7 +473,7 @@ func (k *kubeProvider) parameterizeRequestArgs(
 // parameters that were persisted in Pulumi.yaml.
 //
 // The Value.Value bytes contain the marshaled OpenAPI spec that was originally
-// stored as the Parameter field in the ParameterizationSpec during the Args
+// stored as the Parameter field in the ExtensionParameterizationSpec during the Args
 // path. We unmarshal it, regenerate the Pulumi schema, and cache it.
 func (k *kubeProvider) parameterizeRequestValue(
 	p *pulumirpc.ParameterizeRequest_Value,
@@ -488,7 +505,7 @@ func (k *kubeProvider) parameterizeRequestValue(
 		return nil, fmt.Errorf("parameterize value: error unmarshalling saved OpenAPI spec: %w", err)
 	}
 
-	crdsPackageSpec := generateSchema(&swagger, extensionVersion, k.name, k.version)
+	crdsPackageSpec := generateSchema(&swagger, extensionName, extensionVersion, k.name, k.version)
 	if crdsPackageSpec != nil {
 		k.crdSchemas.add(extensionName, extensionVersion, crdsPackageSpec)
 	}
