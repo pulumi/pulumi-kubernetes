@@ -549,8 +549,8 @@ github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.110.0 h1:3ZVrcJAP3h
 github.com/pulumi/pulumi-dotnet/pulumi-language-dotnet/v3 v3.110.0/go.mod h1:sZ26/AWTq2jYFcc26sTFK+1mKiGsOETeFltYqpBN7E4=
 github.com/pulumi/pulumi/pkg/v3 v3.255.0 h1:ISv/pcGGIZf4gW5KwABJPzg+GF9Vg1DoohlPq2Y/2QE=
 github.com/pulumi/pulumi/pkg/v3 v3.255.0/go.mod h1:0d1xMaPlWlHSHtquZ98pmUizE5iIXcMyldQs+ZxPaLc=
-github.com/pulumi/pulumi/sdk/v3 v3.255.0 h1:G872L4M1EPW3l60yEc52GgLpFRdXAVf0rn96q3MwDVQ=
-github.com/pulumi/pulumi/sdk/v3 v3.255.0/go.mod h1:b99ZkmEGjVyW55blOwL94IfPLcaajhOfV8OTePZrRJM=
+github.com/pulumi/pulumi/sdk/v3 v3.256.0 h1:OrkIu7Iw3HUcMtoEy2uzpD21C32B5EYBLBgBoh/uQPM=
+github.com/pulumi/pulumi/sdk/v3 v3.256.0/go.mod h1:pyX/FL1Ta3mn4UPfYh2LKG+q/90i2+Jnl0OX4cS+b9U=
 github.com/redis/go-redis/extra/rediscmd/v9 v9.0.5 h1:EaDatTxkdHG+U3Bk4EUr+DZ7fOGwTfezUiUJMaIcaho=
 github.com/redis/go-redis/extra/rediscmd/v9 v9.0.5/go.mod h1:fyalQWdtzDBECAQFBJuQe5bzQ02jGd5Qcbgb97Flm7U=
 github.com/redis/go-redis/extra/redisotel/v9 v9.0.5 h1:EfpWLLCyXw8PSM2/XNJLjI3Pb27yVE+gIAfeqp8LUCc=
