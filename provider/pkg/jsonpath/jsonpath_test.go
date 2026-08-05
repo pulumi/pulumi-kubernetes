@@ -76,6 +76,22 @@ func TestParse(t *testing.T) {
 			wantValue: "c",
 		},
 		{
+			name:      "escaped quote inside a string literal",
+			expr:      `jsonpath={.metadata.labels['a\'}b']}=c`,
+			wantPath:  `{.metadata.labels['a\'}b']}`,
+			wantValue: "c",
+		},
+		{
+			name:     "escaped quote hiding a value separator",
+			expr:     `jsonpath={.metadata.labels['a\'}=b']}`,
+			wantPath: `{.metadata.labels['a\'}=b']}`,
+		},
+		{
+			name:     "escaped backslash inside a string literal",
+			expr:     `jsonpath={.metadata.labels['a\\']}`,
+			wantPath: `{.metadata.labels['a\\']}`,
+		},
+		{
 			name:    "comparing two paths is rejected",
 			expr:    "jsonpath={.status.readyReplicas}={.spec.replicas}",
 			wantErr: "compares against another JSONPath, which is not supported",
@@ -305,6 +321,18 @@ func TestMatches(t *testing.T) {
 				Matched: false,
 				Message: `{.conditions[?(@.type!="Failed")].status} selected nothing`,
 			},
+		},
+		{
+			name: "escaped quote inside a string literal",
+			expr: `jsonpath={.metadata.labels['a\'b']}=c`,
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"labels": map[string]any{
+						`a'b`: "c",
+					},
+				},
+			}},
+			want: MatchResult{Matched: true, Found: "c"},
 		},
 		{
 			name: "complex OR match",

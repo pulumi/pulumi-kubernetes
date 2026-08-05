@@ -87,9 +87,11 @@ func Parse(raw string) (*Parsed, error) {
 		return nil, fmt.Errorf("%s should omit shell quotes", path)
 	}
 
-	// Comparing one path against another isn't supported; without this the value is treated as a literal and never matches.
+	// Comparing one path against another isn't supported; without this the value is treated as a literal and never
+	// matches.
 	if strings.HasPrefix(value, "{") {
-		return nil, fmt.Errorf("%s=%s compares against another JSONPath, which is not supported; the value must be a literal", path, value)
+		return nil, fmt.Errorf(
+			"%s=%s compares against another JSONPath, which is not supported; the value must be a literal", path, value)
 	}
 
 	pathWithoutBrackets, ok := unbracket(path)
