@@ -47,3 +47,14 @@ if your cluster works with `kubectl`, it will also work with Pulumi.
 ```bash
 $ make test_all
 ```
+
+### Readable test output
+
+CI runs the Go tests through [gotestsum](https://github.com/gotestyourself/gotestsum),
+which groups output per test and repeats the failures at the end. Every test
+target honours `GO_TEST_EXEC`, so you can get the same locally:
+
+```bash
+$ MISE_ENV=test mise install
+$ make test_provider GO_TEST_EXEC="gotestsum --format testname --"
+```
