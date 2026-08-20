@@ -7,7 +7,7 @@ import warnings
 import sys
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload, Literal
 if sys.version_info >= (3, 11):
     from typing import NotRequired, TypedDict, TypeAlias
 else:
@@ -25,11 +25,11 @@ class EventInitArgs:
                  involved_object: pulumi.Input['ObjectReferenceArgs'],
                  metadata: pulumi.Input['_meta.v1.ObjectMetaArgs'],
                  action: pulumi.Input[Optional[_builtins.str]] = None,
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['v1']]] = None,
                  count: pulumi.Input[Optional[_builtins.int]] = None,
                  event_time: pulumi.Input[Optional[_builtins.str]] = None,
                  first_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[Literal['Event']]] = None,
                  last_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
                  message: pulumi.Input[Optional[_builtins.str]] = None,
                  reason: pulumi.Input[Optional[_builtins.str]] = None,
@@ -45,11 +45,11 @@ class EventInitArgs:
         :param pulumi.Input['ObjectReferenceArgs'] involved_object: The object that this event is about.
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[_builtins.str] action: What action was taken/failed regarding to the Regarding object.
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.int] count: The number of times this event has occurred.
         :param pulumi.Input[_builtins.str] event_time: Time when this Event was first observed.
         :param pulumi.Input[_builtins.str] first_timestamp: The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Literal['Event']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[_builtins.str] last_timestamp: The time at which the most recent occurrence of this event was recorded.
         :param pulumi.Input[_builtins.str] message: A human-readable description of the status of this operation.
         :param pulumi.Input[_builtins.str] reason: This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
@@ -131,14 +131,14 @@ class EventInitArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[Literal['v1']]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[Literal['v1']]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
@@ -179,14 +179,14 @@ class EventInitArgs:
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[Literal['Event']]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[Literal['Event']]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
@@ -305,12 +305,12 @@ class Event(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  action: pulumi.Input[Optional[_builtins.str]] = None,
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['v1']]] = None,
                  count: pulumi.Input[Optional[_builtins.int]] = None,
                  event_time: pulumi.Input[Optional[_builtins.str]] = None,
                  first_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
                  involved_object: pulumi.Input[Optional[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[Literal['Event']]] = None,
                  last_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
                  message: pulumi.Input[Optional[_builtins.str]] = None,
                  metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
@@ -328,12 +328,12 @@ class Event(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] action: What action was taken/failed regarding to the Regarding object.
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.int] count: The number of times this event has occurred.
         :param pulumi.Input[_builtins.str] event_time: Time when this Event was first observed.
         :param pulumi.Input[_builtins.str] first_timestamp: The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
         :param pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']] involved_object: The object that this event is about.
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Literal['Event']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[_builtins.str] last_timestamp: The time at which the most recent occurrence of this event was recorded.
         :param pulumi.Input[_builtins.str] message: A human-readable description of the status of this operation.
         :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -370,12 +370,12 @@ class Event(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  action: pulumi.Input[Optional[_builtins.str]] = None,
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['v1']]] = None,
                  count: pulumi.Input[Optional[_builtins.int]] = None,
                  event_time: pulumi.Input[Optional[_builtins.str]] = None,
                  first_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
                  involved_object: pulumi.Input[Optional[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[Literal['Event']]] = None,
                  last_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
                  message: pulumi.Input[Optional[_builtins.str]] = None,
                  metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
@@ -469,7 +469,7 @@ class Event(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[_builtins.str]:
+    def api_version(self) -> pulumi.Output[Literal['v1']]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -509,7 +509,7 @@ class Event(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[_builtins.str]:
+    def kind(self) -> pulumi.Output[Literal['Event']]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """

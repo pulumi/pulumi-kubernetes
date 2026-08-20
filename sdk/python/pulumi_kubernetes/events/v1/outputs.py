@@ -7,7 +7,7 @@ import warnings
 import sys
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload, Literal
 if sys.version_info >= (3, 11):
     from typing import NotRequired, TypedDict, TypeAlias
 else:
@@ -62,12 +62,12 @@ class Event(dict):
     def __init__(__self__, *,
                  event_time: _builtins.str,
                  action: Optional[_builtins.str] = None,
-                 api_version: Optional[_builtins.str] = None,
+                 api_version: Optional[Literal['events.k8s.io/v1']] = None,
                  deprecated_count: Optional[_builtins.int] = None,
                  deprecated_first_timestamp: Optional[_builtins.str] = None,
                  deprecated_last_timestamp: Optional[_builtins.str] = None,
                  deprecated_source: Optional['_core.v1.outputs.EventSource'] = None,
-                 kind: Optional[_builtins.str] = None,
+                 kind: Optional[Literal['Event']] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
                  note: Optional[_builtins.str] = None,
                  reason: Optional[_builtins.str] = None,
@@ -82,12 +82,12 @@ class Event(dict):
 
         :param _builtins.str event_time: eventTime is the time when this Event was first observed. It is required.
         :param _builtins.str action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
-        :param _builtins.str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param Literal['events.k8s.io/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param _builtins.int deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param _builtins.str deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param _builtins.str deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         :param '_core.v1.EventSourceArgs' deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param _builtins.str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param Literal['Event'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param _builtins.str note: note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         :param _builtins.str reason: reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
@@ -150,7 +150,7 @@ class Event(dict):
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[_builtins.str]:
+    def api_version(self) -> Optional[Literal['events.k8s.io/v1']]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -190,7 +190,7 @@ class Event(dict):
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> Optional[_builtins.str]:
+    def kind(self) -> Optional[Literal['Event']]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """

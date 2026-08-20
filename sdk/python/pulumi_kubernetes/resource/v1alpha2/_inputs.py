@@ -7,7 +7,7 @@ import warnings
 import sys
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload, Literal
 if sys.version_info >= (3, 11):
     from typing import NotRequired, TypedDict, TypeAlias
 else:
@@ -1295,11 +1295,11 @@ class PodSchedulingContextArgsDict(TypedDict):
     """
     Spec describes where resources for the Pod are needed.
     """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_version: NotRequired[pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[Literal['PodSchedulingContext']]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
@@ -1316,8 +1316,8 @@ class PodSchedulingContextArgsDict(TypedDict):
 class PodSchedulingContextArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['PodSchedulingContextSpecArgs'],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
+                 kind: pulumi.Input[Optional[Literal['PodSchedulingContext']]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
                  status: pulumi.Input[Optional['PodSchedulingContextStatusArgs']] = None):
         """
@@ -1326,8 +1326,8 @@ class PodSchedulingContextArgs:
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
         :param pulumi.Input['PodSchedulingContextSpecArgs'] spec: Spec describes where resources for the Pod are needed.
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Literal['resource.k8s.io/v1alpha2']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['PodSchedulingContext']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         :param pulumi.Input['PodSchedulingContextStatusArgs'] status: Status describes where resources for the Pod can be allocated.
         """
@@ -1355,26 +1355,26 @@ class PodSchedulingContextArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[Literal['PodSchedulingContext']]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[Literal['PodSchedulingContext']]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
@@ -1566,11 +1566,11 @@ class ResourceClaimArgsDict(TypedDict):
     """
     Spec describes the desired attributes of a resource that then needs to be allocated. It can only be set once when creating the ResourceClaim.
     """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_version: NotRequired[pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[Literal['ResourceClaim']]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
@@ -1587,8 +1587,8 @@ class ResourceClaimArgsDict(TypedDict):
 class ResourceClaimArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['ResourceClaimSpecArgs'],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
+                 kind: pulumi.Input[Optional[Literal['ResourceClaim']]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
                  status: pulumi.Input[Optional['ResourceClaimStatusArgs']] = None):
         """
@@ -1597,8 +1597,8 @@ class ResourceClaimArgs:
         This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
 
         :param pulumi.Input['ResourceClaimSpecArgs'] spec: Spec describes the desired attributes of a resource that then needs to be allocated. It can only be set once when creating the ResourceClaim.
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Literal['resource.k8s.io/v1alpha2']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['ResourceClaim']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         :param pulumi.Input['ResourceClaimStatusArgs'] status: Status describes whether the resource is available and with which attributes.
         """
@@ -1626,26 +1626,26 @@ class ResourceClaimArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[Literal['ResourceClaim']]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[Literal['ResourceClaim']]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
@@ -1768,7 +1768,7 @@ class ResourceClaimParametersArgsDict(TypedDict):
     """
     ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
     """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_version: NotRequired[pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
@@ -1782,7 +1782,7 @@ class ResourceClaimParametersArgsDict(TypedDict):
     """
     If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[Literal['ResourceClaimParameters']]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
@@ -1798,21 +1798,21 @@ class ResourceClaimParametersArgsDict(TypedDict):
 @pulumi.input_type
 class ResourceClaimParametersArgs:
     def __init__(__self__, *,
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
                  driver_requests: pulumi.Input[Optional[Sequence[pulumi.Input['DriverRequestsArgs']]]] = None,
                  generated_from: pulumi.Input[Optional['ResourceClaimParametersReferenceArgs']] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[Literal['ResourceClaimParameters']]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
                  shareable: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         ResourceClaimParameters defines resource requests for a ResourceClaim in an in-tree format understood by Kubernetes.
 
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['resource.k8s.io/v1alpha2']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Sequence[pulumi.Input['DriverRequestsArgs']]] driver_requests: DriverRequests describes all resources that are needed for the allocated claim. A single claim may use resources coming from different drivers. For each driver, this array has at most one entry which then may have one or more per-driver requests.
                
                May be empty, in which case the claim can always be allocated.
         :param pulumi.Input['ResourceClaimParametersReferenceArgs'] generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the claim parameters when the parameter reference of the claim refers to some unknown type.
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Literal['ResourceClaimParameters']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         :param pulumi.Input[_builtins.bool] shareable: Shareable indicates whether the allocated claim is meant to be shareable by multiple consumers at the same time.
         """
@@ -1831,14 +1831,14 @@ class ResourceClaimParametersArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
@@ -1869,14 +1869,14 @@ class ResourceClaimParametersArgs:
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[Literal['ResourceClaimParameters']]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[Literal['ResourceClaimParameters']]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
@@ -2391,11 +2391,11 @@ class ResourceClaimTemplateArgsDict(TypedDict):
 
     This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
     """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_version: NotRequired[pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[Literal['ResourceClaimTemplate']]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
@@ -2408,8 +2408,8 @@ class ResourceClaimTemplateArgsDict(TypedDict):
 class ResourceClaimTemplateArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['ResourceClaimTemplateSpecArgs'],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
+                 kind: pulumi.Input[Optional[Literal['ResourceClaimTemplate']]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
         """
         ResourceClaimTemplate is used to produce ResourceClaim objects.
@@ -2417,8 +2417,8 @@ class ResourceClaimTemplateArgs:
         :param pulumi.Input['ResourceClaimTemplateSpecArgs'] spec: Describes the ResourceClaim that is to be generated.
                
                This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Literal['resource.k8s.io/v1alpha2']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['ResourceClaimTemplate']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         """
         pulumi.set(__self__, "spec", spec)
@@ -2445,26 +2445,26 @@ class ResourceClaimTemplateArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[Literal['ResourceClaimTemplate']]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[Literal['ResourceClaimTemplate']]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
@@ -2599,11 +2599,11 @@ class ResourceClassArgsDict(TypedDict):
 
     Resource drivers have a unique name in forward domain order (acme.example.com).
     """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_version: NotRequired[pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[Literal['ResourceClass']]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
@@ -2630,8 +2630,8 @@ class ResourceClassArgsDict(TypedDict):
 class ResourceClassArgs:
     def __init__(__self__, *,
                  driver_name: pulumi.Input[_builtins.str],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
+                 kind: pulumi.Input[Optional[Literal['ResourceClass']]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
                  parameters_ref: pulumi.Input[Optional['ResourceClassParametersReferenceArgs']] = None,
                  structured_parameters: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -2644,8 +2644,8 @@ class ResourceClassArgs:
         :param pulumi.Input[_builtins.str] driver_name: DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
                
                Resource drivers have a unique name in forward domain order (acme.example.com).
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Literal['resource.k8s.io/v1alpha2']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['ResourceClass']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         :param pulumi.Input['ResourceClassParametersReferenceArgs'] parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
         :param pulumi.Input[_builtins.bool] structured_parameters: If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
@@ -2683,26 +2683,26 @@ class ResourceClassArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[Literal['ResourceClass']]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[Literal['ResourceClass']]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
@@ -2760,7 +2760,7 @@ class ResourceClassParametersArgsDict(TypedDict):
     """
     ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
     """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_version: NotRequired[pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
@@ -2772,7 +2772,7 @@ class ResourceClassParametersArgsDict(TypedDict):
     """
     If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[Literal['ResourceClassParameters']]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
@@ -2788,19 +2788,19 @@ class ResourceClassParametersArgsDict(TypedDict):
 @pulumi.input_type
 class ResourceClassParametersArgs:
     def __init__(__self__, *,
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
                  filters: pulumi.Input[Optional[Sequence[pulumi.Input['ResourceFilterArgs']]]] = None,
                  generated_from: pulumi.Input[Optional['ResourceClassParametersReferenceArgs']] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[Literal['ResourceClassParameters']]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
                  vendor_parameters: pulumi.Input[Optional[Sequence[pulumi.Input['VendorParametersArgs']]]] = None):
         """
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
 
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['resource.k8s.io/v1alpha2']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Sequence[pulumi.Input['ResourceFilterArgs']]] filters: Filters describes additional contraints that must be met when using the class.
         :param pulumi.Input['ResourceClassParametersReferenceArgs'] generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Literal['ResourceClassParameters']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         :param pulumi.Input[Sequence[pulumi.Input['VendorParametersArgs']]] vendor_parameters: VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
         """
@@ -2819,14 +2819,14 @@ class ResourceClassParametersArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
@@ -2855,14 +2855,14 @@ class ResourceClassParametersArgs:
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[Literal['ResourceClassParameters']]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[Literal['ResourceClassParameters']]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
@@ -3380,11 +3380,11 @@ class ResourceSliceArgsDict(TypedDict):
     """
     DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
     """
-    api_version: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    api_version: NotRequired[pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
     """
-    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    kind: NotRequired[pulumi.Input[Optional[Literal['ResourceSlice']]]]
     """
     Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
     """
@@ -3407,8 +3407,8 @@ class ResourceSliceArgsDict(TypedDict):
 class ResourceSliceArgs:
     def __init__(__self__, *,
                  driver_name: pulumi.Input[_builtins.str],
-                 api_version: pulumi.Input[Optional[_builtins.str]] = None,
-                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
+                 kind: pulumi.Input[Optional[Literal['ResourceSlice']]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
                  named_resources: pulumi.Input[Optional['NamedResourcesResourcesArgs']] = None,
                  node_name: pulumi.Input[Optional[_builtins.str]] = None):
@@ -3416,8 +3416,8 @@ class ResourceSliceArgs:
         ResourceSlice provides information about available resources on individual nodes.
 
         :param pulumi.Input[_builtins.str] driver_name: DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
-        :param pulumi.Input[_builtins.str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[_builtins.str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Literal['resource.k8s.io/v1alpha2']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['ResourceSlice']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         :param pulumi.Input['NamedResourcesResourcesArgs'] named_resources: NamedResources describes available resources using the named resources model.
         :param pulumi.Input[_builtins.str] node_name: NodeName identifies the node which provides the resources if they are local to a node.
@@ -3450,26 +3450,26 @@ class ResourceSliceArgs:
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def api_version(self) -> pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
 
     @api_version.setter
-    def api_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def api_version(self, value: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]]):
         pulumi.set(self, "api_version", value)
 
     @_builtins.property
     @pulumi.getter
-    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def kind(self) -> pulumi.Input[Optional[Literal['ResourceSlice']]]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
     @kind.setter
-    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def kind(self, value: pulumi.Input[Optional[Literal['ResourceSlice']]]):
         pulumi.set(self, "kind", value)
 
     @_builtins.property
