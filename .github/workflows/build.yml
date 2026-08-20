@@ -22,6 +22,8 @@ env:
   PYTHONVERSION: "3.11.15"
   DOTNETVERSION: "8.0.x"
   JAVAVERSION: "11"
+  MISE_ENV: test
+  GO_TEST_EXEC: "gotestsum --format github-actions --"
   AWS_REGION: us-west-2
   GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
@@ -381,13 +383,8 @@ jobs:
       uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
       with:
         install_components: gke-gcloud-auth-plugin
-    - name: Install gotestfmt
-      uses: GoTestTools/gotestfmt-action@v2
-      with:
-        version: v2.5.0
-        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run tests
-      run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
+      run: cd tests/sdk/${{ matrix.language }} && $GO_TEST_EXEC -v -count=1 -cover -timeout
         2h -parallel 4 ./...
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
