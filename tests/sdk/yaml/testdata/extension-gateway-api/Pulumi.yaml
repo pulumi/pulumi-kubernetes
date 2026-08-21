@@ -13,7 +13,7 @@ resources:
         name: gateway-system
 
   test-gateway-class:
-    type: kubernetes:gateway.networking.k8s.io/v1:GatewayClass
+    type: gateway-networking:gateway.networking.k8s.io/v1:GatewayClass
     properties:
       metadata:
         name: example-class
