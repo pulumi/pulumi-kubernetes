@@ -7,7 +7,7 @@ import warnings
 import sys
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload, Literal
 if sys.version_info >= (3, 11):
     from typing import NotRequired, TypedDict, TypeAlias
 else:
@@ -25,7 +25,7 @@ class ReleaseArgs:
                  allow_null_values: pulumi.Input[Optional[_builtins.bool]] = None,
                  atomic: pulumi.Input[Optional[_builtins.bool]] = None,
                  cleanup_on_fail: pulumi.Input[Optional[_builtins.bool]] = None,
-                 compat: pulumi.Input[Optional[_builtins.str]] = None,
+                 compat: pulumi.Input[Optional[Literal['true']]] = None,
                  create_namespace: pulumi.Input[Optional[_builtins.bool]] = None,
                  dependency_update: pulumi.Input[Optional[_builtins.bool]] = None,
                  description: pulumi.Input[Optional[_builtins.str]] = None,
@@ -218,11 +218,11 @@ class ReleaseArgs:
 
     @_builtins.property
     @pulumi.getter
-    def compat(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def compat(self) -> pulumi.Input[Optional[Literal['true']]]:
         return pulumi.get(self, "compat")
 
     @compat.setter
-    def compat(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def compat(self, value: pulumi.Input[Optional[Literal['true']]]):
         pulumi.set(self, "compat", value)
 
     @_builtins.property
@@ -608,7 +608,7 @@ class Release(pulumi.CustomResource):
                  atomic: pulumi.Input[Optional[_builtins.bool]] = None,
                  chart: pulumi.Input[Optional[_builtins.str]] = None,
                  cleanup_on_fail: pulumi.Input[Optional[_builtins.bool]] = None,
-                 compat: pulumi.Input[Optional[_builtins.str]] = None,
+                 compat: pulumi.Input[Optional[Literal['true']]] = None,
                  create_namespace: pulumi.Input[Optional[_builtins.bool]] = None,
                  dependency_update: pulumi.Input[Optional[_builtins.bool]] = None,
                  description: pulumi.Input[Optional[_builtins.str]] = None,
@@ -1068,7 +1068,7 @@ class Release(pulumi.CustomResource):
                  atomic: pulumi.Input[Optional[_builtins.bool]] = None,
                  chart: pulumi.Input[Optional[_builtins.str]] = None,
                  cleanup_on_fail: pulumi.Input[Optional[_builtins.bool]] = None,
-                 compat: pulumi.Input[Optional[_builtins.str]] = None,
+                 compat: pulumi.Input[Optional[Literal['true']]] = None,
                  create_namespace: pulumi.Input[Optional[_builtins.bool]] = None,
                  dependency_update: pulumi.Input[Optional[_builtins.bool]] = None,
                  description: pulumi.Input[Optional[_builtins.str]] = None,
