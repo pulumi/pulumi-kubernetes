@@ -341,6 +341,8 @@ const (
 // extensionInfo marks extension mode and carries the base-provider version its
 // external references need. It is nil when generating the base provider's own schema.
 type extensionInfo struct {
+	// name is the extension package name, which owns the tokens it declares.
+	name string
 	// baseVersion is the base provider version with a leading "v".
 	baseVersion string
 }
@@ -463,8 +465,12 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string, 
 				"/kubernetes/%s/schema.json#/types/kubernetes:%s%%2F%s:%s",
 				extension.baseVersion, canonicalGroup, gvk.Version, gvk.Kind)}
 		}
-		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/kubernetes:%s/%s:%s",
-			canonicalGroup, gvk.Version, gvk.Kind)}
+		refPkg := "kubernetes"
+		if extension != nil {
+			refPkg = extension.name
+		}
+		return pschema.TypeSpec{Ref: fmt.Sprintf("#/types/%s:%s/%s:%s",
+			refPkg, canonicalGroup, gvk.Version, gvk.Kind)}
 	}
 	panic("Canonical group not set for ref: " + ref)
 }
@@ -485,7 +491,7 @@ func makeSchemaType(prop map[string]any, canonicalGroups map[string]string, exte
 func createGroups(definitionsJSON map[string]any, allowHyphens bool, extension *extensionInfo) []GroupConfig {
 	canonicalGroups := createCanonicalGroups(definitionsJSON)
 	definitions := createDefinitions(definitionsJSON, canonicalGroups)
-	aliases := createAliases(definitions, canonicalGroups)
+	aliases := createAliases(definitions, canonicalGroups, extension)
 	kinds := createKinds(definitions, canonicalGroups, aliases, allowHyphens, extension)
 	versions := createVersions(kinds)
 	groups := createGroupsFromVersions(versions)
@@ -550,7 +556,9 @@ func createDefinitions(definitionsJSON map[string]any, canonicalGroups map[strin
 // createAliases creates a mapping of Kubernetes kinds to their aliases. Many kubernetes resources
 // have multiple GVs, so create a map from Kind -> GV string.
 // For Kinds with more than one GV, create aliases in the SDKs.
-func createAliases(definitions []definition, canonicalGroups map[string]string) map[string][]any {
+func createAliases(
+	definitions []definition, canonicalGroups map[string]string, extension *extensionInfo,
+) map[string][]any {
 	aliases := map[string][]any{}
 
 	// Filter top-level definitions that are not lists
@@ -566,12 +574,17 @@ func createAliases(definitions []definition, canonicalGroups map[string]string) 
 		return topLevelDefs[i].gvk.String() < topLevelDefs[j].gvk.String()
 	})
 
+	aliasPkg := "kubernetes"
+	if extension != nil {
+		aliasPkg = extension.name
+	}
+
 	// Group by kind and collect aliases
 	groupedByKind := map[string][]string{}
 	for _, d := range topLevelDefs {
 		kind := d.gvk.Kind
 		apiVersion := d.apiVersion(canonicalGroups)
-		groupedByKind[kind] = append(groupedByKind[kind], fmt.Sprintf("kubernetes:%s:%s", apiVersion, kind))
+		groupedByKind[kind] = append(groupedByKind[kind], fmt.Sprintf("%s:%s:%s", aliasPkg, apiVersion, kind))
 	}
 
 	// Filter groups with more than one alias

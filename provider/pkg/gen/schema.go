@@ -385,7 +385,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 
 	pkg.ExtensionParameterization = gen.parameterization
 
-	// An extension package's tokens live in the base provider's namespace, so it
+	// An extension is configured through the base provider it layers onto, so it
 	// must not declare a provider of its own.
 	if gen.parameterization != nil {
 		pkg.Provider = nil
@@ -399,6 +399,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 	if gen.extensionName != "" && gen.parameterization != nil {
 		base := gen.parameterization.BaseProvider
 		extension = &extensionInfo{
+			name:        gen.extensionName,
 			baseVersion: "v" + strings.TrimPrefix(base.Version, "v"),
 		}
 		if v, err := semver.Parse(base.Version); err == nil {
@@ -457,7 +458,11 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 		}
 		for _, version := range group.Versions() {
 			for _, kind := range version.Kinds() {
-				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.apiVersion, kind.kind)
+				pkgName := "kubernetes"
+				if gen.extensionName != "" {
+					pkgName = gen.extensionName
+				}
+				tok := fmt.Sprintf(`%s:%s:%s`, pkgName, kind.apiVersion, kind.kind)
 				var patchTok string
 
 				// Generate patch variants for non-list resources.

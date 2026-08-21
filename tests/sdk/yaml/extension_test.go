@@ -29,11 +29,6 @@ func TestExtensionGatewayAPI(t *testing.T) {
 		require.NoErrorf(t, err, "pulumi package add %v failed: %s", args, stderr)
 	}
 
-	// Declare the base kubernetes package explicitly so base-namespace types
-	// (core/v1:Namespace) resolve without relying on the pulumi-yaml
-	// package-resolution fix being released.
-	// TODO #pulumi/pulumi-yaml/1162: drop the base add once the fix is released.
-	packageAdd()
 	packageAdd("--extension", "name=gateway-networking crd-manifest=gateway-api-crds.yaml")
 
 	preview := test.Preview(t)

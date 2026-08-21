@@ -497,6 +497,10 @@ func (k *kubeProvider) parameterizeRequestValue(
 		return nil, errors.New("parameterize value: parameter bytes must be provided")
 	}
 
+	// Extension resources are tokened under the extension's own package name, so the
+	// runtime CRUD gate (gvkFromURN) must accept that namespace rather than "kubernetes".
+	k.providerPackage = extensionName
+
 	logger.V(9).Infof("Reconstructing CRD schema for %s@%s from saved parameters", extensionName, extensionVersion)
 
 	// Deserialize the OpenAPI spec from the saved parameter bytes.
