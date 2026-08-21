@@ -48,6 +48,55 @@ func TestParse(t *testing.T) {
 			wantValue: "True",
 		},
 		{
+			name:      "preserve != with a value",
+			expr:      `jsonpath={.status.conditions[?(@.type!="Failed")].status}=True`,
+			wantPath:  `{.status.conditions[?(@.type!="Failed")].status}`,
+			wantValue: "True",
+		},
+		{
+			name:     "preserve != without a value",
+			expr:     `jsonpath={.status.conditions[?(@.type!="Failed")].status}`,
+			wantPath: `{.status.conditions[?(@.type!="Failed")].status}`,
+		},
+		{
+			name:      "preserve >=",
+			expr:      `jsonpath={.status.conditions[?(@.observedGeneration>=2)].status}=True`,
+			wantPath:  `{.status.conditions[?(@.observedGeneration>=2)].status}`,
+			wantValue: "True",
+		},
+		{
+			name:     "preserve <=",
+			expr:     `jsonpath={.status.conditions[?(@.observedGeneration<=2)].status}`,
+			wantPath: `{.status.conditions[?(@.observedGeneration<=2)].status}`,
+		},
+		{
+			name:      "brace inside a string literal",
+			expr:      `jsonpath={.metadata.labels['a}b']}=c`,
+			wantPath:  `{.metadata.labels['a}b']}`,
+			wantValue: "c",
+		},
+		{
+			name:      "escaped quote inside a string literal",
+			expr:      `jsonpath={.metadata.labels['a\'}b']}=c`,
+			wantPath:  `{.metadata.labels['a\'}b']}`,
+			wantValue: "c",
+		},
+		{
+			name:     "escaped quote hiding a value separator",
+			expr:     `jsonpath={.metadata.labels['a\'}=b']}`,
+			wantPath: `{.metadata.labels['a\'}=b']}`,
+		},
+		{
+			name:     "escaped backslash inside a string literal",
+			expr:     `jsonpath={.metadata.labels['a\\']}`,
+			wantPath: `{.metadata.labels['a\\']}`,
+		},
+		{
+			name:    "comparing two paths is rejected",
+			expr:    "jsonpath={.status.readyReplicas}={.spec.replicas}",
+			wantErr: "compares against another JSONPath, which is not supported",
+		},
+		{
 			name:     "key with any value",
 			expr:     "jsonpath={.foo}",
 			wantPath: "{.foo}",
@@ -243,6 +292,47 @@ func TestMatches(t *testing.T) {
 				},
 			}},
 			want: MatchResult{Matched: false, Found: "False"},
+		},
+		{
+			name: "negated selector match",
+			expr: `jsonpath={.conditions[?(@.type!="Failed")].status}=True`,
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"conditions": []any{
+					map[string]any{
+						"type":   "Complete",
+						"status": "True",
+					},
+				},
+			}},
+			want: MatchResult{Matched: true, Found: "True"},
+		},
+		{
+			name: "negated selector non-match",
+			expr: `jsonpath={.conditions[?(@.type!="Failed")].status}=True`,
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"conditions": []any{
+					map[string]any{
+						"type":   "Failed",
+						"status": "True",
+					},
+				},
+			}},
+			want: MatchResult{
+				Matched: false,
+				Message: `{.conditions[?(@.type!="Failed")].status} selected nothing`,
+			},
+		},
+		{
+			name: "escaped quote inside a string literal",
+			expr: `jsonpath={.metadata.labels['a\'b']}=c`,
+			uns: &unstructured.Unstructured{Object: map[string]any{
+				"metadata": map[string]any{
+					"labels": map[string]any{
+						`a'b`: "c",
+					},
+				},
+			}},
+			want: MatchResult{Matched: true, Found: "c"},
 		},
 		{
 			name: "complex OR match",
