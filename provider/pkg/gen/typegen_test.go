@@ -664,6 +664,49 @@ func TestMakeSchemaTypeSpec(t *testing.T) {
 	}
 }
 
+func TestMakeSchemaTypeSpecExtensionRefs(t *testing.T) {
+	extension := &extensionInfo{baseVersion: "v4.33.0", name: "crdfoo"}
+
+	tests := []struct {
+		name             string
+		prop             map[string]any
+		canonicalGroups  map[string]string
+		expectedTypeSpec pschema.TypeSpec
+	}{
+		{
+			name: "extension-owned type refs the extension package",
+			prop: map[string]any{
+				"$ref": "#/definitions/io.k8s.api.gateway.v1.Gateway",
+			},
+			canonicalGroups: map[string]string{
+				"io.k8s.api.gateway": "gateway",
+			},
+			expectedTypeSpec: pschema.TypeSpec{
+				Ref: "#/types/crdfoo:gateway/v1:Gateway",
+			},
+		},
+		{
+			name: "base-provider type refs the base schema externally",
+			prop: map[string]any{
+				"$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
+			},
+			canonicalGroups: map[string]string{
+				"io.k8s.apimachinery.pkg.apis.meta": "meta",
+			},
+			expectedTypeSpec: pschema.TypeSpec{
+				Ref: "/kubernetes/v4.33.0/schema.json#/types/kubernetes:meta%2Fv1:ObjectMeta",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := makeSchemaTypeSpec(tt.prop, tt.canonicalGroups, extension)
+			assert.Equal(t, tt.expectedTypeSpec, actual)
+		})
+	}
+}
+
 func TestIsTopLevel(t *testing.T) {
 	tests := []struct {
 		name       string
