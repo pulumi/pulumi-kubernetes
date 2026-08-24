@@ -20,6 +20,10 @@ GOPATH			:= $(shell go env GOPATH)
 
 WORKING_DIR     := $(shell pwd)
 
+# Override GO_TEST_EXEC to run the Go tests through a different runner, e.g.
+# `gotestsum` for grouped, readable failures. CI sets it; see CONTRIBUTING.md.
+GO_TEST_EXEC ?= go test
+
 # Override during CI using `make [TARGET] PROVIDER_VERSION=""` or by setting a PROVIDER_VERSION environment variable
 # Local & branch builds will just used this fixed default version unless specified
 PROVIDER_VERSION ?= 4.0.0-alpha.0+dev
@@ -58,7 +62,7 @@ k8sprovider_debug::
 	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION_GENERIC}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
 
 test_provider::
-	cd provider/pkg && go test -short -v -coverprofile="coverage.txt" -coverpkg=./... -timeout 2h ./...
+	cd provider/pkg && $(GO_TEST_EXEC) -short -v -coverprofile="coverage.txt" -coverpkg=./... -timeout 2h ./...
 
 dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl convert-version --language dotnet -v "$(VERSION_GENERIC)")
 dotnet_sdk::
@@ -128,8 +132,8 @@ install_provider:: k8sprovider
 
 install:: install_nodejs_sdk install_dotnet_sdk install_provider
 
-GO_TEST_FAST := go test -short -v -cover -timeout 2h
-GO_TEST		 := go test -v -cover -timeout 2h
+GO_TEST_FAST := $(GO_TEST_EXEC) -short -v -cover -timeout 2h
+GO_TEST		 := $(GO_TEST_EXEC) -v -cover -timeout 2h
 
 # Required for the codegen action that runs in pulumi/pulumi
 test:: test_all
