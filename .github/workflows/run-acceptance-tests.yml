@@ -174,11 +174,11 @@ jobs:
 
         git config --global user.name "pulumi-bot"
 
-        # Stash local changes and check out the PR's branch directly.
+        # Stash local changes and check out the PR's branch directly, fetching only that ref so submodule recursion never sees gitlinks from unrelated branches.
 
         git stash
 
-        git fetch
+        git fetch --no-recurse-submodules origin "+refs/heads/$HEAD_REF:refs/remotes/origin/$HEAD_REF"
 
         git checkout "origin/$HEAD_REF"
 
@@ -321,11 +321,11 @@ jobs:
 
         git config --global user.name "pulumi-bot"
 
-        # Stash local changes and check out the PR's branch directly.
+        # Stash local changes and check out the PR's branch directly, fetching only that ref so submodule recursion never sees gitlinks from unrelated branches.
 
         git stash
 
-        git fetch
+        git fetch --no-recurse-submodules origin "+refs/heads/$HEAD_REF:refs/remotes/origin/$HEAD_REF"
 
         git checkout "origin/$HEAD_REF"
 
