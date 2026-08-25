@@ -19,6 +19,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 )
 
 func TestListInputsSpec(t *testing.T) {
@@ -49,4 +51,65 @@ func TestListInputsSpec(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestExtensionResourcesAliasBaseProviderToken(t *testing.T) {
+	swagger := map[string]any{
+		"definitions": map[string]any{
+			"io.k8s.api.gateway.v1.Gateway": map[string]any{
+				"properties": map[string]any{
+					"apiVersion": map[string]any{"type": "string"},
+					"kind":       map[string]any{"type": "string"},
+					"metadata":   map[string]any{"$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"},
+					"spec":       map[string]any{"type": "object"},
+				},
+				"x-kubernetes-group-version-kind": []any{
+					map[string]any{"group": "gateway", "version": "v1", "kind": "Gateway"},
+				},
+			},
+		},
+	}
+
+	pkg := PulumiSchema(swagger,
+		WithExtensionName("crdfoo"),
+		WithParameterization(&pschema.ExtensionParameterizationSpec{
+			BaseProvider: pschema.BaseProviderRefSpec{Name: "kubernetes", Version: "4.33.0"},
+		}),
+	)
+
+	require.Equal(t, "crdfoo", pkg.Name)
+
+	res, ok := pkg.Resources["crdfoo:gateway/v1:Gateway"]
+	require.True(t, ok, "extension resource must be tokened under the extension package")
+	assert.NotContains(t, pkg.Resources, "kubernetes:gateway/v1:Gateway",
+		"the base-namespaced token must not be emitted as a resource of its own")
+
+	assert.Contains(t, res.Aliases, pschema.AliasSpec{Type: "kubernetes:gateway/v1:Gateway"},
+		"extension resource must alias the base token so crd2pulumi state is adopted rather than replaced")
+}
+
+func TestBaseProviderResourcesHaveNoExtensionAlias(t *testing.T) {
+	swagger := map[string]any{
+		"definitions": map[string]any{
+			"io.k8s.api.gateway.v1.Gateway": map[string]any{
+				"properties": map[string]any{
+					"apiVersion": map[string]any{"type": "string"},
+					"kind":       map[string]any{"type": "string"},
+					"metadata":   map[string]any{"$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta"},
+					"spec":       map[string]any{"type": "object"},
+				},
+				"x-kubernetes-group-version-kind": []any{
+					map[string]any{"group": "gateway", "version": "v1", "kind": "Gateway"},
+				},
+			},
+		},
+	}
+
+	pkg := PulumiSchema(swagger)
+
+	res, ok := pkg.Resources["kubernetes:gateway/v1:Gateway"]
+	require.True(t, ok, "base schema must keep kubernetes-namespaced tokens")
+
+	assert.NotContains(t, res.Aliases, pschema.AliasSpec{Type: "kubernetes:gateway/v1:Gateway"},
+		"a resource must not alias its own token when generating the base provider schema")
 }

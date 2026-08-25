@@ -589,6 +589,12 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 				for _, t := range kind.Aliases() {
 					resourceSpec.Aliases = append(resourceSpec.Aliases, pschema.AliasSpec{Type: t})
 				}
+				// Extension resources live under the extension's namespace; alias the base
+				// provider token (what crd2pulumi emits) so migrating doesn't replace them.
+				if gen.extensionName != "" {
+					baseTok := fmt.Sprintf("kubernetes:%s:%s", kind.apiVersion, kind.kind)
+					resourceSpec.Aliases = append(resourceSpec.Aliases, pschema.AliasSpec{Type: baseTok})
+				}
 
 				// Check if the current resource exists in the overlays and overwrite types accordingly.
 				if overlaySpec, hasResource := gen.resourceOverlays[tok]; hasResource {

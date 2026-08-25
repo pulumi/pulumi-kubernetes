@@ -11,23 +11,29 @@ import (
 	"github.com/pulumi/providertest/pulumitest/opttest"
 )
 
-func TestExtensionGatewayAPI(t *testing.T) {
-	test := pulumitest.NewPulumiTest(t, "testdata/extension-gateway-api", opttest.SkipInstall())
-	t.Cleanup(func() {
-		test.Destroy(t)
-	})
+func packageAddCmd(t *testing.T, test *pulumitest.PulumiTest) func(args ...string) {
+	t.Helper()
 
 	cwd, err := os.Getwd()
 	require.NoError(t, err)
 	providerBin := filepath.Join(cwd, "..", "..", "..", "bin", "pulumi-resource-kubernetes")
 
 	pulumi := test.CurrentStack().Workspace().PulumiCommand()
-	packageAdd := func(args ...string) {
+	return func(args ...string) {
 		t.Helper()
 		_, stderr, _, err := pulumi.Run(test.Context(), test.WorkingDir(),
 			nil, nil, nil, nil, append([]string{"package", "add", providerBin}, args...)...)
 		require.NoErrorf(t, err, "pulumi package add %v failed: %s", args, stderr)
 	}
+}
+
+func TestExtensionGatewayAPI(t *testing.T) {
+	test := pulumitest.NewPulumiTest(t, "testdata/extension-gateway-api", opttest.SkipInstall())
+	t.Cleanup(func() {
+		test.Destroy(t)
+	})
+
+	packageAdd := packageAddCmd(t, test)
 
 	packageAdd("--extension", "name=gateway-networking crd-manifest=gateway-api-crds.yaml")
 
