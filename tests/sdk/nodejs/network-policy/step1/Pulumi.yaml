@@ -1,3 +1,0 @@
-name: network-policy-tests
-description: Tests NetworkPolicy egress/ingress rules
-runtime: nodejs

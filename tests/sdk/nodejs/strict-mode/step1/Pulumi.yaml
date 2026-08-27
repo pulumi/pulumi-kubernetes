@@ -1,3 +1,0 @@
-name: strict-mode
-description: Tests strict mode provider configuration.
-runtime: nodejs

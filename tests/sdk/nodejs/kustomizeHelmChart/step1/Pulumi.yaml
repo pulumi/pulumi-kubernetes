@@ -1,3 +1,0 @@
-name: kustomizeHelmChart
-runtime: nodejs
-description: Test kustomize helmChart support
