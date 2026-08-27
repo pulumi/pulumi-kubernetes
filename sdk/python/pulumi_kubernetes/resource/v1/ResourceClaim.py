@@ -23,37 +23,26 @@ __all__ = ['ResourceClaimInitArgs', 'ResourceClaim']
 @pulumi.input_type
 class ResourceClaimInitArgs:
     def __init__(__self__, *,
-                 spec: pulumi.Input['ResourceClaimSpecArgs'],
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceClaim']]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['ResourceClaimSpecArgs']] = None):
         """
         The set of arguments for constructing a ResourceClaim resource.
 
-        :param pulumi.Input['ResourceClaimSpecArgs'] spec: Spec describes what is being requested and how to configure it. The spec is immutable.
         :param pulumi.Input[Literal['resource.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ResourceClaim']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
+        :param pulumi.Input['ResourceClaimSpecArgs'] spec: Spec describes what is being requested and how to configure it. The spec is immutable.
         """
-        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'resource.k8s.io/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'ResourceClaim')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['ResourceClaimSpecArgs']:
-        """
-        Spec describes what is being requested and how to configure it. The spec is immutable.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['ResourceClaimSpecArgs']):
-        pulumi.set(self, "spec", value)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -91,6 +80,18 @@ class ResourceClaimInitArgs:
     def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input[Optional['ResourceClaimSpecArgs']]:
+        """
+        Spec describes what is being requested and how to configure it. The spec is immutable.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input[Optional['ResourceClaimSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
 
 @pulumi.type_token("kubernetes:resource.k8s.io/v1:ResourceClaim")
 class ResourceClaim(pulumi.CustomResource):
@@ -117,7 +118,7 @@ class ResourceClaim(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: ResourceClaimInitArgs,
+                 args: Optional[ResourceClaimInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.
@@ -153,8 +154,6 @@ class ResourceClaim(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'resource.k8s.io/v1'
             __props__.__dict__["kind"] = 'ResourceClaim'
             __props__.__dict__["metadata"] = metadata
-            if spec is None and not opts.urn:
-                raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha1:ResourceClaim"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceClaim"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha3:ResourceClaim"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1beta1:ResourceClaim"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1beta2:ResourceClaim")])

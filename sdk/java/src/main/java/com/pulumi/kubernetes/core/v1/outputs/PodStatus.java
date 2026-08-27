@@ -11,6 +11,7 @@ import com.pulumi.kubernetes.core.v1.outputs.PodCondition;
 import com.pulumi.kubernetes.core.v1.outputs.PodExtendedResourceClaimStatus;
 import com.pulumi.kubernetes.core.v1.outputs.PodIP;
 import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaimStatus;
+import com.pulumi.kubernetes.core.v1.outputs.PodVolumeHealth;
 import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirements;
 import java.lang.Integer;
 import java.lang.String;
@@ -131,6 +132,11 @@ public final class PodStatus {
      * 
      */
     private @Nullable String startTime;
+    /**
+     * @return volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod&#39;s node.
+     * 
+     */
+    private @Nullable List<PodVolumeHealth> volumeHealth;
 
     private PodStatus() {}
     /**
@@ -284,6 +290,13 @@ public final class PodStatus {
     public Optional<String> startTime() {
         return Optional.ofNullable(this.startTime);
     }
+    /**
+     * @return volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod&#39;s node.
+     * 
+     */
+    public List<PodVolumeHealth> volumeHealth() {
+        return this.volumeHealth == null ? List.of() : this.volumeHealth;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -315,6 +328,7 @@ public final class PodStatus {
         private @Nullable List<PodResourceClaimStatus> resourceClaimStatuses;
         private @Nullable ResourceRequirements resources;
         private @Nullable String startTime;
+        private @Nullable List<PodVolumeHealth> volumeHealth;
         public Builder() {}
         public Builder(PodStatus defaults) {
     	      Objects.requireNonNull(defaults);
@@ -339,6 +353,7 @@ public final class PodStatus {
     	      this.resourceClaimStatuses = defaults.resourceClaimStatuses;
     	      this.resources = defaults.resources;
     	      this.startTime = defaults.startTime;
+    	      this.volumeHealth = defaults.volumeHealth;
         }
 
         @CustomType.Setter
@@ -491,6 +506,15 @@ public final class PodStatus {
             this.startTime = startTime;
             return this;
         }
+        @CustomType.Setter
+        public Builder volumeHealth(@Nullable List<PodVolumeHealth> volumeHealth) {
+
+            this.volumeHealth = volumeHealth;
+            return this;
+        }
+        public Builder volumeHealth(PodVolumeHealth... volumeHealth) {
+            return volumeHealth(List.of(volumeHealth));
+        }
         public PodStatus build() {
             final var _resultValue = new PodStatus();
             _resultValue.allocatedResources = allocatedResources;
@@ -514,6 +538,7 @@ public final class PodStatus {
             _resultValue.resourceClaimStatuses = resourceClaimStatuses;
             _resultValue.resources = resources;
             _resultValue.startTime = startTime;
+            _resultValue.volumeHealth = volumeHealth;
             return _resultValue;
         }
     }

@@ -22,37 +22,26 @@ __all__ = ['IPAddressInitArgs', 'IPAddress']
 @pulumi.input_type
 class IPAddressInitArgs:
     def __init__(__self__, *,
-                 spec: pulumi.Input['IPAddressSpecArgs'],
                  api_version: pulumi.Input[Optional[Literal['networking.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['IPAddress']]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['IPAddressSpecArgs']] = None):
         """
         The set of arguments for constructing a IPAddress resource.
 
-        :param pulumi.Input['IPAddressSpecArgs'] spec: spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input[Literal['networking.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['IPAddress']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['IPAddressSpecArgs'] spec: spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
-        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'networking.k8s.io/v1beta1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'IPAddress')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['IPAddressSpecArgs']:
-        """
-        spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['IPAddressSpecArgs']):
-        pulumi.set(self, "spec", value)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -90,6 +79,18 @@ class IPAddressInitArgs:
     def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input[Optional['IPAddressSpecArgs']]:
+        """
+        spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input[Optional['IPAddressSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
 
 @pulumi.type_token("kubernetes:networking.k8s.io/v1beta1:IPAddress")
 class IPAddress(pulumi.CustomResource):
@@ -116,7 +117,7 @@ class IPAddress(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: IPAddressInitArgs,
+                 args: Optional[IPAddressInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
@@ -152,8 +153,6 @@ class IPAddress(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'networking.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'IPAddress'
             __props__.__dict__["metadata"] = metadata
-            if spec is None and not opts.urn:
-                raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:networking.k8s.io/v1:IPAddress"), pulumi.Alias(type_="kubernetes:networking.k8s.io/v1alpha1:IPAddress")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

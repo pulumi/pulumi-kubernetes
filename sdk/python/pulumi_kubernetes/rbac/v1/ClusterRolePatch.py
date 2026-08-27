@@ -30,11 +30,11 @@ class ClusterRolePatchArgs:
         """
         The set of arguments for constructing a ClusterRolePatch resource.
 
-        :param pulumi.Input['AggregationRulePatchArgs'] aggregation_rule: AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        :param pulumi.Input['AggregationRulePatchArgs'] aggregation_rule: aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ClusterRole']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata.
-        :param pulumi.Input[Sequence[pulumi.Input['PolicyRulePatchArgs']]] rules: Rules holds all the PolicyRules for this ClusterRole
+        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: metadata is the standard object's metadata.
+        :param pulumi.Input[Sequence[pulumi.Input['PolicyRulePatchArgs']]] rules: rules holds all the PolicyRules for this ClusterRole
         """
         if aggregation_rule is not None:
             pulumi.set(__self__, "aggregation_rule", aggregation_rule)
@@ -51,7 +51,7 @@ class ClusterRolePatchArgs:
     @pulumi.getter(name="aggregationRule")
     def aggregation_rule(self) -> pulumi.Input[Optional['AggregationRulePatchArgs']]:
         """
-        AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         """
         return pulumi.get(self, "aggregation_rule")
 
@@ -87,7 +87,7 @@ class ClusterRolePatchArgs:
     @pulumi.getter
     def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaPatchArgs']]:
         """
-        Standard object's metadata.
+        metadata is the standard object's metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -99,7 +99,7 @@ class ClusterRolePatchArgs:
     @pulumi.getter
     def rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRulePatchArgs']]]]:
         """
-        Rules holds all the PolicyRules for this ClusterRole
+        rules holds all the PolicyRules for this ClusterRole
         """
         return pulumi.get(self, "rules")
 
@@ -131,11 +131,11 @@ class ClusterRolePatch(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Union['AggregationRulePatchArgs', 'AggregationRulePatchArgsDict']] aggregation_rule: AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        :param pulumi.Input[Union['AggregationRulePatchArgs', 'AggregationRulePatchArgsDict']] aggregation_rule: aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ClusterRole']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: Standard object's metadata.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict']]]] rules: Rules holds all the PolicyRules for this ClusterRole
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: metadata is the standard object's metadata.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict']]]] rules: rules holds all the PolicyRules for this ClusterRole
         """
         ...
     @overload
@@ -221,7 +221,7 @@ class ClusterRolePatch(pulumi.CustomResource):
     @pulumi.getter(name="aggregationRule")
     def aggregation_rule(self) -> pulumi.Output[Optional['outputs.AggregationRulePatch']]:
         """
-        AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         """
         return pulumi.get(self, "aggregation_rule")
 
@@ -245,7 +245,7 @@ class ClusterRolePatch(pulumi.CustomResource):
     @pulumi.getter
     def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMetaPatch']]:
         """
-        Standard object's metadata.
+        metadata is the standard object's metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -253,7 +253,7 @@ class ClusterRolePatch(pulumi.CustomResource):
     @pulumi.getter
     def rules(self) -> pulumi.Output[Optional[Sequence['outputs.PolicyRulePatch']]]:
         """
-        Rules holds all the PolicyRules for this ClusterRole
+        rules holds all the PolicyRules for this ClusterRole
         """
         return pulumi.get(self, "rules")
 

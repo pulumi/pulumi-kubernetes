@@ -26,7 +26,7 @@ public final class HorizontalPodAutoscaler {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     private @Nullable ObjectMeta metadata;
@@ -57,7 +57,7 @@ public final class HorizontalPodAutoscaler {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Optional<ObjectMeta> metadata() {

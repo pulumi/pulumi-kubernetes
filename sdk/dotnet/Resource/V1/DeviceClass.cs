@@ -134,8 +134,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         /// 
         /// Changing the spec automatically increments the metadata.generation number.
         /// </summary>
-        [Input("spec", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1.DeviceClassSpecArgs> Spec { get; set; } = null!;
+        [Input("spec")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1.DeviceClassSpecArgs>? Spec { get; set; }
 
         public DeviceClassArgs()
         {

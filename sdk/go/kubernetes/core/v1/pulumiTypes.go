@@ -6494,6 +6494,8 @@ type ClusterTrustBundleProjection struct {
 	Path string `pulumi:"path"`
 	// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
 	SignerName *string `pulumi:"signerName"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 }
 
 // ClusterTrustBundleProjectionInput is an input type that accepts ClusterTrustBundleProjectionArgs and ClusterTrustBundleProjectionOutput values.
@@ -6519,6 +6521,8 @@ type ClusterTrustBundleProjectionArgs struct {
 	Path pulumi.StringInput `pulumi:"path"`
 	// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
 	SignerName pulumi.StringPtrInput `pulumi:"signerName"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 }
 
 func (ClusterTrustBundleProjectionArgs) ElementType() reflect.Type {
@@ -6624,6 +6628,11 @@ func (o ClusterTrustBundleProjectionOutput) SignerName() pulumi.StringPtrOutput 
 	return o.ApplyT(func(v ClusterTrustBundleProjection) *string { return v.SignerName }).(pulumi.StringPtrOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ClusterTrustBundleProjectionOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjection) *int { return v.User }).(pulumi.IntPtrOutput)
+}
+
 type ClusterTrustBundleProjectionPtrOutput struct{ *pulumi.OutputState }
 
 func (ClusterTrustBundleProjectionPtrOutput) ElementType() reflect.Type {
@@ -6698,6 +6707,16 @@ func (o ClusterTrustBundleProjectionPtrOutput) SignerName() pulumi.StringPtrOutp
 	}).(pulumi.StringPtrOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ClusterTrustBundleProjectionPtrOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjection) *int {
+		if v == nil {
+			return nil
+		}
+		return v.User
+	}).(pulumi.IntPtrOutput)
+}
+
 // ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
 type ClusterTrustBundleProjectionPatch struct {
 	// Select all ClusterTrustBundles that match this label selector.  Only has effect if signerName is set.  Mutually-exclusive with name.  If unset, interpreted as "match nothing".  If set but empty, interpreted as "match everything".
@@ -6710,6 +6729,8 @@ type ClusterTrustBundleProjectionPatch struct {
 	Path *string `pulumi:"path"`
 	// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
 	SignerName *string `pulumi:"signerName"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 }
 
 // ClusterTrustBundleProjectionPatchInput is an input type that accepts ClusterTrustBundleProjectionPatchArgs and ClusterTrustBundleProjectionPatchOutput values.
@@ -6735,6 +6756,8 @@ type ClusterTrustBundleProjectionPatchArgs struct {
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
 	SignerName pulumi.StringPtrInput `pulumi:"signerName"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 }
 
 func (ClusterTrustBundleProjectionPatchArgs) ElementType() reflect.Type {
@@ -6840,6 +6863,11 @@ func (o ClusterTrustBundleProjectionPatchOutput) SignerName() pulumi.StringPtrOu
 	return o.ApplyT(func(v ClusterTrustBundleProjectionPatch) *string { return v.SignerName }).(pulumi.StringPtrOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ClusterTrustBundleProjectionPatchOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterTrustBundleProjectionPatch) *int { return v.User }).(pulumi.IntPtrOutput)
+}
+
 type ClusterTrustBundleProjectionPatchPtrOutput struct{ *pulumi.OutputState }
 
 func (ClusterTrustBundleProjectionPatchPtrOutput) ElementType() reflect.Type {
@@ -6912,6 +6940,16 @@ func (o ClusterTrustBundleProjectionPatchPtrOutput) SignerName() pulumi.StringPt
 		}
 		return v.SignerName
 	}).(pulumi.StringPtrOutput)
+}
+
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ClusterTrustBundleProjectionPatchPtrOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleProjectionPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.User
+	}).(pulumi.IntPtrOutput)
 }
 
 // Information about the condition of a component.
@@ -7463,7 +7501,7 @@ func (o ComponentStatusPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 type ConfigMapType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.
 	BinaryData map[string]string `pulumi:"binaryData"`
 	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
 	Data map[string]string `pulumi:"data"`
@@ -7490,7 +7528,7 @@ type ConfigMapTypeInput interface {
 type ConfigMapTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.
 	BinaryData pulumi.StringMapInput `pulumi:"binaryData"`
 	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
 	Data pulumi.StringMapInput `pulumi:"data"`
@@ -7559,7 +7597,7 @@ func (o ConfigMapTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ConfigMapType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.
 func (o ConfigMapTypeOutput) BinaryData() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ConfigMapType) map[string]string { return v.BinaryData }).(pulumi.StringMapOutput)
 }
@@ -7606,7 +7644,7 @@ func (o ConfigMapTypeArrayOutput) Index(i pulumi.IntInput) ConfigMapTypeOutput {
 
 // ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 //
-// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
 type ConfigMapEnvSource struct {
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name *string `pulumi:"name"`
@@ -7627,7 +7665,7 @@ type ConfigMapEnvSourceInput interface {
 
 // ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 //
-// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
 type ConfigMapEnvSourceArgs struct {
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -7690,7 +7728,7 @@ func (i *configMapEnvSourcePtrType) ToConfigMapEnvSourcePtrOutputWithContext(ctx
 
 // ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 //
-// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
 type ConfigMapEnvSourceOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapEnvSourceOutput) ElementType() reflect.Type {
@@ -7771,7 +7809,7 @@ func (o ConfigMapEnvSourcePtrOutput) Optional() pulumi.BoolPtrOutput {
 
 // ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 //
-// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
 type ConfigMapEnvSourcePatch struct {
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name *string `pulumi:"name"`
@@ -7792,7 +7830,7 @@ type ConfigMapEnvSourcePatchInput interface {
 
 // ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 //
-// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
 type ConfigMapEnvSourcePatchArgs struct {
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -7855,7 +7893,7 @@ func (i *configMapEnvSourcePatchPtrType) ToConfigMapEnvSourcePatchPtrOutputWithC
 
 // ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 //
-// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
 type ConfigMapEnvSourcePatchOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapEnvSourcePatchOutput) ElementType() reflect.Type {
@@ -7936,7 +7974,7 @@ func (o ConfigMapEnvSourcePatchPtrOutput) Optional() pulumi.BoolPtrOutput {
 
 // Selects a key from a ConfigMap.
 type ConfigMapKeySelector struct {
-	// The key to select.
+	// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
 	Key string `pulumi:"key"`
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name *string `pulumi:"name"`
@@ -7957,7 +7995,7 @@ type ConfigMapKeySelectorInput interface {
 
 // Selects a key from a ConfigMap.
 type ConfigMapKeySelectorArgs struct {
-	// The key to select.
+	// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
 	Key pulumi.StringInput `pulumi:"key"`
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -8043,7 +8081,7 @@ func (o ConfigMapKeySelectorOutput) ToConfigMapKeySelectorPtrOutputWithContext(c
 	}).(ConfigMapKeySelectorPtrOutput)
 }
 
-// The key to select.
+// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
 func (o ConfigMapKeySelectorOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v ConfigMapKeySelector) string { return v.Key }).(pulumi.StringOutput)
 }
@@ -8082,7 +8120,7 @@ func (o ConfigMapKeySelectorPtrOutput) Elem() ConfigMapKeySelectorOutput {
 	}).(ConfigMapKeySelectorOutput)
 }
 
-// The key to select.
+// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
 func (o ConfigMapKeySelectorPtrOutput) Key() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ConfigMapKeySelector) *string {
 		if v == nil {
@@ -8114,7 +8152,7 @@ func (o ConfigMapKeySelectorPtrOutput) Optional() pulumi.BoolPtrOutput {
 
 // Selects a key from a ConfigMap.
 type ConfigMapKeySelectorPatch struct {
-	// The key to select.
+	// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
 	Key *string `pulumi:"key"`
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name *string `pulumi:"name"`
@@ -8135,7 +8173,7 @@ type ConfigMapKeySelectorPatchInput interface {
 
 // Selects a key from a ConfigMap.
 type ConfigMapKeySelectorPatchArgs struct {
-	// The key to select.
+	// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
 	Key pulumi.StringPtrInput `pulumi:"key"`
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -8221,7 +8259,7 @@ func (o ConfigMapKeySelectorPatchOutput) ToConfigMapKeySelectorPatchPtrOutputWit
 	}).(ConfigMapKeySelectorPatchPtrOutput)
 }
 
-// The key to select.
+// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
 func (o ConfigMapKeySelectorPatchOutput) Key() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ConfigMapKeySelectorPatch) *string { return v.Key }).(pulumi.StringPtrOutput)
 }
@@ -8260,7 +8298,7 @@ func (o ConfigMapKeySelectorPatchPtrOutput) Elem() ConfigMapKeySelectorPatchOutp
 	}).(ConfigMapKeySelectorPatchOutput)
 }
 
-// The key to select.
+// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
 func (o ConfigMapKeySelectorPatchPtrOutput) Key() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ConfigMapKeySelectorPatch) *string {
 		if v == nil {
@@ -8808,7 +8846,7 @@ func (o ConfigMapNodeConfigSourcePatchPtrOutput) Uid() pulumi.StringPtrOutput {
 type ConfigMapPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.
 	BinaryData map[string]string `pulumi:"binaryData"`
 	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
 	Data map[string]string `pulumi:"data"`
@@ -8835,7 +8873,7 @@ type ConfigMapPatchTypeInput interface {
 type ConfigMapPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+	// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.
 	BinaryData pulumi.StringMapInput `pulumi:"binaryData"`
 	// Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
 	Data pulumi.StringMapInput `pulumi:"data"`
@@ -8879,7 +8917,7 @@ func (o ConfigMapPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ConfigMapPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+// BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.
 func (o ConfigMapPatchTypeOutput) BinaryData() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ConfigMapPatchType) map[string]string { return v.BinaryData }).(pulumi.StringMapOutput)
 }
@@ -9278,6 +9316,8 @@ func (o ConfigMapProjectionPatchPtrOutput) Optional() pulumi.BoolPtrOutput {
 type ConfigMapVolumeSource struct {
 	// defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser *int `pulumi:"defaultUser"`
 	// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPath `pulumi:"items"`
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -9303,6 +9343,8 @@ type ConfigMapVolumeSourceInput interface {
 type ConfigMapVolumeSourceArgs struct {
 	// defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser pulumi.IntPtrInput `pulumi:"defaultUser"`
 	// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathArrayInput `pulumi:"items"`
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -9396,6 +9438,11 @@ func (o ConfigMapVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ConfigMapVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ConfigMapVolumeSourceOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ConfigMapVolumeSource) *int { return v.DefaultUser }).(pulumi.IntPtrOutput)
+}
+
 // items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o ConfigMapVolumeSourceOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v ConfigMapVolumeSource) []KeyToPath { return v.Items }).(KeyToPathArrayOutput)
@@ -9445,6 +9492,16 @@ func (o ConfigMapVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ConfigMapVolumeSourcePtrOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ConfigMapVolumeSource) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultUser
+	}).(pulumi.IntPtrOutput)
+}
+
 // items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o ConfigMapVolumeSourcePtrOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v *ConfigMapVolumeSource) []KeyToPath {
@@ -9481,6 +9538,8 @@ func (o ConfigMapVolumeSourcePtrOutput) Optional() pulumi.BoolPtrOutput {
 type ConfigMapVolumeSourcePatch struct {
 	// defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser *int `pulumi:"defaultUser"`
 	// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPathPatch `pulumi:"items"`
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -9506,6 +9565,8 @@ type ConfigMapVolumeSourcePatchInput interface {
 type ConfigMapVolumeSourcePatchArgs struct {
 	// defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser pulumi.IntPtrInput `pulumi:"defaultUser"`
 	// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathPatchArrayInput `pulumi:"items"`
 	// Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -9599,6 +9660,11 @@ func (o ConfigMapVolumeSourcePatchOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ConfigMapVolumeSourcePatch) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ConfigMapVolumeSourcePatchOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ConfigMapVolumeSourcePatch) *int { return v.DefaultUser }).(pulumi.IntPtrOutput)
+}
+
 // items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o ConfigMapVolumeSourcePatchOutput) Items() KeyToPathPatchArrayOutput {
 	return o.ApplyT(func(v ConfigMapVolumeSourcePatch) []KeyToPathPatch { return v.Items }).(KeyToPathPatchArrayOutput)
@@ -9645,6 +9711,16 @@ func (o ConfigMapVolumeSourcePatchPtrOutput) DefaultMode() pulumi.IntPtrOutput {
 			return nil
 		}
 		return v.DefaultMode
+	}).(pulumi.IntPtrOutput)
+}
+
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ConfigMapVolumeSourcePatchPtrOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ConfigMapVolumeSourcePatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultUser
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -14594,6 +14670,8 @@ type DownwardAPIVolumeFile struct {
 	Path string `pulumi:"path"`
 	// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
 	ResourceFieldRef *ResourceFieldSelector `pulumi:"resourceFieldRef"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 }
 
 // DownwardAPIVolumeFileInput is an input type that accepts DownwardAPIVolumeFileArgs and DownwardAPIVolumeFileOutput values.
@@ -14617,6 +14695,8 @@ type DownwardAPIVolumeFileArgs struct {
 	Path pulumi.StringInput `pulumi:"path"`
 	// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
 	ResourceFieldRef ResourceFieldSelectorPtrInput `pulumi:"resourceFieldRef"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 }
 
 func (DownwardAPIVolumeFileArgs) ElementType() reflect.Type {
@@ -14691,6 +14771,11 @@ func (o DownwardAPIVolumeFileOutput) ResourceFieldRef() ResourceFieldSelectorPtr
 	return o.ApplyT(func(v DownwardAPIVolumeFile) *ResourceFieldSelector { return v.ResourceFieldRef }).(ResourceFieldSelectorPtrOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o DownwardAPIVolumeFileOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DownwardAPIVolumeFile) *int { return v.User }).(pulumi.IntPtrOutput)
+}
+
 type DownwardAPIVolumeFileArrayOutput struct{ *pulumi.OutputState }
 
 func (DownwardAPIVolumeFileArrayOutput) ElementType() reflect.Type {
@@ -14721,6 +14806,8 @@ type DownwardAPIVolumeFilePatch struct {
 	Path *string `pulumi:"path"`
 	// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
 	ResourceFieldRef *ResourceFieldSelectorPatch `pulumi:"resourceFieldRef"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 }
 
 // DownwardAPIVolumeFilePatchInput is an input type that accepts DownwardAPIVolumeFilePatchArgs and DownwardAPIVolumeFilePatchOutput values.
@@ -14744,6 +14831,8 @@ type DownwardAPIVolumeFilePatchArgs struct {
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
 	ResourceFieldRef ResourceFieldSelectorPatchPtrInput `pulumi:"resourceFieldRef"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 }
 
 func (DownwardAPIVolumeFilePatchArgs) ElementType() reflect.Type {
@@ -14818,6 +14907,11 @@ func (o DownwardAPIVolumeFilePatchOutput) ResourceFieldRef() ResourceFieldSelect
 	return o.ApplyT(func(v DownwardAPIVolumeFilePatch) *ResourceFieldSelectorPatch { return v.ResourceFieldRef }).(ResourceFieldSelectorPatchPtrOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o DownwardAPIVolumeFilePatchOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DownwardAPIVolumeFilePatch) *int { return v.User }).(pulumi.IntPtrOutput)
+}
+
 type DownwardAPIVolumeFilePatchArrayOutput struct{ *pulumi.OutputState }
 
 func (DownwardAPIVolumeFilePatchArrayOutput) ElementType() reflect.Type {
@@ -14842,6 +14936,8 @@ func (o DownwardAPIVolumeFilePatchArrayOutput) Index(i pulumi.IntInput) Downward
 type DownwardAPIVolumeSource struct {
 	// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser *int `pulumi:"defaultUser"`
 	// Items is a list of downward API volume file
 	Items []DownwardAPIVolumeFile `pulumi:"items"`
 }
@@ -14861,6 +14957,8 @@ type DownwardAPIVolumeSourceInput interface {
 type DownwardAPIVolumeSourceArgs struct {
 	// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser pulumi.IntPtrInput `pulumi:"defaultUser"`
 	// Items is a list of downward API volume file
 	Items DownwardAPIVolumeFileArrayInput `pulumi:"items"`
 }
@@ -14948,6 +15046,11 @@ func (o DownwardAPIVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DownwardAPIVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o DownwardAPIVolumeSourceOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DownwardAPIVolumeSource) *int { return v.DefaultUser }).(pulumi.IntPtrOutput)
+}
+
 // Items is a list of downward API volume file
 func (o DownwardAPIVolumeSourceOutput) Items() DownwardAPIVolumeFileArrayOutput {
 	return o.ApplyT(func(v DownwardAPIVolumeSource) []DownwardAPIVolumeFile { return v.Items }).(DownwardAPIVolumeFileArrayOutput)
@@ -14987,6 +15090,16 @@ func (o DownwardAPIVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o DownwardAPIVolumeSourcePtrOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *DownwardAPIVolumeSource) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultUser
+	}).(pulumi.IntPtrOutput)
+}
+
 // Items is a list of downward API volume file
 func (o DownwardAPIVolumeSourcePtrOutput) Items() DownwardAPIVolumeFileArrayOutput {
 	return o.ApplyT(func(v *DownwardAPIVolumeSource) []DownwardAPIVolumeFile {
@@ -15001,6 +15114,8 @@ func (o DownwardAPIVolumeSourcePtrOutput) Items() DownwardAPIVolumeFileArrayOutp
 type DownwardAPIVolumeSourcePatch struct {
 	// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser *int `pulumi:"defaultUser"`
 	// Items is a list of downward API volume file
 	Items []DownwardAPIVolumeFilePatch `pulumi:"items"`
 }
@@ -15020,6 +15135,8 @@ type DownwardAPIVolumeSourcePatchInput interface {
 type DownwardAPIVolumeSourcePatchArgs struct {
 	// Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser pulumi.IntPtrInput `pulumi:"defaultUser"`
 	// Items is a list of downward API volume file
 	Items DownwardAPIVolumeFilePatchArrayInput `pulumi:"items"`
 }
@@ -15107,6 +15224,11 @@ func (o DownwardAPIVolumeSourcePatchOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DownwardAPIVolumeSourcePatch) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o DownwardAPIVolumeSourcePatchOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DownwardAPIVolumeSourcePatch) *int { return v.DefaultUser }).(pulumi.IntPtrOutput)
+}
+
 // Items is a list of downward API volume file
 func (o DownwardAPIVolumeSourcePatchOutput) Items() DownwardAPIVolumeFilePatchArrayOutput {
 	return o.ApplyT(func(v DownwardAPIVolumeSourcePatch) []DownwardAPIVolumeFilePatch { return v.Items }).(DownwardAPIVolumeFilePatchArrayOutput)
@@ -15146,6 +15268,16 @@ func (o DownwardAPIVolumeSourcePatchPtrOutput) DefaultMode() pulumi.IntPtrOutput
 	}).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o DownwardAPIVolumeSourcePatchPtrOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *DownwardAPIVolumeSourcePatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultUser
+	}).(pulumi.IntPtrOutput)
+}
+
 // Items is a list of downward API volume file
 func (o DownwardAPIVolumeSourcePatchPtrOutput) Items() DownwardAPIVolumeFilePatchArrayOutput {
 	return o.ApplyT(func(v *DownwardAPIVolumeSourcePatch) []DownwardAPIVolumeFilePatch {
@@ -15160,6 +15292,8 @@ func (o DownwardAPIVolumeSourcePatchPtrOutput) Items() DownwardAPIVolumeFilePatc
 type EmptyDirVolumeSource struct {
 	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium *string `pulumi:"medium"`
+	// mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+	Mode *int `pulumi:"mode"`
 	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	SizeLimit *string `pulumi:"sizeLimit"`
 }
@@ -15179,6 +15313,8 @@ type EmptyDirVolumeSourceInput interface {
 type EmptyDirVolumeSourceArgs struct {
 	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium pulumi.StringPtrInput `pulumi:"medium"`
+	// mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+	Mode pulumi.IntPtrInput `pulumi:"mode"`
 	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	SizeLimit pulumi.StringPtrInput `pulumi:"sizeLimit"`
 }
@@ -15266,6 +15402,11 @@ func (o EmptyDirVolumeSourceOutput) Medium() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSource) *string { return v.Medium }).(pulumi.StringPtrOutput)
 }
 
+// mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+func (o EmptyDirVolumeSourceOutput) Mode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v EmptyDirVolumeSource) *int { return v.Mode }).(pulumi.IntPtrOutput)
+}
+
 // sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o EmptyDirVolumeSourceOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSource) *string { return v.SizeLimit }).(pulumi.StringPtrOutput)
@@ -15305,6 +15446,16 @@ func (o EmptyDirVolumeSourcePtrOutput) Medium() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+func (o EmptyDirVolumeSourcePtrOutput) Mode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *EmptyDirVolumeSource) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.IntPtrOutput)
+}
+
 // sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o EmptyDirVolumeSourcePtrOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *EmptyDirVolumeSource) *string {
@@ -15319,6 +15470,8 @@ func (o EmptyDirVolumeSourcePtrOutput) SizeLimit() pulumi.StringPtrOutput {
 type EmptyDirVolumeSourcePatch struct {
 	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium *string `pulumi:"medium"`
+	// mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+	Mode *int `pulumi:"mode"`
 	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	SizeLimit *string `pulumi:"sizeLimit"`
 }
@@ -15338,6 +15491,8 @@ type EmptyDirVolumeSourcePatchInput interface {
 type EmptyDirVolumeSourcePatchArgs struct {
 	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium pulumi.StringPtrInput `pulumi:"medium"`
+	// mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+	Mode pulumi.IntPtrInput `pulumi:"mode"`
 	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	SizeLimit pulumi.StringPtrInput `pulumi:"sizeLimit"`
 }
@@ -15425,6 +15580,11 @@ func (o EmptyDirVolumeSourcePatchOutput) Medium() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSourcePatch) *string { return v.Medium }).(pulumi.StringPtrOutput)
 }
 
+// mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+func (o EmptyDirVolumeSourcePatchOutput) Mode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v EmptyDirVolumeSourcePatch) *int { return v.Mode }).(pulumi.IntPtrOutput)
+}
+
 // sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o EmptyDirVolumeSourcePatchOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSourcePatch) *string { return v.SizeLimit }).(pulumi.StringPtrOutput)
@@ -15462,6 +15622,16 @@ func (o EmptyDirVolumeSourcePatchPtrOutput) Medium() pulumi.StringPtrOutput {
 		}
 		return v.Medium
 	}).(pulumi.StringPtrOutput)
+}
+
+// mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+func (o EmptyDirVolumeSourcePatchPtrOutput) Mode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *EmptyDirVolumeSourcePatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.IntPtrOutput)
 }
 
 // sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
@@ -19874,6 +20044,260 @@ func (o EventSourcePatchPtrOutput) Host() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+type EvictionResponder struct {
+	// name allows you to identify the responder responding to the Eviction.
+	//
+	// It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+	Name string `pulumi:"name"`
+	// priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+	//
+	// The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+	//
+	// The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+	Priority int `pulumi:"priority"`
+}
+
+// EvictionResponderInput is an input type that accepts EvictionResponderArgs and EvictionResponderOutput values.
+// You can construct a concrete instance of `EvictionResponderInput` via:
+//
+//	EvictionResponderArgs{...}
+type EvictionResponderInput interface {
+	pulumi.Input
+
+	ToEvictionResponderOutput() EvictionResponderOutput
+	ToEvictionResponderOutputWithContext(context.Context) EvictionResponderOutput
+}
+
+// EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+type EvictionResponderArgs struct {
+	// name allows you to identify the responder responding to the Eviction.
+	//
+	// It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+	Name pulumi.StringInput `pulumi:"name"`
+	// priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+	//
+	// The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+	//
+	// The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+	Priority pulumi.IntInput `pulumi:"priority"`
+}
+
+func (EvictionResponderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EvictionResponder)(nil)).Elem()
+}
+
+func (i EvictionResponderArgs) ToEvictionResponderOutput() EvictionResponderOutput {
+	return i.ToEvictionResponderOutputWithContext(context.Background())
+}
+
+func (i EvictionResponderArgs) ToEvictionResponderOutputWithContext(ctx context.Context) EvictionResponderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EvictionResponderOutput)
+}
+
+// EvictionResponderArrayInput is an input type that accepts EvictionResponderArray and EvictionResponderArrayOutput values.
+// You can construct a concrete instance of `EvictionResponderArrayInput` via:
+//
+//	EvictionResponderArray{ EvictionResponderArgs{...} }
+type EvictionResponderArrayInput interface {
+	pulumi.Input
+
+	ToEvictionResponderArrayOutput() EvictionResponderArrayOutput
+	ToEvictionResponderArrayOutputWithContext(context.Context) EvictionResponderArrayOutput
+}
+
+type EvictionResponderArray []EvictionResponderInput
+
+func (EvictionResponderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EvictionResponder)(nil)).Elem()
+}
+
+func (i EvictionResponderArray) ToEvictionResponderArrayOutput() EvictionResponderArrayOutput {
+	return i.ToEvictionResponderArrayOutputWithContext(context.Background())
+}
+
+func (i EvictionResponderArray) ToEvictionResponderArrayOutputWithContext(ctx context.Context) EvictionResponderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EvictionResponderArrayOutput)
+}
+
+// EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+type EvictionResponderOutput struct{ *pulumi.OutputState }
+
+func (EvictionResponderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EvictionResponder)(nil)).Elem()
+}
+
+func (o EvictionResponderOutput) ToEvictionResponderOutput() EvictionResponderOutput {
+	return o
+}
+
+func (o EvictionResponderOutput) ToEvictionResponderOutputWithContext(ctx context.Context) EvictionResponderOutput {
+	return o
+}
+
+// name allows you to identify the responder responding to the Eviction.
+//
+// It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+func (o EvictionResponderOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v EvictionResponder) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+//
+// The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+//
+// The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+func (o EvictionResponderOutput) Priority() pulumi.IntOutput {
+	return o.ApplyT(func(v EvictionResponder) int { return v.Priority }).(pulumi.IntOutput)
+}
+
+type EvictionResponderArrayOutput struct{ *pulumi.OutputState }
+
+func (EvictionResponderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EvictionResponder)(nil)).Elem()
+}
+
+func (o EvictionResponderArrayOutput) ToEvictionResponderArrayOutput() EvictionResponderArrayOutput {
+	return o
+}
+
+func (o EvictionResponderArrayOutput) ToEvictionResponderArrayOutputWithContext(ctx context.Context) EvictionResponderArrayOutput {
+	return o
+}
+
+func (o EvictionResponderArrayOutput) Index(i pulumi.IntInput) EvictionResponderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EvictionResponder {
+		return vs[0].([]EvictionResponder)[vs[1].(int)]
+	}).(EvictionResponderOutput)
+}
+
+// EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+type EvictionResponderPatch struct {
+	// name allows you to identify the responder responding to the Eviction.
+	//
+	// It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+	Name *string `pulumi:"name"`
+	// priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+	//
+	// The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+	//
+	// The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+	Priority *int `pulumi:"priority"`
+}
+
+// EvictionResponderPatchInput is an input type that accepts EvictionResponderPatchArgs and EvictionResponderPatchOutput values.
+// You can construct a concrete instance of `EvictionResponderPatchInput` via:
+//
+//	EvictionResponderPatchArgs{...}
+type EvictionResponderPatchInput interface {
+	pulumi.Input
+
+	ToEvictionResponderPatchOutput() EvictionResponderPatchOutput
+	ToEvictionResponderPatchOutputWithContext(context.Context) EvictionResponderPatchOutput
+}
+
+// EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+type EvictionResponderPatchArgs struct {
+	// name allows you to identify the responder responding to the Eviction.
+	//
+	// It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+	//
+	// The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+	//
+	// The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+	Priority pulumi.IntPtrInput `pulumi:"priority"`
+}
+
+func (EvictionResponderPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EvictionResponderPatch)(nil)).Elem()
+}
+
+func (i EvictionResponderPatchArgs) ToEvictionResponderPatchOutput() EvictionResponderPatchOutput {
+	return i.ToEvictionResponderPatchOutputWithContext(context.Background())
+}
+
+func (i EvictionResponderPatchArgs) ToEvictionResponderPatchOutputWithContext(ctx context.Context) EvictionResponderPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EvictionResponderPatchOutput)
+}
+
+// EvictionResponderPatchArrayInput is an input type that accepts EvictionResponderPatchArray and EvictionResponderPatchArrayOutput values.
+// You can construct a concrete instance of `EvictionResponderPatchArrayInput` via:
+//
+//	EvictionResponderPatchArray{ EvictionResponderPatchArgs{...} }
+type EvictionResponderPatchArrayInput interface {
+	pulumi.Input
+
+	ToEvictionResponderPatchArrayOutput() EvictionResponderPatchArrayOutput
+	ToEvictionResponderPatchArrayOutputWithContext(context.Context) EvictionResponderPatchArrayOutput
+}
+
+type EvictionResponderPatchArray []EvictionResponderPatchInput
+
+func (EvictionResponderPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EvictionResponderPatch)(nil)).Elem()
+}
+
+func (i EvictionResponderPatchArray) ToEvictionResponderPatchArrayOutput() EvictionResponderPatchArrayOutput {
+	return i.ToEvictionResponderPatchArrayOutputWithContext(context.Background())
+}
+
+func (i EvictionResponderPatchArray) ToEvictionResponderPatchArrayOutputWithContext(ctx context.Context) EvictionResponderPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EvictionResponderPatchArrayOutput)
+}
+
+// EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+type EvictionResponderPatchOutput struct{ *pulumi.OutputState }
+
+func (EvictionResponderPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EvictionResponderPatch)(nil)).Elem()
+}
+
+func (o EvictionResponderPatchOutput) ToEvictionResponderPatchOutput() EvictionResponderPatchOutput {
+	return o
+}
+
+func (o EvictionResponderPatchOutput) ToEvictionResponderPatchOutputWithContext(ctx context.Context) EvictionResponderPatchOutput {
+	return o
+}
+
+// name allows you to identify the responder responding to the Eviction.
+//
+// It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+func (o EvictionResponderPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EvictionResponderPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+//
+// The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+//
+// The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+func (o EvictionResponderPatchOutput) Priority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v EvictionResponderPatch) *int { return v.Priority }).(pulumi.IntPtrOutput)
+}
+
+type EvictionResponderPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (EvictionResponderPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EvictionResponderPatch)(nil)).Elem()
+}
+
+func (o EvictionResponderPatchArrayOutput) ToEvictionResponderPatchArrayOutput() EvictionResponderPatchArrayOutput {
+	return o
+}
+
+func (o EvictionResponderPatchArrayOutput) ToEvictionResponderPatchArrayOutputWithContext(ctx context.Context) EvictionResponderPatchArrayOutput {
+	return o
+}
+
+func (o EvictionResponderPatchArrayOutput) Index(i pulumi.IntInput) EvictionResponderPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EvictionResponderPatch {
+		return vs[0].([]EvictionResponderPatch)[vs[1].(int)]
+	}).(EvictionResponderPatchOutput)
+}
+
 // ExecAction describes a "run in container" action.
 type ExecAction struct {
 	// Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
@@ -22586,6 +23010,8 @@ func (o GCEPersistentDiskVolumeSourcePatchPtrOutput) ReadOnly() pulumi.BoolPtrOu
 
 // GRPCAction specifies an action involving a GRPC service.
 type GRPCAction struct {
+	// mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+	Mode *string `pulumi:"mode"`
 	// Port number of the gRPC service. Number must be in the range 1 to 65535.
 	Port int `pulumi:"port"`
 	// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -22607,6 +23033,8 @@ type GRPCActionInput interface {
 
 // GRPCAction specifies an action involving a GRPC service.
 type GRPCActionArgs struct {
+	// mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+	Mode pulumi.StringPtrInput `pulumi:"mode"`
 	// Port number of the gRPC service. Number must be in the range 1 to 65535.
 	Port pulumi.IntInput `pulumi:"port"`
 	// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -22693,6 +23121,11 @@ func (o GRPCActionOutput) ToGRPCActionPtrOutputWithContext(ctx context.Context) 
 	}).(GRPCActionPtrOutput)
 }
 
+// mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+func (o GRPCActionOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GRPCAction) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
 // Port number of the gRPC service. Number must be in the range 1 to 65535.
 func (o GRPCActionOutput) Port() pulumi.IntOutput {
 	return o.ApplyT(func(v GRPCAction) int { return v.Port }).(pulumi.IntOutput)
@@ -22729,6 +23162,16 @@ func (o GRPCActionPtrOutput) Elem() GRPCActionOutput {
 	}).(GRPCActionOutput)
 }
 
+// mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+func (o GRPCActionPtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GRPCAction) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
+}
+
 // Port number of the gRPC service. Number must be in the range 1 to 65535.
 func (o GRPCActionPtrOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *GRPCAction) *int {
@@ -22753,6 +23196,8 @@ func (o GRPCActionPtrOutput) Service() pulumi.StringPtrOutput {
 
 // GRPCAction specifies an action involving a GRPC service.
 type GRPCActionPatch struct {
+	// mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+	Mode *string `pulumi:"mode"`
 	// Port number of the gRPC service. Number must be in the range 1 to 65535.
 	Port *int `pulumi:"port"`
 	// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -22774,6 +23219,8 @@ type GRPCActionPatchInput interface {
 
 // GRPCAction specifies an action involving a GRPC service.
 type GRPCActionPatchArgs struct {
+	// mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+	Mode pulumi.StringPtrInput `pulumi:"mode"`
 	// Port number of the gRPC service. Number must be in the range 1 to 65535.
 	Port pulumi.IntPtrInput `pulumi:"port"`
 	// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
@@ -22860,6 +23307,11 @@ func (o GRPCActionPatchOutput) ToGRPCActionPatchPtrOutputWithContext(ctx context
 	}).(GRPCActionPatchPtrOutput)
 }
 
+// mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+func (o GRPCActionPatchOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GRPCActionPatch) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
 // Port number of the gRPC service. Number must be in the range 1 to 65535.
 func (o GRPCActionPatchOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GRPCActionPatch) *int { return v.Port }).(pulumi.IntPtrOutput)
@@ -22894,6 +23346,16 @@ func (o GRPCActionPatchPtrOutput) Elem() GRPCActionPatchOutput {
 		var ret GRPCActionPatch
 		return ret
 	}).(GRPCActionPatchOutput)
+}
+
+// mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+func (o GRPCActionPatchPtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GRPCActionPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
 }
 
 // Port number of the gRPC service. Number must be in the range 1 to 65535.
@@ -24046,6 +24508,8 @@ type HTTPGetAction struct {
 	Path *string `pulumi:"path"`
 	// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 	Port interface{} `pulumi:"port"`
+	// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+	Protocol *string `pulumi:"protocol"`
 	// Scheme to use for connecting to the host. Defaults to HTTP.
 	Scheme *string `pulumi:"scheme"`
 }
@@ -24071,6 +24535,8 @@ type HTTPGetActionArgs struct {
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 	Port pulumi.Input `pulumi:"port"`
+	// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 	// Scheme to use for connecting to the host. Defaults to HTTP.
 	Scheme pulumi.StringPtrInput `pulumi:"scheme"`
 }
@@ -24173,6 +24639,11 @@ func (o HTTPGetActionOutput) Port() pulumi.AnyOutput {
 	return o.ApplyT(func(v HTTPGetAction) interface{} { return v.Port }).(pulumi.AnyOutput)
 }
 
+// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+func (o HTTPGetActionOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HTTPGetAction) *string { return v.Protocol }).(pulumi.StringPtrOutput)
+}
+
 // Scheme to use for connecting to the host. Defaults to HTTP.
 func (o HTTPGetActionOutput) Scheme() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPGetAction) *string { return v.Scheme }).(pulumi.StringPtrOutput)
@@ -24242,6 +24713,16 @@ func (o HTTPGetActionPtrOutput) Port() pulumi.AnyOutput {
 	}).(pulumi.AnyOutput)
 }
 
+// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+func (o HTTPGetActionPtrOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HTTPGetAction) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Protocol
+	}).(pulumi.StringPtrOutput)
+}
+
 // Scheme to use for connecting to the host. Defaults to HTTP.
 func (o HTTPGetActionPtrOutput) Scheme() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HTTPGetAction) *string {
@@ -24262,6 +24743,8 @@ type HTTPGetActionPatch struct {
 	Path *string `pulumi:"path"`
 	// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 	Port interface{} `pulumi:"port"`
+	// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+	Protocol *string `pulumi:"protocol"`
 	// Scheme to use for connecting to the host. Defaults to HTTP.
 	Scheme *string `pulumi:"scheme"`
 }
@@ -24287,6 +24770,8 @@ type HTTPGetActionPatchArgs struct {
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 	Port pulumi.Input `pulumi:"port"`
+	// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 	// Scheme to use for connecting to the host. Defaults to HTTP.
 	Scheme pulumi.StringPtrInput `pulumi:"scheme"`
 }
@@ -24389,6 +24874,11 @@ func (o HTTPGetActionPatchOutput) Port() pulumi.AnyOutput {
 	return o.ApplyT(func(v HTTPGetActionPatch) interface{} { return v.Port }).(pulumi.AnyOutput)
 }
 
+// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+func (o HTTPGetActionPatchOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HTTPGetActionPatch) *string { return v.Protocol }).(pulumi.StringPtrOutput)
+}
+
 // Scheme to use for connecting to the host. Defaults to HTTP.
 func (o HTTPGetActionPatchOutput) Scheme() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPGetActionPatch) *string { return v.Scheme }).(pulumi.StringPtrOutput)
@@ -24456,6 +24946,16 @@ func (o HTTPGetActionPatchPtrOutput) Port() pulumi.AnyOutput {
 		}
 		return v.Port
 	}).(pulumi.AnyOutput)
+}
+
+// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+func (o HTTPGetActionPatchPtrOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HTTPGetActionPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Protocol
+	}).(pulumi.StringPtrOutput)
 }
 
 // Scheme to use for connecting to the host. Defaults to HTTP.
@@ -27494,6 +27994,8 @@ type KeyToPath struct {
 	Mode *int `pulumi:"mode"`
 	// path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 	Path string `pulumi:"path"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 }
 
 // KeyToPathInput is an input type that accepts KeyToPathArgs and KeyToPathOutput values.
@@ -27515,6 +28017,8 @@ type KeyToPathArgs struct {
 	Mode pulumi.IntPtrInput `pulumi:"mode"`
 	// path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 	Path pulumi.StringInput `pulumi:"path"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 }
 
 func (KeyToPathArgs) ElementType() reflect.Type {
@@ -27584,6 +28088,11 @@ func (o KeyToPathOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v KeyToPath) string { return v.Path }).(pulumi.StringOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o KeyToPathOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v KeyToPath) *int { return v.User }).(pulumi.IntPtrOutput)
+}
+
 type KeyToPathArrayOutput struct{ *pulumi.OutputState }
 
 func (KeyToPathArrayOutput) ElementType() reflect.Type {
@@ -27612,6 +28121,8 @@ type KeyToPathPatch struct {
 	Mode *int `pulumi:"mode"`
 	// path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 	Path *string `pulumi:"path"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 }
 
 // KeyToPathPatchInput is an input type that accepts KeyToPathPatchArgs and KeyToPathPatchOutput values.
@@ -27633,6 +28144,8 @@ type KeyToPathPatchArgs struct {
 	Mode pulumi.IntPtrInput `pulumi:"mode"`
 	// path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 	Path pulumi.StringPtrInput `pulumi:"path"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 }
 
 func (KeyToPathPatchArgs) ElementType() reflect.Type {
@@ -27700,6 +28213,11 @@ func (o KeyToPathPatchOutput) Mode() pulumi.IntPtrOutput {
 // path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 func (o KeyToPathPatchOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v KeyToPathPatch) *string { return v.Path }).(pulumi.StringPtrOutput)
+}
+
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o KeyToPathPatchOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v KeyToPathPatch) *int { return v.User }).(pulumi.IntPtrOutput)
 }
 
 type KeyToPathPatchArrayOutput struct{ *pulumi.OutputState }
@@ -33512,14 +34030,470 @@ func (o NodeAffinityPatchPtrOutput) RequiredDuringSchedulingIgnoredDuringExecuti
 	}).(NodeSelectorPatchPtrOutput)
 }
 
+// NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+type NodeAllocatableMappedResources struct {
+	// Name is the name of the resource (e.g., cpu, memory).
+	Name string `pulumi:"name"`
+	// Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+	Quantity string `pulumi:"quantity"`
+}
+
+// NodeAllocatableMappedResourcesInput is an input type that accepts NodeAllocatableMappedResourcesArgs and NodeAllocatableMappedResourcesOutput values.
+// You can construct a concrete instance of `NodeAllocatableMappedResourcesInput` via:
+//
+//	NodeAllocatableMappedResourcesArgs{...}
+type NodeAllocatableMappedResourcesInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableMappedResourcesOutput() NodeAllocatableMappedResourcesOutput
+	ToNodeAllocatableMappedResourcesOutputWithContext(context.Context) NodeAllocatableMappedResourcesOutput
+}
+
+// NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+type NodeAllocatableMappedResourcesArgs struct {
+	// Name is the name of the resource (e.g., cpu, memory).
+	Name pulumi.StringInput `pulumi:"name"`
+	// Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+	Quantity pulumi.StringInput `pulumi:"quantity"`
+}
+
+func (NodeAllocatableMappedResourcesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableMappedResources)(nil)).Elem()
+}
+
+func (i NodeAllocatableMappedResourcesArgs) ToNodeAllocatableMappedResourcesOutput() NodeAllocatableMappedResourcesOutput {
+	return i.ToNodeAllocatableMappedResourcesOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableMappedResourcesArgs) ToNodeAllocatableMappedResourcesOutputWithContext(ctx context.Context) NodeAllocatableMappedResourcesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappedResourcesOutput)
+}
+
+// NodeAllocatableMappedResourcesArrayInput is an input type that accepts NodeAllocatableMappedResourcesArray and NodeAllocatableMappedResourcesArrayOutput values.
+// You can construct a concrete instance of `NodeAllocatableMappedResourcesArrayInput` via:
+//
+//	NodeAllocatableMappedResourcesArray{ NodeAllocatableMappedResourcesArgs{...} }
+type NodeAllocatableMappedResourcesArrayInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableMappedResourcesArrayOutput() NodeAllocatableMappedResourcesArrayOutput
+	ToNodeAllocatableMappedResourcesArrayOutputWithContext(context.Context) NodeAllocatableMappedResourcesArrayOutput
+}
+
+type NodeAllocatableMappedResourcesArray []NodeAllocatableMappedResourcesInput
+
+func (NodeAllocatableMappedResourcesArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeAllocatableMappedResources)(nil)).Elem()
+}
+
+func (i NodeAllocatableMappedResourcesArray) ToNodeAllocatableMappedResourcesArrayOutput() NodeAllocatableMappedResourcesArrayOutput {
+	return i.ToNodeAllocatableMappedResourcesArrayOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableMappedResourcesArray) ToNodeAllocatableMappedResourcesArrayOutputWithContext(ctx context.Context) NodeAllocatableMappedResourcesArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappedResourcesArrayOutput)
+}
+
+// NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+type NodeAllocatableMappedResourcesOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableMappedResourcesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableMappedResources)(nil)).Elem()
+}
+
+func (o NodeAllocatableMappedResourcesOutput) ToNodeAllocatableMappedResourcesOutput() NodeAllocatableMappedResourcesOutput {
+	return o
+}
+
+func (o NodeAllocatableMappedResourcesOutput) ToNodeAllocatableMappedResourcesOutputWithContext(ctx context.Context) NodeAllocatableMappedResourcesOutput {
+	return o
+}
+
+// Name is the name of the resource (e.g., cpu, memory).
+func (o NodeAllocatableMappedResourcesOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v NodeAllocatableMappedResources) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+func (o NodeAllocatableMappedResourcesOutput) Quantity() pulumi.StringOutput {
+	return o.ApplyT(func(v NodeAllocatableMappedResources) string { return v.Quantity }).(pulumi.StringOutput)
+}
+
+type NodeAllocatableMappedResourcesArrayOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableMappedResourcesArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeAllocatableMappedResources)(nil)).Elem()
+}
+
+func (o NodeAllocatableMappedResourcesArrayOutput) ToNodeAllocatableMappedResourcesArrayOutput() NodeAllocatableMappedResourcesArrayOutput {
+	return o
+}
+
+func (o NodeAllocatableMappedResourcesArrayOutput) ToNodeAllocatableMappedResourcesArrayOutputWithContext(ctx context.Context) NodeAllocatableMappedResourcesArrayOutput {
+	return o
+}
+
+func (o NodeAllocatableMappedResourcesArrayOutput) Index(i pulumi.IntInput) NodeAllocatableMappedResourcesOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NodeAllocatableMappedResources {
+		return vs[0].([]NodeAllocatableMappedResources)[vs[1].(int)]
+	}).(NodeAllocatableMappedResourcesOutput)
+}
+
+// NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+type NodeAllocatableMappedResourcesPatch struct {
+	// Name is the name of the resource (e.g., cpu, memory).
+	Name *string `pulumi:"name"`
+	// Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+	Quantity *string `pulumi:"quantity"`
+}
+
+// NodeAllocatableMappedResourcesPatchInput is an input type that accepts NodeAllocatableMappedResourcesPatchArgs and NodeAllocatableMappedResourcesPatchOutput values.
+// You can construct a concrete instance of `NodeAllocatableMappedResourcesPatchInput` via:
+//
+//	NodeAllocatableMappedResourcesPatchArgs{...}
+type NodeAllocatableMappedResourcesPatchInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableMappedResourcesPatchOutput() NodeAllocatableMappedResourcesPatchOutput
+	ToNodeAllocatableMappedResourcesPatchOutputWithContext(context.Context) NodeAllocatableMappedResourcesPatchOutput
+}
+
+// NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+type NodeAllocatableMappedResourcesPatchArgs struct {
+	// Name is the name of the resource (e.g., cpu, memory).
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+	Quantity pulumi.StringPtrInput `pulumi:"quantity"`
+}
+
+func (NodeAllocatableMappedResourcesPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableMappedResourcesPatch)(nil)).Elem()
+}
+
+func (i NodeAllocatableMappedResourcesPatchArgs) ToNodeAllocatableMappedResourcesPatchOutput() NodeAllocatableMappedResourcesPatchOutput {
+	return i.ToNodeAllocatableMappedResourcesPatchOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableMappedResourcesPatchArgs) ToNodeAllocatableMappedResourcesPatchOutputWithContext(ctx context.Context) NodeAllocatableMappedResourcesPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappedResourcesPatchOutput)
+}
+
+// NodeAllocatableMappedResourcesPatchArrayInput is an input type that accepts NodeAllocatableMappedResourcesPatchArray and NodeAllocatableMappedResourcesPatchArrayOutput values.
+// You can construct a concrete instance of `NodeAllocatableMappedResourcesPatchArrayInput` via:
+//
+//	NodeAllocatableMappedResourcesPatchArray{ NodeAllocatableMappedResourcesPatchArgs{...} }
+type NodeAllocatableMappedResourcesPatchArrayInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableMappedResourcesPatchArrayOutput() NodeAllocatableMappedResourcesPatchArrayOutput
+	ToNodeAllocatableMappedResourcesPatchArrayOutputWithContext(context.Context) NodeAllocatableMappedResourcesPatchArrayOutput
+}
+
+type NodeAllocatableMappedResourcesPatchArray []NodeAllocatableMappedResourcesPatchInput
+
+func (NodeAllocatableMappedResourcesPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeAllocatableMappedResourcesPatch)(nil)).Elem()
+}
+
+func (i NodeAllocatableMappedResourcesPatchArray) ToNodeAllocatableMappedResourcesPatchArrayOutput() NodeAllocatableMappedResourcesPatchArrayOutput {
+	return i.ToNodeAllocatableMappedResourcesPatchArrayOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableMappedResourcesPatchArray) ToNodeAllocatableMappedResourcesPatchArrayOutputWithContext(ctx context.Context) NodeAllocatableMappedResourcesPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappedResourcesPatchArrayOutput)
+}
+
+// NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+type NodeAllocatableMappedResourcesPatchOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableMappedResourcesPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableMappedResourcesPatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableMappedResourcesPatchOutput) ToNodeAllocatableMappedResourcesPatchOutput() NodeAllocatableMappedResourcesPatchOutput {
+	return o
+}
+
+func (o NodeAllocatableMappedResourcesPatchOutput) ToNodeAllocatableMappedResourcesPatchOutputWithContext(ctx context.Context) NodeAllocatableMappedResourcesPatchOutput {
+	return o
+}
+
+// Name is the name of the resource (e.g., cpu, memory).
+func (o NodeAllocatableMappedResourcesPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableMappedResourcesPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+func (o NodeAllocatableMappedResourcesPatchOutput) Quantity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableMappedResourcesPatch) *string { return v.Quantity }).(pulumi.StringPtrOutput)
+}
+
+type NodeAllocatableMappedResourcesPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableMappedResourcesPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeAllocatableMappedResourcesPatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableMappedResourcesPatchArrayOutput) ToNodeAllocatableMappedResourcesPatchArrayOutput() NodeAllocatableMappedResourcesPatchArrayOutput {
+	return o
+}
+
+func (o NodeAllocatableMappedResourcesPatchArrayOutput) ToNodeAllocatableMappedResourcesPatchArrayOutputWithContext(ctx context.Context) NodeAllocatableMappedResourcesPatchArrayOutput {
+	return o
+}
+
+func (o NodeAllocatableMappedResourcesPatchArrayOutput) Index(i pulumi.IntInput) NodeAllocatableMappedResourcesPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NodeAllocatableMappedResourcesPatch {
+		return vs[0].([]NodeAllocatableMappedResourcesPatch)[vs[1].(int)]
+	}).(NodeAllocatableMappedResourcesPatchOutput)
+}
+
+// NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+type NodeAllocatableOverheadResources struct {
+	// Name is the name of the resource (e.g., cpu, memory).
+	Name string `pulumi:"name"`
+	// PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+	PerContainer *string `pulumi:"perContainer"`
+	// PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+	PerPod *string `pulumi:"perPod"`
+}
+
+// NodeAllocatableOverheadResourcesInput is an input type that accepts NodeAllocatableOverheadResourcesArgs and NodeAllocatableOverheadResourcesOutput values.
+// You can construct a concrete instance of `NodeAllocatableOverheadResourcesInput` via:
+//
+//	NodeAllocatableOverheadResourcesArgs{...}
+type NodeAllocatableOverheadResourcesInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableOverheadResourcesOutput() NodeAllocatableOverheadResourcesOutput
+	ToNodeAllocatableOverheadResourcesOutputWithContext(context.Context) NodeAllocatableOverheadResourcesOutput
+}
+
+// NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+type NodeAllocatableOverheadResourcesArgs struct {
+	// Name is the name of the resource (e.g., cpu, memory).
+	Name pulumi.StringInput `pulumi:"name"`
+	// PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+	PerContainer pulumi.StringPtrInput `pulumi:"perContainer"`
+	// PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+	PerPod pulumi.StringPtrInput `pulumi:"perPod"`
+}
+
+func (NodeAllocatableOverheadResourcesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableOverheadResources)(nil)).Elem()
+}
+
+func (i NodeAllocatableOverheadResourcesArgs) ToNodeAllocatableOverheadResourcesOutput() NodeAllocatableOverheadResourcesOutput {
+	return i.ToNodeAllocatableOverheadResourcesOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableOverheadResourcesArgs) ToNodeAllocatableOverheadResourcesOutputWithContext(ctx context.Context) NodeAllocatableOverheadResourcesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadResourcesOutput)
+}
+
+// NodeAllocatableOverheadResourcesArrayInput is an input type that accepts NodeAllocatableOverheadResourcesArray and NodeAllocatableOverheadResourcesArrayOutput values.
+// You can construct a concrete instance of `NodeAllocatableOverheadResourcesArrayInput` via:
+//
+//	NodeAllocatableOverheadResourcesArray{ NodeAllocatableOverheadResourcesArgs{...} }
+type NodeAllocatableOverheadResourcesArrayInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableOverheadResourcesArrayOutput() NodeAllocatableOverheadResourcesArrayOutput
+	ToNodeAllocatableOverheadResourcesArrayOutputWithContext(context.Context) NodeAllocatableOverheadResourcesArrayOutput
+}
+
+type NodeAllocatableOverheadResourcesArray []NodeAllocatableOverheadResourcesInput
+
+func (NodeAllocatableOverheadResourcesArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeAllocatableOverheadResources)(nil)).Elem()
+}
+
+func (i NodeAllocatableOverheadResourcesArray) ToNodeAllocatableOverheadResourcesArrayOutput() NodeAllocatableOverheadResourcesArrayOutput {
+	return i.ToNodeAllocatableOverheadResourcesArrayOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableOverheadResourcesArray) ToNodeAllocatableOverheadResourcesArrayOutputWithContext(ctx context.Context) NodeAllocatableOverheadResourcesArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadResourcesArrayOutput)
+}
+
+// NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+type NodeAllocatableOverheadResourcesOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableOverheadResourcesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableOverheadResources)(nil)).Elem()
+}
+
+func (o NodeAllocatableOverheadResourcesOutput) ToNodeAllocatableOverheadResourcesOutput() NodeAllocatableOverheadResourcesOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadResourcesOutput) ToNodeAllocatableOverheadResourcesOutputWithContext(ctx context.Context) NodeAllocatableOverheadResourcesOutput {
+	return o
+}
+
+// Name is the name of the resource (e.g., cpu, memory).
+func (o NodeAllocatableOverheadResourcesOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v NodeAllocatableOverheadResources) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+func (o NodeAllocatableOverheadResourcesOutput) PerContainer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableOverheadResources) *string { return v.PerContainer }).(pulumi.StringPtrOutput)
+}
+
+// PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+func (o NodeAllocatableOverheadResourcesOutput) PerPod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableOverheadResources) *string { return v.PerPod }).(pulumi.StringPtrOutput)
+}
+
+type NodeAllocatableOverheadResourcesArrayOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableOverheadResourcesArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeAllocatableOverheadResources)(nil)).Elem()
+}
+
+func (o NodeAllocatableOverheadResourcesArrayOutput) ToNodeAllocatableOverheadResourcesArrayOutput() NodeAllocatableOverheadResourcesArrayOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadResourcesArrayOutput) ToNodeAllocatableOverheadResourcesArrayOutputWithContext(ctx context.Context) NodeAllocatableOverheadResourcesArrayOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadResourcesArrayOutput) Index(i pulumi.IntInput) NodeAllocatableOverheadResourcesOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NodeAllocatableOverheadResources {
+		return vs[0].([]NodeAllocatableOverheadResources)[vs[1].(int)]
+	}).(NodeAllocatableOverheadResourcesOutput)
+}
+
+// NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+type NodeAllocatableOverheadResourcesPatch struct {
+	// Name is the name of the resource (e.g., cpu, memory).
+	Name *string `pulumi:"name"`
+	// PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+	PerContainer *string `pulumi:"perContainer"`
+	// PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+	PerPod *string `pulumi:"perPod"`
+}
+
+// NodeAllocatableOverheadResourcesPatchInput is an input type that accepts NodeAllocatableOverheadResourcesPatchArgs and NodeAllocatableOverheadResourcesPatchOutput values.
+// You can construct a concrete instance of `NodeAllocatableOverheadResourcesPatchInput` via:
+//
+//	NodeAllocatableOverheadResourcesPatchArgs{...}
+type NodeAllocatableOverheadResourcesPatchInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableOverheadResourcesPatchOutput() NodeAllocatableOverheadResourcesPatchOutput
+	ToNodeAllocatableOverheadResourcesPatchOutputWithContext(context.Context) NodeAllocatableOverheadResourcesPatchOutput
+}
+
+// NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+type NodeAllocatableOverheadResourcesPatchArgs struct {
+	// Name is the name of the resource (e.g., cpu, memory).
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+	PerContainer pulumi.StringPtrInput `pulumi:"perContainer"`
+	// PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+	PerPod pulumi.StringPtrInput `pulumi:"perPod"`
+}
+
+func (NodeAllocatableOverheadResourcesPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableOverheadResourcesPatch)(nil)).Elem()
+}
+
+func (i NodeAllocatableOverheadResourcesPatchArgs) ToNodeAllocatableOverheadResourcesPatchOutput() NodeAllocatableOverheadResourcesPatchOutput {
+	return i.ToNodeAllocatableOverheadResourcesPatchOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableOverheadResourcesPatchArgs) ToNodeAllocatableOverheadResourcesPatchOutputWithContext(ctx context.Context) NodeAllocatableOverheadResourcesPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadResourcesPatchOutput)
+}
+
+// NodeAllocatableOverheadResourcesPatchArrayInput is an input type that accepts NodeAllocatableOverheadResourcesPatchArray and NodeAllocatableOverheadResourcesPatchArrayOutput values.
+// You can construct a concrete instance of `NodeAllocatableOverheadResourcesPatchArrayInput` via:
+//
+//	NodeAllocatableOverheadResourcesPatchArray{ NodeAllocatableOverheadResourcesPatchArgs{...} }
+type NodeAllocatableOverheadResourcesPatchArrayInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableOverheadResourcesPatchArrayOutput() NodeAllocatableOverheadResourcesPatchArrayOutput
+	ToNodeAllocatableOverheadResourcesPatchArrayOutputWithContext(context.Context) NodeAllocatableOverheadResourcesPatchArrayOutput
+}
+
+type NodeAllocatableOverheadResourcesPatchArray []NodeAllocatableOverheadResourcesPatchInput
+
+func (NodeAllocatableOverheadResourcesPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeAllocatableOverheadResourcesPatch)(nil)).Elem()
+}
+
+func (i NodeAllocatableOverheadResourcesPatchArray) ToNodeAllocatableOverheadResourcesPatchArrayOutput() NodeAllocatableOverheadResourcesPatchArrayOutput {
+	return i.ToNodeAllocatableOverheadResourcesPatchArrayOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableOverheadResourcesPatchArray) ToNodeAllocatableOverheadResourcesPatchArrayOutputWithContext(ctx context.Context) NodeAllocatableOverheadResourcesPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadResourcesPatchArrayOutput)
+}
+
+// NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+type NodeAllocatableOverheadResourcesPatchOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableOverheadResourcesPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableOverheadResourcesPatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableOverheadResourcesPatchOutput) ToNodeAllocatableOverheadResourcesPatchOutput() NodeAllocatableOverheadResourcesPatchOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadResourcesPatchOutput) ToNodeAllocatableOverheadResourcesPatchOutputWithContext(ctx context.Context) NodeAllocatableOverheadResourcesPatchOutput {
+	return o
+}
+
+// Name is the name of the resource (e.g., cpu, memory).
+func (o NodeAllocatableOverheadResourcesPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableOverheadResourcesPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+func (o NodeAllocatableOverheadResourcesPatchOutput) PerContainer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableOverheadResourcesPatch) *string { return v.PerContainer }).(pulumi.StringPtrOutput)
+}
+
+// PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+func (o NodeAllocatableOverheadResourcesPatchOutput) PerPod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableOverheadResourcesPatch) *string { return v.PerPod }).(pulumi.StringPtrOutput)
+}
+
+type NodeAllocatableOverheadResourcesPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableOverheadResourcesPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodeAllocatableOverheadResourcesPatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableOverheadResourcesPatchArrayOutput) ToNodeAllocatableOverheadResourcesPatchArrayOutput() NodeAllocatableOverheadResourcesPatchArrayOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadResourcesPatchArrayOutput) ToNodeAllocatableOverheadResourcesPatchArrayOutputWithContext(ctx context.Context) NodeAllocatableOverheadResourcesPatchArrayOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadResourcesPatchArrayOutput) Index(i pulumi.IntInput) NodeAllocatableOverheadResourcesPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NodeAllocatableOverheadResourcesPatch {
+		return vs[0].([]NodeAllocatableOverheadResourcesPatch)[vs[1].(int)]
+	}).(NodeAllocatableOverheadResourcesPatchOutput)
+}
+
 // NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
 type NodeAllocatableResourceClaimStatus struct {
 	// Containers lists the names of all containers in this pod that reference the claim.
 	Containers []string `pulumi:"containers"`
+	// Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+	Mapping []NodeAllocatableMappedResources `pulumi:"mapping"`
+	// Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+	Overhead []NodeAllocatableOverheadResources `pulumi:"overhead"`
 	// ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
 	ResourceClaimName string `pulumi:"resourceClaimName"`
-	// Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-	Resources map[string]string `pulumi:"resources"`
 }
 
 // NodeAllocatableResourceClaimStatusInput is an input type that accepts NodeAllocatableResourceClaimStatusArgs and NodeAllocatableResourceClaimStatusOutput values.
@@ -33537,10 +34511,12 @@ type NodeAllocatableResourceClaimStatusInput interface {
 type NodeAllocatableResourceClaimStatusArgs struct {
 	// Containers lists the names of all containers in this pod that reference the claim.
 	Containers pulumi.StringArrayInput `pulumi:"containers"`
+	// Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+	Mapping NodeAllocatableMappedResourcesArrayInput `pulumi:"mapping"`
+	// Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+	Overhead NodeAllocatableOverheadResourcesArrayInput `pulumi:"overhead"`
 	// ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
 	ResourceClaimName pulumi.StringInput `pulumi:"resourceClaimName"`
-	// Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-	Resources pulumi.StringMapInput `pulumi:"resources"`
 }
 
 func (NodeAllocatableResourceClaimStatusArgs) ElementType() reflect.Type {
@@ -33600,14 +34576,19 @@ func (o NodeAllocatableResourceClaimStatusOutput) Containers() pulumi.StringArra
 	return o.ApplyT(func(v NodeAllocatableResourceClaimStatus) []string { return v.Containers }).(pulumi.StringArrayOutput)
 }
 
+// Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+func (o NodeAllocatableResourceClaimStatusOutput) Mapping() NodeAllocatableMappedResourcesArrayOutput {
+	return o.ApplyT(func(v NodeAllocatableResourceClaimStatus) []NodeAllocatableMappedResources { return v.Mapping }).(NodeAllocatableMappedResourcesArrayOutput)
+}
+
+// Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+func (o NodeAllocatableResourceClaimStatusOutput) Overhead() NodeAllocatableOverheadResourcesArrayOutput {
+	return o.ApplyT(func(v NodeAllocatableResourceClaimStatus) []NodeAllocatableOverheadResources { return v.Overhead }).(NodeAllocatableOverheadResourcesArrayOutput)
+}
+
 // ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
 func (o NodeAllocatableResourceClaimStatusOutput) ResourceClaimName() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeAllocatableResourceClaimStatus) string { return v.ResourceClaimName }).(pulumi.StringOutput)
-}
-
-// Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-func (o NodeAllocatableResourceClaimStatusOutput) Resources() pulumi.StringMapOutput {
-	return o.ApplyT(func(v NodeAllocatableResourceClaimStatus) map[string]string { return v.Resources }).(pulumi.StringMapOutput)
 }
 
 type NodeAllocatableResourceClaimStatusArrayOutput struct{ *pulumi.OutputState }
@@ -33634,10 +34615,12 @@ func (o NodeAllocatableResourceClaimStatusArrayOutput) Index(i pulumi.IntInput) 
 type NodeAllocatableResourceClaimStatusPatch struct {
 	// Containers lists the names of all containers in this pod that reference the claim.
 	Containers []string `pulumi:"containers"`
+	// Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+	Mapping []NodeAllocatableMappedResourcesPatch `pulumi:"mapping"`
+	// Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+	Overhead []NodeAllocatableOverheadResourcesPatch `pulumi:"overhead"`
 	// ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
 	ResourceClaimName *string `pulumi:"resourceClaimName"`
-	// Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-	Resources map[string]string `pulumi:"resources"`
 }
 
 // NodeAllocatableResourceClaimStatusPatchInput is an input type that accepts NodeAllocatableResourceClaimStatusPatchArgs and NodeAllocatableResourceClaimStatusPatchOutput values.
@@ -33655,10 +34638,12 @@ type NodeAllocatableResourceClaimStatusPatchInput interface {
 type NodeAllocatableResourceClaimStatusPatchArgs struct {
 	// Containers lists the names of all containers in this pod that reference the claim.
 	Containers pulumi.StringArrayInput `pulumi:"containers"`
+	// Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+	Mapping NodeAllocatableMappedResourcesPatchArrayInput `pulumi:"mapping"`
+	// Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+	Overhead NodeAllocatableOverheadResourcesPatchArrayInput `pulumi:"overhead"`
 	// ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
 	ResourceClaimName pulumi.StringPtrInput `pulumi:"resourceClaimName"`
-	// Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-	Resources pulumi.StringMapInput `pulumi:"resources"`
 }
 
 func (NodeAllocatableResourceClaimStatusPatchArgs) ElementType() reflect.Type {
@@ -33718,14 +34703,23 @@ func (o NodeAllocatableResourceClaimStatusPatchOutput) Containers() pulumi.Strin
 	return o.ApplyT(func(v NodeAllocatableResourceClaimStatusPatch) []string { return v.Containers }).(pulumi.StringArrayOutput)
 }
 
+// Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+func (o NodeAllocatableResourceClaimStatusPatchOutput) Mapping() NodeAllocatableMappedResourcesPatchArrayOutput {
+	return o.ApplyT(func(v NodeAllocatableResourceClaimStatusPatch) []NodeAllocatableMappedResourcesPatch {
+		return v.Mapping
+	}).(NodeAllocatableMappedResourcesPatchArrayOutput)
+}
+
+// Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+func (o NodeAllocatableResourceClaimStatusPatchOutput) Overhead() NodeAllocatableOverheadResourcesPatchArrayOutput {
+	return o.ApplyT(func(v NodeAllocatableResourceClaimStatusPatch) []NodeAllocatableOverheadResourcesPatch {
+		return v.Overhead
+	}).(NodeAllocatableOverheadResourcesPatchArrayOutput)
+}
+
 // ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
 func (o NodeAllocatableResourceClaimStatusPatchOutput) ResourceClaimName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeAllocatableResourceClaimStatusPatch) *string { return v.ResourceClaimName }).(pulumi.StringPtrOutput)
-}
-
-// Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-func (o NodeAllocatableResourceClaimStatusPatchOutput) Resources() pulumi.StringMapOutput {
-	return o.ApplyT(func(v NodeAllocatableResourceClaimStatusPatch) map[string]string { return v.Resources }).(pulumi.StringMapOutput)
 }
 
 type NodeAllocatableResourceClaimStatusPatchArrayOutput struct{ *pulumi.OutputState }
@@ -35445,6 +36439,286 @@ func (o NodePatchTypeOutput) Status() NodeStatusPatchPtrOutput {
 	return o.ApplyT(func(v NodePatchType) *NodeStatusPatch { return v.Status }).(NodeStatusPatchPtrOutput)
 }
 
+// NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+type NodePodPreemptionPolicy struct {
+	// DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+	DisableResizePreemption []string `pulumi:"disableResizePreemption"`
+}
+
+// NodePodPreemptionPolicyInput is an input type that accepts NodePodPreemptionPolicyArgs and NodePodPreemptionPolicyOutput values.
+// You can construct a concrete instance of `NodePodPreemptionPolicyInput` via:
+//
+//	NodePodPreemptionPolicyArgs{...}
+type NodePodPreemptionPolicyInput interface {
+	pulumi.Input
+
+	ToNodePodPreemptionPolicyOutput() NodePodPreemptionPolicyOutput
+	ToNodePodPreemptionPolicyOutputWithContext(context.Context) NodePodPreemptionPolicyOutput
+}
+
+// NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+type NodePodPreemptionPolicyArgs struct {
+	// DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+	DisableResizePreemption pulumi.StringArrayInput `pulumi:"disableResizePreemption"`
+}
+
+func (NodePodPreemptionPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodePodPreemptionPolicy)(nil)).Elem()
+}
+
+func (i NodePodPreemptionPolicyArgs) ToNodePodPreemptionPolicyOutput() NodePodPreemptionPolicyOutput {
+	return i.ToNodePodPreemptionPolicyOutputWithContext(context.Background())
+}
+
+func (i NodePodPreemptionPolicyArgs) ToNodePodPreemptionPolicyOutputWithContext(ctx context.Context) NodePodPreemptionPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePodPreemptionPolicyOutput)
+}
+
+func (i NodePodPreemptionPolicyArgs) ToNodePodPreemptionPolicyPtrOutput() NodePodPreemptionPolicyPtrOutput {
+	return i.ToNodePodPreemptionPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i NodePodPreemptionPolicyArgs) ToNodePodPreemptionPolicyPtrOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePodPreemptionPolicyOutput).ToNodePodPreemptionPolicyPtrOutputWithContext(ctx)
+}
+
+// NodePodPreemptionPolicyPtrInput is an input type that accepts NodePodPreemptionPolicyArgs, NodePodPreemptionPolicyPtr and NodePodPreemptionPolicyPtrOutput values.
+// You can construct a concrete instance of `NodePodPreemptionPolicyPtrInput` via:
+//
+//	        NodePodPreemptionPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodePodPreemptionPolicyPtrInput interface {
+	pulumi.Input
+
+	ToNodePodPreemptionPolicyPtrOutput() NodePodPreemptionPolicyPtrOutput
+	ToNodePodPreemptionPolicyPtrOutputWithContext(context.Context) NodePodPreemptionPolicyPtrOutput
+}
+
+type nodePodPreemptionPolicyPtrType NodePodPreemptionPolicyArgs
+
+func NodePodPreemptionPolicyPtr(v *NodePodPreemptionPolicyArgs) NodePodPreemptionPolicyPtrInput {
+	return (*nodePodPreemptionPolicyPtrType)(v)
+}
+
+func (*nodePodPreemptionPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodePodPreemptionPolicy)(nil)).Elem()
+}
+
+func (i *nodePodPreemptionPolicyPtrType) ToNodePodPreemptionPolicyPtrOutput() NodePodPreemptionPolicyPtrOutput {
+	return i.ToNodePodPreemptionPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *nodePodPreemptionPolicyPtrType) ToNodePodPreemptionPolicyPtrOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePodPreemptionPolicyPtrOutput)
+}
+
+// NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+type NodePodPreemptionPolicyOutput struct{ *pulumi.OutputState }
+
+func (NodePodPreemptionPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodePodPreemptionPolicy)(nil)).Elem()
+}
+
+func (o NodePodPreemptionPolicyOutput) ToNodePodPreemptionPolicyOutput() NodePodPreemptionPolicyOutput {
+	return o
+}
+
+func (o NodePodPreemptionPolicyOutput) ToNodePodPreemptionPolicyOutputWithContext(ctx context.Context) NodePodPreemptionPolicyOutput {
+	return o
+}
+
+func (o NodePodPreemptionPolicyOutput) ToNodePodPreemptionPolicyPtrOutput() NodePodPreemptionPolicyPtrOutput {
+	return o.ToNodePodPreemptionPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o NodePodPreemptionPolicyOutput) ToNodePodPreemptionPolicyPtrOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodePodPreemptionPolicy) *NodePodPreemptionPolicy {
+		return &v
+	}).(NodePodPreemptionPolicyPtrOutput)
+}
+
+// DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+func (o NodePodPreemptionPolicyOutput) DisableResizePreemption() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NodePodPreemptionPolicy) []string { return v.DisableResizePreemption }).(pulumi.StringArrayOutput)
+}
+
+type NodePodPreemptionPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (NodePodPreemptionPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodePodPreemptionPolicy)(nil)).Elem()
+}
+
+func (o NodePodPreemptionPolicyPtrOutput) ToNodePodPreemptionPolicyPtrOutput() NodePodPreemptionPolicyPtrOutput {
+	return o
+}
+
+func (o NodePodPreemptionPolicyPtrOutput) ToNodePodPreemptionPolicyPtrOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPtrOutput {
+	return o
+}
+
+func (o NodePodPreemptionPolicyPtrOutput) Elem() NodePodPreemptionPolicyOutput {
+	return o.ApplyT(func(v *NodePodPreemptionPolicy) NodePodPreemptionPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret NodePodPreemptionPolicy
+		return ret
+	}).(NodePodPreemptionPolicyOutput)
+}
+
+// DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+func (o NodePodPreemptionPolicyPtrOutput) DisableResizePreemption() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NodePodPreemptionPolicy) []string {
+		if v == nil {
+			return nil
+		}
+		return v.DisableResizePreemption
+	}).(pulumi.StringArrayOutput)
+}
+
+// NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+type NodePodPreemptionPolicyPatch struct {
+	// DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+	DisableResizePreemption []string `pulumi:"disableResizePreemption"`
+}
+
+// NodePodPreemptionPolicyPatchInput is an input type that accepts NodePodPreemptionPolicyPatchArgs and NodePodPreemptionPolicyPatchOutput values.
+// You can construct a concrete instance of `NodePodPreemptionPolicyPatchInput` via:
+//
+//	NodePodPreemptionPolicyPatchArgs{...}
+type NodePodPreemptionPolicyPatchInput interface {
+	pulumi.Input
+
+	ToNodePodPreemptionPolicyPatchOutput() NodePodPreemptionPolicyPatchOutput
+	ToNodePodPreemptionPolicyPatchOutputWithContext(context.Context) NodePodPreemptionPolicyPatchOutput
+}
+
+// NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+type NodePodPreemptionPolicyPatchArgs struct {
+	// DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+	DisableResizePreemption pulumi.StringArrayInput `pulumi:"disableResizePreemption"`
+}
+
+func (NodePodPreemptionPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodePodPreemptionPolicyPatch)(nil)).Elem()
+}
+
+func (i NodePodPreemptionPolicyPatchArgs) ToNodePodPreemptionPolicyPatchOutput() NodePodPreemptionPolicyPatchOutput {
+	return i.ToNodePodPreemptionPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i NodePodPreemptionPolicyPatchArgs) ToNodePodPreemptionPolicyPatchOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePodPreemptionPolicyPatchOutput)
+}
+
+func (i NodePodPreemptionPolicyPatchArgs) ToNodePodPreemptionPolicyPatchPtrOutput() NodePodPreemptionPolicyPatchPtrOutput {
+	return i.ToNodePodPreemptionPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NodePodPreemptionPolicyPatchArgs) ToNodePodPreemptionPolicyPatchPtrOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePodPreemptionPolicyPatchOutput).ToNodePodPreemptionPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// NodePodPreemptionPolicyPatchPtrInput is an input type that accepts NodePodPreemptionPolicyPatchArgs, NodePodPreemptionPolicyPatchPtr and NodePodPreemptionPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `NodePodPreemptionPolicyPatchPtrInput` via:
+//
+//	        NodePodPreemptionPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodePodPreemptionPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToNodePodPreemptionPolicyPatchPtrOutput() NodePodPreemptionPolicyPatchPtrOutput
+	ToNodePodPreemptionPolicyPatchPtrOutputWithContext(context.Context) NodePodPreemptionPolicyPatchPtrOutput
+}
+
+type nodePodPreemptionPolicyPatchPtrType NodePodPreemptionPolicyPatchArgs
+
+func NodePodPreemptionPolicyPatchPtr(v *NodePodPreemptionPolicyPatchArgs) NodePodPreemptionPolicyPatchPtrInput {
+	return (*nodePodPreemptionPolicyPatchPtrType)(v)
+}
+
+func (*nodePodPreemptionPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodePodPreemptionPolicyPatch)(nil)).Elem()
+}
+
+func (i *nodePodPreemptionPolicyPatchPtrType) ToNodePodPreemptionPolicyPatchPtrOutput() NodePodPreemptionPolicyPatchPtrOutput {
+	return i.ToNodePodPreemptionPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *nodePodPreemptionPolicyPatchPtrType) ToNodePodPreemptionPolicyPatchPtrOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePodPreemptionPolicyPatchPtrOutput)
+}
+
+// NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+type NodePodPreemptionPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (NodePodPreemptionPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodePodPreemptionPolicyPatch)(nil)).Elem()
+}
+
+func (o NodePodPreemptionPolicyPatchOutput) ToNodePodPreemptionPolicyPatchOutput() NodePodPreemptionPolicyPatchOutput {
+	return o
+}
+
+func (o NodePodPreemptionPolicyPatchOutput) ToNodePodPreemptionPolicyPatchOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPatchOutput {
+	return o
+}
+
+func (o NodePodPreemptionPolicyPatchOutput) ToNodePodPreemptionPolicyPatchPtrOutput() NodePodPreemptionPolicyPatchPtrOutput {
+	return o.ToNodePodPreemptionPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NodePodPreemptionPolicyPatchOutput) ToNodePodPreemptionPolicyPatchPtrOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodePodPreemptionPolicyPatch) *NodePodPreemptionPolicyPatch {
+		return &v
+	}).(NodePodPreemptionPolicyPatchPtrOutput)
+}
+
+// DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+func (o NodePodPreemptionPolicyPatchOutput) DisableResizePreemption() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NodePodPreemptionPolicyPatch) []string { return v.DisableResizePreemption }).(pulumi.StringArrayOutput)
+}
+
+type NodePodPreemptionPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NodePodPreemptionPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodePodPreemptionPolicyPatch)(nil)).Elem()
+}
+
+func (o NodePodPreemptionPolicyPatchPtrOutput) ToNodePodPreemptionPolicyPatchPtrOutput() NodePodPreemptionPolicyPatchPtrOutput {
+	return o
+}
+
+func (o NodePodPreemptionPolicyPatchPtrOutput) ToNodePodPreemptionPolicyPatchPtrOutputWithContext(ctx context.Context) NodePodPreemptionPolicyPatchPtrOutput {
+	return o
+}
+
+func (o NodePodPreemptionPolicyPatchPtrOutput) Elem() NodePodPreemptionPolicyPatchOutput {
+	return o.ApplyT(func(v *NodePodPreemptionPolicyPatch) NodePodPreemptionPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NodePodPreemptionPolicyPatch
+		return ret
+	}).(NodePodPreemptionPolicyPatchOutput)
+}
+
+// DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+func (o NodePodPreemptionPolicyPatchPtrOutput) DisableResizePreemption() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NodePodPreemptionPolicyPatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.DisableResizePreemption
+	}).(pulumi.StringArrayOutput)
+}
+
 // NodeRuntimeHandler is a set of runtime handler information.
 type NodeRuntimeHandler struct {
 	// Supported features.
@@ -36820,6 +38094,8 @@ type NodeSpec struct {
 	PodCIDR *string `pulumi:"podCIDR"`
 	// podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
 	PodCIDRs []string `pulumi:"podCIDRs"`
+	// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+	PodPreemptionPolicy *NodePodPreemptionPolicy `pulumi:"podPreemptionPolicy"`
 	// ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
 	ProviderID *string `pulumi:"providerID"`
 	// If specified, the node's taints.
@@ -36849,6 +38125,8 @@ type NodeSpecArgs struct {
 	PodCIDR pulumi.StringPtrInput `pulumi:"podCIDR"`
 	// podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
 	PodCIDRs pulumi.StringArrayInput `pulumi:"podCIDRs"`
+	// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+	PodPreemptionPolicy NodePodPreemptionPolicyPtrInput `pulumi:"podPreemptionPolicy"`
 	// ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
 	ProviderID pulumi.StringPtrInput `pulumi:"providerID"`
 	// If specified, the node's taints.
@@ -36955,6 +38233,11 @@ func (o NodeSpecOutput) PodCIDRs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NodeSpec) []string { return v.PodCIDRs }).(pulumi.StringArrayOutput)
 }
 
+// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+func (o NodeSpecOutput) PodPreemptionPolicy() NodePodPreemptionPolicyPtrOutput {
+	return o.ApplyT(func(v NodeSpec) *NodePodPreemptionPolicy { return v.PodPreemptionPolicy }).(NodePodPreemptionPolicyPtrOutput)
+}
+
 // ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
 func (o NodeSpecOutput) ProviderID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeSpec) *string { return v.ProviderID }).(pulumi.StringPtrOutput)
@@ -37034,6 +38317,16 @@ func (o NodeSpecPtrOutput) PodCIDRs() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+func (o NodeSpecPtrOutput) PodPreemptionPolicy() NodePodPreemptionPolicyPtrOutput {
+	return o.ApplyT(func(v *NodeSpec) *NodePodPreemptionPolicy {
+		if v == nil {
+			return nil
+		}
+		return v.PodPreemptionPolicy
+	}).(NodePodPreemptionPolicyPtrOutput)
+}
+
 // ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
 func (o NodeSpecPtrOutput) ProviderID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeSpec) *string {
@@ -37074,6 +38367,8 @@ type NodeSpecPatch struct {
 	PodCIDR *string `pulumi:"podCIDR"`
 	// podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
 	PodCIDRs []string `pulumi:"podCIDRs"`
+	// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+	PodPreemptionPolicy *NodePodPreemptionPolicyPatch `pulumi:"podPreemptionPolicy"`
 	// ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
 	ProviderID *string `pulumi:"providerID"`
 	// If specified, the node's taints.
@@ -37103,6 +38398,8 @@ type NodeSpecPatchArgs struct {
 	PodCIDR pulumi.StringPtrInput `pulumi:"podCIDR"`
 	// podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
 	PodCIDRs pulumi.StringArrayInput `pulumi:"podCIDRs"`
+	// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+	PodPreemptionPolicy NodePodPreemptionPolicyPatchPtrInput `pulumi:"podPreemptionPolicy"`
 	// ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
 	ProviderID pulumi.StringPtrInput `pulumi:"providerID"`
 	// If specified, the node's taints.
@@ -37209,6 +38506,11 @@ func (o NodeSpecPatchOutput) PodCIDRs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NodeSpecPatch) []string { return v.PodCIDRs }).(pulumi.StringArrayOutput)
 }
 
+// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+func (o NodeSpecPatchOutput) PodPreemptionPolicy() NodePodPreemptionPolicyPatchPtrOutput {
+	return o.ApplyT(func(v NodeSpecPatch) *NodePodPreemptionPolicyPatch { return v.PodPreemptionPolicy }).(NodePodPreemptionPolicyPatchPtrOutput)
+}
+
 // ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
 func (o NodeSpecPatchOutput) ProviderID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeSpecPatch) *string { return v.ProviderID }).(pulumi.StringPtrOutput)
@@ -37286,6 +38588,16 @@ func (o NodeSpecPatchPtrOutput) PodCIDRs() pulumi.StringArrayOutput {
 		}
 		return v.PodCIDRs
 	}).(pulumi.StringArrayOutput)
+}
+
+// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+func (o NodeSpecPatchPtrOutput) PodPreemptionPolicy() NodePodPreemptionPolicyPatchPtrOutput {
+	return o.ApplyT(func(v *NodeSpecPatch) *NodePodPreemptionPolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.PodPreemptionPolicy
+	}).(NodePodPreemptionPolicyPatchPtrOutput)
 }
 
 // ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
@@ -38392,6 +39704,8 @@ type NodeSystemInfo struct {
 	OperatingSystem string `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage string `pulumi:"osImage"`
+	// Whether the node is running in a user namespace.
+	RunningInUserNamespace *bool `pulumi:"runningInUserNamespace"`
 	// Swap Info reported by the node.
 	Swap *NodeSwapStatus `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
@@ -38429,6 +39743,8 @@ type NodeSystemInfoArgs struct {
 	OperatingSystem pulumi.StringInput `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage pulumi.StringInput `pulumi:"osImage"`
+	// Whether the node is running in a user namespace.
+	RunningInUserNamespace pulumi.BoolPtrInput `pulumi:"runningInUserNamespace"`
 	// Swap Info reported by the node.
 	Swap NodeSwapStatusPtrInput `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
@@ -38558,6 +39874,11 @@ func (o NodeSystemInfoOutput) OsImage() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSystemInfo) string { return v.OsImage }).(pulumi.StringOutput)
 }
 
+// Whether the node is running in a user namespace.
+func (o NodeSystemInfoOutput) RunningInUserNamespace() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v NodeSystemInfo) *bool { return v.RunningInUserNamespace }).(pulumi.BoolPtrOutput)
+}
+
 // Swap Info reported by the node.
 func (o NodeSystemInfoOutput) Swap() NodeSwapStatusPtrOutput {
 	return o.ApplyT(func(v NodeSystemInfo) *NodeSwapStatus { return v.Swap }).(NodeSwapStatusPtrOutput)
@@ -38682,6 +40003,16 @@ func (o NodeSystemInfoPtrOutput) OsImage() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Whether the node is running in a user namespace.
+func (o NodeSystemInfoPtrOutput) RunningInUserNamespace() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *NodeSystemInfo) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.RunningInUserNamespace
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Swap Info reported by the node.
 func (o NodeSystemInfoPtrOutput) Swap() NodeSwapStatusPtrOutput {
 	return o.ApplyT(func(v *NodeSystemInfo) *NodeSwapStatus {
@@ -38722,6 +40053,8 @@ type NodeSystemInfoPatch struct {
 	OperatingSystem *string `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage *string `pulumi:"osImage"`
+	// Whether the node is running in a user namespace.
+	RunningInUserNamespace *bool `pulumi:"runningInUserNamespace"`
 	// Swap Info reported by the node.
 	Swap *NodeSwapStatusPatch `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
@@ -38759,6 +40092,8 @@ type NodeSystemInfoPatchArgs struct {
 	OperatingSystem pulumi.StringPtrInput `pulumi:"operatingSystem"`
 	// OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
 	OsImage pulumi.StringPtrInput `pulumi:"osImage"`
+	// Whether the node is running in a user namespace.
+	RunningInUserNamespace pulumi.BoolPtrInput `pulumi:"runningInUserNamespace"`
 	// Swap Info reported by the node.
 	Swap NodeSwapStatusPatchPtrInput `pulumi:"swap"`
 	// SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
@@ -38888,6 +40223,11 @@ func (o NodeSystemInfoPatchOutput) OsImage() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeSystemInfoPatch) *string { return v.OsImage }).(pulumi.StringPtrOutput)
 }
 
+// Whether the node is running in a user namespace.
+func (o NodeSystemInfoPatchOutput) RunningInUserNamespace() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v NodeSystemInfoPatch) *bool { return v.RunningInUserNamespace }).(pulumi.BoolPtrOutput)
+}
+
 // Swap Info reported by the node.
 func (o NodeSystemInfoPatchOutput) Swap() NodeSwapStatusPatchPtrOutput {
 	return o.ApplyT(func(v NodeSystemInfoPatch) *NodeSwapStatusPatch { return v.Swap }).(NodeSwapStatusPatchPtrOutput)
@@ -39010,6 +40350,16 @@ func (o NodeSystemInfoPatchPtrOutput) OsImage() pulumi.StringPtrOutput {
 		}
 		return v.OsImage
 	}).(pulumi.StringPtrOutput)
+}
+
+// Whether the node is running in a user namespace.
+func (o NodeSystemInfoPatchPtrOutput) RunningInUserNamespace() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *NodeSystemInfoPatch) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.RunningInUserNamespace
+	}).(pulumi.BoolPtrOutput)
 }
 
 // Swap Info reported by the node.
@@ -40732,7 +42082,7 @@ func (o PersistentVolumeClaimPatchTypeArrayOutput) Index(i pulumi.IntInput) Pers
 type PersistentVolumeClaimSpec struct {
 	// accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes []string `pulumi:"accessModes"`
-	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
 	DataSource *TypedLocalObjectReference `pulumi:"dataSource"`
 	// dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
 	//   allows any non-core object, as well as PersistentVolumeClaim objects.
@@ -40741,7 +42091,7 @@ type PersistentVolumeClaimSpec struct {
 	//   specified.
 	// * While dataSource only allows local objects, dataSourceRef allows objects
 	//   in any namespaces.
-	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+	//   (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 	DataSourceRef *TypedObjectReference `pulumi:"dataSourceRef"`
 	// resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources *VolumeResourceRequirements `pulumi:"resources"`
@@ -40772,7 +42122,7 @@ type PersistentVolumeClaimSpecInput interface {
 type PersistentVolumeClaimSpecArgs struct {
 	// accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
 	DataSource TypedLocalObjectReferencePtrInput `pulumi:"dataSource"`
 	// dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
 	//   allows any non-core object, as well as PersistentVolumeClaim objects.
@@ -40781,7 +42131,7 @@ type PersistentVolumeClaimSpecArgs struct {
 	//   specified.
 	// * While dataSource only allows local objects, dataSourceRef allows objects
 	//   in any namespaces.
-	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+	//   (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 	DataSourceRef TypedObjectReferencePtrInput `pulumi:"dataSourceRef"`
 	// resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources VolumeResourceRequirementsPtrInput `pulumi:"resources"`
@@ -40880,7 +42230,7 @@ func (o PersistentVolumeClaimSpecOutput) AccessModes() pulumi.StringArrayOutput 
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
 func (o PersistentVolumeClaimSpecOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSource }).(TypedLocalObjectReferencePtrOutput)
 }
@@ -40893,7 +42243,7 @@ func (o PersistentVolumeClaimSpecOutput) DataSource() TypedLocalObjectReferenceP
 //     specified.
 //   - While dataSource only allows local objects, dataSourceRef allows objects
 //     in any namespaces.
-//     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+//     (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecOutput) DataSourceRef() TypedObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedObjectReference { return v.DataSourceRef }).(TypedObjectReferencePtrOutput)
 }
@@ -40962,7 +42312,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) AccessModes() pulumi.StringArrayOutp
 	}).(pulumi.StringArrayOutput)
 }
 
-// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
 func (o PersistentVolumeClaimSpecPtrOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *TypedLocalObjectReference {
 		if v == nil {
@@ -40980,7 +42330,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) DataSource() TypedLocalObjectReferen
 //     specified.
 //   - While dataSource only allows local objects, dataSourceRef allows objects
 //     in any namespaces.
-//     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+//     (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecPtrOutput) DataSourceRef() TypedObjectReferencePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *TypedObjectReference {
 		if v == nil {
@@ -41054,7 +42404,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) VolumeName() pulumi.StringPtrOutput 
 type PersistentVolumeClaimSpecPatch struct {
 	// accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes []string `pulumi:"accessModes"`
-	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
 	DataSource *TypedLocalObjectReferencePatch `pulumi:"dataSource"`
 	// dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
 	//   allows any non-core object, as well as PersistentVolumeClaim objects.
@@ -41063,7 +42413,7 @@ type PersistentVolumeClaimSpecPatch struct {
 	//   specified.
 	// * While dataSource only allows local objects, dataSourceRef allows objects
 	//   in any namespaces.
-	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+	//   (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 	DataSourceRef *TypedObjectReferencePatch `pulumi:"dataSourceRef"`
 	// resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources *VolumeResourceRequirementsPatch `pulumi:"resources"`
@@ -41094,7 +42444,7 @@ type PersistentVolumeClaimSpecPatchInput interface {
 type PersistentVolumeClaimSpecPatchArgs struct {
 	// accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
 	DataSource TypedLocalObjectReferencePatchPtrInput `pulumi:"dataSource"`
 	// dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
 	//   allows any non-core object, as well as PersistentVolumeClaim objects.
@@ -41103,7 +42453,7 @@ type PersistentVolumeClaimSpecPatchArgs struct {
 	//   specified.
 	// * While dataSource only allows local objects, dataSourceRef allows objects
 	//   in any namespaces.
-	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+	//   (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 	DataSourceRef TypedObjectReferencePatchPtrInput `pulumi:"dataSourceRef"`
 	// resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources VolumeResourceRequirementsPatchPtrInput `pulumi:"resources"`
@@ -41202,7 +42552,7 @@ func (o PersistentVolumeClaimSpecPatchOutput) AccessModes() pulumi.StringArrayOu
 	return o.ApplyT(func(v PersistentVolumeClaimSpecPatch) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
 func (o PersistentVolumeClaimSpecPatchOutput) DataSource() TypedLocalObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpecPatch) *TypedLocalObjectReferencePatch { return v.DataSource }).(TypedLocalObjectReferencePatchPtrOutput)
 }
@@ -41215,7 +42565,7 @@ func (o PersistentVolumeClaimSpecPatchOutput) DataSource() TypedLocalObjectRefer
 //     specified.
 //   - While dataSource only allows local objects, dataSourceRef allows objects
 //     in any namespaces.
-//     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+//     (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecPatchOutput) DataSourceRef() TypedObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpecPatch) *TypedObjectReferencePatch { return v.DataSourceRef }).(TypedObjectReferencePatchPtrOutput)
 }
@@ -41284,7 +42634,7 @@ func (o PersistentVolumeClaimSpecPatchPtrOutput) AccessModes() pulumi.StringArra
 	}).(pulumi.StringArrayOutput)
 }
 
-// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
 func (o PersistentVolumeClaimSpecPatchPtrOutput) DataSource() TypedLocalObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpecPatch) *TypedLocalObjectReferencePatch {
 		if v == nil {
@@ -41302,7 +42652,7 @@ func (o PersistentVolumeClaimSpecPatchPtrOutput) DataSource() TypedLocalObjectRe
 //     specified.
 //   - While dataSource only allows local objects, dataSourceRef allows objects
 //     in any namespaces.
-//     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+//     (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecPatchPtrOutput) DataSourceRef() TypedObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpecPatch) *TypedObjectReferencePatch {
 		if v == nil {
@@ -41421,6 +42771,8 @@ type PersistentVolumeClaimStatus struct {
 	Conditions []PersistentVolumeClaimCondition `pulumi:"conditions"`
 	// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
 	CurrentVolumeAttributesClassName *string `pulumi:"currentVolumeAttributesClassName"`
+	// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+	HealthStatus *VolumeHealthStatus `pulumi:"healthStatus"`
 	// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
 	ModifyVolumeStatus *ModifyVolumeStatus `pulumi:"modifyVolumeStatus"`
 	// phase represents the current phase of PersistentVolumeClaim.
@@ -41489,6 +42841,8 @@ type PersistentVolumeClaimStatusArgs struct {
 	Conditions PersistentVolumeClaimConditionArrayInput `pulumi:"conditions"`
 	// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
 	CurrentVolumeAttributesClassName pulumi.StringPtrInput `pulumi:"currentVolumeAttributesClassName"`
+	// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+	HealthStatus VolumeHealthStatusPtrInput `pulumi:"healthStatus"`
 	// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
 	ModifyVolumeStatus ModifyVolumeStatusPtrInput `pulumi:"modifyVolumeStatus"`
 	// phase represents the current phase of PersistentVolumeClaim.
@@ -41644,6 +42998,11 @@ func (o PersistentVolumeClaimStatusOutput) CurrentVolumeAttributesClassName() pu
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) *string { return v.CurrentVolumeAttributesClassName }).(pulumi.StringPtrOutput)
 }
 
+// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+func (o PersistentVolumeClaimStatusOutput) HealthStatus() VolumeHealthStatusPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimStatus) *VolumeHealthStatus { return v.HealthStatus }).(VolumeHealthStatusPtrOutput)
+}
+
 // ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
 func (o PersistentVolumeClaimStatusOutput) ModifyVolumeStatus() ModifyVolumeStatusPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) *ModifyVolumeStatus { return v.ModifyVolumeStatus }).(ModifyVolumeStatusPtrOutput)
@@ -41782,6 +43141,16 @@ func (o PersistentVolumeClaimStatusPtrOutput) CurrentVolumeAttributesClassName()
 	}).(pulumi.StringPtrOutput)
 }
 
+// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+func (o PersistentVolumeClaimStatusPtrOutput) HealthStatus() VolumeHealthStatusPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimStatus) *VolumeHealthStatus {
+		if v == nil {
+			return nil
+		}
+		return v.HealthStatus
+	}).(VolumeHealthStatusPtrOutput)
+}
+
 // ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
 func (o PersistentVolumeClaimStatusPtrOutput) ModifyVolumeStatus() ModifyVolumeStatusPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) *ModifyVolumeStatus {
@@ -41861,6 +43230,8 @@ type PersistentVolumeClaimStatusPatch struct {
 	Conditions []PersistentVolumeClaimConditionPatch `pulumi:"conditions"`
 	// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
 	CurrentVolumeAttributesClassName *string `pulumi:"currentVolumeAttributesClassName"`
+	// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+	HealthStatus *VolumeHealthStatusPatch `pulumi:"healthStatus"`
 	// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
 	ModifyVolumeStatus *ModifyVolumeStatusPatch `pulumi:"modifyVolumeStatus"`
 	// phase represents the current phase of PersistentVolumeClaim.
@@ -41929,6 +43300,8 @@ type PersistentVolumeClaimStatusPatchArgs struct {
 	Conditions PersistentVolumeClaimConditionPatchArrayInput `pulumi:"conditions"`
 	// currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
 	CurrentVolumeAttributesClassName pulumi.StringPtrInput `pulumi:"currentVolumeAttributesClassName"`
+	// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+	HealthStatus VolumeHealthStatusPatchPtrInput `pulumi:"healthStatus"`
 	// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
 	ModifyVolumeStatus ModifyVolumeStatusPatchPtrInput `pulumi:"modifyVolumeStatus"`
 	// phase represents the current phase of PersistentVolumeClaim.
@@ -42084,6 +43457,11 @@ func (o PersistentVolumeClaimStatusPatchOutput) CurrentVolumeAttributesClassName
 	return o.ApplyT(func(v PersistentVolumeClaimStatusPatch) *string { return v.CurrentVolumeAttributesClassName }).(pulumi.StringPtrOutput)
 }
 
+// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+func (o PersistentVolumeClaimStatusPatchOutput) HealthStatus() VolumeHealthStatusPatchPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimStatusPatch) *VolumeHealthStatusPatch { return v.HealthStatus }).(VolumeHealthStatusPatchPtrOutput)
+}
+
 // ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
 func (o PersistentVolumeClaimStatusPatchOutput) ModifyVolumeStatus() ModifyVolumeStatusPatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatusPatch) *ModifyVolumeStatusPatch { return v.ModifyVolumeStatus }).(ModifyVolumeStatusPatchPtrOutput)
@@ -42220,6 +43598,16 @@ func (o PersistentVolumeClaimStatusPatchPtrOutput) CurrentVolumeAttributesClassN
 		}
 		return v.CurrentVolumeAttributesClassName
 	}).(pulumi.StringPtrOutput)
+}
+
+// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+func (o PersistentVolumeClaimStatusPatchPtrOutput) HealthStatus() VolumeHealthStatusPatchPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimStatusPatch) *VolumeHealthStatusPatch {
+		if v == nil {
+			return nil
+		}
+		return v.HealthStatus
+	}).(VolumeHealthStatusPatchPtrOutput)
 }
 
 // ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
@@ -46483,6 +47871,8 @@ type PodCertificateProjection struct {
 	MaxExpirationSeconds *int `pulumi:"maxExpirationSeconds"`
 	// Kubelet's generated CSRs will be addressed to this signer.
 	SignerName string `pulumi:"signerName"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 	// userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 	//
 	// These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -46536,6 +47926,8 @@ type PodCertificateProjectionArgs struct {
 	MaxExpirationSeconds pulumi.IntPtrInput `pulumi:"maxExpirationSeconds"`
 	// Kubelet's generated CSRs will be addressed to this signer.
 	SignerName pulumi.StringInput `pulumi:"signerName"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 	// userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 	//
 	// These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -46672,6 +48064,11 @@ func (o PodCertificateProjectionOutput) SignerName() pulumi.StringOutput {
 	return o.ApplyT(func(v PodCertificateProjection) string { return v.SignerName }).(pulumi.StringOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o PodCertificateProjectionOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodCertificateProjection) *int { return v.User }).(pulumi.IntPtrOutput)
+}
+
 // userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 //
 // These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -46785,6 +48182,16 @@ func (o PodCertificateProjectionPtrOutput) SignerName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o PodCertificateProjectionPtrOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PodCertificateProjection) *int {
+		if v == nil {
+			return nil
+		}
+		return v.User
+	}).(pulumi.IntPtrOutput)
+}
+
 // userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 //
 // These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -46833,6 +48240,8 @@ type PodCertificateProjectionPatch struct {
 	MaxExpirationSeconds *int `pulumi:"maxExpirationSeconds"`
 	// Kubelet's generated CSRs will be addressed to this signer.
 	SignerName *string `pulumi:"signerName"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 	// userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 	//
 	// These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -46886,6 +48295,8 @@ type PodCertificateProjectionPatchArgs struct {
 	MaxExpirationSeconds pulumi.IntPtrInput `pulumi:"maxExpirationSeconds"`
 	// Kubelet's generated CSRs will be addressed to this signer.
 	SignerName pulumi.StringPtrInput `pulumi:"signerName"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 	// userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 	//
 	// These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -47022,6 +48433,11 @@ func (o PodCertificateProjectionPatchOutput) SignerName() pulumi.StringPtrOutput
 	return o.ApplyT(func(v PodCertificateProjectionPatch) *string { return v.SignerName }).(pulumi.StringPtrOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o PodCertificateProjectionPatchOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodCertificateProjectionPatch) *int { return v.User }).(pulumi.IntPtrOutput)
+}
+
 // userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
 //
 // These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -47133,6 +48549,16 @@ func (o PodCertificateProjectionPatchPtrOutput) SignerName() pulumi.StringPtrOut
 		}
 		return v.SignerName
 	}).(pulumi.StringPtrOutput)
+}
+
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o PodCertificateProjectionPatchPtrOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PodCertificateProjectionPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.User
+	}).(pulumi.IntPtrOutput)
 }
 
 // userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
@@ -50333,9 +51759,9 @@ type PodSecurityContext struct {
 	//
 	// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 	//
-	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 	//
-	// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+	// If not specified, "MountOption" is used.
 	//
 	// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 	//
@@ -50388,9 +51814,9 @@ type PodSecurityContextArgs struct {
 	//
 	// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 	//
-	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 	//
-	// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+	// If not specified, "MountOption" is used.
 	//
 	// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 	//
@@ -50526,9 +51952,9 @@ func (o PodSecurityContextOutput) RunAsUser() pulumi.IntPtrOutput {
 //
 // "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 //
-// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 //
-// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+// If not specified, "MountOption" is used.
 //
 // This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 //
@@ -50659,9 +52085,9 @@ func (o PodSecurityContextPtrOutput) RunAsUser() pulumi.IntPtrOutput {
 //
 // "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 //
-// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 //
-// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+// If not specified, "MountOption" is used.
 //
 // This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 //
@@ -50757,9 +52183,9 @@ type PodSecurityContextPatch struct {
 	//
 	// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 	//
-	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 	//
-	// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+	// If not specified, "MountOption" is used.
 	//
 	// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 	//
@@ -50812,9 +52238,9 @@ type PodSecurityContextPatchArgs struct {
 	//
 	// "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 	//
-	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+	// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 	//
-	// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+	// If not specified, "MountOption" is used.
 	//
 	// This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 	//
@@ -50950,9 +52376,9 @@ func (o PodSecurityContextPatchOutput) RunAsUser() pulumi.IntPtrOutput {
 //
 // "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 //
-// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 //
-// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+// If not specified, "MountOption" is used.
 //
 // This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 //
@@ -51083,9 +52509,9 @@ func (o PodSecurityContextPatchPtrOutput) RunAsUser() pulumi.IntPtrOutput {
 //
 // "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 //
-// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+// "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 //
-// If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+// If not specified, "MountOption" is used.
 //
 // This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 //
@@ -51177,6 +52603,12 @@ type PodSpec struct {
 	EnableServiceLinks *bool `pulumi:"enableServiceLinks"`
 	// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
 	EphemeralContainers []EphemeralContainer `pulumi:"ephemeralContainers"`
+	// evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+	//
+	// Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+	//
+	// The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+	EvictionResponders []EvictionResponder `pulumi:"evictionResponders"`
 	// HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
 	HostAliases []HostAlias `pulumi:"hostAliases"`
 	// Use the host's ipc namespace. Optional: Default to false.
@@ -51191,7 +52623,7 @@ type PodSpec struct {
 	Hostname *string `pulumi:"hostname"`
 	// HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 	//
-	// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+	// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
 	HostnameOverride *string `pulumi:"hostnameOverride"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets []LocalObjectReference `pulumi:"imagePullSecrets"`
@@ -51209,7 +52641,7 @@ type PodSpec struct {
 	Os *PodOS `pulumi:"os"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 	Overhead map[string]string `pulumi:"overhead"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
 	// The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 	Priority *int `pulumi:"priority"`
@@ -51292,6 +52724,12 @@ type PodSpecArgs struct {
 	EnableServiceLinks pulumi.BoolPtrInput `pulumi:"enableServiceLinks"`
 	// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
 	EphemeralContainers EphemeralContainerArrayInput `pulumi:"ephemeralContainers"`
+	// evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+	//
+	// Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+	//
+	// The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+	EvictionResponders EvictionResponderArrayInput `pulumi:"evictionResponders"`
 	// HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
 	HostAliases HostAliasArrayInput `pulumi:"hostAliases"`
 	// Use the host's ipc namespace. Optional: Default to false.
@@ -51306,7 +52744,7 @@ type PodSpecArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 	//
-	// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+	// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
 	HostnameOverride pulumi.StringPtrInput `pulumi:"hostnameOverride"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets LocalObjectReferenceArrayInput `pulumi:"imagePullSecrets"`
@@ -51324,7 +52762,7 @@ type PodSpecArgs struct {
 	Os PodOSPtrInput `pulumi:"os"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 	Overhead pulumi.StringMapInput `pulumi:"overhead"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
 	// The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 	Priority pulumi.IntPtrInput `pulumi:"priority"`
@@ -51496,6 +52934,15 @@ func (o PodSpecOutput) EphemeralContainers() EphemeralContainerArrayOutput {
 	return o.ApplyT(func(v PodSpec) []EphemeralContainer { return v.EphemeralContainers }).(EphemeralContainerArrayOutput)
 }
 
+// evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+//
+// Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+//
+// The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+func (o PodSpecOutput) EvictionResponders() EvictionResponderArrayOutput {
+	return o.ApplyT(func(v PodSpec) []EvictionResponder { return v.EvictionResponders }).(EvictionResponderArrayOutput)
+}
+
 // HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
 func (o PodSpecOutput) HostAliases() HostAliasArrayOutput {
 	return o.ApplyT(func(v PodSpec) []HostAlias { return v.HostAliases }).(HostAliasArrayOutput)
@@ -51528,7 +52975,7 @@ func (o PodSpecOutput) Hostname() pulumi.StringPtrOutput {
 
 // HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 //
-// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
 func (o PodSpecOutput) HostnameOverride() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.HostnameOverride }).(pulumi.StringPtrOutput)
 }
@@ -51567,7 +53014,7 @@ func (o PodSpecOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpec) map[string]string { return v.Overhead }).(pulumi.StringMapOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
 func (o PodSpecOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
 }
@@ -51786,6 +53233,20 @@ func (o PodSpecPtrOutput) EphemeralContainers() EphemeralContainerArrayOutput {
 	}).(EphemeralContainerArrayOutput)
 }
 
+// evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+//
+// Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+//
+// The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+func (o PodSpecPtrOutput) EvictionResponders() EvictionResponderArrayOutput {
+	return o.ApplyT(func(v *PodSpec) []EvictionResponder {
+		if v == nil {
+			return nil
+		}
+		return v.EvictionResponders
+	}).(EvictionResponderArrayOutput)
+}
+
 // HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
 func (o PodSpecPtrOutput) HostAliases() HostAliasArrayOutput {
 	return o.ApplyT(func(v *PodSpec) []HostAlias {
@@ -51848,7 +53309,7 @@ func (o PodSpecPtrOutput) Hostname() pulumi.StringPtrOutput {
 
 // HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 //
-// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
 func (o PodSpecPtrOutput) HostnameOverride() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -51922,7 +53383,7 @@ func (o PodSpecPtrOutput) Overhead() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
 func (o PodSpecPtrOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -52160,6 +53621,12 @@ type PodSpecPatch struct {
 	EnableServiceLinks *bool `pulumi:"enableServiceLinks"`
 	// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
 	EphemeralContainers []EphemeralContainerPatch `pulumi:"ephemeralContainers"`
+	// evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+	//
+	// Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+	//
+	// The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+	EvictionResponders []EvictionResponderPatch `pulumi:"evictionResponders"`
 	// HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
 	HostAliases []HostAliasPatch `pulumi:"hostAliases"`
 	// Use the host's ipc namespace. Optional: Default to false.
@@ -52174,7 +53641,7 @@ type PodSpecPatch struct {
 	Hostname *string `pulumi:"hostname"`
 	// HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 	//
-	// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+	// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
 	HostnameOverride *string `pulumi:"hostnameOverride"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets []LocalObjectReferencePatch `pulumi:"imagePullSecrets"`
@@ -52192,7 +53659,7 @@ type PodSpecPatch struct {
 	Os *PodOSPatch `pulumi:"os"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 	Overhead map[string]string `pulumi:"overhead"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
 	// The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 	Priority *int `pulumi:"priority"`
@@ -52275,6 +53742,12 @@ type PodSpecPatchArgs struct {
 	EnableServiceLinks pulumi.BoolPtrInput `pulumi:"enableServiceLinks"`
 	// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
 	EphemeralContainers EphemeralContainerPatchArrayInput `pulumi:"ephemeralContainers"`
+	// evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+	//
+	// Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+	//
+	// The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+	EvictionResponders EvictionResponderPatchArrayInput `pulumi:"evictionResponders"`
 	// HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
 	HostAliases HostAliasPatchArrayInput `pulumi:"hostAliases"`
 	// Use the host's ipc namespace. Optional: Default to false.
@@ -52289,7 +53762,7 @@ type PodSpecPatchArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 	//
-	// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+	// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
 	HostnameOverride pulumi.StringPtrInput `pulumi:"hostnameOverride"`
 	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets LocalObjectReferencePatchArrayInput `pulumi:"imagePullSecrets"`
@@ -52307,7 +53780,7 @@ type PodSpecPatchArgs struct {
 	Os PodOSPatchPtrInput `pulumi:"os"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 	Overhead pulumi.StringMapInput `pulumi:"overhead"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
 	// The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 	Priority pulumi.IntPtrInput `pulumi:"priority"`
@@ -52479,6 +53952,15 @@ func (o PodSpecPatchOutput) EphemeralContainers() EphemeralContainerPatchArrayOu
 	return o.ApplyT(func(v PodSpecPatch) []EphemeralContainerPatch { return v.EphemeralContainers }).(EphemeralContainerPatchArrayOutput)
 }
 
+// evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+//
+// Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+//
+// The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+func (o PodSpecPatchOutput) EvictionResponders() EvictionResponderPatchArrayOutput {
+	return o.ApplyT(func(v PodSpecPatch) []EvictionResponderPatch { return v.EvictionResponders }).(EvictionResponderPatchArrayOutput)
+}
+
 // HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
 func (o PodSpecPatchOutput) HostAliases() HostAliasPatchArrayOutput {
 	return o.ApplyT(func(v PodSpecPatch) []HostAliasPatch { return v.HostAliases }).(HostAliasPatchArrayOutput)
@@ -52511,7 +53993,7 @@ func (o PodSpecPatchOutput) Hostname() pulumi.StringPtrOutput {
 
 // HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 //
-// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
 func (o PodSpecPatchOutput) HostnameOverride() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpecPatch) *string { return v.HostnameOverride }).(pulumi.StringPtrOutput)
 }
@@ -52550,7 +54032,7 @@ func (o PodSpecPatchOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpecPatch) map[string]string { return v.Overhead }).(pulumi.StringMapOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
 func (o PodSpecPatchOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpecPatch) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
 }
@@ -52769,6 +54251,20 @@ func (o PodSpecPatchPtrOutput) EphemeralContainers() EphemeralContainerPatchArra
 	}).(EphemeralContainerPatchArrayOutput)
 }
 
+// evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+//
+// Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+//
+// The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+func (o PodSpecPatchPtrOutput) EvictionResponders() EvictionResponderPatchArrayOutput {
+	return o.ApplyT(func(v *PodSpecPatch) []EvictionResponderPatch {
+		if v == nil {
+			return nil
+		}
+		return v.EvictionResponders
+	}).(EvictionResponderPatchArrayOutput)
+}
+
 // HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
 func (o PodSpecPatchPtrOutput) HostAliases() HostAliasPatchArrayOutput {
 	return o.ApplyT(func(v *PodSpecPatch) []HostAliasPatch {
@@ -52831,7 +54327,7 @@ func (o PodSpecPatchPtrOutput) Hostname() pulumi.StringPtrOutput {
 
 // HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 //
-// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
 func (o PodSpecPatchPtrOutput) HostnameOverride() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpecPatch) *string {
 		if v == nil {
@@ -52905,7 +54401,7 @@ func (o PodSpecPatchPtrOutput) Overhead() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
 func (o PodSpecPatchPtrOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpecPatch) *string {
 		if v == nil {
@@ -53173,6 +54669,8 @@ type PodStatus struct {
 	Resources *ResourceRequirements `pulumi:"resources"`
 	// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 	StartTime *string `pulumi:"startTime"`
+	// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+	VolumeHealth []PodVolumeHealth `pulumi:"volumeHealth"`
 }
 
 // PodStatusInput is an input type that accepts PodStatusArgs and PodStatusOutput values.
@@ -53234,6 +54732,8 @@ type PodStatusArgs struct {
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
 	// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 	StartTime pulumi.StringPtrInput `pulumi:"startTime"`
+	// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+	VolumeHealth PodVolumeHealthArrayInput `pulumi:"volumeHealth"`
 }
 
 func (PodStatusArgs) ElementType() reflect.Type {
@@ -53421,6 +54921,11 @@ func (o PodStatusOutput) Resources() ResourceRequirementsPtrOutput {
 // RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 func (o PodStatusOutput) StartTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.StartTime }).(pulumi.StringPtrOutput)
+}
+
+// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+func (o PodStatusOutput) VolumeHealth() PodVolumeHealthArrayOutput {
+	return o.ApplyT(func(v PodStatus) []PodVolumeHealth { return v.VolumeHealth }).(PodVolumeHealthArrayOutput)
 }
 
 type PodStatusPtrOutput struct{ *pulumi.OutputState }
@@ -53661,6 +55166,16 @@ func (o PodStatusPtrOutput) StartTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+func (o PodStatusPtrOutput) VolumeHealth() PodVolumeHealthArrayOutput {
+	return o.ApplyT(func(v *PodStatus) []PodVolumeHealth {
+		if v == nil {
+			return nil
+		}
+		return v.VolumeHealth
+	}).(PodVolumeHealthArrayOutput)
+}
+
 // PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
 type PodStatusPatch struct {
 	// AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
@@ -53709,6 +55224,8 @@ type PodStatusPatch struct {
 	Resources *ResourceRequirementsPatch `pulumi:"resources"`
 	// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 	StartTime *string `pulumi:"startTime"`
+	// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+	VolumeHealth []PodVolumeHealthPatch `pulumi:"volumeHealth"`
 }
 
 // PodStatusPatchInput is an input type that accepts PodStatusPatchArgs and PodStatusPatchOutput values.
@@ -53770,6 +55287,8 @@ type PodStatusPatchArgs struct {
 	Resources ResourceRequirementsPatchPtrInput `pulumi:"resources"`
 	// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 	StartTime pulumi.StringPtrInput `pulumi:"startTime"`
+	// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+	VolumeHealth PodVolumeHealthPatchArrayInput `pulumi:"volumeHealth"`
 }
 
 func (PodStatusPatchArgs) ElementType() reflect.Type {
@@ -53959,6 +55478,11 @@ func (o PodStatusPatchOutput) Resources() ResourceRequirementsPatchPtrOutput {
 // RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 func (o PodStatusPatchOutput) StartTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatusPatch) *string { return v.StartTime }).(pulumi.StringPtrOutput)
+}
+
+// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+func (o PodStatusPatchOutput) VolumeHealth() PodVolumeHealthPatchArrayOutput {
+	return o.ApplyT(func(v PodStatusPatch) []PodVolumeHealthPatch { return v.VolumeHealth }).(PodVolumeHealthPatchArrayOutput)
 }
 
 type PodStatusPatchPtrOutput struct{ *pulumi.OutputState }
@@ -54197,6 +55721,16 @@ func (o PodStatusPatchPtrOutput) StartTime() pulumi.StringPtrOutput {
 		}
 		return v.StartTime
 	}).(pulumi.StringPtrOutput)
+}
+
+// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+func (o PodStatusPatchPtrOutput) VolumeHealth() PodVolumeHealthPatchArrayOutput {
+	return o.ApplyT(func(v *PodStatusPatch) []PodVolumeHealthPatch {
+		if v == nil {
+			return nil
+		}
+		return v.VolumeHealth
+	}).(PodVolumeHealthPatchArrayOutput)
 }
 
 // PodTemplate describes a template for creating copies of a predefined pod.
@@ -54806,6 +56340,242 @@ func (o PodTemplateSpecPatchPtrOutput) Spec() PodSpecPatchPtrOutput {
 		}
 		return v.Spec
 	}).(PodSpecPatchPtrOutput)
+}
+
+// PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+type PodVolumeHealth struct {
+	// conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+	HealthConditions []VolumeHealthCondition `pulumi:"healthConditions"`
+	// lastTransitionTime is when the current set of conditions first appeared.
+	LastTransitionTime *string `pulumi:"lastTransitionTime"`
+	// name matches an entry in pod.spec.volumes.
+	Name string `pulumi:"name"`
+}
+
+// PodVolumeHealthInput is an input type that accepts PodVolumeHealthArgs and PodVolumeHealthOutput values.
+// You can construct a concrete instance of `PodVolumeHealthInput` via:
+//
+//	PodVolumeHealthArgs{...}
+type PodVolumeHealthInput interface {
+	pulumi.Input
+
+	ToPodVolumeHealthOutput() PodVolumeHealthOutput
+	ToPodVolumeHealthOutputWithContext(context.Context) PodVolumeHealthOutput
+}
+
+// PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+type PodVolumeHealthArgs struct {
+	// conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+	HealthConditions VolumeHealthConditionArrayInput `pulumi:"healthConditions"`
+	// lastTransitionTime is when the current set of conditions first appeared.
+	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
+	// name matches an entry in pod.spec.volumes.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (PodVolumeHealthArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodVolumeHealth)(nil)).Elem()
+}
+
+func (i PodVolumeHealthArgs) ToPodVolumeHealthOutput() PodVolumeHealthOutput {
+	return i.ToPodVolumeHealthOutputWithContext(context.Background())
+}
+
+func (i PodVolumeHealthArgs) ToPodVolumeHealthOutputWithContext(ctx context.Context) PodVolumeHealthOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodVolumeHealthOutput)
+}
+
+// PodVolumeHealthArrayInput is an input type that accepts PodVolumeHealthArray and PodVolumeHealthArrayOutput values.
+// You can construct a concrete instance of `PodVolumeHealthArrayInput` via:
+//
+//	PodVolumeHealthArray{ PodVolumeHealthArgs{...} }
+type PodVolumeHealthArrayInput interface {
+	pulumi.Input
+
+	ToPodVolumeHealthArrayOutput() PodVolumeHealthArrayOutput
+	ToPodVolumeHealthArrayOutputWithContext(context.Context) PodVolumeHealthArrayOutput
+}
+
+type PodVolumeHealthArray []PodVolumeHealthInput
+
+func (PodVolumeHealthArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodVolumeHealth)(nil)).Elem()
+}
+
+func (i PodVolumeHealthArray) ToPodVolumeHealthArrayOutput() PodVolumeHealthArrayOutput {
+	return i.ToPodVolumeHealthArrayOutputWithContext(context.Background())
+}
+
+func (i PodVolumeHealthArray) ToPodVolumeHealthArrayOutputWithContext(ctx context.Context) PodVolumeHealthArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodVolumeHealthArrayOutput)
+}
+
+// PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+type PodVolumeHealthOutput struct{ *pulumi.OutputState }
+
+func (PodVolumeHealthOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodVolumeHealth)(nil)).Elem()
+}
+
+func (o PodVolumeHealthOutput) ToPodVolumeHealthOutput() PodVolumeHealthOutput {
+	return o
+}
+
+func (o PodVolumeHealthOutput) ToPodVolumeHealthOutputWithContext(ctx context.Context) PodVolumeHealthOutput {
+	return o
+}
+
+// conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+func (o PodVolumeHealthOutput) HealthConditions() VolumeHealthConditionArrayOutput {
+	return o.ApplyT(func(v PodVolumeHealth) []VolumeHealthCondition { return v.HealthConditions }).(VolumeHealthConditionArrayOutput)
+}
+
+// lastTransitionTime is when the current set of conditions first appeared.
+func (o PodVolumeHealthOutput) LastTransitionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodVolumeHealth) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+}
+
+// name matches an entry in pod.spec.volumes.
+func (o PodVolumeHealthOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PodVolumeHealth) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type PodVolumeHealthArrayOutput struct{ *pulumi.OutputState }
+
+func (PodVolumeHealthArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodVolumeHealth)(nil)).Elem()
+}
+
+func (o PodVolumeHealthArrayOutput) ToPodVolumeHealthArrayOutput() PodVolumeHealthArrayOutput {
+	return o
+}
+
+func (o PodVolumeHealthArrayOutput) ToPodVolumeHealthArrayOutputWithContext(ctx context.Context) PodVolumeHealthArrayOutput {
+	return o
+}
+
+func (o PodVolumeHealthArrayOutput) Index(i pulumi.IntInput) PodVolumeHealthOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodVolumeHealth {
+		return vs[0].([]PodVolumeHealth)[vs[1].(int)]
+	}).(PodVolumeHealthOutput)
+}
+
+// PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+type PodVolumeHealthPatch struct {
+	// conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+	HealthConditions []VolumeHealthConditionPatch `pulumi:"healthConditions"`
+	// lastTransitionTime is when the current set of conditions first appeared.
+	LastTransitionTime *string `pulumi:"lastTransitionTime"`
+	// name matches an entry in pod.spec.volumes.
+	Name *string `pulumi:"name"`
+}
+
+// PodVolumeHealthPatchInput is an input type that accepts PodVolumeHealthPatchArgs and PodVolumeHealthPatchOutput values.
+// You can construct a concrete instance of `PodVolumeHealthPatchInput` via:
+//
+//	PodVolumeHealthPatchArgs{...}
+type PodVolumeHealthPatchInput interface {
+	pulumi.Input
+
+	ToPodVolumeHealthPatchOutput() PodVolumeHealthPatchOutput
+	ToPodVolumeHealthPatchOutputWithContext(context.Context) PodVolumeHealthPatchOutput
+}
+
+// PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+type PodVolumeHealthPatchArgs struct {
+	// conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+	HealthConditions VolumeHealthConditionPatchArrayInput `pulumi:"healthConditions"`
+	// lastTransitionTime is when the current set of conditions first appeared.
+	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
+	// name matches an entry in pod.spec.volumes.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (PodVolumeHealthPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodVolumeHealthPatch)(nil)).Elem()
+}
+
+func (i PodVolumeHealthPatchArgs) ToPodVolumeHealthPatchOutput() PodVolumeHealthPatchOutput {
+	return i.ToPodVolumeHealthPatchOutputWithContext(context.Background())
+}
+
+func (i PodVolumeHealthPatchArgs) ToPodVolumeHealthPatchOutputWithContext(ctx context.Context) PodVolumeHealthPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodVolumeHealthPatchOutput)
+}
+
+// PodVolumeHealthPatchArrayInput is an input type that accepts PodVolumeHealthPatchArray and PodVolumeHealthPatchArrayOutput values.
+// You can construct a concrete instance of `PodVolumeHealthPatchArrayInput` via:
+//
+//	PodVolumeHealthPatchArray{ PodVolumeHealthPatchArgs{...} }
+type PodVolumeHealthPatchArrayInput interface {
+	pulumi.Input
+
+	ToPodVolumeHealthPatchArrayOutput() PodVolumeHealthPatchArrayOutput
+	ToPodVolumeHealthPatchArrayOutputWithContext(context.Context) PodVolumeHealthPatchArrayOutput
+}
+
+type PodVolumeHealthPatchArray []PodVolumeHealthPatchInput
+
+func (PodVolumeHealthPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodVolumeHealthPatch)(nil)).Elem()
+}
+
+func (i PodVolumeHealthPatchArray) ToPodVolumeHealthPatchArrayOutput() PodVolumeHealthPatchArrayOutput {
+	return i.ToPodVolumeHealthPatchArrayOutputWithContext(context.Background())
+}
+
+func (i PodVolumeHealthPatchArray) ToPodVolumeHealthPatchArrayOutputWithContext(ctx context.Context) PodVolumeHealthPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodVolumeHealthPatchArrayOutput)
+}
+
+// PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+type PodVolumeHealthPatchOutput struct{ *pulumi.OutputState }
+
+func (PodVolumeHealthPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodVolumeHealthPatch)(nil)).Elem()
+}
+
+func (o PodVolumeHealthPatchOutput) ToPodVolumeHealthPatchOutput() PodVolumeHealthPatchOutput {
+	return o
+}
+
+func (o PodVolumeHealthPatchOutput) ToPodVolumeHealthPatchOutputWithContext(ctx context.Context) PodVolumeHealthPatchOutput {
+	return o
+}
+
+// conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+func (o PodVolumeHealthPatchOutput) HealthConditions() VolumeHealthConditionPatchArrayOutput {
+	return o.ApplyT(func(v PodVolumeHealthPatch) []VolumeHealthConditionPatch { return v.HealthConditions }).(VolumeHealthConditionPatchArrayOutput)
+}
+
+// lastTransitionTime is when the current set of conditions first appeared.
+func (o PodVolumeHealthPatchOutput) LastTransitionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodVolumeHealthPatch) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+}
+
+// name matches an entry in pod.spec.volumes.
+func (o PodVolumeHealthPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodVolumeHealthPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type PodVolumeHealthPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (PodVolumeHealthPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodVolumeHealthPatch)(nil)).Elem()
+}
+
+func (o PodVolumeHealthPatchArrayOutput) ToPodVolumeHealthPatchArrayOutput() PodVolumeHealthPatchArrayOutput {
+	return o
+}
+
+func (o PodVolumeHealthPatchArrayOutput) ToPodVolumeHealthPatchArrayOutputWithContext(ctx context.Context) PodVolumeHealthPatchArrayOutput {
+	return o
+}
+
+func (o PodVolumeHealthPatchArrayOutput) Index(i pulumi.IntInput) PodVolumeHealthPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodVolumeHealthPatch {
+		return vs[0].([]PodVolumeHealthPatch)[vs[1].(int)]
+	}).(PodVolumeHealthPatchOutput)
 }
 
 // PortStatus represents the error condition of a service port
@@ -56264,6 +58034,8 @@ func (o ProbePatchPtrOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 type ProjectedVolumeSource struct {
 	// defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser *int `pulumi:"defaultUser"`
 	// sources is the list of volume projections. Each entry in this list handles one source.
 	Sources []VolumeProjection `pulumi:"sources"`
 }
@@ -56283,6 +58055,8 @@ type ProjectedVolumeSourceInput interface {
 type ProjectedVolumeSourceArgs struct {
 	// defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser pulumi.IntPtrInput `pulumi:"defaultUser"`
 	// sources is the list of volume projections. Each entry in this list handles one source.
 	Sources VolumeProjectionArrayInput `pulumi:"sources"`
 }
@@ -56370,6 +58144,11 @@ func (o ProjectedVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ProjectedVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ProjectedVolumeSourceOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ProjectedVolumeSource) *int { return v.DefaultUser }).(pulumi.IntPtrOutput)
+}
+
 // sources is the list of volume projections. Each entry in this list handles one source.
 func (o ProjectedVolumeSourceOutput) Sources() VolumeProjectionArrayOutput {
 	return o.ApplyT(func(v ProjectedVolumeSource) []VolumeProjection { return v.Sources }).(VolumeProjectionArrayOutput)
@@ -56409,6 +58188,16 @@ func (o ProjectedVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ProjectedVolumeSourcePtrOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ProjectedVolumeSource) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultUser
+	}).(pulumi.IntPtrOutput)
+}
+
 // sources is the list of volume projections. Each entry in this list handles one source.
 func (o ProjectedVolumeSourcePtrOutput) Sources() VolumeProjectionArrayOutput {
 	return o.ApplyT(func(v *ProjectedVolumeSource) []VolumeProjection {
@@ -56423,6 +58212,8 @@ func (o ProjectedVolumeSourcePtrOutput) Sources() VolumeProjectionArrayOutput {
 type ProjectedVolumeSourcePatch struct {
 	// defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser *int `pulumi:"defaultUser"`
 	// sources is the list of volume projections. Each entry in this list handles one source.
 	Sources []VolumeProjectionPatch `pulumi:"sources"`
 }
@@ -56442,6 +58233,8 @@ type ProjectedVolumeSourcePatchInput interface {
 type ProjectedVolumeSourcePatchArgs struct {
 	// defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser pulumi.IntPtrInput `pulumi:"defaultUser"`
 	// sources is the list of volume projections. Each entry in this list handles one source.
 	Sources VolumeProjectionPatchArrayInput `pulumi:"sources"`
 }
@@ -56529,6 +58322,11 @@ func (o ProjectedVolumeSourcePatchOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ProjectedVolumeSourcePatch) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ProjectedVolumeSourcePatchOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ProjectedVolumeSourcePatch) *int { return v.DefaultUser }).(pulumi.IntPtrOutput)
+}
+
 // sources is the list of volume projections. Each entry in this list handles one source.
 func (o ProjectedVolumeSourcePatchOutput) Sources() VolumeProjectionPatchArrayOutput {
 	return o.ApplyT(func(v ProjectedVolumeSourcePatch) []VolumeProjectionPatch { return v.Sources }).(VolumeProjectionPatchArrayOutput)
@@ -56565,6 +58363,16 @@ func (o ProjectedVolumeSourcePatchPtrOutput) DefaultMode() pulumi.IntPtrOutput {
 			return nil
 		}
 		return v.DefaultMode
+	}).(pulumi.IntPtrOutput)
+}
+
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ProjectedVolumeSourcePatchPtrOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ProjectedVolumeSourcePatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultUser
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -61816,7 +63624,7 @@ func (o ResourceRequirementsPatchPtrOutput) Requests() pulumi.StringMapOutput {
 
 // ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatus struct {
-	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 	Name string `pulumi:"name"`
 	// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 	Resources []ResourceHealth `pulumi:"resources"`
@@ -61835,7 +63643,7 @@ type ResourceStatusInput interface {
 
 // ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatusArgs struct {
-	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 	Name pulumi.StringInput `pulumi:"name"`
 	// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 	Resources ResourceHealthArrayInput `pulumi:"resources"`
@@ -61893,7 +63701,7 @@ func (o ResourceStatusOutput) ToResourceStatusOutputWithContext(ctx context.Cont
 	return o
 }
 
-// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 func (o ResourceStatusOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v ResourceStatus) string { return v.Name }).(pulumi.StringOutput)
 }
@@ -61925,7 +63733,7 @@ func (o ResourceStatusArrayOutput) Index(i pulumi.IntInput) ResourceStatusOutput
 
 // ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatusPatch struct {
-	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 	Name *string `pulumi:"name"`
 	// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 	Resources []ResourceHealthPatch `pulumi:"resources"`
@@ -61944,7 +63752,7 @@ type ResourceStatusPatchInput interface {
 
 // ResourceStatus represents the status of a single resource allocated to a Pod.
 type ResourceStatusPatchArgs struct {
-	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+	// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
 	Resources ResourceHealthPatchArrayInput `pulumi:"resources"`
@@ -62002,7 +63810,7 @@ func (o ResourceStatusPatchOutput) ToResourceStatusPatchOutputWithContext(ctx co
 	return o
 }
 
-// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
 func (o ResourceStatusPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceStatusPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
@@ -66303,6 +68111,8 @@ func (o SecretReferencePatchPtrOutput) Namespace() pulumi.StringPtrOutput {
 type SecretVolumeSource struct {
 	// defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser *int `pulumi:"defaultUser"`
 	// items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPath `pulumi:"items"`
 	// optional field specify whether the Secret or its keys must be defined
@@ -66328,6 +68138,8 @@ type SecretVolumeSourceInput interface {
 type SecretVolumeSourceArgs struct {
 	// defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser pulumi.IntPtrInput `pulumi:"defaultUser"`
 	// items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathArrayInput `pulumi:"items"`
 	// optional field specify whether the Secret or its keys must be defined
@@ -66421,6 +68233,11 @@ func (o SecretVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v SecretVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o SecretVolumeSourceOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SecretVolumeSource) *int { return v.DefaultUser }).(pulumi.IntPtrOutput)
+}
+
 // items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o SecretVolumeSourceOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v SecretVolumeSource) []KeyToPath { return v.Items }).(KeyToPathArrayOutput)
@@ -66470,6 +68287,16 @@ func (o SecretVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o SecretVolumeSourcePtrOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SecretVolumeSource) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultUser
+	}).(pulumi.IntPtrOutput)
+}
+
 // items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o SecretVolumeSourcePtrOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v *SecretVolumeSource) []KeyToPath {
@@ -66506,6 +68333,8 @@ func (o SecretVolumeSourcePtrOutput) SecretName() pulumi.StringPtrOutput {
 type SecretVolumeSourcePatch struct {
 	// defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser *int `pulumi:"defaultUser"`
 	// items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPathPatch `pulumi:"items"`
 	// optional field specify whether the Secret or its keys must be defined
@@ -66531,6 +68360,8 @@ type SecretVolumeSourcePatchInput interface {
 type SecretVolumeSourcePatchArgs struct {
 	// defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
+	// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	DefaultUser pulumi.IntPtrInput `pulumi:"defaultUser"`
 	// items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathPatchArrayInput `pulumi:"items"`
 	// optional field specify whether the Secret or its keys must be defined
@@ -66624,6 +68455,11 @@ func (o SecretVolumeSourcePatchOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v SecretVolumeSourcePatch) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o SecretVolumeSourcePatchOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SecretVolumeSourcePatch) *int { return v.DefaultUser }).(pulumi.IntPtrOutput)
+}
+
 // items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o SecretVolumeSourcePatchOutput) Items() KeyToPathPatchArrayOutput {
 	return o.ApplyT(func(v SecretVolumeSourcePatch) []KeyToPathPatch { return v.Items }).(KeyToPathPatchArrayOutput)
@@ -66670,6 +68506,16 @@ func (o SecretVolumeSourcePatchPtrOutput) DefaultMode() pulumi.IntPtrOutput {
 			return nil
 		}
 		return v.DefaultMode
+	}).(pulumi.IntPtrOutput)
+}
+
+// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o SecretVolumeSourcePatchPtrOutput) DefaultUser() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SecretVolumeSourcePatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultUser
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -67923,6 +69769,8 @@ type ServiceAccountTokenProjection struct {
 	ExpirationSeconds *int `pulumi:"expirationSeconds"`
 	// path is the path relative to the mount point of the file to project the token into.
 	Path string `pulumi:"path"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 }
 
 // ServiceAccountTokenProjectionInput is an input type that accepts ServiceAccountTokenProjectionArgs and ServiceAccountTokenProjectionOutput values.
@@ -67944,6 +69792,8 @@ type ServiceAccountTokenProjectionArgs struct {
 	ExpirationSeconds pulumi.IntPtrInput `pulumi:"expirationSeconds"`
 	// path is the path relative to the mount point of the file to project the token into.
 	Path pulumi.StringInput `pulumi:"path"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 }
 
 func (ServiceAccountTokenProjectionArgs) ElementType() reflect.Type {
@@ -68039,6 +69889,11 @@ func (o ServiceAccountTokenProjectionOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v ServiceAccountTokenProjection) string { return v.Path }).(pulumi.StringOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ServiceAccountTokenProjectionOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ServiceAccountTokenProjection) *int { return v.User }).(pulumi.IntPtrOutput)
+}
+
 type ServiceAccountTokenProjectionPtrOutput struct{ *pulumi.OutputState }
 
 func (ServiceAccountTokenProjectionPtrOutput) ElementType() reflect.Type {
@@ -68093,6 +69948,16 @@ func (o ServiceAccountTokenProjectionPtrOutput) Path() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ServiceAccountTokenProjectionPtrOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ServiceAccountTokenProjection) *int {
+		if v == nil {
+			return nil
+		}
+		return v.User
+	}).(pulumi.IntPtrOutput)
+}
+
 // ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
 type ServiceAccountTokenProjectionPatch struct {
 	// audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
@@ -68101,6 +69966,8 @@ type ServiceAccountTokenProjectionPatch struct {
 	ExpirationSeconds *int `pulumi:"expirationSeconds"`
 	// path is the path relative to the mount point of the file to project the token into.
 	Path *string `pulumi:"path"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User *int `pulumi:"user"`
 }
 
 // ServiceAccountTokenProjectionPatchInput is an input type that accepts ServiceAccountTokenProjectionPatchArgs and ServiceAccountTokenProjectionPatchOutput values.
@@ -68122,6 +69989,8 @@ type ServiceAccountTokenProjectionPatchArgs struct {
 	ExpirationSeconds pulumi.IntPtrInput `pulumi:"expirationSeconds"`
 	// path is the path relative to the mount point of the file to project the token into.
 	Path pulumi.StringPtrInput `pulumi:"path"`
+	// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+	User pulumi.IntPtrInput `pulumi:"user"`
 }
 
 func (ServiceAccountTokenProjectionPatchArgs) ElementType() reflect.Type {
@@ -68217,6 +70086,11 @@ func (o ServiceAccountTokenProjectionPatchOutput) Path() pulumi.StringPtrOutput 
 	return o.ApplyT(func(v ServiceAccountTokenProjectionPatch) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ServiceAccountTokenProjectionPatchOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ServiceAccountTokenProjectionPatch) *int { return v.User }).(pulumi.IntPtrOutput)
+}
+
 type ServiceAccountTokenProjectionPatchPtrOutput struct{ *pulumi.OutputState }
 
 func (ServiceAccountTokenProjectionPatchPtrOutput) ElementType() reflect.Type {
@@ -68269,6 +70143,16 @@ func (o ServiceAccountTokenProjectionPatchPtrOutput) Path() pulumi.StringPtrOutp
 		}
 		return v.Path
 	}).(pulumi.StringPtrOutput)
+}
+
+// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+func (o ServiceAccountTokenProjectionPatchPtrOutput) User() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ServiceAccountTokenProjectionPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.User
+	}).(pulumi.IntPtrOutput)
 }
 
 // ServiceList holds a list of services.
@@ -74961,9 +76845,565 @@ func (o VolumeDevicePatchArrayOutput) Index(i pulumi.IntInput) VolumeDevicePatch
 	}).(VolumeDevicePatchOutput)
 }
 
+// VolumeHealthCondition represents an adverse health condition reported for a volume.
+type VolumeHealthCondition struct {
+	// message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+	Message *string `pulumi:"message"`
+	// reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+	Reason string `pulumi:"reason"`
+	// status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+	Status string `pulumi:"status"`
+}
+
+// VolumeHealthConditionInput is an input type that accepts VolumeHealthConditionArgs and VolumeHealthConditionOutput values.
+// You can construct a concrete instance of `VolumeHealthConditionInput` via:
+//
+//	VolumeHealthConditionArgs{...}
+type VolumeHealthConditionInput interface {
+	pulumi.Input
+
+	ToVolumeHealthConditionOutput() VolumeHealthConditionOutput
+	ToVolumeHealthConditionOutputWithContext(context.Context) VolumeHealthConditionOutput
+}
+
+// VolumeHealthCondition represents an adverse health condition reported for a volume.
+type VolumeHealthConditionArgs struct {
+	// message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+	Reason pulumi.StringInput `pulumi:"reason"`
+	// status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+	Status pulumi.StringInput `pulumi:"status"`
+}
+
+func (VolumeHealthConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeHealthCondition)(nil)).Elem()
+}
+
+func (i VolumeHealthConditionArgs) ToVolumeHealthConditionOutput() VolumeHealthConditionOutput {
+	return i.ToVolumeHealthConditionOutputWithContext(context.Background())
+}
+
+func (i VolumeHealthConditionArgs) ToVolumeHealthConditionOutputWithContext(ctx context.Context) VolumeHealthConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthConditionOutput)
+}
+
+// VolumeHealthConditionArrayInput is an input type that accepts VolumeHealthConditionArray and VolumeHealthConditionArrayOutput values.
+// You can construct a concrete instance of `VolumeHealthConditionArrayInput` via:
+//
+//	VolumeHealthConditionArray{ VolumeHealthConditionArgs{...} }
+type VolumeHealthConditionArrayInput interface {
+	pulumi.Input
+
+	ToVolumeHealthConditionArrayOutput() VolumeHealthConditionArrayOutput
+	ToVolumeHealthConditionArrayOutputWithContext(context.Context) VolumeHealthConditionArrayOutput
+}
+
+type VolumeHealthConditionArray []VolumeHealthConditionInput
+
+func (VolumeHealthConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeHealthCondition)(nil)).Elem()
+}
+
+func (i VolumeHealthConditionArray) ToVolumeHealthConditionArrayOutput() VolumeHealthConditionArrayOutput {
+	return i.ToVolumeHealthConditionArrayOutputWithContext(context.Background())
+}
+
+func (i VolumeHealthConditionArray) ToVolumeHealthConditionArrayOutputWithContext(ctx context.Context) VolumeHealthConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthConditionArrayOutput)
+}
+
+// VolumeHealthCondition represents an adverse health condition reported for a volume.
+type VolumeHealthConditionOutput struct{ *pulumi.OutputState }
+
+func (VolumeHealthConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeHealthCondition)(nil)).Elem()
+}
+
+func (o VolumeHealthConditionOutput) ToVolumeHealthConditionOutput() VolumeHealthConditionOutput {
+	return o
+}
+
+func (o VolumeHealthConditionOutput) ToVolumeHealthConditionOutputWithContext(ctx context.Context) VolumeHealthConditionOutput {
+	return o
+}
+
+// message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+func (o VolumeHealthConditionOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeHealthCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+func (o VolumeHealthConditionOutput) Reason() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeHealthCondition) string { return v.Reason }).(pulumi.StringOutput)
+}
+
+// status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+func (o VolumeHealthConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v VolumeHealthCondition) string { return v.Status }).(pulumi.StringOutput)
+}
+
+type VolumeHealthConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (VolumeHealthConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeHealthCondition)(nil)).Elem()
+}
+
+func (o VolumeHealthConditionArrayOutput) ToVolumeHealthConditionArrayOutput() VolumeHealthConditionArrayOutput {
+	return o
+}
+
+func (o VolumeHealthConditionArrayOutput) ToVolumeHealthConditionArrayOutputWithContext(ctx context.Context) VolumeHealthConditionArrayOutput {
+	return o
+}
+
+func (o VolumeHealthConditionArrayOutput) Index(i pulumi.IntInput) VolumeHealthConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VolumeHealthCondition {
+		return vs[0].([]VolumeHealthCondition)[vs[1].(int)]
+	}).(VolumeHealthConditionOutput)
+}
+
+// VolumeHealthCondition represents an adverse health condition reported for a volume.
+type VolumeHealthConditionPatch struct {
+	// message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+	Message *string `pulumi:"message"`
+	// reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+	Reason *string `pulumi:"reason"`
+	// status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+	Status *string `pulumi:"status"`
+}
+
+// VolumeHealthConditionPatchInput is an input type that accepts VolumeHealthConditionPatchArgs and VolumeHealthConditionPatchOutput values.
+// You can construct a concrete instance of `VolumeHealthConditionPatchInput` via:
+//
+//	VolumeHealthConditionPatchArgs{...}
+type VolumeHealthConditionPatchInput interface {
+	pulumi.Input
+
+	ToVolumeHealthConditionPatchOutput() VolumeHealthConditionPatchOutput
+	ToVolumeHealthConditionPatchOutputWithContext(context.Context) VolumeHealthConditionPatchOutput
+}
+
+// VolumeHealthCondition represents an adverse health condition reported for a volume.
+type VolumeHealthConditionPatchArgs struct {
+	// message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+	Reason pulumi.StringPtrInput `pulumi:"reason"`
+	// status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+	Status pulumi.StringPtrInput `pulumi:"status"`
+}
+
+func (VolumeHealthConditionPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeHealthConditionPatch)(nil)).Elem()
+}
+
+func (i VolumeHealthConditionPatchArgs) ToVolumeHealthConditionPatchOutput() VolumeHealthConditionPatchOutput {
+	return i.ToVolumeHealthConditionPatchOutputWithContext(context.Background())
+}
+
+func (i VolumeHealthConditionPatchArgs) ToVolumeHealthConditionPatchOutputWithContext(ctx context.Context) VolumeHealthConditionPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthConditionPatchOutput)
+}
+
+// VolumeHealthConditionPatchArrayInput is an input type that accepts VolumeHealthConditionPatchArray and VolumeHealthConditionPatchArrayOutput values.
+// You can construct a concrete instance of `VolumeHealthConditionPatchArrayInput` via:
+//
+//	VolumeHealthConditionPatchArray{ VolumeHealthConditionPatchArgs{...} }
+type VolumeHealthConditionPatchArrayInput interface {
+	pulumi.Input
+
+	ToVolumeHealthConditionPatchArrayOutput() VolumeHealthConditionPatchArrayOutput
+	ToVolumeHealthConditionPatchArrayOutputWithContext(context.Context) VolumeHealthConditionPatchArrayOutput
+}
+
+type VolumeHealthConditionPatchArray []VolumeHealthConditionPatchInput
+
+func (VolumeHealthConditionPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeHealthConditionPatch)(nil)).Elem()
+}
+
+func (i VolumeHealthConditionPatchArray) ToVolumeHealthConditionPatchArrayOutput() VolumeHealthConditionPatchArrayOutput {
+	return i.ToVolumeHealthConditionPatchArrayOutputWithContext(context.Background())
+}
+
+func (i VolumeHealthConditionPatchArray) ToVolumeHealthConditionPatchArrayOutputWithContext(ctx context.Context) VolumeHealthConditionPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthConditionPatchArrayOutput)
+}
+
+// VolumeHealthCondition represents an adverse health condition reported for a volume.
+type VolumeHealthConditionPatchOutput struct{ *pulumi.OutputState }
+
+func (VolumeHealthConditionPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeHealthConditionPatch)(nil)).Elem()
+}
+
+func (o VolumeHealthConditionPatchOutput) ToVolumeHealthConditionPatchOutput() VolumeHealthConditionPatchOutput {
+	return o
+}
+
+func (o VolumeHealthConditionPatchOutput) ToVolumeHealthConditionPatchOutputWithContext(ctx context.Context) VolumeHealthConditionPatchOutput {
+	return o
+}
+
+// message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+func (o VolumeHealthConditionPatchOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeHealthConditionPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+func (o VolumeHealthConditionPatchOutput) Reason() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeHealthConditionPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
+}
+
+// status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+func (o VolumeHealthConditionPatchOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeHealthConditionPatch) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+type VolumeHealthConditionPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (VolumeHealthConditionPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VolumeHealthConditionPatch)(nil)).Elem()
+}
+
+func (o VolumeHealthConditionPatchArrayOutput) ToVolumeHealthConditionPatchArrayOutput() VolumeHealthConditionPatchArrayOutput {
+	return o
+}
+
+func (o VolumeHealthConditionPatchArrayOutput) ToVolumeHealthConditionPatchArrayOutputWithContext(ctx context.Context) VolumeHealthConditionPatchArrayOutput {
+	return o
+}
+
+func (o VolumeHealthConditionPatchArrayOutput) Index(i pulumi.IntInput) VolumeHealthConditionPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VolumeHealthConditionPatch {
+		return vs[0].([]VolumeHealthConditionPatch)[vs[1].(int)]
+	}).(VolumeHealthConditionPatchOutput)
+}
+
+// VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+type VolumeHealthStatus struct {
+	// conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+	HealthConditions []VolumeHealthCondition `pulumi:"healthConditions"`
+	// lastTransitionTime is when the current set of conditions first appeared.
+	LastTransitionTime *string `pulumi:"lastTransitionTime"`
+}
+
+// VolumeHealthStatusInput is an input type that accepts VolumeHealthStatusArgs and VolumeHealthStatusOutput values.
+// You can construct a concrete instance of `VolumeHealthStatusInput` via:
+//
+//	VolumeHealthStatusArgs{...}
+type VolumeHealthStatusInput interface {
+	pulumi.Input
+
+	ToVolumeHealthStatusOutput() VolumeHealthStatusOutput
+	ToVolumeHealthStatusOutputWithContext(context.Context) VolumeHealthStatusOutput
+}
+
+// VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+type VolumeHealthStatusArgs struct {
+	// conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+	HealthConditions VolumeHealthConditionArrayInput `pulumi:"healthConditions"`
+	// lastTransitionTime is when the current set of conditions first appeared.
+	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
+}
+
+func (VolumeHealthStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeHealthStatus)(nil)).Elem()
+}
+
+func (i VolumeHealthStatusArgs) ToVolumeHealthStatusOutput() VolumeHealthStatusOutput {
+	return i.ToVolumeHealthStatusOutputWithContext(context.Background())
+}
+
+func (i VolumeHealthStatusArgs) ToVolumeHealthStatusOutputWithContext(ctx context.Context) VolumeHealthStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthStatusOutput)
+}
+
+func (i VolumeHealthStatusArgs) ToVolumeHealthStatusPtrOutput() VolumeHealthStatusPtrOutput {
+	return i.ToVolumeHealthStatusPtrOutputWithContext(context.Background())
+}
+
+func (i VolumeHealthStatusArgs) ToVolumeHealthStatusPtrOutputWithContext(ctx context.Context) VolumeHealthStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthStatusOutput).ToVolumeHealthStatusPtrOutputWithContext(ctx)
+}
+
+// VolumeHealthStatusPtrInput is an input type that accepts VolumeHealthStatusArgs, VolumeHealthStatusPtr and VolumeHealthStatusPtrOutput values.
+// You can construct a concrete instance of `VolumeHealthStatusPtrInput` via:
+//
+//	        VolumeHealthStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type VolumeHealthStatusPtrInput interface {
+	pulumi.Input
+
+	ToVolumeHealthStatusPtrOutput() VolumeHealthStatusPtrOutput
+	ToVolumeHealthStatusPtrOutputWithContext(context.Context) VolumeHealthStatusPtrOutput
+}
+
+type volumeHealthStatusPtrType VolumeHealthStatusArgs
+
+func VolumeHealthStatusPtr(v *VolumeHealthStatusArgs) VolumeHealthStatusPtrInput {
+	return (*volumeHealthStatusPtrType)(v)
+}
+
+func (*volumeHealthStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeHealthStatus)(nil)).Elem()
+}
+
+func (i *volumeHealthStatusPtrType) ToVolumeHealthStatusPtrOutput() VolumeHealthStatusPtrOutput {
+	return i.ToVolumeHealthStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *volumeHealthStatusPtrType) ToVolumeHealthStatusPtrOutputWithContext(ctx context.Context) VolumeHealthStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthStatusPtrOutput)
+}
+
+// VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+type VolumeHealthStatusOutput struct{ *pulumi.OutputState }
+
+func (VolumeHealthStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeHealthStatus)(nil)).Elem()
+}
+
+func (o VolumeHealthStatusOutput) ToVolumeHealthStatusOutput() VolumeHealthStatusOutput {
+	return o
+}
+
+func (o VolumeHealthStatusOutput) ToVolumeHealthStatusOutputWithContext(ctx context.Context) VolumeHealthStatusOutput {
+	return o
+}
+
+func (o VolumeHealthStatusOutput) ToVolumeHealthStatusPtrOutput() VolumeHealthStatusPtrOutput {
+	return o.ToVolumeHealthStatusPtrOutputWithContext(context.Background())
+}
+
+func (o VolumeHealthStatusOutput) ToVolumeHealthStatusPtrOutputWithContext(ctx context.Context) VolumeHealthStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeHealthStatus) *VolumeHealthStatus {
+		return &v
+	}).(VolumeHealthStatusPtrOutput)
+}
+
+// conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+func (o VolumeHealthStatusOutput) HealthConditions() VolumeHealthConditionArrayOutput {
+	return o.ApplyT(func(v VolumeHealthStatus) []VolumeHealthCondition { return v.HealthConditions }).(VolumeHealthConditionArrayOutput)
+}
+
+// lastTransitionTime is when the current set of conditions first appeared.
+func (o VolumeHealthStatusOutput) LastTransitionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeHealthStatus) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+}
+
+type VolumeHealthStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (VolumeHealthStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeHealthStatus)(nil)).Elem()
+}
+
+func (o VolumeHealthStatusPtrOutput) ToVolumeHealthStatusPtrOutput() VolumeHealthStatusPtrOutput {
+	return o
+}
+
+func (o VolumeHealthStatusPtrOutput) ToVolumeHealthStatusPtrOutputWithContext(ctx context.Context) VolumeHealthStatusPtrOutput {
+	return o
+}
+
+func (o VolumeHealthStatusPtrOutput) Elem() VolumeHealthStatusOutput {
+	return o.ApplyT(func(v *VolumeHealthStatus) VolumeHealthStatus {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeHealthStatus
+		return ret
+	}).(VolumeHealthStatusOutput)
+}
+
+// conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+func (o VolumeHealthStatusPtrOutput) HealthConditions() VolumeHealthConditionArrayOutput {
+	return o.ApplyT(func(v *VolumeHealthStatus) []VolumeHealthCondition {
+		if v == nil {
+			return nil
+		}
+		return v.HealthConditions
+	}).(VolumeHealthConditionArrayOutput)
+}
+
+// lastTransitionTime is when the current set of conditions first appeared.
+func (o VolumeHealthStatusPtrOutput) LastTransitionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VolumeHealthStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LastTransitionTime
+	}).(pulumi.StringPtrOutput)
+}
+
+// VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+type VolumeHealthStatusPatch struct {
+	// conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+	HealthConditions []VolumeHealthConditionPatch `pulumi:"healthConditions"`
+	// lastTransitionTime is when the current set of conditions first appeared.
+	LastTransitionTime *string `pulumi:"lastTransitionTime"`
+}
+
+// VolumeHealthStatusPatchInput is an input type that accepts VolumeHealthStatusPatchArgs and VolumeHealthStatusPatchOutput values.
+// You can construct a concrete instance of `VolumeHealthStatusPatchInput` via:
+//
+//	VolumeHealthStatusPatchArgs{...}
+type VolumeHealthStatusPatchInput interface {
+	pulumi.Input
+
+	ToVolumeHealthStatusPatchOutput() VolumeHealthStatusPatchOutput
+	ToVolumeHealthStatusPatchOutputWithContext(context.Context) VolumeHealthStatusPatchOutput
+}
+
+// VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+type VolumeHealthStatusPatchArgs struct {
+	// conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+	HealthConditions VolumeHealthConditionPatchArrayInput `pulumi:"healthConditions"`
+	// lastTransitionTime is when the current set of conditions first appeared.
+	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
+}
+
+func (VolumeHealthStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeHealthStatusPatch)(nil)).Elem()
+}
+
+func (i VolumeHealthStatusPatchArgs) ToVolumeHealthStatusPatchOutput() VolumeHealthStatusPatchOutput {
+	return i.ToVolumeHealthStatusPatchOutputWithContext(context.Background())
+}
+
+func (i VolumeHealthStatusPatchArgs) ToVolumeHealthStatusPatchOutputWithContext(ctx context.Context) VolumeHealthStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthStatusPatchOutput)
+}
+
+func (i VolumeHealthStatusPatchArgs) ToVolumeHealthStatusPatchPtrOutput() VolumeHealthStatusPatchPtrOutput {
+	return i.ToVolumeHealthStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i VolumeHealthStatusPatchArgs) ToVolumeHealthStatusPatchPtrOutputWithContext(ctx context.Context) VolumeHealthStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthStatusPatchOutput).ToVolumeHealthStatusPatchPtrOutputWithContext(ctx)
+}
+
+// VolumeHealthStatusPatchPtrInput is an input type that accepts VolumeHealthStatusPatchArgs, VolumeHealthStatusPatchPtr and VolumeHealthStatusPatchPtrOutput values.
+// You can construct a concrete instance of `VolumeHealthStatusPatchPtrInput` via:
+//
+//	        VolumeHealthStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type VolumeHealthStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToVolumeHealthStatusPatchPtrOutput() VolumeHealthStatusPatchPtrOutput
+	ToVolumeHealthStatusPatchPtrOutputWithContext(context.Context) VolumeHealthStatusPatchPtrOutput
+}
+
+type volumeHealthStatusPatchPtrType VolumeHealthStatusPatchArgs
+
+func VolumeHealthStatusPatchPtr(v *VolumeHealthStatusPatchArgs) VolumeHealthStatusPatchPtrInput {
+	return (*volumeHealthStatusPatchPtrType)(v)
+}
+
+func (*volumeHealthStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeHealthStatusPatch)(nil)).Elem()
+}
+
+func (i *volumeHealthStatusPatchPtrType) ToVolumeHealthStatusPatchPtrOutput() VolumeHealthStatusPatchPtrOutput {
+	return i.ToVolumeHealthStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *volumeHealthStatusPatchPtrType) ToVolumeHealthStatusPatchPtrOutputWithContext(ctx context.Context) VolumeHealthStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeHealthStatusPatchPtrOutput)
+}
+
+// VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+type VolumeHealthStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (VolumeHealthStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeHealthStatusPatch)(nil)).Elem()
+}
+
+func (o VolumeHealthStatusPatchOutput) ToVolumeHealthStatusPatchOutput() VolumeHealthStatusPatchOutput {
+	return o
+}
+
+func (o VolumeHealthStatusPatchOutput) ToVolumeHealthStatusPatchOutputWithContext(ctx context.Context) VolumeHealthStatusPatchOutput {
+	return o
+}
+
+func (o VolumeHealthStatusPatchOutput) ToVolumeHealthStatusPatchPtrOutput() VolumeHealthStatusPatchPtrOutput {
+	return o.ToVolumeHealthStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o VolumeHealthStatusPatchOutput) ToVolumeHealthStatusPatchPtrOutputWithContext(ctx context.Context) VolumeHealthStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeHealthStatusPatch) *VolumeHealthStatusPatch {
+		return &v
+	}).(VolumeHealthStatusPatchPtrOutput)
+}
+
+// conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+func (o VolumeHealthStatusPatchOutput) HealthConditions() VolumeHealthConditionPatchArrayOutput {
+	return o.ApplyT(func(v VolumeHealthStatusPatch) []VolumeHealthConditionPatch { return v.HealthConditions }).(VolumeHealthConditionPatchArrayOutput)
+}
+
+// lastTransitionTime is when the current set of conditions first appeared.
+func (o VolumeHealthStatusPatchOutput) LastTransitionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeHealthStatusPatch) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+}
+
+type VolumeHealthStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (VolumeHealthStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**VolumeHealthStatusPatch)(nil)).Elem()
+}
+
+func (o VolumeHealthStatusPatchPtrOutput) ToVolumeHealthStatusPatchPtrOutput() VolumeHealthStatusPatchPtrOutput {
+	return o
+}
+
+func (o VolumeHealthStatusPatchPtrOutput) ToVolumeHealthStatusPatchPtrOutputWithContext(ctx context.Context) VolumeHealthStatusPatchPtrOutput {
+	return o
+}
+
+func (o VolumeHealthStatusPatchPtrOutput) Elem() VolumeHealthStatusPatchOutput {
+	return o.ApplyT(func(v *VolumeHealthStatusPatch) VolumeHealthStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeHealthStatusPatch
+		return ret
+	}).(VolumeHealthStatusPatchOutput)
+}
+
+// conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+func (o VolumeHealthStatusPatchPtrOutput) HealthConditions() VolumeHealthConditionPatchArrayOutput {
+	return o.ApplyT(func(v *VolumeHealthStatusPatch) []VolumeHealthConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.HealthConditions
+	}).(VolumeHealthConditionPatchArrayOutput)
+}
+
+// lastTransitionTime is when the current set of conditions first appeared.
+func (o VolumeHealthStatusPatchPtrOutput) LastTransitionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *VolumeHealthStatusPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LastTransitionTime
+	}).(pulumi.StringPtrOutput)
+}
+
 // VolumeMount describes a mounting of a Volume within a container.
 type VolumeMount struct {
-	// Path within the container at which the volume should be mounted.  Must not contain ':'.
+	// bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+	BindMountOptions []string `pulumi:"bindMountOptions"`
+	// Path within the container at which the volume should be mounted.
 	MountPath string `pulumi:"mountPath"`
 	// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
 	MountPropagation *string `pulumi:"mountPropagation"`
@@ -75000,7 +77440,9 @@ type VolumeMountInput interface {
 
 // VolumeMount describes a mounting of a Volume within a container.
 type VolumeMountArgs struct {
-	// Path within the container at which the volume should be mounted.  Must not contain ':'.
+	// bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+	BindMountOptions pulumi.StringArrayInput `pulumi:"bindMountOptions"`
+	// Path within the container at which the volume should be mounted.
 	MountPath pulumi.StringInput `pulumi:"mountPath"`
 	// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
 	MountPropagation pulumi.StringPtrInput `pulumi:"mountPropagation"`
@@ -75076,7 +77518,12 @@ func (o VolumeMountOutput) ToVolumeMountOutputWithContext(ctx context.Context) V
 	return o
 }
 
-// Path within the container at which the volume should be mounted.  Must not contain ':'.
+// bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+func (o VolumeMountOutput) BindMountOptions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v VolumeMount) []string { return v.BindMountOptions }).(pulumi.StringArrayOutput)
+}
+
+// Path within the container at which the volume should be mounted.
 func (o VolumeMountOutput) MountPath() pulumi.StringOutput {
 	return o.ApplyT(func(v VolumeMount) string { return v.MountPath }).(pulumi.StringOutput)
 }
@@ -75141,7 +77588,9 @@ func (o VolumeMountArrayOutput) Index(i pulumi.IntInput) VolumeMountOutput {
 
 // VolumeMount describes a mounting of a Volume within a container.
 type VolumeMountPatch struct {
-	// Path within the container at which the volume should be mounted.  Must not contain ':'.
+	// bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+	BindMountOptions []string `pulumi:"bindMountOptions"`
+	// Path within the container at which the volume should be mounted.
 	MountPath *string `pulumi:"mountPath"`
 	// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
 	MountPropagation *string `pulumi:"mountPropagation"`
@@ -75178,7 +77627,9 @@ type VolumeMountPatchInput interface {
 
 // VolumeMount describes a mounting of a Volume within a container.
 type VolumeMountPatchArgs struct {
-	// Path within the container at which the volume should be mounted.  Must not contain ':'.
+	// bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+	BindMountOptions pulumi.StringArrayInput `pulumi:"bindMountOptions"`
+	// Path within the container at which the volume should be mounted.
 	MountPath pulumi.StringPtrInput `pulumi:"mountPath"`
 	// mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
 	MountPropagation pulumi.StringPtrInput `pulumi:"mountPropagation"`
@@ -75254,7 +77705,12 @@ func (o VolumeMountPatchOutput) ToVolumeMountPatchOutputWithContext(ctx context.
 	return o
 }
 
-// Path within the container at which the volume should be mounted.  Must not contain ':'.
+// bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+func (o VolumeMountPatchOutput) BindMountOptions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v VolumeMountPatch) []string { return v.BindMountOptions }).(pulumi.StringArrayOutput)
+}
+
+// Path within the container at which the volume should be mounted.
 func (o VolumeMountPatchOutput) MountPath() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeMountPatch) *string { return v.MountPath }).(pulumi.StringPtrOutput)
 }
@@ -78518,6 +80974,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSourcePtrInput)(nil)).Elem(), EventSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSourcePatchInput)(nil)).Elem(), EventSourcePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSourcePatchPtrInput)(nil)).Elem(), EventSourcePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EvictionResponderInput)(nil)).Elem(), EvictionResponderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EvictionResponderArrayInput)(nil)).Elem(), EvictionResponderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EvictionResponderPatchInput)(nil)).Elem(), EvictionResponderPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EvictionResponderPatchArrayInput)(nil)).Elem(), EvictionResponderPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ExecActionInput)(nil)).Elem(), ExecActionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ExecActionPtrInput)(nil)).Elem(), ExecActionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ExecActionPatchInput)(nil)).Elem(), ExecActionPatchArgs{})
@@ -78680,6 +81140,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeAffinityPtrInput)(nil)).Elem(), NodeAffinityArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeAffinityPatchInput)(nil)).Elem(), NodeAffinityPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeAffinityPatchPtrInput)(nil)).Elem(), NodeAffinityPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableMappedResourcesInput)(nil)).Elem(), NodeAllocatableMappedResourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableMappedResourcesArrayInput)(nil)).Elem(), NodeAllocatableMappedResourcesArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableMappedResourcesPatchInput)(nil)).Elem(), NodeAllocatableMappedResourcesPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableMappedResourcesPatchArrayInput)(nil)).Elem(), NodeAllocatableMappedResourcesPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableOverheadResourcesInput)(nil)).Elem(), NodeAllocatableOverheadResourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableOverheadResourcesArrayInput)(nil)).Elem(), NodeAllocatableOverheadResourcesArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableOverheadResourcesPatchInput)(nil)).Elem(), NodeAllocatableOverheadResourcesPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableOverheadResourcesPatchArrayInput)(nil)).Elem(), NodeAllocatableOverheadResourcesPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceClaimStatusInput)(nil)).Elem(), NodeAllocatableResourceClaimStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceClaimStatusArrayInput)(nil)).Elem(), NodeAllocatableResourceClaimStatusArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceClaimStatusPatchInput)(nil)).Elem(), NodeAllocatableResourceClaimStatusPatchArgs{})
@@ -78706,6 +81174,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeFeaturesPatchPtrInput)(nil)).Elem(), NodeFeaturesPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeListTypeInput)(nil)).Elem(), NodeListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodePatchTypeInput)(nil)).Elem(), NodePatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodePodPreemptionPolicyInput)(nil)).Elem(), NodePodPreemptionPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodePodPreemptionPolicyPtrInput)(nil)).Elem(), NodePodPreemptionPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodePodPreemptionPolicyPatchInput)(nil)).Elem(), NodePodPreemptionPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodePodPreemptionPolicyPatchPtrInput)(nil)).Elem(), NodePodPreemptionPolicyPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeRuntimeHandlerInput)(nil)).Elem(), NodeRuntimeHandlerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeRuntimeHandlerArrayInput)(nil)).Elem(), NodeRuntimeHandlerArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeRuntimeHandlerFeaturesInput)(nil)).Elem(), NodeRuntimeHandlerFeaturesArgs{})
@@ -78879,6 +81351,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateSpecPtrInput)(nil)).Elem(), PodTemplateSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateSpecPatchInput)(nil)).Elem(), PodTemplateSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateSpecPatchPtrInput)(nil)).Elem(), PodTemplateSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodVolumeHealthInput)(nil)).Elem(), PodVolumeHealthArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodVolumeHealthArrayInput)(nil)).Elem(), PodVolumeHealthArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodVolumeHealthPatchInput)(nil)).Elem(), PodVolumeHealthPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodVolumeHealthPatchArrayInput)(nil)).Elem(), PodVolumeHealthPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PortStatusInput)(nil)).Elem(), PortStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PortStatusArrayInput)(nil)).Elem(), PortStatusArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PortStatusPatchInput)(nil)).Elem(), PortStatusPatchArgs{})
@@ -79093,6 +81569,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeDeviceArrayInput)(nil)).Elem(), VolumeDeviceArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeDevicePatchInput)(nil)).Elem(), VolumeDevicePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeDevicePatchArrayInput)(nil)).Elem(), VolumeDevicePatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeHealthConditionInput)(nil)).Elem(), VolumeHealthConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeHealthConditionArrayInput)(nil)).Elem(), VolumeHealthConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeHealthConditionPatchInput)(nil)).Elem(), VolumeHealthConditionPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeHealthConditionPatchArrayInput)(nil)).Elem(), VolumeHealthConditionPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeHealthStatusInput)(nil)).Elem(), VolumeHealthStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeHealthStatusPtrInput)(nil)).Elem(), VolumeHealthStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeHealthStatusPatchInput)(nil)).Elem(), VolumeHealthStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeHealthStatusPatchPtrInput)(nil)).Elem(), VolumeHealthStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeMountInput)(nil)).Elem(), VolumeMountArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeMountArrayInput)(nil)).Elem(), VolumeMountArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeMountPatchInput)(nil)).Elem(), VolumeMountPatchArgs{})
@@ -79353,6 +81837,10 @@ func init() {
 	pulumi.RegisterOutputType(EventSourcePtrOutput{})
 	pulumi.RegisterOutputType(EventSourcePatchOutput{})
 	pulumi.RegisterOutputType(EventSourcePatchPtrOutput{})
+	pulumi.RegisterOutputType(EvictionResponderOutput{})
+	pulumi.RegisterOutputType(EvictionResponderArrayOutput{})
+	pulumi.RegisterOutputType(EvictionResponderPatchOutput{})
+	pulumi.RegisterOutputType(EvictionResponderPatchArrayOutput{})
 	pulumi.RegisterOutputType(ExecActionOutput{})
 	pulumi.RegisterOutputType(ExecActionPtrOutput{})
 	pulumi.RegisterOutputType(ExecActionPatchOutput{})
@@ -79515,6 +82003,14 @@ func init() {
 	pulumi.RegisterOutputType(NodeAffinityPtrOutput{})
 	pulumi.RegisterOutputType(NodeAffinityPatchOutput{})
 	pulumi.RegisterOutputType(NodeAffinityPatchPtrOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableMappedResourcesOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableMappedResourcesArrayOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableMappedResourcesPatchOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableMappedResourcesPatchArrayOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableOverheadResourcesOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableOverheadResourcesArrayOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableOverheadResourcesPatchOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableOverheadResourcesPatchArrayOutput{})
 	pulumi.RegisterOutputType(NodeAllocatableResourceClaimStatusOutput{})
 	pulumi.RegisterOutputType(NodeAllocatableResourceClaimStatusArrayOutput{})
 	pulumi.RegisterOutputType(NodeAllocatableResourceClaimStatusPatchOutput{})
@@ -79541,6 +82037,10 @@ func init() {
 	pulumi.RegisterOutputType(NodeFeaturesPatchPtrOutput{})
 	pulumi.RegisterOutputType(NodeListTypeOutput{})
 	pulumi.RegisterOutputType(NodePatchTypeOutput{})
+	pulumi.RegisterOutputType(NodePodPreemptionPolicyOutput{})
+	pulumi.RegisterOutputType(NodePodPreemptionPolicyPtrOutput{})
+	pulumi.RegisterOutputType(NodePodPreemptionPolicyPatchOutput{})
+	pulumi.RegisterOutputType(NodePodPreemptionPolicyPatchPtrOutput{})
 	pulumi.RegisterOutputType(NodeRuntimeHandlerOutput{})
 	pulumi.RegisterOutputType(NodeRuntimeHandlerArrayOutput{})
 	pulumi.RegisterOutputType(NodeRuntimeHandlerFeaturesOutput{})
@@ -79714,6 +82214,10 @@ func init() {
 	pulumi.RegisterOutputType(PodTemplateSpecPtrOutput{})
 	pulumi.RegisterOutputType(PodTemplateSpecPatchOutput{})
 	pulumi.RegisterOutputType(PodTemplateSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodVolumeHealthOutput{})
+	pulumi.RegisterOutputType(PodVolumeHealthArrayOutput{})
+	pulumi.RegisterOutputType(PodVolumeHealthPatchOutput{})
+	pulumi.RegisterOutputType(PodVolumeHealthPatchArrayOutput{})
 	pulumi.RegisterOutputType(PortStatusOutput{})
 	pulumi.RegisterOutputType(PortStatusArrayOutput{})
 	pulumi.RegisterOutputType(PortStatusPatchOutput{})
@@ -79928,6 +82432,14 @@ func init() {
 	pulumi.RegisterOutputType(VolumeDeviceArrayOutput{})
 	pulumi.RegisterOutputType(VolumeDevicePatchOutput{})
 	pulumi.RegisterOutputType(VolumeDevicePatchArrayOutput{})
+	pulumi.RegisterOutputType(VolumeHealthConditionOutput{})
+	pulumi.RegisterOutputType(VolumeHealthConditionArrayOutput{})
+	pulumi.RegisterOutputType(VolumeHealthConditionPatchOutput{})
+	pulumi.RegisterOutputType(VolumeHealthConditionPatchArrayOutput{})
+	pulumi.RegisterOutputType(VolumeHealthStatusOutput{})
+	pulumi.RegisterOutputType(VolumeHealthStatusPtrOutput{})
+	pulumi.RegisterOutputType(VolumeHealthStatusPatchOutput{})
+	pulumi.RegisterOutputType(VolumeHealthStatusPatchPtrOutput{})
 	pulumi.RegisterOutputType(VolumeMountOutput{})
 	pulumi.RegisterOutputType(VolumeMountArrayOutput{})
 	pulumi.RegisterOutputType(VolumeMountPatchOutput{})

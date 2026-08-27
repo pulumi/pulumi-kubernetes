@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     /// <summary>
     /// ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
     /// 
-    /// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+    /// The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
     /// </summary>
     [OutputType]
     public sealed class ConfigMapEnvSource

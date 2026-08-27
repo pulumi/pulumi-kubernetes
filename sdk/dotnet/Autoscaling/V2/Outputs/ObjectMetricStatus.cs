@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2.MetricValueStatus Current;
         /// <summary>
-        /// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+        /// describedObject specifies the descriptions of a object,such as kind,name apiVersion
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2.CrossVersionObjectReference DescribedObject;
         /// <summary>

@@ -24,7 +24,7 @@ public final class HorizontalPodAutoscalerSpec {
      */
     private @Nullable Integer minReplicas;
     /**
-     * @return reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+     * @return scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
      * 
      */
     private CrossVersionObjectReference scaleTargetRef;
@@ -50,7 +50,7 @@ public final class HorizontalPodAutoscalerSpec {
         return Optional.ofNullable(this.minReplicas);
     }
     /**
-     * @return reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+     * @return scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
      * 
      */
     public CrossVersionObjectReference scaleTargetRef() {

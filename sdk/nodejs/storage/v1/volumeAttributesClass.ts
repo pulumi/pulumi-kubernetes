@@ -42,7 +42,7 @@ export class VolumeAttributesClass extends pulumi.CustomResource {
      */
     declare public readonly apiVersion: pulumi.Output<"storage.k8s.io/v1">;
     /**
-     * Name of the CSI driver This field is immutable.
+     * driverName is the name of the CSI driver This field is immutable.
      */
     declare public readonly driverName: pulumi.Output<string>;
     /**
@@ -50,7 +50,7 @@ export class VolumeAttributesClass extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"VolumeAttributesClass">;
     /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
@@ -102,7 +102,7 @@ export interface VolumeAttributesClassArgs {
      */
     apiVersion?: pulumi.Input<"storage.k8s.io/v1" | undefined>;
     /**
-     * Name of the CSI driver This field is immutable.
+     * driverName is the name of the CSI driver This field is immutable.
      */
     driverName: pulumi.Input<string>;
     /**
@@ -110,7 +110,7 @@ export interface VolumeAttributesClassArgs {
      */
     kind?: pulumi.Input<"VolumeAttributesClass" | undefined>;
     /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**

@@ -17,19 +17,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
     public sealed class ParentReferencePatch
     {
         /// <summary>
-        /// Group is the group of the object being referenced.
+        /// group is the group of the object being referenced.
         /// </summary>
         public readonly string Group;
         /// <summary>
-        /// Name is the name of the object being referenced.
+        /// name is the name of the object being referenced.
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Namespace is the namespace of the object being referenced.
+        /// namespace is the namespace of the object being referenced.
         /// </summary>
         public readonly string Namespace;
         /// <summary>
-        /// Resource is the resource of the object being referenced.
+        /// resource is the resource of the object being referenced.
         /// </summary>
         public readonly string Resource;
 

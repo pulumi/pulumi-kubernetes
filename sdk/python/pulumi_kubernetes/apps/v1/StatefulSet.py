@@ -23,26 +23,37 @@ __all__ = ['StatefulSetInitArgs', 'StatefulSet']
 @pulumi.input_type
 class StatefulSetInitArgs:
     def __init__(__self__, *,
+                 spec: pulumi.Input['StatefulSetSpecArgs'],
                  api_version: pulumi.Input[Optional[Literal['apps/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['StatefulSet']]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: pulumi.Input[Optional['StatefulSetSpecArgs']] = None):
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
         """
         The set of arguments for constructing a StatefulSet resource.
 
+        :param pulumi.Input['StatefulSetSpecArgs'] spec: Spec defines the desired identities of pods in this set.
         :param pulumi.Input[Literal['apps/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['StatefulSet']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['StatefulSetSpecArgs'] spec: Spec defines the desired identities of pods in this set.
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'apps/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'StatefulSet')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['StatefulSetSpecArgs']:
+        """
+        Spec defines the desired identities of pods in this set.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['StatefulSetSpecArgs']):
+        pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -79,18 +90,6 @@ class StatefulSetInitArgs:
     @metadata.setter
     def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['StatefulSetSpecArgs']]:
-        """
-        Spec defines the desired identities of pods in this set.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input[Optional['StatefulSetSpecArgs']]):
-        pulumi.set(self, "spec", value)
 
 
 @pulumi.type_token("kubernetes:apps/v1:StatefulSet")
@@ -275,7 +274,7 @@ class StatefulSet(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[StatefulSetInitArgs] = None,
+                 args: StatefulSetInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         StatefulSet represents a set of pods with consistent identities. Identities are defined as:
@@ -468,6 +467,8 @@ class StatefulSet(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'apps/v1'
             __props__.__dict__["kind"] = 'StatefulSet'
             __props__.__dict__["metadata"] = metadata
+            if spec is None and not opts.urn:
+                raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:apps/v1beta1:StatefulSet"), pulumi.Alias(type_="kubernetes:apps/v1beta2:StatefulSet")])

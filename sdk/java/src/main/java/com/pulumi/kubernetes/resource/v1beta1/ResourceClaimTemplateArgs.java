@@ -6,7 +6,6 @@ package com.pulumi.kubernetes.resource.v1beta1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.ResourceClaimTemplateSpecArgs;
 import java.lang.String;
@@ -70,8 +69,8 @@ public final class ResourceClaimTemplateArgs extends com.pulumi.resources.Resour
      * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
      * 
      */
-    @Import(name="spec", required=true)
-    private Output<ResourceClaimTemplateSpecArgs> spec;
+    @Import(name="spec")
+    private @Nullable Output<ResourceClaimTemplateSpecArgs> spec;
 
     /**
      * @return Describes the ResourceClaim that is to be generated.
@@ -79,8 +78,8 @@ public final class ResourceClaimTemplateArgs extends com.pulumi.resources.Resour
      * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
      * 
      */
-    public Output<ResourceClaimTemplateSpecArgs> spec() {
-        return this.spec;
+    public Optional<Output<ResourceClaimTemplateSpecArgs>> spec() {
+        return Optional.ofNullable(this.spec);
     }
 
     private ResourceClaimTemplateArgs() {}
@@ -181,7 +180,7 @@ public final class ResourceClaimTemplateArgs extends com.pulumi.resources.Resour
          * @return builder
          * 
          */
-        public Builder spec(Output<ResourceClaimTemplateSpecArgs> spec) {
+        public Builder spec(@Nullable Output<ResourceClaimTemplateSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
@@ -201,9 +200,6 @@ public final class ResourceClaimTemplateArgs extends com.pulumi.resources.Resour
         public ResourceClaimTemplateArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            if ($.spec == null) {
-                throw new MissingRequiredPropertyException("ResourceClaimTemplateArgs", "spec");
-            }
             return $;
         }
     }

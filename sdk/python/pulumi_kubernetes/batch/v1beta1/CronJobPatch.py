@@ -17,6 +17,7 @@ from . import outputs
 from ... import batch as _batch
 from ... import core as _core
 from ... import meta as _meta
+from ... import scheduling as _scheduling
 from ._inputs import *
 
 __all__ = ['CronJobPatchArgs', 'CronJobPatch']

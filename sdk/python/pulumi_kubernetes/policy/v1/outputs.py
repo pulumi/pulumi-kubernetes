@@ -57,9 +57,9 @@ class PodDisruptionBudget(dict):
 
         :param Literal['policy/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['PodDisruptionBudget'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'PodDisruptionBudgetSpecArgs' spec: Specification of the desired behavior of the PodDisruptionBudget.
-        :param 'PodDisruptionBudgetStatusArgs' status: Most recently observed status of the PodDisruptionBudget.
+        :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param 'PodDisruptionBudgetSpecArgs' spec: spec is the specification of the desired behavior of the PodDisruptionBudget.
+        :param 'PodDisruptionBudgetStatusArgs' status: status is the most recently observed status of the PodDisruptionBudget.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'policy/v1')
@@ -92,7 +92,7 @@ class PodDisruptionBudget(dict):
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
@@ -100,7 +100,7 @@ class PodDisruptionBudget(dict):
     @pulumi.getter
     def spec(self) -> Optional['outputs.PodDisruptionBudgetSpec']:
         """
-        Specification of the desired behavior of the PodDisruptionBudget.
+        spec is the specification of the desired behavior of the PodDisruptionBudget.
         """
         return pulumi.get(self, "spec")
 
@@ -108,7 +108,7 @@ class PodDisruptionBudget(dict):
     @pulumi.getter
     def status(self) -> Optional['outputs.PodDisruptionBudgetStatus']:
         """
-        Most recently observed status of the PodDisruptionBudget.
+        status is the most recently observed status of the PodDisruptionBudget.
         """
         return pulumi.get(self, "status")
 
@@ -147,10 +147,10 @@ class PodDisruptionBudgetSpec(dict):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 
-        :param Union[_builtins.int, _builtins.str] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
-        :param Union[_builtins.int, _builtins.str] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
-        :param '_meta.v1.LabelSelectorArgs' selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
-        :param _builtins.str unhealthy_pod_eviction_policy: UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+        :param Union[_builtins.int, _builtins.str] max_unavailable: maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        :param Union[_builtins.int, _builtins.str] min_available: minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        :param '_meta.v1.LabelSelectorArgs' selector: selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        :param _builtins.str unhealthy_pod_eviction_policy: unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
                
                Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
                
@@ -173,7 +173,7 @@ class PodDisruptionBudgetSpec(dict):
     @pulumi.getter(name="maxUnavailable")
     def max_unavailable(self) -> Optional[Any]:
         """
-        An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         """
         return pulumi.get(self, "max_unavailable")
 
@@ -181,7 +181,7 @@ class PodDisruptionBudgetSpec(dict):
     @pulumi.getter(name="minAvailable")
     def min_available(self) -> Optional[Any]:
         """
-        An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         """
         return pulumi.get(self, "min_available")
 
@@ -189,7 +189,7 @@ class PodDisruptionBudgetSpec(dict):
     @pulumi.getter
     def selector(self) -> Optional['_meta.v1.outputs.LabelSelector']:
         """
-        Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
         """
         return pulumi.get(self, "selector")
 
@@ -197,7 +197,7 @@ class PodDisruptionBudgetSpec(dict):
     @pulumi.getter(name="unhealthyPodEvictionPolicy")
     def unhealthy_pod_eviction_policy(self) -> Optional[_builtins.str]:
         """
-        UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+        unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 
         Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 
@@ -244,10 +244,10 @@ class PodDisruptionBudgetSpecPatch(dict):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 
-        :param Union[_builtins.int, _builtins.str] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
-        :param Union[_builtins.int, _builtins.str] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
-        :param '_meta.v1.LabelSelectorPatchArgs' selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
-        :param _builtins.str unhealthy_pod_eviction_policy: UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+        :param Union[_builtins.int, _builtins.str] max_unavailable: maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        :param Union[_builtins.int, _builtins.str] min_available: minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        :param _builtins.str unhealthy_pod_eviction_policy: unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
                
                Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
                
@@ -270,7 +270,7 @@ class PodDisruptionBudgetSpecPatch(dict):
     @pulumi.getter(name="maxUnavailable")
     def max_unavailable(self) -> Optional[Any]:
         """
-        An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         """
         return pulumi.get(self, "max_unavailable")
 
@@ -278,7 +278,7 @@ class PodDisruptionBudgetSpecPatch(dict):
     @pulumi.getter(name="minAvailable")
     def min_available(self) -> Optional[Any]:
         """
-        An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         """
         return pulumi.get(self, "min_available")
 
@@ -286,7 +286,7 @@ class PodDisruptionBudgetSpecPatch(dict):
     @pulumi.getter
     def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
         """
-        Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
         """
         return pulumi.get(self, "selector")
 
@@ -294,7 +294,7 @@ class PodDisruptionBudgetSpecPatch(dict):
     @pulumi.getter(name="unhealthyPodEvictionPolicy")
     def unhealthy_pod_eviction_policy(self) -> Optional[_builtins.str]:
         """
-        UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+        unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 
         Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 

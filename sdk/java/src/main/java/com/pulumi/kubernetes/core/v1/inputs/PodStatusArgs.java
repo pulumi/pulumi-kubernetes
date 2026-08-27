@@ -12,6 +12,7 @@ import com.pulumi.kubernetes.core.v1.inputs.PodConditionArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodExtendedResourceClaimStatusArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodIPArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodResourceClaimStatusArgs;
+import com.pulumi.kubernetes.core.v1.inputs.PodVolumeHealthArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsArgs;
 import java.lang.Integer;
 import java.lang.String;
@@ -353,6 +354,21 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.startTime);
     }
 
+    /**
+     * volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod&#39;s node.
+     * 
+     */
+    @Import(name="volumeHealth")
+    private @Nullable Output<List<PodVolumeHealthArgs>> volumeHealth;
+
+    /**
+     * @return volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod&#39;s node.
+     * 
+     */
+    public Optional<Output<List<PodVolumeHealthArgs>>> volumeHealth() {
+        return Optional.ofNullable(this.volumeHealth);
+    }
+
     private PodStatusArgs() {}
 
     private PodStatusArgs(PodStatusArgs $) {
@@ -377,6 +393,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.resourceClaimStatuses = $.resourceClaimStatuses;
         this.resources = $.resources;
         this.startTime = $.startTime;
+        this.volumeHealth = $.volumeHealth;
     }
 
     public static Builder builder() {
@@ -924,6 +941,37 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder startTime(String startTime) {
             return startTime(Output.of(startTime));
+        }
+
+        /**
+         * @param volumeHealth volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod&#39;s node.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeHealth(@Nullable Output<List<PodVolumeHealthArgs>> volumeHealth) {
+            $.volumeHealth = volumeHealth;
+            return this;
+        }
+
+        /**
+         * @param volumeHealth volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod&#39;s node.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeHealth(List<PodVolumeHealthArgs> volumeHealth) {
+            return volumeHealth(Output.of(volumeHealth));
+        }
+
+        /**
+         * @param volumeHealth volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod&#39;s node.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder volumeHealth(PodVolumeHealthArgs... volumeHealth) {
+            return volumeHealth(List.of(volumeHealth));
         }
 
         public PodStatusArgs build() {

@@ -26,9 +26,9 @@ type RolePatch struct {
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPatchPtrOutput `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this Role
+	// rules holds all the PolicyRules for this Role
 	Rules PolicyRulePatchArrayOutput `pulumi:"rules"`
 }
 
@@ -87,9 +87,9 @@ type rolePatchArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this Role
+	// rules holds all the PolicyRules for this Role
 	Rules []PolicyRulePatch `pulumi:"rules"`
 }
 
@@ -99,9 +99,9 @@ type RolePatchArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput
-	// Rules holds all the PolicyRules for this Role
+	// rules holds all the PolicyRules for this Role
 	Rules PolicyRulePatchArrayInput
 }
 
@@ -202,12 +202,12 @@ func (o RolePatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RolePatch) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o RolePatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v *RolePatch) metav1.ObjectMetaPatchPtrOutput { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Rules holds all the PolicyRules for this Role
+// rules holds all the PolicyRules for this Role
 func (o RolePatchOutput) Rules() PolicyRulePatchArrayOutput {
 	return o.ApplyT(func(v *RolePatch) PolicyRulePatchArrayOutput { return v.Rules }).(PolicyRulePatchArrayOutput)
 }

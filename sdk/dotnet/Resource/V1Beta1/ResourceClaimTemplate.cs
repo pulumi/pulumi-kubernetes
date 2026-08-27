@@ -134,8 +134,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1
         /// 
         /// This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
         /// </summary>
-        [Input("spec", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.ResourceClaimTemplateSpecArgs> Spec { get; set; } = null!;
+        [Input("spec")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.ResourceClaimTemplateSpecArgs>? Spec { get; set; }
 
         public ResourceClaimTemplateArgs()
         {

@@ -9,7 +9,7 @@ import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceAttribute;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceCapacity;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceCounterConsumption;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceTaint;
-import com.pulumi.kubernetes.resource.v1beta1.outputs.NodeAllocatableResourceMapping;
+import com.pulumi.kubernetes.resource.v1beta1.outputs.NodeAllocatableResource;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
@@ -87,10 +87,10 @@ public final class BasicDevice {
      */
     private @Nullable List<DeviceCounterConsumption> consumesCounters;
     /**
-     * @return NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * @return NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
      * 
      */
-    private @Nullable Map<String,NodeAllocatableResourceMapping> nodeAllocatableResourceMappings;
+    private @Nullable Map<String,NodeAllocatableResource> nodeAllocatableResources;
     /**
      * @return NodeName identifies the node where the device is available.
      * 
@@ -201,11 +201,11 @@ public final class BasicDevice {
         return this.consumesCounters == null ? List.of() : this.consumesCounters;
     }
     /**
-     * @return NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * @return NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
      * 
      */
-    public Map<String,NodeAllocatableResourceMapping> nodeAllocatableResourceMappings() {
-        return this.nodeAllocatableResourceMappings == null ? Map.of() : this.nodeAllocatableResourceMappings;
+    public Map<String,NodeAllocatableResource> nodeAllocatableResources() {
+        return this.nodeAllocatableResources == null ? Map.of() : this.nodeAllocatableResources;
     }
     /**
      * @return NodeName identifies the node where the device is available.
@@ -256,7 +256,7 @@ public final class BasicDevice {
         private @Nullable Boolean bindsToNode;
         private @Nullable Map<String,DeviceCapacity> capacity;
         private @Nullable List<DeviceCounterConsumption> consumesCounters;
-        private @Nullable Map<String,NodeAllocatableResourceMapping> nodeAllocatableResourceMappings;
+        private @Nullable Map<String,NodeAllocatableResource> nodeAllocatableResources;
         private @Nullable String nodeName;
         private @Nullable NodeSelector nodeSelector;
         private @Nullable List<DeviceTaint> taints;
@@ -271,7 +271,7 @@ public final class BasicDevice {
     	      this.bindsToNode = defaults.bindsToNode;
     	      this.capacity = defaults.capacity;
     	      this.consumesCounters = defaults.consumesCounters;
-    	      this.nodeAllocatableResourceMappings = defaults.nodeAllocatableResourceMappings;
+    	      this.nodeAllocatableResources = defaults.nodeAllocatableResources;
     	      this.nodeName = defaults.nodeName;
     	      this.nodeSelector = defaults.nodeSelector;
     	      this.taints = defaults.taints;
@@ -335,9 +335,9 @@ public final class BasicDevice {
             return consumesCounters(List.of(consumesCounters));
         }
         @CustomType.Setter
-        public Builder nodeAllocatableResourceMappings(@Nullable Map<String,NodeAllocatableResourceMapping> nodeAllocatableResourceMappings) {
+        public Builder nodeAllocatableResources(@Nullable Map<String,NodeAllocatableResource> nodeAllocatableResources) {
 
-            this.nodeAllocatableResourceMappings = nodeAllocatableResourceMappings;
+            this.nodeAllocatableResources = nodeAllocatableResources;
             return this;
         }
         @CustomType.Setter
@@ -371,7 +371,7 @@ public final class BasicDevice {
             _resultValue.bindsToNode = bindsToNode;
             _resultValue.capacity = capacity;
             _resultValue.consumesCounters = consumesCounters;
-            _resultValue.nodeAllocatableResourceMappings = nodeAllocatableResourceMappings;
+            _resultValue.nodeAllocatableResources = nodeAllocatableResources;
             _resultValue.nodeName = nodeName;
             _resultValue.nodeSelector = nodeSelector;
             _resultValue.taints = taints;

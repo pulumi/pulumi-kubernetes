@@ -66,14 +66,14 @@ public final class EventListArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ListMetaArgs> metadata;
 
     /**
-     * @return Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Optional<Output<ListMetaArgs>> metadata() {
@@ -181,7 +181,7 @@ public final class EventListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+         * @param metadata metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
          * 
          * @return builder
          * 
@@ -192,7 +192,7 @@ public final class EventListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+         * @param metadata metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
          * 
          * @return builder
          * 

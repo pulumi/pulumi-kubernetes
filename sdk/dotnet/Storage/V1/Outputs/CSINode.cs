@@ -25,13 +25,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Standard object's metadata. metadata.name must be the Kubernetes node name.
+        /// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
         /// spec is the specification of CSINode
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Storage.V1.CSINodeSpec Spec;
+        /// <summary>
+        /// status contains health and status information for the node's storage.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Storage.V1.CSINodeStatus Status;
 
         [OutputConstructor]
         private CSINode(
@@ -41,12 +45,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
 
             Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta metadata,
 
-            Pulumi.Kubernetes.Types.Outputs.Storage.V1.CSINodeSpec spec)
+            Pulumi.Kubernetes.Types.Outputs.Storage.V1.CSINodeSpec spec,
+
+            Pulumi.Kubernetes.Types.Outputs.Storage.V1.CSINodeStatus status)
         {
             ApiVersion = apiVersion;
             Kind = kind;
             Metadata = metadata;
             Spec = spec;
+            Status = status;
         }
     }
 }

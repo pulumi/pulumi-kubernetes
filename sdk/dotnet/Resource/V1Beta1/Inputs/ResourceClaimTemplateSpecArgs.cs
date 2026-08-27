@@ -24,8 +24,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1
         /// <summary>
         /// Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         /// </summary>
-        [Input("spec", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.ResourceClaimSpecArgs> Spec { get; set; } = null!;
+        [Input("spec")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.ResourceClaimSpecArgs>? Spec { get; set; }
 
         public ResourceClaimTemplateSpecArgs()
         {

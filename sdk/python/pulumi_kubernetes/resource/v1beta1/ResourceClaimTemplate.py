@@ -22,41 +22,28 @@ __all__ = ['ResourceClaimTemplateInitArgs', 'ResourceClaimTemplate']
 @pulumi.input_type
 class ResourceClaimTemplateInitArgs:
     def __init__(__self__, *,
-                 spec: pulumi.Input['ResourceClaimTemplateSpecArgs'],
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceClaimTemplate']]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: pulumi.Input[Optional['ResourceClaimTemplateSpecArgs']] = None):
         """
         The set of arguments for constructing a ResourceClaimTemplate resource.
 
-        :param pulumi.Input['ResourceClaimTemplateSpecArgs'] spec: Describes the ResourceClaim that is to be generated.
-               
-               This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
         :param pulumi.Input[Literal['resource.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ResourceClaimTemplate']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
+        :param pulumi.Input['ResourceClaimTemplateSpecArgs'] spec: Describes the ResourceClaim that is to be generated.
+               
+               This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
         """
-        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'resource.k8s.io/v1beta1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'ResourceClaimTemplate')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['ResourceClaimTemplateSpecArgs']:
-        """
-        Describes the ResourceClaim that is to be generated.
-
-        This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['ResourceClaimTemplateSpecArgs']):
-        pulumi.set(self, "spec", value)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -94,6 +81,20 @@ class ResourceClaimTemplateInitArgs:
     def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input[Optional['ResourceClaimTemplateSpecArgs']]:
+        """
+        Describes the ResourceClaim that is to be generated.
+
+        This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input[Optional['ResourceClaimTemplateSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
 
 @pulumi.type_token("kubernetes:resource.k8s.io/v1beta1:ResourceClaimTemplate")
 class ResourceClaimTemplate(pulumi.CustomResource):
@@ -124,7 +125,7 @@ class ResourceClaimTemplate(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: ResourceClaimTemplateInitArgs,
+                 args: Optional[ResourceClaimTemplateInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ResourceClaimTemplate is used to produce ResourceClaim objects.
@@ -162,8 +163,6 @@ class ResourceClaimTemplate(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'resource.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'ResourceClaimTemplate'
             __props__.__dict__["metadata"] = metadata
-            if spec is None and not opts.urn:
-                raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1:ResourceClaimTemplate"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplate"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha3:ResourceClaimTemplate"), pulumi.Alias(type_="kubernetes:resource.k8s.io/v1beta2:ResourceClaimTemplate")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

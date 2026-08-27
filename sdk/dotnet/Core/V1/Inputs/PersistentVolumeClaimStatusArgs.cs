@@ -117,6 +117,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string>? CurrentVolumeAttributesClassName { get; set; }
 
         /// <summary>
+        /// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+        /// </summary>
+        [Input("healthStatus")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeHealthStatusArgs>? HealthStatus { get; set; }
+
+        /// <summary>
         /// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         /// </summary>
         [Input("modifyVolumeStatus")]

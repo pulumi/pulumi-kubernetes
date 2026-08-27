@@ -10573,7 +10573,7 @@ export namespace autoscaling {
              */
             kind: "HorizontalPodAutoscaler";
             /**
-             * Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -10599,7 +10599,7 @@ export namespace autoscaling {
              */
             minReplicas: number;
             /**
-             * reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+             * scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
              */
             scaleTargetRef: outputs.autoscaling.v1.CrossVersionObjectReference;
             /**
@@ -10621,7 +10621,7 @@ export namespace autoscaling {
              */
             minReplicas: number;
             /**
-             * reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+             * scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
              */
             scaleTargetRef: outputs.autoscaling.v1.CrossVersionObjectReferencePatch;
             /**
@@ -10890,7 +10890,7 @@ export namespace autoscaling {
          *
          * Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
          *
-         * The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+         * The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
          */
         export interface HPAScalingRules {
             /**
@@ -10909,8 +10909,6 @@ export namespace autoscaling {
              * tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
              *
              * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-             *
-             * This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
              */
             tolerance: string;
         }
@@ -10920,7 +10918,7 @@ export namespace autoscaling {
          *
          * Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
          *
-         * The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+         * The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
          */
         export interface HPAScalingRulesPatch {
             /**
@@ -10939,8 +10937,6 @@ export namespace autoscaling {
              * tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
              *
              * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-             *
-             * This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
              */
             tolerance: string;
         }
@@ -11018,6 +11014,10 @@ export namespace autoscaling {
              */
             message: string;
             /**
+             * observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+             */
+            observedGeneration: number;
+            /**
              * reason is the reason for the condition's last transition.
              */
             reason: string;
@@ -11043,6 +11043,10 @@ export namespace autoscaling {
              * message is a human-readable explanation containing details about the transition
              */
             message: string;
+            /**
+             * observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+             */
+            observedGeneration: number;
             /**
              * reason is the reason for the condition's last transition.
              */
@@ -11262,7 +11266,7 @@ export namespace autoscaling {
          */
         export interface MetricStatus {
             /**
-             * container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+             * containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
              */
             containerResource: outputs.autoscaling.v2.ContainerResourceMetricStatus;
             /**
@@ -11292,7 +11296,7 @@ export namespace autoscaling {
          */
         export interface MetricStatusPatch {
             /**
-             * container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+             * containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
              */
             containerResource: outputs.autoscaling.v2.ContainerResourceMetricStatusPatch;
             /**
@@ -11366,7 +11370,7 @@ export namespace autoscaling {
          */
         export interface MetricValueStatus {
             /**
-             * currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+             * averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
              */
             averageUtilization: number;
             /**
@@ -11384,7 +11388,7 @@ export namespace autoscaling {
          */
         export interface MetricValueStatusPatch {
             /**
-             * currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+             * averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
              */
             averageUtilization: number;
             /**
@@ -11442,7 +11446,7 @@ export namespace autoscaling {
              */
             current: outputs.autoscaling.v2.MetricValueStatus;
             /**
-             * DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+             * describedObject specifies the descriptions of a object,such as kind,name apiVersion
              */
             describedObject: outputs.autoscaling.v2.CrossVersionObjectReference;
             /**
@@ -11460,7 +11464,7 @@ export namespace autoscaling {
              */
             current: outputs.autoscaling.v2.MetricValueStatusPatch;
             /**
-             * DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+             * describedObject specifies the descriptions of a object,such as kind,name apiVersion
              */
             describedObject: outputs.autoscaling.v2.CrossVersionObjectReferencePatch;
             /**
@@ -13463,6 +13467,50 @@ export namespace batch {
         }
 
         /**
+         * JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+         */
+        export interface JobSchedulingConfiguration {
+            /**
+             * DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+             */
+            disruptionMode: outputs.scheduling.v1alpha3.WorkloadPodGroupDisruptionMode;
+            /**
+             * ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+             */
+            resourceClaims: outputs.scheduling.v1alpha3.WorkloadPodGroupResourceClaim[];
+            /**
+             * SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha3.WorkloadPodGroupSchedulingConstraints;
+            /**
+             * SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha3.WorkloadPodGroupSchedulingPolicy;
+        }
+
+        /**
+         * JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+         */
+        export interface JobSchedulingConfigurationPatch {
+            /**
+             * DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+             */
+            disruptionMode: outputs.scheduling.v1alpha3.WorkloadPodGroupDisruptionModePatch;
+            /**
+             * ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+             */
+            resourceClaims: outputs.scheduling.v1alpha3.WorkloadPodGroupResourceClaimPatch[];
+            /**
+             * SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha3.WorkloadPodGroupSchedulingConstraintsPatch;
+            /**
+             * SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha3.WorkloadPodGroupSchedulingPolicyPatch;
+        }
+
+        /**
          * JobSpec describes how the job execution will look like.
          */
         export interface JobSpec {
@@ -13521,6 +13569,10 @@ export namespace batch {
              * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
              */
             podReplacementPolicy: string;
+            /**
+             * scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+             */
+            scheduling: outputs.batch.v1.JobSchedulingConfiguration;
             /**
              * A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
              */
@@ -13603,6 +13655,10 @@ export namespace batch {
              */
             podReplacementPolicy: string;
             /**
+             * scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+             */
+            scheduling: outputs.batch.v1.JobSchedulingConfigurationPatch;
+            /**
              * A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
              */
             selector: outputs.meta.v1.LabelSelectorPatch;
@@ -13672,8 +13728,6 @@ export namespace batch {
             succeeded: number;
             /**
              * The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-             *
-             * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
              */
             terminating: number;
             /**
@@ -13737,8 +13791,6 @@ export namespace batch {
             succeeded: number;
             /**
              * The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-             *
-             * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
              */
             terminating: number;
             /**
@@ -14668,6 +14720,318 @@ export namespace certificates {
             conditions: outputs.certificates.v1.CertificateSigningRequestConditionPatch[];
         }
 
+        /**
+         * ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
+         *
+         * ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
+         *
+         * It can be optionally associated with a particular signer, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+         */
+        export interface ClusterTrustBundle {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "certificates.k8s.io/v1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "ClusterTrustBundle";
+            /**
+             * metadata contains the object metadata.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec contains the signer (if any) and trust anchors.
+             */
+            spec: outputs.certificates.v1.ClusterTrustBundleSpec;
+        }
+
+        /**
+         * ClusterTrustBundleSpec contains the signer and trust anchors.
+         */
+        export interface ClusterTrustBundleSpec {
+            /**
+             * signerName indicates the associated signer, if any.
+             *
+             * In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+             *
+             * If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+             *
+             * If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+             *
+             * List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+             */
+            signerName: string;
+            /**
+             * trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+             *
+             * The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+             *
+             * Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+             */
+            trustBundle: string;
+        }
+
+        /**
+         * ClusterTrustBundleSpec contains the signer and trust anchors.
+         */
+        export interface ClusterTrustBundleSpecPatch {
+            /**
+             * signerName indicates the associated signer, if any.
+             *
+             * In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+             *
+             * If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+             *
+             * If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+             *
+             * List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+             */
+            signerName: string;
+            /**
+             * trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+             *
+             * The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+             *
+             * Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+             */
+            trustBundle: string;
+        }
+
+        /**
+         * PodCertificateRequest encodes a pod requesting a certificate from a given signer.
+         *
+         * Kubelets use this API to implement podCertificate projected volumes
+         */
+        export interface PodCertificateRequest {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "certificates.k8s.io/v1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "PodCertificateRequest";
+            /**
+             * metadata contains the object metadata.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec contains the details about the certificate being requested.
+             */
+            spec: outputs.certificates.v1.PodCertificateRequestSpec;
+            /**
+             * status contains the issued certificate, and a standard set of conditions.
+             */
+            status: outputs.certificates.v1.PodCertificateRequestStatus;
+        }
+
+        /**
+         * PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+         */
+        export interface PodCertificateRequestSpec {
+            /**
+             * maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+             *
+             * If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+             *
+             * The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+             */
+            maxExpirationSeconds: number;
+            /**
+             * nodeName is the name of the node the pod is assigned to.
+             */
+            nodeName: string;
+            /**
+             * nodeUID is the UID of the node the pod is assigned to.
+             */
+            nodeUID: string;
+            /**
+             * podName is the name of the pod into which the certificate will be mounted.
+             */
+            podName: string;
+            /**
+             * podUID is the UID of the pod into which the certificate will be mounted.
+             */
+            podUID: string;
+            /**
+             * serviceAccountName is the name of the service account the pod is running as.
+             */
+            serviceAccountName: string;
+            /**
+             * serviceAccountUID is the UID of the service account the pod is running as.
+             */
+            serviceAccountUID: string;
+            /**
+             * signerName indicates the requested signer.
+             *
+             * All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+             */
+            signerName: string;
+            /**
+             * A PKCS#10 certificate signing request (DER-serialized) generated by Kubelet using the subject private key.
+             *
+             * Most signer implementations will ignore the contents of the CSR except to extract the subject public key. The API server automatically verifies the CSR signature during admission, so the signer does not need to repeat the verification.  CSRs generated by kubelet are completely empty.
+             *
+             * The subject public key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+             *
+             * Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+             */
+            stubPKCS10Request: string;
+            /**
+             * unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+             *
+             * Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+             *
+             * Signers should document the keys and values they support.  Signers should deny requests that contain keys they do not recognize.
+             */
+            unverifiedUserAnnotations: {[key: string]: string};
+        }
+
+        /**
+         * PodCertificateRequestSpec describes the certificate request.  All fields are immutable after creation.
+         */
+        export interface PodCertificateRequestSpecPatch {
+            /**
+             * maxExpirationSeconds is the maximum lifetime permitted for the certificate.
+             *
+             * If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
+             *
+             * The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+             */
+            maxExpirationSeconds: number;
+            /**
+             * nodeName is the name of the node the pod is assigned to.
+             */
+            nodeName: string;
+            /**
+             * nodeUID is the UID of the node the pod is assigned to.
+             */
+            nodeUID: string;
+            /**
+             * podName is the name of the pod into which the certificate will be mounted.
+             */
+            podName: string;
+            /**
+             * podUID is the UID of the pod into which the certificate will be mounted.
+             */
+            podUID: string;
+            /**
+             * serviceAccountName is the name of the service account the pod is running as.
+             */
+            serviceAccountName: string;
+            /**
+             * serviceAccountUID is the UID of the service account the pod is running as.
+             */
+            serviceAccountUID: string;
+            /**
+             * signerName indicates the requested signer.
+             *
+             * All signer names beginning with `kubernetes.io` are reserved for use by the Kubernetes project.  There is currently one well-known signer documented by the Kubernetes project, `kubernetes.io/kube-apiserver-client-pod`, which will issue client certificates understood by kube-apiserver.  It is currently unimplemented.
+             */
+            signerName: string;
+            /**
+             * A PKCS#10 certificate signing request (DER-serialized) generated by Kubelet using the subject private key.
+             *
+             * Most signer implementations will ignore the contents of the CSR except to extract the subject public key. The API server automatically verifies the CSR signature during admission, so the signer does not need to repeat the verification.  CSRs generated by kubelet are completely empty.
+             *
+             * The subject public key must be one of RSA3072, RSA4096, ECDSAP256, ECDSAP384, ECDSAP521, or ED25519. Note that this list may be expanded in the future.
+             *
+             * Signer implementations do not need to support all key types supported by kube-apiserver and kubelet.  If a signer does not support the key type used for a given PodCertificateRequest, it must deny the request by setting a status.conditions entry with a type of "Denied" and a reason of "UnsupportedKeyType". It may also suggest a key type that it does support in the message field.
+             */
+            stubPKCS10Request: string;
+            /**
+             * unverifiedUserAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
+             *
+             * Entries are subject to the same validation as object metadata annotations, with the addition that all keys must be domain-prefixed. No restrictions are placed on values, except an overall size limitation on the entire field.
+             *
+             * Signers should document the keys and values they support.  Signers should deny requests that contain keys they do not recognize.
+             */
+            unverifiedUserAnnotations: {[key: string]: string};
+        }
+
+        /**
+         * PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+         */
+        export interface PodCertificateRequestStatus {
+            /**
+             * beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+             *
+             * This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+             */
+            beginRefreshAt: string;
+            /**
+             * certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+             *
+             * If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+             *
+             * Validation requirements:
+             *  1. certificateChain must consist of one or more PEM-formatted certificates.
+             *  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+             *     described in section 4 of RFC5280.
+             *
+             * If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+             */
+            certificateChain: string;
+            /**
+             * conditions applied to the request.
+             *
+             * The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+             *
+             * If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+             */
+            notAfter: string;
+            /**
+             * notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+             */
+            notBefore: string;
+        }
+
+        /**
+         * PodCertificateRequestStatus describes the status of the request, and holds the certificate data if the request is issued.
+         */
+        export interface PodCertificateRequestStatusPatch {
+            /**
+             * beginRefreshAt is the time at which the kubelet should begin trying to refresh the certificate.  This field is set via the /status subresource, and must be set at the same time as certificateChain.  Once populated, this field is immutable.
+             *
+             * This field is only a hint.  Kubelet may start refreshing before or after this time if necessary.
+             */
+            beginRefreshAt: string;
+            /**
+             * certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
+             *
+             * If the certificate signing request is denied, a condition of type "Denied" is added and this field remains empty. If the signer cannot issue the certificate, a condition of type "Failed" is added and this field remains empty.
+             *
+             * Validation requirements:
+             *  1. certificateChain must consist of one or more PEM-formatted certificates.
+             *  2. Each entry must be a valid PEM-wrapped, DER-encoded ASN.1 Certificate as
+             *     described in section 4 of RFC5280.
+             *
+             * If more than one block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.  When projecting the chain into a pod volume, kubelet will drop any data in-between the PEM blocks, as well as any PEM block headers.
+             */
+            certificateChain: string;
+            /**
+             * conditions applied to the request.
+             *
+             * The types "Issued", "Denied", and "Failed" have special handling.  At most one of these conditions may be present, and they must have status "True".
+             *
+             * If the request is denied with `Reason=UnsupportedKeyType`, the signer may suggest a key type that will work in the message field.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * notAfter is the time at which the certificate expires.  The value must be the same as the notAfter value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable.  The signer must set this field at the same time it sets certificateChain.
+             */
+            notAfter: string;
+            /**
+             * notBefore is the time at which the certificate becomes valid.  The value must be the same as the notBefore value in the leaf certificate in certificateChain.  This field is set via the /status subresource.  Once populated, it is immutable. The signer must set this field at the same time it sets certificateChain.
+             */
+            notBefore: string;
+        }
+
     }
 
     export namespace v1alpha1 {
@@ -14938,7 +15302,7 @@ export namespace certificates {
          *
          * ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
          *
-         * It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+         * It can be optionally associated with a particular signer, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
          */
         export interface ClusterTrustBundle {
             /**
@@ -15315,7 +15679,7 @@ export namespace coordination {
              */
             kind: "Lease";
             /**
-             * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -15345,7 +15709,7 @@ export namespace coordination {
              */
             leaseTransitions: number;
             /**
-             * PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+             * preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
              */
             preferredHolder: string;
             /**
@@ -15353,7 +15717,7 @@ export namespace coordination {
              */
             renewTime: string;
             /**
-             * Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+             * strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
              */
             strategy: string;
         }
@@ -15379,7 +15743,7 @@ export namespace coordination {
              */
             leaseTransitions: number;
             /**
-             * PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+             * preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
              */
             preferredHolder: string;
             /**
@@ -15387,7 +15751,7 @@ export namespace coordination {
              */
             renewTime: string;
             /**
-             * Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+             * strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
              */
             strategy: string;
         }
@@ -15501,7 +15865,7 @@ export namespace coordination {
              */
             kind: "LeaseCandidate";
             /**
-             * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -15515,27 +15879,27 @@ export namespace coordination {
          */
         export interface LeaseCandidateSpec {
             /**
-             * BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+             * binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
              */
             binaryVersion: string;
             /**
-             * EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+             * emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
              */
             emulationVersion: string;
             /**
-             * LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+             * leaseName is the name of the lease for which this candidate is contending. This field is immutable.
              */
             leaseName: string;
             /**
-             * PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+             * pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
              */
             pingTime: string;
             /**
-             * RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+             * renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
              */
             renewTime: string;
             /**
-             * Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+             * strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
              */
             strategy: string;
         }
@@ -15545,27 +15909,27 @@ export namespace coordination {
          */
         export interface LeaseCandidateSpecPatch {
             /**
-             * BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+             * binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
              */
             binaryVersion: string;
             /**
-             * EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+             * emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
              */
             emulationVersion: string;
             /**
-             * LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+             * leaseName is the name of the lease for which this candidate is contending. This field is immutable.
              */
             leaseName: string;
             /**
-             * PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+             * pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
              */
             pingTime: string;
             /**
-             * RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+             * renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
              */
             renewTime: string;
             /**
-             * Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+             * strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
              */
             strategy: string;
         }
@@ -15608,7 +15972,7 @@ export namespace coordination {
              */
             kind: "LeaseCandidate";
             /**
-             * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -15622,27 +15986,27 @@ export namespace coordination {
          */
         export interface LeaseCandidateSpec {
             /**
-             * BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+             * binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
              */
             binaryVersion: string;
             /**
-             * EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+             * emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
              */
             emulationVersion: string;
             /**
-             * LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+             * leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
              */
             leaseName: string;
             /**
-             * PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+             * pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
              */
             pingTime: string;
             /**
-             * RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+             * renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
              */
             renewTime: string;
             /**
-             * Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+             * strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
              */
             strategy: string;
         }
@@ -15652,27 +16016,27 @@ export namespace coordination {
          */
         export interface LeaseCandidateSpecPatch {
             /**
-             * BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+             * binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
              */
             binaryVersion: string;
             /**
-             * EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+             * emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
              */
             emulationVersion: string;
             /**
-             * LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+             * leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
              */
             leaseName: string;
             /**
-             * PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+             * pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
              */
             pingTime: string;
             /**
-             * RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+             * renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
              */
             renewTime: string;
             /**
-             * Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+             * strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
              */
             strategy: string;
         }
@@ -16488,6 +16852,10 @@ export namespace core {
              * Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
              */
             signerName: string;
+            /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
         }
 
         /**
@@ -16514,6 +16882,10 @@ export namespace core {
              * Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
              */
             signerName: string;
+            /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
         }
 
         /**
@@ -16525,7 +16897,7 @@ export namespace core {
              */
             apiVersion: "v1";
             /**
-             * BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+             * BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.
              */
             binaryData: {[key: string]: string};
             /**
@@ -16549,7 +16921,7 @@ export namespace core {
         /**
          * ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
          *
-         * The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+         * The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
          */
         export interface ConfigMapEnvSource {
             /**
@@ -16565,7 +16937,7 @@ export namespace core {
         /**
          * ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
          *
-         * The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+         * The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
          */
         export interface ConfigMapEnvSourcePatch {
             /**
@@ -16583,7 +16955,7 @@ export namespace core {
          */
         export interface ConfigMapKeySelector {
             /**
-             * The key to select.
+             * The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
              */
             key: string;
             /**
@@ -16601,7 +16973,7 @@ export namespace core {
          */
         export interface ConfigMapKeySelectorPatch {
             /**
-             * The key to select.
+             * The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
              */
             key: string;
             /**
@@ -16717,6 +17089,10 @@ export namespace core {
              */
             defaultMode: number;
             /**
+             * defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            defaultUser: number;
+            /**
              * items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
              */
             items: outputs.core.v1.KeyToPath[];
@@ -16740,6 +17116,10 @@ export namespace core {
              * defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             defaultMode: number;
+            /**
+             * defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            defaultUser: number;
             /**
              * items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
              */
@@ -17540,6 +17920,10 @@ export namespace core {
              * Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
              */
             resourceFieldRef: outputs.core.v1.ResourceFieldSelector;
+            /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
         }
 
         /**
@@ -17562,6 +17946,10 @@ export namespace core {
              * Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
              */
             resourceFieldRef: outputs.core.v1.ResourceFieldSelectorPatch;
+            /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
         }
 
         /**
@@ -17572,6 +17960,10 @@ export namespace core {
              * Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             defaultMode: number;
+            /**
+             * defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            defaultUser: number;
             /**
              * Items is a list of downward API volume file
              */
@@ -17587,6 +17979,10 @@ export namespace core {
              */
             defaultMode: number;
             /**
+             * defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            defaultUser: number;
+            /**
              * Items is a list of downward API volume file
              */
             items: outputs.core.v1.DownwardAPIVolumeFilePatch[];
@@ -17601,6 +17997,10 @@ export namespace core {
              */
             medium: string;
             /**
+             * mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+             */
+            mode: number;
+            /**
              * sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
              */
             sizeLimit: string;
@@ -17614,6 +18014,10 @@ export namespace core {
              * medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
              */
             medium: string;
+            /**
+             * mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+             */
+            mode: number;
             /**
              * sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
              */
@@ -18355,6 +18759,46 @@ export namespace core {
         }
 
         /**
+         * EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+         */
+        export interface EvictionResponder {
+            /**
+             * name allows you to identify the responder responding to the Eviction.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+             */
+            name: string;
+            /**
+             * priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+             *
+             * The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+             *
+             * The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+             */
+            priority: number;
+        }
+
+        /**
+         * EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+         */
+        export interface EvictionResponderPatch {
+            /**
+             * name allows you to identify the responder responding to the Eviction.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+             */
+            name: string;
+            /**
+             * priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+             *
+             * The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+             *
+             * The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+             */
+            priority: number;
+        }
+
+        /**
          * ExecAction describes a "run in container" action.
          */
         export interface ExecAction {
@@ -18659,6 +19103,10 @@ export namespace core {
          */
         export interface GRPCAction {
             /**
+             * mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+             */
+            mode: string;
+            /**
              * Port number of the gRPC service. Number must be in the range 1 to 65535.
              */
             port: number;
@@ -18674,6 +19122,10 @@ export namespace core {
          * GRPCAction specifies an action involving a GRPC service.
          */
         export interface GRPCActionPatch {
+            /**
+             * mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+             */
+            mode: string;
             /**
              * Port number of the gRPC service. Number must be in the range 1 to 65535.
              */
@@ -18827,6 +19279,10 @@ export namespace core {
              */
             port: number | string;
             /**
+             * Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+             */
+            protocol: string;
+            /**
              * Scheme to use for connecting to the host. Defaults to HTTP.
              */
             scheme: string;
@@ -18852,6 +19308,10 @@ export namespace core {
              * Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
              */
             port: number | string;
+            /**
+             * Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+             */
+            protocol: string;
             /**
              * Scheme to use for connecting to the host. Defaults to HTTP.
              */
@@ -19226,6 +19686,10 @@ export namespace core {
              * path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
              */
             path: string;
+            /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
         }
 
         /**
@@ -19244,6 +19708,10 @@ export namespace core {
              * path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
              */
             path: string;
+            /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
         }
 
         /**
@@ -19867,6 +20335,70 @@ export namespace core {
         }
 
         /**
+         * NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+         */
+        export interface NodeAllocatableMappedResources {
+            /**
+             * Name is the name of the resource (e.g., cpu, memory).
+             */
+            name: string;
+            /**
+             * Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+             */
+            quantity: string;
+        }
+
+        /**
+         * NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+         */
+        export interface NodeAllocatableMappedResourcesPatch {
+            /**
+             * Name is the name of the resource (e.g., cpu, memory).
+             */
+            name: string;
+            /**
+             * Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+             */
+            quantity: string;
+        }
+
+        /**
+         * NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+         */
+        export interface NodeAllocatableOverheadResources {
+            /**
+             * Name is the name of the resource (e.g., cpu, memory).
+             */
+            name: string;
+            /**
+             * PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+             */
+            perContainer: string;
+            /**
+             * PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+             */
+            perPod: string;
+        }
+
+        /**
+         * NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+         */
+        export interface NodeAllocatableOverheadResourcesPatch {
+            /**
+             * Name is the name of the resource (e.g., cpu, memory).
+             */
+            name: string;
+            /**
+             * PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+             */
+            perContainer: string;
+            /**
+             * PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+             */
+            perPod: string;
+        }
+
+        /**
          * NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
          */
         export interface NodeAllocatableResourceClaimStatus {
@@ -19875,13 +20407,17 @@ export namespace core {
              */
             containers: string[];
             /**
+             * Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+             */
+            mapping: outputs.core.v1.NodeAllocatableMappedResources[];
+            /**
+             * Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+             */
+            overhead: outputs.core.v1.NodeAllocatableOverheadResources[];
+            /**
              * ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
              */
             resourceClaimName: string;
-            /**
-             * Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-             */
-            resources: {[key: string]: string};
         }
 
         /**
@@ -19893,13 +20429,17 @@ export namespace core {
              */
             containers: string[];
             /**
+             * Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+             */
+            mapping: outputs.core.v1.NodeAllocatableMappedResourcesPatch[];
+            /**
+             * Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+             */
+            overhead: outputs.core.v1.NodeAllocatableOverheadResourcesPatch[];
+            /**
              * ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
              */
             resourceClaimName: string;
-            /**
-             * Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-             */
-            resources: {[key: string]: string};
         }
 
         /**
@@ -20067,6 +20607,26 @@ export namespace core {
         }
 
         /**
+         * NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+         */
+        export interface NodePodPreemptionPolicy {
+            /**
+             * DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+             */
+            disableResizePreemption: string[];
+        }
+
+        /**
+         * NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+         */
+        export interface NodePodPreemptionPolicyPatch {
+            /**
+             * DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+             */
+            disableResizePreemption: string[];
+        }
+
+        /**
          * NodeRuntimeHandler is a set of runtime handler information.
          */
         export interface NodeRuntimeHandler {
@@ -20227,6 +20787,10 @@ export namespace core {
              */
             podCIDRs: string[];
             /**
+             * PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+             */
+            podPreemptionPolicy: outputs.core.v1.NodePodPreemptionPolicy;
+            /**
              * ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
              */
             providerID: string;
@@ -20260,6 +20824,10 @@ export namespace core {
              * podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
              */
             podCIDRs: string[];
+            /**
+             * PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+             */
+            podPreemptionPolicy: outputs.core.v1.NodePodPreemptionPolicyPatch;
             /**
              * ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
              */
@@ -20459,6 +21027,10 @@ export namespace core {
              */
             osImage: string;
             /**
+             * Whether the node is running in a user namespace.
+             */
+            runningInUserNamespace: boolean;
+            /**
              * Swap Info reported by the node.
              */
             swap: outputs.core.v1.NodeSwapStatus;
@@ -20508,6 +21080,10 @@ export namespace core {
              * OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
              */
             osImage: string;
+            /**
+             * Whether the node is running in a user namespace.
+             */
+            runningInUserNamespace: boolean;
             /**
              * Swap Info reported by the node.
              */
@@ -20761,7 +21337,7 @@ export namespace core {
              */
             accessModes: string[];
             /**
-             * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+             * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
              */
             dataSource: outputs.core.v1.TypedLocalObjectReference;
             /**
@@ -20772,7 +21348,7 @@ export namespace core {
              *   specified.
              * * While dataSource only allows local objects, dataSourceRef allows objects
              *   in any namespaces.
-             *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+             *   (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
              */
             dataSourceRef: outputs.core.v1.TypedObjectReference;
             /**
@@ -20810,7 +21386,7 @@ export namespace core {
              */
             accessModes: string[];
             /**
-             * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+             * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
              */
             dataSource: outputs.core.v1.TypedLocalObjectReferencePatch;
             /**
@@ -20821,7 +21397,7 @@ export namespace core {
              *   specified.
              * * While dataSource only allows local objects, dataSourceRef allows objects
              *   in any namespaces.
-             *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+             *   (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
              */
             dataSourceRef: outputs.core.v1.TypedObjectReferencePatch;
             /**
@@ -20914,6 +21490,10 @@ export namespace core {
              */
             currentVolumeAttributesClassName: string;
             /**
+             * healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+             */
+            healthStatus: outputs.core.v1.VolumeHealthStatus;
+            /**
              * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
              */
             modifyVolumeStatus: outputs.core.v1.ModifyVolumeStatus;
@@ -20990,6 +21570,10 @@ export namespace core {
              * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
              */
             currentVolumeAttributesClassName: string;
+            /**
+             * healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+             */
+            healthStatus: outputs.core.v1.VolumeHealthStatusPatch;
             /**
              * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
              */
@@ -21596,6 +22180,10 @@ export namespace core {
              */
             signerName: string;
             /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
+            /**
              * userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
              *
              * These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -21653,6 +22241,10 @@ export namespace core {
              * Kubelet's generated CSRs will be addressed to this signer.
              */
             signerName: string;
+            /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
             /**
              * userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
              *
@@ -22070,9 +22662,9 @@ export namespace core {
              *
              * "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
              *
-             * "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+             * "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
              *
-             * If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+             * If not specified, "MountOption" is used.
              *
              * This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
              *
@@ -22142,9 +22734,9 @@ export namespace core {
              *
              * "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
              *
-             * "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+             * "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
              *
-             * If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+             * If not specified, "MountOption" is used.
              *
              * This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
              *
@@ -22214,6 +22806,14 @@ export namespace core {
              */
             ephemeralContainers: outputs.core.v1.EphemeralContainer[];
             /**
+             * evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+             *
+             * Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+             *
+             * The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+             */
+            evictionResponders: outputs.core.v1.EvictionResponder[];
+            /**
              * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
              */
             hostAliases: outputs.core.v1.HostAlias[];
@@ -22240,7 +22840,7 @@ export namespace core {
             /**
              * HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
              *
-             * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+             * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
              */
             hostnameOverride: string;
             /**
@@ -22272,7 +22872,7 @@ export namespace core {
              */
             overhead: {[key: string]: string};
             /**
-             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
              */
             preemptionPolicy: string;
             /**
@@ -22404,6 +23004,14 @@ export namespace core {
              */
             ephemeralContainers: outputs.core.v1.EphemeralContainerPatch[];
             /**
+             * evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+             *
+             * Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+             *
+             * The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+             */
+            evictionResponders: outputs.core.v1.EvictionResponderPatch[];
+            /**
              * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
              */
             hostAliases: outputs.core.v1.HostAliasPatch[];
@@ -22430,7 +23038,7 @@ export namespace core {
             /**
              * HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
              *
-             * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+             * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
              */
             hostnameOverride: string;
             /**
@@ -22462,7 +23070,7 @@ export namespace core {
              */
             overhead: {[key: string]: string};
             /**
-             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+             * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
              */
             preemptionPolicy: string;
             /**
@@ -22649,6 +23257,10 @@ export namespace core {
              * RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
              */
             startTime: string;
+            /**
+             * volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+             */
+            volumeHealth: outputs.core.v1.PodVolumeHealth[];
         }
 
         /**
@@ -22743,6 +23355,10 @@ export namespace core {
              * RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
              */
             startTime: string;
+            /**
+             * volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+             */
+            volumeHealth: outputs.core.v1.PodVolumeHealthPatch[];
         }
 
         /**
@@ -22793,6 +23409,42 @@ export namespace core {
              * Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
              */
             spec: outputs.core.v1.PodSpecPatch;
+        }
+
+        /**
+         * PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+         */
+        export interface PodVolumeHealth {
+            /**
+             * conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+             */
+            healthConditions: outputs.core.v1.VolumeHealthCondition[];
+            /**
+             * lastTransitionTime is when the current set of conditions first appeared.
+             */
+            lastTransitionTime: string;
+            /**
+             * name matches an entry in pod.spec.volumes.
+             */
+            name: string;
+        }
+
+        /**
+         * PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+         */
+        export interface PodVolumeHealthPatch {
+            /**
+             * conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+             */
+            healthConditions: outputs.core.v1.VolumeHealthConditionPatch[];
+            /**
+             * lastTransitionTime is when the current set of conditions first appeared.
+             */
+            lastTransitionTime: string;
+            /**
+             * name matches an entry in pod.spec.volumes.
+             */
+            name: string;
         }
 
         /**
@@ -23002,6 +23654,10 @@ export namespace core {
              */
             defaultMode: number;
             /**
+             * defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            defaultUser: number;
+            /**
              * sources is the list of volume projections. Each entry in this list handles one source.
              */
             sources: outputs.core.v1.VolumeProjection[];
@@ -23015,6 +23671,10 @@ export namespace core {
              * defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             defaultMode: number;
+            /**
+             * defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            defaultUser: number;
             /**
              * sources is the list of volume projections. Each entry in this list handles one source.
              */
@@ -23670,7 +24330,7 @@ export namespace core {
          */
         export interface ResourceStatus {
             /**
-             * Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+             * Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
              */
             name: string;
             /**
@@ -23684,7 +24344,7 @@ export namespace core {
          */
         export interface ResourceStatusPatch {
             /**
-             * Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+             * Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
              */
             name: string;
             /**
@@ -24200,6 +24860,10 @@ export namespace core {
              */
             defaultMode: number;
             /**
+             * defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            defaultUser: number;
+            /**
              * items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
              */
             items: outputs.core.v1.KeyToPath[];
@@ -24223,6 +24887,10 @@ export namespace core {
              * defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
              */
             defaultMode: number;
+            /**
+             * defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            defaultUser: number;
             /**
              * items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
              */
@@ -24434,6 +25102,10 @@ export namespace core {
              * path is the path relative to the mount point of the file to project the token into.
              */
             path: string;
+            /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
         }
 
         /**
@@ -24452,6 +25124,10 @@ export namespace core {
              * path is the path relative to the mount point of the file to project the token into.
              */
             path: string;
+            /**
+             * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+             */
+            user: number;
         }
 
         /**
@@ -25454,11 +26130,79 @@ export namespace core {
         }
 
         /**
+         * VolumeHealthCondition represents an adverse health condition reported for a volume.
+         */
+        export interface VolumeHealthCondition {
+            /**
+             * message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+             */
+            message: string;
+            /**
+             * reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+             */
+            reason: string;
+            /**
+             * status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+             */
+            status: string;
+        }
+
+        /**
+         * VolumeHealthCondition represents an adverse health condition reported for a volume.
+         */
+        export interface VolumeHealthConditionPatch {
+            /**
+             * message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+             */
+            message: string;
+            /**
+             * reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+             */
+            reason: string;
+            /**
+             * status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+             */
+            status: string;
+        }
+
+        /**
+         * VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+         */
+        export interface VolumeHealthStatus {
+            /**
+             * conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+             */
+            healthConditions: outputs.core.v1.VolumeHealthCondition[];
+            /**
+             * lastTransitionTime is when the current set of conditions first appeared.
+             */
+            lastTransitionTime: string;
+        }
+
+        /**
+         * VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+         */
+        export interface VolumeHealthStatusPatch {
+            /**
+             * conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+             */
+            healthConditions: outputs.core.v1.VolumeHealthConditionPatch[];
+            /**
+             * lastTransitionTime is when the current set of conditions first appeared.
+             */
+            lastTransitionTime: string;
+        }
+
+        /**
          * VolumeMount describes a mounting of a Volume within a container.
          */
         export interface VolumeMount {
             /**
-             * Path within the container at which the volume should be mounted.  Must not contain ':'.
+             * bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+             */
+            bindMountOptions: string[];
+            /**
+             * Path within the container at which the volume should be mounted.
              */
             mountPath: string;
             /**
@@ -25500,7 +26244,11 @@ export namespace core {
          */
         export interface VolumeMountPatch {
             /**
-             * Path within the container at which the volume should be mounted.  Must not contain ':'.
+             * bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+             */
+            bindMountOptions: string[];
+            /**
+             * Path within the container at which the volume should be mounted.
              */
             mountPath: string;
             /**
@@ -26520,7 +27268,7 @@ export namespace events {
              */
             kind: "Event";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -28634,7 +29382,7 @@ export namespace flowcontrol {
              */
             reason: string;
             /**
-             * `status` is the status of the condition. Can be True, False, Unknown. Required.
+             * `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
              */
             status: string;
             /**
@@ -28660,7 +29408,7 @@ export namespace flowcontrol {
              */
             reason: string;
             /**
-             * `status` is the status of the condition. Can be True, False, Unknown. Required.
+             * `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
              */
             status: string;
             /**
@@ -28976,7 +29724,7 @@ export namespace flowcontrol {
              */
             reason: string;
             /**
-             * `status` is the status of the condition. Can be True, False, Unknown. Required.
+             * `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
              */
             status: string;
             /**
@@ -29002,7 +29750,7 @@ export namespace flowcontrol {
              */
             reason: string;
             /**
-             * `status` is the status of the condition. Can be True, False, Unknown. Required.
+             * `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
              */
             status: string;
             /**
@@ -32083,6 +32831,587 @@ export namespace io {
     }
 }
 
+export namespace lifecycle {
+    export namespace v1alpha1 {
+        /**
+         * Eviction initiates an eviction process, which should ideally result in a graceful eviction of a .spec.target (e.g. termination of a pod).
+         *
+         * The evictionrequest-controller observes intents of all EvictionRequests and transforms them into Evictions. It manages the Eviction lifecycle. Requesters are preserved in .status.requesters even after they have withdrawn their request. If all requesters withdraw their eviction intent for a common target, the eviction will be canceled. Once all EvictionRequest corresponding to this Eviction .spec.target have been removed, this Eviction object will eventually be garbage collected.
+         *
+         * If the target is a pod, the .status.targetResponders is populated from Pod's .spec.evictionResponders.
+         *
+         * Responders should observe and communicate through the .status to help with the eviction of the target when they see their state == Active in .status.targetResponders. ResponderStatus struct should then be periodically updated to indicate the progress or completion of the eviction process by each responder in .status.responders. If .status.responders[].heartbeatTime is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority.
+         *
+         * If there are no other responders and the target is a pod, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+         */
+        export interface Eviction {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "lifecycle.k8s.io/v1alpha1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "Eviction";
+            /**
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata. .metadata.name set by the evictionrequest-controller is purely informative and subject to change. .spec.target field should be used to identify the target precisesly.
+             *
+             * The requester and responder names will be used as label keys and added to the labels of the eviction in one of the following formats: 1. acme.io/foo: "requester" 2. acme.io/foo: "responder" 3. acme.io/foo: "requester-responder"
+             *
+             * Please see EvictionParticipantRole for available role label values.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec defines the eviction specification. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec: outputs.lifecycle.v1alpha1.EvictionSpec;
+            /**
+             * status represents the most recently observed status of the eviction. Populated by responders and evictionrequest-controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            status: outputs.lifecycle.v1alpha1.EvictionStatus;
+        }
+
+        /**
+         * EvictionPodReference contains enough information to locate the referenced pod inside the same namespace.
+         */
+        export interface EvictionPodReference {
+            /**
+             * name of the target. This field is required.
+             */
+            name: string;
+            /**
+             * uid of the target. It can be found in .metadata.uid of the target and is a lowercase UUID in 8-4-4-4-12 format. This field is required.
+             */
+            uid: string;
+        }
+
+        /**
+         * EvictionPodReference contains enough information to locate the referenced pod inside the same namespace.
+         */
+        export interface EvictionPodReferencePatch {
+            /**
+             * name of the target. This field is required.
+             */
+            name: string;
+            /**
+             * uid of the target. It can be found in .metadata.uid of the target and is a lowercase UUID in 8-4-4-4-12 format. This field is required.
+             */
+            uid: string;
+        }
+
+        /**
+         * EvictionRequest defines a request that should ideally result in a graceful eviction of a .spec.target (e.g. termination of a pod).
+         *
+         * The evictionrequest-controller observes intents of all EvictionRequests and transforms them into Evictions.
+         *   - .spec.requester is set as a label on the Eviction for easier lookup.
+         *   - Each target can have a set of responders assigned to it. Eviction objects are observed by
+         *     these responders, who implement the eviction logic and update the Eviction's status with
+         *     progress.
+         *
+         * There is many-to-many relationship between EvictionRequests and Evictions in general. And many-to-one if the target is a  pod.
+         *
+         * If all requesters withdraw their eviction intent for a common target, the eviction will be canceled. Deleting an EvictionRequest also counts as a withdrawal. Once all EvictionRequest of a target are removed, the corresponding Evictions are eventually garbage collected.
+         */
+        export interface EvictionRequest {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "lifecycle.k8s.io/v1alpha1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "EvictionRequest";
+            /**
+             * metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec defines the eviction request specification. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec: outputs.lifecycle.v1alpha1.EvictionRequestSpec;
+            /**
+             * status represents the most recently observed status of the eviction request. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            status: outputs.lifecycle.v1alpha1.EvictionRequestStatus;
+        }
+
+        /**
+         * EvictionRequestPodReference contains enough information to locate the referenced pod inside the same namespace.
+         */
+        export interface EvictionRequestPodReference {
+            /**
+             * name of the target. This field is required.
+             */
+            name: string;
+            /**
+             * uid of the target. It can be found in .metadata.uid of the target and is a lowercase UUID in 8-4-4-4-12 format. This field is required.
+             */
+            uid: string;
+        }
+
+        /**
+         * EvictionRequestPodReference contains enough information to locate the referenced pod inside the same namespace.
+         */
+        export interface EvictionRequestPodReferencePatch {
+            /**
+             * name of the target. This field is required.
+             */
+            name: string;
+            /**
+             * uid of the target. It can be found in .metadata.uid of the target and is a lowercase UUID in 8-4-4-4-12 format. This field is required.
+             */
+            uid: string;
+        }
+
+        /**
+         * EvictionRequestSpec is a specification of an EvictionRequest.
+         */
+        export interface EvictionRequestSpec {
+            /**
+             * intent specifies the action that should be taken for the specified target.
+             *
+             * - Eviction means that the requester is interested in the eviction of the target. - Withdrawn means that the requester is no longer interested in the eviction of the target.
+             *   If all requesters' intents are withdrawn for a common target, the eviction will be canceled.
+             *   Cancellation consequences:
+             *   - Inactive responders will never run.
+             *   - Active responders are expected to cancel the eviction.
+             *   - Completed or Interrupted responders should not take any action.
+             */
+            intent: string;
+            /**
+             * requester allows you to identify the entity, that requested the eviction of the target.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field is required and immutable.
+             */
+            requester: string;
+            /**
+             * target contains a reference to an object (e.g. a pod) that should be evicted. This field is required and immutable.
+             */
+            target: outputs.lifecycle.v1alpha1.EvictionRequestTarget;
+        }
+
+        /**
+         * EvictionRequestSpec is a specification of an EvictionRequest.
+         */
+        export interface EvictionRequestSpecPatch {
+            /**
+             * intent specifies the action that should be taken for the specified target.
+             *
+             * - Eviction means that the requester is interested in the eviction of the target. - Withdrawn means that the requester is no longer interested in the eviction of the target.
+             *   If all requesters' intents are withdrawn for a common target, the eviction will be canceled.
+             *   Cancellation consequences:
+             *   - Inactive responders will never run.
+             *   - Active responders are expected to cancel the eviction.
+             *   - Completed or Interrupted responders should not take any action.
+             */
+            intent: string;
+            /**
+             * requester allows you to identify the entity, that requested the eviction of the target.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field is required and immutable.
+             */
+            requester: string;
+            /**
+             * target contains a reference to an object (e.g. a pod) that should be evicted. This field is required and immutable.
+             */
+            target: outputs.lifecycle.v1alpha1.EvictionRequestTargetPatch;
+        }
+
+        /**
+         * EvictionRequestStatus represents the last observed status of the eviction request.
+         */
+        export interface EvictionRequestStatus {
+            /**
+             * conditions contain information about the eviction request.
+             *
+             * EvictionRequest specific conditions are: TargetEvicted or Failed (managed by evictionrequest-controller). - Failed means that the eviction request is no longer being processed
+             *   by any eviction responder. This can happen if the request is canceled or if no responder
+             *   managed to evict the target (e.g. terminate or delete a pod).
+             * - TargetEvicted means that the target has been evicted (e.g. a pod has been terminated or deleted).
+             *
+             * These conditions can be reset if the eviction was unsuccessful and a new Eviction intent has been submitted.
+             *
+             * The maximum length of the conditions list is 100.
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * observedGeneration is EvictionRequest's .metadata.generation observed by the evictionrequest-controller. The observed generation value cannot be negative and can only be incremented. The minimum value is 1. This field is managed by evictionrequest-controller.
+             */
+            observedGeneration: number;
+        }
+
+        /**
+         * EvictionRequestStatus represents the last observed status of the eviction request.
+         */
+        export interface EvictionRequestStatusPatch {
+            /**
+             * conditions contain information about the eviction request.
+             *
+             * EvictionRequest specific conditions are: TargetEvicted or Failed (managed by evictionrequest-controller). - Failed means that the eviction request is no longer being processed
+             *   by any eviction responder. This can happen if the request is canceled or if no responder
+             *   managed to evict the target (e.g. terminate or delete a pod).
+             * - TargetEvicted means that the target has been evicted (e.g. a pod has been terminated or deleted).
+             *
+             * These conditions can be reset if the eviction was unsuccessful and a new Eviction intent has been submitted.
+             *
+             * The maximum length of the conditions list is 100.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * observedGeneration is EvictionRequest's .metadata.generation observed by the evictionrequest-controller. The observed generation value cannot be negative and can only be incremented. The minimum value is 1. This field is managed by evictionrequest-controller.
+             */
+            observedGeneration: number;
+        }
+
+        /**
+         * EvictionRequestTarget contains a reference to an object that should be evicted.
+         */
+        export interface EvictionRequestTarget {
+            /**
+             * pod references a pod that is subject to eviction/termination. Pods that are part of a PodGroup (.spec.schedulingGroup is set) are not supported.
+             */
+            pod: outputs.lifecycle.v1alpha1.EvictionRequestPodReference;
+        }
+
+        /**
+         * EvictionRequestTarget contains a reference to an object that should be evicted.
+         */
+        export interface EvictionRequestTargetPatch {
+            /**
+             * pod references a pod that is subject to eviction/termination. Pods that are part of a PodGroup (.spec.schedulingGroup is set) are not supported.
+             */
+            pod: outputs.lifecycle.v1alpha1.EvictionRequestPodReferencePatch;
+        }
+
+        /**
+         * EvictionSpec is a specification of an Eviction.
+         */
+        export interface EvictionSpec {
+            /**
+             * target contains a reference to an object (e.g. a pod) that should be evicted. This field is required and immutable.
+             */
+            target: outputs.lifecycle.v1alpha1.EvictionTarget;
+        }
+
+        /**
+         * EvictionSpec is a specification of an Eviction.
+         */
+        export interface EvictionSpecPatch {
+            /**
+             * target contains a reference to an object (e.g. a pod) that should be evicted. This field is required and immutable.
+             */
+            target: outputs.lifecycle.v1alpha1.EvictionTargetPatch;
+        }
+
+        /**
+         * EvictionStatus represents the last observed status of the eviction request.
+         */
+        export interface EvictionStatus {
+            /**
+             * conditions contain information about the eviction request.
+             *
+             * Eviction specific conditions are: TargetEvicted or Failed (managed by evictionrequest-controller). - Failed means that the eviction request is no longer being processed
+             *   by any eviction responder. This can happen if the request is canceled or if no responder
+             *   managed to evict the target (e.g. terminate or delete a pod).
+             * - TargetEvicted means that the target has been evicted (e.g. a pod has been terminated or deleted).
+             *   
+             * ThThe maximum length of the conditions list is 100.
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * observedGeneration is Eviction's .metadata.generation observed by the evictionrequest-controller. The observed generation value cannot be negative and can only be incremented. The minimum value is 1. This field is managed by evictionrequest-controller.
+             */
+            observedGeneration: number;
+            /**
+             * requesters allow you to identify the entities, that requested the eviction of the target. If all the requesters withdraw their eviction intent, the eviction will be canceled.
+             *
+             * The maximum length of the requesters list is 100. If this limit is exceeded, requesters with Withdrawn intent should be dropped first.
+             */
+            requesters: outputs.lifecycle.v1alpha1.Requester[];
+            /**
+             * responders represents the eviction process status of each declared responder.
+             *
+             * The responder list should be the same length and have the same .name fields as .status.targetResponders. Only responders with .name that have Active state in .targetResponders[].state should be updated and can be mutated. First initialization of the list is allowed.
+             *
+             * Each ResponderStatus is initialized by evictionrequest-controller and then managed by the designated responder.
+             */
+            responders: outputs.lifecycle.v1alpha1.ResponderStatus[];
+            /**
+             * targetResponders reference responders that should eventually respond to this eviction to help with the graceful eviction of a target. These responders are selected sequentially, according to their specified priority by setting the Active state to the TargetResponder .state field. The maximum number of active responders allowed is 1. Eventually each responder can end up in an Interrupted, Canceled or, Completed state. Responders should observe these states in order to navigate their lifecycle.
+             *
+             * If the target is a pod, the field is populated from Pod's .spec.evictionResponders. Default responders may be added to the list according to the target.
+             *
+             * Default responders: - imperative-eviction.k8s.io/evictor responder with a priority of 100 is added to the list if the
+             *   target is a pod. It will call the imperative Eviction API (pods/<name>/eviction subresource).
+             *   This call may not succeed due to PodDisruptionBudgets, which may block the pod termination.
+             *   It will update the responder message and try again with a backoff.
+             *
+             * The maximum length of the responders list is 11. The length and keys of the list cannot change once set. This field is managed by evictionrequest-controller.
+             */
+            targetResponders: outputs.lifecycle.v1alpha1.TargetResponder[];
+        }
+
+        /**
+         * EvictionStatus represents the last observed status of the eviction request.
+         */
+        export interface EvictionStatusPatch {
+            /**
+             * conditions contain information about the eviction request.
+             *
+             * Eviction specific conditions are: TargetEvicted or Failed (managed by evictionrequest-controller). - Failed means that the eviction request is no longer being processed
+             *   by any eviction responder. This can happen if the request is canceled or if no responder
+             *   managed to evict the target (e.g. terminate or delete a pod).
+             * - TargetEvicted means that the target has been evicted (e.g. a pod has been terminated or deleted).
+             *   
+             * ThThe maximum length of the conditions list is 100.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * observedGeneration is Eviction's .metadata.generation observed by the evictionrequest-controller. The observed generation value cannot be negative and can only be incremented. The minimum value is 1. This field is managed by evictionrequest-controller.
+             */
+            observedGeneration: number;
+            /**
+             * requesters allow you to identify the entities, that requested the eviction of the target. If all the requesters withdraw their eviction intent, the eviction will be canceled.
+             *
+             * The maximum length of the requesters list is 100. If this limit is exceeded, requesters with Withdrawn intent should be dropped first.
+             */
+            requesters: outputs.lifecycle.v1alpha1.RequesterPatch[];
+            /**
+             * responders represents the eviction process status of each declared responder.
+             *
+             * The responder list should be the same length and have the same .name fields as .status.targetResponders. Only responders with .name that have Active state in .targetResponders[].state should be updated and can be mutated. First initialization of the list is allowed.
+             *
+             * Each ResponderStatus is initialized by evictionrequest-controller and then managed by the designated responder.
+             */
+            responders: outputs.lifecycle.v1alpha1.ResponderStatusPatch[];
+            /**
+             * targetResponders reference responders that should eventually respond to this eviction to help with the graceful eviction of a target. These responders are selected sequentially, according to their specified priority by setting the Active state to the TargetResponder .state field. The maximum number of active responders allowed is 1. Eventually each responder can end up in an Interrupted, Canceled or, Completed state. Responders should observe these states in order to navigate their lifecycle.
+             *
+             * If the target is a pod, the field is populated from Pod's .spec.evictionResponders. Default responders may be added to the list according to the target.
+             *
+             * Default responders: - imperative-eviction.k8s.io/evictor responder with a priority of 100 is added to the list if the
+             *   target is a pod. It will call the imperative Eviction API (pods/<name>/eviction subresource).
+             *   This call may not succeed due to PodDisruptionBudgets, which may block the pod termination.
+             *   It will update the responder message and try again with a backoff.
+             *
+             * The maximum length of the responders list is 11. The length and keys of the list cannot change once set. This field is managed by evictionrequest-controller.
+             */
+            targetResponders: outputs.lifecycle.v1alpha1.TargetResponderPatch[];
+        }
+
+        /**
+         * EvictionTarget contains a reference to an object that should be evicted.
+         */
+        export interface EvictionTarget {
+            /**
+             * pod references a pod that is subject to eviction/termination. Pods that are part of a PodGroup (.spec.schedulingGroup is set) are not supported.
+             */
+            pod: outputs.lifecycle.v1alpha1.EvictionPodReference;
+        }
+
+        /**
+         * EvictionTarget contains a reference to an object that should be evicted.
+         */
+        export interface EvictionTargetPatch {
+            /**
+             * pod references a pod that is subject to eviction/termination. Pods that are part of a PodGroup (.spec.schedulingGroup is set) are not supported.
+             */
+            pod: outputs.lifecycle.v1alpha1.EvictionPodReferencePatch;
+        }
+
+        /**
+         * Requester allows you to identify the entity, that requested the eviction of the target.
+         */
+        export interface Requester {
+            /**
+             * intent specifies the action that should be taken for the specified target.
+             *
+             * - Eviction means that the requester is interested in the eviction of the target. - Withdrawn means that the requester is no longer interested in the eviction of the target.
+             *   If all requesters' intents are withdrawn, the eviction will be canceled.
+             *   Cancellation consequences:
+             *   - Inactive responders will never run.
+             *   - Active responders are expected to cancel the eviction.
+             *   - Completed or Interrupted responders should not take any action.
+             */
+            intent: string;
+            /**
+             * name allows you to identify the entity, that requested the eviction of the target.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). This field must be unique for each requester. This field is required.
+             */
+            name: string;
+        }
+
+        /**
+         * Requester allows you to identify the entity, that requested the eviction of the target.
+         */
+        export interface RequesterPatch {
+            /**
+             * intent specifies the action that should be taken for the specified target.
+             *
+             * - Eviction means that the requester is interested in the eviction of the target. - Withdrawn means that the requester is no longer interested in the eviction of the target.
+             *   If all requesters' intents are withdrawn, the eviction will be canceled.
+             *   Cancellation consequences:
+             *   - Inactive responders will never run.
+             *   - Active responders are expected to cancel the eviction.
+             *   - Completed or Interrupted responders should not take any action.
+             */
+            intent: string;
+            /**
+             * name allows you to identify the entity, that requested the eviction of the target.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). This field must be unique for each requester. This field is required.
+             */
+            name: string;
+        }
+
+        /**
+         * ResponderStatus represents the last observed status of the eviction process of the responder. It should be only updated by the designated responder whose name is .name field.
+         */
+        export interface ResponderStatus {
+            /**
+             * completionTime tracks the time at which the Responder stopped processing the eviction request. Completion means that the responders has either fully or partially completed the eviction process, which may have resulted in target eviction (e.g. pod termination). It should reflect the present time when set. This field becomes immutable once set.
+             */
+            completionTime: string;
+            /**
+             * expectedCompletionTime is the time at which the eviction process step is expected to end for the responder. The time cannot be set to the past. May be omitted if no estimate can be made.
+             */
+            expectedCompletionTime: string;
+            /**
+             * heartbeatTime is the last time at which the eviction process was reported to be in progress by the responder. It should reflect the present time when set. Responders should avoid heartbeats more frequent than 20 seconds to avoid overloading the control-plane.
+             */
+            heartbeatTime: string;
+            /**
+             * message provides human-readable details about the state of the responder and the eviction process. Maximum length is 4000 characters.
+             */
+            message: string;
+            /**
+             * name allows you to identify the responder reacting to the Eviction.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). This field is initialized by Kubernetes and must be unique for each responder. This field is required.
+             */
+            name: string;
+            /**
+             * startTime tracks the time at which this responder was designated as active and should start processing the eviction request. It should reflect the present time when set. This field is initialized by Kubernetes when this responder becomes active. This field becomes immutable once set.
+             */
+            startTime: string;
+        }
+
+        /**
+         * ResponderStatus represents the last observed status of the eviction process of the responder. It should be only updated by the designated responder whose name is .name field.
+         */
+        export interface ResponderStatusPatch {
+            /**
+             * completionTime tracks the time at which the Responder stopped processing the eviction request. Completion means that the responders has either fully or partially completed the eviction process, which may have resulted in target eviction (e.g. pod termination). It should reflect the present time when set. This field becomes immutable once set.
+             */
+            completionTime: string;
+            /**
+             * expectedCompletionTime is the time at which the eviction process step is expected to end for the responder. The time cannot be set to the past. May be omitted if no estimate can be made.
+             */
+            expectedCompletionTime: string;
+            /**
+             * heartbeatTime is the last time at which the eviction process was reported to be in progress by the responder. It should reflect the present time when set. Responders should avoid heartbeats more frequent than 20 seconds to avoid overloading the control-plane.
+             */
+            heartbeatTime: string;
+            /**
+             * message provides human-readable details about the state of the responder and the eviction process. Maximum length is 4000 characters.
+             */
+            message: string;
+            /**
+             * name allows you to identify the responder reacting to the Eviction.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). This field is initialized by Kubernetes and must be unique for each responder. This field is required.
+             */
+            name: string;
+            /**
+             * startTime tracks the time at which this responder was designated as active and should start processing the eviction request. It should reflect the present time when set. This field is initialized by Kubernetes when this responder becomes active. This field becomes immutable once set.
+             */
+            startTime: string;
+        }
+
+        /**
+         * TargetResponder allows you to specify the responder reacting to the Eviction. Responders should observe and communicate through the Eviction API (see .state) to help with the graceful eviction of a target (e.g. termination of a pod).
+         */
+        export interface TargetResponder {
+            /**
+             * name allows you to identify the responder reacting to the Eviction.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). This field must be unique for each responder. This field is required.
+             */
+            name: string;
+            /**
+             * priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+             *
+             * The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+             *
+             * The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required and immutable.
+             */
+            priority: number;
+            /**
+             * state specifies a state that is assigned by the evictionrequest-controller. Responders should observe this state in order to navigate their lifecycle. - Inactive means that the responder should not yet process this eviction request. - Active means that the responder is either running or expected to start soon.
+             *   Also, startTime has been set in the ResponderStatus by the evictionrequest-controller.
+             *
+             *   An active responder should currently interact with the eviction process by updating
+             *   .status.responders, where .name is the active responder name. ResponderStatus fields
+             *   should be periodically updated to indicate the progress or completion of the eviction process.
+             *   If .status.responders[].heartbeatTime field is not updated within the heartbeat deadline defined
+             *   by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder
+             * 	 with a lower priority. Only one responder can be active at a time.
+             * - Interrupted means that the responder has failed to start or failed to update
+             *   heartbeatTime in ResponderStatus in a timely manner.
+             * - Canceled means that the responder has been canceled. In other words, there	is no
+             *   EvictionRequest with the same target and Eviction intent in .spec.intent.
+             * - Completed means that the responder has successfully completed and set completionTime
+             *   in ResponderStatus.
+             *
+             * Please refer to the ResponderStatus in .status.responders for more details on each responder.
+             */
+            state: string;
+        }
+
+        /**
+         * TargetResponder allows you to specify the responder reacting to the Eviction. Responders should observe and communicate through the Eviction API (see .state) to help with the graceful eviction of a target (e.g. termination of a pod).
+         */
+        export interface TargetResponderPatch {
+            /**
+             * name allows you to identify the responder reacting to the Eviction.
+             *
+             * It must be a valid domain-prefixed key (such as "acme.io/foo"). This field must be unique for each responder. This field is required.
+             */
+            name: string;
+            /**
+             * priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+             *
+             * The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+             *
+             * The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required and immutable.
+             */
+            priority: number;
+            /**
+             * state specifies a state that is assigned by the evictionrequest-controller. Responders should observe this state in order to navigate their lifecycle. - Inactive means that the responder should not yet process this eviction request. - Active means that the responder is either running or expected to start soon.
+             *   Also, startTime has been set in the ResponderStatus by the evictionrequest-controller.
+             *
+             *   An active responder should currently interact with the eviction process by updating
+             *   .status.responders, where .name is the active responder name. ResponderStatus fields
+             *   should be periodically updated to indicate the progress or completion of the eviction process.
+             *   If .status.responders[].heartbeatTime field is not updated within the heartbeat deadline defined
+             *   by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder
+             * 	 with a lower priority. Only one responder can be active at a time.
+             * - Interrupted means that the responder has failed to start or failed to update
+             *   heartbeatTime in ResponderStatus in a timely manner.
+             * - Canceled means that the responder has been canceled. In other words, there	is no
+             *   EvictionRequest with the same target and Eviction intent in .spec.intent.
+             * - Completed means that the responder has successfully completed and set completionTime
+             *   in ResponderStatus.
+             *
+             * Please refer to the ResponderStatus in .status.responders for more details on each responder.
+             */
+            state: string;
+        }
+
+    }
+}
+
 export namespace meta {
     export namespace v1 {
         /**
@@ -32795,7 +34124,7 @@ export namespace networking {
              */
             kind: "IPAddress";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -32809,7 +34138,7 @@ export namespace networking {
          */
         export interface IPAddressSpec {
             /**
-             * ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+             * parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
              */
             parentRef: outputs.networking.v1.ParentReference;
         }
@@ -32819,7 +34148,7 @@ export namespace networking {
          */
         export interface IPAddressSpecPatch {
             /**
-             * ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+             * parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
              */
             parentRef: outputs.networking.v1.ParentReferencePatch;
         }
@@ -32879,7 +34208,7 @@ export namespace networking {
              */
             kind: "Ingress";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -32933,7 +34262,7 @@ export namespace networking {
              */
             kind: "IngressClass";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -33135,6 +34464,9 @@ export namespace networking {
              * host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
              */
             host: string;
+            /**
+             * http is a HTTP IngressRuleValue, which contains a list of http selectors
+             */
             http: outputs.networking.v1.HTTPIngressRuleValue;
         }
 
@@ -33153,6 +34485,9 @@ export namespace networking {
              * host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
              */
             host: string;
+            /**
+             * http is a HTTP IngressRuleValue, which contains a list of http selectors
+             */
             http: outputs.networking.v1.HTTPIngressRuleValuePatch;
         }
 
@@ -33289,7 +34624,7 @@ export namespace networking {
              */
             kind: "NetworkPolicy";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -33507,19 +34842,19 @@ export namespace networking {
          */
         export interface ParentReference {
             /**
-             * Group is the group of the object being referenced.
+             * group is the group of the object being referenced.
              */
             group: string;
             /**
-             * Name is the name of the object being referenced.
+             * name is the name of the object being referenced.
              */
             name: string;
             /**
-             * Namespace is the namespace of the object being referenced.
+             * namespace is the namespace of the object being referenced.
              */
             namespace: string;
             /**
-             * Resource is the resource of the object being referenced.
+             * resource is the resource of the object being referenced.
              */
             resource: string;
         }
@@ -33529,19 +34864,19 @@ export namespace networking {
          */
         export interface ParentReferencePatch {
             /**
-             * Group is the group of the object being referenced.
+             * group is the group of the object being referenced.
              */
             group: string;
             /**
-             * Name is the name of the object being referenced.
+             * name is the name of the object being referenced.
              */
             name: string;
             /**
-             * Namespace is the namespace of the object being referenced.
+             * namespace is the namespace of the object being referenced.
              */
             namespace: string;
             /**
-             * Resource is the resource of the object being referenced.
+             * resource is the resource of the object being referenced.
              */
             resource: string;
         }
@@ -33587,7 +34922,7 @@ export namespace networking {
              */
             kind: "ServiceCIDR";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -33605,7 +34940,7 @@ export namespace networking {
          */
         export interface ServiceCIDRSpec {
             /**
-             * CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+             * cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
              */
             cidrs: string[];
         }
@@ -33615,7 +34950,7 @@ export namespace networking {
          */
         export interface ServiceCIDRSpecPatch {
             /**
-             * CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+             * cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
              */
             cidrs: string[];
         }
@@ -34392,7 +35727,7 @@ export namespace node {
              */
             kind: "RuntimeClass";
             /**
-             * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -34650,15 +35985,15 @@ export namespace policy {
              */
             kind: "PodDisruptionBudget";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Specification of the desired behavior of the PodDisruptionBudget.
+             * spec is the specification of the desired behavior of the PodDisruptionBudget.
              */
             spec: outputs.policy.v1.PodDisruptionBudgetSpec;
             /**
-             * Most recently observed status of the PodDisruptionBudget.
+             * status is the most recently observed status of the PodDisruptionBudget.
              */
             status: outputs.policy.v1.PodDisruptionBudgetStatus;
         }
@@ -34668,19 +36003,19 @@ export namespace policy {
          */
         export interface PodDisruptionBudgetSpec {
             /**
-             * An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+             * maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
              */
             maxUnavailable: number | string;
             /**
-             * An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+             * minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
              */
             minAvailable: number | string;
             /**
-             * Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+             * selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
              */
             selector: outputs.meta.v1.LabelSelector;
             /**
-             * UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+             * unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
              *
              * Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
              *
@@ -34698,19 +36033,19 @@ export namespace policy {
          */
         export interface PodDisruptionBudgetSpecPatch {
             /**
-             * An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+             * maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
              */
             maxUnavailable: number | string;
             /**
-             * An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+             * minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
              */
             minAvailable: number | string;
             /**
-             * Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+             * selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
              */
             selector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+             * unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
              *
              * Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
              *
@@ -35469,7 +36804,7 @@ export namespace rbac {
          */
         export interface AggregationRule {
             /**
-             * ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+             * clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
              */
             clusterRoleSelectors: outputs.meta.v1.LabelSelector[];
         }
@@ -35479,7 +36814,7 @@ export namespace rbac {
          */
         export interface AggregationRulePatch {
             /**
-             * ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+             * clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
              */
             clusterRoleSelectors: outputs.meta.v1.LabelSelectorPatch[];
         }
@@ -35489,7 +36824,7 @@ export namespace rbac {
          */
         export interface ClusterRole {
             /**
-             * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+             * aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
              */
             aggregationRule: outputs.rbac.v1.AggregationRule;
             /**
@@ -35501,11 +36836,11 @@ export namespace rbac {
              */
             kind: "ClusterRole";
             /**
-             * Standard object's metadata.
+             * metadata is the standard object's metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Rules holds all the PolicyRules for this ClusterRole
+             * rules holds all the PolicyRules for this ClusterRole
              */
             rules: outputs.rbac.v1.PolicyRule[];
         }
@@ -35523,15 +36858,15 @@ export namespace rbac {
              */
             kind: "ClusterRoleBinding";
             /**
-             * Standard object's metadata.
+             * metadata is the standard object's metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+             * roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
              */
             roleRef: outputs.rbac.v1.RoleRef;
             /**
-             * Subjects holds references to the objects the role applies to.
+             * subjects holds references to the objects the role applies to.
              */
             subjects: outputs.rbac.v1.Subject[];
         }
@@ -35541,23 +36876,23 @@ export namespace rbac {
          */
         export interface PolicyRule {
             /**
-             * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+             * apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
              */
             apiGroups: string[];
             /**
-             * NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+             * nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
              */
             nonResourceURLs: string[];
             /**
-             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
              */
             resourceNames: string[];
             /**
-             * Resources is a list of resources this rule applies to. '*' represents all resources.
+             * resources is a list of resources this rule applies to. '*' represents all resources.
              */
             resources: string[];
             /**
-             * Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+             * verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
              */
             verbs: string[];
         }
@@ -35567,23 +36902,23 @@ export namespace rbac {
          */
         export interface PolicyRulePatch {
             /**
-             * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+             * apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
              */
             apiGroups: string[];
             /**
-             * NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+             * nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
              */
             nonResourceURLs: string[];
             /**
-             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
              */
             resourceNames: string[];
             /**
-             * Resources is a list of resources this rule applies to. '*' represents all resources.
+             * resources is a list of resources this rule applies to. '*' represents all resources.
              */
             resources: string[];
             /**
-             * Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+             * verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
              */
             verbs: string[];
         }
@@ -35601,11 +36936,11 @@ export namespace rbac {
              */
             kind: "Role";
             /**
-             * Standard object's metadata.
+             * metadata is the standard object's metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Rules holds all the PolicyRules for this Role
+             * rules holds all the PolicyRules for this Role
              */
             rules: outputs.rbac.v1.PolicyRule[];
         }
@@ -35623,15 +36958,15 @@ export namespace rbac {
              */
             kind: "RoleBinding";
             /**
-             * Standard object's metadata.
+             * metadata is the standard object's metadata.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+             * roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
              */
             roleRef: outputs.rbac.v1.RoleRef;
             /**
-             * Subjects holds references to the objects the role applies to.
+             * subjects holds references to the objects the role applies to.
              */
             subjects: outputs.rbac.v1.Subject[];
         }
@@ -35641,15 +36976,15 @@ export namespace rbac {
          */
         export interface RoleRef {
             /**
-             * APIGroup is the group for the resource being referenced
+             * apiGroup is the group for the resource being referenced
              */
             apiGroup: string;
             /**
-             * Kind is the type of resource being referenced
+             * kind is the type of resource being referenced
              */
             kind: string;
             /**
-             * Name is the name of resource being referenced
+             * name is the name of resource being referenced
              */
             name: string;
         }
@@ -35659,15 +36994,15 @@ export namespace rbac {
          */
         export interface RoleRefPatch {
             /**
-             * APIGroup is the group for the resource being referenced
+             * apiGroup is the group for the resource being referenced
              */
             apiGroup: string;
             /**
-             * Kind is the type of resource being referenced
+             * kind is the type of resource being referenced
              */
             kind: string;
             /**
-             * Name is the name of resource being referenced
+             * name is the name of resource being referenced
              */
             name: string;
         }
@@ -35677,19 +37012,19 @@ export namespace rbac {
          */
         export interface Subject {
             /**
-             * APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+             * apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
              */
             apiGroup: string;
             /**
-             * Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+             * kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
              */
             kind: string;
             /**
-             * Name of the object being referenced.
+             * name of the object being referenced.
              */
             name: string;
             /**
-             * Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+             * namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
              */
             namespace: string;
         }
@@ -35699,19 +37034,19 @@ export namespace rbac {
          */
         export interface SubjectPatch {
             /**
-             * APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+             * apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
              */
             apiGroup: string;
             /**
-             * Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+             * kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
              */
             kind: string;
             /**
-             * Name of the object being referenced.
+             * name of the object being referenced.
              */
             name: string;
             /**
-             * Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+             * namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
              */
             namespace: string;
         }
@@ -36370,7 +37705,7 @@ export namespace resource {
              *  - driver (string): the name of the driver which defines this device.
              *  - attributes (map[string]object): the device's attributes, grouped by prefix
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-             *    of the attributes which were prefixed by "dra.example.com".
+             *    of the attributes which were prefixed by "dra.example.com").
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
              *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
              *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -36389,6 +37724,13 @@ export namespace resource {
              * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
              *
              * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+             *   or guarding the check with has() for optional fields.
+             *   See CEL Optional Types for details:
+             *   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+             *
+             * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
              *
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
@@ -36414,7 +37756,7 @@ export namespace resource {
              *  - driver (string): the name of the driver which defines this device.
              *  - attributes (map[string]object): the device's attributes, grouped by prefix
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-             *    of the attributes which were prefixed by "dra.example.com".
+             *    of the attributes which were prefixed by "dra.example.com").
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
              *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
              *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -36433,6 +37775,13 @@ export namespace resource {
              * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
              *
              * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+             *   or guarding the check with has() for optional fields.
+             *   See CEL Optional Types for details:
+             *   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+             *
+             * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
              *
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
@@ -36483,6 +37832,8 @@ export namespace resource {
 
         /**
          * CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+         *
+         * If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
          *
          *   - If the requested amount is less than Min, it is rounded up to the Min value.
          *   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
@@ -36665,9 +38016,9 @@ export namespace resource {
              */
             name: string;
             /**
-             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             * NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
              */
-            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1.NodeAllocatableResourceMapping};
+            nodeAllocatableResources: {[key: string]: outputs.resource.v1.NodeAllocatableResource};
             /**
              * NodeName identifies the node where the device is available.
              *
@@ -36954,8 +38305,6 @@ export namespace resource {
             config: outputs.resource.v1.DeviceClassConfiguration[];
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-             *
-             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -36976,8 +38325,6 @@ export namespace resource {
             config: outputs.resource.v1.DeviceClassConfigurationPatch[];
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-             *
-             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -37059,6 +38406,18 @@ export namespace resource {
          */
         export interface DeviceCounterConsumption {
             /**
+             * CompatibilityGroups is a list of opaque group names for this counter set consumption.
+             *
+             * Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+             *
+             * An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+             *
+             * Group names are opaque and meaningful only within the publishing driver's pool.
+             *
+             * The maximum number of groups is 2, and the names must be unique.
+             */
+            compatibilityGroups: string[];
+            /**
              * CounterSet is the name of the set from which the counters defined will be consumed.
              */
             counterSet: string;
@@ -37075,6 +38434,18 @@ export namespace resource {
          */
         export interface DeviceCounterConsumptionPatch {
             /**
+             * CompatibilityGroups is a list of opaque group names for this counter set consumption.
+             *
+             * Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+             *
+             * An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+             *
+             * Group names are opaque and meaningful only within the publishing driver's pool.
+             *
+             * The maximum number of groups is 2, and the names must be unique.
+             */
+            compatibilityGroups: string[];
+            /**
              * CounterSet is the name of the set from which the counters defined will be consumed.
              */
             counterSet: string;
@@ -37084,6 +38455,62 @@ export namespace resource {
              * The maximum number of counters is 32.
              */
             counters: {[key: string]: outputs.resource.v1.Counter};
+        }
+
+        /**
+         * DeviceDerivedAttribute defines a derived attribute computed via CEL.
+         */
+        export interface DeviceDerivedAttribute {
+            /**
+             * Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+             *
+             * The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+             *
+             * When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+             *
+             * The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+             */
+            expression: string;
+            /**
+             * Name is the identifier for this derived attribute, used in constraints.
+             *
+             * It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+             *
+             * If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+             *
+             * It is not valid to define a derived attribute that isn't used in at least one constraint.
+             */
+            name: string;
+        }
+
+        /**
+         * DeviceDerivedAttribute defines a derived attribute computed via CEL.
+         */
+        export interface DeviceDerivedAttributePatch {
+            /**
+             * Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+             *
+             * The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+             *
+             * When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+             *
+             * The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+             */
+            expression: string;
+            /**
+             * Name is the identifier for this derived attribute, used in constraints.
+             *
+             * It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+             *
+             * If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+             *
+             * It is not valid to define a derived attribute that isn't used in at least one constraint.
+             */
+            name: string;
         }
 
         /**
@@ -37153,9 +38580,9 @@ export namespace resource {
              */
             name: string;
             /**
-             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             * NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
              */
-            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1.NodeAllocatableResourceMapping};
+            nodeAllocatableResources: {[key: string]: outputs.resource.v1.NodeAllocatableResource};
             /**
              * NodeName identifies the node where the device is available.
              *
@@ -37263,6 +38690,10 @@ export namespace resource {
              */
             shareID: string;
             /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+             */
+            skipNodeOperations: string[];
+            /**
              * A copy of all tolerations specified in the request at the time when the device got allocated.
              *
              * The maximum number of tolerations is 16.
@@ -37328,6 +38759,10 @@ export namespace resource {
              * ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
              */
             shareID: string;
+            /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+             */
+            skipNodeOperations: string[];
             /**
              * A copy of all tolerations specified in the request at the time when the device got allocated.
              *
@@ -37419,6 +38854,18 @@ export namespace resource {
              */
             count: number;
             /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1.DeviceDerivedAttribute[];
+            /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
              *
              * A class is required. Which classes are available depends on the cluster.
@@ -37484,6 +38931,18 @@ export namespace resource {
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
             count: number;
+            /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1.DeviceDerivedAttributePatch[];
             /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
              *
@@ -37566,6 +39025,144 @@ export namespace resource {
              * The taint value corresponding to the taint key. Must be a label value.
              */
             value: string;
+        }
+
+        /**
+         * DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+         */
+        export interface DeviceTaintRule {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "resource.k8s.io/v1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "DeviceTaintRule";
+            /**
+             * Standard object metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Spec specifies the selector and one taint.
+             *
+             * Changing the spec automatically increments the metadata.generation number.
+             */
+            spec: outputs.resource.v1.DeviceTaintRuleSpec;
+            /**
+             * Status provides information about what was requested in the spec.
+             */
+            status: outputs.resource.v1.DeviceTaintRuleStatus;
+        }
+
+        /**
+         * DeviceTaintRuleSpec specifies the selector and one taint.
+         */
+        export interface DeviceTaintRuleSpec {
+            /**
+             * DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+             */
+            deviceSelector: outputs.resource.v1.DeviceTaintSelector;
+            /**
+             * The taint that gets applied to matching devices.
+             */
+            taint: outputs.resource.v1.DeviceTaint;
+        }
+
+        /**
+         * DeviceTaintRuleSpec specifies the selector and one taint.
+         */
+        export interface DeviceTaintRuleSpecPatch {
+            /**
+             * DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+             */
+            deviceSelector: outputs.resource.v1.DeviceTaintSelectorPatch;
+            /**
+             * The taint that gets applied to matching devices.
+             */
+            taint: outputs.resource.v1.DeviceTaintPatch;
+        }
+
+        /**
+         * DeviceTaintRuleStatus provides information about an on-going pod eviction.
+         */
+        export interface DeviceTaintRuleStatus {
+            /**
+             * Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+             *
+             * The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+             *   (includes the effects which don't cause eviction).
+             * - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+             *   in a human-readable format, updated periodically, may change
+             *
+             * For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+             *
+             * Must have 8 or fewer entries.
+             */
+            conditions: outputs.meta.v1.Condition[];
+        }
+
+        /**
+         * DeviceTaintRuleStatus provides information about an on-going pod eviction.
+         */
+        export interface DeviceTaintRuleStatusPatch {
+            /**
+             * Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+             *
+             * The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+             *   (includes the effects which don't cause eviction).
+             * - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+             *   in a human-readable format, updated periodically, may change
+             *
+             * For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+             *
+             * Must have 8 or fewer entries.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+        }
+
+        /**
+         * DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+         */
+        export interface DeviceTaintSelector {
+            /**
+             * If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+             *
+             * Setting also driver and pool may be required to avoid ambiguity, but is not required.
+             */
+            device: string;
+            /**
+             * If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+             */
+            driver: string;
+            /**
+             * If pool is set, only devices in that pool are selected.
+             *
+             * Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+             */
+            pool: string;
+        }
+
+        /**
+         * DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+         */
+        export interface DeviceTaintSelectorPatch {
+            /**
+             * If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+             *
+             * Setting also driver and pool may be required to avoid ambiguity, but is not required.
+             */
+            device: string;
+            /**
+             * If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+             */
+            driver: string;
+            /**
+             * If pool is set, only devices in that pool are selected.
+             *
+             * Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+             */
+            pool: string;
         }
 
         /**
@@ -37660,6 +39257,18 @@ export namespace resource {
              */
             count: number;
             /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1.DeviceDerivedAttribute[];
+            /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
              *
              * A DeviceClassName is required.
@@ -37724,6 +39333,18 @@ export namespace resource {
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
             count: number;
+            /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1.DeviceDerivedAttributePatch[];
             /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
              *
@@ -37795,31 +39416,49 @@ export namespace resource {
         }
 
         /**
-         * NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+         * NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
          */
-        export interface NodeAllocatableResourceMapping {
+        export interface NodeAllocatableMapping {
             /**
-             * AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
-             * 	   a. A DRA driver representing each CPU core as a device would have
-             *        {ResourceName: "cpu", allocationMultiplier: "2"} in its
-             *        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
-             * 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
-             *     b. A GPU device that needs additional node memory per GPU allocation would
-             *        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
-             * 		  GPU device instance of this type will account for 2Gi of memory.
-             *
-             * 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
-             *        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
-             *     For example, if a Device's capacity "dra.example.com/cores" is consumed,
-             *     and each "core" provides 2 "cpu"s, the mapping would be:
-             *     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
-             *     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
-             */
-            allocationMultiplier: string;
-            /**
-             * CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+             * CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
              */
             capacityKey: string;
+            /**
+             * CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+             */
+            capacityMultiplier: string;
+            /**
+             * DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+             */
+            deviceMultiplier: string;
+        }
+
+        /**
+         * NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+         */
+        export interface NodeAllocatableOverhead {
+            /**
+             * PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+             */
+            perContainer: string;
+            /**
+             * PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+             */
+            perPod: string;
+        }
+
+        /**
+         * NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+         */
+        export interface NodeAllocatableResource {
+            /**
+             * Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+             */
+            mapping: outputs.resource.v1.NodeAllocatableMapping;
+            /**
+             * Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+             */
+            overhead: outputs.resource.v1.NodeAllocatableOverhead;
         }
 
         /**
@@ -38063,7 +39702,7 @@ export namespace resource {
              */
             generation: number;
             /**
-             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
              *
              * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
              */
@@ -38087,7 +39726,7 @@ export namespace resource {
              */
             generation: number;
             /**
-             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
              *
              * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
              */
@@ -38173,6 +39812,12 @@ export namespace resource {
              */
             nodeSelector: outputs.core.v1.NodeSelector;
             /**
+             * PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+             *
+             * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+             */
+            partitionTypeAttribute: string;
+            /**
              * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
              *
              * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -38192,6 +39837,17 @@ export namespace resource {
              * The maximum number of counter sets is 8.
              */
             sharedCounters: outputs.resource.v1.CounterSet[];
+            /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+             *
+             * - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+             *   value cannot be specified unless "NodeUnprepareResources" is also listed
+             *   (or "*" is specified).
+             * - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+             *
+             * Other values may be added in the future. The kubelet must ignore unknown values.
+             */
+            skipNodeOperations: string[];
         }
 
         /**
@@ -38235,6 +39891,12 @@ export namespace resource {
              */
             nodeSelector: outputs.core.v1.NodeSelectorPatch;
             /**
+             * PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+             *
+             * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+             */
+            partitionTypeAttribute: string;
+            /**
              * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
              *
              * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -38254,6 +39916,17 @@ export namespace resource {
              * The maximum number of counter sets is 8.
              */
             sharedCounters: outputs.resource.v1.CounterSetPatch[];
+            /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+             *
+             * - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+             *   value cannot be specified unless "NodeUnprepareResources" is also listed
+             *   (or "*" is specified).
+             * - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+             *
+             * Other values may be added in the future. The kubelet must ignore unknown values.
+             */
+            skipNodeOperations: string[];
         }
 
     }
@@ -40688,6 +42361,50 @@ export namespace resource {
         }
 
         /**
+         * PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+         */
+        export interface PartitionTypeStatus {
+            /**
+             * Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+             */
+            allocatable: number;
+            /**
+             * Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+             */
+            attribute: string;
+            /**
+             * Total is the number of devices of this partition type in the pool.
+             */
+            total: number;
+            /**
+             * Type is the partition type value (e.g. "Full" or "Half").
+             */
+            type: string;
+        }
+
+        /**
+         * PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+         */
+        export interface PartitionTypeStatusPatch {
+            /**
+             * Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+             */
+            allocatable: number;
+            /**
+             * Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+             */
+            attribute: string;
+            /**
+             * Total is the number of devices of this partition type in the pool.
+             */
+            total: number;
+            /**
+             * Type is the partition type value (e.g. "Full" or "Half").
+             */
+            type: string;
+        }
+
+        /**
          * PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
          *
          * This is an alpha type and requires enabling the DRAControlPlaneController feature gate.
@@ -40792,6 +42509,10 @@ export namespace resource {
              */
             nodeName: string;
             /**
+             * PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+             */
+            partitionSummary: outputs.resource.v1alpha3.PartitionTypeStatus[];
+            /**
              * PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
              */
             poolName: string;
@@ -40799,6 +42520,10 @@ export namespace resource {
              * ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
              */
             resourceSliceCount: number;
+            /**
+             * ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+             */
+            shareableSummary: outputs.resource.v1alpha3.ShareableSummaryStatus;
             /**
              * TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
              */
@@ -40838,6 +42563,10 @@ export namespace resource {
              */
             nodeName: string;
             /**
+             * PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+             */
+            partitionSummary: outputs.resource.v1alpha3.PartitionTypeStatusPatch[];
+            /**
              * PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
              */
             poolName: string;
@@ -40845,6 +42574,10 @@ export namespace resource {
              * ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
              */
             resourceSliceCount: number;
+            /**
+             * ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+             */
+            shareableSummary: outputs.resource.v1alpha3.ShareableSummaryStatusPatch;
             /**
              * TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
              */
@@ -41188,6 +42921,14 @@ export namespace resource {
          */
         export interface ResourcePoolStatusRequestSpec {
             /**
+             * DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+             *
+             * A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+             *
+             * Must include the domain qualifier.
+             */
+            defaultPartitionTypeAttribute: string;
+            /**
              * Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
              */
             driver: string;
@@ -41207,6 +42948,14 @@ export namespace resource {
          * ResourcePoolStatusRequestSpec defines the filters for the pool status request.
          */
         export interface ResourcePoolStatusRequestSpecPatch {
+            /**
+             * DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+             *
+             * A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+             *
+             * Must include the domain qualifier.
+             */
+            defaultPartitionTypeAttribute: string;
             /**
              * Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
              */
@@ -41349,6 +43098,86 @@ export namespace resource {
              * Pool describes the pool that this ResourceSlice belongs to.
              */
             pool: outputs.resource.v1alpha3.ResourcePoolPatch;
+        }
+
+        /**
+         * ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+         */
+        export interface ShareableCapacityStatus {
+            /**
+             * Available is Total minus Consumed, never negative.
+             */
+            available: string;
+            /**
+             * Consumed is the amount drawn by current allocations.
+             */
+            consumed: string;
+            /**
+             * Name is the capacity name.
+             */
+            name: string;
+            /**
+             * Total is the sum of this capacity across shareable devices in the pool.
+             */
+            total: string;
+        }
+
+        /**
+         * ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+         */
+        export interface ShareableCapacityStatusPatch {
+            /**
+             * Available is Total minus Consumed, never negative.
+             */
+            available: string;
+            /**
+             * Consumed is the amount drawn by current allocations.
+             */
+            consumed: string;
+            /**
+             * Name is the capacity name.
+             */
+            name: string;
+            /**
+             * Total is the sum of this capacity across shareable devices in the pool.
+             */
+            total: string;
+        }
+
+        /**
+         * ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+         */
+        export interface ShareableSummaryStatus {
+            /**
+             * Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+             */
+            capacity: outputs.resource.v1alpha3.ShareableCapacityStatus[];
+            /**
+             * FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+             */
+            fullyAvailableDevices: number;
+            /**
+             * PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+             */
+            partiallyAvailableDevices: number;
+        }
+
+        /**
+         * ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+         */
+        export interface ShareableSummaryStatusPatch {
+            /**
+             * Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+             */
+            capacity: outputs.resource.v1alpha3.ShareableCapacityStatusPatch[];
+            /**
+             * FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+             */
+            fullyAvailableDevices: number;
+            /**
+             * PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+             */
+            partiallyAvailableDevices: number;
         }
 
     }
@@ -41545,9 +43374,9 @@ export namespace resource {
              */
             consumesCounters: outputs.resource.v1beta1.DeviceCounterConsumption[];
             /**
-             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             * NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
              */
-            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1beta1.NodeAllocatableResourceMapping};
+            nodeAllocatableResources: {[key: string]: outputs.resource.v1beta1.NodeAllocatableResource};
             /**
              * NodeName identifies the node where the device is available.
              *
@@ -41635,9 +43464,9 @@ export namespace resource {
              */
             consumesCounters: outputs.resource.v1beta1.DeviceCounterConsumptionPatch[];
             /**
-             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             * NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
              */
-            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1beta1.NodeAllocatableResourceMapping};
+            nodeAllocatableResources: {[key: string]: outputs.resource.v1beta1.NodeAllocatableResource};
             /**
              * NodeName identifies the node where the device is available.
              *
@@ -41673,7 +43502,7 @@ export namespace resource {
              *  - driver (string): the name of the driver which defines this device.
              *  - attributes (map[string]object): the device's attributes, grouped by prefix
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-             *    of the attributes which were prefixed by "dra.example.com".
+             *    of the attributes which were prefixed by "dra.example.com").
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
              *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
              *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -41692,6 +43521,13 @@ export namespace resource {
              * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
              *
              * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+             *   or guarding the check with has() for optional fields.
+             *   See CEL Optional Types for details:
+             *   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+             *
+             * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
              *
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
@@ -41717,7 +43553,7 @@ export namespace resource {
              *  - driver (string): the name of the driver which defines this device.
              *  - attributes (map[string]object): the device's attributes, grouped by prefix
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-             *    of the attributes which were prefixed by "dra.example.com".
+             *    of the attributes which were prefixed by "dra.example.com").
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
              *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
              *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -41736,6 +43572,13 @@ export namespace resource {
              * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
              *
              * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+             *   or guarding the check with has() for optional fields.
+             *   See CEL Optional Types for details:
+             *   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+             *
+             * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
              *
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
@@ -41786,6 +43629,8 @@ export namespace resource {
 
         /**
          * CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+         *
+         * If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
          *
          *   - If the requested amount is less than Min, it is rounded up to the Min value.
          *   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
@@ -42179,8 +44024,6 @@ export namespace resource {
             config: outputs.resource.v1beta1.DeviceClassConfiguration[];
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-             *
-             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -42201,8 +44044,6 @@ export namespace resource {
             config: outputs.resource.v1beta1.DeviceClassConfigurationPatch[];
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-             *
-             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -42284,6 +44125,18 @@ export namespace resource {
          */
         export interface DeviceCounterConsumption {
             /**
+             * CompatibilityGroups is a list of opaque group names for this counter set consumption.
+             *
+             * Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+             *
+             * An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+             *
+             * Group names are opaque and meaningful only within the publishing driver's pool.
+             *
+             * The maximum number of groups is 2, and the names must be unique.
+             */
+            compatibilityGroups: string[];
+            /**
              * CounterSet is the name of the set from which the counters defined will be consumed.
              */
             counterSet: string;
@@ -42300,6 +44153,18 @@ export namespace resource {
          */
         export interface DeviceCounterConsumptionPatch {
             /**
+             * CompatibilityGroups is a list of opaque group names for this counter set consumption.
+             *
+             * Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+             *
+             * An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+             *
+             * Group names are opaque and meaningful only within the publishing driver's pool.
+             *
+             * The maximum number of groups is 2, and the names must be unique.
+             */
+            compatibilityGroups: string[];
+            /**
              * CounterSet is the name of the set from which the counters defined will be consumed.
              */
             counterSet: string;
@@ -42309,6 +44174,62 @@ export namespace resource {
              * The maximum number of counters is 32.
              */
             counters: {[key: string]: outputs.resource.v1beta1.Counter};
+        }
+
+        /**
+         * DeviceDerivedAttribute defines a derived attribute computed via CEL.
+         */
+        export interface DeviceDerivedAttribute {
+            /**
+             * Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+             *
+             * The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+             *
+             * When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+             *
+             * The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+             */
+            expression: string;
+            /**
+             * Name is the identifier for this derived attribute, used in constraints.
+             *
+             * It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+             *
+             * If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+             *
+             * It is not valid to define a derived attribute that isn't used in at least one constraint.
+             */
+            name: string;
+        }
+
+        /**
+         * DeviceDerivedAttribute defines a derived attribute computed via CEL.
+         */
+        export interface DeviceDerivedAttributePatch {
+            /**
+             * Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+             *
+             * The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+             *
+             * When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+             *
+             * The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+             */
+            expression: string;
+            /**
+             * Name is the identifier for this derived attribute, used in constraints.
+             *
+             * It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+             *
+             * If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+             *
+             * It is not valid to define a derived attribute that isn't used in at least one constraint.
+             */
+            name: string;
         }
 
         /**
@@ -42370,6 +44291,18 @@ export namespace resource {
              * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
              */
             count: number;
+            /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1beta1.DeviceDerivedAttribute[];
             /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
              *
@@ -42471,6 +44404,10 @@ export namespace resource {
              */
             shareID: string;
             /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+             */
+            skipNodeOperations: string[];
+            /**
              * A copy of all tolerations specified in the request at the time when the device got allocated.
              *
              * The maximum number of tolerations is 16.
@@ -42537,6 +44474,10 @@ export namespace resource {
              */
             shareID: string;
             /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+             */
+            skipNodeOperations: string[];
+            /**
              * A copy of all tolerations specified in the request at the time when the device got allocated.
              *
              * The maximum number of tolerations is 16.
@@ -42591,6 +44532,18 @@ export namespace resource {
              * This field can only be set when deviceClassName is set and no subrequests are specified in the firstAvailable list.
              */
             count: number;
+            /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1beta1.DeviceDerivedAttributePatch[];
             /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
              *
@@ -42690,6 +44643,18 @@ export namespace resource {
              */
             count: number;
             /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1beta1.DeviceDerivedAttribute[];
+            /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
              *
              * A class is required. Which classes are available depends on the cluster.
@@ -42755,6 +44720,18 @@ export namespace resource {
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
             count: number;
+            /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1beta1.DeviceDerivedAttributePatch[];
             /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
              *
@@ -42940,31 +44917,49 @@ export namespace resource {
         }
 
         /**
-         * NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+         * NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices or the specific capacity consumed. These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
          */
-        export interface NodeAllocatableResourceMapping {
+        export interface NodeAllocatableMapping {
             /**
-             * AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
-             * 	   a. A DRA driver representing each CPU core as a device would have
-             *        {ResourceName: "cpu", allocationMultiplier: "2"} in its
-             *        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
-             * 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
-             *     b. A GPU device that needs additional node memory per GPU allocation would
-             *        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
-             * 		  GPU device instance of this type will account for 2Gi of memory.
-             *
-             * 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
-             *        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
-             *     For example, if a Device's capacity "dra.example.com/cores" is consumed,
-             *     and each "core" provides 2 "cpu"s, the mapping would be:
-             *     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
-             *     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
-             */
-            allocationMultiplier: string;
-            /**
-             * CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+             * CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
              */
             capacityKey: string;
+            /**
+             * CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+             */
+            capacityMultiplier: string;
+            /**
+             * DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+             */
+            deviceMultiplier: string;
+        }
+
+        /**
+         * NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+         */
+        export interface NodeAllocatableOverhead {
+            /**
+             * PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+             */
+            perContainer: string;
+            /**
+             * PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+             */
+            perPod: string;
+        }
+
+        /**
+         * NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+         */
+        export interface NodeAllocatableResource {
+            /**
+             * Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+             */
+            mapping: outputs.resource.v1beta1.NodeAllocatableMapping;
+            /**
+             * Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+             */
+            overhead: outputs.resource.v1beta1.NodeAllocatableOverhead;
         }
 
         /**
@@ -43212,7 +45207,7 @@ export namespace resource {
              */
             generation: number;
             /**
-             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
              *
              * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
              */
@@ -43236,7 +45231,7 @@ export namespace resource {
              */
             generation: number;
             /**
-             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
              *
              * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
              */
@@ -43324,6 +45319,12 @@ export namespace resource {
              */
             nodeSelector: outputs.core.v1.NodeSelector;
             /**
+             * PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+             *
+             * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+             */
+            partitionTypeAttribute: string;
+            /**
              * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
              *
              * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -43343,6 +45344,17 @@ export namespace resource {
              * The maximum number of counter sets is 8.
              */
             sharedCounters: outputs.resource.v1beta1.CounterSet[];
+            /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+             *
+             * - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+             *   value cannot be specified unless "NodeUnprepareResources" is also listed
+             *   (or "*" is specified).
+             * - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+             *
+             * Other values may be added in the future. The kubelet must ignore unknown values.
+             */
+            skipNodeOperations: string[];
         }
 
         /**
@@ -43386,6 +45398,12 @@ export namespace resource {
              */
             nodeSelector: outputs.core.v1.NodeSelectorPatch;
             /**
+             * PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+             *
+             * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+             */
+            partitionTypeAttribute: string;
+            /**
              * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
              *
              * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -43405,6 +45423,17 @@ export namespace resource {
              * The maximum number of counter sets is 8.
              */
             sharedCounters: outputs.resource.v1beta1.CounterSetPatch[];
+            /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+             *
+             * - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+             *   value cannot be specified unless "NodeUnprepareResources" is also listed
+             *   (or "*" is specified).
+             * - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+             *
+             * Other values may be added in the future. The kubelet must ignore unknown values.
+             */
+            skipNodeOperations: string[];
         }
 
     }
@@ -43549,7 +45578,7 @@ export namespace resource {
              *  - driver (string): the name of the driver which defines this device.
              *  - attributes (map[string]object): the device's attributes, grouped by prefix
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-             *    of the attributes which were prefixed by "dra.example.com".
+             *    of the attributes which were prefixed by "dra.example.com").
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
              *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
              *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -43568,6 +45597,13 @@ export namespace resource {
              * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
              *
              * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+             *   or guarding the check with has() for optional fields.
+             *   See CEL Optional Types for details:
+             *   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+             *
+             * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
              *
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
@@ -43593,7 +45629,7 @@ export namespace resource {
              *  - driver (string): the name of the driver which defines this device.
              *  - attributes (map[string]object): the device's attributes, grouped by prefix
              *    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-             *    of the attributes which were prefixed by "dra.example.com".
+             *    of the attributes which were prefixed by "dra.example.com").
              *  - capacity (map[string]object): the device's capacities, grouped by prefix.
              *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
              *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -43612,6 +45648,13 @@ export namespace resource {
              * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
              *
              * A robust expression should check for the existence of attributes before referencing them.
+             *
+             * Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+             *   or guarding the check with has() for optional fields.
+             *   See CEL Optional Types for details:
+             *   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+             *
+             * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
              *
              * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
              *
@@ -43662,6 +45705,8 @@ export namespace resource {
 
         /**
          * CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+         *
+         * If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
          *
          *   - If the requested amount is less than Min, it is rounded up to the Min value.
          *   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
@@ -43844,9 +45889,9 @@ export namespace resource {
              */
             name: string;
             /**
-             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             * NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
              */
-            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1beta2.NodeAllocatableResourceMapping};
+            nodeAllocatableResources: {[key: string]: outputs.resource.v1beta2.NodeAllocatableResource};
             /**
              * NodeName identifies the node where the device is available.
              *
@@ -44135,8 +46180,6 @@ export namespace resource {
             config: outputs.resource.v1beta2.DeviceClassConfiguration[];
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-             *
-             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -44157,8 +46200,6 @@ export namespace resource {
             config: outputs.resource.v1beta2.DeviceClassConfigurationPatch[];
             /**
              * ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-             *
-             * This is a beta field.
              */
             extendedResourceName: string;
             /**
@@ -44240,6 +46281,18 @@ export namespace resource {
          */
         export interface DeviceCounterConsumption {
             /**
+             * CompatibilityGroups is a list of opaque group names for this counter set consumption.
+             *
+             * Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+             *
+             * An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+             *
+             * Group names are opaque and meaningful only within the publishing driver's pool.
+             *
+             * The maximum number of groups is 2, and the names must be unique.
+             */
+            compatibilityGroups: string[];
+            /**
              * CounterSet is the name of the set from which the counters defined will be consumed.
              */
             counterSet: string;
@@ -44256,6 +46309,18 @@ export namespace resource {
          */
         export interface DeviceCounterConsumptionPatch {
             /**
+             * CompatibilityGroups is a list of opaque group names for this counter set consumption.
+             *
+             * Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+             *
+             * An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+             *
+             * Group names are opaque and meaningful only within the publishing driver's pool.
+             *
+             * The maximum number of groups is 2, and the names must be unique.
+             */
+            compatibilityGroups: string[];
+            /**
              * CounterSet is the name of the set from which the counters defined will be consumed.
              */
             counterSet: string;
@@ -44265,6 +46330,62 @@ export namespace resource {
              * The maximum number of counters is 32.
              */
             counters: {[key: string]: outputs.resource.v1beta2.Counter};
+        }
+
+        /**
+         * DeviceDerivedAttribute defines a derived attribute computed via CEL.
+         */
+        export interface DeviceDerivedAttribute {
+            /**
+             * Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+             *
+             * The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+             *
+             * When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+             *
+             * The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+             */
+            expression: string;
+            /**
+             * Name is the identifier for this derived attribute, used in constraints.
+             *
+             * It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+             *
+             * If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+             *
+             * It is not valid to define a derived attribute that isn't used in at least one constraint.
+             */
+            name: string;
+        }
+
+        /**
+         * DeviceDerivedAttribute defines a derived attribute computed via CEL.
+         */
+        export interface DeviceDerivedAttributePatch {
+            /**
+             * Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+             *
+             * The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+             *
+             * When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+             *
+             * The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+             *
+             * The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+             */
+            expression: string;
+            /**
+             * Name is the identifier for this derived attribute, used in constraints.
+             *
+             * It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+             *
+             * If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+             *
+             * It is not valid to define a derived attribute that isn't used in at least one constraint.
+             */
+            name: string;
         }
 
         /**
@@ -44334,9 +46455,9 @@ export namespace resource {
              */
             name: string;
             /**
-             * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+             * NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
              */
-            nodeAllocatableResourceMappings: {[key: string]: outputs.resource.v1beta2.NodeAllocatableResourceMapping};
+            nodeAllocatableResources: {[key: string]: outputs.resource.v1beta2.NodeAllocatableResource};
             /**
              * NodeName identifies the node where the device is available.
              *
@@ -44444,6 +46565,10 @@ export namespace resource {
              */
             shareID: string;
             /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+             */
+            skipNodeOperations: string[];
+            /**
              * A copy of all tolerations specified in the request at the time when the device got allocated.
              *
              * The maximum number of tolerations is 16.
@@ -44509,6 +46634,10 @@ export namespace resource {
              * ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
              */
             shareID: string;
+            /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+             */
+            skipNodeOperations: string[];
             /**
              * A copy of all tolerations specified in the request at the time when the device got allocated.
              *
@@ -44600,6 +46729,18 @@ export namespace resource {
              */
             count: number;
             /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1beta2.DeviceDerivedAttribute[];
+            /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
              *
              * A class is required. Which classes are available depends on the cluster.
@@ -44665,6 +46806,18 @@ export namespace resource {
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
             count: number;
+            /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1beta2.DeviceDerivedAttributePatch[];
             /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
              *
@@ -44979,6 +47132,18 @@ export namespace resource {
              */
             count: number;
             /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1beta2.DeviceDerivedAttribute[];
+            /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
              *
              * A DeviceClassName is required.
@@ -45043,6 +47208,18 @@ export namespace resource {
              * Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
              */
             count: number;
+            /**
+             * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+             *
+             * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+             *
+             * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+             *
+             * The maximum number of derived attributes is 32.
+             *
+             * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+             */
+            derivedAttributes: outputs.resource.v1beta2.DeviceDerivedAttributePatch[];
             /**
              * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
              *
@@ -45114,31 +47291,49 @@ export namespace resource {
         }
 
         /**
-         * NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
+         * NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
          */
-        export interface NodeAllocatableResourceMapping {
+        export interface NodeAllocatableMapping {
             /**
-             * AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
-             * 	   a. A DRA driver representing each CPU core as a device would have
-             *        {ResourceName: "cpu", allocationMultiplier: "2"} in its
-             *        `nodeAllocatableResourceMappings`. If 4 devices are allocated to the claim,
-             * 		  4 * 2 CPUs would be considered as allocated and subtracted from the node's capacity.
-             *     b. A GPU device that needs additional node memory per GPU allocation would
-             *        have {ResourceName: "memory", allocationMultiplier: "2Gi"}.  Each allocated
-             * 		  GPU device instance of this type will account for 2Gi of memory.
-             *
-             * 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
-             *        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
-             *     For example, if a Device's capacity "dra.example.com/cores" is consumed,
-             *     and each "core" provides 2 "cpu"s, the mapping would be:
-             *     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
-             *     If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
-             */
-            allocationMultiplier: string;
-            /**
-             * CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
+             * CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
              */
             capacityKey: string;
+            /**
+             * CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+             */
+            capacityMultiplier: string;
+            /**
+             * DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+             */
+            deviceMultiplier: string;
+        }
+
+        /**
+         * NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+         */
+        export interface NodeAllocatableOverhead {
+            /**
+             * PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+             */
+            perContainer: string;
+            /**
+             * PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+             */
+            perPod: string;
+        }
+
+        /**
+         * NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+         */
+        export interface NodeAllocatableResource {
+            /**
+             * Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+             */
+            mapping: outputs.resource.v1beta2.NodeAllocatableMapping;
+            /**
+             * Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+             */
+            overhead: outputs.resource.v1beta2.NodeAllocatableOverhead;
         }
 
         /**
@@ -45386,7 +47581,7 @@ export namespace resource {
              */
             generation: number;
             /**
-             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
              *
              * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
              */
@@ -45410,7 +47605,7 @@ export namespace resource {
              */
             generation: number;
             /**
-             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+             * Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
              *
              * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
              */
@@ -45498,6 +47693,12 @@ export namespace resource {
              */
             nodeSelector: outputs.core.v1.NodeSelector;
             /**
+             * PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+             *
+             * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+             */
+            partitionTypeAttribute: string;
+            /**
              * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
              *
              * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -45517,6 +47718,17 @@ export namespace resource {
              * The maximum number of counter sets is 8.
              */
             sharedCounters: outputs.resource.v1beta2.CounterSet[];
+            /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+             *
+             * - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+             *   value cannot be specified unless "NodeUnprepareResources" is also listed
+             *   (or "*" is specified).
+             * - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+             *
+             * Other values may be added in the future. The kubelet must ignore unknown values.
+             */
+            skipNodeOperations: string[];
         }
 
         /**
@@ -45560,6 +47772,12 @@ export namespace resource {
              */
             nodeSelector: outputs.core.v1.NodeSelectorPatch;
             /**
+             * PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+             *
+             * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+             */
+            partitionTypeAttribute: string;
+            /**
              * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
              *
              * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -45579,6 +47797,17 @@ export namespace resource {
              * The maximum number of counter sets is 8.
              */
             sharedCounters: outputs.resource.v1beta2.CounterSetPatch[];
+            /**
+             * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+             *
+             * - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+             *   value cannot be specified unless "NodeUnprepareResources" is also listed
+             *   (or "*" is specified).
+             * - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+             *
+             * Other values may be added in the future. The kubelet must ignore unknown values.
+             */
+            skipNodeOperations: string[];
         }
 
     }
@@ -45607,7 +47836,7 @@ export namespace scheduling {
              */
             kind: "PriorityClass";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -45659,7 +47888,31 @@ export namespace scheduling {
 
     }
 
-    export namespace v1alpha2 {
+    export namespace v1alpha3 {
+        /**
+         * AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+         */
+        export interface AllCompositeDisruptionMode {
+        }
+
+        /**
+         * AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+         */
+        export interface AllCompositeDisruptionModePatch {
+        }
+
+        /**
+         * AllDisruptionMode specifies that children can only be disrupted together.
+         */
+        export interface AllDisruptionMode {
+        }
+
+        /**
+         * AllDisruptionMode specifies that children can only be disrupted together.
+         */
+        export interface AllDisruptionModePatch {
+        }
+
         /**
          * BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
          */
@@ -45673,11 +47926,391 @@ export namespace scheduling {
         }
 
         /**
+         * CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+         */
+        export interface CompositeBasicSchedulingPolicy {
+        }
+
+        /**
+         * CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+         */
+        export interface CompositeBasicSchedulingPolicyPatch {
+        }
+
+        /**
+         * CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+         */
+        export interface CompositeDisruptionMode {
+            /**
+             * all specifies that all children groups can only be disrupted together.
+             */
+            all: outputs.scheduling.v1alpha3.AllCompositeDisruptionMode;
+            /**
+             * single specifies that children groups can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1alpha3.SingleCompositeDisruptionMode;
+        }
+
+        /**
+         * CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+         */
+        export interface CompositeDisruptionModePatch {
+            /**
+             * all specifies that all children groups can only be disrupted together.
+             */
+            all: outputs.scheduling.v1alpha3.AllCompositeDisruptionModePatch;
+            /**
+             * single specifies that children groups can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1alpha3.SingleCompositeDisruptionModePatch;
+        }
+
+        /**
+         * CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+         */
+        export interface CompositeGangSchedulingPolicy {
+            /**
+             * minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+             */
+            minGroupCount: number;
+        }
+
+        /**
+         * CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+         */
+        export interface CompositeGangSchedulingPolicyPatch {
+            /**
+             * minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+             */
+            minGroupCount: number;
+        }
+
+        /**
+         * CompositePodGroup represents a runtime instance of pod groups grouped together. CompositePodGroups are created by workload controllers (LWS, JobSet, etc...) from Workload.compositePodGroupTemplates. CompositePodGroup API enablement is toggled by the CompositePodGroup feature gate.
+         */
+        export interface CompositePodGroup {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "scheduling.k8s.io/v1alpha3";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "CompositePodGroup";
+            /**
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec defines the desired state of the CompositePodGroup.
+             */
+            spec: outputs.scheduling.v1alpha3.CompositePodGroupSpec;
+            /**
+             * status represents the current observed state of the CompositePodGroup.
+             */
+            status: outputs.scheduling.v1alpha3.CompositePodGroupStatus;
+        }
+
+        /**
+         * CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+         */
+        export interface CompositePodGroupSchedulingConstraints {
+            /**
+             * topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             */
+            topology: outputs.scheduling.v1alpha3.TopologyConstraint[];
+        }
+
+        /**
+         * CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+         */
+        export interface CompositePodGroupSchedulingConstraintsPatch {
+            /**
+             * topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             */
+            topology: outputs.scheduling.v1alpha3.TopologyConstraintPatch[];
+        }
+
+        /**
+         * CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+         */
+        export interface CompositePodGroupSchedulingPolicy {
+            /**
+             * basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+             */
+            basic: outputs.scheduling.v1alpha3.CompositeBasicSchedulingPolicy;
+            /**
+             * gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+             */
+            gang: outputs.scheduling.v1alpha3.CompositeGangSchedulingPolicy;
+        }
+
+        /**
+         * CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+         */
+        export interface CompositePodGroupSchedulingPolicyPatch {
+            /**
+             * basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+             */
+            basic: outputs.scheduling.v1alpha3.CompositeBasicSchedulingPolicyPatch;
+            /**
+             * gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+             */
+            gang: outputs.scheduling.v1alpha3.CompositeGangSchedulingPolicyPatch;
+        }
+
+        /**
+         * CompositePodGroupSpec defines the desired state of CompositePodGroup.
+         */
+        export interface CompositePodGroupSpec {
+            /**
+             * disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. Controllers are expected to fill this field by copying it from a CompositePodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1alpha3.CompositeDisruptionMode;
+            /**
+             * parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this composite pod group. It must be a DNS name. If it's nil, then this composite pod group is a root of a workload's hierarchy. This field is immutable.
+             */
+            parentCompositePodGroupName: string;
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of this composite pod group. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName defines the priority that should be considered when scheduling this CompositePodGroup. Controllers are expected to fill this field by copying it from a CompositePodGroupTemplate. If left unspecified, it is validated and resolved similarly to the PriorityClassName field in Pods (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the composite pod group's priority will be zero). This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroup. Controllers are expected to fill this field by copying it from a CompositePodGroupTemplate. This field is immutable.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha3.CompositePodGroupSchedulingConstraints;
+            /**
+             * schedulingPolicy defines the scheduling policy for this instance of the CompositePodGroup. Controllers are expected to fill this field by copying it from a CompositePodGroupTemplate. This field is immutable.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha3.CompositePodGroupSchedulingPolicy;
+            /**
+             * workloadRef references an optional CompositePodGroup template within the Workload object that was used to create the CompositePodGroup. This field is required. This field is immutable.
+             */
+            workloadRef: outputs.scheduling.v1alpha3.WorkloadReference;
+        }
+
+        /**
+         * CompositePodGroupSpec defines the desired state of CompositePodGroup.
+         */
+        export interface CompositePodGroupSpecPatch {
+            /**
+             * disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. Controllers are expected to fill this field by copying it from a CompositePodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1alpha3.CompositeDisruptionModePatch;
+            /**
+             * parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this composite pod group. It must be a DNS name. If it's nil, then this composite pod group is a root of a workload's hierarchy. This field is immutable.
+             */
+            parentCompositePodGroupName: string;
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of this composite pod group. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName defines the priority that should be considered when scheduling this CompositePodGroup. Controllers are expected to fill this field by copying it from a CompositePodGroupTemplate. If left unspecified, it is validated and resolved similarly to the PriorityClassName field in Pods (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the composite pod group's priority will be zero). This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroup. Controllers are expected to fill this field by copying it from a CompositePodGroupTemplate. This field is immutable.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha3.CompositePodGroupSchedulingConstraintsPatch;
+            /**
+             * schedulingPolicy defines the scheduling policy for this instance of the CompositePodGroup. Controllers are expected to fill this field by copying it from a CompositePodGroupTemplate. This field is immutable.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha3.CompositePodGroupSchedulingPolicyPatch;
+            /**
+             * workloadRef references an optional CompositePodGroup template within the Workload object that was used to create the CompositePodGroup. This field is required. This field is immutable.
+             */
+            workloadRef: outputs.scheduling.v1alpha3.WorkloadReferencePatch;
+        }
+
+        /**
+         * CompositePodGroupStatus represents information about the status of a composite pod group.
+         */
+        export interface CompositePodGroupStatus {
+            /**
+             * conditions represent the latest observations of the CompositePodGroup's state.
+             *
+             * Known condition types: - "CompositePodGroupInitiallyScheduled": Indicates whether the overall scheduling requirement
+             *   for the subtree under this CompositePodGroup has been satisfied. Once this condition
+             *   transitions to True, it serves as a terminal state and will never revert to False,
+             *   even if pods are subsequently deleted and group constraints are no longer met.
+             * - "DisruptionTarget": Indicates whether the CompositePodGroup is about to be terminated
+             *   due to disruption such as preemption.
+             *
+             * Known reasons for the CompositePodGroupInitiallyScheduled condition: - "Unschedulable": The CompositePodGroup's subtree could not be placed due to resource constraints,
+             *   affinity/anti-affinity, or topological constraints.
+             * - "SchedulerError": The CompositePodGroup cannot be scheduled due to some internal error
+             *   that occurred during scheduling.
+             * - "Invalid": Set to True when kube-scheduler detects an invalid group layout during
+             *   runtime validation. The `message` field details the specific layout violation (such as
+             *   a detected cycle, exceeding the maximum depth of 4, or referencing multiple distinct Workloads).
+             *
+             * Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The CompositePodGroup was targeted by the scheduler's preemption loop
+             *   to free up capacity for higher-priority preemptors.
+             */
+            conditions: outputs.meta.v1.Condition[];
+        }
+
+        /**
+         * CompositePodGroupStatus represents information about the status of a composite pod group.
+         */
+        export interface CompositePodGroupStatusPatch {
+            /**
+             * conditions represent the latest observations of the CompositePodGroup's state.
+             *
+             * Known condition types: - "CompositePodGroupInitiallyScheduled": Indicates whether the overall scheduling requirement
+             *   for the subtree under this CompositePodGroup has been satisfied. Once this condition
+             *   transitions to True, it serves as a terminal state and will never revert to False,
+             *   even if pods are subsequently deleted and group constraints are no longer met.
+             * - "DisruptionTarget": Indicates whether the CompositePodGroup is about to be terminated
+             *   due to disruption such as preemption.
+             *
+             * Known reasons for the CompositePodGroupInitiallyScheduled condition: - "Unschedulable": The CompositePodGroup's subtree could not be placed due to resource constraints,
+             *   affinity/anti-affinity, or topological constraints.
+             * - "SchedulerError": The CompositePodGroup cannot be scheduled due to some internal error
+             *   that occurred during scheduling.
+             * - "Invalid": Set to True when kube-scheduler detects an invalid group layout during
+             *   runtime validation. The `message` field details the specific layout violation (such as
+             *   a detected cycle, exceeding the maximum depth of 4, or referencing multiple distinct Workloads).
+             *
+             * Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The CompositePodGroup was targeted by the scheduler's preemption loop
+             *   to free up capacity for higher-priority preemptors.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+        }
+
+        /**
+         * CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+         */
+        export interface CompositePodGroupTemplate {
+            /**
+             * compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+             */
+            compositePodGroupTemplates: outputs.scheduling.v1alpha3.CompositePodGroupTemplate[];
+            /**
+             * disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1alpha3.CompositeDisruptionMode;
+            /**
+             * name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+             */
+            name: string;
+            /**
+             * podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+             */
+            podGroupTemplates: outputs.scheduling.v1alpha3.PodGroupTemplate[];
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha3.CompositePodGroupSchedulingConstraints;
+            /**
+             * schedulingPolicy defines the scheduling policy for this template.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha3.CompositePodGroupSchedulingPolicy;
+        }
+
+        /**
+         * CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+         */
+        export interface CompositePodGroupTemplatePatch {
+            /**
+             * compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+             */
+            compositePodGroupTemplates: outputs.scheduling.v1alpha3.CompositePodGroupTemplatePatch[];
+            /**
+             * disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1alpha3.CompositeDisruptionModePatch;
+            /**
+             * name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+             */
+            name: string;
+            /**
+             * podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+             */
+            podGroupTemplates: outputs.scheduling.v1alpha3.PodGroupTemplatePatch[];
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+             */
+            schedulingConstraints: outputs.scheduling.v1alpha3.CompositePodGroupSchedulingConstraintsPatch;
+            /**
+             * schedulingPolicy defines the scheduling policy for this template.
+             */
+            schedulingPolicy: outputs.scheduling.v1alpha3.CompositePodGroupSchedulingPolicyPatch;
+        }
+
+        /**
+         * DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+         */
+        export interface DisruptionMode {
+            /**
+             * all specifies that all children can only be disrupted together.
+             */
+            all: outputs.scheduling.v1alpha3.AllDisruptionMode;
+            /**
+             * single specifies that children can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1alpha3.SingleDisruptionMode;
+        }
+
+        /**
+         * DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+         */
+        export interface DisruptionModePatch {
+            /**
+             * all specifies that all children can only be disrupted together.
+             */
+            all: outputs.scheduling.v1alpha3.AllDisruptionModePatch;
+            /**
+             * single specifies that children can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1alpha3.SingleDisruptionModePatch;
+        }
+
+        /**
          * GangSchedulingPolicy defines the parameters for gang scheduling.
          */
         export interface GangSchedulingPolicy {
             /**
-             * MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+             * minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+             *
+             * Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
              */
             minCount: number;
         }
@@ -45687,7 +48320,9 @@ export namespace scheduling {
          */
         export interface GangSchedulingPolicyPatch {
             /**
-             * MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+             * minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+             *
+             * Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
              */
             minCount: number;
         }
@@ -45699,23 +48334,23 @@ export namespace scheduling {
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
-            apiVersion: "scheduling.k8s.io/v1alpha2";
+            apiVersion: "scheduling.k8s.io/v1alpha3";
             /**
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind: "PodGroup";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Spec defines the desired state of the PodGroup.
+             * spec defines the desired state of the PodGroup.
              */
-            spec: outputs.scheduling.v1alpha2.PodGroupSpec;
+            spec: outputs.scheduling.v1alpha3.PodGroupSpec;
             /**
-             * Status represents the current observed state of the PodGroup.
+             * status represents the current observed state of the PodGroup.
              */
-            status: outputs.scheduling.v1alpha2.PodGroupStatus;
+            status: outputs.scheduling.v1alpha3.PodGroupStatus;
         }
 
         /**
@@ -45725,17 +48360,17 @@ export namespace scheduling {
          */
         export interface PodGroupResourceClaim {
             /**
-             * Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+             * name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
              */
             name: string;
             /**
-             * ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+             * resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
              *
              * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
              */
             resourceClaimName: string;
             /**
-             * ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+             * resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
              *
              * The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
              *
@@ -45753,17 +48388,17 @@ export namespace scheduling {
          */
         export interface PodGroupResourceClaimPatch {
             /**
-             * Name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+             * name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
              */
             name: string;
             /**
-             * ResourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+             * resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
              *
              * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
              */
             resourceClaimName: string;
             /**
-             * ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+             * resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
              *
              * The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
              *
@@ -45779,11 +48414,11 @@ export namespace scheduling {
          */
         export interface PodGroupResourceClaimStatus {
             /**
-             * Name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+             * name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
              */
             name: string;
             /**
-             * ResourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+             * resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
              */
             resourceClaimName: string;
         }
@@ -45793,11 +48428,11 @@ export namespace scheduling {
          */
         export interface PodGroupResourceClaimStatusPatch {
             /**
-             * Name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+             * name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
              */
             name: string;
             /**
-             * ResourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+             * resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
              */
             resourceClaimName: string;
         }
@@ -45807,9 +48442,9 @@ export namespace scheduling {
          */
         export interface PodGroupSchedulingConstraints {
             /**
-             * Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             * topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
              */
-            topology: outputs.scheduling.v1alpha2.TopologyConstraint[];
+            topology: outputs.scheduling.v1alpha3.TopologyConstraint[];
         }
 
         /**
@@ -45817,37 +48452,37 @@ export namespace scheduling {
          */
         export interface PodGroupSchedulingConstraintsPatch {
             /**
-             * Topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             * topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
              */
-            topology: outputs.scheduling.v1alpha2.TopologyConstraintPatch[];
+            topology: outputs.scheduling.v1alpha3.TopologyConstraintPatch[];
         }
 
         /**
-         * PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.
+         * PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
          */
         export interface PodGroupSchedulingPolicy {
             /**
-             * Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+             * basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
              */
-            basic: outputs.scheduling.v1alpha2.BasicSchedulingPolicy;
+            basic: outputs.scheduling.v1alpha3.BasicSchedulingPolicy;
             /**
-             * Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+             * gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
              */
-            gang: outputs.scheduling.v1alpha2.GangSchedulingPolicy;
+            gang: outputs.scheduling.v1alpha3.GangSchedulingPolicy;
         }
 
         /**
-         * PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set.
+         * PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
          */
         export interface PodGroupSchedulingPolicyPatch {
             /**
-             * Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+             * basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
              */
-            basic: outputs.scheduling.v1alpha2.BasicSchedulingPolicyPatch;
+            basic: outputs.scheduling.v1alpha3.BasicSchedulingPolicyPatch;
             /**
-             * Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+             * gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
              */
-            gang: outputs.scheduling.v1alpha2.GangSchedulingPolicyPatch;
+            gang: outputs.scheduling.v1alpha3.GangSchedulingPolicyPatch;
         }
 
         /**
@@ -45855,37 +48490,45 @@ export namespace scheduling {
          */
         export interface PodGroupSpec {
             /**
-             * DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
              */
-            disruptionMode: string;
+            disruptionMode: outputs.scheduling.v1alpha3.DisruptionMode;
             /**
-             * PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
+             * parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
              */
-            podGroupTemplateRef: outputs.scheduling.v1alpha2.PodGroupTemplateReference;
+            parentCompositePodGroupName: string;
             /**
-             * Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
              */
             priority: number;
             /**
-             * PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
              */
             priorityClassName: string;
             /**
-             * ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             * resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
              *
-             * This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             * This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
              *
              * This field is immutable.
              */
-            resourceClaims: outputs.scheduling.v1alpha2.PodGroupResourceClaim[];
+            resourceClaims: outputs.scheduling.v1alpha3.PodGroupResourceClaim[];
             /**
-             * SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
              */
-            schedulingConstraints: outputs.scheduling.v1alpha2.PodGroupSchedulingConstraints;
+            schedulingConstraints: outputs.scheduling.v1alpha3.PodGroupSchedulingConstraints;
             /**
-             * SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
+             * schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
              */
-            schedulingPolicy: outputs.scheduling.v1alpha2.PodGroupSchedulingPolicy;
+            schedulingPolicy: outputs.scheduling.v1alpha3.PodGroupSchedulingPolicy;
+            /**
+             * workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+             */
+            workloadRef: outputs.scheduling.v1alpha3.WorkloadReference;
         }
 
         /**
@@ -45893,37 +48536,45 @@ export namespace scheduling {
          */
         export interface PodGroupSpecPatch {
             /**
-             * DisruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Pod, PodGroup. Defaults to Pod if unset. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
              */
-            disruptionMode: string;
+            disruptionMode: outputs.scheduling.v1alpha3.DisruptionModePatch;
             /**
-             * PodGroupTemplateRef references an optional PodGroup template within other object (e.g. Workload) that was used to create the PodGroup. This field is immutable.
+             * parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
              */
-            podGroupTemplateRef: outputs.scheduling.v1alpha2.PodGroupTemplateReferencePatch;
+            parentCompositePodGroupName: string;
             /**
-             * Priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
              */
             priority: number;
             /**
-             * PriorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
              */
             priorityClassName: string;
             /**
-             * ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             * resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
              *
-             * This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             * This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
              *
              * This field is immutable.
              */
-            resourceClaims: outputs.scheduling.v1alpha2.PodGroupResourceClaimPatch[];
+            resourceClaims: outputs.scheduling.v1alpha3.PodGroupResourceClaimPatch[];
             /**
-             * SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
              */
-            schedulingConstraints: outputs.scheduling.v1alpha2.PodGroupSchedulingConstraintsPatch;
+            schedulingConstraints: outputs.scheduling.v1alpha3.PodGroupSchedulingConstraintsPatch;
             /**
-             * SchedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable.
+             * schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
              */
-            schedulingPolicy: outputs.scheduling.v1alpha2.PodGroupSchedulingPolicyPatch;
+            schedulingPolicy: outputs.scheduling.v1alpha3.PodGroupSchedulingPolicyPatch;
+            /**
+             * workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+             */
+            workloadRef: outputs.scheduling.v1alpha3.WorkloadReferencePatch;
         }
 
         /**
@@ -45931,12 +48582,12 @@ export namespace scheduling {
          */
         export interface PodGroupStatus {
             /**
-             * Conditions represent the latest observations of the PodGroup's state.
+             * conditions represent the latest observations of the PodGroup's state.
              *
-             * Known condition types: - "PodGroupScheduled": Indicates whether the scheduling requirement has been satisfied. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+             * Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
              *   due to disruption such as preemption.
              *
-             * Known reasons for the PodGroupScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+             * Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
              *   affinity/anti-affinity rules, or insufficient capacity for the gang.
              * - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
              *   that happened during scheduling, for example due to nodeAffinity parsing errors.
@@ -45946,9 +48597,9 @@ export namespace scheduling {
              */
             conditions: outputs.meta.v1.Condition[];
             /**
-             * Status of resource claims.
+             * resourceClaimStatuses is status of resource claims.
              */
-            resourceClaimStatuses: outputs.scheduling.v1alpha2.PodGroupResourceClaimStatus[];
+            resourceClaimStatuses: outputs.scheduling.v1alpha3.PodGroupResourceClaimStatus[];
         }
 
         /**
@@ -45956,12 +48607,12 @@ export namespace scheduling {
          */
         export interface PodGroupStatusPatch {
             /**
-             * Conditions represent the latest observations of the PodGroup's state.
+             * conditions represent the latest observations of the PodGroup's state.
              *
-             * Known condition types: - "PodGroupScheduled": Indicates whether the scheduling requirement has been satisfied. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+             * Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
              *   due to disruption such as preemption.
              *
-             * Known reasons for the PodGroupScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+             * Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
              *   affinity/anti-affinity rules, or insufficient capacity for the gang.
              * - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
              *   that happened during scheduling, for example due to nodeAffinity parsing errors.
@@ -45971,9 +48622,9 @@ export namespace scheduling {
              */
             conditions: outputs.meta.v1.ConditionPatch[];
             /**
-             * Status of resource claims.
+             * resourceClaimStatuses is status of resource claims.
              */
-            resourceClaimStatuses: outputs.scheduling.v1alpha2.PodGroupResourceClaimStatusPatch[];
+            resourceClaimStatuses: outputs.scheduling.v1alpha3.PodGroupResourceClaimStatusPatch[];
         }
 
         /**
@@ -45981,37 +48632,41 @@ export namespace scheduling {
          */
         export interface PodGroupTemplate {
             /**
-             * DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
              */
-            disruptionMode: string;
+            disruptionMode: outputs.scheduling.v1alpha3.DisruptionMode;
             /**
-             * Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+             * name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
              */
             name: string;
             /**
-             * Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
              */
             priority: number;
             /**
-             * PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
              */
             priorityClassName: string;
             /**
-             * ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             * resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
              *
-             * This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             * This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
              *
              * This field is immutable.
              */
-            resourceClaims: outputs.scheduling.v1alpha2.PodGroupResourceClaim[];
+            resourceClaims: outputs.scheduling.v1alpha3.PodGroupResourceClaim[];
             /**
-             * SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
              */
-            schedulingConstraints: outputs.scheduling.v1alpha2.PodGroupSchedulingConstraints;
+            schedulingConstraints: outputs.scheduling.v1alpha3.PodGroupSchedulingConstraints;
             /**
-             * SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+             * schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
              */
-            schedulingPolicy: outputs.scheduling.v1alpha2.PodGroupSchedulingPolicy;
+            schedulingPolicy: outputs.scheduling.v1alpha3.PodGroupSchedulingPolicy;
         }
 
         /**
@@ -46019,57 +48674,65 @@ export namespace scheduling {
          */
         export interface PodGroupTemplatePatch {
             /**
-             * DisruptionMode defines the mode in which a given PodGroup can be disrupted. One of Pod, PodGroup. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
              */
-            disruptionMode: string;
+            disruptionMode: outputs.scheduling.v1alpha3.DisruptionModePatch;
             /**
-             * Name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+             * name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
              */
             name: string;
             /**
-             * Priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
              */
             priority: number;
             /**
-             * PriorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, pod groups created from this template will have the priority set to zero. This field is available only when the WorkloadAwarePreemption feature gate is enabled.
+             * priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
              */
             priorityClassName: string;
             /**
-             * ResourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             * resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
              *
-             * This is an alpha-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             * This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
              *
              * This field is immutable.
              */
-            resourceClaims: outputs.scheduling.v1alpha2.PodGroupResourceClaimPatch[];
+            resourceClaims: outputs.scheduling.v1alpha3.PodGroupResourceClaimPatch[];
             /**
-             * SchedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
              */
-            schedulingConstraints: outputs.scheduling.v1alpha2.PodGroupSchedulingConstraintsPatch;
+            schedulingConstraints: outputs.scheduling.v1alpha3.PodGroupSchedulingConstraintsPatch;
             /**
-             * SchedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+             * schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
              */
-            schedulingPolicy: outputs.scheduling.v1alpha2.PodGroupSchedulingPolicyPatch;
+            schedulingPolicy: outputs.scheduling.v1alpha3.PodGroupSchedulingPolicyPatch;
         }
 
         /**
-         * PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
+         * SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
          */
-        export interface PodGroupTemplateReference {
-            /**
-             * Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
-             */
-            workload: outputs.scheduling.v1alpha2.WorkloadPodGroupTemplateReference;
+        export interface SingleCompositeDisruptionMode {
         }
 
         /**
-         * PodGroupTemplateReference references a PodGroup template defined in some object (e.g. Workload). Exactly one reference must be set.
+         * SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
          */
-        export interface PodGroupTemplateReferencePatch {
-            /**
-             * Workload references the PodGroupTemplate within the Workload object that was used to create the PodGroup.
-             */
-            workload: outputs.scheduling.v1alpha2.WorkloadPodGroupTemplateReferencePatch;
+        export interface SingleCompositeDisruptionModePatch {
+        }
+
+        /**
+         * SingleDisruptionMode specifies that children can be disrupted independently.
+         */
+        export interface SingleDisruptionMode {
+        }
+
+        /**
+         * SingleDisruptionMode specifies that children can be disrupted independently.
+         */
+        export interface SingleDisruptionModePatch {
         }
 
         /**
@@ -46077,7 +48740,7 @@ export namespace scheduling {
          */
         export interface TopologyConstraint {
             /**
-             * Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+             * key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
              */
             key: string;
         }
@@ -46087,7 +48750,7 @@ export namespace scheduling {
          */
         export interface TopologyConstraintPatch {
             /**
-             * Key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+             * key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
              */
             key: string;
         }
@@ -46097,15 +48760,15 @@ export namespace scheduling {
          */
         export interface TypedLocalObjectReference {
             /**
-             * APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+             * apiGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
              */
             apiGroup: string;
             /**
-             * Kind is the type of resource being referenced. It must be a path segment name.
+             * kind is the type of resource being referenced. It must be a path segment name.
              */
             kind: string;
             /**
-             * Name is the name of resource being referenced. It must be a path segment name.
+             * name is the name of resource being referenced. It must be a path segment name.
              */
             name: string;
         }
@@ -46115,15 +48778,15 @@ export namespace scheduling {
          */
         export interface TypedLocalObjectReferencePatch {
             /**
-             * APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+             * apiGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
              */
             apiGroup: string;
             /**
-             * Kind is the type of resource being referenced. It must be a path segment name.
+             * kind is the type of resource being referenced. It must be a path segment name.
              */
             kind: string;
             /**
-             * Name is the name of resource being referenced. It must be a path segment name.
+             * name is the name of resource being referenced. It must be a path segment name.
              */
             name: string;
         }
@@ -46135,45 +48798,213 @@ export namespace scheduling {
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
-            apiVersion: "scheduling.k8s.io/v1alpha2";
+            apiVersion: "scheduling.k8s.io/v1alpha3";
             /**
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind: "Workload";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * Spec defines the desired behavior of a Workload.
+             * spec defines the desired behavior of a Workload.
              */
-            spec: outputs.scheduling.v1alpha2.WorkloadSpec;
+            spec: outputs.scheduling.v1alpha3.WorkloadSpec;
         }
 
         /**
-         * WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+         * WorkloadPodGroupAllDisruptionMode indicates that all pods in the group must be disrupted together.
          */
-        export interface WorkloadPodGroupTemplateReference {
+        export interface WorkloadPodGroupAllDisruptionMode {
+        }
+
+        /**
+         * WorkloadPodGroupAllDisruptionMode indicates that all pods in the group must be disrupted together.
+         */
+        export interface WorkloadPodGroupAllDisruptionModePatch {
+        }
+
+        /**
+         * WorkloadPodGroupBasicSchedulingPolicy indicates standard Kubernetes scheduling behavior.
+         */
+        export interface WorkloadPodGroupBasicSchedulingPolicy {
+        }
+
+        /**
+         * WorkloadPodGroupBasicSchedulingPolicy indicates standard Kubernetes scheduling behavior.
+         */
+        export interface WorkloadPodGroupBasicSchedulingPolicyPatch {
+        }
+
+        /**
+         * WorkloadPodGroupDisruptionMode defines how individual pods within a group can be disrupted. Exactly one mode must be set.
+         */
+        export interface WorkloadPodGroupDisruptionMode {
             /**
-             * PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+             * all specifies that all pods in the group must be disrupted together.
              */
-            podGroupTemplateName: string;
+            all: outputs.scheduling.v1alpha3.WorkloadPodGroupAllDisruptionMode;
             /**
-             * WorkloadName defines the name of the Workload object.
+             * single specifies that pods can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1alpha3.WorkloadPodGroupSingleDisruptionMode;
+        }
+
+        /**
+         * WorkloadPodGroupDisruptionMode defines how individual pods within a group can be disrupted. Exactly one mode must be set.
+         */
+        export interface WorkloadPodGroupDisruptionModePatch {
+            /**
+             * all specifies that all pods in the group must be disrupted together.
+             */
+            all: outputs.scheduling.v1alpha3.WorkloadPodGroupAllDisruptionModePatch;
+            /**
+             * single specifies that pods can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1alpha3.WorkloadPodGroupSingleDisruptionModePatch;
+        }
+
+        /**
+         * WorkloadPodGroupGangSchedulingPolicy defines the parameters for gang (all-or-nothing) scheduling.
+         */
+        export interface WorkloadPodGroupGangSchedulingPolicy {
+            /**
+             * minCount is the minimum number of pods that must be scheduled at the same time for the scheduler to admit the entire group. This field is optional. If it is not specified, the controller should inject a context-specific sane default (e.g., parallelism for a Job). If set, it must be a positive integer.
+             */
+            minCount: number;
+        }
+
+        /**
+         * WorkloadPodGroupGangSchedulingPolicy defines the parameters for gang (all-or-nothing) scheduling.
+         */
+        export interface WorkloadPodGroupGangSchedulingPolicyPatch {
+            /**
+             * minCount is the minimum number of pods that must be scheduled at the same time for the scheduler to admit the entire group. This field is optional. If it is not specified, the controller should inject a context-specific sane default (e.g., parallelism for a Job). If set, it must be a positive integer.
+             */
+            minCount: number;
+        }
+
+        /**
+         * WorkloadPodGroupResourceClaim references a dynamic resource claim that is shared across pods in the group.
+         */
+        export interface WorkloadPodGroupResourceClaim {
+            /**
+             * name uniquely identifies this resource claim inside the group. This field is required. It must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * resourceClaimName is the name of a ResourceClaim object in the same namespace. This field is optional. If it is not specified, no resource claim is used. If set, it must be a DNS subdomain.
+             */
+            resourceClaimName: string;
+            /**
+             * resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace. This field is optional. If it is not specified, no resource claim template is used. If set, it must be a DNS subdomain.
+             */
+            resourceClaimTemplateName: string;
+        }
+
+        /**
+         * WorkloadPodGroupResourceClaim references a dynamic resource claim that is shared across pods in the group.
+         */
+        export interface WorkloadPodGroupResourceClaimPatch {
+            /**
+             * name uniquely identifies this resource claim inside the group. This field is required. It must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * resourceClaimName is the name of a ResourceClaim object in the same namespace. This field is optional. If it is not specified, no resource claim is used. If set, it must be a DNS subdomain.
+             */
+            resourceClaimName: string;
+            /**
+             * resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace. This field is optional. If it is not specified, no resource claim template is used. If set, it must be a DNS subdomain.
+             */
+            resourceClaimTemplateName: string;
+        }
+
+        /**
+         * WorkloadPodGroupSchedulingConstraints defines leaf-level scheduling constraints, such as topology.
+         */
+        export interface WorkloadPodGroupSchedulingConstraints {
+            /**
+             * topology specifies desired topological placements for all pods within the pod group. If unset, no topology placement is requested.
+             */
+            topology: outputs.scheduling.v1alpha3.TopologyConstraint[];
+        }
+
+        /**
+         * WorkloadPodGroupSchedulingConstraints defines leaf-level scheduling constraints, such as topology.
+         */
+        export interface WorkloadPodGroupSchedulingConstraintsPatch {
+            /**
+             * topology specifies desired topological placements for all pods within the pod group. If unset, no topology placement is requested.
+             */
+            topology: outputs.scheduling.v1alpha3.TopologyConstraintPatch[];
+        }
+
+        /**
+         * WorkloadPodGroupSchedulingPolicy defines the scheduling policy for a group of pods managed by a workload controller. Exactly one policy must be set.
+         */
+        export interface WorkloadPodGroupSchedulingPolicy {
+            /**
+             * basic specifies that standard, pod-by-pod Kubernetes scheduling behavior should be used.
+             */
+            basic: outputs.scheduling.v1alpha3.WorkloadPodGroupBasicSchedulingPolicy;
+            /**
+             * gang specifies all-or-nothing scheduling semantics.
+             */
+            gang: outputs.scheduling.v1alpha3.WorkloadPodGroupGangSchedulingPolicy;
+        }
+
+        /**
+         * WorkloadPodGroupSchedulingPolicy defines the scheduling policy for a group of pods managed by a workload controller. Exactly one policy must be set.
+         */
+        export interface WorkloadPodGroupSchedulingPolicyPatch {
+            /**
+             * basic specifies that standard, pod-by-pod Kubernetes scheduling behavior should be used.
+             */
+            basic: outputs.scheduling.v1alpha3.WorkloadPodGroupBasicSchedulingPolicyPatch;
+            /**
+             * gang specifies all-or-nothing scheduling semantics.
+             */
+            gang: outputs.scheduling.v1alpha3.WorkloadPodGroupGangSchedulingPolicyPatch;
+        }
+
+        /**
+         * WorkloadPodGroupSingleDisruptionMode indicates that individual pods can be disrupted independently.
+         */
+        export interface WorkloadPodGroupSingleDisruptionMode {
+        }
+
+        /**
+         * WorkloadPodGroupSingleDisruptionMode indicates that individual pods can be disrupted independently.
+         */
+        export interface WorkloadPodGroupSingleDisruptionModePatch {
+        }
+
+        /**
+         * WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+         */
+        export interface WorkloadReference {
+            /**
+             * templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+             */
+            templateName: string;
+            /**
+             * workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
              */
             workloadName: string;
         }
 
         /**
-         * WorkloadPodGroupTemplateReference references the PodGroupTemplate within the Workload object.
+         * WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
          */
-        export interface WorkloadPodGroupTemplateReferencePatch {
+        export interface WorkloadReferencePatch {
             /**
-             * PodGroupTemplateName defines the PodGroupTemplate name within the Workload object.
+             * templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
              */
-            podGroupTemplateName: string;
+            templateName: string;
             /**
-             * WorkloadName defines the name of the Workload object.
+             * workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
              */
             workloadName: string;
         }
@@ -46183,13 +49014,19 @@ export namespace scheduling {
          */
         export interface WorkloadSpec {
             /**
-             * ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+             * compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+             *
+             * This field is used only when the CompositePodGroup feature gate is enabled.
              */
-            controllerRef: outputs.scheduling.v1alpha2.TypedLocalObjectReference;
+            compositePodGroupTemplates: outputs.scheduling.v1alpha3.CompositePodGroupTemplate[];
             /**
-             * PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
+             * controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
              */
-            podGroupTemplates: outputs.scheduling.v1alpha2.PodGroupTemplate[];
+            controllerRef: outputs.scheduling.v1alpha3.TypedLocalObjectReference;
+            /**
+             * podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+             */
+            podGroupTemplates: outputs.scheduling.v1alpha3.PodGroupTemplate[];
         }
 
         /**
@@ -46197,18 +49034,688 @@ export namespace scheduling {
          */
         export interface WorkloadSpecPatch {
             /**
-             * ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+             * compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+             *
+             * This field is used only when the CompositePodGroup feature gate is enabled.
              */
-            controllerRef: outputs.scheduling.v1alpha2.TypedLocalObjectReferencePatch;
+            compositePodGroupTemplates: outputs.scheduling.v1alpha3.CompositePodGroupTemplatePatch[];
             /**
-             * PodGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. This field is immutable.
+             * controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
              */
-            podGroupTemplates: outputs.scheduling.v1alpha2.PodGroupTemplatePatch[];
+            controllerRef: outputs.scheduling.v1alpha3.TypedLocalObjectReferencePatch;
+            /**
+             * podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+             */
+            podGroupTemplates: outputs.scheduling.v1alpha3.PodGroupTemplatePatch[];
         }
 
     }
 
     export namespace v1beta1 {
+        /**
+         * AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+         */
+        export interface AllCompositeDisruptionMode {
+        }
+
+        /**
+         * AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+         */
+        export interface AllCompositeDisruptionModePatch {
+        }
+
+        /**
+         * AllDisruptionMode specifies that children can only be disrupted together.
+         */
+        export interface AllDisruptionMode {
+        }
+
+        /**
+         * AllDisruptionMode specifies that children can only be disrupted together.
+         */
+        export interface AllDisruptionModePatch {
+        }
+
+        /**
+         * BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+         */
+        export interface BasicSchedulingPolicy {
+        }
+
+        /**
+         * BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+         */
+        export interface BasicSchedulingPolicyPatch {
+        }
+
+        /**
+         * CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+         */
+        export interface CompositeBasicSchedulingPolicy {
+        }
+
+        /**
+         * CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+         */
+        export interface CompositeBasicSchedulingPolicyPatch {
+        }
+
+        /**
+         * CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+         */
+        export interface CompositeDisruptionMode {
+            /**
+             * all specifies that all children groups can only be disrupted together.
+             */
+            all: outputs.scheduling.v1beta1.AllCompositeDisruptionMode;
+            /**
+             * single specifies that children groups can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1beta1.SingleCompositeDisruptionMode;
+        }
+
+        /**
+         * CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+         */
+        export interface CompositeDisruptionModePatch {
+            /**
+             * all specifies that all children groups can only be disrupted together.
+             */
+            all: outputs.scheduling.v1beta1.AllCompositeDisruptionModePatch;
+            /**
+             * single specifies that children groups can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1beta1.SingleCompositeDisruptionModePatch;
+        }
+
+        /**
+         * CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+         */
+        export interface CompositeGangSchedulingPolicy {
+            /**
+             * minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+             */
+            minGroupCount: number;
+        }
+
+        /**
+         * CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+         */
+        export interface CompositeGangSchedulingPolicyPatch {
+            /**
+             * minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+             */
+            minGroupCount: number;
+        }
+
+        /**
+         * CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+         */
+        export interface CompositePodGroupSchedulingConstraints {
+            /**
+             * topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             */
+            topology: outputs.scheduling.v1beta1.TopologyConstraint[];
+        }
+
+        /**
+         * CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+         */
+        export interface CompositePodGroupSchedulingConstraintsPatch {
+            /**
+             * topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             */
+            topology: outputs.scheduling.v1beta1.TopologyConstraintPatch[];
+        }
+
+        /**
+         * CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+         */
+        export interface CompositePodGroupSchedulingPolicy {
+            /**
+             * basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+             */
+            basic: outputs.scheduling.v1beta1.CompositeBasicSchedulingPolicy;
+            /**
+             * gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+             */
+            gang: outputs.scheduling.v1beta1.CompositeGangSchedulingPolicy;
+        }
+
+        /**
+         * CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+         */
+        export interface CompositePodGroupSchedulingPolicyPatch {
+            /**
+             * basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+             */
+            basic: outputs.scheduling.v1beta1.CompositeBasicSchedulingPolicyPatch;
+            /**
+             * gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+             */
+            gang: outputs.scheduling.v1beta1.CompositeGangSchedulingPolicyPatch;
+        }
+
+        /**
+         * CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+         */
+        export interface CompositePodGroupTemplate {
+            /**
+             * compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+             */
+            compositePodGroupTemplates: outputs.scheduling.v1beta1.CompositePodGroupTemplate[];
+            /**
+             * disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1beta1.CompositeDisruptionMode;
+            /**
+             * name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+             */
+            name: string;
+            /**
+             * podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+             */
+            podGroupTemplates: outputs.scheduling.v1beta1.PodGroupTemplate[];
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+             */
+            schedulingConstraints: outputs.scheduling.v1beta1.CompositePodGroupSchedulingConstraints;
+            /**
+             * schedulingPolicy defines the scheduling policy for this template.
+             */
+            schedulingPolicy: outputs.scheduling.v1beta1.CompositePodGroupSchedulingPolicy;
+        }
+
+        /**
+         * CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+         */
+        export interface CompositePodGroupTemplatePatch {
+            /**
+             * compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+             */
+            compositePodGroupTemplates: outputs.scheduling.v1beta1.CompositePodGroupTemplatePatch[];
+            /**
+             * disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1beta1.CompositeDisruptionModePatch;
+            /**
+             * name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+             */
+            name: string;
+            /**
+             * podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+             */
+            podGroupTemplates: outputs.scheduling.v1beta1.PodGroupTemplatePatch[];
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+             */
+            schedulingConstraints: outputs.scheduling.v1beta1.CompositePodGroupSchedulingConstraintsPatch;
+            /**
+             * schedulingPolicy defines the scheduling policy for this template.
+             */
+            schedulingPolicy: outputs.scheduling.v1beta1.CompositePodGroupSchedulingPolicyPatch;
+        }
+
+        /**
+         * DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+         */
+        export interface DisruptionMode {
+            /**
+             * all specifies that all children can only be disrupted together.
+             */
+            all: outputs.scheduling.v1beta1.AllDisruptionMode;
+            /**
+             * single specifies that children can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1beta1.SingleDisruptionMode;
+        }
+
+        /**
+         * DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+         */
+        export interface DisruptionModePatch {
+            /**
+             * all specifies that all children can only be disrupted together.
+             */
+            all: outputs.scheduling.v1beta1.AllDisruptionModePatch;
+            /**
+             * single specifies that children can be disrupted independently from each other.
+             */
+            single: outputs.scheduling.v1beta1.SingleDisruptionModePatch;
+        }
+
+        /**
+         * GangSchedulingPolicy defines the parameters for gang scheduling.
+         */
+        export interface GangSchedulingPolicy {
+            /**
+             * minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+             *
+             * Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+             */
+            minCount: number;
+        }
+
+        /**
+         * GangSchedulingPolicy defines the parameters for gang scheduling.
+         */
+        export interface GangSchedulingPolicyPatch {
+            /**
+             * minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+             *
+             * Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+             */
+            minCount: number;
+        }
+
+        /**
+         * PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
+         */
+        export interface PodGroup {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "scheduling.k8s.io/v1beta1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "PodGroup";
+            /**
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec defines the desired state of the PodGroup.
+             */
+            spec: outputs.scheduling.v1beta1.PodGroupSpec;
+            /**
+             * status represents the current observed state of the PodGroup.
+             */
+            status: outputs.scheduling.v1beta1.PodGroupStatus;
+        }
+
+        /**
+         * PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+         *
+         * It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+         */
+        export interface PodGroupResourceClaim {
+            /**
+             * name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+             *
+             * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+             */
+            resourceClaimName: string;
+            /**
+             * resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+             *
+             * The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+             *
+             * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+             *
+             * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+             */
+            resourceClaimTemplateName: string;
+        }
+
+        /**
+         * PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+         *
+         * It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+         */
+        export interface PodGroupResourceClaimPatch {
+            /**
+             * name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+             *
+             * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+             */
+            resourceClaimName: string;
+            /**
+             * resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+             *
+             * The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+             *
+             * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+             *
+             * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+             */
+            resourceClaimTemplateName: string;
+        }
+
+        /**
+         * PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+         */
+        export interface PodGroupResourceClaimStatus {
+            /**
+             * name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+             */
+            resourceClaimName: string;
+        }
+
+        /**
+         * PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+         */
+        export interface PodGroupResourceClaimStatusPatch {
+            /**
+             * name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+             */
+            name: string;
+            /**
+             * resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+             */
+            resourceClaimName: string;
+        }
+
+        /**
+         * PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+         */
+        export interface PodGroupSchedulingConstraints {
+            /**
+             * topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             */
+            topology: outputs.scheduling.v1beta1.TopologyConstraint[];
+        }
+
+        /**
+         * PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+         */
+        export interface PodGroupSchedulingConstraintsPatch {
+            /**
+             * topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+             */
+            topology: outputs.scheduling.v1beta1.TopologyConstraintPatch[];
+        }
+
+        /**
+         * PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
+         */
+        export interface PodGroupSchedulingPolicy {
+            /**
+             * basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
+             */
+            basic: outputs.scheduling.v1beta1.BasicSchedulingPolicy;
+            /**
+             * gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
+             */
+            gang: outputs.scheduling.v1beta1.GangSchedulingPolicy;
+        }
+
+        /**
+         * PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
+         */
+        export interface PodGroupSchedulingPolicyPatch {
+            /**
+             * basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
+             */
+            basic: outputs.scheduling.v1beta1.BasicSchedulingPolicyPatch;
+            /**
+             * gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
+             */
+            gang: outputs.scheduling.v1beta1.GangSchedulingPolicyPatch;
+        }
+
+        /**
+         * PodGroupSpec defines the desired state of a PodGroup.
+         */
+        export interface PodGroupSpec {
+            /**
+             * disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1beta1.DisruptionMode;
+            /**
+             * parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
+             */
+            parentCompositePodGroupName: string;
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             *
+             * This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             *
+             * This field is immutable.
+             */
+            resourceClaims: outputs.scheduling.v1beta1.PodGroupResourceClaim[];
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             */
+            schedulingConstraints: outputs.scheduling.v1beta1.PodGroupSchedulingConstraints;
+            /**
+             * schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
+             */
+            schedulingPolicy: outputs.scheduling.v1beta1.PodGroupSchedulingPolicy;
+            /**
+             * workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+             */
+            workloadRef: outputs.scheduling.v1beta1.WorkloadReference;
+        }
+
+        /**
+         * PodGroupSpec defines the desired state of a PodGroup.
+         */
+        export interface PodGroupSpecPatch {
+            /**
+             * disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1beta1.DisruptionModePatch;
+            /**
+             * parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
+             */
+            parentCompositePodGroupName: string;
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             *
+             * This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             *
+             * This field is immutable.
+             */
+            resourceClaims: outputs.scheduling.v1beta1.PodGroupResourceClaimPatch[];
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+             */
+            schedulingConstraints: outputs.scheduling.v1beta1.PodGroupSchedulingConstraintsPatch;
+            /**
+             * schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
+             */
+            schedulingPolicy: outputs.scheduling.v1beta1.PodGroupSchedulingPolicyPatch;
+            /**
+             * workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+             */
+            workloadRef: outputs.scheduling.v1beta1.WorkloadReferencePatch;
+        }
+
+        /**
+         * PodGroupStatus represents information about the status of a pod group.
+         */
+        export interface PodGroupStatus {
+            /**
+             * conditions represent the latest observations of the PodGroup's state.
+             *
+             * Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+             *   due to disruption such as preemption.
+             *
+             * Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+             *   affinity/anti-affinity rules, or insufficient capacity for the gang.
+             * - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+             *   that happened during scheduling, for example due to nodeAffinity parsing errors.
+             *
+             * Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+             *   higher-priority PodGroups or Pods.
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * resourceClaimStatuses is status of resource claims.
+             */
+            resourceClaimStatuses: outputs.scheduling.v1beta1.PodGroupResourceClaimStatus[];
+        }
+
+        /**
+         * PodGroupStatus represents information about the status of a pod group.
+         */
+        export interface PodGroupStatusPatch {
+            /**
+             * conditions represent the latest observations of the PodGroup's state.
+             *
+             * Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+             *   due to disruption such as preemption.
+             *
+             * Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+             *   affinity/anti-affinity rules, or insufficient capacity for the gang.
+             * - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+             *   that happened during scheduling, for example due to nodeAffinity parsing errors.
+             *
+             * Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+             *   higher-priority PodGroups or Pods.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * resourceClaimStatuses is status of resource claims.
+             */
+            resourceClaimStatuses: outputs.scheduling.v1beta1.PodGroupResourceClaimStatusPatch[];
+        }
+
+        /**
+         * PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+         */
+        export interface PodGroupTemplate {
+            /**
+             * disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1beta1.DisruptionMode;
+            /**
+             * name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+             */
+            name: string;
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             *
+             * This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             *
+             * This field is immutable.
+             */
+            resourceClaims: outputs.scheduling.v1beta1.PodGroupResourceClaim[];
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
+             */
+            schedulingConstraints: outputs.scheduling.v1beta1.PodGroupSchedulingConstraints;
+            /**
+             * schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+             */
+            schedulingPolicy: outputs.scheduling.v1beta1.PodGroupSchedulingPolicy;
+        }
+
+        /**
+         * PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+         */
+        export interface PodGroupTemplatePatch {
+            /**
+             * disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
+             */
+            disruptionMode: outputs.scheduling.v1beta1.DisruptionModePatch;
+            /**
+             * name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+             */
+            name: string;
+            /**
+             * preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+             */
+            preemptionPolicy: string;
+            /**
+             * priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
+             */
+            priority: number;
+            /**
+             * priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
+             */
+            priorityClassName: string;
+            /**
+             * resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+             *
+             * This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+             *
+             * This field is immutable.
+             */
+            resourceClaims: outputs.scheduling.v1beta1.PodGroupResourceClaimPatch[];
+            /**
+             * schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
+             */
+            schedulingConstraints: outputs.scheduling.v1beta1.PodGroupSchedulingConstraintsPatch;
+            /**
+             * schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+             */
+            schedulingPolicy: outputs.scheduling.v1beta1.PodGroupSchedulingPolicyPatch;
+        }
+
         /**
          * DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
          */
@@ -46241,6 +49748,176 @@ export namespace scheduling {
              * The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
              */
             value: number;
+        }
+
+        /**
+         * SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
+         */
+        export interface SingleCompositeDisruptionMode {
+        }
+
+        /**
+         * SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
+         */
+        export interface SingleCompositeDisruptionModePatch {
+        }
+
+        /**
+         * SingleDisruptionMode specifies that children can be disrupted independently.
+         */
+        export interface SingleDisruptionMode {
+        }
+
+        /**
+         * SingleDisruptionMode specifies that children can be disrupted independently.
+         */
+        export interface SingleDisruptionModePatch {
+        }
+
+        /**
+         * TopologyConstraint defines a topology constraint for a PodGroup.
+         */
+        export interface TopologyConstraint {
+            /**
+             * key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+             */
+            key: string;
+        }
+
+        /**
+         * TopologyConstraint defines a topology constraint for a PodGroup.
+         */
+        export interface TopologyConstraintPatch {
+            /**
+             * key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+             */
+            key: string;
+        }
+
+        /**
+         * TypedLocalObjectReference allows to reference typed object inside the same namespace.
+         */
+        export interface TypedLocalObjectReference {
+            /**
+             * apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+             */
+            apiGroup: string;
+            /**
+             * kind is the type of resource being referenced. It must be a path segment name.
+             */
+            kind: string;
+            /**
+             * name is the name of resource being referenced. It must be a path segment name.
+             */
+            name: string;
+        }
+
+        /**
+         * TypedLocalObjectReference allows to reference typed object inside the same namespace.
+         */
+        export interface TypedLocalObjectReferencePatch {
+            /**
+             * apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+             */
+            apiGroup: string;
+            /**
+             * kind is the type of resource being referenced. It must be a path segment name.
+             */
+            kind: string;
+            /**
+             * name is the name of resource being referenced. It must be a path segment name.
+             */
+            name: string;
+        }
+
+        /**
+         * Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
+         */
+        export interface Workload {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "scheduling.k8s.io/v1beta1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "Workload";
+            /**
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec defines the desired behavior of a Workload.
+             */
+            spec: outputs.scheduling.v1beta1.WorkloadSpec;
+        }
+
+        /**
+         * WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+         */
+        export interface WorkloadReference {
+            /**
+             * templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+             */
+            templateName: string;
+            /**
+             * workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+             */
+            workloadName: string;
+        }
+
+        /**
+         * WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+         */
+        export interface WorkloadReferencePatch {
+            /**
+             * templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+             */
+            templateName: string;
+            /**
+             * workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+             */
+            workloadName: string;
+        }
+
+        /**
+         * WorkloadSpec defines the desired state of a Workload.
+         */
+        export interface WorkloadSpec {
+            /**
+             * compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+             *
+             * This field is used only when the CompositePodGroup feature gate is enabled.
+             */
+            compositePodGroupTemplates: outputs.scheduling.v1beta1.CompositePodGroupTemplate[];
+            /**
+             * controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+             */
+            controllerRef: outputs.scheduling.v1beta1.TypedLocalObjectReference;
+            /**
+             * podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+             */
+            podGroupTemplates: outputs.scheduling.v1beta1.PodGroupTemplate[];
+        }
+
+        /**
+         * WorkloadSpec defines the desired state of a Workload.
+         */
+        export interface WorkloadSpecPatch {
+            /**
+             * compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+             *
+             * This field is used only when the CompositePodGroup feature gate is enabled.
+             */
+            compositePodGroupTemplates: outputs.scheduling.v1beta1.CompositePodGroupTemplatePatch[];
+            /**
+             * controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+             */
+            controllerRef: outputs.scheduling.v1beta1.TypedLocalObjectReferencePatch;
+            /**
+             * podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+             */
+            podGroupTemplates: outputs.scheduling.v1beta1.PodGroupTemplatePatch[];
         }
 
     }
@@ -46334,7 +50011,7 @@ export namespace storage {
              */
             kind: "CSIDriver";
             /**
-             * Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -46383,13 +50060,13 @@ export namespace storage {
              */
             podInfoOnMount: boolean;
             /**
-             * PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+             * preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
              *
              * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
              *
              * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
              *
-             * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+             * This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
              */
             preventPodSchedulingIfMissing: boolean;
             /**
@@ -46494,13 +50171,13 @@ export namespace storage {
              */
             podInfoOnMount: boolean;
             /**
-             * PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+             * preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
              *
              * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
              *
              * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
              *
-             * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+             * This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
              */
             preventPodSchedulingIfMissing: boolean;
             /**
@@ -46578,13 +50255,17 @@ export namespace storage {
              */
             kind: "CSINode";
             /**
-             * Standard object's metadata. metadata.name must be the Kubernetes node name.
+             * metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
              * spec is the specification of CSINode
              */
             spec: outputs.storage.v1.CSINodeSpec;
+            /**
+             * status contains health and status information for the node's storage.
+             */
+            status: outputs.storage.v1.CSINodeStatus;
         }
 
         /**
@@ -46652,6 +50333,26 @@ export namespace storage {
         }
 
         /**
+         * CSINodeStatus contains health and status information for storage on a node.
+         */
+        export interface CSINodeStatus {
+            /**
+             * storageHealth contains backend health reports for CSI drivers registered on the node.
+             */
+            storageHealth: outputs.storage.v1.StorageHealth[];
+        }
+
+        /**
+         * CSINodeStatus contains health and status information for storage on a node.
+         */
+        export interface CSINodeStatusPatch {
+            /**
+             * storageHealth contains backend health reports for CSI drivers registered on the node.
+             */
+            storageHealth: outputs.storage.v1.StorageHealthPatch[];
+        }
+
+        /**
          * CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
          *
          * For example this can express things like: - StorageClass "standard" has "1234 GiB" available in "topology.kubernetes.io/zone=us-east1" - StorageClass "localssd" has "10 GiB" available in "kubernetes.io/hostname=knode-abc123"
@@ -46684,7 +50385,7 @@ export namespace storage {
              */
             maximumVolumeSize: string;
             /**
-             * Standard object's metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+             * metadata is the standard object metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
              *
              * Objects are namespaced.
              *
@@ -46724,7 +50425,7 @@ export namespace storage {
              */
             kind: "StorageClass";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -46747,6 +50448,94 @@ export namespace storage {
              * volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
              */
             volumeBindingMode: string;
+        }
+
+        /**
+         * StorageHealth contains storage backend health reported by a CSI driver on a node.
+         */
+        export interface StorageHealth {
+            /**
+             * healthConditions are the adverse storage backend conditions reported by the CSI driver. At most 16 conditions may be reported.
+             */
+            healthConditions: outputs.storage.v1.StorageHealthCondition[];
+            /**
+             * name is the CSI driver name, matching CSINodeDriver.name.
+             */
+            name: string;
+        }
+
+        /**
+         * StorageHealthCondition represents an adverse health condition reported by a CSI driver for its storage backend on a node.
+         */
+        export interface StorageHealthCondition {
+            /**
+             * accessMode is the access mode affected. Nil means all access modes are affected.
+             */
+            accessMode: string;
+            /**
+             * lastTransitionTime is when this condition first appeared at its current state.
+             */
+            lastTransitionTime: string;
+            /**
+             * message is a human-readable description. Maximum permitted length of a message is 1024 characters.
+             */
+            message: string;
+            /**
+             * reason is a brief CamelCase machine-parseable reason. Maximum permitted length of a reason is 256 characters.
+             */
+            reason: string;
+            /**
+             * status is the health status category. One of "StorageUnreachable", "StorageDegraded".
+             */
+            status: string;
+            /**
+             * volumeMode is the volume mode affected. Nil means both are affected.
+             */
+            volumeMode: string;
+        }
+
+        /**
+         * StorageHealthCondition represents an adverse health condition reported by a CSI driver for its storage backend on a node.
+         */
+        export interface StorageHealthConditionPatch {
+            /**
+             * accessMode is the access mode affected. Nil means all access modes are affected.
+             */
+            accessMode: string;
+            /**
+             * lastTransitionTime is when this condition first appeared at its current state.
+             */
+            lastTransitionTime: string;
+            /**
+             * message is a human-readable description. Maximum permitted length of a message is 1024 characters.
+             */
+            message: string;
+            /**
+             * reason is a brief CamelCase machine-parseable reason. Maximum permitted length of a reason is 256 characters.
+             */
+            reason: string;
+            /**
+             * status is the health status category. One of "StorageUnreachable", "StorageDegraded".
+             */
+            status: string;
+            /**
+             * volumeMode is the volume mode affected. Nil means both are affected.
+             */
+            volumeMode: string;
+        }
+
+        /**
+         * StorageHealth contains storage backend health reported by a CSI driver on a node.
+         */
+        export interface StorageHealthPatch {
+            /**
+             * healthConditions are the adverse storage backend conditions reported by the CSI driver. At most 16 conditions may be reported.
+             */
+            healthConditions: outputs.storage.v1.StorageHealthConditionPatch[];
+            /**
+             * name is the CSI driver name, matching CSINodeDriver.name.
+             */
+            name: string;
         }
 
         /**
@@ -46792,7 +50581,7 @@ export namespace storage {
              */
             kind: "VolumeAttachment";
             /**
-             * Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -46922,7 +50711,7 @@ export namespace storage {
              */
             apiVersion: "storage.k8s.io/v1";
             /**
-             * Name of the CSI driver This field is immutable.
+             * driverName is the name of the CSI driver This field is immutable.
              */
             driverName: string;
             /**
@@ -46930,7 +50719,7 @@ export namespace storage {
              */
             kind: "VolumeAttributesClass";
             /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
@@ -47763,6 +51552,83 @@ export namespace storage {
 }
 
 export namespace storagemigration {
+    export namespace v1 {
+        /**
+         * StorageVersionMigration represents a migration of stored data to the latest storage version.
+         */
+        export interface StorageVersionMigration {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "storagemigration.k8s.io/v1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "StorageVersionMigration";
+            /**
+             * Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * Specification of the migration.
+             */
+            spec: outputs.storagemigration.v1.StorageVersionMigrationSpec;
+            /**
+             * Status of the migration.
+             */
+            status: outputs.storagemigration.v1.StorageVersionMigrationStatus;
+        }
+
+        /**
+         * Spec of the storage version migration.
+         */
+        export interface StorageVersionMigrationSpec {
+            /**
+             * The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+             */
+            resource: outputs.meta.v1.GroupResource;
+        }
+
+        /**
+         * Spec of the storage version migration.
+         */
+        export interface StorageVersionMigrationSpecPatch {
+            /**
+             * The resource that is being migrated. The migrator sends requests to the endpoint serving the resource. Immutable.
+             */
+            resource: outputs.meta.v1.GroupResourcePatch;
+        }
+
+        /**
+         * Status of the storage version migration.
+         */
+        export interface StorageVersionMigrationStatus {
+            /**
+             * The latest available observations of the migration's current state.
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
+             */
+            resourceVersion: string;
+        }
+
+        /**
+         * Status of the storage version migration.
+         */
+        export interface StorageVersionMigrationStatusPatch {
+            /**
+             * The latest available observations of the migration's current state.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * ResourceVersion to compare with the GC cache for performing the migration. This is the current resource version of given group, version and resource when kube-controller-manager first observes this StorageVersionMigration resource.
+             */
+            resourceVersion: string;
+        }
+
+    }
+
     export namespace v1alpha1 {
         /**
          * The names of the group, the version, and the resource.

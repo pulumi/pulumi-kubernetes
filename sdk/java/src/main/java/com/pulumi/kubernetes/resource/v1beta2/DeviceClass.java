@@ -101,7 +101,7 @@ public class DeviceClass extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public DeviceClass(java.lang.String name, DeviceClassArgs args) {
+    public DeviceClass(java.lang.String name, @Nullable DeviceClassArgs args) {
         this(name, args, null);
     }
     /**
@@ -110,7 +110,7 @@ public class DeviceClass extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public DeviceClass(java.lang.String name, DeviceClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public DeviceClass(java.lang.String name, @Nullable DeviceClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:resource.k8s.io/v1beta2:DeviceClass", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
@@ -118,7 +118,7 @@ public class DeviceClass extends com.pulumi.resources.CustomResource {
         super("kubernetes:resource.k8s.io/v1beta2:DeviceClass", name, null, makeResourceOptions(options, id), false);
     }
 
-    private static DeviceClassArgs makeArgs(DeviceClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    private static DeviceClassArgs makeArgs(@Nullable DeviceClassArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         if (options != null && options.getUrn().isPresent()) {
             return null;
         }

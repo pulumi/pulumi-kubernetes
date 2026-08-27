@@ -59,42 +59,42 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
         return Codegen.optional(this.kind);
     }
     /**
-     * Standard object&#39;s metadata.
+     * metadata is the standard object&#39;s metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Output<Optional<ObjectMetaPatch>> metadata() {
         return Codegen.optional(this.metadata);
     }
     /**
-     * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     @Export(name="roleRef", refs={RoleRefPatch.class}, tree="[0]")
     private Output</* @Nullable */ RoleRefPatch> roleRef;
 
     /**
-     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * @return roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     public Output<Optional<RoleRefPatch>> roleRef() {
         return Codegen.optional(this.roleRef);
     }
     /**
-     * Subjects holds references to the objects the role applies to.
+     * subjects holds references to the objects the role applies to.
      * 
      */
     @Export(name="subjects", refs={List.class,SubjectPatch.class}, tree="[0,1]")
     private Output</* @Nullable */ List<SubjectPatch>> subjects;
 
     /**
-     * @return Subjects holds references to the objects the role applies to.
+     * @return subjects holds references to the objects the role applies to.
      * 
      */
     public Output<Optional<List<SubjectPatch>>> subjects() {

@@ -20,14 +20,14 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
     public static final ParentReferencePatchArgs Empty = new ParentReferencePatchArgs();
 
     /**
-     * Group is the group of the object being referenced.
+     * group is the group of the object being referenced.
      * 
      */
     @Import(name="group")
     private @Nullable Output<String> group;
 
     /**
-     * @return Group is the group of the object being referenced.
+     * @return group is the group of the object being referenced.
      * 
      */
     public Optional<Output<String>> group() {
@@ -35,14 +35,14 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * Name is the name of the object being referenced.
+     * name is the name of the object being referenced.
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return Name is the name of the object being referenced.
+     * @return name is the name of the object being referenced.
      * 
      */
     public Optional<Output<String>> name() {
@@ -50,14 +50,14 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * Namespace is the namespace of the object being referenced.
+     * namespace is the namespace of the object being referenced.
      * 
      */
     @Import(name="namespace")
     private @Nullable Output<String> namespace;
 
     /**
-     * @return Namespace is the namespace of the object being referenced.
+     * @return namespace is the namespace of the object being referenced.
      * 
      */
     public Optional<Output<String>> namespace() {
@@ -65,14 +65,14 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * Resource is the resource of the object being referenced.
+     * resource is the resource of the object being referenced.
      * 
      */
     @Import(name="resource")
     private @Nullable Output<String> resource;
 
     /**
-     * @return Resource is the resource of the object being referenced.
+     * @return resource is the resource of the object being referenced.
      * 
      */
     public Optional<Output<String>> resource() {
@@ -107,7 +107,7 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param group Group is the group of the object being referenced.
+         * @param group group is the group of the object being referenced.
          * 
          * @return builder
          * 
@@ -118,7 +118,7 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param group Group is the group of the object being referenced.
+         * @param group group is the group of the object being referenced.
          * 
          * @return builder
          * 
@@ -128,7 +128,7 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param name Name is the name of the object being referenced.
+         * @param name name is the name of the object being referenced.
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param name Name is the name of the object being referenced.
+         * @param name name is the name of the object being referenced.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param namespace Namespace is the namespace of the object being referenced.
+         * @param namespace namespace is the namespace of the object being referenced.
          * 
          * @return builder
          * 
@@ -160,7 +160,7 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param namespace Namespace is the namespace of the object being referenced.
+         * @param namespace namespace is the namespace of the object being referenced.
          * 
          * @return builder
          * 
@@ -170,7 +170,7 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param resource Resource is the resource of the object being referenced.
+         * @param resource resource is the resource of the object being referenced.
          * 
          * @return builder
          * 
@@ -181,7 +181,7 @@ public final class ParentReferencePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param resource Resource is the resource of the object being referenced.
+         * @param resource resource is the resource of the object being referenced.
          * 
          * @return builder
          * 

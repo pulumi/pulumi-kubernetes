@@ -71,9 +71,6 @@ export class DeviceClass extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if (args?.spec === undefined && !opts.urn) {
-                throw new Error("Missing required property 'spec'");
-            }
             resourceInputs["apiVersion"] = "resource.k8s.io/v1beta2";
             resourceInputs["kind"] = "DeviceClass";
             resourceInputs["metadata"] = args?.metadata;
@@ -114,5 +111,5 @@ export interface DeviceClassArgs {
      *
      * Changing the spec automatically increments the metadata.generation number.
      */
-    spec: pulumi.Input<inputs.resource.v1beta2.DeviceClassSpec>;
+    spec?: pulumi.Input<inputs.resource.v1beta2.DeviceClassSpec | undefined>;
 }

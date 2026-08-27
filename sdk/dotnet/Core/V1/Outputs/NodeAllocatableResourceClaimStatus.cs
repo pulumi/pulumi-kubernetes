@@ -21,25 +21,32 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<string> Containers;
         /// <summary>
+        /// Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeAllocatableMappedResources> Mapping;
+        /// <summary>
+        /// Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeAllocatableOverheadResources> Overhead;
+        /// <summary>
         /// ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
         /// </summary>
         public readonly string ResourceClaimName;
-        /// <summary>
-        /// Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-        /// </summary>
-        public readonly ImmutableDictionary<string, string> Resources;
 
         [OutputConstructor]
         private NodeAllocatableResourceClaimStatus(
             ImmutableArray<string> containers,
 
-            string resourceClaimName,
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeAllocatableMappedResources> mapping,
 
-            ImmutableDictionary<string, string> resources)
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeAllocatableOverheadResources> overhead,
+
+            string resourceClaimName)
         {
             Containers = containers;
+            Mapping = mapping;
+            Overhead = overhead;
             ResourceClaimName = resourceClaimName;
-            Resources = resources;
         }
     }
 }

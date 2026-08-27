@@ -54,14 +54,14 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -169,7 +169,7 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+         * @param metadata metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
          * 
          * @return builder
          * 
@@ -180,7 +180,7 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+         * @param metadata metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
          * 
          * @return builder
          * 

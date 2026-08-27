@@ -4,7 +4,6 @@
 package com.pulumi.kubernetes.resource.v1beta2.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1beta2.outputs.DeviceClassSpec;
 import java.lang.String;
@@ -37,7 +36,7 @@ public final class DeviceClass {
      * Changing the spec automatically increments the metadata.generation number.
      * 
      */
-    private DeviceClassSpec spec;
+    private @Nullable DeviceClassSpec spec;
 
     private DeviceClass() {}
     /**
@@ -69,8 +68,8 @@ public final class DeviceClass {
      * Changing the spec automatically increments the metadata.generation number.
      * 
      */
-    public DeviceClassSpec spec() {
-        return this.spec;
+    public Optional<DeviceClassSpec> spec() {
+        return Optional.ofNullable(this.spec);
     }
 
     public static Builder builder() {
@@ -85,7 +84,7 @@ public final class DeviceClass {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private DeviceClassSpec spec;
+        private @Nullable DeviceClassSpec spec;
         public Builder() {}
         public Builder(DeviceClass defaults) {
     	      Objects.requireNonNull(defaults);
@@ -114,10 +113,8 @@ public final class DeviceClass {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(DeviceClassSpec spec) {
-            if (spec == null) {
-              throw new MissingRequiredPropertyException("DeviceClass", "spec");
-            }
+        public Builder spec(@Nullable DeviceClassSpec spec) {
+
             this.spec = spec;
             return this;
         }

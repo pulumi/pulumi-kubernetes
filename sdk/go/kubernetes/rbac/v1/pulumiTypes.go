@@ -16,7 +16,7 @@ var _ = utilities.GetEnvOrDefault
 
 // AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 type AggregationRule struct {
-	// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+	// clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 	ClusterRoleSelectors []metav1.LabelSelector `pulumi:"clusterRoleSelectors"`
 }
 
@@ -33,7 +33,7 @@ type AggregationRuleInput interface {
 
 // AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 type AggregationRuleArgs struct {
-	// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+	// clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 	ClusterRoleSelectors metav1.LabelSelectorArrayInput `pulumi:"clusterRoleSelectors"`
 }
 
@@ -115,7 +115,7 @@ func (o AggregationRuleOutput) ToAggregationRulePtrOutputWithContext(ctx context
 	}).(AggregationRulePtrOutput)
 }
 
-// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+// clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 func (o AggregationRuleOutput) ClusterRoleSelectors() metav1.LabelSelectorArrayOutput {
 	return o.ApplyT(func(v AggregationRule) []metav1.LabelSelector { return v.ClusterRoleSelectors }).(metav1.LabelSelectorArrayOutput)
 }
@@ -144,7 +144,7 @@ func (o AggregationRulePtrOutput) Elem() AggregationRuleOutput {
 	}).(AggregationRuleOutput)
 }
 
-// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+// clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 func (o AggregationRulePtrOutput) ClusterRoleSelectors() metav1.LabelSelectorArrayOutput {
 	return o.ApplyT(func(v *AggregationRule) []metav1.LabelSelector {
 		if v == nil {
@@ -156,7 +156,7 @@ func (o AggregationRulePtrOutput) ClusterRoleSelectors() metav1.LabelSelectorArr
 
 // AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 type AggregationRulePatch struct {
-	// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+	// clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 	ClusterRoleSelectors []metav1.LabelSelectorPatch `pulumi:"clusterRoleSelectors"`
 }
 
@@ -173,7 +173,7 @@ type AggregationRulePatchInput interface {
 
 // AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 type AggregationRulePatchArgs struct {
-	// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+	// clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 	ClusterRoleSelectors metav1.LabelSelectorPatchArrayInput `pulumi:"clusterRoleSelectors"`
 }
 
@@ -255,7 +255,7 @@ func (o AggregationRulePatchOutput) ToAggregationRulePatchPtrOutputWithContext(c
 	}).(AggregationRulePatchPtrOutput)
 }
 
-// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+// clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 func (o AggregationRulePatchOutput) ClusterRoleSelectors() metav1.LabelSelectorPatchArrayOutput {
 	return o.ApplyT(func(v AggregationRulePatch) []metav1.LabelSelectorPatch { return v.ClusterRoleSelectors }).(metav1.LabelSelectorPatchArrayOutput)
 }
@@ -284,7 +284,7 @@ func (o AggregationRulePatchPtrOutput) Elem() AggregationRulePatchOutput {
 	}).(AggregationRulePatchOutput)
 }
 
-// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+// clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 func (o AggregationRulePatchPtrOutput) ClusterRoleSelectors() metav1.LabelSelectorPatchArrayOutput {
 	return o.ApplyT(func(v *AggregationRulePatch) []metav1.LabelSelectorPatch {
 		if v == nil {
@@ -296,15 +296,15 @@ func (o AggregationRulePatchPtrOutput) ClusterRoleSelectors() metav1.LabelSelect
 
 // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 type ClusterRoleType struct {
-	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+	// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
 	AggregationRule *AggregationRule `pulumi:"aggregationRule"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this ClusterRole
+	// rules holds all the PolicyRules for this ClusterRole
 	Rules []PolicyRule `pulumi:"rules"`
 }
 
@@ -321,15 +321,15 @@ type ClusterRoleTypeInput interface {
 
 // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 type ClusterRoleTypeArgs struct {
-	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+	// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
 	AggregationRule AggregationRulePtrInput `pulumi:"aggregationRule"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this ClusterRole
+	// rules holds all the PolicyRules for this ClusterRole
 	Rules PolicyRuleArrayInput `pulumi:"rules"`
 }
 
@@ -385,7 +385,7 @@ func (o ClusterRoleTypeOutput) ToClusterRoleTypeOutputWithContext(ctx context.Co
 	return o
 }
 
-// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
 func (o ClusterRoleTypeOutput) AggregationRule() AggregationRulePtrOutput {
 	return o.ApplyT(func(v ClusterRoleType) *AggregationRule { return v.AggregationRule }).(AggregationRulePtrOutput)
 }
@@ -400,12 +400,12 @@ func (o ClusterRoleTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterRoleType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o ClusterRoleTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v ClusterRoleType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Rules holds all the PolicyRules for this ClusterRole
+// rules holds all the PolicyRules for this ClusterRole
 func (o ClusterRoleTypeOutput) Rules() PolicyRuleArrayOutput {
 	return o.ApplyT(func(v ClusterRoleType) []PolicyRule { return v.Rules }).(PolicyRuleArrayOutput)
 }
@@ -436,11 +436,11 @@ type ClusterRoleBindingType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRef `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects []Subject `pulumi:"subjects"`
 }
 
@@ -461,11 +461,11 @@ type ClusterRoleBindingTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefInput `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects SubjectArrayInput `pulumi:"subjects"`
 }
 
@@ -531,17 +531,17 @@ func (o ClusterRoleBindingTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterRoleBindingType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o ClusterRoleBindingTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v ClusterRoleBindingType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 func (o ClusterRoleBindingTypeOutput) RoleRef() RoleRefOutput {
 	return o.ApplyT(func(v ClusterRoleBindingType) RoleRef { return v.RoleRef }).(RoleRefOutput)
 }
 
-// Subjects holds references to the objects the role applies to.
+// subjects holds references to the objects the role applies to.
 func (o ClusterRoleBindingTypeOutput) Subjects() SubjectArrayOutput {
 	return o.ApplyT(func(v ClusterRoleBindingType) []Subject { return v.Subjects }).(SubjectArrayOutput)
 }
@@ -654,11 +654,11 @@ type ClusterRoleBindingPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef *RoleRefPatch `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects []SubjectPatch `pulumi:"subjects"`
 }
 
@@ -679,11 +679,11 @@ type ClusterRoleBindingPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefPatchPtrInput `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects SubjectPatchArrayInput `pulumi:"subjects"`
 }
 
@@ -724,17 +724,17 @@ func (o ClusterRoleBindingPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterRoleBindingPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o ClusterRoleBindingPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v ClusterRoleBindingPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 func (o ClusterRoleBindingPatchTypeOutput) RoleRef() RoleRefPatchPtrOutput {
 	return o.ApplyT(func(v ClusterRoleBindingPatchType) *RoleRefPatch { return v.RoleRef }).(RoleRefPatchPtrOutput)
 }
 
-// Subjects holds references to the objects the role applies to.
+// subjects holds references to the objects the role applies to.
 func (o ClusterRoleBindingPatchTypeOutput) Subjects() SubjectPatchArrayOutput {
 	return o.ApplyT(func(v ClusterRoleBindingPatchType) []SubjectPatch { return v.Subjects }).(SubjectPatchArrayOutput)
 }
@@ -823,15 +823,15 @@ func (o ClusterRoleListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 type ClusterRolePatchType struct {
-	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+	// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
 	AggregationRule *AggregationRulePatch `pulumi:"aggregationRule"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this ClusterRole
+	// rules holds all the PolicyRules for this ClusterRole
 	Rules []PolicyRulePatch `pulumi:"rules"`
 }
 
@@ -848,15 +848,15 @@ type ClusterRolePatchTypeInput interface {
 
 // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 type ClusterRolePatchTypeArgs struct {
-	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+	// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
 	AggregationRule AggregationRulePatchPtrInput `pulumi:"aggregationRule"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this ClusterRole
+	// rules holds all the PolicyRules for this ClusterRole
 	Rules PolicyRulePatchArrayInput `pulumi:"rules"`
 }
 
@@ -887,7 +887,7 @@ func (o ClusterRolePatchTypeOutput) ToClusterRolePatchTypeOutputWithContext(ctx 
 	return o
 }
 
-// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
 func (o ClusterRolePatchTypeOutput) AggregationRule() AggregationRulePatchPtrOutput {
 	return o.ApplyT(func(v ClusterRolePatchType) *AggregationRulePatch { return v.AggregationRule }).(AggregationRulePatchPtrOutput)
 }
@@ -902,27 +902,27 @@ func (o ClusterRolePatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterRolePatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o ClusterRolePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v ClusterRolePatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Rules holds all the PolicyRules for this ClusterRole
+// rules holds all the PolicyRules for this ClusterRole
 func (o ClusterRolePatchTypeOutput) Rules() PolicyRulePatchArrayOutput {
 	return o.ApplyT(func(v ClusterRolePatchType) []PolicyRulePatch { return v.Rules }).(PolicyRulePatchArrayOutput)
 }
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRule struct {
-	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+	// apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 	ApiGroups []string `pulumi:"apiGroups"`
-	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+	// nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
-	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+	// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames []string `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to. '*' represents all resources.
+	// resources is a list of resources this rule applies to. '*' represents all resources.
 	Resources []string `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+	// verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 	Verbs []string `pulumi:"verbs"`
 }
 
@@ -939,15 +939,15 @@ type PolicyRuleInput interface {
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRuleArgs struct {
-	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+	// apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
-	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+	// nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
-	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+	// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames pulumi.StringArrayInput `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to. '*' represents all resources.
+	// resources is a list of resources this rule applies to. '*' represents all resources.
 	Resources pulumi.StringArrayInput `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+	// verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 	Verbs pulumi.StringArrayInput `pulumi:"verbs"`
 }
 
@@ -1003,27 +1003,27 @@ func (o PolicyRuleOutput) ToPolicyRuleOutputWithContext(ctx context.Context) Pol
 	return o
 }
 
-// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+// apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 func (o PolicyRuleOutput) ApiGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.ApiGroups }).(pulumi.StringArrayOutput)
 }
 
-// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+// nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 func (o PolicyRuleOutput) NonResourceURLs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.NonResourceURLs }).(pulumi.StringArrayOutput)
 }
 
-// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 func (o PolicyRuleOutput) ResourceNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.ResourceNames }).(pulumi.StringArrayOutput)
 }
 
-// Resources is a list of resources this rule applies to. '*' represents all resources.
+// resources is a list of resources this rule applies to. '*' represents all resources.
 func (o PolicyRuleOutput) Resources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.Resources }).(pulumi.StringArrayOutput)
 }
 
-// Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+// verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 func (o PolicyRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }
@@ -1050,15 +1050,15 @@ func (o PolicyRuleArrayOutput) Index(i pulumi.IntInput) PolicyRuleOutput {
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRulePatch struct {
-	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+	// apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 	ApiGroups []string `pulumi:"apiGroups"`
-	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+	// nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
-	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+	// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames []string `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to. '*' represents all resources.
+	// resources is a list of resources this rule applies to. '*' represents all resources.
 	Resources []string `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+	// verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 	Verbs []string `pulumi:"verbs"`
 }
 
@@ -1075,15 +1075,15 @@ type PolicyRulePatchInput interface {
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRulePatchArgs struct {
-	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+	// apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
-	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+	// nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
-	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+	// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames pulumi.StringArrayInput `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to. '*' represents all resources.
+	// resources is a list of resources this rule applies to. '*' represents all resources.
 	Resources pulumi.StringArrayInput `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+	// verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 	Verbs pulumi.StringArrayInput `pulumi:"verbs"`
 }
 
@@ -1139,27 +1139,27 @@ func (o PolicyRulePatchOutput) ToPolicyRulePatchOutputWithContext(ctx context.Co
 	return o
 }
 
-// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+// apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 func (o PolicyRulePatchOutput) ApiGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRulePatch) []string { return v.ApiGroups }).(pulumi.StringArrayOutput)
 }
 
-// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+// nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 func (o PolicyRulePatchOutput) NonResourceURLs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRulePatch) []string { return v.NonResourceURLs }).(pulumi.StringArrayOutput)
 }
 
-// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+// resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 func (o PolicyRulePatchOutput) ResourceNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRulePatch) []string { return v.ResourceNames }).(pulumi.StringArrayOutput)
 }
 
-// Resources is a list of resources this rule applies to. '*' represents all resources.
+// resources is a list of resources this rule applies to. '*' represents all resources.
 func (o PolicyRulePatchOutput) Resources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRulePatch) []string { return v.Resources }).(pulumi.StringArrayOutput)
 }
 
-// Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+// verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
 func (o PolicyRulePatchOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRulePatch) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }
@@ -1190,9 +1190,9 @@ type RoleType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this Role
+	// rules holds all the PolicyRules for this Role
 	Rules []PolicyRule `pulumi:"rules"`
 }
 
@@ -1213,9 +1213,9 @@ type RoleTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this Role
+	// rules holds all the PolicyRules for this Role
 	Rules PolicyRuleArrayInput `pulumi:"rules"`
 }
 
@@ -1281,12 +1281,12 @@ func (o RoleTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RoleType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o RoleTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v RoleType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Rules holds all the PolicyRules for this Role
+// rules holds all the PolicyRules for this Role
 func (o RoleTypeOutput) Rules() PolicyRuleArrayOutput {
 	return o.ApplyT(func(v RoleType) []PolicyRule { return v.Rules }).(PolicyRuleArrayOutput)
 }
@@ -1317,11 +1317,11 @@ type RoleBindingType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRef `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects []Subject `pulumi:"subjects"`
 }
 
@@ -1342,11 +1342,11 @@ type RoleBindingTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefInput `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects SubjectArrayInput `pulumi:"subjects"`
 }
 
@@ -1412,17 +1412,17 @@ func (o RoleBindingTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RoleBindingType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o RoleBindingTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v RoleBindingType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+// roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 func (o RoleBindingTypeOutput) RoleRef() RoleRefOutput {
 	return o.ApplyT(func(v RoleBindingType) RoleRef { return v.RoleRef }).(RoleRefOutput)
 }
 
-// Subjects holds references to the objects the role applies to.
+// subjects holds references to the objects the role applies to.
 func (o RoleBindingTypeOutput) Subjects() SubjectArrayOutput {
 	return o.ApplyT(func(v RoleBindingType) []Subject { return v.Subjects }).(SubjectArrayOutput)
 }
@@ -1535,11 +1535,11 @@ type RoleBindingPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef *RoleRefPatch `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects []SubjectPatch `pulumi:"subjects"`
 }
 
@@ -1560,11 +1560,11 @@ type RoleBindingPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefPatchPtrInput `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects SubjectPatchArrayInput `pulumi:"subjects"`
 }
 
@@ -1605,17 +1605,17 @@ func (o RoleBindingPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RoleBindingPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o RoleBindingPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v RoleBindingPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+// roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 func (o RoleBindingPatchTypeOutput) RoleRef() RoleRefPatchPtrOutput {
 	return o.ApplyT(func(v RoleBindingPatchType) *RoleRefPatch { return v.RoleRef }).(RoleRefPatchPtrOutput)
 }
 
-// Subjects holds references to the objects the role applies to.
+// subjects holds references to the objects the role applies to.
 func (o RoleBindingPatchTypeOutput) Subjects() SubjectPatchArrayOutput {
 	return o.ApplyT(func(v RoleBindingPatchType) []SubjectPatch { return v.Subjects }).(SubjectPatchArrayOutput)
 }
@@ -1708,9 +1708,9 @@ type RolePatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this Role
+	// rules holds all the PolicyRules for this Role
 	Rules []PolicyRulePatch `pulumi:"rules"`
 }
 
@@ -1731,9 +1731,9 @@ type RolePatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Rules holds all the PolicyRules for this Role
+	// rules holds all the PolicyRules for this Role
 	Rules PolicyRulePatchArrayInput `pulumi:"rules"`
 }
 
@@ -1774,23 +1774,23 @@ func (o RolePatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RolePatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o RolePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v RolePatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Rules holds all the PolicyRules for this Role
+// rules holds all the PolicyRules for this Role
 func (o RolePatchTypeOutput) Rules() PolicyRulePatchArrayOutput {
 	return o.ApplyT(func(v RolePatchType) []PolicyRulePatch { return v.Rules }).(PolicyRulePatchArrayOutput)
 }
 
 // RoleRef contains information that points to the role being used
 type RoleRef struct {
-	// APIGroup is the group for the resource being referenced
+	// apiGroup is the group for the resource being referenced
 	ApiGroup *string `pulumi:"apiGroup"`
-	// Kind is the type of resource being referenced
+	// kind is the type of resource being referenced
 	Kind string `pulumi:"kind"`
-	// Name is the name of resource being referenced
+	// name is the name of resource being referenced
 	Name string `pulumi:"name"`
 }
 
@@ -1807,11 +1807,11 @@ type RoleRefInput interface {
 
 // RoleRef contains information that points to the role being used
 type RoleRefArgs struct {
-	// APIGroup is the group for the resource being referenced
+	// apiGroup is the group for the resource being referenced
 	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
-	// Kind is the type of resource being referenced
+	// kind is the type of resource being referenced
 	Kind pulumi.StringInput `pulumi:"kind"`
-	// Name is the name of resource being referenced
+	// name is the name of resource being referenced
 	Name pulumi.StringInput `pulumi:"name"`
 }
 
@@ -1842,28 +1842,28 @@ func (o RoleRefOutput) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOu
 	return o
 }
 
-// APIGroup is the group for the resource being referenced
+// apiGroup is the group for the resource being referenced
 func (o RoleRefOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RoleRef) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
 }
 
-// Kind is the type of resource being referenced
+// kind is the type of resource being referenced
 func (o RoleRefOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v RoleRef) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Name is the name of resource being referenced
+// name is the name of resource being referenced
 func (o RoleRefOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v RoleRef) string { return v.Name }).(pulumi.StringOutput)
 }
 
 // RoleRef contains information that points to the role being used
 type RoleRefPatch struct {
-	// APIGroup is the group for the resource being referenced
+	// apiGroup is the group for the resource being referenced
 	ApiGroup *string `pulumi:"apiGroup"`
-	// Kind is the type of resource being referenced
+	// kind is the type of resource being referenced
 	Kind *string `pulumi:"kind"`
-	// Name is the name of resource being referenced
+	// name is the name of resource being referenced
 	Name *string `pulumi:"name"`
 }
 
@@ -1880,11 +1880,11 @@ type RoleRefPatchInput interface {
 
 // RoleRef contains information that points to the role being used
 type RoleRefPatchArgs struct {
-	// APIGroup is the group for the resource being referenced
+	// apiGroup is the group for the resource being referenced
 	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
-	// Kind is the type of resource being referenced
+	// kind is the type of resource being referenced
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Name is the name of resource being referenced
+	// name is the name of resource being referenced
 	Name pulumi.StringPtrInput `pulumi:"name"`
 }
 
@@ -1966,17 +1966,17 @@ func (o RoleRefPatchOutput) ToRoleRefPatchPtrOutputWithContext(ctx context.Conte
 	}).(RoleRefPatchPtrOutput)
 }
 
-// APIGroup is the group for the resource being referenced
+// apiGroup is the group for the resource being referenced
 func (o RoleRefPatchOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RoleRefPatch) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
 }
 
-// Kind is the type of resource being referenced
+// kind is the type of resource being referenced
 func (o RoleRefPatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RoleRefPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Name is the name of resource being referenced
+// name is the name of resource being referenced
 func (o RoleRefPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RoleRefPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
@@ -2005,7 +2005,7 @@ func (o RoleRefPatchPtrOutput) Elem() RoleRefPatchOutput {
 	}).(RoleRefPatchOutput)
 }
 
-// APIGroup is the group for the resource being referenced
+// apiGroup is the group for the resource being referenced
 func (o RoleRefPatchPtrOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RoleRefPatch) *string {
 		if v == nil {
@@ -2015,7 +2015,7 @@ func (o RoleRefPatchPtrOutput) ApiGroup() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind is the type of resource being referenced
+// kind is the type of resource being referenced
 func (o RoleRefPatchPtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RoleRefPatch) *string {
 		if v == nil {
@@ -2025,7 +2025,7 @@ func (o RoleRefPatchPtrOutput) Kind() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Name is the name of resource being referenced
+// name is the name of resource being referenced
 func (o RoleRefPatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RoleRefPatch) *string {
 		if v == nil {
@@ -2037,13 +2037,13 @@ func (o RoleRefPatchPtrOutput) Name() pulumi.StringPtrOutput {
 
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
 type Subject struct {
-	// APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+	// apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
 	ApiGroup *string `pulumi:"apiGroup"`
-	// Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+	// kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
 	Kind string `pulumi:"kind"`
-	// Name of the object being referenced.
+	// name of the object being referenced.
 	Name string `pulumi:"name"`
-	// Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+	// namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
 	Namespace *string `pulumi:"namespace"`
 }
 
@@ -2060,13 +2060,13 @@ type SubjectInput interface {
 
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
 type SubjectArgs struct {
-	// APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+	// apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
 	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
-	// Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+	// kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
 	Kind pulumi.StringInput `pulumi:"kind"`
-	// Name of the object being referenced.
+	// name of the object being referenced.
 	Name pulumi.StringInput `pulumi:"name"`
-	// Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+	// namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
 }
 
@@ -2122,22 +2122,22 @@ func (o SubjectOutput) ToSubjectOutputWithContext(ctx context.Context) SubjectOu
 	return o
 }
 
-// APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+// apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
 func (o SubjectOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Subject) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
 }
 
-// Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+// kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
 func (o SubjectOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v Subject) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Name of the object being referenced.
+// name of the object being referenced.
 func (o SubjectOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v Subject) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+// namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
 func (o SubjectOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Subject) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
@@ -2164,13 +2164,13 @@ func (o SubjectArrayOutput) Index(i pulumi.IntInput) SubjectOutput {
 
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
 type SubjectPatch struct {
-	// APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+	// apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
 	ApiGroup *string `pulumi:"apiGroup"`
-	// Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+	// kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
 	Kind *string `pulumi:"kind"`
-	// Name of the object being referenced.
+	// name of the object being referenced.
 	Name *string `pulumi:"name"`
-	// Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+	// namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
 	Namespace *string `pulumi:"namespace"`
 }
 
@@ -2187,13 +2187,13 @@ type SubjectPatchInput interface {
 
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
 type SubjectPatchArgs struct {
-	// APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+	// apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
 	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
-	// Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+	// kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Name of the object being referenced.
+	// name of the object being referenced.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+	// namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
 }
 
@@ -2249,22 +2249,22 @@ func (o SubjectPatchOutput) ToSubjectPatchOutputWithContext(ctx context.Context)
 	return o
 }
 
-// APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+// apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
 func (o SubjectPatchOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SubjectPatch) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
 }
 
-// Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+// kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
 func (o SubjectPatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SubjectPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Name of the object being referenced.
+// name of the object being referenced.
 func (o SubjectPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SubjectPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+// namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
 func (o SubjectPatchOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SubjectPatch) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }

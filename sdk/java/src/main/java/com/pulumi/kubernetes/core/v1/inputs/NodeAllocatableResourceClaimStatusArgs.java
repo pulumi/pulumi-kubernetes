@@ -6,9 +6,10 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.core.v1.inputs.NodeAllocatableMappedResourcesArgs;
+import com.pulumi.kubernetes.core.v1.inputs.NodeAllocatableOverheadResourcesArgs;
 import java.lang.String;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -38,6 +39,36 @@ public final class NodeAllocatableResourceClaimStatusArgs extends com.pulumi.res
     }
 
     /**
+     * Mapping contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    @Import(name="mapping")
+    private @Nullable Output<List<NodeAllocatableMappedResourcesArgs>> mapping;
+
+    /**
+     * @return Mapping contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    public Optional<Output<List<NodeAllocatableMappedResourcesArgs>>> mapping() {
+        return Optional.ofNullable(this.mapping);
+    }
+
+    /**
+     * Overhead contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    @Import(name="overhead")
+    private @Nullable Output<List<NodeAllocatableOverheadResourcesArgs>> overhead;
+
+    /**
+     * @return Overhead contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    public Optional<Output<List<NodeAllocatableOverheadResourcesArgs>>> overhead() {
+        return Optional.ofNullable(this.overhead);
+    }
+
+    /**
      * ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
      * 
      */
@@ -52,27 +83,13 @@ public final class NodeAllocatableResourceClaimStatusArgs extends com.pulumi.res
         return this.resourceClaimName;
     }
 
-    /**
-     * Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-     * 
-     */
-    @Import(name="resources", required=true)
-    private Output<Map<String,String>> resources;
-
-    /**
-     * @return Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-     * 
-     */
-    public Output<Map<String,String>> resources() {
-        return this.resources;
-    }
-
     private NodeAllocatableResourceClaimStatusArgs() {}
 
     private NodeAllocatableResourceClaimStatusArgs(NodeAllocatableResourceClaimStatusArgs $) {
         this.containers = $.containers;
+        this.mapping = $.mapping;
+        this.overhead = $.overhead;
         this.resourceClaimName = $.resourceClaimName;
-        this.resources = $.resources;
     }
 
     public static Builder builder() {
@@ -125,6 +142,68 @@ public final class NodeAllocatableResourceClaimStatusArgs extends com.pulumi.res
         }
 
         /**
+         * @param mapping Mapping contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder mapping(@Nullable Output<List<NodeAllocatableMappedResourcesArgs>> mapping) {
+            $.mapping = mapping;
+            return this;
+        }
+
+        /**
+         * @param mapping Mapping contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder mapping(List<NodeAllocatableMappedResourcesArgs> mapping) {
+            return mapping(Output.of(mapping));
+        }
+
+        /**
+         * @param mapping Mapping contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder mapping(NodeAllocatableMappedResourcesArgs... mapping) {
+            return mapping(List.of(mapping));
+        }
+
+        /**
+         * @param overhead Overhead contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder overhead(@Nullable Output<List<NodeAllocatableOverheadResourcesArgs>> overhead) {
+            $.overhead = overhead;
+            return this;
+        }
+
+        /**
+         * @param overhead Overhead contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder overhead(List<NodeAllocatableOverheadResourcesArgs> overhead) {
+            return overhead(Output.of(overhead));
+        }
+
+        /**
+         * @param overhead Overhead contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder overhead(NodeAllocatableOverheadResourcesArgs... overhead) {
+            return overhead(List.of(overhead));
+        }
+
+        /**
          * @param resourceClaimName ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
          * 
          * @return builder
@@ -145,33 +224,9 @@ public final class NodeAllocatableResourceClaimStatusArgs extends com.pulumi.res
             return resourceClaimName(Output.of(resourceClaimName));
         }
 
-        /**
-         * @param resources Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder resources(Output<Map<String,String>> resources) {
-            $.resources = resources;
-            return this;
-        }
-
-        /**
-         * @param resources Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder resources(Map<String,String> resources) {
-            return resources(Output.of(resources));
-        }
-
         public NodeAllocatableResourceClaimStatusArgs build() {
             if ($.resourceClaimName == null) {
                 throw new MissingRequiredPropertyException("NodeAllocatableResourceClaimStatusArgs", "resourceClaimName");
-            }
-            if ($.resources == null) {
-                throw new MissingRequiredPropertyException("NodeAllocatableResourceClaimStatusArgs", "resources");
             }
             return $;
         }

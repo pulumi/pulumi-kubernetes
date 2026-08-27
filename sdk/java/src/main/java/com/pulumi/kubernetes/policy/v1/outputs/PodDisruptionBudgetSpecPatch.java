@@ -15,22 +15,22 @@ import javax.annotation.Nullable;
 @CustomType
 public final class PodDisruptionBudgetSpecPatch {
     /**
-     * @return An eviction is allowed if at most &#34;maxUnavailable&#34; pods selected by &#34;selector&#34; are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with &#34;minAvailable&#34;.
+     * @return maxUnavailable indicates that an eviction is allowed if at most &#34;maxUnavailable&#34; pods selected by &#34;selector&#34; are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with &#34;minAvailable&#34;.
      * 
      */
     private @Nullable Either<Integer,String> maxUnavailable;
     /**
-     * @return An eviction is allowed if at least &#34;minAvailable&#34; pods selected by &#34;selector&#34; will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying &#34;100%&#34;.
+     * @return minAvailable indicates that an eviction is allowed if at least &#34;minAvailable&#34; pods selected by &#34;selector&#34; will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying &#34;100%&#34;.
      * 
      */
     private @Nullable Either<Integer,String> minAvailable;
     /**
-     * @return Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+     * @return selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
      * 
      */
     private @Nullable LabelSelectorPatch selector;
     /**
-     * @return UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type=&#34;Ready&#34;,status=&#34;True&#34;.
+     * @return unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type=&#34;Ready&#34;,status=&#34;True&#34;.
      * 
      * Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
      * 
@@ -45,28 +45,28 @@ public final class PodDisruptionBudgetSpecPatch {
 
     private PodDisruptionBudgetSpecPatch() {}
     /**
-     * @return An eviction is allowed if at most &#34;maxUnavailable&#34; pods selected by &#34;selector&#34; are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with &#34;minAvailable&#34;.
+     * @return maxUnavailable indicates that an eviction is allowed if at most &#34;maxUnavailable&#34; pods selected by &#34;selector&#34; are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with &#34;minAvailable&#34;.
      * 
      */
     public Optional<Either<Integer,String>> maxUnavailable() {
         return Optional.ofNullable(this.maxUnavailable);
     }
     /**
-     * @return An eviction is allowed if at least &#34;minAvailable&#34; pods selected by &#34;selector&#34; will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying &#34;100%&#34;.
+     * @return minAvailable indicates that an eviction is allowed if at least &#34;minAvailable&#34; pods selected by &#34;selector&#34; will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying &#34;100%&#34;.
      * 
      */
     public Optional<Either<Integer,String>> minAvailable() {
         return Optional.ofNullable(this.minAvailable);
     }
     /**
-     * @return Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+     * @return selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
      * 
      */
     public Optional<LabelSelectorPatch> selector() {
         return Optional.ofNullable(this.selector);
     }
     /**
-     * @return UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type=&#34;Ready&#34;,status=&#34;True&#34;.
+     * @return unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type=&#34;Ready&#34;,status=&#34;True&#34;.
      * 
      * Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
      * 

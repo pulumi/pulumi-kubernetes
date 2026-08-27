@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.outputs.DaemonSetSpec;
 import com.pulumi.kubernetes.apps.v1.outputs.DaemonSetStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
@@ -33,7 +34,7 @@ public final class DaemonSet {
      * @return The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    private @Nullable DaemonSetSpec spec;
+    private DaemonSetSpec spec;
     /**
      * @return The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
@@ -66,8 +67,8 @@ public final class DaemonSet {
      * @return The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<DaemonSetSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public DaemonSetSpec spec() {
+        return this.spec;
     }
     /**
      * @return The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -89,7 +90,7 @@ public final class DaemonSet {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable DaemonSetSpec spec;
+        private DaemonSetSpec spec;
         private @Nullable DaemonSetStatus status;
         public Builder() {}
         public Builder(DaemonSet defaults) {
@@ -120,8 +121,10 @@ public final class DaemonSet {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable DaemonSetSpec spec) {
-
+        public Builder spec(DaemonSetSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("DaemonSet", "spec");
+            }
             this.spec = spec;
             return this;
         }

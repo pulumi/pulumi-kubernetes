@@ -107,7 +107,7 @@ public class FlowSchema extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public FlowSchema(java.lang.String name, @Nullable FlowSchemaArgs args) {
+    public FlowSchema(java.lang.String name, FlowSchemaArgs args) {
         this(name, args, null);
     }
     /**
@@ -116,7 +116,7 @@ public class FlowSchema extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public FlowSchema(java.lang.String name, @Nullable FlowSchemaArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public FlowSchema(java.lang.String name, FlowSchemaArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchema", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
@@ -124,7 +124,7 @@ public class FlowSchema extends com.pulumi.resources.CustomResource {
         super("kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchema", name, null, makeResourceOptions(options, id), false);
     }
 
-    private static FlowSchemaArgs makeArgs(@Nullable FlowSchemaArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    private static FlowSchemaArgs makeArgs(FlowSchemaArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         if (options != null && options.getUrn().isPresent()) {
             return null;
         }

@@ -188,7 +188,7 @@ class HorizontalPodAutoscaler(dict):
         :param 'HorizontalPodAutoscalerSpecArgs' spec: spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         :param Literal['autoscaling/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['HorizontalPodAutoscaler'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param 'HorizontalPodAutoscalerStatusArgs' status: status is the current information about the autoscaler.
         """
         pulumi.set(__self__, "spec", spec)
@@ -229,7 +229,7 @@ class HorizontalPodAutoscaler(dict):
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
@@ -279,7 +279,7 @@ class HorizontalPodAutoscalerSpec(dict):
         specification of a horizontal pod autoscaler.
 
         :param _builtins.int max_replicas: maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
-        :param 'CrossVersionObjectReferenceArgs' scale_target_ref: reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+        :param 'CrossVersionObjectReferenceArgs' scale_target_ref: scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
         :param _builtins.int min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
         :param _builtins.int target_cpu_utilization_percentage: targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
         """
@@ -302,7 +302,7 @@ class HorizontalPodAutoscalerSpec(dict):
     @pulumi.getter(name="scaleTargetRef")
     def scale_target_ref(self) -> 'outputs.CrossVersionObjectReference':
         """
-        reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+        scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
         """
         return pulumi.get(self, "scale_target_ref")
 
@@ -361,7 +361,7 @@ class HorizontalPodAutoscalerSpecPatch(dict):
 
         :param _builtins.int max_replicas: maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
         :param _builtins.int min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
-        :param 'CrossVersionObjectReferencePatchArgs' scale_target_ref: reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+        :param 'CrossVersionObjectReferencePatchArgs' scale_target_ref: scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
         :param _builtins.int target_cpu_utilization_percentage: targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
         """
         if max_replicas is not None:
@@ -393,7 +393,7 @@ class HorizontalPodAutoscalerSpecPatch(dict):
     @pulumi.getter(name="scaleTargetRef")
     def scale_target_ref(self) -> Optional['outputs.CrossVersionObjectReferencePatch']:
         """
-        reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+        scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
         """
         return pulumi.get(self, "scale_target_ref")
 

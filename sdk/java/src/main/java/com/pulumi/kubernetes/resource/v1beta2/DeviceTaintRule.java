@@ -143,6 +143,7 @@ public class DeviceTaintRule extends com.pulumi.resources.CustomResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1:DeviceTaintRule").build()),
                 Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRule").build())
             ))
             .build();

@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
  * 
  * Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
  * 
- * The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+ * The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
  * 
  */
 public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.ResourceArgs {
@@ -76,8 +76,6 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
      * 
      * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
      * 
-     * This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
-     * 
      */
     @Import(name="tolerance")
     private @Nullable Output<String> tolerance;
@@ -86,8 +84,6 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
      * @return tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
      * 
      * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-     * 
-     * This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
      * 
      */
     public Optional<Output<String>> tolerance() {
@@ -199,8 +195,6 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
          * 
          * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
          * 
-         * This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
-         * 
          * @return builder
          * 
          */
@@ -213,8 +207,6 @@ public final class HPAScalingRulesPatchArgs extends com.pulumi.resources.Resourc
          * @param tolerance tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
          * 
          * For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-         * 
-         * This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
          * 
          * @return builder
          * 

@@ -125,16 +125,16 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        [Input("nodeAllocatableResourceMappings")]
-        private InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1.NodeAllocatableResourceMappingArgs>? _nodeAllocatableResourceMappings;
+        [Input("nodeAllocatableResources")]
+        private InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1.NodeAllocatableResourceArgs>? _nodeAllocatableResources;
 
         /// <summary>
-        /// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+        /// NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
         /// </summary>
-        public InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1.NodeAllocatableResourceMappingArgs> NodeAllocatableResourceMappings
+        public InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1.NodeAllocatableResourceArgs> NodeAllocatableResources
         {
-            get => _nodeAllocatableResourceMappings ?? (_nodeAllocatableResourceMappings = new InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1.NodeAllocatableResourceMappingArgs>());
-            set => _nodeAllocatableResourceMappings = value;
+            get => _nodeAllocatableResources ?? (_nodeAllocatableResources = new InputMap<Pulumi.Kubernetes.Types.Inputs.Resource.V1.NodeAllocatableResourceArgs>());
+            set => _nodeAllocatableResources = value;
         }
 
         /// <summary>

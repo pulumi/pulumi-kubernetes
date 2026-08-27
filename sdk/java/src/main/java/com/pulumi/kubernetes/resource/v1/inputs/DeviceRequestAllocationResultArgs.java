@@ -192,6 +192,21 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
     }
 
     /**
+     * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+     * 
+     */
+    @Import(name="skipNodeOperations")
+    private @Nullable Output<List<String>> skipNodeOperations;
+
+    /**
+     * @return SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+     * 
+     */
+    public Optional<Output<List<String>>> skipNodeOperations() {
+        return Optional.ofNullable(this.skipNodeOperations);
+    }
+
+    /**
      * A copy of all tolerations specified in the request at the time when the device got allocated.
      * 
      * The maximum number of tolerations is 16.
@@ -226,6 +241,7 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
         this.pool = $.pool;
         this.request = $.request;
         this.shareID = $.shareID;
+        this.skipNodeOperations = $.skipNodeOperations;
         this.tolerations = $.tolerations;
     }
 
@@ -490,6 +506,37 @@ public final class DeviceRequestAllocationResultArgs extends com.pulumi.resource
          */
         public Builder shareID(String shareID) {
             return shareID(Output.of(shareID));
+        }
+
+        /**
+         * @param skipNodeOperations SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipNodeOperations(@Nullable Output<List<String>> skipNodeOperations) {
+            $.skipNodeOperations = skipNodeOperations;
+            return this;
+        }
+
+        /**
+         * @param skipNodeOperations SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipNodeOperations(List<String> skipNodeOperations) {
+            return skipNodeOperations(Output.of(skipNodeOperations));
+        }
+
+        /**
+         * @param skipNodeOperations SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipNodeOperations(String... skipNodeOperations) {
+            return skipNodeOperations(List.of(skipNodeOperations));
         }
 
         /**

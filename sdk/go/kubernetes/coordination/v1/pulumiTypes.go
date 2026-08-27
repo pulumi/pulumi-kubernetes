@@ -20,7 +20,7 @@ type LeaseType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *LeaseSpec `pulumi:"spec"`
@@ -43,7 +43,7 @@ type LeaseTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec LeaseSpecPtrInput `pulumi:"spec"`
@@ -111,7 +111,7 @@ func (o LeaseTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o LeaseTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v LeaseType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -229,7 +229,7 @@ type LeasePatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *LeaseSpecPatch `pulumi:"spec"`
@@ -252,7 +252,7 @@ type LeasePatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec LeaseSpecPatchPtrInput `pulumi:"spec"`
@@ -295,7 +295,7 @@ func (o LeasePatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeasePatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o LeasePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v LeasePatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -315,11 +315,11 @@ type LeaseSpec struct {
 	LeaseDurationSeconds *int `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions *int `pulumi:"leaseTransitions"`
-	// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+	// preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
 	PreferredHolder *string `pulumi:"preferredHolder"`
 	// renewTime is a time when the current holder of a lease has last updated the lease.
 	RenewTime *string `pulumi:"renewTime"`
-	// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	// strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 	Strategy *string `pulumi:"strategy"`
 }
 
@@ -344,11 +344,11 @@ type LeaseSpecArgs struct {
 	LeaseDurationSeconds pulumi.IntPtrInput `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions pulumi.IntPtrInput `pulumi:"leaseTransitions"`
-	// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+	// preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
 	PreferredHolder pulumi.StringPtrInput `pulumi:"preferredHolder"`
 	// renewTime is a time when the current holder of a lease has last updated the lease.
 	RenewTime pulumi.StringPtrInput `pulumi:"renewTime"`
-	// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	// strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 	Strategy pulumi.StringPtrInput `pulumi:"strategy"`
 }
 
@@ -450,7 +450,7 @@ func (o LeaseSpecOutput) LeaseTransitions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
 }
 
-// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+// preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
 func (o LeaseSpecOutput) PreferredHolder() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *string { return v.PreferredHolder }).(pulumi.StringPtrOutput)
 }
@@ -460,7 +460,7 @@ func (o LeaseSpecOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
-// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+// strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 func (o LeaseSpecOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *string { return v.Strategy }).(pulumi.StringPtrOutput)
 }
@@ -529,7 +529,7 @@ func (o LeaseSpecPtrOutput) LeaseTransitions() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+// preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
 func (o LeaseSpecPtrOutput) PreferredHolder() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseSpec) *string {
 		if v == nil {
@@ -549,7 +549,7 @@ func (o LeaseSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+// strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 func (o LeaseSpecPtrOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseSpec) *string {
 		if v == nil {
@@ -569,11 +569,11 @@ type LeaseSpecPatch struct {
 	LeaseDurationSeconds *int `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions *int `pulumi:"leaseTransitions"`
-	// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+	// preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
 	PreferredHolder *string `pulumi:"preferredHolder"`
 	// renewTime is a time when the current holder of a lease has last updated the lease.
 	RenewTime *string `pulumi:"renewTime"`
-	// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	// strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 	Strategy *string `pulumi:"strategy"`
 }
 
@@ -598,11 +598,11 @@ type LeaseSpecPatchArgs struct {
 	LeaseDurationSeconds pulumi.IntPtrInput `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions pulumi.IntPtrInput `pulumi:"leaseTransitions"`
-	// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+	// preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
 	PreferredHolder pulumi.StringPtrInput `pulumi:"preferredHolder"`
 	// renewTime is a time when the current holder of a lease has last updated the lease.
 	RenewTime pulumi.StringPtrInput `pulumi:"renewTime"`
-	// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+	// strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 	Strategy pulumi.StringPtrInput `pulumi:"strategy"`
 }
 
@@ -704,7 +704,7 @@ func (o LeaseSpecPatchOutput) LeaseTransitions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *int { return v.LeaseTransitions }).(pulumi.IntPtrOutput)
 }
 
-// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+// preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
 func (o LeaseSpecPatchOutput) PreferredHolder() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *string { return v.PreferredHolder }).(pulumi.StringPtrOutput)
 }
@@ -714,7 +714,7 @@ func (o LeaseSpecPatchOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
-// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+// strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 func (o LeaseSpecPatchOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *string { return v.Strategy }).(pulumi.StringPtrOutput)
 }
@@ -783,7 +783,7 @@ func (o LeaseSpecPatchPtrOutput) LeaseTransitions() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+// preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
 func (o LeaseSpecPatchPtrOutput) PreferredHolder() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseSpecPatch) *string {
 		if v == nil {
@@ -803,7 +803,7 @@ func (o LeaseSpecPatchPtrOutput) RenewTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+// strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
 func (o LeaseSpecPatchPtrOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseSpecPatch) *string {
 		if v == nil {

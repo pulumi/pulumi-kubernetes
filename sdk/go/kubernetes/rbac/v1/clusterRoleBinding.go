@@ -21,11 +21,11 @@ type ClusterRoleBinding struct {
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefOutput `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects SubjectArrayOutput `pulumi:"subjects"`
 }
 
@@ -87,11 +87,11 @@ type clusterRoleBindingArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRef `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects []Subject `pulumi:"subjects"`
 }
 
@@ -101,11 +101,11 @@ type ClusterRoleBindingArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object's metadata.
+	// metadata is the standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+	// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefInput
-	// Subjects holds references to the objects the role applies to.
+	// subjects holds references to the objects the role applies to.
 	Subjects SubjectArrayInput
 }
 
@@ -206,17 +206,17 @@ func (o ClusterRoleBindingOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterRoleBinding) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Standard object's metadata.
+// metadata is the standard object's metadata.
 func (o ClusterRoleBindingOutput) Metadata() metav1.ObjectMetaOutput {
 	return o.ApplyT(func(v *ClusterRoleBinding) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
-// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+// roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 func (o ClusterRoleBindingOutput) RoleRef() RoleRefOutput {
 	return o.ApplyT(func(v *ClusterRoleBinding) RoleRefOutput { return v.RoleRef }).(RoleRefOutput)
 }
 
-// Subjects holds references to the objects the role applies to.
+// subjects holds references to the objects the role applies to.
 func (o ClusterRoleBindingOutput) Subjects() SubjectArrayOutput {
 	return o.ApplyT(func(v *ClusterRoleBinding) SubjectArrayOutput { return v.Subjects }).(SubjectArrayOutput)
 }

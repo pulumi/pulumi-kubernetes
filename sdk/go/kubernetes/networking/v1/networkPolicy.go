@@ -20,7 +20,7 @@ type NetworkPolicy struct {
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecOutput `pulumi:"spec"`
@@ -80,7 +80,7 @@ type networkPolicyArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec *NetworkPolicySpec `pulumi:"spec"`
@@ -92,7 +92,7 @@ type NetworkPolicyArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPtrInput
@@ -195,7 +195,7 @@ func (o NetworkPolicyOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v *NetworkPolicy) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o NetworkPolicyOutput) Metadata() metav1.ObjectMetaOutput {
 	return o.ApplyT(func(v *NetworkPolicy) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }

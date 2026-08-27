@@ -25,12 +25,12 @@ public final class Role {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Rules holds all the PolicyRules for this Role
+     * @return rules holds all the PolicyRules for this Role
      * 
      */
     private @Nullable List<PolicyRule> rules;
@@ -51,14 +51,14 @@ public final class Role {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Optional<ObjectMeta> metadata() {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Rules holds all the PolicyRules for this Role
+     * @return rules holds all the PolicyRules for this Role
      * 
      */
     public List<PolicyRule> rules() {

@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V1
         /// </summary>
         public readonly int MinReplicas;
         /// <summary>
-        /// reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+        /// scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Autoscaling.V1.CrossVersionObjectReferencePatch ScaleTargetRef;
         /// <summary>

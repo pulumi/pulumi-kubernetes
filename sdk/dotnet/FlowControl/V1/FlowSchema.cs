@@ -133,8 +133,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1
         /// <summary>
         /// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
-        [Input("spec")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1.FlowSchemaSpecArgs>? Spec { get; set; }
+        [Input("spec", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1.FlowSchemaSpecArgs> Spec { get; set; } = null!;
 
         public FlowSchemaArgs()
         {

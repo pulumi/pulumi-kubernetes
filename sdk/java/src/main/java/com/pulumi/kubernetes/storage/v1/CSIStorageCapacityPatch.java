@@ -102,7 +102,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
         return Codegen.optional(this.maximumVolumeSize);
     }
     /**
-     * Standard object&#39;s metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-&lt;uuid&gt;, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+     * metadata is the standard object metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-&lt;uuid&gt;, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
      * 
      * Objects are namespaced.
      * 
@@ -113,7 +113,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return Standard object&#39;s metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-&lt;uuid&gt;, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+     * @return metadata is the standard object metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-&lt;uuid&gt;, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
      * 
      * Objects are namespaced.
      * 

@@ -50,14 +50,14 @@ public final class CSINodeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+     * metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+     * @return metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -149,7 +149,7 @@ public final class CSINodeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+         * @param metadata metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
          * 
          * @return builder
          * 
@@ -160,7 +160,7 @@ public final class CSINodeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+         * @param metadata metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
          * 
          * @return builder
          * 

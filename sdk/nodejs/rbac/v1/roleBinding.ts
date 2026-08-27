@@ -46,15 +46,15 @@ export class RoleBinding extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"RoleBinding">;
     /**
-     * Standard object's metadata.
+     * metadata is the standard object's metadata.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      */
     declare public readonly roleRef: pulumi.Output<outputs.rbac.v1.RoleRef>;
     /**
-     * Subjects holds references to the objects the role applies to.
+     * subjects holds references to the objects the role applies to.
      */
     declare public readonly subjects: pulumi.Output<outputs.rbac.v1.Subject[]>;
 
@@ -104,15 +104,15 @@ export interface RoleBindingArgs {
      */
     kind?: pulumi.Input<"RoleBinding" | undefined>;
     /**
-     * Standard object's metadata.
+     * metadata is the standard object's metadata.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**
-     * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      */
     roleRef: pulumi.Input<inputs.rbac.v1.RoleRef>;
     /**
-     * Subjects holds references to the objects the role applies to.
+     * subjects holds references to the objects the role applies to.
      */
     subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1.Subject>[] | undefined>;
 }

@@ -65,12 +65,28 @@ public final class KeyToPathPatchArgs extends com.pulumi.resources.ResourceArgs 
         return Optional.ofNullable(this.path);
     }
 
+    /**
+     * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    @Import(name="user")
+    private @Nullable Output<Integer> user;
+
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Output<Integer>> user() {
+        return Optional.ofNullable(this.user);
+    }
+
     private KeyToPathPatchArgs() {}
 
     private KeyToPathPatchArgs(KeyToPathPatchArgs $) {
         this.key = $.key;
         this.mode = $.mode;
         this.path = $.path;
+        this.user = $.user;
     }
 
     public static Builder builder() {
@@ -152,6 +168,27 @@ public final class KeyToPathPatchArgs extends com.pulumi.resources.ResourceArgs 
          */
         public Builder path(String path) {
             return path(Output.of(path));
+        }
+
+        /**
+         * @param user user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(@Nullable Output<Integer> user) {
+            $.user = user;
+            return this;
+        }
+
+        /**
+         * @param user user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(Integer user) {
+            return user(Output.of(user));
         }
 
         public KeyToPathPatchArgs build() {

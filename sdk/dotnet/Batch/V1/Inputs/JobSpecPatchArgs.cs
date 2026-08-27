@@ -93,6 +93,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public Input<string>? PodReplacementPolicy { get; set; }
 
         /// <summary>
+        /// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+        /// </summary>
+        [Input("scheduling")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Batch.V1.JobSchedulingConfigurationPatchArgs>? Scheduling { get; set; }
+
+        /// <summary>
         /// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         /// </summary>
         [Input("selector")]

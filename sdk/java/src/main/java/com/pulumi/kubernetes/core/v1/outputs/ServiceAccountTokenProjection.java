@@ -28,6 +28,11 @@ public final class ServiceAccountTokenProjection {
      * 
      */
     private String path;
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer user;
 
     private ServiceAccountTokenProjection() {}
     /**
@@ -51,6 +56,13 @@ public final class ServiceAccountTokenProjection {
     public String path() {
         return this.path;
     }
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> user() {
+        return Optional.ofNullable(this.user);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -64,12 +76,14 @@ public final class ServiceAccountTokenProjection {
         private @Nullable String audience;
         private @Nullable Integer expirationSeconds;
         private String path;
+        private @Nullable Integer user;
         public Builder() {}
         public Builder(ServiceAccountTokenProjection defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.audience = defaults.audience;
     	      this.expirationSeconds = defaults.expirationSeconds;
     	      this.path = defaults.path;
+    	      this.user = defaults.user;
         }
 
         @CustomType.Setter
@@ -92,11 +106,18 @@ public final class ServiceAccountTokenProjection {
             this.path = path;
             return this;
         }
+        @CustomType.Setter
+        public Builder user(@Nullable Integer user) {
+
+            this.user = user;
+            return this;
+        }
         public ServiceAccountTokenProjection build() {
             final var _resultValue = new ServiceAccountTokenProjection();
             _resultValue.audience = audience;
             _resultValue.expirationSeconds = expirationSeconds;
             _resultValue.path = path;
+            _resultValue.user = user;
             return _resultValue;
         }
     }

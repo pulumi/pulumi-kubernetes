@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.apps.v1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.inputs.DeploymentSpecArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import java.lang.String;
@@ -67,15 +68,15 @@ public final class DeploymentArgs extends com.pulumi.resources.ResourceArgs {
      * Specification of the desired behavior of the Deployment.
      * 
      */
-    @Import(name="spec")
-    private @Nullable Output<DeploymentSpecArgs> spec;
+    @Import(name="spec", required=true)
+    private Output<DeploymentSpecArgs> spec;
 
     /**
      * @return Specification of the desired behavior of the Deployment.
      * 
      */
-    public Optional<Output<DeploymentSpecArgs>> spec() {
-        return Optional.ofNullable(this.spec);
+    public Output<DeploymentSpecArgs> spec() {
+        return this.spec;
     }
 
     private DeploymentArgs() {}
@@ -174,7 +175,7 @@ public final class DeploymentArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder spec(@Nullable Output<DeploymentSpecArgs> spec) {
+        public Builder spec(Output<DeploymentSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
@@ -192,6 +193,9 @@ public final class DeploymentArgs extends com.pulumi.resources.ResourceArgs {
         public DeploymentArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            if ($.spec == null) {
+                throw new MissingRequiredPropertyException("DeploymentArgs", "spec");
+            }
             return $;
         }
     }

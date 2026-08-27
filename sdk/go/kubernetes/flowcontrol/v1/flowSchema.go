@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -32,9 +33,12 @@ type FlowSchema struct {
 func NewFlowSchema(ctx *pulumi.Context,
 	name string, args *FlowSchemaArgs, opts ...pulumi.ResourceOption) (*FlowSchema, error) {
 	if args == nil {
-		args = &FlowSchemaArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
+	}
 	args.ApiVersion = pulumi.StringPtr("flowcontrol.apiserver.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("FlowSchema")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -92,7 +96,7 @@ type flowSchemaArgs struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *FlowSchemaSpec `pulumi:"spec"`
+	Spec FlowSchemaSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a FlowSchema resource.
@@ -104,7 +108,7 @@ type FlowSchemaArgs struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec FlowSchemaSpecPtrInput
+	Spec FlowSchemaSpecInput
 }
 
 func (FlowSchemaArgs) ElementType() reflect.Type {

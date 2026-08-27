@@ -4,7 +4,6 @@
 package com.pulumi.kubernetes.resource.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.ResourceClaimSpec;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.ResourceClaimStatus;
@@ -34,7 +33,7 @@ public final class ResourceClaim {
      * @return Spec describes what is being requested and how to configure it. The spec is immutable.
      * 
      */
-    private ResourceClaimSpec spec;
+    private @Nullable ResourceClaimSpec spec;
     /**
      * @return Status describes whether the claim is ready to use and what has been allocated.
      * 
@@ -67,8 +66,8 @@ public final class ResourceClaim {
      * @return Spec describes what is being requested and how to configure it. The spec is immutable.
      * 
      */
-    public ResourceClaimSpec spec() {
-        return this.spec;
+    public Optional<ResourceClaimSpec> spec() {
+        return Optional.ofNullable(this.spec);
     }
     /**
      * @return Status describes whether the claim is ready to use and what has been allocated.
@@ -90,7 +89,7 @@ public final class ResourceClaim {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private ResourceClaimSpec spec;
+        private @Nullable ResourceClaimSpec spec;
         private @Nullable ResourceClaimStatus status;
         public Builder() {}
         public Builder(ResourceClaim defaults) {
@@ -121,10 +120,8 @@ public final class ResourceClaim {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(ResourceClaimSpec spec) {
-            if (spec == null) {
-              throw new MissingRequiredPropertyException("ResourceClaim", "spec");
-            }
+        public Builder spec(@Nullable ResourceClaimSpec spec) {
+
             this.spec = spec;
             return this;
         }

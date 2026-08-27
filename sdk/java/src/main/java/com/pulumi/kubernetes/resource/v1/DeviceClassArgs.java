@@ -6,7 +6,6 @@ package com.pulumi.kubernetes.resource.v1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.resource.v1.inputs.DeviceClassSpecArgs;
 import java.lang.String;
@@ -72,8 +71,8 @@ public final class DeviceClassArgs extends com.pulumi.resources.ResourceArgs {
      * Changing the spec automatically increments the metadata.generation number.
      * 
      */
-    @Import(name="spec", required=true)
-    private Output<DeviceClassSpecArgs> spec;
+    @Import(name="spec")
+    private @Nullable Output<DeviceClassSpecArgs> spec;
 
     /**
      * @return Spec defines what can be allocated and how to configure it.
@@ -83,8 +82,8 @@ public final class DeviceClassArgs extends com.pulumi.resources.ResourceArgs {
      * Changing the spec automatically increments the metadata.generation number.
      * 
      */
-    public Output<DeviceClassSpecArgs> spec() {
-        return this.spec;
+    public Optional<Output<DeviceClassSpecArgs>> spec() {
+        return Optional.ofNullable(this.spec);
     }
 
     private DeviceClassArgs() {}
@@ -187,7 +186,7 @@ public final class DeviceClassArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder spec(Output<DeviceClassSpecArgs> spec) {
+        public Builder spec(@Nullable Output<DeviceClassSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
@@ -209,9 +208,6 @@ public final class DeviceClassArgs extends com.pulumi.resources.ResourceArgs {
         public DeviceClassArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            if ($.spec == null) {
-                throw new MissingRequiredPropertyException("DeviceClassArgs", "spec");
-            }
             return $;
         }
     }

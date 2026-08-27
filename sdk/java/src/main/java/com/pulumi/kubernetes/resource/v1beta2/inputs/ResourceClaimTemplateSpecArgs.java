@@ -5,7 +5,6 @@ package com.pulumi.kubernetes.resource.v1beta2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.ResourceClaimSpecArgs;
 import java.util.Objects;
@@ -40,15 +39,15 @@ public final class ResourceClaimTemplateSpecArgs extends com.pulumi.resources.Re
      * Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
      * 
      */
-    @Import(name="spec", required=true)
-    private Output<ResourceClaimSpecArgs> spec;
+    @Import(name="spec")
+    private @Nullable Output<ResourceClaimSpecArgs> spec;
 
     /**
      * @return Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
      * 
      */
-    public Output<ResourceClaimSpecArgs> spec() {
-        return this.spec;
+    public Optional<Output<ResourceClaimSpecArgs>> spec() {
+        return Optional.ofNullable(this.spec);
     }
 
     private ResourceClaimTemplateSpecArgs() {}
@@ -103,7 +102,7 @@ public final class ResourceClaimTemplateSpecArgs extends com.pulumi.resources.Re
          * @return builder
          * 
          */
-        public Builder spec(Output<ResourceClaimSpecArgs> spec) {
+        public Builder spec(@Nullable Output<ResourceClaimSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
@@ -119,9 +118,6 @@ public final class ResourceClaimTemplateSpecArgs extends com.pulumi.resources.Re
         }
 
         public ResourceClaimTemplateSpecArgs build() {
-            if ($.spec == null) {
-                throw new MissingRequiredPropertyException("ResourceClaimTemplateSpecArgs", "spec");
-            }
             return $;
         }
     }

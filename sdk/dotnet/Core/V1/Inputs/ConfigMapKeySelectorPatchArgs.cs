@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class ConfigMapKeySelectorPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The key to select.
+        /// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         /// </summary>
         [Input("key")]
         public Input<string>? Key { get; set; }

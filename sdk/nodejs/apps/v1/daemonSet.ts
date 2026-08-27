@@ -69,6 +69,9 @@ export class DaemonSet extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if (args?.spec === undefined && !opts.urn) {
+                throw new Error("Missing required property 'spec'");
+            }
             resourceInputs["apiVersion"] = "apps/v1";
             resourceInputs["kind"] = "DaemonSet";
             resourceInputs["metadata"] = args?.metadata;
@@ -107,5 +110,5 @@ export interface DaemonSetArgs {
     /**
      * The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    spec?: pulumi.Input<inputs.apps.v1.DaemonSetSpec | undefined>;
+    spec: pulumi.Input<inputs.apps.v1.DaemonSetSpec>;
 }

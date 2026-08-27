@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -33,12 +32,9 @@ type ResourceClaimTemplate struct {
 func NewResourceClaimTemplate(ctx *pulumi.Context,
 	name string, args *ResourceClaimTemplateArgs, opts ...pulumi.ResourceOption) (*ResourceClaimTemplate, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &ResourceClaimTemplateArgs{}
 	}
 
-	if args.Spec == nil {
-		return nil, errors.New("invalid value for required argument 'Spec'")
-	}
 	args.ApiVersion = pulumi.StringPtr("resource.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("ResourceClaimTemplate")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -101,7 +97,7 @@ type resourceClaimTemplateArgs struct {
 	// Describes the ResourceClaim that is to be generated.
 	//
 	// This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
-	Spec ResourceClaimTemplateSpec `pulumi:"spec"`
+	Spec *ResourceClaimTemplateSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a ResourceClaimTemplate resource.
@@ -115,7 +111,7 @@ type ResourceClaimTemplateArgs struct {
 	// Describes the ResourceClaim that is to be generated.
 	//
 	// This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
-	Spec ResourceClaimTemplateSpecInput
+	Spec ResourceClaimTemplateSpecPtrInput
 }
 
 func (ResourceClaimTemplateArgs) ElementType() reflect.Type {

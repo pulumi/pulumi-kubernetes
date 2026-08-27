@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -97,6 +98,21 @@ public final class ClusterTrustBundleProjectionArgs extends com.pulumi.resources
         return Optional.ofNullable(this.signerName);
     }
 
+    /**
+     * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    @Import(name="user")
+    private @Nullable Output<Integer> user;
+
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Output<Integer>> user() {
+        return Optional.ofNullable(this.user);
+    }
+
     private ClusterTrustBundleProjectionArgs() {}
 
     private ClusterTrustBundleProjectionArgs(ClusterTrustBundleProjectionArgs $) {
@@ -105,6 +121,7 @@ public final class ClusterTrustBundleProjectionArgs extends com.pulumi.resources
         this.optional = $.optional;
         this.path = $.path;
         this.signerName = $.signerName;
+        this.user = $.user;
     }
 
     public static Builder builder() {
@@ -228,6 +245,27 @@ public final class ClusterTrustBundleProjectionArgs extends com.pulumi.resources
          */
         public Builder signerName(String signerName) {
             return signerName(Output.of(signerName));
+        }
+
+        /**
+         * @param user user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(@Nullable Output<Integer> user) {
+            $.user = user;
+            return this;
+        }
+
+        /**
+         * @param user user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(Integer user) {
+            return user(Output.of(user));
         }
 
         public ClusterTrustBundleProjectionArgs build() {

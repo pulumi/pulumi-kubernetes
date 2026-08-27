@@ -28,6 +28,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// path is the path relative to the mount point of the file to project the token into.
         /// </summary>
         public readonly string Path;
+        /// <summary>
+        /// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        public readonly int User;
 
         [OutputConstructor]
         private ServiceAccountTokenProjection(
@@ -35,11 +39,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             int expirationSeconds,
 
-            string path)
+            string path,
+
+            int user)
         {
             Audience = audience;
             ExpirationSeconds = expirationSeconds;
             Path = path;
+            User = user;
         }
     }
 }

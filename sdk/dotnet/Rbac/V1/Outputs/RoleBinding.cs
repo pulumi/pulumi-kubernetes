@@ -25,15 +25,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Standard object's metadata.
+        /// metadata is the standard object's metadata.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+        /// roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Rbac.V1.RoleRef RoleRef;
         /// <summary>
-        /// Subjects holds references to the objects the role applies to.
+        /// subjects holds references to the objects the role applies to.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Rbac.V1.Subject> Subjects;
 

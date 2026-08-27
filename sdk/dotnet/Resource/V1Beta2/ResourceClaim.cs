@@ -136,8 +136,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2
         /// <summary>
         /// Spec describes what is being requested and how to configure it. The spec is immutable.
         /// </summary>
-        [Input("spec", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2.ResourceClaimSpecArgs> Spec { get; set; } = null!;
+        [Input("spec")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2.ResourceClaimSpecArgs>? Spec { get; set; }
 
         public ResourceClaimArgs()
         {

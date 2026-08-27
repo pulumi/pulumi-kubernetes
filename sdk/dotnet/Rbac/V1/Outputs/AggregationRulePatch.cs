@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
     public sealed class AggregationRulePatch
     {
         /// <summary>
-        /// ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+        /// clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Meta.V1.LabelSelectorPatch> ClusterRoleSelectors;
 

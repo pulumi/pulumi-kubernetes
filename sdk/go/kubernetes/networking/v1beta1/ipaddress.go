@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -31,12 +30,9 @@ type IPAddress struct {
 func NewIPAddress(ctx *pulumi.Context,
 	name string, args *IPAddressArgs, opts ...pulumi.ResourceOption) (*IPAddress, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &IPAddressArgs{}
 	}
 
-	if args.Spec == nil {
-		return nil, errors.New("invalid value for required argument 'Spec'")
-	}
 	args.ApiVersion = pulumi.StringPtr("networking.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("IPAddress")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -88,7 +84,7 @@ type ipaddressArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec IPAddressSpec `pulumi:"spec"`
+	Spec *IPAddressSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a IPAddress resource.
@@ -100,7 +96,7 @@ type IPAddressArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec IPAddressSpecInput
+	Spec IPAddressSpecPtrInput
 }
 
 func (IPAddressArgs) ElementType() reflect.Type {

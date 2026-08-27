@@ -20,6 +20,36 @@ export type CertificateSigningRequestPatch = import("./certificateSigningRequest
 export const CertificateSigningRequestPatch: typeof import("./certificateSigningRequestPatch").CertificateSigningRequestPatch = null as any;
 utilities.lazyLoad(exports, ["CertificateSigningRequestPatch"], () => require("./certificateSigningRequestPatch"));
 
+export { ClusterTrustBundleArgs } from "./clusterTrustBundle";
+export type ClusterTrustBundle = import("./clusterTrustBundle").ClusterTrustBundle;
+export const ClusterTrustBundle: typeof import("./clusterTrustBundle").ClusterTrustBundle = null as any;
+utilities.lazyLoad(exports, ["ClusterTrustBundle"], () => require("./clusterTrustBundle"));
+
+export { ClusterTrustBundleListArgs } from "./clusterTrustBundleList";
+export type ClusterTrustBundleList = import("./clusterTrustBundleList").ClusterTrustBundleList;
+export const ClusterTrustBundleList: typeof import("./clusterTrustBundleList").ClusterTrustBundleList = null as any;
+utilities.lazyLoad(exports, ["ClusterTrustBundleList"], () => require("./clusterTrustBundleList"));
+
+export { ClusterTrustBundlePatchArgs } from "./clusterTrustBundlePatch";
+export type ClusterTrustBundlePatch = import("./clusterTrustBundlePatch").ClusterTrustBundlePatch;
+export const ClusterTrustBundlePatch: typeof import("./clusterTrustBundlePatch").ClusterTrustBundlePatch = null as any;
+utilities.lazyLoad(exports, ["ClusterTrustBundlePatch"], () => require("./clusterTrustBundlePatch"));
+
+export { PodCertificateRequestArgs } from "./podCertificateRequest";
+export type PodCertificateRequest = import("./podCertificateRequest").PodCertificateRequest;
+export const PodCertificateRequest: typeof import("./podCertificateRequest").PodCertificateRequest = null as any;
+utilities.lazyLoad(exports, ["PodCertificateRequest"], () => require("./podCertificateRequest"));
+
+export { PodCertificateRequestListArgs } from "./podCertificateRequestList";
+export type PodCertificateRequestList = import("./podCertificateRequestList").PodCertificateRequestList;
+export const PodCertificateRequestList: typeof import("./podCertificateRequestList").PodCertificateRequestList = null as any;
+utilities.lazyLoad(exports, ["PodCertificateRequestList"], () => require("./podCertificateRequestList"));
+
+export { PodCertificateRequestPatchArgs } from "./podCertificateRequestPatch";
+export type PodCertificateRequestPatch = import("./podCertificateRequestPatch").PodCertificateRequestPatch;
+export const PodCertificateRequestPatch: typeof import("./podCertificateRequestPatch").PodCertificateRequestPatch = null as any;
+utilities.lazyLoad(exports, ["PodCertificateRequestPatch"], () => require("./podCertificateRequestPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -31,6 +61,18 @@ const _module = {
                 return new CertificateSigningRequestList(name, <any>undefined, { urn })
             case "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch":
                 return new CertificateSigningRequestPatch(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1:ClusterTrustBundle":
+                return new ClusterTrustBundle(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1:ClusterTrustBundleList":
+                return new ClusterTrustBundleList(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1:ClusterTrustBundlePatch":
+                return new ClusterTrustBundlePatch(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1:PodCertificateRequest":
+                return new PodCertificateRequest(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1:PodCertificateRequestList":
+                return new PodCertificateRequestList(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1:PodCertificateRequestPatch":
+                return new PodCertificateRequestPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

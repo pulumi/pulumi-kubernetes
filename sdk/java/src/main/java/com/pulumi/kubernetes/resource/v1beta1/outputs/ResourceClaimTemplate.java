@@ -4,7 +4,6 @@
 package com.pulumi.kubernetes.resource.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.ResourceClaimTemplateSpec;
 import java.lang.String;
@@ -35,7 +34,7 @@ public final class ResourceClaimTemplate {
      * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
      * 
      */
-    private ResourceClaimTemplateSpec spec;
+    private @Nullable ResourceClaimTemplateSpec spec;
 
     private ResourceClaimTemplate() {}
     /**
@@ -65,8 +64,8 @@ public final class ResourceClaimTemplate {
      * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
      * 
      */
-    public ResourceClaimTemplateSpec spec() {
-        return this.spec;
+    public Optional<ResourceClaimTemplateSpec> spec() {
+        return Optional.ofNullable(this.spec);
     }
 
     public static Builder builder() {
@@ -81,7 +80,7 @@ public final class ResourceClaimTemplate {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private ResourceClaimTemplateSpec spec;
+        private @Nullable ResourceClaimTemplateSpec spec;
         public Builder() {}
         public Builder(ResourceClaimTemplate defaults) {
     	      Objects.requireNonNull(defaults);
@@ -110,10 +109,8 @@ public final class ResourceClaimTemplate {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(ResourceClaimTemplateSpec spec) {
-            if (spec == null) {
-              throw new MissingRequiredPropertyException("ResourceClaimTemplate", "spec");
-            }
+        public Builder spec(@Nullable ResourceClaimTemplateSpec spec) {
+
             this.spec = spec;
             return this;
         }

@@ -171,6 +171,8 @@ class PodCertificateRequestPatch(pulumi.CustomResource):
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:certificates.k8s.io/v1:PodCertificateRequestPatch")])
+        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(PodCertificateRequestPatch, __self__).__init__(
             'kubernetes:certificates.k8s.io/v1beta1:PodCertificateRequestPatch',
             resource_name,

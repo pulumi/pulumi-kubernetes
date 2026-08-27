@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class AggregationRulePatch {
     /**
-     * @return ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
+     * @return clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
      * 
      */
     private @Nullable List<LabelSelectorPatch> clusterRoleSelectors;
 
     private AggregationRulePatch() {}
     /**
-     * @return ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
+     * @return clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
      * 
      */
     public List<LabelSelectorPatch> clusterRoleSelectors() {

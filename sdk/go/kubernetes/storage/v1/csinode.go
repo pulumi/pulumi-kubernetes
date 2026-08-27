@@ -21,10 +21,12 @@ type CSINode struct {
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
-	// Standard object's metadata. metadata.name must be the Kubernetes node name.
+	// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// spec is the specification of CSINode
 	Spec CSINodeSpecOutput `pulumi:"spec"`
+	// status contains health and status information for the node's storage.
+	Status CSINodeStatusPtrOutput `pulumi:"status"`
 }
 
 // NewCSINode registers a new resource with the given unique name, arguments, and options.
@@ -82,7 +84,7 @@ type csinodeArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. metadata.name must be the Kubernetes node name.
+	// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the specification of CSINode
 	Spec CSINodeSpec `pulumi:"spec"`
@@ -94,7 +96,7 @@ type CSINodeArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object's metadata. metadata.name must be the Kubernetes node name.
+	// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 	Metadata metav1.ObjectMetaPtrInput
 	// spec is the specification of CSINode
 	Spec CSINodeSpecInput
@@ -197,7 +199,7 @@ func (o CSINodeOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v *CSINode) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Standard object's metadata. metadata.name must be the Kubernetes node name.
+// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 func (o CSINodeOutput) Metadata() metav1.ObjectMetaOutput {
 	return o.ApplyT(func(v *CSINode) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
@@ -205,6 +207,11 @@ func (o CSINodeOutput) Metadata() metav1.ObjectMetaOutput {
 // spec is the specification of CSINode
 func (o CSINodeOutput) Spec() CSINodeSpecOutput {
 	return o.ApplyT(func(v *CSINode) CSINodeSpecOutput { return v.Spec }).(CSINodeSpecOutput)
+}
+
+// status contains health and status information for the node's storage.
+func (o CSINodeOutput) Status() CSINodeStatusPtrOutput {
+	return o.ApplyT(func(v *CSINode) CSINodeStatusPtrOutput { return v.Status }).(CSINodeStatusPtrOutput)
 }
 
 type CSINodeArrayOutput struct{ *pulumi.OutputState }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,7 +28,7 @@ public final class FlowSchemaCondition {
      */
     private @Nullable String reason;
     /**
-     * @return `status` is the status of the condition. Can be True, False, Unknown. Required.
+     * @return `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
      * 
      */
     private @Nullable String status;
@@ -35,7 +36,7 @@ public final class FlowSchemaCondition {
      * @return `type` is the type of the condition. Required.
      * 
      */
-    private @Nullable String type;
+    private String type;
 
     private FlowSchemaCondition() {}
     /**
@@ -60,7 +61,7 @@ public final class FlowSchemaCondition {
         return Optional.ofNullable(this.reason);
     }
     /**
-     * @return `status` is the status of the condition. Can be True, False, Unknown. Required.
+     * @return `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
      * 
      */
     public Optional<String> status() {
@@ -70,8 +71,8 @@ public final class FlowSchemaCondition {
      * @return `type` is the type of the condition. Required.
      * 
      */
-    public Optional<String> type() {
-        return Optional.ofNullable(this.type);
+    public String type() {
+        return this.type;
     }
 
     public static Builder builder() {
@@ -87,7 +88,7 @@ public final class FlowSchemaCondition {
         private @Nullable String message;
         private @Nullable String reason;
         private @Nullable String status;
-        private @Nullable String type;
+        private String type;
         public Builder() {}
         public Builder(FlowSchemaCondition defaults) {
     	      Objects.requireNonNull(defaults);
@@ -123,8 +124,10 @@ public final class FlowSchemaCondition {
             return this;
         }
         @CustomType.Setter
-        public Builder type(@Nullable String type) {
-
+        public Builder type(String type) {
+            if (type == null) {
+              throw new MissingRequiredPropertyException("FlowSchemaCondition", "type");
+            }
             this.type = type;
             return this;
         }

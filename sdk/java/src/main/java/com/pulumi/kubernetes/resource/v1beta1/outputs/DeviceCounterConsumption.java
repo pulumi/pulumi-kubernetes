@@ -7,11 +7,26 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.Counter;
 import java.lang.String;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class DeviceCounterConsumption {
+    /**
+     * @return CompatibilityGroups is a list of opaque group names for this counter set consumption.
+     * 
+     * Devices that consume counters from the same counter set may only be allocated at the same time (&#34;co-allocated&#34;) if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+     * 
+     * An unset field, an explicit nil, and an empty list are equivalent and mean &#34;no groups&#34;: such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+     * 
+     * Group names are opaque and meaningful only within the publishing driver&#39;s pool.
+     * 
+     * The maximum number of groups is 2, and the names must be unique.
+     * 
+     */
+    private @Nullable List<String> compatibilityGroups;
     /**
      * @return CounterSet is the name of the set from which the counters defined will be consumed.
      * 
@@ -26,6 +41,21 @@ public final class DeviceCounterConsumption {
     private Map<String,Counter> counters;
 
     private DeviceCounterConsumption() {}
+    /**
+     * @return CompatibilityGroups is a list of opaque group names for this counter set consumption.
+     * 
+     * Devices that consume counters from the same counter set may only be allocated at the same time (&#34;co-allocated&#34;) if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+     * 
+     * An unset field, an explicit nil, and an empty list are equivalent and mean &#34;no groups&#34;: such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+     * 
+     * Group names are opaque and meaningful only within the publishing driver&#39;s pool.
+     * 
+     * The maximum number of groups is 2, and the names must be unique.
+     * 
+     */
+    public List<String> compatibilityGroups() {
+        return this.compatibilityGroups == null ? List.of() : this.compatibilityGroups;
+    }
     /**
      * @return CounterSet is the name of the set from which the counters defined will be consumed.
      * 
@@ -52,15 +82,26 @@ public final class DeviceCounterConsumption {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable List<String> compatibilityGroups;
         private String counterSet;
         private Map<String,Counter> counters;
         public Builder() {}
         public Builder(DeviceCounterConsumption defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.compatibilityGroups = defaults.compatibilityGroups;
     	      this.counterSet = defaults.counterSet;
     	      this.counters = defaults.counters;
         }
 
+        @CustomType.Setter
+        public Builder compatibilityGroups(@Nullable List<String> compatibilityGroups) {
+
+            this.compatibilityGroups = compatibilityGroups;
+            return this;
+        }
+        public Builder compatibilityGroups(String... compatibilityGroups) {
+            return compatibilityGroups(List.of(compatibilityGroups));
+        }
         @CustomType.Setter
         public Builder counterSet(String counterSet) {
             if (counterSet == null) {
@@ -79,6 +120,7 @@ public final class DeviceCounterConsumption {
         }
         public DeviceCounterConsumption build() {
             final var _resultValue = new DeviceCounterConsumption();
+            _resultValue.compatibilityGroups = compatibilityGroups;
             _resultValue.counterSet = counterSet;
             _resultValue.counters = counters;
             return _resultValue;

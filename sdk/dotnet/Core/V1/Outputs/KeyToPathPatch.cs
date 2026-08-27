@@ -28,6 +28,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
         /// </summary>
         public readonly string Path;
+        /// <summary>
+        /// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        public readonly int User;
 
         [OutputConstructor]
         private KeyToPathPatch(
@@ -35,11 +39,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             int mode,
 
-            string path)
+            string path,
+
+            int user)
         {
             Key = key;
             Mode = mode;
             Path = path;
+            User = user;
         }
     }
 }

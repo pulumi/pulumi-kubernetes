@@ -13,6 +13,11 @@ import javax.annotation.Nullable;
 @CustomType
 public final class GRPCActionPatch {
     /**
+     * @return mode specifies the connection mode for the gRPC health probe. Set to &#34;TLS&#34; to use TLS without certificate verification. Set to &#34;Plaintext&#34; to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+     * 
+     */
+    private @Nullable String mode;
+    /**
      * @return Port number of the gRPC service. Number must be in the range 1 to 65535.
      * 
      */
@@ -26,6 +31,13 @@ public final class GRPCActionPatch {
     private @Nullable String service;
 
     private GRPCActionPatch() {}
+    /**
+     * @return mode specifies the connection mode for the gRPC health probe. Set to &#34;TLS&#34; to use TLS without certificate verification. Set to &#34;Plaintext&#34; to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+     * 
+     */
+    public Optional<String> mode() {
+        return Optional.ofNullable(this.mode);
+    }
     /**
      * @return Port number of the gRPC service. Number must be in the range 1 to 65535.
      * 
@@ -52,15 +64,23 @@ public final class GRPCActionPatch {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable String mode;
         private @Nullable Integer port;
         private @Nullable String service;
         public Builder() {}
         public Builder(GRPCActionPatch defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.mode = defaults.mode;
     	      this.port = defaults.port;
     	      this.service = defaults.service;
         }
 
+        @CustomType.Setter
+        public Builder mode(@Nullable String mode) {
+
+            this.mode = mode;
+            return this;
+        }
         @CustomType.Setter
         public Builder port(@Nullable Integer port) {
 
@@ -75,6 +95,7 @@ public final class GRPCActionPatch {
         }
         public GRPCActionPatch build() {
             final var _resultValue = new GRPCActionPatch();
+            _resultValue.mode = mode;
             _resultValue.port = port;
             _resultValue.service = service;
             return _resultValue;

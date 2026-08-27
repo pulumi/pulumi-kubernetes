@@ -1958,7 +1958,7 @@ func (o HPAScalingPolicyPatchArrayOutput) Index(i pulumi.IntInput) HPAScalingPol
 //
 // Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 //
-// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
 type HPAScalingRules struct {
 	// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 	Policies []HPAScalingPolicy `pulumi:"policies"`
@@ -1969,8 +1969,6 @@ type HPAScalingRules struct {
 	// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 	//
 	// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-	//
-	// This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
 	Tolerance *string `pulumi:"tolerance"`
 }
 
@@ -1989,7 +1987,7 @@ type HPAScalingRulesInput interface {
 //
 // Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 //
-// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
 type HPAScalingRulesArgs struct {
 	// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 	Policies HPAScalingPolicyArrayInput `pulumi:"policies"`
@@ -2000,8 +1998,6 @@ type HPAScalingRulesArgs struct {
 	// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 	//
 	// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-	//
-	// This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
 	Tolerance pulumi.StringPtrInput `pulumi:"tolerance"`
 }
 
@@ -2062,7 +2058,7 @@ func (i *hpascalingRulesPtrType) ToHPAScalingRulesPtrOutputWithContext(ctx conte
 //
 // Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 //
-// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
 type HPAScalingRulesOutput struct{ *pulumi.OutputState }
 
 func (HPAScalingRulesOutput) ElementType() reflect.Type {
@@ -2105,8 +2101,6 @@ func (o HPAScalingRulesOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput 
 // tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 //
 // For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-//
-// This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
 func (o HPAScalingRulesOutput) Tolerance() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HPAScalingRules) *string { return v.Tolerance }).(pulumi.StringPtrOutput)
 }
@@ -2168,8 +2162,6 @@ func (o HPAScalingRulesPtrOutput) StabilizationWindowSeconds() pulumi.IntPtrOutp
 // tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 //
 // For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-//
-// This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
 func (o HPAScalingRulesPtrOutput) Tolerance() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HPAScalingRules) *string {
 		if v == nil {
@@ -2183,7 +2175,7 @@ func (o HPAScalingRulesPtrOutput) Tolerance() pulumi.StringPtrOutput {
 //
 // Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 //
-// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
 type HPAScalingRulesPatch struct {
 	// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 	Policies []HPAScalingPolicyPatch `pulumi:"policies"`
@@ -2194,8 +2186,6 @@ type HPAScalingRulesPatch struct {
 	// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 	//
 	// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-	//
-	// This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
 	Tolerance *string `pulumi:"tolerance"`
 }
 
@@ -2214,7 +2204,7 @@ type HPAScalingRulesPatchInput interface {
 //
 // Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 //
-// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
 type HPAScalingRulesPatchArgs struct {
 	// policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
 	Policies HPAScalingPolicyPatchArrayInput `pulumi:"policies"`
@@ -2225,8 +2215,6 @@ type HPAScalingRulesPatchArgs struct {
 	// tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 	//
 	// For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-	//
-	// This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
 	Tolerance pulumi.StringPtrInput `pulumi:"tolerance"`
 }
 
@@ -2287,7 +2275,7 @@ func (i *hpascalingRulesPatchPtrType) ToHPAScalingRulesPatchPtrOutputWithContext
 //
 // Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 //
-// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+// The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
 type HPAScalingRulesPatchOutput struct{ *pulumi.OutputState }
 
 func (HPAScalingRulesPatchOutput) ElementType() reflect.Type {
@@ -2330,8 +2318,6 @@ func (o HPAScalingRulesPatchOutput) StabilizationWindowSeconds() pulumi.IntPtrOu
 // tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 //
 // For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-//
-// This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
 func (o HPAScalingRulesPatchOutput) Tolerance() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HPAScalingRulesPatch) *string { return v.Tolerance }).(pulumi.StringPtrOutput)
 }
@@ -2393,8 +2379,6 @@ func (o HPAScalingRulesPatchPtrOutput) StabilizationWindowSeconds() pulumi.IntPt
 // tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 //
 // For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-//
-// This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
 func (o HPAScalingRulesPatchPtrOutput) Tolerance() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HPAScalingRulesPatch) *string {
 		if v == nil {
@@ -2888,6 +2872,8 @@ type HorizontalPodAutoscalerCondition struct {
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
 	// message is a human-readable explanation containing details about the transition
 	Message *string `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// reason is the reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// status is the status of the condition (True, False, Unknown)
@@ -2913,6 +2899,8 @@ type HorizontalPodAutoscalerConditionArgs struct {
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
 	// message is a human-readable explanation containing details about the transition
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// reason is the reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// status is the status of the condition (True, False, Unknown)
@@ -2983,6 +2971,11 @@ func (o HorizontalPodAutoscalerConditionOutput) Message() pulumi.StringPtrOutput
 	return o.ApplyT(func(v HorizontalPodAutoscalerCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
+// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+func (o HorizontalPodAutoscalerConditionOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerCondition) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
 // reason is the reason for the condition's last transition.
 func (o HorizontalPodAutoscalerConditionOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
@@ -3024,6 +3017,8 @@ type HorizontalPodAutoscalerConditionPatch struct {
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
 	// message is a human-readable explanation containing details about the transition
 	Message *string `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// reason is the reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
 	// status is the status of the condition (True, False, Unknown)
@@ -3049,6 +3044,8 @@ type HorizontalPodAutoscalerConditionPatchArgs struct {
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
 	// message is a human-readable explanation containing details about the transition
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// reason is the reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// status is the status of the condition (True, False, Unknown)
@@ -3117,6 +3114,11 @@ func (o HorizontalPodAutoscalerConditionPatchOutput) LastTransitionTime() pulumi
 // message is a human-readable explanation containing details about the transition
 func (o HorizontalPodAutoscalerConditionPatchOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerConditionPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+func (o HorizontalPodAutoscalerConditionPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HorizontalPodAutoscalerConditionPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
 // reason is the reason for the condition's last transition.
@@ -4716,7 +4718,7 @@ func (o MetricSpecPatchArrayOutput) Index(i pulumi.IntInput) MetricSpecPatchOutp
 
 // MetricStatus describes the last-read state of a single metric.
 type MetricStatus struct {
-	// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+	// containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	ContainerResource *ContainerResourceMetricStatus `pulumi:"containerResource"`
 	// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 	External *ExternalMetricStatus `pulumi:"external"`
@@ -4743,7 +4745,7 @@ type MetricStatusInput interface {
 
 // MetricStatus describes the last-read state of a single metric.
 type MetricStatusArgs struct {
-	// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+	// containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	ContainerResource ContainerResourceMetricStatusPtrInput `pulumi:"containerResource"`
 	// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 	External ExternalMetricStatusPtrInput `pulumi:"external"`
@@ -4809,7 +4811,7 @@ func (o MetricStatusOutput) ToMetricStatusOutputWithContext(ctx context.Context)
 	return o
 }
 
-// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+// containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 func (o MetricStatusOutput) ContainerResource() ContainerResourceMetricStatusPtrOutput {
 	return o.ApplyT(func(v MetricStatus) *ContainerResourceMetricStatus { return v.ContainerResource }).(ContainerResourceMetricStatusPtrOutput)
 }
@@ -4861,7 +4863,7 @@ func (o MetricStatusArrayOutput) Index(i pulumi.IntInput) MetricStatusOutput {
 
 // MetricStatus describes the last-read state of a single metric.
 type MetricStatusPatch struct {
-	// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+	// containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	ContainerResource *ContainerResourceMetricStatusPatch `pulumi:"containerResource"`
 	// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 	External *ExternalMetricStatusPatch `pulumi:"external"`
@@ -4888,7 +4890,7 @@ type MetricStatusPatchInput interface {
 
 // MetricStatus describes the last-read state of a single metric.
 type MetricStatusPatchArgs struct {
-	// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+	// containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	ContainerResource ContainerResourceMetricStatusPatchPtrInput `pulumi:"containerResource"`
 	// external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
 	External ExternalMetricStatusPatchPtrInput `pulumi:"external"`
@@ -4954,7 +4956,7 @@ func (o MetricStatusPatchOutput) ToMetricStatusPatchOutputWithContext(ctx contex
 	return o
 }
 
-// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+// containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 func (o MetricStatusPatchOutput) ContainerResource() ContainerResourceMetricStatusPatchPtrOutput {
 	return o.ApplyT(func(v MetricStatusPatch) *ContainerResourceMetricStatusPatch { return v.ContainerResource }).(ContainerResourceMetricStatusPatchPtrOutput)
 }
@@ -5400,7 +5402,7 @@ func (o MetricTargetPatchPtrOutput) Value() pulumi.StringPtrOutput {
 
 // MetricValueStatus holds the current value for a metric
 type MetricValueStatus struct {
-	// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+	// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 	AverageUtilization *int `pulumi:"averageUtilization"`
 	// averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 	AverageValue *string `pulumi:"averageValue"`
@@ -5421,7 +5423,7 @@ type MetricValueStatusInput interface {
 
 // MetricValueStatus holds the current value for a metric
 type MetricValueStatusArgs struct {
-	// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+	// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 	AverageUtilization pulumi.IntPtrInput `pulumi:"averageUtilization"`
 	// averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 	AverageValue pulumi.StringPtrInput `pulumi:"averageValue"`
@@ -5507,7 +5509,7 @@ func (o MetricValueStatusOutput) ToMetricValueStatusPtrOutputWithContext(ctx con
 	}).(MetricValueStatusPtrOutput)
 }
 
-// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 func (o MetricValueStatusOutput) AverageUtilization() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v MetricValueStatus) *int { return v.AverageUtilization }).(pulumi.IntPtrOutput)
 }
@@ -5546,7 +5548,7 @@ func (o MetricValueStatusPtrOutput) Elem() MetricValueStatusOutput {
 	}).(MetricValueStatusOutput)
 }
 
-// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 func (o MetricValueStatusPtrOutput) AverageUtilization() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MetricValueStatus) *int {
 		if v == nil {
@@ -5578,7 +5580,7 @@ func (o MetricValueStatusPtrOutput) Value() pulumi.StringPtrOutput {
 
 // MetricValueStatus holds the current value for a metric
 type MetricValueStatusPatch struct {
-	// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+	// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 	AverageUtilization *int `pulumi:"averageUtilization"`
 	// averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 	AverageValue *string `pulumi:"averageValue"`
@@ -5599,7 +5601,7 @@ type MetricValueStatusPatchInput interface {
 
 // MetricValueStatus holds the current value for a metric
 type MetricValueStatusPatchArgs struct {
-	// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+	// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 	AverageUtilization pulumi.IntPtrInput `pulumi:"averageUtilization"`
 	// averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
 	AverageValue pulumi.StringPtrInput `pulumi:"averageValue"`
@@ -5685,7 +5687,7 @@ func (o MetricValueStatusPatchOutput) ToMetricValueStatusPatchPtrOutputWithConte
 	}).(MetricValueStatusPatchPtrOutput)
 }
 
-// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 func (o MetricValueStatusPatchOutput) AverageUtilization() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v MetricValueStatusPatch) *int { return v.AverageUtilization }).(pulumi.IntPtrOutput)
 }
@@ -5724,7 +5726,7 @@ func (o MetricValueStatusPatchPtrOutput) Elem() MetricValueStatusPatchOutput {
 	}).(MetricValueStatusPatchOutput)
 }
 
-// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
 func (o MetricValueStatusPatchPtrOutput) AverageUtilization() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *MetricValueStatusPatch) *int {
 		if v == nil {
@@ -6114,7 +6116,7 @@ func (o ObjectMetricSourcePatchPtrOutput) Target() MetricTargetPatchPtrOutput {
 type ObjectMetricStatus struct {
 	// current contains the current value for the given metric
 	Current MetricValueStatus `pulumi:"current"`
-	// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+	// describedObject specifies the descriptions of a object,such as kind,name apiVersion
 	DescribedObject CrossVersionObjectReference `pulumi:"describedObject"`
 	// metric identifies the target metric by name and selector
 	Metric MetricIdentifier `pulumi:"metric"`
@@ -6135,7 +6137,7 @@ type ObjectMetricStatusInput interface {
 type ObjectMetricStatusArgs struct {
 	// current contains the current value for the given metric
 	Current MetricValueStatusInput `pulumi:"current"`
-	// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+	// describedObject specifies the descriptions of a object,such as kind,name apiVersion
 	DescribedObject CrossVersionObjectReferenceInput `pulumi:"describedObject"`
 	// metric identifies the target metric by name and selector
 	Metric MetricIdentifierInput `pulumi:"metric"`
@@ -6224,7 +6226,7 @@ func (o ObjectMetricStatusOutput) Current() MetricValueStatusOutput {
 	return o.ApplyT(func(v ObjectMetricStatus) MetricValueStatus { return v.Current }).(MetricValueStatusOutput)
 }
 
-// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+// describedObject specifies the descriptions of a object,such as kind,name apiVersion
 func (o ObjectMetricStatusOutput) DescribedObject() CrossVersionObjectReferenceOutput {
 	return o.ApplyT(func(v ObjectMetricStatus) CrossVersionObjectReference { return v.DescribedObject }).(CrossVersionObjectReferenceOutput)
 }
@@ -6268,7 +6270,7 @@ func (o ObjectMetricStatusPtrOutput) Current() MetricValueStatusPtrOutput {
 	}).(MetricValueStatusPtrOutput)
 }
 
-// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+// describedObject specifies the descriptions of a object,such as kind,name apiVersion
 func (o ObjectMetricStatusPtrOutput) DescribedObject() CrossVersionObjectReferencePtrOutput {
 	return o.ApplyT(func(v *ObjectMetricStatus) *CrossVersionObjectReference {
 		if v == nil {
@@ -6292,7 +6294,7 @@ func (o ObjectMetricStatusPtrOutput) Metric() MetricIdentifierPtrOutput {
 type ObjectMetricStatusPatch struct {
 	// current contains the current value for the given metric
 	Current *MetricValueStatusPatch `pulumi:"current"`
-	// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+	// describedObject specifies the descriptions of a object,such as kind,name apiVersion
 	DescribedObject *CrossVersionObjectReferencePatch `pulumi:"describedObject"`
 	// metric identifies the target metric by name and selector
 	Metric *MetricIdentifierPatch `pulumi:"metric"`
@@ -6313,7 +6315,7 @@ type ObjectMetricStatusPatchInput interface {
 type ObjectMetricStatusPatchArgs struct {
 	// current contains the current value for the given metric
 	Current MetricValueStatusPatchPtrInput `pulumi:"current"`
-	// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+	// describedObject specifies the descriptions of a object,such as kind,name apiVersion
 	DescribedObject CrossVersionObjectReferencePatchPtrInput `pulumi:"describedObject"`
 	// metric identifies the target metric by name and selector
 	Metric MetricIdentifierPatchPtrInput `pulumi:"metric"`
@@ -6402,7 +6404,7 @@ func (o ObjectMetricStatusPatchOutput) Current() MetricValueStatusPatchPtrOutput
 	return o.ApplyT(func(v ObjectMetricStatusPatch) *MetricValueStatusPatch { return v.Current }).(MetricValueStatusPatchPtrOutput)
 }
 
-// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+// describedObject specifies the descriptions of a object,such as kind,name apiVersion
 func (o ObjectMetricStatusPatchOutput) DescribedObject() CrossVersionObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v ObjectMetricStatusPatch) *CrossVersionObjectReferencePatch { return v.DescribedObject }).(CrossVersionObjectReferencePatchPtrOutput)
 }
@@ -6446,7 +6448,7 @@ func (o ObjectMetricStatusPatchPtrOutput) Current() MetricValueStatusPatchPtrOut
 	}).(MetricValueStatusPatchPtrOutput)
 }
 
-// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+// describedObject specifies the descriptions of a object,such as kind,name apiVersion
 func (o ObjectMetricStatusPatchPtrOutput) DescribedObject() CrossVersionObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v *ObjectMetricStatusPatch) *CrossVersionObjectReferencePatch {
 		if v == nil {

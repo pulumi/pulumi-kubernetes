@@ -35,6 +35,11 @@ public final class DownwardAPIVolumeFile {
      * 
      */
     private @Nullable ResourceFieldSelector resourceFieldRef;
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer user;
 
     private DownwardAPIVolumeFile() {}
     /**
@@ -65,6 +70,13 @@ public final class DownwardAPIVolumeFile {
     public Optional<ResourceFieldSelector> resourceFieldRef() {
         return Optional.ofNullable(this.resourceFieldRef);
     }
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> user() {
+        return Optional.ofNullable(this.user);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -79,6 +91,7 @@ public final class DownwardAPIVolumeFile {
         private @Nullable Integer mode;
         private String path;
         private @Nullable ResourceFieldSelector resourceFieldRef;
+        private @Nullable Integer user;
         public Builder() {}
         public Builder(DownwardAPIVolumeFile defaults) {
     	      Objects.requireNonNull(defaults);
@@ -86,6 +99,7 @@ public final class DownwardAPIVolumeFile {
     	      this.mode = defaults.mode;
     	      this.path = defaults.path;
     	      this.resourceFieldRef = defaults.resourceFieldRef;
+    	      this.user = defaults.user;
         }
 
         @CustomType.Setter
@@ -114,12 +128,19 @@ public final class DownwardAPIVolumeFile {
             this.resourceFieldRef = resourceFieldRef;
             return this;
         }
+        @CustomType.Setter
+        public Builder user(@Nullable Integer user) {
+
+            this.user = user;
+            return this;
+        }
         public DownwardAPIVolumeFile build() {
             final var _resultValue = new DownwardAPIVolumeFile();
             _resultValue.fieldRef = fieldRef;
             _resultValue.mode = mode;
             _resultValue.path = path;
             _resultValue.resourceFieldRef = resourceFieldRef;
+            _resultValue.user = user;
             return _resultValue;
         }
     }

@@ -11,6 +11,7 @@
 
 - Upgrade Kubernetes schema and libraries to v1.36.3.
 - Upgrade Kubernetes schema and libraries to v1.36.4.
+- Upgrade Kubernetes schema and libraries to v1.37.0.
 
 ### Fixed
 

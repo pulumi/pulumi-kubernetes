@@ -11,7 +11,7 @@ import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceAttributeArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceCapacityArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceCounterConsumptionArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceTaintArgs;
-import com.pulumi.kubernetes.resource.v1beta2.inputs.NodeAllocatableResourceMappingArgs;
+import com.pulumi.kubernetes.resource.v1beta2.inputs.NodeAllocatableResourceArgs;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
@@ -217,18 +217,18 @@ public final class DeviceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
      * 
      */
-    @Import(name="nodeAllocatableResourceMappings")
-    private @Nullable Output<Map<String,NodeAllocatableResourceMappingArgs>> nodeAllocatableResourceMappings;
+    @Import(name="nodeAllocatableResources")
+    private @Nullable Output<Map<String,NodeAllocatableResourceArgs>> nodeAllocatableResources;
 
     /**
-     * @return NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * @return NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
      * 
      */
-    public Optional<Output<Map<String,NodeAllocatableResourceMappingArgs>>> nodeAllocatableResourceMappings() {
-        return Optional.ofNullable(this.nodeAllocatableResourceMappings);
+    public Optional<Output<Map<String,NodeAllocatableResourceArgs>>> nodeAllocatableResources() {
+        return Optional.ofNullable(this.nodeAllocatableResources);
     }
 
     /**
@@ -308,7 +308,7 @@ public final class DeviceArgs extends com.pulumi.resources.ResourceArgs {
         this.capacity = $.capacity;
         this.consumesCounters = $.consumesCounters;
         this.name = $.name;
-        this.nodeAllocatableResourceMappings = $.nodeAllocatableResourceMappings;
+        this.nodeAllocatableResources = $.nodeAllocatableResources;
         this.nodeName = $.nodeName;
         this.nodeSelector = $.nodeSelector;
         this.taints = $.taints;
@@ -620,24 +620,24 @@ public final class DeviceArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param nodeAllocatableResourceMappings NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+         * @param nodeAllocatableResources NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
          * 
          * @return builder
          * 
          */
-        public Builder nodeAllocatableResourceMappings(@Nullable Output<Map<String,NodeAllocatableResourceMappingArgs>> nodeAllocatableResourceMappings) {
-            $.nodeAllocatableResourceMappings = nodeAllocatableResourceMappings;
+        public Builder nodeAllocatableResources(@Nullable Output<Map<String,NodeAllocatableResourceArgs>> nodeAllocatableResources) {
+            $.nodeAllocatableResources = nodeAllocatableResources;
             return this;
         }
 
         /**
-         * @param nodeAllocatableResourceMappings NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+         * @param nodeAllocatableResources NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
          * 
          * @return builder
          * 
          */
-        public Builder nodeAllocatableResourceMappings(Map<String,NodeAllocatableResourceMappingArgs> nodeAllocatableResourceMappings) {
-            return nodeAllocatableResourceMappings(Output.of(nodeAllocatableResourceMappings));
+        public Builder nodeAllocatableResources(Map<String,NodeAllocatableResourceArgs> nodeAllocatableResources) {
+            return nodeAllocatableResources(Output.of(nodeAllocatableResources));
         }
 
         /**

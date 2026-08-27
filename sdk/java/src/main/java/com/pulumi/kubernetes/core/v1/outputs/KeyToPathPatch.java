@@ -27,6 +27,11 @@ public final class KeyToPathPatch {
      * 
      */
     private @Nullable String path;
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer user;
 
     private KeyToPathPatch() {}
     /**
@@ -50,6 +55,13 @@ public final class KeyToPathPatch {
     public Optional<String> path() {
         return Optional.ofNullable(this.path);
     }
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> user() {
+        return Optional.ofNullable(this.user);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -63,12 +75,14 @@ public final class KeyToPathPatch {
         private @Nullable String key;
         private @Nullable Integer mode;
         private @Nullable String path;
+        private @Nullable Integer user;
         public Builder() {}
         public Builder(KeyToPathPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.key = defaults.key;
     	      this.mode = defaults.mode;
     	      this.path = defaults.path;
+    	      this.user = defaults.user;
         }
 
         @CustomType.Setter
@@ -89,11 +103,18 @@ public final class KeyToPathPatch {
             this.path = path;
             return this;
         }
+        @CustomType.Setter
+        public Builder user(@Nullable Integer user) {
+
+            this.user = user;
+            return this;
+        }
         public KeyToPathPatch build() {
             final var _resultValue = new KeyToPathPatch();
             _resultValue.key = key;
             _resultValue.mode = mode;
             _resultValue.path = path;
+            _resultValue.user = user;
             return _resultValue;
         }
     }

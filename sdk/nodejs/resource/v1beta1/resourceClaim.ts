@@ -71,9 +71,6 @@ export class ResourceClaim extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if (args?.spec === undefined && !opts.urn) {
-                throw new Error("Missing required property 'spec'");
-            }
             resourceInputs["apiVersion"] = "resource.k8s.io/v1beta1";
             resourceInputs["kind"] = "ResourceClaim";
             resourceInputs["metadata"] = args?.metadata;
@@ -112,5 +109,5 @@ export interface ResourceClaimArgs {
     /**
      * Spec describes what is being requested and how to configure it. The spec is immutable.
      */
-    spec: pulumi.Input<inputs.resource.v1beta1.ResourceClaimSpec>;
+    spec?: pulumi.Input<inputs.resource.v1beta1.ResourceClaimSpec | undefined>;
 }

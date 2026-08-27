@@ -6,7 +6,6 @@ package com.pulumi.kubernetes.resource.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.resource.v1.inputs.ResourceClaimSpecArgs;
 import com.pulumi.kubernetes.resource.v1.inputs.ResourceClaimStatusArgs;
@@ -73,15 +72,15 @@ public final class ResourceClaimArgs extends com.pulumi.resources.ResourceArgs {
      * Spec describes what is being requested and how to configure it. The spec is immutable.
      * 
      */
-    @Import(name="spec", required=true)
-    private Output<ResourceClaimSpecArgs> spec;
+    @Import(name="spec")
+    private @Nullable Output<ResourceClaimSpecArgs> spec;
 
     /**
      * @return Spec describes what is being requested and how to configure it. The spec is immutable.
      * 
      */
-    public Output<ResourceClaimSpecArgs> spec() {
-        return this.spec;
+    public Optional<Output<ResourceClaimSpecArgs>> spec() {
+        return Optional.ofNullable(this.spec);
     }
 
     /**
@@ -196,7 +195,7 @@ public final class ResourceClaimArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder spec(Output<ResourceClaimSpecArgs> spec) {
+        public Builder spec(@Nullable Output<ResourceClaimSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
@@ -235,9 +234,6 @@ public final class ResourceClaimArgs extends com.pulumi.resources.ResourceArgs {
         public ResourceClaimArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            if ($.spec == null) {
-                throw new MissingRequiredPropertyException("ResourceClaimArgs", "spec");
-            }
             return $;
         }
     }

@@ -53,6 +53,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSelector NodeSelector;
         /// <summary>
+        /// PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+        /// 
+        /// When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+        /// </summary>
+        public readonly string PartitionTypeAttribute;
+        /// <summary>
         /// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
         /// 
         /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -72,6 +78,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
         /// The maximum number of counter sets is 8.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.CounterSet> SharedCounters;
+        /// <summary>
+        /// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+        /// 
+        /// - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+        ///   value cannot be specified unless "NodeUnprepareResources" is also listed
+        ///   (or "*" is specified).
+        /// - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+        /// 
+        /// Other values may be added in the future. The kubelet must ignore unknown values.
+        /// </summary>
+        public readonly ImmutableArray<string> SkipNodeOperations;
 
         [OutputConstructor]
         private ResourceSliceSpec(
@@ -85,20 +102,26 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSelector nodeSelector,
 
+            string partitionTypeAttribute,
+
             bool perDeviceNodeSelection,
 
             Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.ResourcePool pool,
 
-            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.CounterSet> sharedCounters)
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta1.CounterSet> sharedCounters,
+
+            ImmutableArray<string> skipNodeOperations)
         {
             AllNodes = allNodes;
             Devices = devices;
             Driver = driver;
             NodeName = nodeName;
             NodeSelector = nodeSelector;
+            PartitionTypeAttribute = partitionTypeAttribute;
             PerDeviceNodeSelection = perDeviceNodeSelection;
             Pool = pool;
             SharedCounters = sharedCounters;
+            SkipNodeOperations = skipNodeOperations;
         }
     }
 }

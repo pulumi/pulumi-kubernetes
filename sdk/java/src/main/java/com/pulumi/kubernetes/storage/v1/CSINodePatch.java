@@ -12,6 +12,7 @@ import com.pulumi.kubernetes.Utilities;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMetaPatch;
 import com.pulumi.kubernetes.storage.v1.CSINodePatchArgs;
 import com.pulumi.kubernetes.storage.v1.outputs.CSINodeSpecPatch;
+import com.pulumi.kubernetes.storage.v1.outputs.CSINodeStatusPatch;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
@@ -58,14 +59,14 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.kind);
     }
     /**
-     * Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+     * metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+     * @return metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     public Output<Optional<ObjectMetaPatch>> metadata() {
@@ -84,6 +85,20 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<CSINodeSpecPatch>> spec() {
         return Codegen.optional(this.spec);
+    }
+    /**
+     * status contains health and status information for the node&#39;s storage.
+     * 
+     */
+    @Export(name="status", refs={CSINodeStatusPatch.class}, tree="[0]")
+    private Output</* @Nullable */ CSINodeStatusPatch> status;
+
+    /**
+     * @return status contains health and status information for the node&#39;s storage.
+     * 
+     */
+    public Output<Optional<CSINodeStatusPatch>> status() {
+        return Codegen.optional(this.status);
     }
 
     /**

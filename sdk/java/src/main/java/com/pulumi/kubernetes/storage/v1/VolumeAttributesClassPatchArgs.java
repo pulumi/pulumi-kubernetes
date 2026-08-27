@@ -34,14 +34,14 @@ public final class VolumeAttributesClassPatchArgs extends com.pulumi.resources.R
     }
 
     /**
-     * Name of the CSI driver This field is immutable.
+     * driverName is the name of the CSI driver This field is immutable.
      * 
      */
     @Import(name="driverName")
     private @Nullable Output<String> driverName;
 
     /**
-     * @return Name of the CSI driver This field is immutable.
+     * @return driverName is the name of the CSI driver This field is immutable.
      * 
      */
     public Optional<Output<String>> driverName() {
@@ -64,14 +64,14 @@ public final class VolumeAttributesClassPatchArgs extends com.pulumi.resources.R
     }
 
     /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaPatchArgs> metadata;
 
     /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Optional<Output<ObjectMetaPatchArgs>> metadata() {
@@ -147,7 +147,7 @@ public final class VolumeAttributesClassPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param driverName Name of the CSI driver This field is immutable.
+         * @param driverName driverName is the name of the CSI driver This field is immutable.
          * 
          * @return builder
          * 
@@ -158,7 +158,7 @@ public final class VolumeAttributesClassPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param driverName Name of the CSI driver This field is immutable.
+         * @param driverName driverName is the name of the CSI driver This field is immutable.
          * 
          * @return builder
          * 
@@ -189,7 +189,7 @@ public final class VolumeAttributesClassPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+         * @param metadata metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
          * 
          * @return builder
          * 
@@ -200,7 +200,7 @@ public final class VolumeAttributesClassPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+         * @param metadata metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
          * 
          * @return builder
          * 

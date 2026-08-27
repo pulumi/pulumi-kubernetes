@@ -9,6 +9,7 @@ import com.pulumi.core.internal.Codegen;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.storage.v1.inputs.CSINodeSpecArgs;
+import com.pulumi.kubernetes.storage.v1.inputs.CSINodeStatusArgs;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -54,14 +55,14 @@ public final class CSINodeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+     * metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+     * @return metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -83,6 +84,21 @@ public final class CSINodeArgs extends com.pulumi.resources.ResourceArgs {
         return this.spec;
     }
 
+    /**
+     * status contains health and status information for the node&#39;s storage.
+     * 
+     */
+    @Import(name="status")
+    private @Nullable Output<CSINodeStatusArgs> status;
+
+    /**
+     * @return status contains health and status information for the node&#39;s storage.
+     * 
+     */
+    public Optional<Output<CSINodeStatusArgs>> status() {
+        return Optional.ofNullable(this.status);
+    }
+
     private CSINodeArgs() {}
 
     private CSINodeArgs(CSINodeArgs $) {
@@ -90,6 +106,7 @@ public final class CSINodeArgs extends com.pulumi.resources.ResourceArgs {
         this.kind = $.kind;
         this.metadata = $.metadata;
         this.spec = $.spec;
+        this.status = $.status;
     }
 
     public static Builder builder() {
@@ -153,7 +170,7 @@ public final class CSINodeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+         * @param metadata metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
          * 
          * @return builder
          * 
@@ -164,7 +181,7 @@ public final class CSINodeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+         * @param metadata metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
          * 
          * @return builder
          * 
@@ -192,6 +209,27 @@ public final class CSINodeArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder spec(CSINodeSpecArgs spec) {
             return spec(Output.of(spec));
+        }
+
+        /**
+         * @param status status contains health and status information for the node&#39;s storage.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder status(@Nullable Output<CSINodeStatusArgs> status) {
+            $.status = status;
+            return this;
+        }
+
+        /**
+         * @param status status contains health and status information for the node&#39;s storage.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder status(CSINodeStatusArgs status) {
+            return status(Output.of(status));
         }
 
         public CSINodeArgs build() {

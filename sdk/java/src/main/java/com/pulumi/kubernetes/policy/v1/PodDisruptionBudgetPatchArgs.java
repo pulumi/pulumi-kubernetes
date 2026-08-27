@@ -49,14 +49,14 @@ public final class PodDisruptionBudgetPatchArgs extends com.pulumi.resources.Res
     }
 
     /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaPatchArgs> metadata;
 
     /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Optional<Output<ObjectMetaPatchArgs>> metadata() {
@@ -64,14 +64,14 @@ public final class PodDisruptionBudgetPatchArgs extends com.pulumi.resources.Res
     }
 
     /**
-     * Specification of the desired behavior of the PodDisruptionBudget.
+     * spec is the specification of the desired behavior of the PodDisruptionBudget.
      * 
      */
     @Import(name="spec")
     private @Nullable Output<PodDisruptionBudgetSpecPatchArgs> spec;
 
     /**
-     * @return Specification of the desired behavior of the PodDisruptionBudget.
+     * @return spec is the specification of the desired behavior of the PodDisruptionBudget.
      * 
      */
     public Optional<Output<PodDisruptionBudgetSpecPatchArgs>> spec() {
@@ -148,7 +148,7 @@ public final class PodDisruptionBudgetPatchArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+         * @param metadata metadata is the standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
          * 
          * @return builder
          * 
@@ -159,7 +159,7 @@ public final class PodDisruptionBudgetPatchArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+         * @param metadata metadata is the standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
          * 
          * @return builder
          * 
@@ -169,7 +169,7 @@ public final class PodDisruptionBudgetPatchArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param spec Specification of the desired behavior of the PodDisruptionBudget.
+         * @param spec spec is the specification of the desired behavior of the PodDisruptionBudget.
          * 
          * @return builder
          * 
@@ -180,7 +180,7 @@ public final class PodDisruptionBudgetPatchArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param spec Specification of the desired behavior of the PodDisruptionBudget.
+         * @param spec spec is the specification of the desired behavior of the PodDisruptionBudget.
          * 
          * @return builder
          * 

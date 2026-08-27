@@ -40,7 +40,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
         public Input<int>? LeaseTransitions { get; set; }
 
         /// <summary>
-        /// PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+        /// preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
         /// </summary>
         [Input("preferredHolder")]
         public Input<string>? PreferredHolder { get; set; }
@@ -52,7 +52,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
         public Input<string>? RenewTime { get; set; }
 
         /// <summary>
-        /// Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+        /// strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         /// </summary>
         [Input("strategy")]
         public Input<string>? Strategy { get; set; }

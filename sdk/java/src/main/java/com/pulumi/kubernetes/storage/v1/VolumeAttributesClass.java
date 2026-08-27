@@ -37,14 +37,14 @@ public class VolumeAttributesClass extends com.pulumi.resources.CustomResource {
         return this.apiVersion;
     }
     /**
-     * Name of the CSI driver This field is immutable.
+     * driverName is the name of the CSI driver This field is immutable.
      * 
      */
     @Export(name="driverName", refs={String.class}, tree="[0]")
     private Output<String> driverName;
 
     /**
-     * @return Name of the CSI driver This field is immutable.
+     * @return driverName is the name of the CSI driver This field is immutable.
      * 
      */
     public Output<String> driverName() {
@@ -65,14 +65,14 @@ public class VolumeAttributesClass extends com.pulumi.resources.CustomResource {
         return this.kind;
     }
     /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output<ObjectMeta> metadata;
 
     /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Output<ObjectMeta> metadata() {

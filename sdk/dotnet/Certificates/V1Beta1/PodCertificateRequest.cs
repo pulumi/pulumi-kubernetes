@@ -82,6 +82,10 @@ namespace Pulumi.Kubernetes.Certificates.V1Beta1
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "kubernetes:certificates.k8s.io/v1:PodCertificateRequest" },
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

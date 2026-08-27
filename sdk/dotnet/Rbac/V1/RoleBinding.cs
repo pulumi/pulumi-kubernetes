@@ -28,19 +28,19 @@ namespace Pulumi.Kubernetes.Rbac.V1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// Standard object's metadata.
+        /// metadata is the standard object's metadata.
         /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+        /// roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         /// </summary>
         [Output("roleRef")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Rbac.V1.RoleRef> RoleRef { get; private set; } = null!;
 
         /// <summary>
-        /// Subjects holds references to the objects the role applies to.
+        /// subjects holds references to the objects the role applies to.
         /// </summary>
         [Output("subjects")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Rbac.V1.Subject>> Subjects { get; private set; } = null!;
@@ -123,13 +123,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Standard object's metadata.
+        /// metadata is the standard object's metadata.
         /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+        /// roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         /// </summary>
         [Input("roleRef", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Rbac.V1.RoleRefArgs> RoleRef { get; set; } = null!;
@@ -138,7 +138,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Rbac.V1.SubjectArgs>? _subjects;
 
         /// <summary>
-        /// Subjects holds references to the objects the role applies to.
+        /// subjects holds references to the objects the role applies to.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Rbac.V1.SubjectArgs> Subjects
         {

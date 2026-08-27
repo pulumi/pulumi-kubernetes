@@ -58,28 +58,28 @@ public class RolePatch extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.kind);
     }
     /**
-     * Standard object&#39;s metadata.
+     * metadata is the standard object&#39;s metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Output<Optional<ObjectMetaPatch>> metadata() {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Rules holds all the PolicyRules for this Role
+     * rules holds all the PolicyRules for this Role
      * 
      */
     @Export(name="rules", refs={List.class,PolicyRulePatch.class}, tree="[0,1]")
     private Output</* @Nullable */ List<PolicyRulePatch>> rules;
 
     /**
-     * @return Rules holds all the PolicyRules for this Role
+     * @return rules holds all the PolicyRules for this Role
      * 
      */
     public Output<Optional<List<PolicyRulePatch>>> rules() {

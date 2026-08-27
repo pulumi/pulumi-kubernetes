@@ -21,14 +21,14 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
     public static final LeaseCandidateSpecArgs Empty = new LeaseCandidateSpecArgs();
 
     /**
-     * BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+     * binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
      * 
      */
     @Import(name="binaryVersion", required=true)
     private Output<String> binaryVersion;
 
     /**
-     * @return BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+     * @return binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
      * 
      */
     public Output<String> binaryVersion() {
@@ -36,14 +36,14 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is &#34;OldestEmulationVersion&#34;
+     * emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is &#34;OldestEmulationVersion&#34;
      * 
      */
     @Import(name="emulationVersion")
     private @Nullable Output<String> emulationVersion;
 
     /**
-     * @return EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is &#34;OldestEmulationVersion&#34;
+     * @return emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is &#34;OldestEmulationVersion&#34;
      * 
      */
     public Optional<Output<String>> emulationVersion() {
@@ -51,14 +51,14 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+     * leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
      * 
      */
     @Import(name="leaseName", required=true)
     private Output<String> leaseName;
 
     /**
-     * @return LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+     * @return leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
      * 
      */
     public Output<String> leaseName() {
@@ -66,14 +66,14 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+     * pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
      * 
      */
     @Import(name="pingTime")
     private @Nullable Output<String> pingTime;
 
     /**
-     * @return PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+     * @return pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
      * 
      */
     public Optional<Output<String>> pingTime() {
@@ -81,14 +81,14 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+     * renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
      * 
      */
     @Import(name="renewTime")
     private @Nullable Output<String> renewTime;
 
     /**
-     * @return RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+     * @return renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
      * 
      */
     public Optional<Output<String>> renewTime() {
@@ -96,14 +96,14 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+     * strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
      * 
      */
     @Import(name="strategy", required=true)
     private Output<String> strategy;
 
     /**
-     * @return Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+     * @return strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
      * 
      */
     public Output<String> strategy() {
@@ -140,7 +140,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param binaryVersion BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+         * @param binaryVersion binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
          * 
          * @return builder
          * 
@@ -151,7 +151,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param binaryVersion BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+         * @param binaryVersion binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
          * 
          * @return builder
          * 
@@ -161,7 +161,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param emulationVersion EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is &#34;OldestEmulationVersion&#34;
+         * @param emulationVersion emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is &#34;OldestEmulationVersion&#34;
          * 
          * @return builder
          * 
@@ -172,7 +172,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param emulationVersion EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is &#34;OldestEmulationVersion&#34;
+         * @param emulationVersion emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is &#34;OldestEmulationVersion&#34;
          * 
          * @return builder
          * 
@@ -182,7 +182,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param leaseName LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+         * @param leaseName leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
          * 
          * @return builder
          * 
@@ -193,7 +193,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param leaseName LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+         * @param leaseName leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
          * 
          * @return builder
          * 
@@ -203,7 +203,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param pingTime PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+         * @param pingTime pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
          * 
          * @return builder
          * 
@@ -214,7 +214,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param pingTime PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+         * @param pingTime pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
          * 
          * @return builder
          * 
@@ -224,7 +224,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param renewTime RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+         * @param renewTime renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
          * 
          * @return builder
          * 
@@ -235,7 +235,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param renewTime RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+         * @param renewTime renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
          * 
          * @return builder
          * 
@@ -245,7 +245,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param strategy Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+         * @param strategy strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
          * 
          * @return builder
          * 
@@ -256,7 +256,7 @@ public final class LeaseCandidateSpecArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param strategy Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+         * @param strategy strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
          * 
          * @return builder
          * 

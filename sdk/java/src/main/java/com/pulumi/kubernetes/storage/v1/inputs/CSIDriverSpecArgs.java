@@ -122,26 +122,26 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+     * preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
      * 
      * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
      * 
      * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
      * 
-     * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
+     * This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
      * 
      */
     @Import(name="preventPodSchedulingIfMissing")
     private @Nullable Output<Boolean> preventPodSchedulingIfMissing;
 
     /**
-     * @return PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+     * @return preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
      * 
      * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
      * 
      * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
      * 
-     * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
+     * This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
      * 
      */
     public Optional<Output<Boolean>> preventPodSchedulingIfMissing() {
@@ -467,13 +467,13 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param preventPodSchedulingIfMissing PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+         * @param preventPodSchedulingIfMissing preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
          * 
          * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
          * 
          * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
          * 
-         * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
+         * This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
          * 
          * @return builder
          * 
@@ -484,13 +484,13 @@ public final class CSIDriverSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param preventPodSchedulingIfMissing PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+         * @param preventPodSchedulingIfMissing preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
          * 
          * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
          * 
          * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
          * 
-         * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
+         * This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is &#34;false&#34;.
          * 
          * @return builder
          * 

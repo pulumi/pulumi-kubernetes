@@ -33,6 +33,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Union<int, string> Port;
         /// <summary>
+        /// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+        /// </summary>
+        public readonly string Protocol;
+        /// <summary>
         /// Scheme to use for connecting to the host. Defaults to HTTP.
         /// </summary>
         public readonly string Scheme;
@@ -47,12 +51,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Union<int, string> port,
 
+            string protocol,
+
             string scheme)
         {
             Host = host;
             HttpHeaders = httpHeaders;
             Path = path;
             Port = port;
+            Protocol = protocol;
             Scheme = scheme;
         }
     }

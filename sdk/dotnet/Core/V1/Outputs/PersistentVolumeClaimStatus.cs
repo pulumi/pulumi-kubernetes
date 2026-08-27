@@ -76,6 +76,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string CurrentVolumeAttributesClassName;
         /// <summary>
+        /// healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeHealthStatus HealthStatus;
+        /// <summary>
         /// ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ModifyVolumeStatus ModifyVolumeStatus;
@@ -102,6 +106,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string currentVolumeAttributesClassName,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeHealthStatus healthStatus,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ModifyVolumeStatus modifyVolumeStatus,
 
             string phase,
@@ -114,6 +120,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Capacity = capacity;
             Conditions = conditions;
             CurrentVolumeAttributesClassName = currentVolumeAttributesClassName;
+            HealthStatus = healthStatus;
             ModifyVolumeStatus = modifyVolumeStatus;
             Phase = phase;
             ResizeStatus = resizeStatus;

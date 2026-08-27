@@ -27,23 +27,35 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
             set => _containers = value;
         }
 
+        [Input("mapping")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAllocatableMappedResourcesArgs>? _mapping;
+
+        /// <summary>
+        /// Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAllocatableMappedResourcesArgs> Mapping
+        {
+            get => _mapping ?? (_mapping = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAllocatableMappedResourcesArgs>());
+            set => _mapping = value;
+        }
+
+        [Input("overhead")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAllocatableOverheadResourcesArgs>? _overhead;
+
+        /// <summary>
+        /// Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAllocatableOverheadResourcesArgs> Overhead
+        {
+            get => _overhead ?? (_overhead = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAllocatableOverheadResourcesArgs>());
+            set => _overhead = value;
+        }
+
         /// <summary>
         /// ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
         /// </summary>
         [Input("resourceClaimName", required: true)]
         public Input<string> ResourceClaimName { get; set; } = null!;
-
-        [Input("resources", required: true)]
-        private InputMap<string>? _resources;
-
-        /// <summary>
-        /// Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-        /// </summary>
-        public InputMap<string> Resources
-        {
-            get => _resources ?? (_resources = new InputMap<string>());
-            set => _resources = value;
-        }
 
         public NodeAllocatableResourceClaimStatusArgs()
         {

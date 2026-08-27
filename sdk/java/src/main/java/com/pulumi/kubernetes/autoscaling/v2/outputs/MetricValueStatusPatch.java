@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class MetricValueStatusPatch {
     /**
-     * @return currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+     * @return averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
      * 
      */
     private @Nullable Integer averageUtilization;
@@ -30,7 +30,7 @@ public final class MetricValueStatusPatch {
 
     private MetricValueStatusPatch() {}
     /**
-     * @return currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+     * @return averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
      * 
      */
     public Optional<Integer> averageUtilization() {

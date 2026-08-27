@@ -46,13 +46,17 @@ export class CSINode extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"CSINode">;
     /**
-     * Standard object's metadata. metadata.name must be the Kubernetes node name.
+     * metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
      * spec is the specification of CSINode
      */
     declare public readonly spec: pulumi.Output<outputs.storage.v1.CSINodeSpec>;
+    /**
+     * status contains health and status information for the node's storage.
+     */
+    declare public /*out*/ readonly status: pulumi.Output<outputs.storage.v1.CSINodeStatus>;
 
     /**
      * Create a CSINode resource with the given unique name, arguments, and options.
@@ -72,11 +76,13 @@ export class CSINode extends pulumi.CustomResource {
             resourceInputs["kind"] = "CSINode";
             resourceInputs["metadata"] = args?.metadata;
             resourceInputs["spec"] = args?.spec;
+            resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["spec"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1beta1:CSINode" }] };
@@ -98,7 +104,7 @@ export interface CSINodeArgs {
      */
     kind?: pulumi.Input<"CSINode" | undefined>;
     /**
-     * Standard object's metadata. metadata.name must be the Kubernetes node name.
+     * metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**

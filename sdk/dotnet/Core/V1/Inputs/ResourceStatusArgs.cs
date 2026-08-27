@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class ResourceStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:&lt;claim_name&gt;/&lt;request&gt;". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+        /// Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:&lt;claim_name&gt;/&lt;request&gt;" when container.resources.claims[*].request is set or "claim:&lt;claim_name&gt;" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:&lt;claim_name&gt;/&lt;request&gt;" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;

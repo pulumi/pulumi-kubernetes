@@ -389,8 +389,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         /// <summary>
         /// Spec defines the desired identities of pods in this set.
         /// </summary>
-        [Input("spec")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.StatefulSetSpecArgs>? Spec { get; set; }
+        [Input("spec", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.StatefulSetSpecArgs> Spec { get; set; } = null!;
 
         public StatefulSetArgs()
         {

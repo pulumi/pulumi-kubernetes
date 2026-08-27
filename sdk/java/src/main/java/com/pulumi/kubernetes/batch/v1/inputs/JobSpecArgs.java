@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.batch.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.batch.v1.inputs.JobSchedulingConfigurationArgs;
 import com.pulumi.kubernetes.batch.v1.inputs.PodFailurePolicyArgs;
 import com.pulumi.kubernetes.batch.v1.inputs.SuccessPolicyArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodTemplateSpecArgs;
@@ -214,6 +215,21 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+     * 
+     */
+    @Import(name="scheduling")
+    private @Nullable Output<JobSchedulingConfigurationArgs> scheduling;
+
+    /**
+     * @return scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+     * 
+     */
+    public Optional<Output<JobSchedulingConfigurationArgs>> scheduling() {
+        return Optional.ofNullable(this.scheduling);
+    }
+
+    /**
      * A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
      * 
      */
@@ -302,6 +318,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         this.parallelism = $.parallelism;
         this.podFailurePolicy = $.podFailurePolicy;
         this.podReplacementPolicy = $.podReplacementPolicy;
+        this.scheduling = $.scheduling;
         this.selector = $.selector;
         this.successPolicy = $.successPolicy;
         this.suspend = $.suspend;
@@ -578,6 +595,27 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder podReplacementPolicy(String podReplacementPolicy) {
             return podReplacementPolicy(Output.of(podReplacementPolicy));
+        }
+
+        /**
+         * @param scheduling scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder scheduling(@Nullable Output<JobSchedulingConfigurationArgs> scheduling) {
+            $.scheduling = scheduling;
+            return this;
+        }
+
+        /**
+         * @param scheduling scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder scheduling(JobSchedulingConfigurationArgs scheduling) {
+            return scheduling(Output.of(scheduling));
         }
 
         /**

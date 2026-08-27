@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -33,12 +32,9 @@ type ResourceClaim struct {
 func NewResourceClaim(ctx *pulumi.Context,
 	name string, args *ResourceClaimArgs, opts ...pulumi.ResourceOption) (*ResourceClaim, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &ResourceClaimArgs{}
 	}
 
-	if args.Spec == nil {
-		return nil, errors.New("invalid value for required argument 'Spec'")
-	}
 	args.ApiVersion = pulumi.StringPtr("resource.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("ResourceClaim")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -99,7 +95,7 @@ type resourceClaimArgs struct {
 	// Standard object metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec describes what is being requested and how to configure it. The spec is immutable.
-	Spec ResourceClaimSpec `pulumi:"spec"`
+	Spec *ResourceClaimSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a ResourceClaim resource.
@@ -111,7 +107,7 @@ type ResourceClaimArgs struct {
 	// Standard object metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Spec describes what is being requested and how to configure it. The spec is immutable.
-	Spec ResourceClaimSpecInput
+	Spec ResourceClaimSpecPtrInput
 }
 
 func (ResourceClaimArgs) ElementType() reflect.Type {

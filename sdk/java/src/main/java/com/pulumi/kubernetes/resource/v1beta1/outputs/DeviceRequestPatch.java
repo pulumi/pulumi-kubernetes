@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.resource.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.CapacityRequirementsPatch;
+import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceDerivedAttributePatch;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceSelectorPatch;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceSubRequestPatch;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.DeviceTolerationPatch;
@@ -63,6 +64,19 @@ public final class DeviceRequestPatch {
      * 
      */
     private @Nullable Integer count;
+    /**
+     * @return DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+     * 
+     * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+     * 
+     * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+     * 
+     * The maximum number of derived attributes is 32.
+     * 
+     * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+     * 
+     */
+    private @Nullable List<DeviceDerivedAttributePatch> derivedAttributes;
     /**
      * @return DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
      * 
@@ -166,6 +180,21 @@ public final class DeviceRequestPatch {
         return Optional.ofNullable(this.count);
     }
     /**
+     * @return DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+     * 
+     * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+     * 
+     * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+     * 
+     * The maximum number of derived attributes is 32.
+     * 
+     * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+     * 
+     */
+    public List<DeviceDerivedAttributePatch> derivedAttributes() {
+        return this.derivedAttributes == null ? List.of() : this.derivedAttributes;
+    }
+    /**
      * @return DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
      * 
      * A class is required if no subrequests are specified in the firstAvailable list and no class can be set if subrequests are specified in the firstAvailable list. Which classes are available depends on the cluster.
@@ -236,6 +265,7 @@ public final class DeviceRequestPatch {
         private @Nullable String allocationMode;
         private @Nullable CapacityRequirementsPatch capacity;
         private @Nullable Integer count;
+        private @Nullable List<DeviceDerivedAttributePatch> derivedAttributes;
         private @Nullable String deviceClassName;
         private @Nullable List<DeviceSubRequestPatch> firstAvailable;
         private @Nullable String name;
@@ -248,6 +278,7 @@ public final class DeviceRequestPatch {
     	      this.allocationMode = defaults.allocationMode;
     	      this.capacity = defaults.capacity;
     	      this.count = defaults.count;
+    	      this.derivedAttributes = defaults.derivedAttributes;
     	      this.deviceClassName = defaults.deviceClassName;
     	      this.firstAvailable = defaults.firstAvailable;
     	      this.name = defaults.name;
@@ -278,6 +309,15 @@ public final class DeviceRequestPatch {
 
             this.count = count;
             return this;
+        }
+        @CustomType.Setter
+        public Builder derivedAttributes(@Nullable List<DeviceDerivedAttributePatch> derivedAttributes) {
+
+            this.derivedAttributes = derivedAttributes;
+            return this;
+        }
+        public Builder derivedAttributes(DeviceDerivedAttributePatch... derivedAttributes) {
+            return derivedAttributes(List.of(derivedAttributes));
         }
         @CustomType.Setter
         public Builder deviceClassName(@Nullable String deviceClassName) {
@@ -324,6 +364,7 @@ public final class DeviceRequestPatch {
             _resultValue.allocationMode = allocationMode;
             _resultValue.capacity = capacity;
             _resultValue.count = count;
+            _resultValue.derivedAttributes = derivedAttributes;
             _resultValue.deviceClassName = deviceClassName;
             _resultValue.firstAvailable = firstAvailable;
             _resultValue.name = name;

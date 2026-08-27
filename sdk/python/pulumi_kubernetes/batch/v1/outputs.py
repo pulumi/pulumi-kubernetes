@@ -16,6 +16,7 @@ from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
+from ... import scheduling as _scheduling
 
 __all__ = [
     'CronJob',
@@ -26,6 +27,8 @@ __all__ = [
     'Job',
     'JobCondition',
     'JobConditionPatch',
+    'JobSchedulingConfiguration',
+    'JobSchedulingConfigurationPatch',
     'JobSpec',
     'JobSpecPatch',
     'JobStatus',
@@ -880,6 +883,172 @@ class JobConditionPatch(dict):
 
 
 @pulumi.output_type
+class JobSchedulingConfiguration(dict):
+    """
+    JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "disruptionMode":
+            suggest = "disruption_mode"
+        elif key == "resourceClaims":
+            suggest = "resource_claims"
+        elif key == "schedulingConstraints":
+            suggest = "scheduling_constraints"
+        elif key == "schedulingPolicy":
+            suggest = "scheduling_policy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in JobSchedulingConfiguration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        JobSchedulingConfiguration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        JobSchedulingConfiguration.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 disruption_mode: Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupDisruptionMode'] = None,
+                 resource_claims: Optional[Sequence['_scheduling.v1alpha3.outputs.WorkloadPodGroupResourceClaim']] = None,
+                 scheduling_constraints: Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupSchedulingConstraints'] = None,
+                 scheduling_policy: Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupSchedulingPolicy'] = None):
+        """
+        JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+
+        :param '_scheduling.v1alpha3.WorkloadPodGroupDisruptionModeArgs' disruption_mode: DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+        :param Sequence['_scheduling.v1alpha3.WorkloadPodGroupResourceClaimArgs'] resource_claims: ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+        :param '_scheduling.v1alpha3.WorkloadPodGroupSchedulingConstraintsArgs' scheduling_constraints: SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+        :param '_scheduling.v1alpha3.WorkloadPodGroupSchedulingPolicyArgs' scheduling_policy: SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+        """
+        if disruption_mode is not None:
+            pulumi.set(__self__, "disruption_mode", disruption_mode)
+        if resource_claims is not None:
+            pulumi.set(__self__, "resource_claims", resource_claims)
+        if scheduling_constraints is not None:
+            pulumi.set(__self__, "scheduling_constraints", scheduling_constraints)
+        if scheduling_policy is not None:
+            pulumi.set(__self__, "scheduling_policy", scheduling_policy)
+
+    @_builtins.property
+    @pulumi.getter(name="disruptionMode")
+    def disruption_mode(self) -> Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupDisruptionMode']:
+        """
+        DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+        """
+        return pulumi.get(self, "disruption_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClaims")
+    def resource_claims(self) -> Optional[Sequence['_scheduling.v1alpha3.outputs.WorkloadPodGroupResourceClaim']]:
+        """
+        ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+        """
+        return pulumi.get(self, "resource_claims")
+
+    @_builtins.property
+    @pulumi.getter(name="schedulingConstraints")
+    def scheduling_constraints(self) -> Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupSchedulingConstraints']:
+        """
+        SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+        """
+        return pulumi.get(self, "scheduling_constraints")
+
+    @_builtins.property
+    @pulumi.getter(name="schedulingPolicy")
+    def scheduling_policy(self) -> Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupSchedulingPolicy']:
+        """
+        SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+        """
+        return pulumi.get(self, "scheduling_policy")
+
+
+@pulumi.output_type
+class JobSchedulingConfigurationPatch(dict):
+    """
+    JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "disruptionMode":
+            suggest = "disruption_mode"
+        elif key == "resourceClaims":
+            suggest = "resource_claims"
+        elif key == "schedulingConstraints":
+            suggest = "scheduling_constraints"
+        elif key == "schedulingPolicy":
+            suggest = "scheduling_policy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in JobSchedulingConfigurationPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        JobSchedulingConfigurationPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        JobSchedulingConfigurationPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 disruption_mode: Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupDisruptionModePatch'] = None,
+                 resource_claims: Optional[Sequence['_scheduling.v1alpha3.outputs.WorkloadPodGroupResourceClaimPatch']] = None,
+                 scheduling_constraints: Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupSchedulingConstraintsPatch'] = None,
+                 scheduling_policy: Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupSchedulingPolicyPatch'] = None):
+        """
+        JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+
+        :param '_scheduling.v1alpha3.WorkloadPodGroupDisruptionModePatchArgs' disruption_mode: DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+        :param Sequence['_scheduling.v1alpha3.WorkloadPodGroupResourceClaimPatchArgs'] resource_claims: ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+        :param '_scheduling.v1alpha3.WorkloadPodGroupSchedulingConstraintsPatchArgs' scheduling_constraints: SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+        :param '_scheduling.v1alpha3.WorkloadPodGroupSchedulingPolicyPatchArgs' scheduling_policy: SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+        """
+        if disruption_mode is not None:
+            pulumi.set(__self__, "disruption_mode", disruption_mode)
+        if resource_claims is not None:
+            pulumi.set(__self__, "resource_claims", resource_claims)
+        if scheduling_constraints is not None:
+            pulumi.set(__self__, "scheduling_constraints", scheduling_constraints)
+        if scheduling_policy is not None:
+            pulumi.set(__self__, "scheduling_policy", scheduling_policy)
+
+    @_builtins.property
+    @pulumi.getter(name="disruptionMode")
+    def disruption_mode(self) -> Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupDisruptionModePatch']:
+        """
+        DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+        """
+        return pulumi.get(self, "disruption_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="resourceClaims")
+    def resource_claims(self) -> Optional[Sequence['_scheduling.v1alpha3.outputs.WorkloadPodGroupResourceClaimPatch']]:
+        """
+        ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+        """
+        return pulumi.get(self, "resource_claims")
+
+    @_builtins.property
+    @pulumi.getter(name="schedulingConstraints")
+    def scheduling_constraints(self) -> Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupSchedulingConstraintsPatch']:
+        """
+        SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+        """
+        return pulumi.get(self, "scheduling_constraints")
+
+    @_builtins.property
+    @pulumi.getter(name="schedulingPolicy")
+    def scheduling_policy(self) -> Optional['_scheduling.v1alpha3.outputs.WorkloadPodGroupSchedulingPolicyPatch']:
+        """
+        SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+        """
+        return pulumi.get(self, "scheduling_policy")
+
+
+@pulumi.output_type
 class JobSpec(dict):
     """
     JobSpec describes how the job execution will look like.
@@ -934,6 +1103,7 @@ class JobSpec(dict):
                  parallelism: Optional[_builtins.int] = None,
                  pod_failure_policy: Optional['outputs.PodFailurePolicy'] = None,
                  pod_replacement_policy: Optional[_builtins.str] = None,
+                 scheduling: Optional['outputs.JobSchedulingConfiguration'] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  success_policy: Optional['outputs.SuccessPolicy'] = None,
                  suspend: Optional[_builtins.bool] = None,
@@ -964,6 +1134,7 @@ class JobSpec(dict):
                  Failed or Succeeded) before creating a replacement Pod.
                
                When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
+        :param 'JobSchedulingConfigurationArgs' scheduling: scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
         :param '_meta.v1.LabelSelectorArgs' selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param 'SuccessPolicyArgs' success_policy: successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
         :param _builtins.bool suspend: suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
@@ -992,6 +1163,8 @@ class JobSpec(dict):
             pulumi.set(__self__, "pod_failure_policy", pod_failure_policy)
         if pod_replacement_policy is not None:
             pulumi.set(__self__, "pod_replacement_policy", pod_replacement_policy)
+        if scheduling is not None:
+            pulumi.set(__self__, "scheduling", scheduling)
         if selector is not None:
             pulumi.set(__self__, "selector", selector)
         if success_policy is not None:
@@ -1110,6 +1283,14 @@ class JobSpec(dict):
 
     @_builtins.property
     @pulumi.getter
+    def scheduling(self) -> Optional['outputs.JobSchedulingConfiguration']:
+        """
+        scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+        """
+        return pulumi.get(self, "scheduling")
+
+    @_builtins.property
+    @pulumi.getter
     def selector(self) -> Optional['_meta.v1.outputs.LabelSelector']:
         """
         A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -1195,6 +1376,7 @@ class JobSpecPatch(dict):
                  parallelism: Optional[_builtins.int] = None,
                  pod_failure_policy: Optional['outputs.PodFailurePolicyPatch'] = None,
                  pod_replacement_policy: Optional[_builtins.str] = None,
+                 scheduling: Optional['outputs.JobSchedulingConfigurationPatch'] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
                  success_policy: Optional['outputs.SuccessPolicyPatch'] = None,
                  suspend: Optional[_builtins.bool] = None,
@@ -1225,6 +1407,7 @@ class JobSpecPatch(dict):
                  Failed or Succeeded) before creating a replacement Pod.
                
                When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
+        :param 'JobSchedulingConfigurationPatchArgs' scheduling: scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
         :param '_meta.v1.LabelSelectorPatchArgs' selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param 'SuccessPolicyPatchArgs' success_policy: successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
         :param _builtins.bool suspend: suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
@@ -1253,6 +1436,8 @@ class JobSpecPatch(dict):
             pulumi.set(__self__, "pod_failure_policy", pod_failure_policy)
         if pod_replacement_policy is not None:
             pulumi.set(__self__, "pod_replacement_policy", pod_replacement_policy)
+        if scheduling is not None:
+            pulumi.set(__self__, "scheduling", scheduling)
         if selector is not None:
             pulumi.set(__self__, "selector", selector)
         if success_policy is not None:
@@ -1365,6 +1550,14 @@ class JobSpecPatch(dict):
 
     @_builtins.property
     @pulumi.getter
+    def scheduling(self) -> Optional['outputs.JobSchedulingConfigurationPatch']:
+        """
+        scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+        """
+        return pulumi.get(self, "scheduling")
+
+    @_builtins.property
+    @pulumi.getter
     def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
         """
         A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -1465,8 +1658,6 @@ class JobStatus(dict):
                Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
         :param _builtins.int succeeded: The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
         :param _builtins.int terminating: The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-               
-               This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
         :param 'UncountedTerminatedPodsArgs' uncounted_terminated_pods: uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
                
                The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
@@ -1582,8 +1773,6 @@ class JobStatus(dict):
     def terminating(self) -> Optional[_builtins.int]:
         """
         The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-
-        This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
         """
         return pulumi.get(self, "terminating")
 
@@ -1664,8 +1853,6 @@ class JobStatusPatch(dict):
                Once set, the field can only be removed when the job is suspended. The field cannot be modified while the job is unsuspended or finished.
         :param _builtins.int succeeded: The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
         :param _builtins.int terminating: The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-               
-               This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
         :param 'UncountedTerminatedPodsPatchArgs' uncounted_terminated_pods: uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
                
                The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
@@ -1781,8 +1968,6 @@ class JobStatusPatch(dict):
     def terminating(self) -> Optional[_builtins.int]:
         """
         The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-
-        This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
         """
         return pulumi.get(self, "terminating")
 

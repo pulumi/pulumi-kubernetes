@@ -20,7 +20,7 @@ type LeaseCandidateType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec LeaseCandidateSpec `pulumi:"spec"`
@@ -43,7 +43,7 @@ type LeaseCandidateTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec LeaseCandidateSpecInput `pulumi:"spec"`
@@ -111,7 +111,7 @@ func (o LeaseCandidateTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o LeaseCandidateTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -229,7 +229,7 @@ type LeaseCandidatePatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *LeaseCandidateSpecPatch `pulumi:"spec"`
@@ -252,7 +252,7 @@ type LeaseCandidatePatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec LeaseCandidateSpecPatchPtrInput `pulumi:"spec"`
@@ -295,7 +295,7 @@ func (o LeaseCandidatePatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidatePatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o LeaseCandidatePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v LeaseCandidatePatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -307,17 +307,17 @@ func (o LeaseCandidatePatchTypeOutput) Spec() LeaseCandidateSpecPatchPtrOutput {
 
 // LeaseCandidateSpec is a specification of a Lease.
 type LeaseCandidateSpec struct {
-	// BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+	// binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
 	BinaryVersion string `pulumi:"binaryVersion"`
-	// EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+	// emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
 	EmulationVersion *string `pulumi:"emulationVersion"`
-	// LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+	// leaseName is the name of the lease for which this candidate is contending. This field is immutable.
 	LeaseName string `pulumi:"leaseName"`
-	// PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+	// pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
 	PingTime *string `pulumi:"pingTime"`
-	// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+	// renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 	RenewTime *string `pulumi:"renewTime"`
-	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+	// strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 	Strategy string `pulumi:"strategy"`
 }
 
@@ -334,17 +334,17 @@ type LeaseCandidateSpecInput interface {
 
 // LeaseCandidateSpec is a specification of a Lease.
 type LeaseCandidateSpecArgs struct {
-	// BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+	// binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
 	BinaryVersion pulumi.StringInput `pulumi:"binaryVersion"`
-	// EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+	// emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
 	EmulationVersion pulumi.StringPtrInput `pulumi:"emulationVersion"`
-	// LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+	// leaseName is the name of the lease for which this candidate is contending. This field is immutable.
 	LeaseName pulumi.StringInput `pulumi:"leaseName"`
-	// PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+	// pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
 	PingTime pulumi.StringPtrInput `pulumi:"pingTime"`
-	// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+	// renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 	RenewTime pulumi.StringPtrInput `pulumi:"renewTime"`
-	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+	// strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 	Strategy pulumi.StringInput `pulumi:"strategy"`
 }
 
@@ -375,49 +375,49 @@ func (o LeaseCandidateSpecOutput) ToLeaseCandidateSpecOutputWithContext(ctx cont
 	return o
 }
 
-// BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+// binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
 func (o LeaseCandidateSpecOutput) BinaryVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v LeaseCandidateSpec) string { return v.BinaryVersion }).(pulumi.StringOutput)
 }
 
-// EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+// emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
 func (o LeaseCandidateSpecOutput) EmulationVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpec) *string { return v.EmulationVersion }).(pulumi.StringPtrOutput)
 }
 
-// LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+// leaseName is the name of the lease for which this candidate is contending. This field is immutable.
 func (o LeaseCandidateSpecOutput) LeaseName() pulumi.StringOutput {
 	return o.ApplyT(func(v LeaseCandidateSpec) string { return v.LeaseName }).(pulumi.StringOutput)
 }
 
-// PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+// pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
 func (o LeaseCandidateSpecOutput) PingTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpec) *string { return v.PingTime }).(pulumi.StringPtrOutput)
 }
 
-// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+// renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 func (o LeaseCandidateSpecOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpec) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
-// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+// strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 func (o LeaseCandidateSpecOutput) Strategy() pulumi.StringOutput {
 	return o.ApplyT(func(v LeaseCandidateSpec) string { return v.Strategy }).(pulumi.StringOutput)
 }
 
 // LeaseCandidateSpec is a specification of a Lease.
 type LeaseCandidateSpecPatch struct {
-	// BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+	// binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
 	BinaryVersion *string `pulumi:"binaryVersion"`
-	// EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+	// emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
 	EmulationVersion *string `pulumi:"emulationVersion"`
-	// LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+	// leaseName is the name of the lease for which this candidate is contending. This field is immutable.
 	LeaseName *string `pulumi:"leaseName"`
-	// PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+	// pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
 	PingTime *string `pulumi:"pingTime"`
-	// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+	// renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 	RenewTime *string `pulumi:"renewTime"`
-	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+	// strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 	Strategy *string `pulumi:"strategy"`
 }
 
@@ -434,17 +434,17 @@ type LeaseCandidateSpecPatchInput interface {
 
 // LeaseCandidateSpec is a specification of a Lease.
 type LeaseCandidateSpecPatchArgs struct {
-	// BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+	// binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
 	BinaryVersion pulumi.StringPtrInput `pulumi:"binaryVersion"`
-	// EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+	// emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
 	EmulationVersion pulumi.StringPtrInput `pulumi:"emulationVersion"`
-	// LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+	// leaseName is the name of the lease for which this candidate is contending. This field is immutable.
 	LeaseName pulumi.StringPtrInput `pulumi:"leaseName"`
-	// PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+	// pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
 	PingTime pulumi.StringPtrInput `pulumi:"pingTime"`
-	// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+	// renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 	RenewTime pulumi.StringPtrInput `pulumi:"renewTime"`
-	// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+	// strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 	Strategy pulumi.StringPtrInput `pulumi:"strategy"`
 }
 
@@ -526,32 +526,32 @@ func (o LeaseCandidateSpecPatchOutput) ToLeaseCandidateSpecPatchPtrOutputWithCon
 	}).(LeaseCandidateSpecPatchPtrOutput)
 }
 
-// BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+// binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
 func (o LeaseCandidateSpecPatchOutput) BinaryVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpecPatch) *string { return v.BinaryVersion }).(pulumi.StringPtrOutput)
 }
 
-// EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+// emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
 func (o LeaseCandidateSpecPatchOutput) EmulationVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpecPatch) *string { return v.EmulationVersion }).(pulumi.StringPtrOutput)
 }
 
-// LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+// leaseName is the name of the lease for which this candidate is contending. This field is immutable.
 func (o LeaseCandidateSpecPatchOutput) LeaseName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpecPatch) *string { return v.LeaseName }).(pulumi.StringPtrOutput)
 }
 
-// PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+// pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
 func (o LeaseCandidateSpecPatchOutput) PingTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpecPatch) *string { return v.PingTime }).(pulumi.StringPtrOutput)
 }
 
-// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+// renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 func (o LeaseCandidateSpecPatchOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpecPatch) *string { return v.RenewTime }).(pulumi.StringPtrOutput)
 }
 
-// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+// strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 func (o LeaseCandidateSpecPatchOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseCandidateSpecPatch) *string { return v.Strategy }).(pulumi.StringPtrOutput)
 }
@@ -580,7 +580,7 @@ func (o LeaseCandidateSpecPatchPtrOutput) Elem() LeaseCandidateSpecPatchOutput {
 	}).(LeaseCandidateSpecPatchOutput)
 }
 
-// BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+// binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
 func (o LeaseCandidateSpecPatchPtrOutput) BinaryVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseCandidateSpecPatch) *string {
 		if v == nil {
@@ -590,7 +590,7 @@ func (o LeaseCandidateSpecPatchPtrOutput) BinaryVersion() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+// emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
 func (o LeaseCandidateSpecPatchPtrOutput) EmulationVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseCandidateSpecPatch) *string {
 		if v == nil {
@@ -600,7 +600,7 @@ func (o LeaseCandidateSpecPatchPtrOutput) EmulationVersion() pulumi.StringPtrOut
 	}).(pulumi.StringPtrOutput)
 }
 
-// LeaseName is the name of the lease for which this candidate is contending. This field is immutable.
+// leaseName is the name of the lease for which this candidate is contending. This field is immutable.
 func (o LeaseCandidateSpecPatchPtrOutput) LeaseName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseCandidateSpecPatch) *string {
 		if v == nil {
@@ -610,7 +610,7 @@ func (o LeaseCandidateSpecPatchPtrOutput) LeaseName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+// pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
 func (o LeaseCandidateSpecPatchPtrOutput) PingTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseCandidateSpecPatch) *string {
 		if v == nil {
@@ -620,7 +620,7 @@ func (o LeaseCandidateSpecPatchPtrOutput) PingTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+// renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
 func (o LeaseCandidateSpecPatchPtrOutput) RenewTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseCandidateSpecPatch) *string {
 		if v == nil {
@@ -630,7 +630,7 @@ func (o LeaseCandidateSpecPatchPtrOutput) RenewTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+// strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
 func (o LeaseCandidateSpecPatchPtrOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseCandidateSpecPatch) *string {
 		if v == nil {

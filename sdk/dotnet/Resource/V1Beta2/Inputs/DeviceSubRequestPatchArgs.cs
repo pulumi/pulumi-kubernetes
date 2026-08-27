@@ -51,6 +51,26 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2
         [Input("count")]
         public Input<int>? Count { get; set; }
 
+        [Input("derivedAttributes")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2.DeviceDerivedAttributePatchArgs>? _derivedAttributes;
+
+        /// <summary>
+        /// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+        /// 
+        /// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+        /// 
+        /// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+        /// 
+        /// The maximum number of derived attributes is 32.
+        /// 
+        /// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2.DeviceDerivedAttributePatchArgs> DerivedAttributes
+        {
+            get => _derivedAttributes ?? (_derivedAttributes = new InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta2.DeviceDerivedAttributePatchArgs>());
+            set => _derivedAttributes = value;
+        }
+
         /// <summary>
         /// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
         /// 

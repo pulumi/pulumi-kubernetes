@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.AffinityPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EphemeralContainerPatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.EvictionResponderPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.HostAliasPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.LocalObjectReferencePatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodDNSConfigPatchArgs;
@@ -160,6 +161,29 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+     * 
+     * Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/&lt;name&gt;/eviction subresource).
+     * 
+     * The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+     * 
+     */
+    @Import(name="evictionResponders")
+    private @Nullable Output<List<EvictionResponderPatchArgs>> evictionResponders;
+
+    /**
+     * @return evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+     * 
+     * Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/&lt;name&gt;/eviction subresource).
+     * 
+     * The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+     * 
+     */
+    public Optional<Output<List<EvictionResponderPatchArgs>>> evictionResponders() {
+        return Optional.ofNullable(this.evictionResponders);
+    }
+
+    /**
      * HostAliases is an optional list of hosts and IPs that will be injected into the pod&#39;s hosts file if specified.
      * 
      */
@@ -252,7 +276,7 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
      * 
-     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
      * 
      */
     @Import(name="hostnameOverride")
@@ -261,7 +285,7 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
      * 
-     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
      * 
      */
     public Optional<Output<String>> hostnameOverride() {
@@ -367,14 +391,14 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
      * 
      */
     @Import(name="preemptionPolicy")
     private @Nullable Output<String> preemptionPolicy;
 
     /**
-     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
      * 
      */
     public Optional<Output<String>> preemptionPolicy() {
@@ -712,6 +736,7 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         this.dnsPolicy = $.dnsPolicy;
         this.enableServiceLinks = $.enableServiceLinks;
         this.ephemeralContainers = $.ephemeralContainers;
+        this.evictionResponders = $.evictionResponders;
         this.hostAliases = $.hostAliases;
         this.hostIPC = $.hostIPC;
         this.hostNetwork = $.hostNetwork;
@@ -955,6 +980,49 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param evictionResponders evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+         * 
+         * Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/&lt;name&gt;/eviction subresource).
+         * 
+         * The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder evictionResponders(@Nullable Output<List<EvictionResponderPatchArgs>> evictionResponders) {
+            $.evictionResponders = evictionResponders;
+            return this;
+        }
+
+        /**
+         * @param evictionResponders evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+         * 
+         * Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/&lt;name&gt;/eviction subresource).
+         * 
+         * The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder evictionResponders(List<EvictionResponderPatchArgs> evictionResponders) {
+            return evictionResponders(Output.of(evictionResponders));
+        }
+
+        /**
+         * @param evictionResponders evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+         * 
+         * Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/&lt;name&gt;/eviction subresource).
+         * 
+         * The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder evictionResponders(EvictionResponderPatchArgs... evictionResponders) {
+            return evictionResponders(List.of(evictionResponders));
+        }
+
+        /**
          * @param hostAliases HostAliases is an optional list of hosts and IPs that will be injected into the pod&#39;s hosts file if specified.
          * 
          * @return builder
@@ -1093,7 +1161,7 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param hostnameOverride HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
          * 
-         * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+         * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
          * 
          * @return builder
          * 
@@ -1106,7 +1174,7 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param hostnameOverride HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
          * 
-         * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+         * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
          * 
          * @return builder
          * 
@@ -1270,7 +1338,7 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param preemptionPolicy PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+         * @param preemptionPolicy PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
          * 
          * @return builder
          * 
@@ -1281,7 +1349,7 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param preemptionPolicy PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+         * @param preemptionPolicy PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
          * 
          * @return builder
          * 

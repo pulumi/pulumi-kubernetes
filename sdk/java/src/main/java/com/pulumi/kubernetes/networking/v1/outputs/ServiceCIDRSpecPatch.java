@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ServiceCIDRSpecPatch {
     /**
-     * @return CIDRs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+     * @return cidrs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
      * 
      */
     private @Nullable List<String> cidrs;
 
     private ServiceCIDRSpecPatch() {}
     /**
-     * @return CIDRs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+     * @return cidrs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
      * 
      */
     public List<String> cidrs() {

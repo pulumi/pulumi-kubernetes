@@ -4,7 +4,6 @@
 package com.pulumi.kubernetes.resource.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.resource.v1beta1.outputs.ResourceClaimSpec;
 import java.util.Objects;
@@ -22,7 +21,7 @@ public final class ResourceClaimTemplateSpec {
      * @return Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
      * 
      */
-    private ResourceClaimSpec spec;
+    private @Nullable ResourceClaimSpec spec;
 
     private ResourceClaimTemplateSpec() {}
     /**
@@ -36,8 +35,8 @@ public final class ResourceClaimTemplateSpec {
      * @return Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
      * 
      */
-    public ResourceClaimSpec spec() {
-        return this.spec;
+    public Optional<ResourceClaimSpec> spec() {
+        return Optional.ofNullable(this.spec);
     }
 
     public static Builder builder() {
@@ -50,7 +49,7 @@ public final class ResourceClaimTemplateSpec {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable ObjectMeta metadata;
-        private ResourceClaimSpec spec;
+        private @Nullable ResourceClaimSpec spec;
         public Builder() {}
         public Builder(ResourceClaimTemplateSpec defaults) {
     	      Objects.requireNonNull(defaults);
@@ -65,10 +64,8 @@ public final class ResourceClaimTemplateSpec {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(ResourceClaimSpec spec) {
-            if (spec == null) {
-              throw new MissingRequiredPropertyException("ResourceClaimTemplateSpec", "spec");
-            }
+        public Builder spec(@Nullable ResourceClaimSpec spec) {
+
             this.spec = spec;
             return this;
         }

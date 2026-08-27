@@ -45,6 +45,9 @@ func NewDeviceTaintRule(ctx *pulumi.Context,
 	args.Kind = pulumi.StringPtr("DeviceTaintRule")
 	aliases := pulumi.Aliases([]pulumi.Alias{
 		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1:DeviceTaintRule"),
+		},
+		{
 			Type: pulumi.String("kubernetes:resource.k8s.io/v1beta2:DeviceTaintRule"),
 		},
 	})

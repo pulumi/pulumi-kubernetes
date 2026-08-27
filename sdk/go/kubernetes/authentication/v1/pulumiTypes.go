@@ -18,7 +18,7 @@ var _ = utilities.GetEnvOrDefault
 type BoundObjectReference struct {
 	// apiVersion is API version of the referent.
 	ApiVersion *string `pulumi:"apiVersion"`
-	// kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+	// kind of the referent. Valid kinds are 'Pod', 'Secret', 'Node', 'ValidatingWebhookConfiguration', and 'MutatingWebhookConfiguration'.
 	Kind *string `pulumi:"kind"`
 	// name of the referent.
 	Name *string `pulumi:"name"`
@@ -41,7 +41,7 @@ type BoundObjectReferenceInput interface {
 type BoundObjectReferenceArgs struct {
 	// apiVersion is API version of the referent.
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+	// kind of the referent. Valid kinds are 'Pod', 'Secret', 'Node', 'ValidatingWebhookConfiguration', and 'MutatingWebhookConfiguration'.
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// name of the referent.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -132,7 +132,7 @@ func (o BoundObjectReferenceOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v BoundObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+// kind of the referent. Valid kinds are 'Pod', 'Secret', 'Node', 'ValidatingWebhookConfiguration', and 'MutatingWebhookConfiguration'.
 func (o BoundObjectReferenceOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v BoundObjectReference) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
@@ -181,7 +181,7 @@ func (o BoundObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+// kind of the referent. Valid kinds are 'Pod', 'Secret', 'Node', 'ValidatingWebhookConfiguration', and 'MutatingWebhookConfiguration'.
 func (o BoundObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *BoundObjectReference) *string {
 		if v == nil {
@@ -215,7 +215,7 @@ func (o BoundObjectReferencePtrOutput) Uid() pulumi.StringPtrOutput {
 type BoundObjectReferencePatch struct {
 	// apiVersion is API version of the referent.
 	ApiVersion *string `pulumi:"apiVersion"`
-	// kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+	// kind of the referent. Valid kinds are 'Pod', 'Secret', 'Node', 'ValidatingWebhookConfiguration', and 'MutatingWebhookConfiguration'.
 	Kind *string `pulumi:"kind"`
 	// name of the referent.
 	Name *string `pulumi:"name"`
@@ -238,7 +238,7 @@ type BoundObjectReferencePatchInput interface {
 type BoundObjectReferencePatchArgs struct {
 	// apiVersion is API version of the referent.
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+	// kind of the referent. Valid kinds are 'Pod', 'Secret', 'Node', 'ValidatingWebhookConfiguration', and 'MutatingWebhookConfiguration'.
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// name of the referent.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -329,7 +329,7 @@ func (o BoundObjectReferencePatchOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v BoundObjectReferencePatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+// kind of the referent. Valid kinds are 'Pod', 'Secret', 'Node', 'ValidatingWebhookConfiguration', and 'MutatingWebhookConfiguration'.
 func (o BoundObjectReferencePatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v BoundObjectReferencePatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
@@ -378,7 +378,7 @@ func (o BoundObjectReferencePatchPtrOutput) ApiVersion() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+// kind of the referent. Valid kinds are 'Pod', 'Secret', 'Node', 'ValidatingWebhookConfiguration', and 'MutatingWebhookConfiguration'.
 func (o BoundObjectReferencePatchPtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *BoundObjectReferencePatch) *string {
 		if v == nil {
@@ -1036,6 +1036,8 @@ func (o TokenRequestPatchOutput) Status() TokenRequestStatusPatchPtrOutput {
 
 // TokenRequestSpec contains client provided parameters of a token request.
 type TokenRequestSpec struct {
+	// attestations is a map of well-known keys to string-slice values. The values for each key have a specific semantic meaning, which is documented on the key definition. Requesters of tokens may ask the Kubernetes API Server to attest to certain claims. The API Server may perform authorization checks depending on the key of this map.
+	Attestations map[string][]string `pulumi:"attestations"`
 	// audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 	Audiences []string `pulumi:"audiences"`
 	// boundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
@@ -1057,6 +1059,8 @@ type TokenRequestSpecInput interface {
 
 // TokenRequestSpec contains client provided parameters of a token request.
 type TokenRequestSpecArgs struct {
+	// attestations is a map of well-known keys to string-slice values. The values for each key have a specific semantic meaning, which is documented on the key definition. Requesters of tokens may ask the Kubernetes API Server to attest to certain claims. The API Server may perform authorization checks depending on the key of this map.
+	Attestations pulumi.StringArrayMapInput `pulumi:"attestations"`
 	// audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 	Audiences pulumi.StringArrayInput `pulumi:"audiences"`
 	// boundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
@@ -1092,6 +1096,11 @@ func (o TokenRequestSpecOutput) ToTokenRequestSpecOutputWithContext(ctx context.
 	return o
 }
 
+// attestations is a map of well-known keys to string-slice values. The values for each key have a specific semantic meaning, which is documented on the key definition. Requesters of tokens may ask the Kubernetes API Server to attest to certain claims. The API Server may perform authorization checks depending on the key of this map.
+func (o TokenRequestSpecOutput) Attestations() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func(v TokenRequestSpec) map[string][]string { return v.Attestations }).(pulumi.StringArrayMapOutput)
+}
+
 // audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 func (o TokenRequestSpecOutput) Audiences() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v TokenRequestSpec) []string { return v.Audiences }).(pulumi.StringArrayOutput)
@@ -1109,6 +1118,8 @@ func (o TokenRequestSpecOutput) ExpirationSeconds() pulumi.IntPtrOutput {
 
 // TokenRequestSpec contains client provided parameters of a token request.
 type TokenRequestSpecPatch struct {
+	// attestations is a map of well-known keys to string-slice values. The values for each key have a specific semantic meaning, which is documented on the key definition. Requesters of tokens may ask the Kubernetes API Server to attest to certain claims. The API Server may perform authorization checks depending on the key of this map.
+	Attestations map[string][]string `pulumi:"attestations"`
 	// audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 	Audiences []string `pulumi:"audiences"`
 	// boundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
@@ -1130,6 +1141,8 @@ type TokenRequestSpecPatchInput interface {
 
 // TokenRequestSpec contains client provided parameters of a token request.
 type TokenRequestSpecPatchArgs struct {
+	// attestations is a map of well-known keys to string-slice values. The values for each key have a specific semantic meaning, which is documented on the key definition. Requesters of tokens may ask the Kubernetes API Server to attest to certain claims. The API Server may perform authorization checks depending on the key of this map.
+	Attestations pulumi.StringArrayMapInput `pulumi:"attestations"`
 	// audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 	Audiences pulumi.StringArrayInput `pulumi:"audiences"`
 	// boundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
@@ -1216,6 +1229,11 @@ func (o TokenRequestSpecPatchOutput) ToTokenRequestSpecPatchPtrOutputWithContext
 	}).(TokenRequestSpecPatchPtrOutput)
 }
 
+// attestations is a map of well-known keys to string-slice values. The values for each key have a specific semantic meaning, which is documented on the key definition. Requesters of tokens may ask the Kubernetes API Server to attest to certain claims. The API Server may perform authorization checks depending on the key of this map.
+func (o TokenRequestSpecPatchOutput) Attestations() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func(v TokenRequestSpecPatch) map[string][]string { return v.Attestations }).(pulumi.StringArrayMapOutput)
+}
+
 // audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
 func (o TokenRequestSpecPatchOutput) Audiences() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v TokenRequestSpecPatch) []string { return v.Audiences }).(pulumi.StringArrayOutput)
@@ -1253,6 +1271,16 @@ func (o TokenRequestSpecPatchPtrOutput) Elem() TokenRequestSpecPatchOutput {
 		var ret TokenRequestSpecPatch
 		return ret
 	}).(TokenRequestSpecPatchOutput)
+}
+
+// attestations is a map of well-known keys to string-slice values. The values for each key have a specific semantic meaning, which is documented on the key definition. Requesters of tokens may ask the Kubernetes API Server to attest to certain claims. The API Server may perform authorization checks depending on the key of this map.
+func (o TokenRequestSpecPatchPtrOutput) Attestations() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func(v *TokenRequestSpecPatch) map[string][]string {
+		if v == nil {
+			return nil
+		}
+		return v.Attestations
+	}).(pulumi.StringArrayMapOutput)
 }
 
 // audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.

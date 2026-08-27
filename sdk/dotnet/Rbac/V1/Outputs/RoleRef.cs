@@ -17,15 +17,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
     public sealed class RoleRef
     {
         /// <summary>
-        /// APIGroup is the group for the resource being referenced
+        /// apiGroup is the group for the resource being referenced
         /// </summary>
         public readonly string ApiGroup;
         /// <summary>
-        /// Kind is the type of resource being referenced
+        /// kind is the type of resource being referenced
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Name is the name of resource being referenced
+        /// name is the name of resource being referenced
         /// </summary>
         public readonly string Name;
 

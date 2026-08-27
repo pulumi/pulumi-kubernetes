@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.CounterArgs;
 import java.lang.String;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -20,6 +21,37 @@ import javax.annotation.Nullable;
 public final class DeviceCounterConsumptionPatchArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final DeviceCounterConsumptionPatchArgs Empty = new DeviceCounterConsumptionPatchArgs();
+
+    /**
+     * CompatibilityGroups is a list of opaque group names for this counter set consumption.
+     * 
+     * Devices that consume counters from the same counter set may only be allocated at the same time (&#34;co-allocated&#34;) if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+     * 
+     * An unset field, an explicit nil, and an empty list are equivalent and mean &#34;no groups&#34;: such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+     * 
+     * Group names are opaque and meaningful only within the publishing driver&#39;s pool.
+     * 
+     * The maximum number of groups is 2, and the names must be unique.
+     * 
+     */
+    @Import(name="compatibilityGroups")
+    private @Nullable Output<List<String>> compatibilityGroups;
+
+    /**
+     * @return CompatibilityGroups is a list of opaque group names for this counter set consumption.
+     * 
+     * Devices that consume counters from the same counter set may only be allocated at the same time (&#34;co-allocated&#34;) if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+     * 
+     * An unset field, an explicit nil, and an empty list are equivalent and mean &#34;no groups&#34;: such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+     * 
+     * Group names are opaque and meaningful only within the publishing driver&#39;s pool.
+     * 
+     * The maximum number of groups is 2, and the names must be unique.
+     * 
+     */
+    public Optional<Output<List<String>>> compatibilityGroups() {
+        return Optional.ofNullable(this.compatibilityGroups);
+    }
 
     /**
      * CounterSet is the name of the set from which the counters defined will be consumed.
@@ -58,6 +90,7 @@ public final class DeviceCounterConsumptionPatchArgs extends com.pulumi.resource
     private DeviceCounterConsumptionPatchArgs() {}
 
     private DeviceCounterConsumptionPatchArgs(DeviceCounterConsumptionPatchArgs $) {
+        this.compatibilityGroups = $.compatibilityGroups;
         this.counterSet = $.counterSet;
         this.counters = $.counters;
     }
@@ -78,6 +111,61 @@ public final class DeviceCounterConsumptionPatchArgs extends com.pulumi.resource
 
         public Builder(DeviceCounterConsumptionPatchArgs defaults) {
             $ = new DeviceCounterConsumptionPatchArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param compatibilityGroups CompatibilityGroups is a list of opaque group names for this counter set consumption.
+         * 
+         * Devices that consume counters from the same counter set may only be allocated at the same time (&#34;co-allocated&#34;) if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+         * 
+         * An unset field, an explicit nil, and an empty list are equivalent and mean &#34;no groups&#34;: such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+         * 
+         * Group names are opaque and meaningful only within the publishing driver&#39;s pool.
+         * 
+         * The maximum number of groups is 2, and the names must be unique.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder compatibilityGroups(@Nullable Output<List<String>> compatibilityGroups) {
+            $.compatibilityGroups = compatibilityGroups;
+            return this;
+        }
+
+        /**
+         * @param compatibilityGroups CompatibilityGroups is a list of opaque group names for this counter set consumption.
+         * 
+         * Devices that consume counters from the same counter set may only be allocated at the same time (&#34;co-allocated&#34;) if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+         * 
+         * An unset field, an explicit nil, and an empty list are equivalent and mean &#34;no groups&#34;: such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+         * 
+         * Group names are opaque and meaningful only within the publishing driver&#39;s pool.
+         * 
+         * The maximum number of groups is 2, and the names must be unique.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder compatibilityGroups(List<String> compatibilityGroups) {
+            return compatibilityGroups(Output.of(compatibilityGroups));
+        }
+
+        /**
+         * @param compatibilityGroups CompatibilityGroups is a list of opaque group names for this counter set consumption.
+         * 
+         * Devices that consume counters from the same counter set may only be allocated at the same time (&#34;co-allocated&#34;) if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+         * 
+         * An unset field, an explicit nil, and an empty list are equivalent and mean &#34;no groups&#34;: such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+         * 
+         * Group names are opaque and meaningful only within the publishing driver&#39;s pool.
+         * 
+         * The maximum number of groups is 2, and the names must be unique.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder compatibilityGroups(String... compatibilityGroups) {
+            return compatibilityGroups(List.of(compatibilityGroups));
         }
 
         /**

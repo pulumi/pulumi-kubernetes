@@ -52,15 +52,15 @@ export class PodDisruptionBudgetPatch extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"PodDisruptionBudget">;
     /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Specification of the desired behavior of the PodDisruptionBudget.
+     * spec is the specification of the desired behavior of the PodDisruptionBudget.
      */
     declare public readonly spec: pulumi.Output<outputs.policy.v1.PodDisruptionBudgetSpecPatch>;
     /**
-     * Most recently observed status of the PodDisruptionBudget.
+     * status is the most recently observed status of the PodDisruptionBudget.
      */
     declare public /*out*/ readonly status: pulumi.Output<outputs.policy.v1.PodDisruptionBudgetStatusPatch>;
 
@@ -107,11 +107,11 @@ export interface PodDisruptionBudgetPatchArgs {
      */
     kind?: pulumi.Input<"PodDisruptionBudget" | undefined>;
     /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
-     * Specification of the desired behavior of the PodDisruptionBudget.
+     * spec is the specification of the desired behavior of the PodDisruptionBudget.
      */
     spec?: pulumi.Input<inputs.policy.v1.PodDisruptionBudgetSpecPatch | undefined>;
 }

@@ -18,11 +18,11 @@ var _ = utilities.GetEnvOrDefault
 type Eviction struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// DeleteOptions may be provided
+	// deleteOptions may be provided
 	DeleteOptions *metav1.DeleteOptions `pulumi:"deleteOptions"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// ObjectMeta describes the pod that is being evicted.
+	// metadata describes the pod that is being evicted.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 }
 
@@ -41,11 +41,11 @@ type EvictionInput interface {
 type EvictionArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// DeleteOptions may be provided
+	// deleteOptions may be provided
 	DeleteOptions metav1.DeleteOptionsPtrInput `pulumi:"deleteOptions"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// ObjectMeta describes the pod that is being evicted.
+	// metadata describes the pod that is being evicted.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -81,7 +81,7 @@ func (o EvictionOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Eviction) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// DeleteOptions may be provided
+// deleteOptions may be provided
 func (o EvictionOutput) DeleteOptions() metav1.DeleteOptionsPtrOutput {
 	return o.ApplyT(func(v Eviction) *metav1.DeleteOptions { return v.DeleteOptions }).(metav1.DeleteOptionsPtrOutput)
 }
@@ -91,7 +91,7 @@ func (o EvictionOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Eviction) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// ObjectMeta describes the pod that is being evicted.
+// metadata describes the pod that is being evicted.
 func (o EvictionOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v Eviction) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -100,11 +100,11 @@ func (o EvictionOutput) Metadata() metav1.ObjectMetaPtrOutput {
 type EvictionPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// DeleteOptions may be provided
+	// deleteOptions may be provided
 	DeleteOptions *metav1.DeleteOptionsPatch `pulumi:"deleteOptions"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// ObjectMeta describes the pod that is being evicted.
+	// metadata describes the pod that is being evicted.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 }
 
@@ -123,11 +123,11 @@ type EvictionPatchInput interface {
 type EvictionPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// DeleteOptions may be provided
+	// deleteOptions may be provided
 	DeleteOptions metav1.DeleteOptionsPatchPtrInput `pulumi:"deleteOptions"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// ObjectMeta describes the pod that is being evicted.
+	// metadata describes the pod that is being evicted.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 }
 
@@ -163,7 +163,7 @@ func (o EvictionPatchOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EvictionPatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// DeleteOptions may be provided
+// deleteOptions may be provided
 func (o EvictionPatchOutput) DeleteOptions() metav1.DeleteOptionsPatchPtrOutput {
 	return o.ApplyT(func(v EvictionPatch) *metav1.DeleteOptionsPatch { return v.DeleteOptions }).(metav1.DeleteOptionsPatchPtrOutput)
 }
@@ -173,7 +173,7 @@ func (o EvictionPatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EvictionPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// ObjectMeta describes the pod that is being evicted.
+// metadata describes the pod that is being evicted.
 func (o EvictionPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v EvictionPatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -184,11 +184,11 @@ type PodDisruptionBudgetType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Specification of the desired behavior of the PodDisruptionBudget.
+	// spec is the specification of the desired behavior of the PodDisruptionBudget.
 	Spec *PodDisruptionBudgetSpec `pulumi:"spec"`
-	// Most recently observed status of the PodDisruptionBudget.
+	// status is the most recently observed status of the PodDisruptionBudget.
 	Status *PodDisruptionBudgetStatus `pulumi:"status"`
 }
 
@@ -209,11 +209,11 @@ type PodDisruptionBudgetTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Specification of the desired behavior of the PodDisruptionBudget.
+	// spec is the specification of the desired behavior of the PodDisruptionBudget.
 	Spec PodDisruptionBudgetSpecPtrInput `pulumi:"spec"`
-	// Most recently observed status of the PodDisruptionBudget.
+	// status is the most recently observed status of the PodDisruptionBudget.
 	Status PodDisruptionBudgetStatusPtrInput `pulumi:"status"`
 }
 
@@ -279,17 +279,17 @@ func (o PodDisruptionBudgetTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PodDisruptionBudgetTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Specification of the desired behavior of the PodDisruptionBudget.
+// spec is the specification of the desired behavior of the PodDisruptionBudget.
 func (o PodDisruptionBudgetTypeOutput) Spec() PodDisruptionBudgetSpecPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetType) *PodDisruptionBudgetSpec { return v.Spec }).(PodDisruptionBudgetSpecPtrOutput)
 }
 
-// Most recently observed status of the PodDisruptionBudget.
+// status is the most recently observed status of the PodDisruptionBudget.
 func (o PodDisruptionBudgetTypeOutput) Status() PodDisruptionBudgetStatusPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetType) *PodDisruptionBudgetStatus { return v.Status }).(PodDisruptionBudgetStatusPtrOutput)
 }
@@ -402,11 +402,11 @@ type PodDisruptionBudgetPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Specification of the desired behavior of the PodDisruptionBudget.
+	// spec is the specification of the desired behavior of the PodDisruptionBudget.
 	Spec *PodDisruptionBudgetSpecPatch `pulumi:"spec"`
-	// Most recently observed status of the PodDisruptionBudget.
+	// status is the most recently observed status of the PodDisruptionBudget.
 	Status *PodDisruptionBudgetStatusPatch `pulumi:"status"`
 }
 
@@ -427,11 +427,11 @@ type PodDisruptionBudgetPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Specification of the desired behavior of the PodDisruptionBudget.
+	// spec is the specification of the desired behavior of the PodDisruptionBudget.
 	Spec PodDisruptionBudgetSpecPatchPtrInput `pulumi:"spec"`
-	// Most recently observed status of the PodDisruptionBudget.
+	// status is the most recently observed status of the PodDisruptionBudget.
 	Status PodDisruptionBudgetStatusPatchPtrInput `pulumi:"status"`
 }
 
@@ -472,30 +472,30 @@ func (o PodDisruptionBudgetPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PodDisruptionBudgetPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Specification of the desired behavior of the PodDisruptionBudget.
+// spec is the specification of the desired behavior of the PodDisruptionBudget.
 func (o PodDisruptionBudgetPatchTypeOutput) Spec() PodDisruptionBudgetSpecPatchPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetPatchType) *PodDisruptionBudgetSpecPatch { return v.Spec }).(PodDisruptionBudgetSpecPatchPtrOutput)
 }
 
-// Most recently observed status of the PodDisruptionBudget.
+// status is the most recently observed status of the PodDisruptionBudget.
 func (o PodDisruptionBudgetPatchTypeOutput) Status() PodDisruptionBudgetStatusPatchPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetPatchType) *PodDisruptionBudgetStatusPatch { return v.Status }).(PodDisruptionBudgetStatusPatchPtrOutput)
 }
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 type PodDisruptionBudgetSpec struct {
-	// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+	// maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
-	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+	// minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable interface{} `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+	// selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 	Selector *metav1.LabelSelector `pulumi:"selector"`
-	// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+	// unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 	//
 	// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 	//
@@ -520,13 +520,13 @@ type PodDisruptionBudgetSpecInput interface {
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 type PodDisruptionBudgetSpecArgs struct {
-	// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+	// maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
-	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+	// minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable pulumi.Input `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+	// selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
-	// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+	// unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 	//
 	// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 	//
@@ -616,22 +616,22 @@ func (o PodDisruptionBudgetSpecOutput) ToPodDisruptionBudgetSpecPtrOutputWithCon
 	}).(PodDisruptionBudgetSpecPtrOutput)
 }
 
-// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+// maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 func (o PodDisruptionBudgetSpecOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
 
-// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+// minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 func (o PodDisruptionBudgetSpecOutput) MinAvailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) interface{} { return v.MinAvailable }).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+// selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 func (o PodDisruptionBudgetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+// unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 //
 // Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 //
@@ -668,7 +668,7 @@ func (o PodDisruptionBudgetSpecPtrOutput) Elem() PodDisruptionBudgetSpecOutput {
 	}).(PodDisruptionBudgetSpecOutput)
 }
 
-// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+// maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 func (o PodDisruptionBudgetSpecPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpec) interface{} {
 		if v == nil {
@@ -678,7 +678,7 @@ func (o PodDisruptionBudgetSpecPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 	}).(pulumi.AnyOutput)
 }
 
-// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+// minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 func (o PodDisruptionBudgetSpecPtrOutput) MinAvailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpec) interface{} {
 		if v == nil {
@@ -688,7 +688,7 @@ func (o PodDisruptionBudgetSpecPtrOutput) MinAvailable() pulumi.AnyOutput {
 	}).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+// selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpec) *metav1.LabelSelector {
 		if v == nil {
@@ -698,7 +698,7 @@ func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutp
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+// unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 //
 // Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 //
@@ -718,13 +718,13 @@ func (o PodDisruptionBudgetSpecPtrOutput) UnhealthyPodEvictionPolicy() pulumi.St
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 type PodDisruptionBudgetSpecPatch struct {
-	// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+	// maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
-	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+	// minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable interface{} `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+	// selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
-	// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+	// unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 	//
 	// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 	//
@@ -749,13 +749,13 @@ type PodDisruptionBudgetSpecPatchInput interface {
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 type PodDisruptionBudgetSpecPatchArgs struct {
-	// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+	// maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
-	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+	// minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable pulumi.Input `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+	// selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
-	// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+	// unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 	//
 	// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 	//
@@ -845,22 +845,22 @@ func (o PodDisruptionBudgetSpecPatchOutput) ToPodDisruptionBudgetSpecPatchPtrOut
 	}).(PodDisruptionBudgetSpecPatchPtrOutput)
 }
 
-// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+// maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 func (o PodDisruptionBudgetSpecPatchOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpecPatch) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
 
-// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+// minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 func (o PodDisruptionBudgetSpecPatchOutput) MinAvailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpecPatch) interface{} { return v.MinAvailable }).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+// selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 func (o PodDisruptionBudgetSpecPatchOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpecPatch) *metav1.LabelSelectorPatch { return v.Selector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+// unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 //
 // Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 //
@@ -897,7 +897,7 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) Elem() PodDisruptionBudgetSpecPat
 	}).(PodDisruptionBudgetSpecPatchOutput)
 }
 
-// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+// maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
 func (o PodDisruptionBudgetSpecPatchPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpecPatch) interface{} {
 		if v == nil {
@@ -907,7 +907,7 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) MaxUnavailable() pulumi.AnyOutput
 	}).(pulumi.AnyOutput)
 }
 
-// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+// minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 func (o PodDisruptionBudgetSpecPatchPtrOutput) MinAvailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpecPatch) interface{} {
 		if v == nil {
@@ -917,7 +917,7 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) MinAvailable() pulumi.AnyOutput {
 	}).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+// selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 func (o PodDisruptionBudgetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpecPatch) *metav1.LabelSelectorPatch {
 		if v == nil {
@@ -927,7 +927,7 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPa
 	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+// unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
 //
 // Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
 //

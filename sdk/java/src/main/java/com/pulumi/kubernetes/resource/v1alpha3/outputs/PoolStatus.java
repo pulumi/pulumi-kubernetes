@@ -5,8 +5,11 @@ package com.pulumi.kubernetes.resource.v1alpha3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.resource.v1alpha3.outputs.PartitionTypeStatus;
+import com.pulumi.kubernetes.resource.v1alpha3.outputs.ShareableSummaryStatus;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -39,6 +42,11 @@ public final class PoolStatus {
      */
     private @Nullable String nodeName;
     /**
+     * @return PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device&#39;s own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+     * 
+     */
+    private @Nullable List<PartitionTypeStatus> partitionSummary;
+    /**
      * @return PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by &#34;/&#34;).
      * 
      */
@@ -48,6 +56,11 @@ public final class PoolStatus {
      * 
      */
     private @Nullable Integer resourceSliceCount;
+    /**
+     * @return ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+     * 
+     */
+    private @Nullable ShareableSummaryStatus shareableSummary;
     /**
      * @return TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
      * 
@@ -101,6 +114,13 @@ public final class PoolStatus {
         return Optional.ofNullable(this.nodeName);
     }
     /**
+     * @return PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device&#39;s own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+     * 
+     */
+    public List<PartitionTypeStatus> partitionSummary() {
+        return this.partitionSummary == null ? List.of() : this.partitionSummary;
+    }
+    /**
      * @return PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by &#34;/&#34;).
      * 
      */
@@ -113,6 +133,13 @@ public final class PoolStatus {
      */
     public Optional<Integer> resourceSliceCount() {
         return Optional.ofNullable(this.resourceSliceCount);
+    }
+    /**
+     * @return ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+     * 
+     */
+    public Optional<ShareableSummaryStatus> shareableSummary() {
+        return Optional.ofNullable(this.shareableSummary);
     }
     /**
      * @return TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
@@ -150,8 +177,10 @@ public final class PoolStatus {
         private String driver;
         private Integer generation;
         private @Nullable String nodeName;
+        private @Nullable List<PartitionTypeStatus> partitionSummary;
         private String poolName;
         private @Nullable Integer resourceSliceCount;
+        private @Nullable ShareableSummaryStatus shareableSummary;
         private @Nullable Integer totalDevices;
         private @Nullable Integer unavailableDevices;
         private @Nullable String validationError;
@@ -163,8 +192,10 @@ public final class PoolStatus {
     	      this.driver = defaults.driver;
     	      this.generation = defaults.generation;
     	      this.nodeName = defaults.nodeName;
+    	      this.partitionSummary = defaults.partitionSummary;
     	      this.poolName = defaults.poolName;
     	      this.resourceSliceCount = defaults.resourceSliceCount;
+    	      this.shareableSummary = defaults.shareableSummary;
     	      this.totalDevices = defaults.totalDevices;
     	      this.unavailableDevices = defaults.unavailableDevices;
     	      this.validationError = defaults.validationError;
@@ -205,6 +236,15 @@ public final class PoolStatus {
             return this;
         }
         @CustomType.Setter
+        public Builder partitionSummary(@Nullable List<PartitionTypeStatus> partitionSummary) {
+
+            this.partitionSummary = partitionSummary;
+            return this;
+        }
+        public Builder partitionSummary(PartitionTypeStatus... partitionSummary) {
+            return partitionSummary(List.of(partitionSummary));
+        }
+        @CustomType.Setter
         public Builder poolName(String poolName) {
             if (poolName == null) {
               throw new MissingRequiredPropertyException("PoolStatus", "poolName");
@@ -216,6 +256,12 @@ public final class PoolStatus {
         public Builder resourceSliceCount(@Nullable Integer resourceSliceCount) {
 
             this.resourceSliceCount = resourceSliceCount;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder shareableSummary(@Nullable ShareableSummaryStatus shareableSummary) {
+
+            this.shareableSummary = shareableSummary;
             return this;
         }
         @CustomType.Setter
@@ -243,8 +289,10 @@ public final class PoolStatus {
             _resultValue.driver = driver;
             _resultValue.generation = generation;
             _resultValue.nodeName = nodeName;
+            _resultValue.partitionSummary = partitionSummary;
             _resultValue.poolName = poolName;
             _resultValue.resourceSliceCount = resourceSliceCount;
+            _resultValue.shareableSummary = shareableSummary;
             _resultValue.totalDevices = totalDevices;
             _resultValue.unavailableDevices = unavailableDevices;
             _resultValue.validationError = validationError;

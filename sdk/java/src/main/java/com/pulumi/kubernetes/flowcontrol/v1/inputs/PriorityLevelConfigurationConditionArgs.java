@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.flowcontrol.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -65,14 +66,14 @@ public final class PriorityLevelConfigurationConditionArgs extends com.pulumi.re
     }
 
     /**
-     * `status` is the status of the condition. Can be True, False, Unknown. Required.
+     * `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
      * 
      */
     @Import(name="status")
     private @Nullable Output<String> status;
 
     /**
-     * @return `status` is the status of the condition. Can be True, False, Unknown. Required.
+     * @return `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
      * 
      */
     public Optional<Output<String>> status() {
@@ -83,15 +84,15 @@ public final class PriorityLevelConfigurationConditionArgs extends com.pulumi.re
      * `type` is the type of the condition. Required.
      * 
      */
-    @Import(name="type")
-    private @Nullable Output<String> type;
+    @Import(name="type", required=true)
+    private Output<String> type;
 
     /**
      * @return `type` is the type of the condition. Required.
      * 
      */
-    public Optional<Output<String>> type() {
-        return Optional.ofNullable(this.type);
+    public Output<String> type() {
+        return this.type;
     }
 
     private PriorityLevelConfigurationConditionArgs() {}
@@ -186,7 +187,7 @@ public final class PriorityLevelConfigurationConditionArgs extends com.pulumi.re
         }
 
         /**
-         * @param status `status` is the status of the condition. Can be True, False, Unknown. Required.
+         * @param status `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
          * 
          * @return builder
          * 
@@ -197,7 +198,7 @@ public final class PriorityLevelConfigurationConditionArgs extends com.pulumi.re
         }
 
         /**
-         * @param status `status` is the status of the condition. Can be True, False, Unknown. Required.
+         * @param status `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
          * 
          * @return builder
          * 
@@ -212,7 +213,7 @@ public final class PriorityLevelConfigurationConditionArgs extends com.pulumi.re
          * @return builder
          * 
          */
-        public Builder type(@Nullable Output<String> type) {
+        public Builder type(Output<String> type) {
             $.type = type;
             return this;
         }
@@ -228,6 +229,9 @@ public final class PriorityLevelConfigurationConditionArgs extends com.pulumi.re
         }
 
         public PriorityLevelConfigurationConditionArgs build() {
+            if ($.type == null) {
+                throw new MissingRequiredPropertyException("PriorityLevelConfigurationConditionArgs", "type");
+            }
             return $;
         }
     }

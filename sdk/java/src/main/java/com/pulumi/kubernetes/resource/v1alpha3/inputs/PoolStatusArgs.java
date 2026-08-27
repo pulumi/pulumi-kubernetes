@@ -6,8 +6,11 @@ package com.pulumi.kubernetes.resource.v1alpha3.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.resource.v1alpha3.inputs.PartitionTypeStatusArgs;
+import com.pulumi.kubernetes.resource.v1alpha3.inputs.ShareableSummaryStatusArgs;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -97,6 +100,21 @@ public final class PoolStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device&#39;s own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+     * 
+     */
+    @Import(name="partitionSummary")
+    private @Nullable Output<List<PartitionTypeStatusArgs>> partitionSummary;
+
+    /**
+     * @return PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device&#39;s own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+     * 
+     */
+    public Optional<Output<List<PartitionTypeStatusArgs>>> partitionSummary() {
+        return Optional.ofNullable(this.partitionSummary);
+    }
+
+    /**
      * PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by &#34;/&#34;).
      * 
      */
@@ -124,6 +142,21 @@ public final class PoolStatusArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<Integer>> resourceSliceCount() {
         return Optional.ofNullable(this.resourceSliceCount);
+    }
+
+    /**
+     * ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+     * 
+     */
+    @Import(name="shareableSummary")
+    private @Nullable Output<ShareableSummaryStatusArgs> shareableSummary;
+
+    /**
+     * @return ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+     * 
+     */
+    public Optional<Output<ShareableSummaryStatusArgs>> shareableSummary() {
+        return Optional.ofNullable(this.shareableSummary);
     }
 
     /**
@@ -179,8 +212,10 @@ public final class PoolStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.driver = $.driver;
         this.generation = $.generation;
         this.nodeName = $.nodeName;
+        this.partitionSummary = $.partitionSummary;
         this.poolName = $.poolName;
         this.resourceSliceCount = $.resourceSliceCount;
+        this.shareableSummary = $.shareableSummary;
         this.totalDevices = $.totalDevices;
         this.unavailableDevices = $.unavailableDevices;
         this.validationError = $.validationError;
@@ -310,6 +345,37 @@ public final class PoolStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param partitionSummary PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device&#39;s own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder partitionSummary(@Nullable Output<List<PartitionTypeStatusArgs>> partitionSummary) {
+            $.partitionSummary = partitionSummary;
+            return this;
+        }
+
+        /**
+         * @param partitionSummary PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device&#39;s own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder partitionSummary(List<PartitionTypeStatusArgs> partitionSummary) {
+            return partitionSummary(Output.of(partitionSummary));
+        }
+
+        /**
+         * @param partitionSummary PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device&#39;s own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder partitionSummary(PartitionTypeStatusArgs... partitionSummary) {
+            return partitionSummary(List.of(partitionSummary));
+        }
+
+        /**
          * @param poolName PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by &#34;/&#34;).
          * 
          * @return builder
@@ -349,6 +415,27 @@ public final class PoolStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder resourceSliceCount(Integer resourceSliceCount) {
             return resourceSliceCount(Output.of(resourceSliceCount));
+        }
+
+        /**
+         * @param shareableSummary ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shareableSummary(@Nullable Output<ShareableSummaryStatusArgs> shareableSummary) {
+            $.shareableSummary = shareableSummary;
+            return this;
+        }
+
+        /**
+         * @param shareableSummary ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder shareableSummary(ShareableSummaryStatusArgs shareableSummary) {
+            return shareableSummary(Output.of(shareableSummary));
         }
 
         /**

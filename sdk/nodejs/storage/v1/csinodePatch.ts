@@ -52,13 +52,17 @@ export class CSINodePatch extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"CSINode">;
     /**
-     * Standard object's metadata. metadata.name must be the Kubernetes node name.
+     * metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
      * spec is the specification of CSINode
      */
     declare public readonly spec: pulumi.Output<outputs.storage.v1.CSINodeSpecPatch>;
+    /**
+     * status contains health and status information for the node's storage.
+     */
+    declare public /*out*/ readonly status: pulumi.Output<outputs.storage.v1.CSINodeStatusPatch>;
 
     /**
      * Create a CSINodePatch resource with the given unique name, arguments, and options.
@@ -75,11 +79,13 @@ export class CSINodePatch extends pulumi.CustomResource {
             resourceInputs["kind"] = "CSINode";
             resourceInputs["metadata"] = args?.metadata;
             resourceInputs["spec"] = args?.spec;
+            resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["spec"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1beta1:CSINodePatch" }] };
@@ -101,7 +107,7 @@ export interface CSINodePatchArgs {
      */
     kind?: pulumi.Input<"CSINode" | undefined>;
     /**
-     * Standard object's metadata. metadata.name must be the Kubernetes node name.
+     * metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**

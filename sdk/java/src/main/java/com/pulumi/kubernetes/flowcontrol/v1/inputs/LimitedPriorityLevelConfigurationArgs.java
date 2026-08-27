@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.flowcontrol.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1.inputs.LimitResponseArgs;
 import java.lang.Integer;
 import java.util.Objects;
@@ -68,15 +69,15 @@ public final class LimitedPriorityLevelConfigurationArgs extends com.pulumi.reso
      * `limitResponse` indicates what to do with requests that can not be executed right now
      * 
      */
-    @Import(name="limitResponse")
-    private @Nullable Output<LimitResponseArgs> limitResponse;
+    @Import(name="limitResponse", required=true)
+    private Output<LimitResponseArgs> limitResponse;
 
     /**
      * @return `limitResponse` indicates what to do with requests that can not be executed right now
      * 
      */
-    public Optional<Output<LimitResponseArgs>> limitResponse() {
-        return Optional.ofNullable(this.limitResponse);
+    public Output<LimitResponseArgs> limitResponse() {
+        return this.limitResponse;
     }
 
     /**
@@ -197,7 +198,7 @@ public final class LimitedPriorityLevelConfigurationArgs extends com.pulumi.reso
          * @return builder
          * 
          */
-        public Builder limitResponse(@Nullable Output<LimitResponseArgs> limitResponse) {
+        public Builder limitResponse(Output<LimitResponseArgs> limitResponse) {
             $.limitResponse = limitResponse;
             return this;
         }
@@ -250,6 +251,9 @@ public final class LimitedPriorityLevelConfigurationArgs extends com.pulumi.reso
         }
 
         public LimitedPriorityLevelConfigurationArgs build() {
+            if ($.limitResponse == null) {
+                throw new MissingRequiredPropertyException("LimitedPriorityLevelConfigurationArgs", "limitResponse");
+            }
             return $;
         }
     }

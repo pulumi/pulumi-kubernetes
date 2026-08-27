@@ -85,6 +85,21 @@ public final class HTTPGetActionArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+     * 
+     */
+    @Import(name="protocol")
+    private @Nullable Output<String> protocol;
+
+    /**
+     * @return Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+     * 
+     */
+    public Optional<Output<String>> protocol() {
+        return Optional.ofNullable(this.protocol);
+    }
+
+    /**
      * Scheme to use for connecting to the host. Defaults to HTTP.
      * 
      */
@@ -106,6 +121,7 @@ public final class HTTPGetActionArgs extends com.pulumi.resources.ResourceArgs {
         this.httpHeaders = $.httpHeaders;
         this.path = $.path;
         this.port = $.port;
+        this.protocol = $.protocol;
         this.scheme = $.scheme;
     }
 
@@ -239,6 +255,27 @@ public final class HTTPGetActionArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder port(String port) {
             return port(Either.ofRight(port));
+        }
+
+        /**
+         * @param protocol Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder protocol(@Nullable Output<String> protocol) {
+            $.protocol = protocol;
+            return this;
+        }
+
+        /**
+         * @param protocol Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder protocol(String protocol) {
+            return protocol(Output.of(protocol));
         }
 
         /**

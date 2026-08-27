@@ -31,8 +31,8 @@ class PodDisruptionBudgetInitArgs:
 
         :param pulumi.Input[Literal['policy/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['PodDisruptionBudget']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PodDisruptionBudgetSpecArgs'] spec: Specification of the desired behavior of the PodDisruptionBudget.
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['PodDisruptionBudgetSpecArgs'] spec: spec is the specification of the desired behavior of the PodDisruptionBudget.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'policy/v1')
@@ -71,7 +71,7 @@ class PodDisruptionBudgetInitArgs:
     @pulumi.getter
     def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
@@ -83,7 +83,7 @@ class PodDisruptionBudgetInitArgs:
     @pulumi.getter
     def spec(self) -> pulumi.Input[Optional['PodDisruptionBudgetSpecArgs']]:
         """
-        Specification of the desired behavior of the PodDisruptionBudget.
+        spec is the specification of the desired behavior of the PodDisruptionBudget.
         """
         return pulumi.get(self, "spec")
 
@@ -110,8 +110,8 @@ class PodDisruptionBudget(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['policy/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['PodDisruptionBudget']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Union['PodDisruptionBudgetSpecArgs', 'PodDisruptionBudgetSpecArgsDict']] spec: Specification of the desired behavior of the PodDisruptionBudget.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['PodDisruptionBudgetSpecArgs', 'PodDisruptionBudgetSpecArgsDict']] spec: spec is the specification of the desired behavior of the PodDisruptionBudget.
         """
         ...
     @overload
@@ -206,7 +206,7 @@ class PodDisruptionBudget(pulumi.CustomResource):
     @pulumi.getter
     def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
@@ -214,7 +214,7 @@ class PodDisruptionBudget(pulumi.CustomResource):
     @pulumi.getter
     def spec(self) -> pulumi.Output['outputs.PodDisruptionBudgetSpec']:
         """
-        Specification of the desired behavior of the PodDisruptionBudget.
+        spec is the specification of the desired behavior of the PodDisruptionBudget.
         """
         return pulumi.get(self, "spec")
 
@@ -222,7 +222,7 @@ class PodDisruptionBudget(pulumi.CustomResource):
     @pulumi.getter
     def status(self) -> pulumi.Output[Optional['outputs.PodDisruptionBudgetStatus']]:
         """
-        Most recently observed status of the PodDisruptionBudget.
+        status is the most recently observed status of the PodDisruptionBudget.
         """
         return pulumi.get(self, "status")
 

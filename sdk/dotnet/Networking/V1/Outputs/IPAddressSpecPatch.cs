@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
     public sealed class IPAddressSpecPatch
     {
         /// <summary>
-        /// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+        /// parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.ParentReferencePatch ParentRef;
 

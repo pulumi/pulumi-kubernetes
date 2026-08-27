@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -37,12 +36,9 @@ type DeviceClass struct {
 func NewDeviceClass(ctx *pulumi.Context,
 	name string, args *DeviceClassArgs, opts ...pulumi.ResourceOption) (*DeviceClass, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &DeviceClassArgs{}
 	}
 
-	if args.Spec == nil {
-		return nil, errors.New("invalid value for required argument 'Spec'")
-	}
 	args.ApiVersion = pulumi.StringPtr("resource.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("DeviceClass")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -101,7 +97,7 @@ type deviceClassArgs struct {
 	// This is mutable. Consumers have to be prepared for classes changing at any time, either because they get updated or replaced. Claim allocations are done once based on whatever was set in classes at the time of allocation.
 	//
 	// Changing the spec automatically increments the metadata.generation number.
-	Spec DeviceClassSpec `pulumi:"spec"`
+	Spec *DeviceClassSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a DeviceClass resource.
@@ -117,7 +113,7 @@ type DeviceClassArgs struct {
 	// This is mutable. Consumers have to be prepared for classes changing at any time, either because they get updated or replaced. Claim allocations are done once based on whatever was set in classes at the time of allocation.
 	//
 	// Changing the spec automatically increments the metadata.generation number.
-	Spec DeviceClassSpecInput
+	Spec DeviceClassSpecPtrInput
 }
 
 func (DeviceClassArgs) ElementType() reflect.Type {

@@ -46,11 +46,11 @@ export class Role extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"Role">;
     /**
-     * Standard object's metadata.
+     * metadata is the standard object's metadata.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * Rules holds all the PolicyRules for this Role
+     * rules holds all the PolicyRules for this Role
      */
     declare public readonly rules: pulumi.Output<outputs.rbac.v1.PolicyRule[]>;
 
@@ -95,11 +95,11 @@ export interface RoleArgs {
      */
     kind?: pulumi.Input<"Role" | undefined>;
     /**
-     * Standard object's metadata.
+     * metadata is the standard object's metadata.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**
-     * Rules holds all the PolicyRules for this Role
+     * rules holds all the PolicyRules for this Role
      */
     rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1.PolicyRule>[] | undefined>;
 }

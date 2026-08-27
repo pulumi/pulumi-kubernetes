@@ -24,6 +24,10 @@ public final class IngressRulePatch {
      * 
      */
     private @Nullable String host;
+    /**
+     * @return http is a HTTP IngressRuleValue, which contains a list of http selectors
+     * 
+     */
     private @Nullable HTTPIngressRuleValuePatch http;
 
     private IngressRulePatch() {}
@@ -41,6 +45,10 @@ public final class IngressRulePatch {
     public Optional<String> host() {
         return Optional.ofNullable(this.host);
     }
+    /**
+     * @return http is a HTTP IngressRuleValue, which contains a list of http selectors
+     * 
+     */
     public Optional<HTTPIngressRuleValuePatch> http() {
         return Optional.ofNullable(this.http);
     }

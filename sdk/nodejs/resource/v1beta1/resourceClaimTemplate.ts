@@ -69,9 +69,6 @@ export class ResourceClaimTemplate extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if (args?.spec === undefined && !opts.urn) {
-                throw new Error("Missing required property 'spec'");
-            }
             resourceInputs["apiVersion"] = "resource.k8s.io/v1beta1";
             resourceInputs["kind"] = "ResourceClaimTemplate";
             resourceInputs["metadata"] = args?.metadata;
@@ -110,5 +107,5 @@ export interface ResourceClaimTemplateArgs {
      *
      * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
      */
-    spec: pulumi.Input<inputs.resource.v1beta1.ResourceClaimTemplateSpec>;
+    spec?: pulumi.Input<inputs.resource.v1beta1.ResourceClaimTemplateSpec | undefined>;
 }

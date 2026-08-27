@@ -121,6 +121,8 @@ __all__ = [
     'EventSeriesPatch',
     'EventSource',
     'EventSourcePatch',
+    'EvictionResponder',
+    'EvictionResponderPatch',
     'ExecAction',
     'ExecActionPatch',
     'FCVolumeSource',
@@ -198,6 +200,10 @@ __all__ = [
     'NodeAddressPatch',
     'NodeAffinity',
     'NodeAffinityPatch',
+    'NodeAllocatableMappedResources',
+    'NodeAllocatableMappedResourcesPatch',
+    'NodeAllocatableOverheadResources',
+    'NodeAllocatableOverheadResourcesPatch',
     'NodeAllocatableResourceClaimStatus',
     'NodeAllocatableResourceClaimStatusPatch',
     'NodeCondition',
@@ -210,6 +216,8 @@ __all__ = [
     'NodeDaemonEndpointsPatch',
     'NodeFeatures',
     'NodeFeaturesPatch',
+    'NodePodPreemptionPolicy',
+    'NodePodPreemptionPolicyPatch',
     'NodeRuntimeHandler',
     'NodeRuntimeHandlerFeatures',
     'NodeRuntimeHandlerFeaturesPatch',
@@ -291,6 +299,8 @@ __all__ = [
     'PodTemplate',
     'PodTemplateSpec',
     'PodTemplateSpecPatch',
+    'PodVolumeHealth',
+    'PodVolumeHealthPatch',
     'PortStatus',
     'PortStatusPatch',
     'PortworxVolumeSource',
@@ -393,6 +403,10 @@ __all__ = [
     'Volume',
     'VolumeDevice',
     'VolumeDevicePatch',
+    'VolumeHealthCondition',
+    'VolumeHealthConditionPatch',
+    'VolumeHealthStatus',
+    'VolumeHealthStatusPatch',
     'VolumeMount',
     'VolumeMountPatch',
     'VolumeMountStatus',
@@ -3048,7 +3062,8 @@ class ClusterTrustBundleProjection(dict):
                  label_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  name: Optional[_builtins.str] = None,
                  optional: Optional[_builtins.bool] = None,
-                 signer_name: Optional[_builtins.str] = None):
+                 signer_name: Optional[_builtins.str] = None,
+                 user: Optional[_builtins.int] = None):
         """
         ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
 
@@ -3057,6 +3072,7 @@ class ClusterTrustBundleProjection(dict):
         :param _builtins.str name: Select a single ClusterTrustBundle by object name.  Mutually-exclusive with signerName and labelSelector.
         :param _builtins.bool optional: If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
         :param _builtins.str signer_name: Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         """
         pulumi.set(__self__, "path", path)
         if label_selector is not None:
@@ -3067,6 +3083,8 @@ class ClusterTrustBundleProjection(dict):
             pulumi.set(__self__, "optional", optional)
         if signer_name is not None:
             pulumi.set(__self__, "signer_name", signer_name)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
 
     @_builtins.property
     @pulumi.getter
@@ -3108,6 +3126,14 @@ class ClusterTrustBundleProjection(dict):
         """
         return pulumi.get(self, "signer_name")
 
+    @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
+
 
 @pulumi.output_type
 class ClusterTrustBundleProjectionPatch(dict):
@@ -3138,7 +3164,8 @@ class ClusterTrustBundleProjectionPatch(dict):
                  name: Optional[_builtins.str] = None,
                  optional: Optional[_builtins.bool] = None,
                  path: Optional[_builtins.str] = None,
-                 signer_name: Optional[_builtins.str] = None):
+                 signer_name: Optional[_builtins.str] = None,
+                 user: Optional[_builtins.int] = None):
         """
         ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
 
@@ -3147,6 +3174,7 @@ class ClusterTrustBundleProjectionPatch(dict):
         :param _builtins.bool optional: If true, don't block pod startup if the referenced ClusterTrustBundle(s) aren't available.  If using name, then the named ClusterTrustBundle is allowed not to exist.  If using signerName, then the combination of signerName and labelSelector is allowed to match zero ClusterTrustBundles.
         :param _builtins.str path: Relative path from the volume root to write the bundle.
         :param _builtins.str signer_name: Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         """
         if label_selector is not None:
             pulumi.set(__self__, "label_selector", label_selector)
@@ -3158,6 +3186,8 @@ class ClusterTrustBundleProjectionPatch(dict):
             pulumi.set(__self__, "path", path)
         if signer_name is not None:
             pulumi.set(__self__, "signer_name", signer_name)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
 
     @_builtins.property
     @pulumi.getter(name="labelSelector")
@@ -3199,6 +3229,14 @@ class ClusterTrustBundleProjectionPatch(dict):
         """
         return pulumi.get(self, "signer_name")
 
+    @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
+
 
 @pulumi.output_type
 class ConfigMap(dict):
@@ -3235,7 +3273,7 @@ class ConfigMap(dict):
         ConfigMap holds configuration data for pods to consume.
 
         :param Literal['v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param Mapping[str, _builtins.str] binary_data: BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+        :param Mapping[str, _builtins.str] binary_data: BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.
         :param Mapping[str, _builtins.str] data: Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
         :param _builtins.bool immutable: Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
         :param Literal['ConfigMap'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -3266,7 +3304,7 @@ class ConfigMap(dict):
     @pulumi.getter(name="binaryData")
     def binary_data(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+        BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet. Note: BinaryData keys are not currently propagated to container env vars via ConfigMapKeyRef or ConfigMapRef env sources; only Data keys are used.
         """
         return pulumi.get(self, "binary_data")
 
@@ -3308,7 +3346,7 @@ class ConfigMapEnvSource(dict):
     """
     ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 
-    The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+    The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
     """
     def __init__(__self__, *,
                  name: Optional[_builtins.str] = None,
@@ -3316,7 +3354,7 @@ class ConfigMapEnvSource(dict):
         """
         ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 
-        The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+        The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
 
         :param _builtins.str name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param _builtins.bool optional: Specify whether the ConfigMap must be defined
@@ -3348,7 +3386,7 @@ class ConfigMapEnvSourcePatch(dict):
     """
     ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 
-    The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+    The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
     """
     def __init__(__self__, *,
                  name: Optional[_builtins.str] = None,
@@ -3356,7 +3394,7 @@ class ConfigMapEnvSourcePatch(dict):
         """
         ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
 
-        The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+        The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
 
         :param _builtins.str name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param _builtins.bool optional: Specify whether the ConfigMap must be defined
@@ -3395,7 +3433,7 @@ class ConfigMapKeySelector(dict):
         """
         Selects a key from a ConfigMap.
 
-        :param _builtins.str key: The key to select.
+        :param _builtins.str key: The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         :param _builtins.str name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param _builtins.bool optional: Specify whether the ConfigMap or its key must be defined
         """
@@ -3409,7 +3447,7 @@ class ConfigMapKeySelector(dict):
     @pulumi.getter
     def key(self) -> _builtins.str:
         """
-        The key to select.
+        The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         """
         return pulumi.get(self, "key")
 
@@ -3442,7 +3480,7 @@ class ConfigMapKeySelectorPatch(dict):
         """
         Selects a key from a ConfigMap.
 
-        :param _builtins.str key: The key to select.
+        :param _builtins.str key: The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         :param _builtins.str name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param _builtins.bool optional: Specify whether the ConfigMap or its key must be defined
         """
@@ -3457,7 +3495,7 @@ class ConfigMapKeySelectorPatch(dict):
     @pulumi.getter
     def key(self) -> Optional[_builtins.str]:
         """
-        The key to select.
+        The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         """
         return pulumi.get(self, "key")
 
@@ -3773,6 +3811,8 @@ class ConfigMapVolumeSource(dict):
         suggest = None
         if key == "defaultMode":
             suggest = "default_mode"
+        elif key == "defaultUser":
+            suggest = "default_user"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ConfigMapVolumeSource. Access the value via the '{suggest}' property getter instead.")
@@ -3787,6 +3827,7 @@ class ConfigMapVolumeSource(dict):
 
     def __init__(__self__, *,
                  default_mode: Optional[_builtins.int] = None,
+                 default_user: Optional[_builtins.int] = None,
                  items: Optional[Sequence['outputs.KeyToPath']] = None,
                  name: Optional[_builtins.str] = None,
                  optional: Optional[_builtins.bool] = None):
@@ -3796,12 +3837,15 @@ class ConfigMapVolumeSource(dict):
         The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
 
         :param _builtins.int default_mode: defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param _builtins.int default_user: defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         :param Sequence['KeyToPathArgs'] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param _builtins.str name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param _builtins.bool optional: optional specify whether the ConfigMap or its keys must be defined
         """
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
+        if default_user is not None:
+            pulumi.set(__self__, "default_user", default_user)
         if items is not None:
             pulumi.set(__self__, "items", items)
         if name is not None:
@@ -3816,6 +3860,14 @@ class ConfigMapVolumeSource(dict):
         defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultUser")
+    def default_user(self) -> Optional[_builtins.int]:
+        """
+        defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "default_user")
 
     @_builtins.property
     @pulumi.getter
@@ -3854,6 +3906,8 @@ class ConfigMapVolumeSourcePatch(dict):
         suggest = None
         if key == "defaultMode":
             suggest = "default_mode"
+        elif key == "defaultUser":
+            suggest = "default_user"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ConfigMapVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
@@ -3868,6 +3922,7 @@ class ConfigMapVolumeSourcePatch(dict):
 
     def __init__(__self__, *,
                  default_mode: Optional[_builtins.int] = None,
+                 default_user: Optional[_builtins.int] = None,
                  items: Optional[Sequence['outputs.KeyToPathPatch']] = None,
                  name: Optional[_builtins.str] = None,
                  optional: Optional[_builtins.bool] = None):
@@ -3877,12 +3932,15 @@ class ConfigMapVolumeSourcePatch(dict):
         The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
 
         :param _builtins.int default_mode: defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param _builtins.int default_user: defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         :param Sequence['KeyToPathPatchArgs'] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param _builtins.str name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param _builtins.bool optional: optional specify whether the ConfigMap or its keys must be defined
         """
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
+        if default_user is not None:
+            pulumi.set(__self__, "default_user", default_user)
         if items is not None:
             pulumi.set(__self__, "items", items)
         if name is not None:
@@ -3897,6 +3955,14 @@ class ConfigMapVolumeSourcePatch(dict):
         defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultUser")
+    def default_user(self) -> Optional[_builtins.int]:
+        """
+        defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "default_user")
 
     @_builtins.property
     @pulumi.getter
@@ -6498,7 +6564,8 @@ class DownwardAPIVolumeFile(dict):
                  path: _builtins.str,
                  field_ref: Optional['outputs.ObjectFieldSelector'] = None,
                  mode: Optional[_builtins.int] = None,
-                 resource_field_ref: Optional['outputs.ResourceFieldSelector'] = None):
+                 resource_field_ref: Optional['outputs.ResourceFieldSelector'] = None,
+                 user: Optional[_builtins.int] = None):
         """
         DownwardAPIVolumeFile represents information to create the file containing the pod field
 
@@ -6506,6 +6573,7 @@ class DownwardAPIVolumeFile(dict):
         :param 'ObjectFieldSelectorArgs' field_ref: Required: Selects a field of the pod: only annotations, labels, name, namespace and uid are supported.
         :param _builtins.int mode: Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param 'ResourceFieldSelectorArgs' resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         """
         pulumi.set(__self__, "path", path)
         if field_ref is not None:
@@ -6514,6 +6582,8 @@ class DownwardAPIVolumeFile(dict):
             pulumi.set(__self__, "mode", mode)
         if resource_field_ref is not None:
             pulumi.set(__self__, "resource_field_ref", resource_field_ref)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
 
     @_builtins.property
     @pulumi.getter
@@ -6547,6 +6617,14 @@ class DownwardAPIVolumeFile(dict):
         """
         return pulumi.get(self, "resource_field_ref")
 
+    @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
+
 
 @pulumi.output_type
 class DownwardAPIVolumeFilePatch(dict):
@@ -6576,7 +6654,8 @@ class DownwardAPIVolumeFilePatch(dict):
                  field_ref: Optional['outputs.ObjectFieldSelectorPatch'] = None,
                  mode: Optional[_builtins.int] = None,
                  path: Optional[_builtins.str] = None,
-                 resource_field_ref: Optional['outputs.ResourceFieldSelectorPatch'] = None):
+                 resource_field_ref: Optional['outputs.ResourceFieldSelectorPatch'] = None,
+                 user: Optional[_builtins.int] = None):
         """
         DownwardAPIVolumeFile represents information to create the file containing the pod field
 
@@ -6584,6 +6663,7 @@ class DownwardAPIVolumeFilePatch(dict):
         :param _builtins.int mode: Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param _builtins.str path: Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
         :param 'ResourceFieldSelectorPatchArgs' resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         """
         if field_ref is not None:
             pulumi.set(__self__, "field_ref", field_ref)
@@ -6593,6 +6673,8 @@ class DownwardAPIVolumeFilePatch(dict):
             pulumi.set(__self__, "path", path)
         if resource_field_ref is not None:
             pulumi.set(__self__, "resource_field_ref", resource_field_ref)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
 
     @_builtins.property
     @pulumi.getter(name="fieldRef")
@@ -6626,6 +6708,14 @@ class DownwardAPIVolumeFilePatch(dict):
         """
         return pulumi.get(self, "resource_field_ref")
 
+    @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
+
 
 @pulumi.output_type
 class DownwardAPIVolumeSource(dict):
@@ -6637,6 +6727,8 @@ class DownwardAPIVolumeSource(dict):
         suggest = None
         if key == "defaultMode":
             suggest = "default_mode"
+        elif key == "defaultUser":
+            suggest = "default_user"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in DownwardAPIVolumeSource. Access the value via the '{suggest}' property getter instead.")
@@ -6651,15 +6743,19 @@ class DownwardAPIVolumeSource(dict):
 
     def __init__(__self__, *,
                  default_mode: Optional[_builtins.int] = None,
+                 default_user: Optional[_builtins.int] = None,
                  items: Optional[Sequence['outputs.DownwardAPIVolumeFile']] = None):
         """
         DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
 
         :param _builtins.int default_mode: Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param _builtins.int default_user: defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         :param Sequence['DownwardAPIVolumeFileArgs'] items: Items is a list of downward API volume file
         """
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
+        if default_user is not None:
+            pulumi.set(__self__, "default_user", default_user)
         if items is not None:
             pulumi.set(__self__, "items", items)
 
@@ -6670,6 +6766,14 @@ class DownwardAPIVolumeSource(dict):
         Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultUser")
+    def default_user(self) -> Optional[_builtins.int]:
+        """
+        defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "default_user")
 
     @_builtins.property
     @pulumi.getter
@@ -6690,6 +6794,8 @@ class DownwardAPIVolumeSourcePatch(dict):
         suggest = None
         if key == "defaultMode":
             suggest = "default_mode"
+        elif key == "defaultUser":
+            suggest = "default_user"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in DownwardAPIVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
@@ -6704,15 +6810,19 @@ class DownwardAPIVolumeSourcePatch(dict):
 
     def __init__(__self__, *,
                  default_mode: Optional[_builtins.int] = None,
+                 default_user: Optional[_builtins.int] = None,
                  items: Optional[Sequence['outputs.DownwardAPIVolumeFilePatch']] = None):
         """
         DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
 
         :param _builtins.int default_mode: Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param _builtins.int default_user: defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         :param Sequence['DownwardAPIVolumeFilePatchArgs'] items: Items is a list of downward API volume file
         """
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
+        if default_user is not None:
+            pulumi.set(__self__, "default_user", default_user)
         if items is not None:
             pulumi.set(__self__, "items", items)
 
@@ -6723,6 +6833,14 @@ class DownwardAPIVolumeSourcePatch(dict):
         Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultUser")
+    def default_user(self) -> Optional[_builtins.int]:
+        """
+        defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "default_user")
 
     @_builtins.property
     @pulumi.getter
@@ -6757,15 +6875,19 @@ class EmptyDirVolumeSource(dict):
 
     def __init__(__self__, *,
                  medium: Optional[_builtins.str] = None,
+                 mode: Optional[_builtins.int] = None,
                  size_limit: Optional[_builtins.str] = None):
         """
         Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
 
         :param _builtins.str medium: medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        :param _builtins.int mode: mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
         :param _builtins.str size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         if medium is not None:
             pulumi.set(__self__, "medium", medium)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
         if size_limit is not None:
             pulumi.set(__self__, "size_limit", size_limit)
 
@@ -6776,6 +6898,14 @@ class EmptyDirVolumeSource(dict):
         medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         return pulumi.get(self, "medium")
+
+    @_builtins.property
+    @pulumi.getter
+    def mode(self) -> Optional[_builtins.int]:
+        """
+        mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+        """
+        return pulumi.get(self, "mode")
 
     @_builtins.property
     @pulumi.getter(name="sizeLimit")
@@ -6810,15 +6940,19 @@ class EmptyDirVolumeSourcePatch(dict):
 
     def __init__(__self__, *,
                  medium: Optional[_builtins.str] = None,
+                 mode: Optional[_builtins.int] = None,
                  size_limit: Optional[_builtins.str] = None):
         """
         Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
 
         :param _builtins.str medium: medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        :param _builtins.int mode: mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
         :param _builtins.str size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         if medium is not None:
             pulumi.set(__self__, "medium", medium)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
         if size_limit is not None:
             pulumi.set(__self__, "size_limit", size_limit)
 
@@ -6829,6 +6963,14 @@ class EmptyDirVolumeSourcePatch(dict):
         medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         return pulumi.get(self, "medium")
+
+    @_builtins.property
+    @pulumi.getter
+    def mode(self) -> Optional[_builtins.int]:
+        """
+        mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+        """
+        return pulumi.get(self, "mode")
 
     @_builtins.property
     @pulumi.getter(name="sizeLimit")
@@ -9266,6 +9408,100 @@ class EventSourcePatch(dict):
 
 
 @pulumi.output_type
+class EvictionResponder(dict):
+    """
+    EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+    """
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 priority: _builtins.int):
+        """
+        EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+
+        :param _builtins.str name: name allows you to identify the responder responding to the Eviction.
+               
+               It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+        :param _builtins.int priority: priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+               
+               The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+               
+               The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "priority", priority)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        name allows you to identify the responder responding to the Eviction.
+
+        It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def priority(self) -> _builtins.int:
+        """
+        priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+
+        The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+
+        The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+        """
+        return pulumi.get(self, "priority")
+
+
+@pulumi.output_type
+class EvictionResponderPatch(dict):
+    """
+    EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+    """
+    def __init__(__self__, *,
+                 name: Optional[_builtins.str] = None,
+                 priority: Optional[_builtins.int] = None):
+        """
+        EvictionResponder allows you to specify the responder reacting to an Eviction. Responders should observe and communicate through the Eviction Resource API to help with the graceful eviction of a target (e.g. termination of a pod).
+
+        :param _builtins.str name: name allows you to identify the responder responding to the Eviction.
+               
+               It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+        :param _builtins.int priority: priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+               
+               The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+               
+               The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if priority is not None:
+            pulumi.set(__self__, "priority", priority)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[_builtins.str]:
+        """
+        name allows you to identify the responder responding to the Eviction.
+
+        It must be a valid domain-prefixed key (such as "acme.io/foo"). Domain names *.k8s.io and *.kubernetes.io are reserved. This field must be unique for each responder. This field is required.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def priority(self) -> Optional[_builtins.int]:
+        """
+        priority for this responder. Higher priorities are selected first by the evictionrequest-controller. If there are responders with the same priority, the responder whose domain name comes first in the alphabetical higher domain order, will be picked. This means that the top domain labels are compared alphabetically first, followed by the lower domain labels. The key is compared last.
+
+        The responder that is the managing controller of the pod should set the value of this field to 10000 to allow both for preemption or fallback registration by other responders.
+
+        The minimum value is 0 and the maximum value is 100000. The interval 0-999 is reserved for responders with *.k8s.io suffix. This field is required.
+        """
+        return pulumi.get(self, "priority")
+
+
+@pulumi.output_type
 class ExecAction(dict):
     """
     ExecAction describes a "run in container" action.
@@ -10314,16 +10550,20 @@ class GRPCAction(dict):
     """
     def __init__(__self__, *,
                  port: _builtins.int,
+                 mode: Optional[_builtins.str] = None,
                  service: Optional[_builtins.str] = None):
         """
         GRPCAction specifies an action involving a GRPC service.
 
         :param _builtins.int port: Port number of the gRPC service. Number must be in the range 1 to 65535.
+        :param _builtins.str mode: mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
         :param _builtins.str service: Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
                
                If this is not specified, the default behavior is defined by gRPC.
         """
         pulumi.set(__self__, "port", port)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
         if service is not None:
             pulumi.set(__self__, "service", service)
 
@@ -10334,6 +10574,14 @@ class GRPCAction(dict):
         Port number of the gRPC service. Number must be in the range 1 to 65535.
         """
         return pulumi.get(self, "port")
+
+    @_builtins.property
+    @pulumi.getter
+    def mode(self) -> Optional[_builtins.str]:
+        """
+        mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+        """
+        return pulumi.get(self, "mode")
 
     @_builtins.property
     @pulumi.getter
@@ -10352,20 +10600,32 @@ class GRPCActionPatch(dict):
     GRPCAction specifies an action involving a GRPC service.
     """
     def __init__(__self__, *,
+                 mode: Optional[_builtins.str] = None,
                  port: Optional[_builtins.int] = None,
                  service: Optional[_builtins.str] = None):
         """
         GRPCAction specifies an action involving a GRPC service.
 
+        :param _builtins.str mode: mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
         :param _builtins.int port: Port number of the gRPC service. Number must be in the range 1 to 65535.
         :param _builtins.str service: Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
                
                If this is not specified, the default behavior is defined by gRPC.
         """
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
         if port is not None:
             pulumi.set(__self__, "port", port)
         if service is not None:
             pulumi.set(__self__, "service", service)
+
+    @_builtins.property
+    @pulumi.getter
+    def mode(self) -> Optional[_builtins.str]:
+        """
+        mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+        """
+        return pulumi.get(self, "mode")
 
     @_builtins.property
     @pulumi.getter
@@ -10800,6 +11060,7 @@ class HTTPGetAction(dict):
                  host: Optional[_builtins.str] = None,
                  http_headers: Optional[Sequence['outputs.HTTPHeader']] = None,
                  path: Optional[_builtins.str] = None,
+                 protocol: Optional[_builtins.str] = None,
                  scheme: Optional[_builtins.str] = None):
         """
         HTTPGetAction describes an action based on HTTP Get requests.
@@ -10808,6 +11069,7 @@ class HTTPGetAction(dict):
         :param _builtins.str host: Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
         :param Sequence['HTTPHeaderArgs'] http_headers: Custom headers to set in the request. HTTP allows repeated headers.
         :param _builtins.str path: Path to access on the HTTP server.
+        :param _builtins.str protocol: Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
         :param _builtins.str scheme: Scheme to use for connecting to the host. Defaults to HTTP.
         """
         pulumi.set(__self__, "port", port)
@@ -10817,6 +11079,8 @@ class HTTPGetAction(dict):
             pulumi.set(__self__, "http_headers", http_headers)
         if path is not None:
             pulumi.set(__self__, "path", path)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
         if scheme is not None:
             pulumi.set(__self__, "scheme", scheme)
 
@@ -10854,6 +11118,14 @@ class HTTPGetAction(dict):
 
     @_builtins.property
     @pulumi.getter
+    def protocol(self) -> Optional[_builtins.str]:
+        """
+        Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+        """
+        return pulumi.get(self, "protocol")
+
+    @_builtins.property
+    @pulumi.getter
     def scheme(self) -> Optional[_builtins.str]:
         """
         Scheme to use for connecting to the host. Defaults to HTTP.
@@ -10888,6 +11160,7 @@ class HTTPGetActionPatch(dict):
                  http_headers: Optional[Sequence['outputs.HTTPHeaderPatch']] = None,
                  path: Optional[_builtins.str] = None,
                  port: Optional[Any] = None,
+                 protocol: Optional[_builtins.str] = None,
                  scheme: Optional[_builtins.str] = None):
         """
         HTTPGetAction describes an action based on HTTP Get requests.
@@ -10896,6 +11169,7 @@ class HTTPGetActionPatch(dict):
         :param Sequence['HTTPHeaderPatchArgs'] http_headers: Custom headers to set in the request. HTTP allows repeated headers.
         :param _builtins.str path: Path to access on the HTTP server.
         :param Union[_builtins.int, _builtins.str] port: Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+        :param _builtins.str protocol: Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
         :param _builtins.str scheme: Scheme to use for connecting to the host. Defaults to HTTP.
         """
         if host is not None:
@@ -10906,6 +11180,8 @@ class HTTPGetActionPatch(dict):
             pulumi.set(__self__, "path", path)
         if port is not None:
             pulumi.set(__self__, "port", port)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
         if scheme is not None:
             pulumi.set(__self__, "scheme", scheme)
 
@@ -10940,6 +11216,14 @@ class HTTPGetActionPatch(dict):
         Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         """
         return pulumi.get(self, "port")
+
+    @_builtins.property
+    @pulumi.getter
+    def protocol(self) -> Optional[_builtins.str]:
+        """
+        Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+        """
+        return pulumi.get(self, "protocol")
 
     @_builtins.property
     @pulumi.getter
@@ -12098,18 +12382,22 @@ class KeyToPath(dict):
     def __init__(__self__, *,
                  key: _builtins.str,
                  path: _builtins.str,
-                 mode: Optional[_builtins.int] = None):
+                 mode: Optional[_builtins.int] = None,
+                 user: Optional[_builtins.int] = None):
         """
         Maps a string key to a path within a volume.
 
         :param _builtins.str key: key is the key to project.
         :param _builtins.str path: path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
         :param _builtins.int mode: mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "path", path)
         if mode is not None:
             pulumi.set(__self__, "mode", mode)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
 
     @_builtins.property
     @pulumi.getter
@@ -12135,6 +12423,14 @@ class KeyToPath(dict):
         """
         return pulumi.get(self, "mode")
 
+    @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
+
 
 @pulumi.output_type
 class KeyToPathPatch(dict):
@@ -12144,13 +12440,15 @@ class KeyToPathPatch(dict):
     def __init__(__self__, *,
                  key: Optional[_builtins.str] = None,
                  mode: Optional[_builtins.int] = None,
-                 path: Optional[_builtins.str] = None):
+                 path: Optional[_builtins.str] = None,
+                 user: Optional[_builtins.int] = None):
         """
         Maps a string key to a path within a volume.
 
         :param _builtins.str key: key is the key to project.
         :param _builtins.int mode: mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         :param _builtins.str path: path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         """
         if key is not None:
             pulumi.set(__self__, "key", key)
@@ -12158,6 +12456,8 @@ class KeyToPathPatch(dict):
             pulumi.set(__self__, "mode", mode)
         if path is not None:
             pulumi.set(__self__, "path", path)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
 
     @_builtins.property
     @pulumi.getter
@@ -12182,6 +12482,14 @@ class KeyToPathPatch(dict):
         path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
         """
         return pulumi.get(self, "path")
+
+    @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
 
 
 @pulumi.output_type
@@ -14220,6 +14528,209 @@ class NodeAffinityPatch(dict):
 
 
 @pulumi.output_type
+class NodeAllocatableMappedResources(dict):
+    """
+    NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+    """
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 quantity: _builtins.str):
+        """
+        NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+
+        :param _builtins.str name: Name is the name of the resource (e.g., cpu, memory).
+        :param _builtins.str quantity: Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "quantity", quantity)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        Name is the name of the resource (e.g., cpu, memory).
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def quantity(self) -> _builtins.str:
+        """
+        Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+        """
+        return pulumi.get(self, "quantity")
+
+
+@pulumi.output_type
+class NodeAllocatableMappedResourcesPatch(dict):
+    """
+    NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+    """
+    def __init__(__self__, *,
+                 name: Optional[_builtins.str] = None,
+                 quantity: Optional[_builtins.str] = None):
+        """
+        NodeAllocatableMappedResources describes mapped node allocatable resource allocations.
+
+        :param _builtins.str name: Name is the name of the resource (e.g., cpu, memory).
+        :param _builtins.str quantity: Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if quantity is not None:
+            pulumi.set(__self__, "quantity", quantity)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[_builtins.str]:
+        """
+        Name is the name of the resource (e.g., cpu, memory).
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def quantity(self) -> Optional[_builtins.str]:
+        """
+        Quantity is the total node allocatable resource capacity allocated for the claim. This claim's allocated devices is shared by all the containers referencing the claim. Kubelet adds this value to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+        """
+        return pulumi.get(self, "quantity")
+
+
+@pulumi.output_type
+class NodeAllocatableOverheadResources(dict):
+    """
+    NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "perContainer":
+            suggest = "per_container"
+        elif key == "perPod":
+            suggest = "per_pod"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeAllocatableOverheadResources. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeAllocatableOverheadResources.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeAllocatableOverheadResources.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 per_container: Optional[_builtins.str] = None,
+                 per_pod: Optional[_builtins.str] = None):
+        """
+        NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+
+        :param _builtins.str name: Name is the name of the resource (e.g., cpu, memory).
+        :param _builtins.str per_container: PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+        :param _builtins.str per_pod: PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+        """
+        pulumi.set(__self__, "name", name)
+        if per_container is not None:
+            pulumi.set(__self__, "per_container", per_container)
+        if per_pod is not None:
+            pulumi.set(__self__, "per_pod", per_pod)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        Name is the name of the resource (e.g., cpu, memory).
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="perContainer")
+    def per_container(self) -> Optional[_builtins.str]:
+        """
+        PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+        """
+        return pulumi.get(self, "per_container")
+
+    @_builtins.property
+    @pulumi.getter(name="perPod")
+    def per_pod(self) -> Optional[_builtins.str]:
+        """
+        PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+        """
+        return pulumi.get(self, "per_pod")
+
+
+@pulumi.output_type
+class NodeAllocatableOverheadResourcesPatch(dict):
+    """
+    NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "perContainer":
+            suggest = "per_container"
+        elif key == "perPod":
+            suggest = "per_pod"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeAllocatableOverheadResourcesPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeAllocatableOverheadResourcesPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeAllocatableOverheadResourcesPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: Optional[_builtins.str] = None,
+                 per_container: Optional[_builtins.str] = None,
+                 per_pod: Optional[_builtins.str] = None):
+        """
+        NodeAllocatableOverheadResources describes auxiliary overhead resource allocations.
+
+        :param _builtins.str name: Name is the name of the resource (e.g., cpu, memory).
+        :param _builtins.str per_container: PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+        :param _builtins.str per_pod: PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if per_container is not None:
+            pulumi.set(__self__, "per_container", per_container)
+        if per_pod is not None:
+            pulumi.set(__self__, "per_pod", per_pod)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[_builtins.str]:
+        """
+        Name is the name of the resource (e.g., cpu, memory).
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="perContainer")
+    def per_container(self) -> Optional[_builtins.str]:
+        """
+        PerContainer is the variable overhead quantity applied for each container referencing the claim. The container references are recorded in `nodeAllocatableResourceClaimStatuses.containers`. The total overhead quantity allocated for the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+        """
+        return pulumi.get(self, "per_container")
+
+    @_builtins.property
+    @pulumi.getter(name="perPod")
+    def per_pod(self) -> Optional[_builtins.str]:
+        """
+        PerPod is the flat overhead quantity allocated per pod. Adding to each container limit allows individual containers to utilize the overhead, while the parent pod-level cgroup limit caps the total usage at the pod boundary where the overhead is accounted for exactly once. At least one of PerPod or PerContainer must be specified. Specifying neither is an invalid configuration.
+        """
+        return pulumi.get(self, "per_pod")
+
+
+@pulumi.output_type
 class NodeAllocatableResourceClaimStatus(dict):
     """
     NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
@@ -14243,19 +14754,24 @@ class NodeAllocatableResourceClaimStatus(dict):
 
     def __init__(__self__, *,
                  resource_claim_name: _builtins.str,
-                 resources: Mapping[str, _builtins.str],
-                 containers: Optional[Sequence[_builtins.str]] = None):
+                 containers: Optional[Sequence[_builtins.str]] = None,
+                 mapping: Optional[Sequence['outputs.NodeAllocatableMappedResources']] = None,
+                 overhead: Optional[Sequence['outputs.NodeAllocatableOverheadResources']] = None):
         """
         NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
 
         :param _builtins.str resource_claim_name: ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
-        :param Mapping[str, _builtins.str] resources: Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
         :param Sequence[_builtins.str] containers: Containers lists the names of all containers in this pod that reference the claim.
+        :param Sequence['NodeAllocatableMappedResourcesArgs'] mapping: Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        :param Sequence['NodeAllocatableOverheadResourcesArgs'] overhead: Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
         """
         pulumi.set(__self__, "resource_claim_name", resource_claim_name)
-        pulumi.set(__self__, "resources", resources)
         if containers is not None:
             pulumi.set(__self__, "containers", containers)
+        if mapping is not None:
+            pulumi.set(__self__, "mapping", mapping)
+        if overhead is not None:
+            pulumi.set(__self__, "overhead", overhead)
 
     @_builtins.property
     @pulumi.getter(name="resourceClaimName")
@@ -14267,19 +14783,27 @@ class NodeAllocatableResourceClaimStatus(dict):
 
     @_builtins.property
     @pulumi.getter
-    def resources(self) -> Mapping[str, _builtins.str]:
-        """
-        Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-        """
-        return pulumi.get(self, "resources")
-
-    @_builtins.property
-    @pulumi.getter
     def containers(self) -> Optional[Sequence[_builtins.str]]:
         """
         Containers lists the names of all containers in this pod that reference the claim.
         """
         return pulumi.get(self, "containers")
+
+    @_builtins.property
+    @pulumi.getter
+    def mapping(self) -> Optional[Sequence['outputs.NodeAllocatableMappedResources']]:
+        """
+        Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        """
+        return pulumi.get(self, "mapping")
+
+    @_builtins.property
+    @pulumi.getter
+    def overhead(self) -> Optional[Sequence['outputs.NodeAllocatableOverheadResources']]:
+        """
+        Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        """
+        return pulumi.get(self, "overhead")
 
 
 @pulumi.output_type
@@ -14306,21 +14830,25 @@ class NodeAllocatableResourceClaimStatusPatch(dict):
 
     def __init__(__self__, *,
                  containers: Optional[Sequence[_builtins.str]] = None,
-                 resource_claim_name: Optional[_builtins.str] = None,
-                 resources: Optional[Mapping[str, _builtins.str]] = None):
+                 mapping: Optional[Sequence['outputs.NodeAllocatableMappedResourcesPatch']] = None,
+                 overhead: Optional[Sequence['outputs.NodeAllocatableOverheadResourcesPatch']] = None,
+                 resource_claim_name: Optional[_builtins.str] = None):
         """
         NodeAllocatableResourceClaimStatus describes the status of node allocatable resources allocated via DRA.
 
         :param Sequence[_builtins.str] containers: Containers lists the names of all containers in this pod that reference the claim.
+        :param Sequence['NodeAllocatableMappedResourcesPatchArgs'] mapping: Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        :param Sequence['NodeAllocatableOverheadResourcesPatchArgs'] overhead: Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
         :param _builtins.str resource_claim_name: ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
-        :param Mapping[str, _builtins.str] resources: Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
         """
         if containers is not None:
             pulumi.set(__self__, "containers", containers)
+        if mapping is not None:
+            pulumi.set(__self__, "mapping", mapping)
+        if overhead is not None:
+            pulumi.set(__self__, "overhead", overhead)
         if resource_claim_name is not None:
             pulumi.set(__self__, "resource_claim_name", resource_claim_name)
-        if resources is not None:
-            pulumi.set(__self__, "resources", resources)
 
     @_builtins.property
     @pulumi.getter
@@ -14331,20 +14859,28 @@ class NodeAllocatableResourceClaimStatusPatch(dict):
         return pulumi.get(self, "containers")
 
     @_builtins.property
+    @pulumi.getter
+    def mapping(self) -> Optional[Sequence['outputs.NodeAllocatableMappedResourcesPatch']]:
+        """
+        Mapping contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        """
+        return pulumi.get(self, "mapping")
+
+    @_builtins.property
+    @pulumi.getter
+    def overhead(self) -> Optional[Sequence['outputs.NodeAllocatableOverheadResourcesPatch']]:
+        """
+        Overhead contains allocations through devices mapped in the device spec's `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+        """
+        return pulumi.get(self, "overhead")
+
+    @_builtins.property
     @pulumi.getter(name="resourceClaimName")
     def resource_claim_name(self) -> Optional[_builtins.str]:
         """
         ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
         """
         return pulumi.get(self, "resource_claim_name")
-
-    @_builtins.property
-    @pulumi.getter
-    def resources(self) -> Optional[Mapping[str, _builtins.str]]:
-        """
-        Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
-        """
-        return pulumi.get(self, "resources")
 
 
 @pulumi.output_type
@@ -14952,6 +15488,88 @@ class NodeFeaturesPatch(dict):
 
 
 @pulumi.output_type
+class NodePodPreemptionPolicy(dict):
+    """
+    NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "disableResizePreemption":
+            suggest = "disable_resize_preemption"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodePodPreemptionPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodePodPreemptionPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodePodPreemptionPolicy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 disable_resize_preemption: Optional[Sequence[_builtins.str]] = None):
+        """
+        NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+
+        :param Sequence[_builtins.str] disable_resize_preemption: DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+        """
+        if disable_resize_preemption is not None:
+            pulumi.set(__self__, "disable_resize_preemption", disable_resize_preemption)
+
+    @_builtins.property
+    @pulumi.getter(name="disableResizePreemption")
+    def disable_resize_preemption(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+        """
+        return pulumi.get(self, "disable_resize_preemption")
+
+
+@pulumi.output_type
+class NodePodPreemptionPolicyPatch(dict):
+    """
+    NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "disableResizePreemption":
+            suggest = "disable_resize_preemption"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodePodPreemptionPolicyPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodePodPreemptionPolicyPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodePodPreemptionPolicyPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 disable_resize_preemption: Optional[Sequence[_builtins.str]] = None):
+        """
+        NodePodPreemptionPolicy defines the node-level policies governing preemption for pods on this node.
+
+        :param Sequence[_builtins.str] disable_resize_preemption: DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+        """
+        if disable_resize_preemption is not None:
+            pulumi.set(__self__, "disable_resize_preemption", disable_resize_preemption)
+
+    @_builtins.property
+    @pulumi.getter(name="disableResizePreemption")
+    def disable_resize_preemption(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        DisableResizePreemption lists the owners (e.g., autoscalers, operators, administrators) that have requested to disable scheduler and Kubelet preemption for in-place pod resize on this node. If this list is non-empty, resize-induced preemption is disabled on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+        """
+        return pulumi.get(self, "disable_resize_preemption")
+
+
+@pulumi.output_type
 class NodeRuntimeHandler(dict):
     """
     NodeRuntimeHandler is a set of runtime handler information.
@@ -15434,6 +16052,8 @@ class NodeSpec(dict):
             suggest = "pod_cidr"
         elif key == "podCIDRs":
             suggest = "pod_cidrs"
+        elif key == "podPreemptionPolicy":
+            suggest = "pod_preemption_policy"
         elif key == "providerID":
             suggest = "provider_id"
 
@@ -15453,6 +16073,7 @@ class NodeSpec(dict):
                  external_id: Optional[_builtins.str] = None,
                  pod_cidr: Optional[_builtins.str] = None,
                  pod_cidrs: Optional[Sequence[_builtins.str]] = None,
+                 pod_preemption_policy: Optional['outputs.NodePodPreemptionPolicy'] = None,
                  provider_id: Optional[_builtins.str] = None,
                  taints: Optional[Sequence['outputs.Taint']] = None,
                  unschedulable: Optional[_builtins.bool] = None):
@@ -15463,6 +16084,7 @@ class NodeSpec(dict):
         :param _builtins.str external_id: Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
         :param _builtins.str pod_cidr: PodCIDR represents the pod IP range assigned to the node.
         :param Sequence[_builtins.str] pod_cidrs: podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
+        :param 'NodePodPreemptionPolicyArgs' pod_preemption_policy: PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
         :param _builtins.str provider_id: ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
         :param Sequence['TaintArgs'] taints: If specified, the node's taints.
         :param _builtins.bool unschedulable: Unschedulable controls node schedulability of new pods. By default, node is schedulable. More info: https://kubernetes.io/docs/concepts/nodes/node/#manual-node-administration
@@ -15475,6 +16097,8 @@ class NodeSpec(dict):
             pulumi.set(__self__, "pod_cidr", pod_cidr)
         if pod_cidrs is not None:
             pulumi.set(__self__, "pod_cidrs", pod_cidrs)
+        if pod_preemption_policy is not None:
+            pulumi.set(__self__, "pod_preemption_policy", pod_preemption_policy)
         if provider_id is not None:
             pulumi.set(__self__, "provider_id", provider_id)
         if taints is not None:
@@ -15513,6 +16137,14 @@ class NodeSpec(dict):
         podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
         """
         return pulumi.get(self, "pod_cidrs")
+
+    @_builtins.property
+    @pulumi.getter(name="podPreemptionPolicy")
+    def pod_preemption_policy(self) -> Optional['outputs.NodePodPreemptionPolicy']:
+        """
+        PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+        """
+        return pulumi.get(self, "pod_preemption_policy")
 
     @_builtins.property
     @pulumi.getter(name="providerID")
@@ -15555,6 +16187,8 @@ class NodeSpecPatch(dict):
             suggest = "pod_cidr"
         elif key == "podCIDRs":
             suggest = "pod_cidrs"
+        elif key == "podPreemptionPolicy":
+            suggest = "pod_preemption_policy"
         elif key == "providerID":
             suggest = "provider_id"
 
@@ -15574,6 +16208,7 @@ class NodeSpecPatch(dict):
                  external_id: Optional[_builtins.str] = None,
                  pod_cidr: Optional[_builtins.str] = None,
                  pod_cidrs: Optional[Sequence[_builtins.str]] = None,
+                 pod_preemption_policy: Optional['outputs.NodePodPreemptionPolicyPatch'] = None,
                  provider_id: Optional[_builtins.str] = None,
                  taints: Optional[Sequence['outputs.TaintPatch']] = None,
                  unschedulable: Optional[_builtins.bool] = None):
@@ -15584,6 +16219,7 @@ class NodeSpecPatch(dict):
         :param _builtins.str external_id: Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
         :param _builtins.str pod_cidr: PodCIDR represents the pod IP range assigned to the node.
         :param Sequence[_builtins.str] pod_cidrs: podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
+        :param 'NodePodPreemptionPolicyPatchArgs' pod_preemption_policy: PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
         :param _builtins.str provider_id: ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
         :param Sequence['TaintPatchArgs'] taints: If specified, the node's taints.
         :param _builtins.bool unschedulable: Unschedulable controls node schedulability of new pods. By default, node is schedulable. More info: https://kubernetes.io/docs/concepts/nodes/node/#manual-node-administration
@@ -15596,6 +16232,8 @@ class NodeSpecPatch(dict):
             pulumi.set(__self__, "pod_cidr", pod_cidr)
         if pod_cidrs is not None:
             pulumi.set(__self__, "pod_cidrs", pod_cidrs)
+        if pod_preemption_policy is not None:
+            pulumi.set(__self__, "pod_preemption_policy", pod_preemption_policy)
         if provider_id is not None:
             pulumi.set(__self__, "provider_id", provider_id)
         if taints is not None:
@@ -15634,6 +16272,14 @@ class NodeSpecPatch(dict):
         podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
         """
         return pulumi.get(self, "pod_cidrs")
+
+    @_builtins.property
+    @pulumi.getter(name="podPreemptionPolicy")
+    def pod_preemption_policy(self) -> Optional['outputs.NodePodPreemptionPolicyPatch']:
+        """
+        PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+        """
+        return pulumi.get(self, "pod_preemption_policy")
 
     @_builtins.property
     @pulumi.getter(name="providerID")
@@ -16148,6 +16794,8 @@ class NodeSystemInfo(dict):
             suggest = "os_image"
         elif key == "systemUUID":
             suggest = "system_uuid"
+        elif key == "runningInUserNamespace":
+            suggest = "running_in_user_namespace"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in NodeSystemInfo. Access the value via the '{suggest}' property getter instead.")
@@ -16171,6 +16819,7 @@ class NodeSystemInfo(dict):
                  operating_system: _builtins.str,
                  os_image: _builtins.str,
                  system_uuid: _builtins.str,
+                 running_in_user_namespace: Optional[_builtins.bool] = None,
                  swap: Optional['outputs.NodeSwapStatus'] = None):
         """
         NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
@@ -16185,6 +16834,7 @@ class NodeSystemInfo(dict):
         :param _builtins.str operating_system: The Operating System reported by the node
         :param _builtins.str os_image: OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
         :param _builtins.str system_uuid: SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
+        :param _builtins.bool running_in_user_namespace: Whether the node is running in a user namespace.
         :param 'NodeSwapStatusArgs' swap: Swap Info reported by the node.
         """
         pulumi.set(__self__, "architecture", architecture)
@@ -16197,6 +16847,8 @@ class NodeSystemInfo(dict):
         pulumi.set(__self__, "operating_system", operating_system)
         pulumi.set(__self__, "os_image", os_image)
         pulumi.set(__self__, "system_uuid", system_uuid)
+        if running_in_user_namespace is not None:
+            pulumi.set(__self__, "running_in_user_namespace", running_in_user_namespace)
         if swap is not None:
             pulumi.set(__self__, "swap", swap)
 
@@ -16281,6 +16933,14 @@ class NodeSystemInfo(dict):
         return pulumi.get(self, "system_uuid")
 
     @_builtins.property
+    @pulumi.getter(name="runningInUserNamespace")
+    def running_in_user_namespace(self) -> Optional[_builtins.bool]:
+        """
+        Whether the node is running in a user namespace.
+        """
+        return pulumi.get(self, "running_in_user_namespace")
+
+    @_builtins.property
     @pulumi.getter
     def swap(self) -> Optional['outputs.NodeSwapStatus']:
         """
@@ -16313,6 +16973,8 @@ class NodeSystemInfoPatch(dict):
             suggest = "operating_system"
         elif key == "osImage":
             suggest = "os_image"
+        elif key == "runningInUserNamespace":
+            suggest = "running_in_user_namespace"
         elif key == "systemUUID":
             suggest = "system_uuid"
 
@@ -16337,6 +16999,7 @@ class NodeSystemInfoPatch(dict):
                  machine_id: Optional[_builtins.str] = None,
                  operating_system: Optional[_builtins.str] = None,
                  os_image: Optional[_builtins.str] = None,
+                 running_in_user_namespace: Optional[_builtins.bool] = None,
                  swap: Optional['outputs.NodeSwapStatusPatch'] = None,
                  system_uuid: Optional[_builtins.str] = None):
         """
@@ -16351,6 +17014,7 @@ class NodeSystemInfoPatch(dict):
         :param _builtins.str machine_id: MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html
         :param _builtins.str operating_system: The Operating System reported by the node
         :param _builtins.str os_image: OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
+        :param _builtins.bool running_in_user_namespace: Whether the node is running in a user namespace.
         :param 'NodeSwapStatusPatchArgs' swap: Swap Info reported by the node.
         :param _builtins.str system_uuid: SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
         """
@@ -16372,6 +17036,8 @@ class NodeSystemInfoPatch(dict):
             pulumi.set(__self__, "operating_system", operating_system)
         if os_image is not None:
             pulumi.set(__self__, "os_image", os_image)
+        if running_in_user_namespace is not None:
+            pulumi.set(__self__, "running_in_user_namespace", running_in_user_namespace)
         if swap is not None:
             pulumi.set(__self__, "swap", swap)
         if system_uuid is not None:
@@ -16448,6 +17114,14 @@ class NodeSystemInfoPatch(dict):
         OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
         """
         return pulumi.get(self, "os_image")
+
+    @_builtins.property
+    @pulumi.getter(name="runningInUserNamespace")
+    def running_in_user_namespace(self) -> Optional[_builtins.bool]:
+        """
+        Whether the node is running in a user namespace.
+        """
+        return pulumi.get(self, "running_in_user_namespace")
 
     @_builtins.property
     @pulumi.getter
@@ -17328,7 +18002,7 @@ class PersistentVolumeClaimSpec(dict):
         PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
 
         :param Sequence[_builtins.str] access_modes: accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
-        :param 'TypedLocalObjectReferenceArgs' data_source: dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+        :param 'TypedLocalObjectReferenceArgs' data_source: dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
         :param 'TypedObjectReferenceArgs' data_source_ref: dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
                  allows any non-core object, as well as PersistentVolumeClaim objects.
                * While dataSource ignores disallowed values (dropping them), dataSourceRef
@@ -17336,7 +18010,7 @@ class PersistentVolumeClaimSpec(dict):
                  specified.
                * While dataSource only allows local objects, dataSourceRef allows objects
                  in any namespaces.
-                 (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+                 (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
         :param 'VolumeResourceRequirementsArgs' resources: resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param '_meta.v1.LabelSelectorArgs' selector: selector is a label query over volumes to consider for binding.
         :param _builtins.str storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
@@ -17375,7 +18049,7 @@ class PersistentVolumeClaimSpec(dict):
     @pulumi.getter(name="dataSource")
     def data_source(self) -> Optional['outputs.TypedLocalObjectReference']:
         """
-        dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+        dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
         """
         return pulumi.get(self, "data_source")
 
@@ -17390,7 +18064,7 @@ class PersistentVolumeClaimSpec(dict):
           specified.
         * While dataSource only allows local objects, dataSourceRef allows objects
           in any namespaces.
-          (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+          (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
         """
         return pulumi.get(self, "data_source_ref")
 
@@ -17491,7 +18165,7 @@ class PersistentVolumeClaimSpecPatch(dict):
         PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
 
         :param Sequence[_builtins.str] access_modes: accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
-        :param 'TypedLocalObjectReferencePatchArgs' data_source: dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+        :param 'TypedLocalObjectReferencePatchArgs' data_source: dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
         :param 'TypedObjectReferencePatchArgs' data_source_ref: dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
                  allows any non-core object, as well as PersistentVolumeClaim objects.
                * While dataSource ignores disallowed values (dropping them), dataSourceRef
@@ -17499,7 +18173,7 @@ class PersistentVolumeClaimSpecPatch(dict):
                  specified.
                * While dataSource only allows local objects, dataSourceRef allows objects
                  in any namespaces.
-                 (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+                 (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
         :param 'VolumeResourceRequirementsPatchArgs' resources: resources represents the minimum resources the volume should have. Users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is a label query over volumes to consider for binding.
         :param _builtins.str storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
@@ -17538,7 +18212,7 @@ class PersistentVolumeClaimSpecPatch(dict):
     @pulumi.getter(name="dataSource")
     def data_source(self) -> Optional['outputs.TypedLocalObjectReferencePatch']:
         """
-        dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
+        dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
         """
         return pulumi.get(self, "data_source")
 
@@ -17553,7 +18227,7 @@ class PersistentVolumeClaimSpecPatch(dict):
           specified.
         * While dataSource only allows local objects, dataSourceRef allows objects
           in any namespaces.
-          (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+          (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
         """
         return pulumi.get(self, "data_source_ref")
 
@@ -17622,6 +18296,8 @@ class PersistentVolumeClaimStatus(dict):
             suggest = "allocated_resources"
         elif key == "currentVolumeAttributesClassName":
             suggest = "current_volume_attributes_class_name"
+        elif key == "healthStatus":
+            suggest = "health_status"
         elif key == "modifyVolumeStatus":
             suggest = "modify_volume_status"
         elif key == "resizeStatus":
@@ -17645,6 +18321,7 @@ class PersistentVolumeClaimStatus(dict):
                  capacity: Optional[Mapping[str, _builtins.str]] = None,
                  conditions: Optional[Sequence['outputs.PersistentVolumeClaimCondition']] = None,
                  current_volume_attributes_class_name: Optional[_builtins.str] = None,
+                 health_status: Optional['outputs.VolumeHealthStatus'] = None,
                  modify_volume_status: Optional['outputs.ModifyVolumeStatus'] = None,
                  phase: Optional[_builtins.str] = None,
                  resize_status: Optional[_builtins.str] = None):
@@ -17692,6 +18369,7 @@ class PersistentVolumeClaimStatus(dict):
         :param Mapping[str, _builtins.str] capacity: capacity represents the actual resources of the underlying volume.
         :param Sequence['PersistentVolumeClaimConditionArgs'] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
         :param _builtins.str current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
+        :param 'VolumeHealthStatusArgs' health_status: healthStatus contains the latest controller-reported health information for the volume bound to this claim.
         :param 'ModifyVolumeStatusArgs' modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         :param _builtins.str phase: phase represents the current phase of PersistentVolumeClaim.
         :param _builtins.str resize_status: resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -17708,6 +18386,8 @@ class PersistentVolumeClaimStatus(dict):
             pulumi.set(__self__, "conditions", conditions)
         if current_volume_attributes_class_name is not None:
             pulumi.set(__self__, "current_volume_attributes_class_name", current_volume_attributes_class_name)
+        if health_status is not None:
+            pulumi.set(__self__, "health_status", health_status)
         if modify_volume_status is not None:
             pulumi.set(__self__, "modify_volume_status", modify_volume_status)
         if phase is not None:
@@ -17799,6 +18479,14 @@ class PersistentVolumeClaimStatus(dict):
         return pulumi.get(self, "current_volume_attributes_class_name")
 
     @_builtins.property
+    @pulumi.getter(name="healthStatus")
+    def health_status(self) -> Optional['outputs.VolumeHealthStatus']:
+        """
+        healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+        """
+        return pulumi.get(self, "health_status")
+
+    @_builtins.property
     @pulumi.getter(name="modifyVolumeStatus")
     def modify_volume_status(self) -> Optional['outputs.ModifyVolumeStatus']:
         """
@@ -17839,6 +18527,8 @@ class PersistentVolumeClaimStatusPatch(dict):
             suggest = "allocated_resources"
         elif key == "currentVolumeAttributesClassName":
             suggest = "current_volume_attributes_class_name"
+        elif key == "healthStatus":
+            suggest = "health_status"
         elif key == "modifyVolumeStatus":
             suggest = "modify_volume_status"
         elif key == "resizeStatus":
@@ -17862,6 +18552,7 @@ class PersistentVolumeClaimStatusPatch(dict):
                  capacity: Optional[Mapping[str, _builtins.str]] = None,
                  conditions: Optional[Sequence['outputs.PersistentVolumeClaimConditionPatch']] = None,
                  current_volume_attributes_class_name: Optional[_builtins.str] = None,
+                 health_status: Optional['outputs.VolumeHealthStatusPatch'] = None,
                  modify_volume_status: Optional['outputs.ModifyVolumeStatusPatch'] = None,
                  phase: Optional[_builtins.str] = None,
                  resize_status: Optional[_builtins.str] = None):
@@ -17909,6 +18600,7 @@ class PersistentVolumeClaimStatusPatch(dict):
         :param Mapping[str, _builtins.str] capacity: capacity represents the actual resources of the underlying volume.
         :param Sequence['PersistentVolumeClaimConditionPatchArgs'] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'Resizing'.
         :param _builtins.str current_volume_attributes_class_name: currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
+        :param 'VolumeHealthStatusPatchArgs' health_status: healthStatus contains the latest controller-reported health information for the volume bound to this claim.
         :param 'ModifyVolumeStatusPatchArgs' modify_volume_status: ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
         :param _builtins.str phase: phase represents the current phase of PersistentVolumeClaim.
         :param _builtins.str resize_status: resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
@@ -17925,6 +18617,8 @@ class PersistentVolumeClaimStatusPatch(dict):
             pulumi.set(__self__, "conditions", conditions)
         if current_volume_attributes_class_name is not None:
             pulumi.set(__self__, "current_volume_attributes_class_name", current_volume_attributes_class_name)
+        if health_status is not None:
+            pulumi.set(__self__, "health_status", health_status)
         if modify_volume_status is not None:
             pulumi.set(__self__, "modify_volume_status", modify_volume_status)
         if phase is not None:
@@ -18014,6 +18708,14 @@ class PersistentVolumeClaimStatusPatch(dict):
         currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
         """
         return pulumi.get(self, "current_volume_attributes_class_name")
+
+    @_builtins.property
+    @pulumi.getter(name="healthStatus")
+    def health_status(self) -> Optional['outputs.VolumeHealthStatusPatch']:
+        """
+        healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+        """
+        return pulumi.get(self, "health_status")
 
     @_builtins.property
     @pulumi.getter(name="modifyVolumeStatus")
@@ -19950,6 +20652,7 @@ class PodCertificateProjection(dict):
                  credential_bundle_path: Optional[_builtins.str] = None,
                  key_path: Optional[_builtins.str] = None,
                  max_expiration_seconds: Optional[_builtins.int] = None,
+                 user: Optional[_builtins.int] = None,
                  user_annotations: Optional[Mapping[str, _builtins.str]] = None):
         """
         PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.
@@ -19978,6 +20681,7 @@ class PodCertificateProjection(dict):
                If omitted, kube-apiserver will set it to 86400(24 hours). kube-apiserver will reject values shorter than 3600 (1 hour).  The maximum allowable value is 7862400 (91 days).
                
                The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         :param Mapping[str, _builtins.str] user_annotations: userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
                
                These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -19996,6 +20700,8 @@ class PodCertificateProjection(dict):
             pulumi.set(__self__, "key_path", key_path)
         if max_expiration_seconds is not None:
             pulumi.set(__self__, "max_expiration_seconds", max_expiration_seconds)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
         if user_annotations is not None:
             pulumi.set(__self__, "user_annotations", user_annotations)
 
@@ -20066,6 +20772,14 @@ class PodCertificateProjection(dict):
         return pulumi.get(self, "max_expiration_seconds")
 
     @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
+
+    @_builtins.property
     @pulumi.getter(name="userAnnotations")
     def user_annotations(self) -> Optional[Mapping[str, _builtins.str]]:
         """
@@ -20121,6 +20835,7 @@ class PodCertificateProjectionPatch(dict):
                  key_type: Optional[_builtins.str] = None,
                  max_expiration_seconds: Optional[_builtins.int] = None,
                  signer_name: Optional[_builtins.str] = None,
+                 user: Optional[_builtins.int] = None,
                  user_annotations: Optional[Mapping[str, _builtins.str]] = None):
         """
         PodCertificateProjection provides a private key and X.509 certificate in the pod filesystem.
@@ -20149,6 +20864,7 @@ class PodCertificateProjectionPatch(dict):
                
                The signer implementation is then free to issue a certificate with any lifetime *shorter* than MaxExpirationSeconds, but no shorter than 3600 seconds (1 hour).  This constraint is enforced by kube-apiserver. `kubernetes.io` signers will never issue certificates with a lifetime longer than 24 hours.
         :param _builtins.str signer_name: Kubelet's generated CSRs will be addressed to this signer.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         :param Mapping[str, _builtins.str] user_annotations: userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
                
                These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -20169,6 +20885,8 @@ class PodCertificateProjectionPatch(dict):
             pulumi.set(__self__, "max_expiration_seconds", max_expiration_seconds)
         if signer_name is not None:
             pulumi.set(__self__, "signer_name", signer_name)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
         if user_annotations is not None:
             pulumi.set(__self__, "user_annotations", user_annotations)
 
@@ -20237,6 +20955,14 @@ class PodCertificateProjectionPatch(dict):
         Kubelet's generated CSRs will be addressed to this signer.
         """
         return pulumi.get(self, "signer_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
 
     @_builtins.property
     @pulumi.getter(name="userAnnotations")
@@ -21474,9 +22200,9 @@ class PodSecurityContext(dict):
                
                "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
                
-               "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+               "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
                
-               If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+               If not specified, "MountOption" is used.
                
                This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
                
@@ -21575,9 +22301,9 @@ class PodSecurityContext(dict):
 
         "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 
-        "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+        "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 
-        If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+        If not specified, "MountOption" is used.
 
         This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 
@@ -21709,9 +22435,9 @@ class PodSecurityContextPatch(dict):
                
                "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
                
-               "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+               "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
                
-               If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+               If not specified, "MountOption" is used.
                
                This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
                
@@ -21810,9 +22536,9 @@ class PodSecurityContextPatch(dict):
 
         "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
 
-        "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+        "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively.
 
-        If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+        If not specified, "MountOption" is used.
 
         This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
 
@@ -21889,6 +22615,8 @@ class PodSpec(dict):
             suggest = "enable_service_links"
         elif key == "ephemeralContainers":
             suggest = "ephemeral_containers"
+        elif key == "evictionResponders":
+            suggest = "eviction_responders"
         elif key == "hostAliases":
             suggest = "host_aliases"
         elif key == "hostIPC":
@@ -21962,6 +22690,7 @@ class PodSpec(dict):
                  dns_policy: Optional[_builtins.str] = None,
                  enable_service_links: Optional[_builtins.bool] = None,
                  ephemeral_containers: Optional[Sequence['outputs.EphemeralContainer']] = None,
+                 eviction_responders: Optional[Sequence['outputs.EvictionResponder']] = None,
                  host_aliases: Optional[Sequence['outputs.HostAlias']] = None,
                  host_ipc: Optional[_builtins.bool] = None,
                  host_network: Optional[_builtins.bool] = None,
@@ -22007,6 +22736,11 @@ class PodSpec(dict):
         :param _builtins.str dns_policy: Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
         :param _builtins.bool enable_service_links: EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
         :param Sequence['EphemeralContainerArgs'] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
+        :param Sequence['EvictionResponderArgs'] eviction_responders: evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+               
+               Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+               
+               The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
         :param Sequence['HostAliasArgs'] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
         :param _builtins.bool host_ipc: Use the host's ipc namespace. Optional: Default to false.
         :param _builtins.bool host_network: Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
@@ -22015,7 +22749,7 @@ class PodSpec(dict):
         :param _builtins.str hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
         :param _builtins.str hostname_override: HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
                
-               This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+               This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
         :param Sequence['LocalObjectReferenceArgs'] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
         :param Sequence['ContainerArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         :param _builtins.str node_name: NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
@@ -22026,7 +22760,7 @@ class PodSpec(dict):
                
                If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         :param Mapping[str, _builtins.str] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
-        :param _builtins.str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        :param _builtins.str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
         :param _builtins.int priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
         :param _builtins.str priority_class_name: If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
         :param Sequence['PodReadinessGateArgs'] readiness_gates: If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
@@ -22073,6 +22807,8 @@ class PodSpec(dict):
             pulumi.set(__self__, "enable_service_links", enable_service_links)
         if ephemeral_containers is not None:
             pulumi.set(__self__, "ephemeral_containers", ephemeral_containers)
+        if eviction_responders is not None:
+            pulumi.set(__self__, "eviction_responders", eviction_responders)
         if host_aliases is not None:
             pulumi.set(__self__, "host_aliases", host_aliases)
         if host_ipc is not None:
@@ -22207,6 +22943,18 @@ class PodSpec(dict):
         return pulumi.get(self, "ephemeral_containers")
 
     @_builtins.property
+    @pulumi.getter(name="evictionResponders")
+    def eviction_responders(self) -> Optional[Sequence['outputs.EvictionResponder']]:
+        """
+        evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+
+        Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+
+        The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+        """
+        return pulumi.get(self, "eviction_responders")
+
+    @_builtins.property
     @pulumi.getter(name="hostAliases")
     def host_aliases(self) -> Optional[Sequence['outputs.HostAlias']]:
         """
@@ -22260,7 +23008,7 @@ class PodSpec(dict):
         """
         HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 
-        This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+        This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
         """
         return pulumi.get(self, "hostname_override")
 
@@ -22320,7 +23068,7 @@ class PodSpec(dict):
     @pulumi.getter(name="preemptionPolicy")
     def preemption_policy(self) -> Optional[_builtins.str]:
         """
-        PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
         """
         return pulumi.get(self, "preemption_policy")
 
@@ -22515,6 +23263,8 @@ class PodSpecPatch(dict):
             suggest = "enable_service_links"
         elif key == "ephemeralContainers":
             suggest = "ephemeral_containers"
+        elif key == "evictionResponders":
+            suggest = "eviction_responders"
         elif key == "hostAliases":
             suggest = "host_aliases"
         elif key == "hostIPC":
@@ -22588,6 +23338,7 @@ class PodSpecPatch(dict):
                  dns_policy: Optional[_builtins.str] = None,
                  enable_service_links: Optional[_builtins.bool] = None,
                  ephemeral_containers: Optional[Sequence['outputs.EphemeralContainerPatch']] = None,
+                 eviction_responders: Optional[Sequence['outputs.EvictionResponderPatch']] = None,
                  host_aliases: Optional[Sequence['outputs.HostAliasPatch']] = None,
                  host_ipc: Optional[_builtins.bool] = None,
                  host_network: Optional[_builtins.bool] = None,
@@ -22633,6 +23384,11 @@ class PodSpecPatch(dict):
         :param _builtins.str dns_policy: Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
         :param _builtins.bool enable_service_links: EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
         :param Sequence['EphemeralContainerPatchArgs'] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
+        :param Sequence['EvictionResponderPatchArgs'] eviction_responders: evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+               
+               Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+               
+               The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
         :param Sequence['HostAliasPatchArgs'] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
         :param _builtins.bool host_ipc: Use the host's ipc namespace. Optional: Default to false.
         :param _builtins.bool host_network: Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
@@ -22641,7 +23397,7 @@ class PodSpecPatch(dict):
         :param _builtins.str hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
         :param _builtins.str hostname_override: HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
                
-               This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+               This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
         :param Sequence['LocalObjectReferencePatchArgs'] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
         :param Sequence['ContainerPatchArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         :param _builtins.str node_name: NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
@@ -22652,7 +23408,7 @@ class PodSpecPatch(dict):
                
                If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.resources - spec.securityContext.appArmorProfile - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.securityContext.supplementalGroupsPolicy - spec.containers[*].securityContext.appArmorProfile - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         :param Mapping[str, _builtins.str] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
-        :param _builtins.str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        :param _builtins.str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
         :param _builtins.int priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
         :param _builtins.str priority_class_name: If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
         :param Sequence['PodReadinessGatePatchArgs'] readiness_gates: If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
@@ -22700,6 +23456,8 @@ class PodSpecPatch(dict):
             pulumi.set(__self__, "enable_service_links", enable_service_links)
         if ephemeral_containers is not None:
             pulumi.set(__self__, "ephemeral_containers", ephemeral_containers)
+        if eviction_responders is not None:
+            pulumi.set(__self__, "eviction_responders", eviction_responders)
         if host_aliases is not None:
             pulumi.set(__self__, "host_aliases", host_aliases)
         if host_ipc is not None:
@@ -22834,6 +23592,18 @@ class PodSpecPatch(dict):
         return pulumi.get(self, "ephemeral_containers")
 
     @_builtins.property
+    @pulumi.getter(name="evictionResponders")
+    def eviction_responders(self) -> Optional[Sequence['outputs.EvictionResponderPatch']]:
+        """
+        evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+
+        Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/<name>/eviction subresource).
+
+        The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+        """
+        return pulumi.get(self, "eviction_responders")
+
+    @_builtins.property
     @pulumi.getter(name="hostAliases")
     def host_aliases(self) -> Optional[Sequence['outputs.HostAliasPatch']]:
         """
@@ -22887,7 +23657,7 @@ class PodSpecPatch(dict):
         """
         HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
 
-        This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+        This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
         """
         return pulumi.get(self, "hostname_override")
 
@@ -22947,7 +23717,7 @@ class PodSpecPatch(dict):
     @pulumi.getter(name="preemptionPolicy")
     def preemption_policy(self) -> Optional[_builtins.str]:
         """
-        PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
         """
         return pulumi.get(self, "preemption_policy")
 
@@ -23160,6 +23930,8 @@ class PodStatus(dict):
             suggest = "resource_claim_statuses"
         elif key == "startTime":
             suggest = "start_time"
+        elif key == "volumeHealth":
+            suggest = "volume_health"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in PodStatus. Access the value via the '{suggest}' property getter instead.")
@@ -23193,7 +23965,8 @@ class PodStatus(dict):
                  resize: Optional[_builtins.str] = None,
                  resource_claim_statuses: Optional[Sequence['outputs.PodResourceClaimStatus']] = None,
                  resources: Optional['outputs.ResourceRequirements'] = None,
-                 start_time: Optional[_builtins.str] = None):
+                 start_time: Optional[_builtins.str] = None,
+                 volume_health: Optional[Sequence['outputs.PodVolumeHealth']] = None):
         """
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
 
@@ -23222,6 +23995,7 @@ class PodStatus(dict):
         :param Sequence['PodResourceClaimStatusArgs'] resource_claim_statuses: Status of resource claims.
         :param 'ResourceRequirementsArgs' resources: Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
         :param _builtins.str start_time: RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
+        :param Sequence['PodVolumeHealthArgs'] volume_health: volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
         """
         if allocated_resources is not None:
             pulumi.set(__self__, "allocated_resources", allocated_resources)
@@ -23265,6 +24039,8 @@ class PodStatus(dict):
             pulumi.set(__self__, "resources", resources)
         if start_time is not None:
             pulumi.set(__self__, "start_time", start_time)
+        if volume_health is not None:
+            pulumi.set(__self__, "volume_health", volume_health)
 
     @_builtins.property
     @pulumi.getter(name="allocatedResources")
@@ -23438,6 +24214,14 @@ class PodStatus(dict):
         """
         return pulumi.get(self, "start_time")
 
+    @_builtins.property
+    @pulumi.getter(name="volumeHealth")
+    def volume_health(self) -> Optional[Sequence['outputs.PodVolumeHealth']]:
+        """
+        volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+        """
+        return pulumi.get(self, "volume_health")
+
 
 @pulumi.output_type
 class PodStatusPatch(dict):
@@ -23477,6 +24261,8 @@ class PodStatusPatch(dict):
             suggest = "resource_claim_statuses"
         elif key == "startTime":
             suggest = "start_time"
+        elif key == "volumeHealth":
+            suggest = "volume_health"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in PodStatusPatch. Access the value via the '{suggest}' property getter instead.")
@@ -23510,7 +24296,8 @@ class PodStatusPatch(dict):
                  resize: Optional[_builtins.str] = None,
                  resource_claim_statuses: Optional[Sequence['outputs.PodResourceClaimStatusPatch']] = None,
                  resources: Optional['outputs.ResourceRequirementsPatch'] = None,
-                 start_time: Optional[_builtins.str] = None):
+                 start_time: Optional[_builtins.str] = None,
+                 volume_health: Optional[Sequence['outputs.PodVolumeHealthPatch']] = None):
         """
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
 
@@ -23539,6 +24326,7 @@ class PodStatusPatch(dict):
         :param Sequence['PodResourceClaimStatusPatchArgs'] resource_claim_statuses: Status of resource claims.
         :param 'ResourceRequirementsPatchArgs' resources: Resources represents the compute resource requests and limits that have been applied at the pod level if pod-level requests or limits are set in PodSpec.Resources
         :param _builtins.str start_time: RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
+        :param Sequence['PodVolumeHealthPatchArgs'] volume_health: volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
         """
         if allocated_resources is not None:
             pulumi.set(__self__, "allocated_resources", allocated_resources)
@@ -23582,6 +24370,8 @@ class PodStatusPatch(dict):
             pulumi.set(__self__, "resources", resources)
         if start_time is not None:
             pulumi.set(__self__, "start_time", start_time)
+        if volume_health is not None:
+            pulumi.set(__self__, "volume_health", volume_health)
 
     @_builtins.property
     @pulumi.getter(name="allocatedResources")
@@ -23755,6 +24545,14 @@ class PodStatusPatch(dict):
         """
         return pulumi.get(self, "start_time")
 
+    @_builtins.property
+    @pulumi.getter(name="volumeHealth")
+    def volume_health(self) -> Optional[Sequence['outputs.PodVolumeHealthPatch']]:
+        """
+        volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+        """
+        return pulumi.get(self, "volume_health")
+
 
 @pulumi.output_type
 class PodTemplate(dict):
@@ -23903,6 +24701,139 @@ class PodTemplateSpecPatch(dict):
         Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
+
+
+@pulumi.output_type
+class PodVolumeHealth(dict):
+    """
+    PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "healthConditions":
+            suggest = "health_conditions"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodVolumeHealth. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodVolumeHealth.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodVolumeHealth.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 health_conditions: Optional[Sequence['outputs.VolumeHealthCondition']] = None,
+                 last_transition_time: Optional[_builtins.str] = None):
+        """
+        PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+
+        :param _builtins.str name: name matches an entry in pod.spec.volumes.
+        :param Sequence['VolumeHealthConditionArgs'] health_conditions: conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+        :param _builtins.str last_transition_time: lastTransitionTime is when the current set of conditions first appeared.
+        """
+        pulumi.set(__self__, "name", name)
+        if health_conditions is not None:
+            pulumi.set(__self__, "health_conditions", health_conditions)
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        name matches an entry in pod.spec.volumes.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="healthConditions")
+    def health_conditions(self) -> Optional[Sequence['outputs.VolumeHealthCondition']]:
+        """
+        conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+        """
+        return pulumi.get(self, "health_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[_builtins.str]:
+        """
+        lastTransitionTime is when the current set of conditions first appeared.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+
+@pulumi.output_type
+class PodVolumeHealthPatch(dict):
+    """
+    PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "healthConditions":
+            suggest = "health_conditions"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodVolumeHealthPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodVolumeHealthPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodVolumeHealthPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 health_conditions: Optional[Sequence['outputs.VolumeHealthConditionPatch']] = None,
+                 last_transition_time: Optional[_builtins.str] = None,
+                 name: Optional[_builtins.str] = None):
+        """
+        PodVolumeHealth contains health information for a volume used by a pod, reported by the CSI node plugin via the kubelet.
+
+        :param Sequence['VolumeHealthConditionPatchArgs'] health_conditions: conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+        :param _builtins.str last_transition_time: lastTransitionTime is when the current set of conditions first appeared.
+        :param _builtins.str name: name matches an entry in pod.spec.volumes.
+        """
+        if health_conditions is not None:
+            pulumi.set(__self__, "health_conditions", health_conditions)
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @_builtins.property
+    @pulumi.getter(name="healthConditions")
+    def health_conditions(self) -> Optional[Sequence['outputs.VolumeHealthConditionPatch']]:
+        """
+        conditions is the set of adverse conditions reported by the CSI node plugin for this volume on this node. At most 16 conditions may be reported.
+        """
+        return pulumi.get(self, "health_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[_builtins.str]:
+        """
+        lastTransitionTime is when the current set of conditions first appeared.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[_builtins.str]:
+        """
+        name matches an entry in pod.spec.volumes.
+        """
+        return pulumi.get(self, "name")
 
 
 @pulumi.output_type
@@ -24558,6 +25489,8 @@ class ProjectedVolumeSource(dict):
         suggest = None
         if key == "defaultMode":
             suggest = "default_mode"
+        elif key == "defaultUser":
+            suggest = "default_user"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ProjectedVolumeSource. Access the value via the '{suggest}' property getter instead.")
@@ -24572,16 +25505,20 @@ class ProjectedVolumeSource(dict):
 
     def __init__(__self__, *,
                  sources: Sequence['outputs.VolumeProjection'],
-                 default_mode: Optional[_builtins.int] = None):
+                 default_mode: Optional[_builtins.int] = None,
+                 default_user: Optional[_builtins.int] = None):
         """
         Represents a projected volume source
 
         :param Sequence['VolumeProjectionArgs'] sources: sources is the list of volume projections. Each entry in this list handles one source.
         :param _builtins.int default_mode: defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param _builtins.int default_user: defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         """
         pulumi.set(__self__, "sources", sources)
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
+        if default_user is not None:
+            pulumi.set(__self__, "default_user", default_user)
 
     @_builtins.property
     @pulumi.getter
@@ -24599,6 +25536,14 @@ class ProjectedVolumeSource(dict):
         """
         return pulumi.get(self, "default_mode")
 
+    @_builtins.property
+    @pulumi.getter(name="defaultUser")
+    def default_user(self) -> Optional[_builtins.int]:
+        """
+        defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "default_user")
+
 
 @pulumi.output_type
 class ProjectedVolumeSourcePatch(dict):
@@ -24610,6 +25555,8 @@ class ProjectedVolumeSourcePatch(dict):
         suggest = None
         if key == "defaultMode":
             suggest = "default_mode"
+        elif key == "defaultUser":
+            suggest = "default_user"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ProjectedVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
@@ -24624,15 +25571,19 @@ class ProjectedVolumeSourcePatch(dict):
 
     def __init__(__self__, *,
                  default_mode: Optional[_builtins.int] = None,
+                 default_user: Optional[_builtins.int] = None,
                  sources: Optional[Sequence['outputs.VolumeProjectionPatch']] = None):
         """
         Represents a projected volume source
 
         :param _builtins.int default_mode: defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param _builtins.int default_user: defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         :param Sequence['VolumeProjectionPatchArgs'] sources: sources is the list of volume projections. Each entry in this list handles one source.
         """
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
+        if default_user is not None:
+            pulumi.set(__self__, "default_user", default_user)
         if sources is not None:
             pulumi.set(__self__, "sources", sources)
 
@@ -24643,6 +25594,14 @@ class ProjectedVolumeSourcePatch(dict):
         defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultUser")
+    def default_user(self) -> Optional[_builtins.int]:
+        """
+        defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "default_user")
 
     @_builtins.property
     @pulumi.getter
@@ -26772,7 +27731,7 @@ class ResourceStatus(dict):
         """
         ResourceStatus represents the status of a single resource allocated to a Pod.
 
-        :param _builtins.str name: Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+        :param _builtins.str name: Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
         :param Sequence['ResourceHealthArgs'] resources: List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
         """
         pulumi.set(__self__, "name", name)
@@ -26783,7 +27742,7 @@ class ResourceStatus(dict):
     @pulumi.getter
     def name(self) -> _builtins.str:
         """
-        Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+        Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
         """
         return pulumi.get(self, "name")
 
@@ -26807,7 +27766,7 @@ class ResourceStatusPatch(dict):
         """
         ResourceStatus represents the status of a single resource allocated to a Pod.
 
-        :param _builtins.str name: Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+        :param _builtins.str name: Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
         :param Sequence['ResourceHealthPatchArgs'] resources: List of unique resources health. Each element in the list contains an unique resource ID and its health. At a minimum, for the lifetime of a Pod, resource ID must uniquely identify the resource allocated to the Pod on the Node. If other Pod on the same Node reports the status with the same resource ID, it must be the same resource they share. See ResourceID type definition for a specific format it has in various use cases.
         """
         if name is not None:
@@ -26819,7 +27778,7 @@ class ResourceStatusPatch(dict):
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
         """
-        Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>". When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
+        Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be "claim:<claim_name>/<request>" when container.resources.claims[*].request is set or "claim:<claim_name>" when container.resources.claims[*].request is empty. For DRA-backed extended resources, "claim:<claim_name>/<request>" is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the "claim_name" and "request" must match one of the claims of this container.
         """
         return pulumi.get(self, "name")
 
@@ -28419,6 +29378,8 @@ class SecretVolumeSource(dict):
         suggest = None
         if key == "defaultMode":
             suggest = "default_mode"
+        elif key == "defaultUser":
+            suggest = "default_user"
         elif key == "secretName":
             suggest = "secret_name"
 
@@ -28435,6 +29396,7 @@ class SecretVolumeSource(dict):
 
     def __init__(__self__, *,
                  default_mode: Optional[_builtins.int] = None,
+                 default_user: Optional[_builtins.int] = None,
                  items: Optional[Sequence['outputs.KeyToPath']] = None,
                  optional: Optional[_builtins.bool] = None,
                  secret_name: Optional[_builtins.str] = None):
@@ -28444,12 +29406,15 @@ class SecretVolumeSource(dict):
         The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
 
         :param _builtins.int default_mode: defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param _builtins.int default_user: defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         :param Sequence['KeyToPathArgs'] items: items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param _builtins.bool optional: optional field specify whether the Secret or its keys must be defined
         :param _builtins.str secret_name: secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
         """
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
+        if default_user is not None:
+            pulumi.set(__self__, "default_user", default_user)
         if items is not None:
             pulumi.set(__self__, "items", items)
         if optional is not None:
@@ -28464,6 +29429,14 @@ class SecretVolumeSource(dict):
         defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultUser")
+    def default_user(self) -> Optional[_builtins.int]:
+        """
+        defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "default_user")
 
     @_builtins.property
     @pulumi.getter
@@ -28502,6 +29475,8 @@ class SecretVolumeSourcePatch(dict):
         suggest = None
         if key == "defaultMode":
             suggest = "default_mode"
+        elif key == "defaultUser":
+            suggest = "default_user"
         elif key == "secretName":
             suggest = "secret_name"
 
@@ -28518,6 +29493,7 @@ class SecretVolumeSourcePatch(dict):
 
     def __init__(__self__, *,
                  default_mode: Optional[_builtins.int] = None,
+                 default_user: Optional[_builtins.int] = None,
                  items: Optional[Sequence['outputs.KeyToPathPatch']] = None,
                  optional: Optional[_builtins.bool] = None,
                  secret_name: Optional[_builtins.str] = None):
@@ -28527,12 +29503,15 @@ class SecretVolumeSourcePatch(dict):
         The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
 
         :param _builtins.int default_mode: defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param _builtins.int default_user: defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         :param Sequence['KeyToPathPatchArgs'] items: items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param _builtins.bool optional: optional field specify whether the Secret or its keys must be defined
         :param _builtins.str secret_name: secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
         """
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
+        if default_user is not None:
+            pulumi.set(__self__, "default_user", default_user)
         if items is not None:
             pulumi.set(__self__, "items", items)
         if optional is not None:
@@ -28547,6 +29526,14 @@ class SecretVolumeSourcePatch(dict):
         defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="defaultUser")
+    def default_user(self) -> Optional[_builtins.int]:
+        """
+        defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "default_user")
 
     @_builtins.property
     @pulumi.getter
@@ -29208,19 +30195,23 @@ class ServiceAccountTokenProjection(dict):
     def __init__(__self__, *,
                  path: _builtins.str,
                  audience: Optional[_builtins.str] = None,
-                 expiration_seconds: Optional[_builtins.int] = None):
+                 expiration_seconds: Optional[_builtins.int] = None,
+                 user: Optional[_builtins.int] = None):
         """
         ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
 
         :param _builtins.str path: path is the path relative to the mount point of the file to project the token into.
         :param _builtins.str audience: audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
         :param _builtins.int expiration_seconds: expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         """
         pulumi.set(__self__, "path", path)
         if audience is not None:
             pulumi.set(__self__, "audience", audience)
         if expiration_seconds is not None:
             pulumi.set(__self__, "expiration_seconds", expiration_seconds)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
 
     @_builtins.property
     @pulumi.getter
@@ -29245,6 +30236,14 @@ class ServiceAccountTokenProjection(dict):
         expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
         """
         return pulumi.get(self, "expiration_seconds")
+
+    @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
 
 
 @pulumi.output_type
@@ -29272,13 +30271,15 @@ class ServiceAccountTokenProjectionPatch(dict):
     def __init__(__self__, *,
                  audience: Optional[_builtins.str] = None,
                  expiration_seconds: Optional[_builtins.int] = None,
-                 path: Optional[_builtins.str] = None):
+                 path: Optional[_builtins.str] = None,
+                 user: Optional[_builtins.int] = None):
         """
         ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
 
         :param _builtins.str audience: audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
         :param _builtins.int expiration_seconds: expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
         :param _builtins.str path: path is the path relative to the mount point of the file to project the token into.
+        :param _builtins.int user: user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
         """
         if audience is not None:
             pulumi.set(__self__, "audience", audience)
@@ -29286,6 +30287,8 @@ class ServiceAccountTokenProjectionPatch(dict):
             pulumi.set(__self__, "expiration_seconds", expiration_seconds)
         if path is not None:
             pulumi.set(__self__, "path", path)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
 
     @_builtins.property
     @pulumi.getter
@@ -29310,6 +30313,14 @@ class ServiceAccountTokenProjectionPatch(dict):
         path is the path relative to the mount point of the file to project the token into.
         """
         return pulumi.get(self, "path")
+
+    @_builtins.property
+    @pulumi.getter
+    def user(self) -> Optional[_builtins.int]:
+        """
+        user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        """
+        return pulumi.get(self, "user")
 
 
 @pulumi.output_type
@@ -32643,6 +33654,210 @@ class VolumeDevicePatch(dict):
 
 
 @pulumi.output_type
+class VolumeHealthCondition(dict):
+    """
+    VolumeHealthCondition represents an adverse health condition reported for a volume.
+    """
+    def __init__(__self__, *,
+                 reason: _builtins.str,
+                 status: _builtins.str,
+                 message: Optional[_builtins.str] = None):
+        """
+        VolumeHealthCondition represents an adverse health condition reported for a volume.
+
+        :param _builtins.str reason: reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+        :param _builtins.str status: status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+        :param _builtins.str message: message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+        """
+        pulumi.set(__self__, "reason", reason)
+        pulumi.set(__self__, "status", status)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+
+    @_builtins.property
+    @pulumi.getter
+    def reason(self) -> _builtins.str:
+        """
+        reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+        """
+        return pulumi.get(self, "reason")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> _builtins.str:
+        """
+        status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+        """
+        return pulumi.get(self, "status")
+
+    @_builtins.property
+    @pulumi.getter
+    def message(self) -> Optional[_builtins.str]:
+        """
+        message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+        """
+        return pulumi.get(self, "message")
+
+
+@pulumi.output_type
+class VolumeHealthConditionPatch(dict):
+    """
+    VolumeHealthCondition represents an adverse health condition reported for a volume.
+    """
+    def __init__(__self__, *,
+                 message: Optional[_builtins.str] = None,
+                 reason: Optional[_builtins.str] = None,
+                 status: Optional[_builtins.str] = None):
+        """
+        VolumeHealthCondition represents an adverse health condition reported for a volume.
+
+        :param _builtins.str message: message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+        :param _builtins.str reason: reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+        :param _builtins.str status: status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+        """
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def message(self) -> Optional[_builtins.str]:
+        """
+        message is a human-readable description. Maximum permitted length of a message is 1024 bytes.
+        """
+        return pulumi.get(self, "message")
+
+    @_builtins.property
+    @pulumi.getter
+    def reason(self) -> Optional[_builtins.str]:
+        """
+        reason is a brief CamelCase machine-parseable reason. Together with status it forms the unique identity of a condition entry. Maximum permitted length of a reason is 256 bytes.
+        """
+        return pulumi.get(self, "reason")
+
+    @_builtins.property
+    @pulumi.getter
+    def status(self) -> Optional[_builtins.str]:
+        """
+        status is the machine-parseable health category. Possible values: - "Inaccessible": the volume cannot be accessed. - "DataLoss": data loss has been detected on the volume. - "Degraded": the volume is functioning with reduced capability.
+        """
+        return pulumi.get(self, "status")
+
+
+@pulumi.output_type
+class VolumeHealthStatus(dict):
+    """
+    VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "healthConditions":
+            suggest = "health_conditions"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeHealthStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeHealthStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeHealthStatus.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 health_conditions: Optional[Sequence['outputs.VolumeHealthCondition']] = None,
+                 last_transition_time: Optional[_builtins.str] = None):
+        """
+        VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+
+        :param Sequence['VolumeHealthConditionArgs'] health_conditions: conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+        :param _builtins.str last_transition_time: lastTransitionTime is when the current set of conditions first appeared.
+        """
+        if health_conditions is not None:
+            pulumi.set(__self__, "health_conditions", health_conditions)
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+
+    @_builtins.property
+    @pulumi.getter(name="healthConditions")
+    def health_conditions(self) -> Optional[Sequence['outputs.VolumeHealthCondition']]:
+        """
+        conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+        """
+        return pulumi.get(self, "health_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[_builtins.str]:
+        """
+        lastTransitionTime is when the current set of conditions first appeared.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+
+@pulumi.output_type
+class VolumeHealthStatusPatch(dict):
+    """
+    VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "healthConditions":
+            suggest = "health_conditions"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeHealthStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeHealthStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeHealthStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 health_conditions: Optional[Sequence['outputs.VolumeHealthConditionPatch']] = None,
+                 last_transition_time: Optional[_builtins.str] = None):
+        """
+        VolumeHealthStatus contains health information for a volume reported by the CSI controller plugin.
+
+        :param Sequence['VolumeHealthConditionPatchArgs'] health_conditions: conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+        :param _builtins.str last_transition_time: lastTransitionTime is when the current set of conditions first appeared.
+        """
+        if health_conditions is not None:
+            pulumi.set(__self__, "health_conditions", health_conditions)
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+
+    @_builtins.property
+    @pulumi.getter(name="healthConditions")
+    def health_conditions(self) -> Optional[Sequence['outputs.VolumeHealthConditionPatch']]:
+        """
+        conditions is the set of adverse conditions reported by the CSI controller plugin. An empty list means no adverse condition. At most 16 conditions may be reported.
+        """
+        return pulumi.get(self, "health_conditions")
+
+    @_builtins.property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[_builtins.str]:
+        """
+        lastTransitionTime is when the current set of conditions first appeared.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+
+@pulumi.output_type
 class VolumeMount(dict):
     """
     VolumeMount describes a mounting of a Volume within a container.
@@ -32652,6 +33867,8 @@ class VolumeMount(dict):
         suggest = None
         if key == "mountPath":
             suggest = "mount_path"
+        elif key == "bindMountOptions":
+            suggest = "bind_mount_options"
         elif key == "mountPropagation":
             suggest = "mount_propagation"
         elif key == "readOnly":
@@ -32677,6 +33894,7 @@ class VolumeMount(dict):
     def __init__(__self__, *,
                  mount_path: _builtins.str,
                  name: _builtins.str,
+                 bind_mount_options: Optional[Sequence[_builtins.str]] = None,
                  mount_propagation: Optional[_builtins.str] = None,
                  read_only: Optional[_builtins.bool] = None,
                  recursive_read_only: Optional[_builtins.str] = None,
@@ -32685,8 +33903,9 @@ class VolumeMount(dict):
         """
         VolumeMount describes a mounting of a Volume within a container.
 
-        :param _builtins.str mount_path: Path within the container at which the volume should be mounted.  Must not contain ':'.
+        :param _builtins.str mount_path: Path within the container at which the volume should be mounted.
         :param _builtins.str name: This must match the Name of a Volume.
+        :param Sequence[_builtins.str] bind_mount_options: bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
         :param _builtins.str mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
         :param _builtins.bool read_only: Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
         :param _builtins.str recursive_read_only: RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
@@ -32703,6 +33922,8 @@ class VolumeMount(dict):
         """
         pulumi.set(__self__, "mount_path", mount_path)
         pulumi.set(__self__, "name", name)
+        if bind_mount_options is not None:
+            pulumi.set(__self__, "bind_mount_options", bind_mount_options)
         if mount_propagation is not None:
             pulumi.set(__self__, "mount_propagation", mount_propagation)
         if read_only is not None:
@@ -32718,7 +33939,7 @@ class VolumeMount(dict):
     @pulumi.getter(name="mountPath")
     def mount_path(self) -> _builtins.str:
         """
-        Path within the container at which the volume should be mounted.  Must not contain ':'.
+        Path within the container at which the volume should be mounted.
         """
         return pulumi.get(self, "mount_path")
 
@@ -32729,6 +33950,14 @@ class VolumeMount(dict):
         This must match the Name of a Volume.
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="bindMountOptions")
+    def bind_mount_options(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+        """
+        return pulumi.get(self, "bind_mount_options")
 
     @_builtins.property
     @pulumi.getter(name="mountPropagation")
@@ -32787,7 +34016,9 @@ class VolumeMountPatch(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "mountPath":
+        if key == "bindMountOptions":
+            suggest = "bind_mount_options"
+        elif key == "mountPath":
             suggest = "mount_path"
         elif key == "mountPropagation":
             suggest = "mount_propagation"
@@ -32812,6 +34043,7 @@ class VolumeMountPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 bind_mount_options: Optional[Sequence[_builtins.str]] = None,
                  mount_path: Optional[_builtins.str] = None,
                  mount_propagation: Optional[_builtins.str] = None,
                  name: Optional[_builtins.str] = None,
@@ -32822,7 +34054,8 @@ class VolumeMountPatch(dict):
         """
         VolumeMount describes a mounting of a Volume within a container.
 
-        :param _builtins.str mount_path: Path within the container at which the volume should be mounted.  Must not contain ':'.
+        :param Sequence[_builtins.str] bind_mount_options: bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+        :param _builtins.str mount_path: Path within the container at which the volume should be mounted.
         :param _builtins.str mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
         :param _builtins.str name: This must match the Name of a Volume.
         :param _builtins.bool read_only: Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
@@ -32838,6 +34071,8 @@ class VolumeMountPatch(dict):
         :param _builtins.str sub_path: Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
         :param _builtins.str sub_path_expr: Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
         """
+        if bind_mount_options is not None:
+            pulumi.set(__self__, "bind_mount_options", bind_mount_options)
         if mount_path is not None:
             pulumi.set(__self__, "mount_path", mount_path)
         if mount_propagation is not None:
@@ -32854,10 +34089,18 @@ class VolumeMountPatch(dict):
             pulumi.set(__self__, "sub_path_expr", sub_path_expr)
 
     @_builtins.property
+    @pulumi.getter(name="bindMountOptions")
+    def bind_mount_options(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+        """
+        return pulumi.get(self, "bind_mount_options")
+
+    @_builtins.property
     @pulumi.getter(name="mountPath")
     def mount_path(self) -> Optional[_builtins.str]:
         """
-        Path within the container at which the volume should be mounted.  Must not contain ':'.
+        Path within the container at which the volume should be mounted.
         """
         return pulumi.get(self, "mount_path")
 

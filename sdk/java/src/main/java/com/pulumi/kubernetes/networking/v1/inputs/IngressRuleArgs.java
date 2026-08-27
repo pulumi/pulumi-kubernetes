@@ -49,9 +49,17 @@ public final class IngressRuleArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.host);
     }
 
+    /**
+     * http is a HTTP IngressRuleValue, which contains a list of http selectors
+     * 
+     */
     @Import(name="http")
     private @Nullable Output<HTTPIngressRuleValueArgs> http;
 
+    /**
+     * @return http is a HTTP IngressRuleValue, which contains a list of http selectors
+     * 
+     */
     public Optional<Output<HTTPIngressRuleValueArgs>> http() {
         return Optional.ofNullable(this.http);
     }
@@ -116,11 +124,23 @@ public final class IngressRuleArgs extends com.pulumi.resources.ResourceArgs {
             return host(Output.of(host));
         }
 
+        /**
+         * @param http http is a HTTP IngressRuleValue, which contains a list of http selectors
+         * 
+         * @return builder
+         * 
+         */
         public Builder http(@Nullable Output<HTTPIngressRuleValueArgs> http) {
             $.http = http;
             return this;
         }
 
+        /**
+         * @param http http is a HTTP IngressRuleValue, which contains a list of http selectors
+         * 
+         * @return builder
+         * 
+         */
         public Builder http(HTTPIngressRuleValueArgs http) {
             return http(Output.of(http));
         }
