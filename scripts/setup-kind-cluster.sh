@@ -1,8 +1,8 @@
 #!/bin/bash
 set -o nounset -o errexit -o pipefail
 
-CALICO_VERSION="v3.28.2"
-METALLB_VERSION="v0.14.8"
+CALICO_VERSION="v3.32.1"
+METALLB_VERSION="v0.16.0"
 
 echo "Installing Calico..."
 gh api -H "Accept: application/vnd.github.raw" "/repos/projectcalico/calico/contents/manifests/calico.yaml?ref=${CALICO_VERSION}" > /tmp/calico.yaml
