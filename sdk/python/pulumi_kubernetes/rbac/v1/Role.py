@@ -31,8 +31,8 @@ class RoleInitArgs:
 
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['Role']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata.
-        :param pulumi.Input[Sequence[pulumi.Input['PolicyRuleArgs']]] rules: Rules holds all the PolicyRules for this Role
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata is the standard object's metadata.
+        :param pulumi.Input[Sequence[pulumi.Input['PolicyRuleArgs']]] rules: rules holds all the PolicyRules for this Role
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
@@ -71,7 +71,7 @@ class RoleInitArgs:
     @pulumi.getter
     def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
         """
-        Standard object's metadata.
+        metadata is the standard object's metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -83,7 +83,7 @@ class RoleInitArgs:
     @pulumi.getter
     def rules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PolicyRuleArgs']]]]:
         """
-        Rules holds all the PolicyRules for this Role
+        rules holds all the PolicyRules for this Role
         """
         return pulumi.get(self, "rules")
 
@@ -110,8 +110,8 @@ class Role(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['Role']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object's metadata.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict']]]] rules: Rules holds all the PolicyRules for this Role
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: metadata is the standard object's metadata.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict']]]] rules: rules holds all the PolicyRules for this Role
         """
         ...
     @overload
@@ -204,7 +204,7 @@ class Role(pulumi.CustomResource):
     @pulumi.getter
     def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object's metadata.
+        metadata is the standard object's metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -212,7 +212,7 @@ class Role(pulumi.CustomResource):
     @pulumi.getter
     def rules(self) -> pulumi.Output[Sequence['outputs.PolicyRule']]:
         """
-        Rules holds all the PolicyRules for this Role
+        rules holds all the PolicyRules for this Role
         """
         return pulumi.get(self, "rules")
 

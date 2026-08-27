@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// Standard object's metadata. metadata.name must be the Kubernetes node name.
+        /// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
         /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
@@ -38,6 +38,12 @@ namespace Pulumi.Kubernetes.Storage.V1
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Storage.V1.CSINodeSpec> Spec { get; private set; } = null!;
+
+        /// <summary>
+        /// status contains health and status information for the node's storage.
+        /// </summary>
+        [Output("status")]
+        public Output<Pulumi.Kubernetes.Types.Outputs.Storage.V1.CSINodeStatus> Status { get; private set; } = null!;
 
 
         /// <summary>
@@ -116,7 +122,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Standard object's metadata. metadata.name must be the Kubernetes node name.
+        /// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
         /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }

@@ -173,16 +173,12 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
      * 
-     * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
-     * 
      */
     @Import(name="terminating")
     private @Nullable Output<Integer> terminating;
 
     /**
      * @return The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-     * 
-     * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
      * 
      */
     public Optional<Output<Integer>> terminating() {
@@ -470,8 +466,6 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param terminating The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
          * 
-         * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
-         * 
          * @return builder
          * 
          */
@@ -482,8 +476,6 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
 
         /**
          * @param terminating The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-         * 
-         * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
          * 
          * @return builder
          * 

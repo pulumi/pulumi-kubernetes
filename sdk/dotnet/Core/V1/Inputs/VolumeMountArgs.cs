@@ -15,8 +15,20 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// </summary>
     public class VolumeMountArgs : global::Pulumi.ResourceArgs
     {
+        [Input("bindMountOptions")]
+        private InputList<string>? _bindMountOptions;
+
         /// <summary>
-        /// Path within the container at which the volume should be mounted.  Must not contain ':'.
+        /// bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+        /// </summary>
+        public InputList<string> BindMountOptions
+        {
+            get => _bindMountOptions ?? (_bindMountOptions = new InputList<string>());
+            set => _bindMountOptions = value;
+        }
+
+        /// <summary>
+        /// Path within the container at which the volume should be mounted.
         /// </summary>
         [Input("mountPath", required: true)]
         public Input<string> MountPath { get; set; } = null!;

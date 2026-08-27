@@ -20,7 +20,7 @@ public final class VolumeAttributesClass {
      */
     private @Nullable String apiVersion;
     /**
-     * @return Name of the CSI driver This field is immutable.
+     * @return driverName is the name of the CSI driver This field is immutable.
      * 
      */
     private String driverName;
@@ -30,7 +30,7 @@ public final class VolumeAttributesClass {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     private @Nullable ObjectMeta metadata;
@@ -51,7 +51,7 @@ public final class VolumeAttributesClass {
         return Optional.ofNullable(this.apiVersion);
     }
     /**
-     * @return Name of the CSI driver This field is immutable.
+     * @return driverName is the name of the CSI driver This field is immutable.
      * 
      */
     public String driverName() {
@@ -65,7 +65,7 @@ public final class VolumeAttributesClass {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Optional<ObjectMeta> metadata() {

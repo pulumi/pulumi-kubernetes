@@ -80,6 +80,11 @@ namespace Pulumi.Kubernetes.Scheduling.V1Alpha2
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "kubernetes:scheduling.k8s.io/v1alpha3:PodGroup" },
+                    new global::Pulumi.Alias { Type = "kubernetes:scheduling.k8s.io/v1beta1:PodGroup" },
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

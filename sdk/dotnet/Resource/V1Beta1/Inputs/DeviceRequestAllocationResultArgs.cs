@@ -103,6 +103,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1
         [Input("shareID")]
         public Input<string>? ShareID { get; set; }
 
+        [Input("skipNodeOperations")]
+        private InputList<string>? _skipNodeOperations;
+
+        /// <summary>
+        /// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+        /// </summary>
+        public InputList<string> SkipNodeOperations
+        {
+            get => _skipNodeOperations ?? (_skipNodeOperations = new InputList<string>());
+            set => _skipNodeOperations = value;
+        }
+
         [Input("tolerations")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Beta1.DeviceTolerationArgs>? _tolerations;
 

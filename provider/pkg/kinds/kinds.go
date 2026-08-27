@@ -49,6 +49,8 @@ const (
 	ClusterRoleList                      Kind = "ClusterRoleList"
 	ClusterTrustBundle                   Kind = "ClusterTrustBundle"
 	ClusterTrustBundleList               Kind = "ClusterTrustBundleList"
+	CompositePodGroup                    Kind = "CompositePodGroup"
+	CompositePodGroupList                Kind = "CompositePodGroupList"
 	ConfigMap                            Kind = "ConfigMap"
 	ConfigMapList                        Kind = "ConfigMapList"
 	ControllerRevision                   Kind = "ControllerRevision"
@@ -71,6 +73,10 @@ const (
 	EndpointsList                        Kind = "EndpointsList"
 	Event                                Kind = "Event"
 	EventList                            Kind = "EventList"
+	Eviction                             Kind = "Eviction"
+	EvictionList                         Kind = "EvictionList"
+	EvictionRequest                      Kind = "EvictionRequest"
+	EvictionRequestList                  Kind = "EvictionRequestList"
 	FlowSchema                           Kind = "FlowSchema"
 	FlowSchemaList                       Kind = "FlowSchemaList"
 	HorizontalPodAutoscaler              Kind = "HorizontalPodAutoscaler"
@@ -289,6 +295,7 @@ const (
 	FlowcontrolV1B1           groupVersion = "flowcontrol.apiserver.k8s.io/v1beta1"
 	FlowcontrolV1B2           groupVersion = "flowcontrol.apiserver.k8s.io/v1beta2"
 	FlowcontrolV1B3           groupVersion = "flowcontrol.apiserver.k8s.io/v1beta3"
+	LifecycleV1A1             groupVersion = "lifecycle.k8s.io/v1alpha1"
 	MetaV1                    groupVersion = "meta/v1"
 	NetworkingV1              groupVersion = "networking.k8s.io/v1"
 	NetworkingV1A1            groupVersion = "networking.k8s.io/v1alpha1"
@@ -310,11 +317,13 @@ const (
 	SchedulingV1              groupVersion = "scheduling.k8s.io/v1"
 	SchedulingV1A1            groupVersion = "scheduling.k8s.io/v1alpha1"
 	SchedulingV1A2            groupVersion = "scheduling.k8s.io/v1alpha2"
+	SchedulingV1A3            groupVersion = "scheduling.k8s.io/v1alpha3"
 	SchedulingV1B1            groupVersion = "scheduling.k8s.io/v1beta1"
 	SettingsV1A1              groupVersion = "settings.k8s.io/v1alpha1"
 	StorageV1                 groupVersion = "storage.k8s.io/v1"
 	StorageV1A1               groupVersion = "storage.k8s.io/v1alpha1"
 	StorageV1B1               groupVersion = "storage.k8s.io/v1beta1"
+	StoragemigrationV1        groupVersion = "storagemigration.k8s.io/v1"
 	StoragemigrationV1A1      groupVersion = "storagemigration.k8s.io/v1alpha1"
 	StoragemigrationV1B1      groupVersion = "storagemigration.k8s.io/v1beta1"
 )
@@ -369,6 +378,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"flowcontrol.apiserver.k8s.io/v1beta1",
 	"flowcontrol.apiserver.k8s.io/v1beta2",
 	"flowcontrol.apiserver.k8s.io/v1beta3",
+	"lifecycle.k8s.io/v1alpha1",
 	"meta/v1",
 	"networking.k8s.io/v1",
 	"networking.k8s.io/v1alpha1",
@@ -390,11 +400,13 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"scheduling.k8s.io/v1",
 	"scheduling.k8s.io/v1alpha1",
 	"scheduling.k8s.io/v1alpha2",
+	"scheduling.k8s.io/v1alpha3",
 	"scheduling.k8s.io/v1beta1",
 	"settings.k8s.io/v1alpha1",
 	"storage.k8s.io/v1",
 	"storage.k8s.io/v1alpha1",
 	"storage.k8s.io/v1beta1",
+	"storagemigration.k8s.io/v1",
 	"storagemigration.k8s.io/v1alpha1",
 	"storagemigration.k8s.io/v1beta1",
 	"v1", // alias for "core/v1"
@@ -446,6 +458,8 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:batch/v1beta1:CronJobList",
 	"kubernetes:batch/v2alpha1:CronJobList",
 	"kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList",
+	"kubernetes:certificates.k8s.io/v1:ClusterTrustBundleList",
+	"kubernetes:certificates.k8s.io/v1:PodCertificateRequestList",
 	"kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList",
 	"kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList",
 	"kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundleList",
@@ -490,6 +504,8 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationList",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchemaList",
 	"kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfigurationList",
+	"kubernetes:lifecycle.k8s.io/v1alpha1:EvictionList",
+	"kubernetes:lifecycle.k8s.io/v1alpha1:EvictionRequestList",
 	"kubernetes:networking.k8s.io/v1:IPAddressList",
 	"kubernetes:networking.k8s.io/v1:IngressClassList",
 	"kubernetes:networking.k8s.io/v1:IngressList",
@@ -521,6 +537,7 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList",
 	"kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList",
 	"kubernetes:resource.k8s.io/v1:DeviceClassList",
+	"kubernetes:resource.k8s.io/v1:DeviceTaintRuleList",
 	"kubernetes:resource.k8s.io/v1:ResourceClaimList",
 	"kubernetes:resource.k8s.io/v1:ResourceClaimTemplateList",
 	"kubernetes:resource.k8s.io/v1:ResourceSliceList",
@@ -552,9 +569,15 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:resource.k8s.io/v1beta2:ResourceSliceList",
 	"kubernetes:scheduling.k8s.io/v1:PriorityClassList",
 	"kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList",
+	"kubernetes:scheduling.k8s.io/v1alpha1:WorkloadList",
 	"kubernetes:scheduling.k8s.io/v1alpha2:PodGroupList",
 	"kubernetes:scheduling.k8s.io/v1alpha2:WorkloadList",
+	"kubernetes:scheduling.k8s.io/v1alpha3:CompositePodGroupList",
+	"kubernetes:scheduling.k8s.io/v1alpha3:PodGroupList",
+	"kubernetes:scheduling.k8s.io/v1alpha3:WorkloadList",
+	"kubernetes:scheduling.k8s.io/v1beta1:PodGroupList",
 	"kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList",
+	"kubernetes:scheduling.k8s.io/v1beta1:WorkloadList",
 	"kubernetes:settings.k8s.io/v1alpha1:PodPresetList",
 	"kubernetes:storage.k8s.io/v1:CSIDriverList",
 	"kubernetes:storage.k8s.io/v1:CSINodeList",
@@ -570,6 +593,7 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:storage.k8s.io/v1beta1:StorageClassList",
 	"kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList",
 	"kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassList",
+	"kubernetes:storagemigration.k8s.io/v1:StorageVersionMigrationList",
 	"kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationList",
 	"kubernetes:storagemigration.k8s.io/v1beta1:StorageVersionMigrationList",
 )

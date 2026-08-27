@@ -5,6 +5,8 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.core.v1.outputs.NodeAllocatableMappedResources;
+import com.pulumi.kubernetes.core.v1.outputs.NodeAllocatableOverheadResources;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,16 @@ public final class NodeAllocatableResourceClaimStatus {
      */
     private @Nullable List<String> containers;
     /**
+     * @return Mapping contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    private @Nullable List<NodeAllocatableMappedResources> mapping;
+    /**
+     * @return Overhead contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    private @Nullable List<NodeAllocatableOverheadResources> overhead;
+    /**
      * @return ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
      * 
      */
@@ -27,7 +39,7 @@ public final class NodeAllocatableResourceClaimStatus {
      * @return Resources is a map of the node-allocatable resource name to the aggregate quantity allocated to the claim.
      * 
      */
-    private Map<String,String> resources;
+    private @Nullable Map<String,String> resources;
 
     private NodeAllocatableResourceClaimStatus() {}
     /**
@@ -36,6 +48,20 @@ public final class NodeAllocatableResourceClaimStatus {
      */
     public List<String> containers() {
         return this.containers == null ? List.of() : this.containers;
+    }
+    /**
+     * @return Mapping contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    public List<NodeAllocatableMappedResources> mapping() {
+        return this.mapping == null ? List.of() : this.mapping;
+    }
+    /**
+     * @return Overhead contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    public List<NodeAllocatableOverheadResources> overhead() {
+        return this.overhead == null ? List.of() : this.overhead;
     }
     /**
      * @return ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
@@ -49,7 +75,7 @@ public final class NodeAllocatableResourceClaimStatus {
      * 
      */
     public Map<String,String> resources() {
-        return this.resources;
+        return this.resources == null ? Map.of() : this.resources;
     }
 
     public static Builder builder() {
@@ -62,12 +88,16 @@ public final class NodeAllocatableResourceClaimStatus {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable List<String> containers;
+        private @Nullable List<NodeAllocatableMappedResources> mapping;
+        private @Nullable List<NodeAllocatableOverheadResources> overhead;
         private String resourceClaimName;
-        private Map<String,String> resources;
+        private @Nullable Map<String,String> resources;
         public Builder() {}
         public Builder(NodeAllocatableResourceClaimStatus defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.containers = defaults.containers;
+    	      this.mapping = defaults.mapping;
+    	      this.overhead = defaults.overhead;
     	      this.resourceClaimName = defaults.resourceClaimName;
     	      this.resources = defaults.resources;
         }
@@ -82,6 +112,24 @@ public final class NodeAllocatableResourceClaimStatus {
             return containers(List.of(containers));
         }
         @CustomType.Setter
+        public Builder mapping(@Nullable List<NodeAllocatableMappedResources> mapping) {
+
+            this.mapping = mapping;
+            return this;
+        }
+        public Builder mapping(NodeAllocatableMappedResources... mapping) {
+            return mapping(List.of(mapping));
+        }
+        @CustomType.Setter
+        public Builder overhead(@Nullable List<NodeAllocatableOverheadResources> overhead) {
+
+            this.overhead = overhead;
+            return this;
+        }
+        public Builder overhead(NodeAllocatableOverheadResources... overhead) {
+            return overhead(List.of(overhead));
+        }
+        @CustomType.Setter
         public Builder resourceClaimName(String resourceClaimName) {
             if (resourceClaimName == null) {
               throw new MissingRequiredPropertyException("NodeAllocatableResourceClaimStatus", "resourceClaimName");
@@ -90,16 +138,16 @@ public final class NodeAllocatableResourceClaimStatus {
             return this;
         }
         @CustomType.Setter
-        public Builder resources(Map<String,String> resources) {
-            if (resources == null) {
-              throw new MissingRequiredPropertyException("NodeAllocatableResourceClaimStatus", "resources");
-            }
+        public Builder resources(@Nullable Map<String,String> resources) {
+
             this.resources = resources;
             return this;
         }
         public NodeAllocatableResourceClaimStatus build() {
             final var _resultValue = new NodeAllocatableResourceClaimStatus();
             _resultValue.containers = containers;
+            _resultValue.mapping = mapping;
+            _resultValue.overhead = overhead;
             _resultValue.resourceClaimName = resourceClaimName;
             _resultValue.resources = resources;
             return _resultValue;

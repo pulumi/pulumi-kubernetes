@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1.outputs.LimitResponse;
 import java.lang.Integer;
 import java.util.Objects;
@@ -32,7 +33,7 @@ public final class LimitedPriorityLevelConfiguration {
      * @return `limitResponse` indicates what to do with requests that can not be executed right now
      * 
      */
-    private @Nullable LimitResponse limitResponse;
+    private LimitResponse limitResponse;
     /**
      * @return `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server&#39;s concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
      * 
@@ -72,8 +73,8 @@ public final class LimitedPriorityLevelConfiguration {
      * @return `limitResponse` indicates what to do with requests that can not be executed right now
      * 
      */
-    public Optional<LimitResponse> limitResponse() {
-        return Optional.ofNullable(this.limitResponse);
+    public LimitResponse limitResponse() {
+        return this.limitResponse;
     }
     /**
      * @return `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server&#39;s concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
@@ -102,7 +103,7 @@ public final class LimitedPriorityLevelConfiguration {
     public static final class Builder {
         private @Nullable Integer borrowingLimitPercent;
         private @Nullable Integer lendablePercent;
-        private @Nullable LimitResponse limitResponse;
+        private LimitResponse limitResponse;
         private @Nullable Integer nominalConcurrencyShares;
         public Builder() {}
         public Builder(LimitedPriorityLevelConfiguration defaults) {
@@ -126,8 +127,10 @@ public final class LimitedPriorityLevelConfiguration {
             return this;
         }
         @CustomType.Setter
-        public Builder limitResponse(@Nullable LimitResponse limitResponse) {
-
+        public Builder limitResponse(LimitResponse limitResponse) {
+            if (limitResponse == null) {
+              throw new MissingRequiredPropertyException("LimitedPriorityLevelConfiguration", "limitResponse");
+            }
             this.limitResponse = limitResponse;
             return this;
         }

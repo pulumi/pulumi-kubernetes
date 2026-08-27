@@ -9,5 +9,8 @@ import typing
 from .PriorityClass import *
 from .PriorityClassList import *
 from .PriorityClassPatch import *
+from .Workload import *
+from .WorkloadList import *
+from .WorkloadPatch import *
 from ._inputs import *
 from . import outputs

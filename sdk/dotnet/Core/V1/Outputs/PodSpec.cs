@@ -49,6 +49,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.EphemeralContainer> EphemeralContainers;
         /// <summary>
+        /// evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+        /// 
+        /// Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/&lt;name&gt;/eviction subresource).
+        /// 
+        /// The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.EvictionResponder> EvictionResponders;
+        /// <summary>
         /// HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.HostAlias> HostAliases;
@@ -75,7 +83,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// <summary>
         /// HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
         /// 
-        /// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+        /// This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
         /// </summary>
         public readonly string HostnameOverride;
         /// <summary>
@@ -107,7 +115,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableDictionary<string, string> Overhead;
         /// <summary>
-        /// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        /// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
         /// </summary>
         public readonly string PreemptionPolicy;
         /// <summary>
@@ -200,6 +208,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.Volume> Volumes;
+        /// <summary>
+        /// WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.WorkloadReference WorkloadRef;
 
         [OutputConstructor]
         private PodSpec(
@@ -218,6 +230,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             bool enableServiceLinks,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.EphemeralContainer> ephemeralContainers,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.EvictionResponder> evictionResponders,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.HostAlias> hostAliases,
 
@@ -285,7 +299,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.TopologySpreadConstraint> topologySpreadConstraints,
 
-            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.Volume> volumes)
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.Volume> volumes,
+
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.WorkloadReference workloadRef)
         {
             ActiveDeadlineSeconds = activeDeadlineSeconds;
             Affinity = affinity;
@@ -295,6 +311,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             DnsPolicy = dnsPolicy;
             EnableServiceLinks = enableServiceLinks;
             EphemeralContainers = ephemeralContainers;
+            EvictionResponders = evictionResponders;
             HostAliases = hostAliases;
             HostIPC = hostIPC;
             HostNetwork = hostNetwork;
@@ -329,6 +346,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Tolerations = tolerations;
             TopologySpreadConstraints = topologySpreadConstraints;
             Volumes = volumes;
+            WorkloadRef = workloadRef;
         }
     }
 }

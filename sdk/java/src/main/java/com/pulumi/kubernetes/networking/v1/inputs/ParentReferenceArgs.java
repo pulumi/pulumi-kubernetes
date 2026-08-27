@@ -21,14 +21,14 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
     public static final ParentReferenceArgs Empty = new ParentReferenceArgs();
 
     /**
-     * Group is the group of the object being referenced.
+     * group is the group of the object being referenced.
      * 
      */
     @Import(name="group")
     private @Nullable Output<String> group;
 
     /**
-     * @return Group is the group of the object being referenced.
+     * @return group is the group of the object being referenced.
      * 
      */
     public Optional<Output<String>> group() {
@@ -36,14 +36,14 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Name is the name of the object being referenced.
+     * name is the name of the object being referenced.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name is the name of the object being referenced.
+     * @return name is the name of the object being referenced.
      * 
      */
     public Output<String> name() {
@@ -51,14 +51,14 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Namespace is the namespace of the object being referenced.
+     * namespace is the namespace of the object being referenced.
      * 
      */
     @Import(name="namespace")
     private @Nullable Output<String> namespace;
 
     /**
-     * @return Namespace is the namespace of the object being referenced.
+     * @return namespace is the namespace of the object being referenced.
      * 
      */
     public Optional<Output<String>> namespace() {
@@ -66,14 +66,14 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Resource is the resource of the object being referenced.
+     * resource is the resource of the object being referenced.
      * 
      */
     @Import(name="resource", required=true)
     private Output<String> resource;
 
     /**
-     * @return Resource is the resource of the object being referenced.
+     * @return resource is the resource of the object being referenced.
      * 
      */
     public Output<String> resource() {
@@ -108,7 +108,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param group Group is the group of the object being referenced.
+         * @param group group is the group of the object being referenced.
          * 
          * @return builder
          * 
@@ -119,7 +119,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param group Group is the group of the object being referenced.
+         * @param group group is the group of the object being referenced.
          * 
          * @return builder
          * 
@@ -129,7 +129,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param name Name is the name of the object being referenced.
+         * @param name name is the name of the object being referenced.
          * 
          * @return builder
          * 
@@ -140,7 +140,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param name Name is the name of the object being referenced.
+         * @param name name is the name of the object being referenced.
          * 
          * @return builder
          * 
@@ -150,7 +150,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param namespace Namespace is the namespace of the object being referenced.
+         * @param namespace namespace is the namespace of the object being referenced.
          * 
          * @return builder
          * 
@@ -161,7 +161,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param namespace Namespace is the namespace of the object being referenced.
+         * @param namespace namespace is the namespace of the object being referenced.
          * 
          * @return builder
          * 
@@ -171,7 +171,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resource Resource is the resource of the object being referenced.
+         * @param resource resource is the resource of the object being referenced.
          * 
          * @return builder
          * 
@@ -182,7 +182,7 @@ public final class ParentReferenceArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resource Resource is the resource of the object being referenced.
+         * @param resource resource is the resource of the object being referenced.
          * 
          * @return builder
          * 

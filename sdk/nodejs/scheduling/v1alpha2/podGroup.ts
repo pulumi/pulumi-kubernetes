@@ -85,6 +85,8 @@ export class PodGroup extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:scheduling.k8s.io/v1alpha3:PodGroup" }, { type: "kubernetes:scheduling.k8s.io/v1beta1:PodGroup" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(PodGroup.__pulumiType, name, resourceInputs, opts);
     }
 }

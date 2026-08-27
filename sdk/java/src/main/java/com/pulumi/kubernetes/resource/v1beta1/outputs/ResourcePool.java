@@ -19,7 +19,7 @@ public final class ResourcePool {
      */
     private Integer generation;
     /**
-     * @return Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+     * @return Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
      * 
      * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
      * 
@@ -44,7 +44,7 @@ public final class ResourcePool {
         return this.generation;
     }
     /**
-     * @return Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+     * @return Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
      * 
      * It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
      * 

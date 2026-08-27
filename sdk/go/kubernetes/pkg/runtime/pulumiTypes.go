@@ -20,7 +20,7 @@ var _ = utilities.GetEnvOrDefault
 // // Internal package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.Object `json:"myPlugin"`
 //	}
 //
@@ -31,7 +31,7 @@ var _ = utilities.GetEnvOrDefault
 // // External package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.RawExtension `json:"myPlugin"`
 //	}
 //
@@ -72,7 +72,7 @@ type RawExtensionInput interface {
 // // Internal package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.Object `json:"myPlugin"`
 //	}
 //
@@ -83,7 +83,7 @@ type RawExtensionInput interface {
 // // External package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.RawExtension `json:"myPlugin"`
 //	}
 //
@@ -125,7 +125,7 @@ func (i RawExtensionArgs) ToRawExtensionOutputWithContext(ctx context.Context) R
 // // Internal package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.Object `json:"myPlugin"`
 //	}
 //
@@ -136,7 +136,7 @@ func (i RawExtensionArgs) ToRawExtensionOutputWithContext(ctx context.Context) R
 // // External package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.RawExtension `json:"myPlugin"`
 //	}
 //
@@ -177,7 +177,7 @@ func (o RawExtensionOutput) ToRawExtensionOutputWithContext(ctx context.Context)
 // // Internal package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.Object `json:"myPlugin"`
 //	}
 //
@@ -188,7 +188,7 @@ func (o RawExtensionOutput) ToRawExtensionOutputWithContext(ctx context.Context)
 // // External package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.RawExtension `json:"myPlugin"`
 //	}
 //
@@ -229,7 +229,7 @@ type RawExtensionPatchInput interface {
 // // Internal package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.Object `json:"myPlugin"`
 //	}
 //
@@ -240,7 +240,7 @@ type RawExtensionPatchInput interface {
 // // External package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.RawExtension `json:"myPlugin"`
 //	}
 //
@@ -282,7 +282,7 @@ func (i RawExtensionPatchArgs) ToRawExtensionPatchOutputWithContext(ctx context.
 // // Internal package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.Object `json:"myPlugin"`
 //	}
 //
@@ -293,7 +293,7 @@ func (i RawExtensionPatchArgs) ToRawExtensionPatchOutputWithContext(ctx context.
 // // External package:
 //
 //	type MyAPIObject struct {
-//	    runtime.TypeMeta `json:",inline"`
+//	    runtime.TypeMeta `json:""`
 //	    MyPlugin runtime.RawExtension `json:"myPlugin"`
 //	}
 //

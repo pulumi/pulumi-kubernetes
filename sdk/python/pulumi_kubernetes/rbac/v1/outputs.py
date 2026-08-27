@@ -58,7 +58,7 @@ class AggregationRule(dict):
         """
         AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 
-        :param Sequence['_meta.v1.LabelSelectorArgs'] cluster_role_selectors: ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+        :param Sequence['_meta.v1.LabelSelectorArgs'] cluster_role_selectors: clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
         """
         if cluster_role_selectors is not None:
             pulumi.set(__self__, "cluster_role_selectors", cluster_role_selectors)
@@ -67,7 +67,7 @@ class AggregationRule(dict):
     @pulumi.getter(name="clusterRoleSelectors")
     def cluster_role_selectors(self) -> Optional[Sequence['_meta.v1.outputs.LabelSelector']]:
         """
-        ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+        clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
         """
         return pulumi.get(self, "cluster_role_selectors")
 
@@ -99,7 +99,7 @@ class AggregationRulePatch(dict):
         """
         AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 
-        :param Sequence['_meta.v1.LabelSelectorPatchArgs'] cluster_role_selectors: ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+        :param Sequence['_meta.v1.LabelSelectorPatchArgs'] cluster_role_selectors: clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
         """
         if cluster_role_selectors is not None:
             pulumi.set(__self__, "cluster_role_selectors", cluster_role_selectors)
@@ -108,7 +108,7 @@ class AggregationRulePatch(dict):
     @pulumi.getter(name="clusterRoleSelectors")
     def cluster_role_selectors(self) -> Optional[Sequence['_meta.v1.outputs.LabelSelectorPatch']]:
         """
-        ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
+        clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
         """
         return pulumi.get(self, "cluster_role_selectors")
 
@@ -146,11 +146,11 @@ class ClusterRole(dict):
         """
         ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 
-        :param 'AggregationRuleArgs' aggregation_rule: AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        :param 'AggregationRuleArgs' aggregation_rule: aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         :param Literal['rbac.authorization.k8s.io/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['ClusterRole'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
-        :param Sequence['PolicyRuleArgs'] rules: Rules holds all the PolicyRules for this ClusterRole
+        :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object's metadata.
+        :param Sequence['PolicyRuleArgs'] rules: rules holds all the PolicyRules for this ClusterRole
         """
         if aggregation_rule is not None:
             pulumi.set(__self__, "aggregation_rule", aggregation_rule)
@@ -167,7 +167,7 @@ class ClusterRole(dict):
     @pulumi.getter(name="aggregationRule")
     def aggregation_rule(self) -> Optional['outputs.AggregationRule']:
         """
-        AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         """
         return pulumi.get(self, "aggregation_rule")
 
@@ -191,7 +191,7 @@ class ClusterRole(dict):
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object's metadata.
+        metadata is the standard object's metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -199,7 +199,7 @@ class ClusterRole(dict):
     @pulumi.getter
     def rules(self) -> Optional[Sequence['outputs.PolicyRule']]:
         """
-        Rules holds all the PolicyRules for this ClusterRole
+        rules holds all the PolicyRules for this ClusterRole
         """
         return pulumi.get(self, "rules")
 
@@ -237,11 +237,11 @@ class ClusterRoleBinding(dict):
         """
         ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
 
-        :param 'RoleRefArgs' role_ref: RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+        :param 'RoleRefArgs' role_ref: roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         :param Literal['rbac.authorization.k8s.io/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['ClusterRoleBinding'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
-        :param Sequence['SubjectArgs'] subjects: Subjects holds references to the objects the role applies to.
+        :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object's metadata.
+        :param Sequence['SubjectArgs'] subjects: subjects holds references to the objects the role applies to.
         """
         pulumi.set(__self__, "role_ref", role_ref)
         if api_version is not None:
@@ -257,7 +257,7 @@ class ClusterRoleBinding(dict):
     @pulumi.getter(name="roleRef")
     def role_ref(self) -> 'outputs.RoleRef':
         """
-        RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+        roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         """
         return pulumi.get(self, "role_ref")
 
@@ -281,7 +281,7 @@ class ClusterRoleBinding(dict):
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object's metadata.
+        metadata is the standard object's metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -289,7 +289,7 @@ class ClusterRoleBinding(dict):
     @pulumi.getter
     def subjects(self) -> Optional[Sequence['outputs.Subject']]:
         """
-        Subjects holds references to the objects the role applies to.
+        subjects holds references to the objects the role applies to.
         """
         return pulumi.get(self, "subjects")
 
@@ -329,11 +329,11 @@ class PolicyRule(dict):
         """
         PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 
-        :param Sequence[_builtins.str] verbs: Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
-        :param Sequence[_builtins.str] api_groups: APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
-        :param Sequence[_builtins.str] non_resource_urls: NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
-        :param Sequence[_builtins.str] resource_names: ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
-        :param Sequence[_builtins.str] resources: Resources is a list of resources this rule applies to. '*' represents all resources.
+        :param Sequence[_builtins.str] verbs: verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+        :param Sequence[_builtins.str] api_groups: apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+        :param Sequence[_builtins.str] non_resource_urls: nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+        :param Sequence[_builtins.str] resource_names: resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        :param Sequence[_builtins.str] resources: resources is a list of resources this rule applies to. '*' represents all resources.
         """
         pulumi.set(__self__, "verbs", verbs)
         if api_groups is not None:
@@ -349,7 +349,7 @@ class PolicyRule(dict):
     @pulumi.getter
     def verbs(self) -> Sequence[_builtins.str]:
         """
-        Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+        verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
         """
         return pulumi.get(self, "verbs")
 
@@ -357,7 +357,7 @@ class PolicyRule(dict):
     @pulumi.getter(name="apiGroups")
     def api_groups(self) -> Optional[Sequence[_builtins.str]]:
         """
-        APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+        apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
         """
         return pulumi.get(self, "api_groups")
 
@@ -365,7 +365,7 @@ class PolicyRule(dict):
     @pulumi.getter(name="nonResourceURLs")
     def non_resource_urls(self) -> Optional[Sequence[_builtins.str]]:
         """
-        NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+        nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
         """
         return pulumi.get(self, "non_resource_urls")
 
@@ -373,7 +373,7 @@ class PolicyRule(dict):
     @pulumi.getter(name="resourceNames")
     def resource_names(self) -> Optional[Sequence[_builtins.str]]:
         """
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         """
         return pulumi.get(self, "resource_names")
 
@@ -381,7 +381,7 @@ class PolicyRule(dict):
     @pulumi.getter
     def resources(self) -> Optional[Sequence[_builtins.str]]:
         """
-        Resources is a list of resources this rule applies to. '*' represents all resources.
+        resources is a list of resources this rule applies to. '*' represents all resources.
         """
         return pulumi.get(self, "resources")
 
@@ -421,11 +421,11 @@ class PolicyRulePatch(dict):
         """
         PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 
-        :param Sequence[_builtins.str] api_groups: APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
-        :param Sequence[_builtins.str] non_resource_urls: NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
-        :param Sequence[_builtins.str] resource_names: ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
-        :param Sequence[_builtins.str] resources: Resources is a list of resources this rule applies to. '*' represents all resources.
-        :param Sequence[_builtins.str] verbs: Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+        :param Sequence[_builtins.str] api_groups: apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+        :param Sequence[_builtins.str] non_resource_urls: nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+        :param Sequence[_builtins.str] resource_names: resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        :param Sequence[_builtins.str] resources: resources is a list of resources this rule applies to. '*' represents all resources.
+        :param Sequence[_builtins.str] verbs: verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
         """
         if api_groups is not None:
             pulumi.set(__self__, "api_groups", api_groups)
@@ -442,7 +442,7 @@ class PolicyRulePatch(dict):
     @pulumi.getter(name="apiGroups")
     def api_groups(self) -> Optional[Sequence[_builtins.str]]:
         """
-        APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
+        apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
         """
         return pulumi.get(self, "api_groups")
 
@@ -450,7 +450,7 @@ class PolicyRulePatch(dict):
     @pulumi.getter(name="nonResourceURLs")
     def non_resource_urls(self) -> Optional[Sequence[_builtins.str]]:
         """
-        NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+        nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
         """
         return pulumi.get(self, "non_resource_urls")
 
@@ -458,7 +458,7 @@ class PolicyRulePatch(dict):
     @pulumi.getter(name="resourceNames")
     def resource_names(self) -> Optional[Sequence[_builtins.str]]:
         """
-        ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+        resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         """
         return pulumi.get(self, "resource_names")
 
@@ -466,7 +466,7 @@ class PolicyRulePatch(dict):
     @pulumi.getter
     def resources(self) -> Optional[Sequence[_builtins.str]]:
         """
-        Resources is a list of resources this rule applies to. '*' represents all resources.
+        resources is a list of resources this rule applies to. '*' represents all resources.
         """
         return pulumi.get(self, "resources")
 
@@ -474,7 +474,7 @@ class PolicyRulePatch(dict):
     @pulumi.getter
     def verbs(self) -> Optional[Sequence[_builtins.str]]:
         """
-        Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+        verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
         """
         return pulumi.get(self, "verbs")
 
@@ -511,8 +511,8 @@ class Role(dict):
 
         :param Literal['rbac.authorization.k8s.io/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['Role'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
-        :param Sequence['PolicyRuleArgs'] rules: Rules holds all the PolicyRules for this Role
+        :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object's metadata.
+        :param Sequence['PolicyRuleArgs'] rules: rules holds all the PolicyRules for this Role
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
@@ -543,7 +543,7 @@ class Role(dict):
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object's metadata.
+        metadata is the standard object's metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -551,7 +551,7 @@ class Role(dict):
     @pulumi.getter
     def rules(self) -> Optional[Sequence['outputs.PolicyRule']]:
         """
-        Rules holds all the PolicyRules for this Role
+        rules holds all the PolicyRules for this Role
         """
         return pulumi.get(self, "rules")
 
@@ -589,11 +589,11 @@ class RoleBinding(dict):
         """
         RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace.
 
-        :param 'RoleRefArgs' role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+        :param 'RoleRefArgs' role_ref: roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         :param Literal['rbac.authorization.k8s.io/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['RoleBinding'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
-        :param Sequence['SubjectArgs'] subjects: Subjects holds references to the objects the role applies to.
+        :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object's metadata.
+        :param Sequence['SubjectArgs'] subjects: subjects holds references to the objects the role applies to.
         """
         pulumi.set(__self__, "role_ref", role_ref)
         if api_version is not None:
@@ -609,7 +609,7 @@ class RoleBinding(dict):
     @pulumi.getter(name="roleRef")
     def role_ref(self) -> 'outputs.RoleRef':
         """
-        RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+        roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         """
         return pulumi.get(self, "role_ref")
 
@@ -633,7 +633,7 @@ class RoleBinding(dict):
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
         """
-        Standard object's metadata.
+        metadata is the standard object's metadata.
         """
         return pulumi.get(self, "metadata")
 
@@ -641,7 +641,7 @@ class RoleBinding(dict):
     @pulumi.getter
     def subjects(self) -> Optional[Sequence['outputs.Subject']]:
         """
-        Subjects holds references to the objects the role applies to.
+        subjects holds references to the objects the role applies to.
         """
         return pulumi.get(self, "subjects")
 
@@ -675,9 +675,9 @@ class RoleRef(dict):
         """
         RoleRef contains information that points to the role being used
 
-        :param _builtins.str kind: Kind is the type of resource being referenced
-        :param _builtins.str name: Name is the name of resource being referenced
-        :param _builtins.str api_group: APIGroup is the group for the resource being referenced
+        :param _builtins.str kind: kind is the type of resource being referenced
+        :param _builtins.str name: name is the name of resource being referenced
+        :param _builtins.str api_group: apiGroup is the group for the resource being referenced
         """
         pulumi.set(__self__, "kind", kind)
         pulumi.set(__self__, "name", name)
@@ -688,7 +688,7 @@ class RoleRef(dict):
     @pulumi.getter
     def kind(self) -> _builtins.str:
         """
-        Kind is the type of resource being referenced
+        kind is the type of resource being referenced
         """
         return pulumi.get(self, "kind")
 
@@ -696,7 +696,7 @@ class RoleRef(dict):
     @pulumi.getter
     def name(self) -> _builtins.str:
         """
-        Name is the name of resource being referenced
+        name is the name of resource being referenced
         """
         return pulumi.get(self, "name")
 
@@ -704,7 +704,7 @@ class RoleRef(dict):
     @pulumi.getter(name="apiGroup")
     def api_group(self) -> Optional[_builtins.str]:
         """
-        APIGroup is the group for the resource being referenced
+        apiGroup is the group for the resource being referenced
         """
         return pulumi.get(self, "api_group")
 
@@ -738,9 +738,9 @@ class RoleRefPatch(dict):
         """
         RoleRef contains information that points to the role being used
 
-        :param _builtins.str api_group: APIGroup is the group for the resource being referenced
-        :param _builtins.str kind: Kind is the type of resource being referenced
-        :param _builtins.str name: Name is the name of resource being referenced
+        :param _builtins.str api_group: apiGroup is the group for the resource being referenced
+        :param _builtins.str kind: kind is the type of resource being referenced
+        :param _builtins.str name: name is the name of resource being referenced
         """
         if api_group is not None:
             pulumi.set(__self__, "api_group", api_group)
@@ -753,7 +753,7 @@ class RoleRefPatch(dict):
     @pulumi.getter(name="apiGroup")
     def api_group(self) -> Optional[_builtins.str]:
         """
-        APIGroup is the group for the resource being referenced
+        apiGroup is the group for the resource being referenced
         """
         return pulumi.get(self, "api_group")
 
@@ -761,7 +761,7 @@ class RoleRefPatch(dict):
     @pulumi.getter
     def kind(self) -> Optional[_builtins.str]:
         """
-        Kind is the type of resource being referenced
+        kind is the type of resource being referenced
         """
         return pulumi.get(self, "kind")
 
@@ -769,7 +769,7 @@ class RoleRefPatch(dict):
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
         """
-        Name is the name of resource being referenced
+        name is the name of resource being referenced
         """
         return pulumi.get(self, "name")
 
@@ -804,10 +804,10 @@ class Subject(dict):
         """
         Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
 
-        :param _builtins.str kind: Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
-        :param _builtins.str name: Name of the object being referenced.
-        :param _builtins.str api_group: APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
-        :param _builtins.str namespace: Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+        :param _builtins.str kind: kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+        :param _builtins.str name: name of the object being referenced.
+        :param _builtins.str api_group: apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+        :param _builtins.str namespace: namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
         """
         pulumi.set(__self__, "kind", kind)
         pulumi.set(__self__, "name", name)
@@ -820,7 +820,7 @@ class Subject(dict):
     @pulumi.getter
     def kind(self) -> _builtins.str:
         """
-        Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+        kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
         """
         return pulumi.get(self, "kind")
 
@@ -828,7 +828,7 @@ class Subject(dict):
     @pulumi.getter
     def name(self) -> _builtins.str:
         """
-        Name of the object being referenced.
+        name of the object being referenced.
         """
         return pulumi.get(self, "name")
 
@@ -836,7 +836,7 @@ class Subject(dict):
     @pulumi.getter(name="apiGroup")
     def api_group(self) -> Optional[_builtins.str]:
         """
-        APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+        apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
         """
         return pulumi.get(self, "api_group")
 
@@ -844,7 +844,7 @@ class Subject(dict):
     @pulumi.getter
     def namespace(self) -> Optional[_builtins.str]:
         """
-        Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+        namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
         """
         return pulumi.get(self, "namespace")
 
@@ -879,10 +879,10 @@ class SubjectPatch(dict):
         """
         Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
 
-        :param _builtins.str api_group: APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
-        :param _builtins.str kind: Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
-        :param _builtins.str name: Name of the object being referenced.
-        :param _builtins.str namespace: Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+        :param _builtins.str api_group: apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+        :param _builtins.str kind: kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+        :param _builtins.str name: name of the object being referenced.
+        :param _builtins.str namespace: namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
         """
         if api_group is not None:
             pulumi.set(__self__, "api_group", api_group)
@@ -897,7 +897,7 @@ class SubjectPatch(dict):
     @pulumi.getter(name="apiGroup")
     def api_group(self) -> Optional[_builtins.str]:
         """
-        APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+        apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
         """
         return pulumi.get(self, "api_group")
 
@@ -905,7 +905,7 @@ class SubjectPatch(dict):
     @pulumi.getter
     def kind(self) -> Optional[_builtins.str]:
         """
-        Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+        kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
         """
         return pulumi.get(self, "kind")
 
@@ -913,7 +913,7 @@ class SubjectPatch(dict):
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
         """
-        Name of the object being referenced.
+        name of the object being referenced.
         """
         return pulumi.get(self, "name")
 
@@ -921,7 +921,7 @@ class SubjectPatch(dict):
     @pulumi.getter
     def namespace(self) -> Optional[_builtins.str]:
         """
-        Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+        namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
         """
         return pulumi.get(self, "namespace")
 

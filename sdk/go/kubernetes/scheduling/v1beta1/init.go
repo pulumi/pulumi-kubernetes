@@ -21,12 +21,24 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "kubernetes:scheduling.k8s.io/v1beta1:PodGroup":
+		r = &PodGroup{}
+	case "kubernetes:scheduling.k8s.io/v1beta1:PodGroupList":
+		r = &PodGroupList{}
+	case "kubernetes:scheduling.k8s.io/v1beta1:PodGroupPatch":
+		r = &PodGroupPatch{}
 	case "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass":
 		r = &PriorityClass{}
 	case "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList":
 		r = &PriorityClassList{}
 	case "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassPatch":
 		r = &PriorityClassPatch{}
+	case "kubernetes:scheduling.k8s.io/v1beta1:Workload":
+		r = &Workload{}
+	case "kubernetes:scheduling.k8s.io/v1beta1:WorkloadList":
+		r = &WorkloadList{}
+	case "kubernetes:scheduling.k8s.io/v1beta1:WorkloadPatch":
+		r = &WorkloadPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

@@ -79,6 +79,8 @@ export class Workload extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:scheduling.k8s.io/v1alpha2:Workload" }, { type: "kubernetes:scheduling.k8s.io/v1alpha3:Workload" }, { type: "kubernetes:scheduling.k8s.io/v1beta1:Workload" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Workload.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -90,15 +92,15 @@ export interface WorkloadArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    apiVersion?: pulumi.Input<"scheduling.k8s.io/v1alpha1">;
+    apiVersion?: pulumi.Input<"scheduling.k8s.io/v1alpha1" | undefined>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    kind?: pulumi.Input<"Workload">;
+    kind?: pulumi.Input<"Workload" | undefined>;
     /**
      * Standard object's metadata. Name must be a DNS subdomain.
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**
      * Spec defines the desired behavior of a Workload.
      */

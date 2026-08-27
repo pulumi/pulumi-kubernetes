@@ -56,14 +56,14 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Standard object&#39;s metadata.
+     * metadata is the standard object&#39;s metadata.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -71,14 +71,14 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     @Import(name="roleRef", required=true)
     private Output<RoleRefArgs> roleRef;
 
     /**
-     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * @return roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     public Output<RoleRefArgs> roleRef() {
@@ -86,14 +86,14 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Subjects holds references to the objects the role applies to.
+     * subjects holds references to the objects the role applies to.
      * 
      */
     @Import(name="subjects")
     private @Nullable Output<List<SubjectArgs>> subjects;
 
     /**
-     * @return Subjects holds references to the objects the role applies to.
+     * @return subjects holds references to the objects the role applies to.
      * 
      */
     public Optional<Output<List<SubjectArgs>>> subjects() {
@@ -171,7 +171,7 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata.
+         * @param metadata metadata is the standard object&#39;s metadata.
          * 
          * @return builder
          * 
@@ -182,7 +182,7 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata.
+         * @param metadata metadata is the standard object&#39;s metadata.
          * 
          * @return builder
          * 
@@ -192,7 +192,7 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param roleRef RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+         * @param roleRef roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
          * 
          * @return builder
          * 
@@ -203,7 +203,7 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param roleRef RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+         * @param roleRef roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
          * 
          * @return builder
          * 
@@ -213,7 +213,7 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param subjects Subjects holds references to the objects the role applies to.
+         * @param subjects subjects holds references to the objects the role applies to.
          * 
          * @return builder
          * 
@@ -224,7 +224,7 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param subjects Subjects holds references to the objects the role applies to.
+         * @param subjects subjects holds references to the objects the role applies to.
          * 
          * @return builder
          * 
@@ -234,7 +234,7 @@ public final class ClusterRoleBindingArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param subjects Subjects holds references to the objects the role applies to.
+         * @param subjects subjects holds references to the objects the role applies to.
          * 
          * @return builder
          * 

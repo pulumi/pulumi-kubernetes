@@ -64,14 +64,14 @@ public class EventList extends com.pulumi.resources.CustomResource {
         return this.kind;
     }
     /**
-     * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     @Export(name="metadata", refs={ListMeta.class}, tree="[0]")
     private Output<ListMeta> metadata;
 
     /**
-     * @return Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Output<ListMeta> metadata() {

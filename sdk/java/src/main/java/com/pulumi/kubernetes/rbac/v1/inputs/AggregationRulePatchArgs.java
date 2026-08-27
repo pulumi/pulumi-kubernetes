@@ -21,14 +21,14 @@ public final class AggregationRulePatchArgs extends com.pulumi.resources.Resourc
     public static final AggregationRulePatchArgs Empty = new AggregationRulePatchArgs();
 
     /**
-     * ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
+     * clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
      * 
      */
     @Import(name="clusterRoleSelectors")
     private @Nullable Output<List<LabelSelectorPatchArgs>> clusterRoleSelectors;
 
     /**
-     * @return ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
+     * @return clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
      * 
      */
     public Optional<Output<List<LabelSelectorPatchArgs>>> clusterRoleSelectors() {
@@ -60,7 +60,7 @@ public final class AggregationRulePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param clusterRoleSelectors ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
+         * @param clusterRoleSelectors clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
          * 
          * @return builder
          * 
@@ -71,7 +71,7 @@ public final class AggregationRulePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param clusterRoleSelectors ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
+         * @param clusterRoleSelectors clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
          * 
          * @return builder
          * 
@@ -81,7 +81,7 @@ public final class AggregationRulePatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param clusterRoleSelectors ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
+         * @param clusterRoleSelectors clusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole&#39;s permissions will be added
          * 
          * @return builder
          * 

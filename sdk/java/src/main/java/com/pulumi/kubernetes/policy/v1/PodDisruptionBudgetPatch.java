@@ -59,42 +59,42 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
         return Codegen.optional(this.kind);
     }
     /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Output<Optional<ObjectMetaPatch>> metadata() {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Specification of the desired behavior of the PodDisruptionBudget.
+     * spec is the specification of the desired behavior of the PodDisruptionBudget.
      * 
      */
     @Export(name="spec", refs={PodDisruptionBudgetSpecPatch.class}, tree="[0]")
     private Output</* @Nullable */ PodDisruptionBudgetSpecPatch> spec;
 
     /**
-     * @return Specification of the desired behavior of the PodDisruptionBudget.
+     * @return spec is the specification of the desired behavior of the PodDisruptionBudget.
      * 
      */
     public Output<Optional<PodDisruptionBudgetSpecPatch>> spec() {
         return Codegen.optional(this.spec);
     }
     /**
-     * Most recently observed status of the PodDisruptionBudget.
+     * status is the most recently observed status of the PodDisruptionBudget.
      * 
      */
     @Export(name="status", refs={PodDisruptionBudgetStatusPatch.class}, tree="[0]")
     private Output</* @Nullable */ PodDisruptionBudgetStatusPatch> status;
 
     /**
-     * @return Most recently observed status of the PodDisruptionBudget.
+     * @return status is the most recently observed status of the PodDisruptionBudget.
      * 
      */
     public Output<Optional<PodDisruptionBudgetStatusPatch>> status() {

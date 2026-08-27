@@ -21,6 +21,11 @@ public final class SecretVolumeSourcePatch {
      */
     private @Nullable Integer defaultMode;
     /**
+     * @return defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer defaultUser;
+    /**
      * @return items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the &#39;..&#39; path or start with &#39;..&#39;.
      * 
      */
@@ -43,6 +48,13 @@ public final class SecretVolumeSourcePatch {
      */
     public Optional<Integer> defaultMode() {
         return Optional.ofNullable(this.defaultMode);
+    }
+    /**
+     * @return defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> defaultUser() {
+        return Optional.ofNullable(this.defaultUser);
     }
     /**
      * @return items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the &#39;..&#39; path or start with &#39;..&#39;.
@@ -76,6 +88,7 @@ public final class SecretVolumeSourcePatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Integer defaultMode;
+        private @Nullable Integer defaultUser;
         private @Nullable List<KeyToPathPatch> items;
         private @Nullable Boolean optional;
         private @Nullable String secretName;
@@ -83,6 +96,7 @@ public final class SecretVolumeSourcePatch {
         public Builder(SecretVolumeSourcePatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.defaultMode = defaults.defaultMode;
+    	      this.defaultUser = defaults.defaultUser;
     	      this.items = defaults.items;
     	      this.optional = defaults.optional;
     	      this.secretName = defaults.secretName;
@@ -92,6 +106,12 @@ public final class SecretVolumeSourcePatch {
         public Builder defaultMode(@Nullable Integer defaultMode) {
 
             this.defaultMode = defaultMode;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder defaultUser(@Nullable Integer defaultUser) {
+
+            this.defaultUser = defaultUser;
             return this;
         }
         @CustomType.Setter
@@ -118,6 +138,7 @@ public final class SecretVolumeSourcePatch {
         public SecretVolumeSourcePatch build() {
             final var _resultValue = new SecretVolumeSourcePatch();
             _resultValue.defaultMode = defaultMode;
+            _resultValue.defaultUser = defaultUser;
             _resultValue.items = items;
             _resultValue.optional = optional;
             _resultValue.secretName = secretName;

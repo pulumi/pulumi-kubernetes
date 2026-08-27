@@ -22,6 +22,21 @@ public final class GRPCActionArgs extends com.pulumi.resources.ResourceArgs {
     public static final GRPCActionArgs Empty = new GRPCActionArgs();
 
     /**
+     * mode specifies the connection mode for the gRPC health probe. Set to &#34;TLS&#34; to use TLS without certificate verification. Set to &#34;Plaintext&#34; to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+     * 
+     */
+    @Import(name="mode")
+    private @Nullable Output<String> mode;
+
+    /**
+     * @return mode specifies the connection mode for the gRPC health probe. Set to &#34;TLS&#34; to use TLS without certificate verification. Set to &#34;Plaintext&#34; to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+     * 
+     */
+    public Optional<Output<String>> mode() {
+        return Optional.ofNullable(this.mode);
+    }
+
+    /**
      * Port number of the gRPC service. Number must be in the range 1 to 65535.
      * 
      */
@@ -58,6 +73,7 @@ public final class GRPCActionArgs extends com.pulumi.resources.ResourceArgs {
     private GRPCActionArgs() {}
 
     private GRPCActionArgs(GRPCActionArgs $) {
+        this.mode = $.mode;
         this.port = $.port;
         this.service = $.service;
     }
@@ -78,6 +94,27 @@ public final class GRPCActionArgs extends com.pulumi.resources.ResourceArgs {
 
         public Builder(GRPCActionArgs defaults) {
             $ = new GRPCActionArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param mode mode specifies the connection mode for the gRPC health probe. Set to &#34;TLS&#34; to use TLS without certificate verification. Set to &#34;Plaintext&#34; to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder mode(@Nullable Output<String> mode) {
+            $.mode = mode;
+            return this;
+        }
+
+        /**
+         * @param mode mode specifies the connection mode for the gRPC health probe. Set to &#34;TLS&#34; to use TLS without certificate verification. Set to &#34;Plaintext&#34; to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder mode(String mode) {
+            return mode(Output.of(mode));
         }
 
         /**

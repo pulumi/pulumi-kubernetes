@@ -14,6 +14,15 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ResourcePoolStatusRequestSpec {
     /**
+     * @return DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+     * 
+     * A slice&#39;s own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+     * 
+     * Must include the domain qualifier.
+     * 
+     */
+    private @Nullable String defaultPartitionTypeAttribute;
+    /**
      * @return Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., &#34;gpu.example.com&#34;).
      * 
      */
@@ -32,6 +41,17 @@ public final class ResourcePoolStatusRequestSpec {
     private @Nullable String poolName;
 
     private ResourcePoolStatusRequestSpec() {}
+    /**
+     * @return DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+     * 
+     * A slice&#39;s own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+     * 
+     * Must include the domain qualifier.
+     * 
+     */
+    public Optional<String> defaultPartitionTypeAttribute() {
+        return Optional.ofNullable(this.defaultPartitionTypeAttribute);
+    }
     /**
      * @return Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., &#34;gpu.example.com&#34;).
      * 
@@ -65,17 +85,25 @@ public final class ResourcePoolStatusRequestSpec {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable String defaultPartitionTypeAttribute;
         private String driver;
         private @Nullable Integer limit;
         private @Nullable String poolName;
         public Builder() {}
         public Builder(ResourcePoolStatusRequestSpec defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.defaultPartitionTypeAttribute = defaults.defaultPartitionTypeAttribute;
     	      this.driver = defaults.driver;
     	      this.limit = defaults.limit;
     	      this.poolName = defaults.poolName;
         }
 
+        @CustomType.Setter
+        public Builder defaultPartitionTypeAttribute(@Nullable String defaultPartitionTypeAttribute) {
+
+            this.defaultPartitionTypeAttribute = defaultPartitionTypeAttribute;
+            return this;
+        }
         @CustomType.Setter
         public Builder driver(String driver) {
             if (driver == null) {
@@ -98,6 +126,7 @@ public final class ResourcePoolStatusRequestSpec {
         }
         public ResourcePoolStatusRequestSpec build() {
             final var _resultValue = new ResourcePoolStatusRequestSpec();
+            _resultValue.defaultPartitionTypeAttribute = defaultPartitionTypeAttribute;
             _resultValue.driver = driver;
             _resultValue.limit = limit;
             _resultValue.poolName = poolName;

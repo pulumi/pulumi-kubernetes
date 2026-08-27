@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
     public class MetricValueStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        /// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         /// </summary>
         [Input("averageUtilization")]
         public Input<int>? AverageUtilization { get; set; }

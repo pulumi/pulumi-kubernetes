@@ -21,6 +21,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly int DefaultMode;
         /// <summary>
+        /// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        public readonly int DefaultUser;
+        /// <summary>
         /// Items is a list of downward API volume file
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.DownwardAPIVolumeFilePatch> Items;
@@ -29,9 +33,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         private DownwardAPIVolumeSourcePatch(
             int defaultMode,
 
+            int defaultUser,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.DownwardAPIVolumeFilePatch> items)
         {
             DefaultMode = defaultMode;
+            DefaultUser = defaultUser;
             Items = items;
         }
     }

@@ -56,7 +56,7 @@ export class StorageClass extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"StorageClass">;
     /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
@@ -144,7 +144,7 @@ export interface StorageClassArgs {
      */
     kind?: pulumi.Input<"StorageClass" | undefined>;
     /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**

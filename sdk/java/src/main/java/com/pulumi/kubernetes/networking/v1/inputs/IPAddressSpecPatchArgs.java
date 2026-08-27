@@ -20,14 +20,14 @@ public final class IPAddressSpecPatchArgs extends com.pulumi.resources.ResourceA
     public static final IPAddressSpecPatchArgs Empty = new IPAddressSpecPatchArgs();
 
     /**
-     * ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+     * parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
     @Import(name="parentRef")
     private @Nullable Output<ParentReferencePatchArgs> parentRef;
 
     /**
-     * @return ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+     * @return parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
     public Optional<Output<ParentReferencePatchArgs>> parentRef() {
@@ -59,7 +59,7 @@ public final class IPAddressSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param parentRef ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+         * @param parentRef parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
          * 
          * @return builder
          * 
@@ -70,7 +70,7 @@ public final class IPAddressSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param parentRef ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+         * @param parentRef parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
          * 
          * @return builder
          * 

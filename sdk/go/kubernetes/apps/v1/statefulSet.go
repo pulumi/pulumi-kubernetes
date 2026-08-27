@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -261,9 +262,12 @@ type StatefulSet struct {
 func NewStatefulSet(ctx *pulumi.Context,
 	name string, args *StatefulSetArgs, opts ...pulumi.ResourceOption) (*StatefulSet, error) {
 	if args == nil {
-		args = &StatefulSetArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
+	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1")
 	args.Kind = pulumi.StringPtr("StatefulSet")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -315,7 +319,7 @@ type statefulSetArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec defines the desired identities of pods in this set.
-	Spec *StatefulSetSpec `pulumi:"spec"`
+	Spec StatefulSetSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a StatefulSet resource.
@@ -327,7 +331,7 @@ type StatefulSetArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Spec defines the desired identities of pods in this set.
-	Spec StatefulSetSpecPtrInput
+	Spec StatefulSetSpecInput
 }
 
 func (StatefulSetArgs) ElementType() reflect.Type {

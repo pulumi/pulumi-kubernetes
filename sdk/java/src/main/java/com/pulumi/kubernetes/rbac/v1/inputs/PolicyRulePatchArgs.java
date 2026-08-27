@@ -21,14 +21,14 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
     public static final PolicyRulePatchArgs Empty = new PolicyRulePatchArgs();
 
     /**
-     * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
+     * apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
      * 
      */
     @Import(name="apiGroups")
     private @Nullable Output<List<String>> apiGroups;
 
     /**
-     * @return APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
+     * @return apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
      * 
      */
     public Optional<Output<List<String>>> apiGroups() {
@@ -36,14 +36,14 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
+     * nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
      * 
      */
     @Import(name="nonResourceURLs")
     private @Nullable Output<List<String>> nonResourceURLs;
 
     /**
-     * @return NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
+     * @return nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
      * 
      */
     public Optional<Output<List<String>>> nonResourceURLs() {
@@ -51,14 +51,14 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+     * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
      * 
      */
     @Import(name="resourceNames")
     private @Nullable Output<List<String>> resourceNames;
 
     /**
-     * @return ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+     * @return resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
      * 
      */
     public Optional<Output<List<String>>> resourceNames() {
@@ -66,14 +66,14 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
+     * resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
      * 
      */
     @Import(name="resources")
     private @Nullable Output<List<String>> resources;
 
     /**
-     * @return Resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
+     * @return resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
      * 
      */
     public Optional<Output<List<String>>> resources() {
@@ -81,14 +81,14 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
+     * verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
      * 
      */
     @Import(name="verbs")
     private @Nullable Output<List<String>> verbs;
 
     /**
-     * @return Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
+     * @return verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
      * 
      */
     public Optional<Output<List<String>>> verbs() {
@@ -124,7 +124,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param apiGroups APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
+         * @param apiGroups apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
          * 
          * @return builder
          * 
@@ -135,7 +135,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param apiGroups APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
+         * @param apiGroups apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
          * 
          * @return builder
          * 
@@ -145,7 +145,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param apiGroups APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
+         * @param apiGroups apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
          * 
          * @return builder
          * 
@@ -155,7 +155,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param nonResourceURLs NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
+         * @param nonResourceURLs nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
          * 
          * @return builder
          * 
@@ -166,7 +166,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param nonResourceURLs NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
+         * @param nonResourceURLs nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
          * 
          * @return builder
          * 
@@ -176,7 +176,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param nonResourceURLs NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
+         * @param nonResourceURLs nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as &#34;pods&#34; or &#34;secrets&#34;) or non-resource URL paths (such as &#34;/api&#34;),  but not both.
          * 
          * @return builder
          * 
@@ -186,7 +186,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resourceNames ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+         * @param resourceNames resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
          * 
          * @return builder
          * 
@@ -197,7 +197,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resourceNames ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+         * @param resourceNames resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
          * 
          * @return builder
          * 
@@ -207,7 +207,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resourceNames ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+         * @param resourceNames resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
          * 
          * @return builder
          * 
@@ -217,7 +217,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resources Resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
+         * @param resources resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
          * 
          * @return builder
          * 
@@ -228,7 +228,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resources Resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
+         * @param resources resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
          * 
          * @return builder
          * 
@@ -238,7 +238,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param resources Resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
+         * @param resources resources is a list of resources this rule applies to. &#39;*&#39; represents all resources.
          * 
          * @return builder
          * 
@@ -248,7 +248,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param verbs Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
+         * @param verbs verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
          * 
          * @return builder
          * 
@@ -259,7 +259,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param verbs Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
+         * @param verbs verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
          * 
          * @return builder
          * 
@@ -269,7 +269,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param verbs Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
+         * @param verbs verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. &#39;*&#39; represents all verbs.
          * 
          * @return builder
          * 

@@ -12,50 +12,50 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ParentReferencePatch {
     /**
-     * @return Group is the group of the object being referenced.
+     * @return group is the group of the object being referenced.
      * 
      */
     private @Nullable String group;
     /**
-     * @return Name is the name of the object being referenced.
+     * @return name is the name of the object being referenced.
      * 
      */
     private @Nullable String name;
     /**
-     * @return Namespace is the namespace of the object being referenced.
+     * @return namespace is the namespace of the object being referenced.
      * 
      */
     private @Nullable String namespace;
     /**
-     * @return Resource is the resource of the object being referenced.
+     * @return resource is the resource of the object being referenced.
      * 
      */
     private @Nullable String resource;
 
     private ParentReferencePatch() {}
     /**
-     * @return Group is the group of the object being referenced.
+     * @return group is the group of the object being referenced.
      * 
      */
     public Optional<String> group() {
         return Optional.ofNullable(this.group);
     }
     /**
-     * @return Name is the name of the object being referenced.
+     * @return name is the name of the object being referenced.
      * 
      */
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
     }
     /**
-     * @return Namespace is the namespace of the object being referenced.
+     * @return namespace is the namespace of the object being referenced.
      * 
      */
     public Optional<String> namespace() {
         return Optional.ofNullable(this.namespace);
     }
     /**
-     * @return Resource is the resource of the object being referenced.
+     * @return resource is the resource of the object being referenced.
      * 
      */
     public Optional<String> resource() {

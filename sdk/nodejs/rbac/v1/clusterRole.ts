@@ -38,7 +38,7 @@ export class ClusterRole extends pulumi.CustomResource {
     }
 
     /**
-     * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+     * aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      */
     declare public readonly aggregationRule: pulumi.Output<outputs.rbac.v1.AggregationRule>;
     /**
@@ -50,11 +50,11 @@ export class ClusterRole extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"ClusterRole">;
     /**
-     * Standard object's metadata.
+     * metadata is the standard object's metadata.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * Rules holds all the PolicyRules for this ClusterRole
+     * rules holds all the PolicyRules for this ClusterRole
      */
     declare public readonly rules: pulumi.Output<outputs.rbac.v1.PolicyRule[]>;
 
@@ -93,7 +93,7 @@ export class ClusterRole extends pulumi.CustomResource {
  */
 export interface ClusterRoleArgs {
     /**
-     * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+     * aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      */
     aggregationRule?: pulumi.Input<inputs.rbac.v1.AggregationRule | undefined>;
     /**
@@ -105,11 +105,11 @@ export interface ClusterRoleArgs {
      */
     kind?: pulumi.Input<"ClusterRole" | undefined>;
     /**
-     * Standard object's metadata.
+     * metadata is the standard object's metadata.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta | undefined>;
     /**
-     * Rules holds all the PolicyRules for this ClusterRole
+     * rules holds all the PolicyRules for this ClusterRole
      */
     rules?: pulumi.Input<pulumi.Input<inputs.rbac.v1.PolicyRule>[] | undefined>;
 }

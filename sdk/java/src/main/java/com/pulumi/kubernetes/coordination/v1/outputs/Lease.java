@@ -24,7 +24,7 @@ public final class Lease {
      */
     private @Nullable String kind;
     /**
-     * @return More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     private @Nullable ObjectMeta metadata;
@@ -50,7 +50,7 @@ public final class Lease {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * @return metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     public Optional<ObjectMeta> metadata() {

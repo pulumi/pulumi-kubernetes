@@ -21,6 +21,11 @@ public final class ConfigMapVolumeSource {
      */
     private @Nullable Integer defaultMode;
     /**
+     * @return defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer defaultUser;
+    /**
      * @return items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the &#39;..&#39; path or start with &#39;..&#39;.
      * 
      */
@@ -43,6 +48,13 @@ public final class ConfigMapVolumeSource {
      */
     public Optional<Integer> defaultMode() {
         return Optional.ofNullable(this.defaultMode);
+    }
+    /**
+     * @return defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> defaultUser() {
+        return Optional.ofNullable(this.defaultUser);
     }
     /**
      * @return items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the &#39;..&#39; path or start with &#39;..&#39;.
@@ -76,6 +88,7 @@ public final class ConfigMapVolumeSource {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Integer defaultMode;
+        private @Nullable Integer defaultUser;
         private @Nullable List<KeyToPath> items;
         private @Nullable String name;
         private @Nullable Boolean optional;
@@ -83,6 +96,7 @@ public final class ConfigMapVolumeSource {
         public Builder(ConfigMapVolumeSource defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.defaultMode = defaults.defaultMode;
+    	      this.defaultUser = defaults.defaultUser;
     	      this.items = defaults.items;
     	      this.name = defaults.name;
     	      this.optional = defaults.optional;
@@ -92,6 +106,12 @@ public final class ConfigMapVolumeSource {
         public Builder defaultMode(@Nullable Integer defaultMode) {
 
             this.defaultMode = defaultMode;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder defaultUser(@Nullable Integer defaultUser) {
+
+            this.defaultUser = defaultUser;
             return this;
         }
         @CustomType.Setter
@@ -118,6 +138,7 @@ public final class ConfigMapVolumeSource {
         public ConfigMapVolumeSource build() {
             final var _resultValue = new ConfigMapVolumeSource();
             _resultValue.defaultMode = defaultMode;
+            _resultValue.defaultUser = defaultUser;
             _resultValue.items = items;
             _resultValue.name = name;
             _resultValue.optional = optional;

@@ -22,7 +22,7 @@ import (
 //
 // ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
 //
-// It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+// It can be optionally associated with a particular signer, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
 type ClusterTrustBundlePatch struct {
 	pulumi.CustomResourceState
 
@@ -46,6 +46,9 @@ func NewClusterTrustBundlePatch(ctx *pulumi.Context,
 	args.ApiVersion = pulumi.StringPtr("certificates.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("ClusterTrustBundle")
 	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:certificates.k8s.io/v1:ClusterTrustBundlePatch"),
+		},
 		{
 			Type: pulumi.String("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch"),
 		},

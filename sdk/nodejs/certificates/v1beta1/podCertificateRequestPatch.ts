@@ -90,6 +90,8 @@ export class PodCertificateRequestPatch extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:certificates.k8s.io/v1:PodCertificateRequestPatch" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(PodCertificateRequestPatch.__pulumiType, name, resourceInputs, opts);
     }
 }

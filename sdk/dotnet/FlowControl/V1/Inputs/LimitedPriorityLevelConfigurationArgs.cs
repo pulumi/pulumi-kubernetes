@@ -38,8 +38,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1
         /// <summary>
         /// `limitResponse` indicates what to do with requests that can not be executed right now
         /// </summary>
-        [Input("limitResponse")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1.LimitResponseArgs>? LimitResponse { get; set; }
+        [Input("limitResponse", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1.LimitResponseArgs> LimitResponse { get; set; } = null!;
 
         /// <summary>
         /// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:

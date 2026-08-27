@@ -155,6 +155,8 @@ class Workload(pulumi.CustomResource):
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1alpha1:Workload"), pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1alpha3:Workload"), pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1beta1:Workload")])
+        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(Workload, __self__).__init__(
             'kubernetes:scheduling.k8s.io/v1alpha2:Workload',
             resource_name,

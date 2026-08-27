@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
         /// </summary>
         public readonly string ApiVersion;
         /// <summary>
-        /// Name of the CSI driver This field is immutable.
+        /// driverName is the name of the CSI driver This field is immutable.
         /// </summary>
         public readonly string DriverName;
         /// <summary>
@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>

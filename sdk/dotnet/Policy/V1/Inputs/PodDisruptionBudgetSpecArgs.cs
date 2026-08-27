@@ -16,25 +16,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1
     public class PodDisruptionBudgetSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        /// maxUnavailable indicates that an eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         /// </summary>
         [Input("maxUnavailable")]
         public InputUnion<int, string>? MaxUnavailable { get; set; }
 
         /// <summary>
-        /// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        /// minAvailable indicates that an eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         /// </summary>
         [Input("minAvailable")]
         public InputUnion<int, string>? MinAvailable { get; set; }
 
         /// <summary>
-        /// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        /// selector is a label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
         /// </summary>
         [Input("selector")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs>? Selector { get; set; }
 
         /// <summary>
-        /// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+        /// unhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
         /// 
         /// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
         /// 

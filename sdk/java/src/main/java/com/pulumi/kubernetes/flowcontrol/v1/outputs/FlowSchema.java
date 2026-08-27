@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1.outputs.FlowSchemaSpec;
 import com.pulumi.kubernetes.flowcontrol.v1.outputs.FlowSchemaStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
@@ -33,7 +34,7 @@ public final class FlowSchema {
      * @return `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    private @Nullable FlowSchemaSpec spec;
+    private FlowSchemaSpec spec;
     /**
      * @return `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
@@ -66,8 +67,8 @@ public final class FlowSchema {
      * @return `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<FlowSchemaSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public FlowSchemaSpec spec() {
+        return this.spec;
     }
     /**
      * @return `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -89,7 +90,7 @@ public final class FlowSchema {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable FlowSchemaSpec spec;
+        private FlowSchemaSpec spec;
         private @Nullable FlowSchemaStatus status;
         public Builder() {}
         public Builder(FlowSchema defaults) {
@@ -120,8 +121,10 @@ public final class FlowSchema {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable FlowSchemaSpec spec) {
-
+        public Builder spec(FlowSchemaSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("FlowSchema", "spec");
+            }
             this.spec = spec;
             return this;
         }

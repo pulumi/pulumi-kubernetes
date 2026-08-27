@@ -70,6 +70,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string> OsImage { get; set; } = null!;
 
         /// <summary>
+        /// Whether the node is running in a user namespace.
+        /// </summary>
+        [Input("runningInUserNamespace")]
+        public Input<bool>? RunningInUserNamespace { get; set; }
+
+        /// <summary>
         /// Swap Info reported by the node.
         /// </summary>
         [Input("swap")]

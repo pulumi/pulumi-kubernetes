@@ -652,7 +652,7 @@ class HPAScalingRules(dict):
 
     Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 
-    The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+    The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -683,7 +683,7 @@ class HPAScalingRules(dict):
 
         Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 
-        The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+        The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
 
         :param Sequence['HPAScalingPolicyArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
         :param _builtins.str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
@@ -691,8 +691,6 @@ class HPAScalingRules(dict):
         :param _builtins.str tolerance: tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
                
                For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-               
-               This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
         """
         if policies is not None:
             pulumi.set(__self__, "policies", policies)
@@ -734,8 +732,6 @@ class HPAScalingRules(dict):
         tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 
         For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-
-        This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
         """
         return pulumi.get(self, "tolerance")
 
@@ -747,7 +743,7 @@ class HPAScalingRulesPatch(dict):
 
     Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 
-    The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+    The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -778,7 +774,7 @@ class HPAScalingRulesPatch(dict):
 
         Scaling Policy Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
 
-        The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations. (Note that setting a tolerance requires the beta HPAConfigurableTolerance feature gate to be enabled.)
+        The tolerance is applied to the metric values and prevents scaling too eagerly for small metric variations.
 
         :param Sequence['HPAScalingPolicyPatchArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. If not set, use the default values: - For scale up: allow doubling the number of pods, or an absolute change of 4 pods in a 15s window. - For scale down: allow all pods to be removed in a 15s window.
         :param _builtins.str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
@@ -786,8 +782,6 @@ class HPAScalingRulesPatch(dict):
         :param _builtins.str tolerance: tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
                
                For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-               
-               This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
         """
         if policies is not None:
             pulumi.set(__self__, "policies", policies)
@@ -829,8 +823,6 @@ class HPAScalingRulesPatch(dict):
         tolerance is the tolerance on the ratio between the current and desired metric value under which no updates are made to the desired number of replicas (e.g. 0.01 for 1%). Must be greater than or equal to zero. If not set, the default cluster-wide tolerance is applied (by default 10%).
 
         For example, if autoscaling is configured with a memory consumption target of 100Mi, and scale-down and scale-up tolerances of 5% and 1% respectively, scaling will be triggered when the actual consumption falls below 95Mi or exceeds 101Mi.
-
-        This is an beta field and requires the HPAConfigurableTolerance feature gate to be enabled.
         """
         return pulumi.get(self, "tolerance")
 
@@ -1055,6 +1047,8 @@ class HorizontalPodAutoscalerCondition(dict):
         suggest = None
         if key == "lastTransitionTime":
             suggest = "last_transition_time"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscalerCondition. Access the value via the '{suggest}' property getter instead.")
@@ -1072,6 +1066,7 @@ class HorizontalPodAutoscalerCondition(dict):
                  type: _builtins.str,
                  last_transition_time: Optional[_builtins.str] = None,
                  message: Optional[_builtins.str] = None,
+                 observed_generation: Optional[_builtins.int] = None,
                  reason: Optional[_builtins.str] = None):
         """
         HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
@@ -1080,6 +1075,7 @@ class HorizontalPodAutoscalerCondition(dict):
         :param _builtins.str type: type describes the current condition
         :param _builtins.str last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another
         :param _builtins.str message: message is a human-readable explanation containing details about the transition
+        :param _builtins.int observed_generation: observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
         :param _builtins.str reason: reason is the reason for the condition's last transition.
         """
         pulumi.set(__self__, "status", status)
@@ -1088,6 +1084,8 @@ class HorizontalPodAutoscalerCondition(dict):
             pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
 
@@ -1124,6 +1122,14 @@ class HorizontalPodAutoscalerCondition(dict):
         return pulumi.get(self, "message")
 
     @_builtins.property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[_builtins.int]:
+        """
+        observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @_builtins.property
     @pulumi.getter
     def reason(self) -> Optional[_builtins.str]:
         """
@@ -1142,6 +1148,8 @@ class HorizontalPodAutoscalerConditionPatch(dict):
         suggest = None
         if key == "lastTransitionTime":
             suggest = "last_transition_time"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscalerConditionPatch. Access the value via the '{suggest}' property getter instead.")
@@ -1157,6 +1165,7 @@ class HorizontalPodAutoscalerConditionPatch(dict):
     def __init__(__self__, *,
                  last_transition_time: Optional[_builtins.str] = None,
                  message: Optional[_builtins.str] = None,
+                 observed_generation: Optional[_builtins.int] = None,
                  reason: Optional[_builtins.str] = None,
                  status: Optional[_builtins.str] = None,
                  type: Optional[_builtins.str] = None):
@@ -1165,6 +1174,7 @@ class HorizontalPodAutoscalerConditionPatch(dict):
 
         :param _builtins.str last_transition_time: lastTransitionTime is the last time the condition transitioned from one status to another
         :param _builtins.str message: message is a human-readable explanation containing details about the transition
+        :param _builtins.int observed_generation: observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
         :param _builtins.str reason: reason is the reason for the condition's last transition.
         :param _builtins.str status: status is the status of the condition (True, False, Unknown)
         :param _builtins.str type: type describes the current condition
@@ -1173,6 +1183,8 @@ class HorizontalPodAutoscalerConditionPatch(dict):
             pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
         if status is not None:
@@ -1195,6 +1207,14 @@ class HorizontalPodAutoscalerConditionPatch(dict):
         message is a human-readable explanation containing details about the transition
         """
         return pulumi.get(self, "message")
+
+    @_builtins.property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[_builtins.int]:
+        """
+        observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+        """
+        return pulumi.get(self, "observed_generation")
 
     @_builtins.property
     @pulumi.getter
@@ -1927,7 +1947,7 @@ class MetricStatus(dict):
         MetricStatus describes the last-read state of a single metric.
 
         :param _builtins.str type: type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
-        :param 'ContainerResourceMetricStatusArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        :param 'ContainerResourceMetricStatusArgs' container_resource: containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricStatusArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param 'ObjectMetricStatusArgs' object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
         :param 'PodsMetricStatusArgs' pods: pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
@@ -1957,7 +1977,7 @@ class MetricStatus(dict):
     @pulumi.getter(name="containerResource")
     def container_resource(self) -> Optional['outputs.ContainerResourceMetricStatus']:
         """
-        container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         """
         return pulumi.get(self, "container_resource")
 
@@ -2026,7 +2046,7 @@ class MetricStatusPatch(dict):
         """
         MetricStatus describes the last-read state of a single metric.
 
-        :param 'ContainerResourceMetricStatusPatchArgs' container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        :param 'ContainerResourceMetricStatusPatchArgs' container_resource: containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'ExternalMetricStatusPatchArgs' external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param 'ObjectMetricStatusPatchArgs' object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
         :param 'PodsMetricStatusPatchArgs' pods: pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
@@ -2050,7 +2070,7 @@ class MetricStatusPatch(dict):
     @pulumi.getter(name="containerResource")
     def container_resource(self) -> Optional['outputs.ContainerResourceMetricStatusPatch']:
         """
-        container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
+        containerResource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         """
         return pulumi.get(self, "container_resource")
 
@@ -2283,7 +2303,7 @@ class MetricValueStatus(dict):
         """
         MetricValueStatus holds the current value for a metric
 
-        :param _builtins.int average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        :param _builtins.int average_utilization: averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param _builtins.str average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param _builtins.str value: value is the current value of the metric (as a quantity).
         """
@@ -2298,7 +2318,7 @@ class MetricValueStatus(dict):
     @pulumi.getter(name="averageUtilization")
     def average_utilization(self) -> Optional[_builtins.int]:
         """
-        currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         """
         return pulumi.get(self, "average_utilization")
 
@@ -2350,7 +2370,7 @@ class MetricValueStatusPatch(dict):
         """
         MetricValueStatus holds the current value for a metric
 
-        :param _builtins.int average_utilization: currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        :param _builtins.int average_utilization: averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         :param _builtins.str average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param _builtins.str value: value is the current value of the metric (as a quantity).
         """
@@ -2365,7 +2385,7 @@ class MetricValueStatusPatch(dict):
     @pulumi.getter(name="averageUtilization")
     def average_utilization(self) -> Optional[_builtins.int]:
         """
-        currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         """
         return pulumi.get(self, "average_utilization")
 
@@ -2543,7 +2563,7 @@ class ObjectMetricStatus(dict):
         ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
 
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
-        :param 'CrossVersionObjectReferenceArgs' described_object: DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+        :param 'CrossVersionObjectReferenceArgs' described_object: describedObject specifies the descriptions of a object,such as kind,name apiVersion
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         """
         pulumi.set(__self__, "current", current)
@@ -2562,7 +2582,7 @@ class ObjectMetricStatus(dict):
     @pulumi.getter(name="describedObject")
     def described_object(self) -> 'outputs.CrossVersionObjectReference':
         """
-        DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+        describedObject specifies the descriptions of a object,such as kind,name apiVersion
         """
         return pulumi.get(self, "described_object")
 
@@ -2605,7 +2625,7 @@ class ObjectMetricStatusPatch(dict):
         ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
 
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
-        :param 'CrossVersionObjectReferencePatchArgs' described_object: DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+        :param 'CrossVersionObjectReferencePatchArgs' described_object: describedObject specifies the descriptions of a object,such as kind,name apiVersion
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         """
         if current is not None:
@@ -2627,7 +2647,7 @@ class ObjectMetricStatusPatch(dict):
     @pulumi.getter(name="describedObject")
     def described_object(self) -> Optional['outputs.CrossVersionObjectReferencePatch']:
         """
-        DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+        describedObject specifies the descriptions of a object,such as kind,name apiVersion
         """
         return pulumi.get(self, "described_object")
 

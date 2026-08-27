@@ -37,6 +37,21 @@ public final class DownwardAPIVolumeSourcePatchArgs extends com.pulumi.resources
     }
 
     /**
+     * defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    @Import(name="defaultUser")
+    private @Nullable Output<Integer> defaultUser;
+
+    /**
+     * @return defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Output<Integer>> defaultUser() {
+        return Optional.ofNullable(this.defaultUser);
+    }
+
+    /**
      * Items is a list of downward API volume file
      * 
      */
@@ -55,6 +70,7 @@ public final class DownwardAPIVolumeSourcePatchArgs extends com.pulumi.resources
 
     private DownwardAPIVolumeSourcePatchArgs(DownwardAPIVolumeSourcePatchArgs $) {
         this.defaultMode = $.defaultMode;
+        this.defaultUser = $.defaultUser;
         this.items = $.items;
     }
 
@@ -95,6 +111,27 @@ public final class DownwardAPIVolumeSourcePatchArgs extends com.pulumi.resources
          */
         public Builder defaultMode(Integer defaultMode) {
             return defaultMode(Output.of(defaultMode));
+        }
+
+        /**
+         * @param defaultUser defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultUser(@Nullable Output<Integer> defaultUser) {
+            $.defaultUser = defaultUser;
+            return this;
+        }
+
+        /**
+         * @param defaultUser defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultUser(Integer defaultUser) {
+            return defaultUser(Output.of(defaultUser));
         }
 
         /**

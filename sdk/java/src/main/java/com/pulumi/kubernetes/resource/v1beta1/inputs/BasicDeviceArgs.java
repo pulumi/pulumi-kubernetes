@@ -10,6 +10,7 @@ import com.pulumi.kubernetes.resource.v1beta1.inputs.DeviceAttributeArgs;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.DeviceCapacityArgs;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.DeviceCounterConsumptionArgs;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.DeviceTaintArgs;
+import com.pulumi.kubernetes.resource.v1beta1.inputs.NodeAllocatableResourceArgs;
 import com.pulumi.kubernetes.resource.v1beta1.inputs.NodeAllocatableResourceMappingArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -216,6 +217,21 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * 
+     */
+    @Import(name="nodeAllocatableResources")
+    private @Nullable Output<Map<String,NodeAllocatableResourceArgs>> nodeAllocatableResources;
+
+    /**
+     * @return NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+     * 
+     */
+    public Optional<Output<Map<String,NodeAllocatableResourceArgs>>> nodeAllocatableResources() {
+        return Optional.ofNullable(this.nodeAllocatableResources);
+    }
+
+    /**
      * NodeName identifies the node where the device is available.
      * 
      * Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -292,6 +308,7 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
         this.capacity = $.capacity;
         this.consumesCounters = $.consumesCounters;
         this.nodeAllocatableResourceMappings = $.nodeAllocatableResourceMappings;
+        this.nodeAllocatableResources = $.nodeAllocatableResources;
         this.nodeName = $.nodeName;
         this.nodeSelector = $.nodeSelector;
         this.taints = $.taints;
@@ -600,6 +617,27 @@ public final class BasicDeviceArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder nodeAllocatableResourceMappings(Map<String,NodeAllocatableResourceMappingArgs> nodeAllocatableResourceMappings) {
             return nodeAllocatableResourceMappings(Output.of(nodeAllocatableResourceMappings));
+        }
+
+        /**
+         * @param nodeAllocatableResources NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAllocatableResources(@Nullable Output<Map<String,NodeAllocatableResourceArgs>> nodeAllocatableResources) {
+            $.nodeAllocatableResources = nodeAllocatableResources;
+            return this;
+        }
+
+        /**
+         * @param nodeAllocatableResources NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include &#34;cpu&#34;, &#34;memory&#34;, &#34;ephemeral-storage&#34;, and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., &#34;cpu&#34;, &#34;memory&#34;). Extended resource names are not permitted as keys.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAllocatableResources(Map<String,NodeAllocatableResourceArgs> nodeAllocatableResources) {
+            return nodeAllocatableResources(Output.of(nodeAllocatableResources));
         }
 
         /**

@@ -69,6 +69,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
         /// </summary>
         public readonly string ShareID;
         /// <summary>
+        /// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+        /// </summary>
+        public readonly ImmutableArray<string> SkipNodeOperations;
+        /// <summary>
         /// A copy of all tolerations specified in the request at the time when the device got allocated.
         /// 
         /// The maximum number of tolerations is 16.
@@ -97,6 +101,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
 
             string shareID,
 
+            ImmutableArray<string> skipNodeOperations,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2.DeviceTolerationPatch> tolerations)
         {
             AdminAccess = adminAccess;
@@ -108,6 +114,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Beta2
             Pool = pool;
             Request = request;
             ShareID = shareID;
+            SkipNodeOperations = skipNodeOperations;
             Tolerations = tolerations;
         }
     }

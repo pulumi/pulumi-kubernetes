@@ -16,25 +16,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class ParentReferenceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Group is the group of the object being referenced.
+        /// group is the group of the object being referenced.
         /// </summary>
         [Input("group")]
         public Input<string>? Group { get; set; }
 
         /// <summary>
-        /// Name is the name of the object being referenced.
+        /// name is the name of the object being referenced.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
         /// <summary>
-        /// Namespace is the namespace of the object being referenced.
+        /// namespace is the namespace of the object being referenced.
         /// </summary>
         [Input("namespace")]
         public Input<string>? Namespace { get; set; }
 
         /// <summary>
-        /// Resource is the resource of the object being referenced.
+        /// resource is the resource of the object being referenced.
         /// </summary>
         [Input("resource", required: true)]
         public Input<string> Resource { get; set; } = null!;

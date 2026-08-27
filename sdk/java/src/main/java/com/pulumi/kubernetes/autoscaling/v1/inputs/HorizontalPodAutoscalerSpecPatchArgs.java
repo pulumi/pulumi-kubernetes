@@ -51,14 +51,14 @@ public final class HorizontalPodAutoscalerSpecPatchArgs extends com.pulumi.resou
     }
 
     /**
-     * reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+     * scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
      * 
      */
     @Import(name="scaleTargetRef")
     private @Nullable Output<CrossVersionObjectReferencePatchArgs> scaleTargetRef;
 
     /**
-     * @return reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+     * @return scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
      * 
      */
     public Optional<Output<CrossVersionObjectReferencePatchArgs>> scaleTargetRef() {
@@ -150,7 +150,7 @@ public final class HorizontalPodAutoscalerSpecPatchArgs extends com.pulumi.resou
         }
 
         /**
-         * @param scaleTargetRef reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+         * @param scaleTargetRef scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
          * 
          * @return builder
          * 
@@ -161,7 +161,7 @@ public final class HorizontalPodAutoscalerSpecPatchArgs extends com.pulumi.resou
         }
 
         /**
-         * @param scaleTargetRef reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+         * @param scaleTargetRef scaleTargetRef is the reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
          * 
          * @return builder
          * 

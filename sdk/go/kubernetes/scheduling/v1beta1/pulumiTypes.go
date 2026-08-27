@@ -14,6 +14,5582 @@ import (
 
 var _ = utilities.GetEnvOrDefault
 
+// AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+type AllCompositeDisruptionMode struct {
+}
+
+// AllCompositeDisruptionModeInput is an input type that accepts AllCompositeDisruptionModeArgs and AllCompositeDisruptionModeOutput values.
+// You can construct a concrete instance of `AllCompositeDisruptionModeInput` via:
+//
+//	AllCompositeDisruptionModeArgs{...}
+type AllCompositeDisruptionModeInput interface {
+	pulumi.Input
+
+	ToAllCompositeDisruptionModeOutput() AllCompositeDisruptionModeOutput
+	ToAllCompositeDisruptionModeOutputWithContext(context.Context) AllCompositeDisruptionModeOutput
+}
+
+// AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+type AllCompositeDisruptionModeArgs struct {
+}
+
+func (AllCompositeDisruptionModeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllCompositeDisruptionMode)(nil)).Elem()
+}
+
+func (i AllCompositeDisruptionModeArgs) ToAllCompositeDisruptionModeOutput() AllCompositeDisruptionModeOutput {
+	return i.ToAllCompositeDisruptionModeOutputWithContext(context.Background())
+}
+
+func (i AllCompositeDisruptionModeArgs) ToAllCompositeDisruptionModeOutputWithContext(ctx context.Context) AllCompositeDisruptionModeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllCompositeDisruptionModeOutput)
+}
+
+func (i AllCompositeDisruptionModeArgs) ToAllCompositeDisruptionModePtrOutput() AllCompositeDisruptionModePtrOutput {
+	return i.ToAllCompositeDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i AllCompositeDisruptionModeArgs) ToAllCompositeDisruptionModePtrOutputWithContext(ctx context.Context) AllCompositeDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllCompositeDisruptionModeOutput).ToAllCompositeDisruptionModePtrOutputWithContext(ctx)
+}
+
+// AllCompositeDisruptionModePtrInput is an input type that accepts AllCompositeDisruptionModeArgs, AllCompositeDisruptionModePtr and AllCompositeDisruptionModePtrOutput values.
+// You can construct a concrete instance of `AllCompositeDisruptionModePtrInput` via:
+//
+//	        AllCompositeDisruptionModeArgs{...}
+//
+//	or:
+//
+//	        nil
+type AllCompositeDisruptionModePtrInput interface {
+	pulumi.Input
+
+	ToAllCompositeDisruptionModePtrOutput() AllCompositeDisruptionModePtrOutput
+	ToAllCompositeDisruptionModePtrOutputWithContext(context.Context) AllCompositeDisruptionModePtrOutput
+}
+
+type allCompositeDisruptionModePtrType AllCompositeDisruptionModeArgs
+
+func AllCompositeDisruptionModePtr(v *AllCompositeDisruptionModeArgs) AllCompositeDisruptionModePtrInput {
+	return (*allCompositeDisruptionModePtrType)(v)
+}
+
+func (*allCompositeDisruptionModePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AllCompositeDisruptionMode)(nil)).Elem()
+}
+
+func (i *allCompositeDisruptionModePtrType) ToAllCompositeDisruptionModePtrOutput() AllCompositeDisruptionModePtrOutput {
+	return i.ToAllCompositeDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i *allCompositeDisruptionModePtrType) ToAllCompositeDisruptionModePtrOutputWithContext(ctx context.Context) AllCompositeDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllCompositeDisruptionModePtrOutput)
+}
+
+// AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+type AllCompositeDisruptionModeOutput struct{ *pulumi.OutputState }
+
+func (AllCompositeDisruptionModeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllCompositeDisruptionMode)(nil)).Elem()
+}
+
+func (o AllCompositeDisruptionModeOutput) ToAllCompositeDisruptionModeOutput() AllCompositeDisruptionModeOutput {
+	return o
+}
+
+func (o AllCompositeDisruptionModeOutput) ToAllCompositeDisruptionModeOutputWithContext(ctx context.Context) AllCompositeDisruptionModeOutput {
+	return o
+}
+
+func (o AllCompositeDisruptionModeOutput) ToAllCompositeDisruptionModePtrOutput() AllCompositeDisruptionModePtrOutput {
+	return o.ToAllCompositeDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (o AllCompositeDisruptionModeOutput) ToAllCompositeDisruptionModePtrOutputWithContext(ctx context.Context) AllCompositeDisruptionModePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AllCompositeDisruptionMode) *AllCompositeDisruptionMode {
+		return &v
+	}).(AllCompositeDisruptionModePtrOutput)
+}
+
+type AllCompositeDisruptionModePtrOutput struct{ *pulumi.OutputState }
+
+func (AllCompositeDisruptionModePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AllCompositeDisruptionMode)(nil)).Elem()
+}
+
+func (o AllCompositeDisruptionModePtrOutput) ToAllCompositeDisruptionModePtrOutput() AllCompositeDisruptionModePtrOutput {
+	return o
+}
+
+func (o AllCompositeDisruptionModePtrOutput) ToAllCompositeDisruptionModePtrOutputWithContext(ctx context.Context) AllCompositeDisruptionModePtrOutput {
+	return o
+}
+
+func (o AllCompositeDisruptionModePtrOutput) Elem() AllCompositeDisruptionModeOutput {
+	return o.ApplyT(func(v *AllCompositeDisruptionMode) AllCompositeDisruptionMode {
+		if v != nil {
+			return *v
+		}
+		var ret AllCompositeDisruptionMode
+		return ret
+	}).(AllCompositeDisruptionModeOutput)
+}
+
+// AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+type AllCompositeDisruptionModePatch struct {
+}
+
+// AllCompositeDisruptionModePatchInput is an input type that accepts AllCompositeDisruptionModePatchArgs and AllCompositeDisruptionModePatchOutput values.
+// You can construct a concrete instance of `AllCompositeDisruptionModePatchInput` via:
+//
+//	AllCompositeDisruptionModePatchArgs{...}
+type AllCompositeDisruptionModePatchInput interface {
+	pulumi.Input
+
+	ToAllCompositeDisruptionModePatchOutput() AllCompositeDisruptionModePatchOutput
+	ToAllCompositeDisruptionModePatchOutputWithContext(context.Context) AllCompositeDisruptionModePatchOutput
+}
+
+// AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+type AllCompositeDisruptionModePatchArgs struct {
+}
+
+func (AllCompositeDisruptionModePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllCompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (i AllCompositeDisruptionModePatchArgs) ToAllCompositeDisruptionModePatchOutput() AllCompositeDisruptionModePatchOutput {
+	return i.ToAllCompositeDisruptionModePatchOutputWithContext(context.Background())
+}
+
+func (i AllCompositeDisruptionModePatchArgs) ToAllCompositeDisruptionModePatchOutputWithContext(ctx context.Context) AllCompositeDisruptionModePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllCompositeDisruptionModePatchOutput)
+}
+
+func (i AllCompositeDisruptionModePatchArgs) ToAllCompositeDisruptionModePatchPtrOutput() AllCompositeDisruptionModePatchPtrOutput {
+	return i.ToAllCompositeDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i AllCompositeDisruptionModePatchArgs) ToAllCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) AllCompositeDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllCompositeDisruptionModePatchOutput).ToAllCompositeDisruptionModePatchPtrOutputWithContext(ctx)
+}
+
+// AllCompositeDisruptionModePatchPtrInput is an input type that accepts AllCompositeDisruptionModePatchArgs, AllCompositeDisruptionModePatchPtr and AllCompositeDisruptionModePatchPtrOutput values.
+// You can construct a concrete instance of `AllCompositeDisruptionModePatchPtrInput` via:
+//
+//	        AllCompositeDisruptionModePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type AllCompositeDisruptionModePatchPtrInput interface {
+	pulumi.Input
+
+	ToAllCompositeDisruptionModePatchPtrOutput() AllCompositeDisruptionModePatchPtrOutput
+	ToAllCompositeDisruptionModePatchPtrOutputWithContext(context.Context) AllCompositeDisruptionModePatchPtrOutput
+}
+
+type allCompositeDisruptionModePatchPtrType AllCompositeDisruptionModePatchArgs
+
+func AllCompositeDisruptionModePatchPtr(v *AllCompositeDisruptionModePatchArgs) AllCompositeDisruptionModePatchPtrInput {
+	return (*allCompositeDisruptionModePatchPtrType)(v)
+}
+
+func (*allCompositeDisruptionModePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AllCompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (i *allCompositeDisruptionModePatchPtrType) ToAllCompositeDisruptionModePatchPtrOutput() AllCompositeDisruptionModePatchPtrOutput {
+	return i.ToAllCompositeDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *allCompositeDisruptionModePatchPtrType) ToAllCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) AllCompositeDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllCompositeDisruptionModePatchPtrOutput)
+}
+
+// AllCompositeDisruptionMode means that children of a CompositePodGroup can only be disrupted or preempted together.
+type AllCompositeDisruptionModePatchOutput struct{ *pulumi.OutputState }
+
+func (AllCompositeDisruptionModePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllCompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (o AllCompositeDisruptionModePatchOutput) ToAllCompositeDisruptionModePatchOutput() AllCompositeDisruptionModePatchOutput {
+	return o
+}
+
+func (o AllCompositeDisruptionModePatchOutput) ToAllCompositeDisruptionModePatchOutputWithContext(ctx context.Context) AllCompositeDisruptionModePatchOutput {
+	return o
+}
+
+func (o AllCompositeDisruptionModePatchOutput) ToAllCompositeDisruptionModePatchPtrOutput() AllCompositeDisruptionModePatchPtrOutput {
+	return o.ToAllCompositeDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (o AllCompositeDisruptionModePatchOutput) ToAllCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) AllCompositeDisruptionModePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AllCompositeDisruptionModePatch) *AllCompositeDisruptionModePatch {
+		return &v
+	}).(AllCompositeDisruptionModePatchPtrOutput)
+}
+
+type AllCompositeDisruptionModePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (AllCompositeDisruptionModePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AllCompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (o AllCompositeDisruptionModePatchPtrOutput) ToAllCompositeDisruptionModePatchPtrOutput() AllCompositeDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o AllCompositeDisruptionModePatchPtrOutput) ToAllCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) AllCompositeDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o AllCompositeDisruptionModePatchPtrOutput) Elem() AllCompositeDisruptionModePatchOutput {
+	return o.ApplyT(func(v *AllCompositeDisruptionModePatch) AllCompositeDisruptionModePatch {
+		if v != nil {
+			return *v
+		}
+		var ret AllCompositeDisruptionModePatch
+		return ret
+	}).(AllCompositeDisruptionModePatchOutput)
+}
+
+// AllDisruptionMode specifies that children can only be disrupted together.
+type AllDisruptionMode struct {
+}
+
+// AllDisruptionModeInput is an input type that accepts AllDisruptionModeArgs and AllDisruptionModeOutput values.
+// You can construct a concrete instance of `AllDisruptionModeInput` via:
+//
+//	AllDisruptionModeArgs{...}
+type AllDisruptionModeInput interface {
+	pulumi.Input
+
+	ToAllDisruptionModeOutput() AllDisruptionModeOutput
+	ToAllDisruptionModeOutputWithContext(context.Context) AllDisruptionModeOutput
+}
+
+// AllDisruptionMode specifies that children can only be disrupted together.
+type AllDisruptionModeArgs struct {
+}
+
+func (AllDisruptionModeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllDisruptionMode)(nil)).Elem()
+}
+
+func (i AllDisruptionModeArgs) ToAllDisruptionModeOutput() AllDisruptionModeOutput {
+	return i.ToAllDisruptionModeOutputWithContext(context.Background())
+}
+
+func (i AllDisruptionModeArgs) ToAllDisruptionModeOutputWithContext(ctx context.Context) AllDisruptionModeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllDisruptionModeOutput)
+}
+
+func (i AllDisruptionModeArgs) ToAllDisruptionModePtrOutput() AllDisruptionModePtrOutput {
+	return i.ToAllDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i AllDisruptionModeArgs) ToAllDisruptionModePtrOutputWithContext(ctx context.Context) AllDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllDisruptionModeOutput).ToAllDisruptionModePtrOutputWithContext(ctx)
+}
+
+// AllDisruptionModePtrInput is an input type that accepts AllDisruptionModeArgs, AllDisruptionModePtr and AllDisruptionModePtrOutput values.
+// You can construct a concrete instance of `AllDisruptionModePtrInput` via:
+//
+//	        AllDisruptionModeArgs{...}
+//
+//	or:
+//
+//	        nil
+type AllDisruptionModePtrInput interface {
+	pulumi.Input
+
+	ToAllDisruptionModePtrOutput() AllDisruptionModePtrOutput
+	ToAllDisruptionModePtrOutputWithContext(context.Context) AllDisruptionModePtrOutput
+}
+
+type allDisruptionModePtrType AllDisruptionModeArgs
+
+func AllDisruptionModePtr(v *AllDisruptionModeArgs) AllDisruptionModePtrInput {
+	return (*allDisruptionModePtrType)(v)
+}
+
+func (*allDisruptionModePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AllDisruptionMode)(nil)).Elem()
+}
+
+func (i *allDisruptionModePtrType) ToAllDisruptionModePtrOutput() AllDisruptionModePtrOutput {
+	return i.ToAllDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i *allDisruptionModePtrType) ToAllDisruptionModePtrOutputWithContext(ctx context.Context) AllDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllDisruptionModePtrOutput)
+}
+
+// AllDisruptionMode specifies that children can only be disrupted together.
+type AllDisruptionModeOutput struct{ *pulumi.OutputState }
+
+func (AllDisruptionModeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllDisruptionMode)(nil)).Elem()
+}
+
+func (o AllDisruptionModeOutput) ToAllDisruptionModeOutput() AllDisruptionModeOutput {
+	return o
+}
+
+func (o AllDisruptionModeOutput) ToAllDisruptionModeOutputWithContext(ctx context.Context) AllDisruptionModeOutput {
+	return o
+}
+
+func (o AllDisruptionModeOutput) ToAllDisruptionModePtrOutput() AllDisruptionModePtrOutput {
+	return o.ToAllDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (o AllDisruptionModeOutput) ToAllDisruptionModePtrOutputWithContext(ctx context.Context) AllDisruptionModePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AllDisruptionMode) *AllDisruptionMode {
+		return &v
+	}).(AllDisruptionModePtrOutput)
+}
+
+type AllDisruptionModePtrOutput struct{ *pulumi.OutputState }
+
+func (AllDisruptionModePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AllDisruptionMode)(nil)).Elem()
+}
+
+func (o AllDisruptionModePtrOutput) ToAllDisruptionModePtrOutput() AllDisruptionModePtrOutput {
+	return o
+}
+
+func (o AllDisruptionModePtrOutput) ToAllDisruptionModePtrOutputWithContext(ctx context.Context) AllDisruptionModePtrOutput {
+	return o
+}
+
+func (o AllDisruptionModePtrOutput) Elem() AllDisruptionModeOutput {
+	return o.ApplyT(func(v *AllDisruptionMode) AllDisruptionMode {
+		if v != nil {
+			return *v
+		}
+		var ret AllDisruptionMode
+		return ret
+	}).(AllDisruptionModeOutput)
+}
+
+// AllDisruptionMode specifies that children can only be disrupted together.
+type AllDisruptionModePatch struct {
+}
+
+// AllDisruptionModePatchInput is an input type that accepts AllDisruptionModePatchArgs and AllDisruptionModePatchOutput values.
+// You can construct a concrete instance of `AllDisruptionModePatchInput` via:
+//
+//	AllDisruptionModePatchArgs{...}
+type AllDisruptionModePatchInput interface {
+	pulumi.Input
+
+	ToAllDisruptionModePatchOutput() AllDisruptionModePatchOutput
+	ToAllDisruptionModePatchOutputWithContext(context.Context) AllDisruptionModePatchOutput
+}
+
+// AllDisruptionMode specifies that children can only be disrupted together.
+type AllDisruptionModePatchArgs struct {
+}
+
+func (AllDisruptionModePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllDisruptionModePatch)(nil)).Elem()
+}
+
+func (i AllDisruptionModePatchArgs) ToAllDisruptionModePatchOutput() AllDisruptionModePatchOutput {
+	return i.ToAllDisruptionModePatchOutputWithContext(context.Background())
+}
+
+func (i AllDisruptionModePatchArgs) ToAllDisruptionModePatchOutputWithContext(ctx context.Context) AllDisruptionModePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllDisruptionModePatchOutput)
+}
+
+func (i AllDisruptionModePatchArgs) ToAllDisruptionModePatchPtrOutput() AllDisruptionModePatchPtrOutput {
+	return i.ToAllDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i AllDisruptionModePatchArgs) ToAllDisruptionModePatchPtrOutputWithContext(ctx context.Context) AllDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllDisruptionModePatchOutput).ToAllDisruptionModePatchPtrOutputWithContext(ctx)
+}
+
+// AllDisruptionModePatchPtrInput is an input type that accepts AllDisruptionModePatchArgs, AllDisruptionModePatchPtr and AllDisruptionModePatchPtrOutput values.
+// You can construct a concrete instance of `AllDisruptionModePatchPtrInput` via:
+//
+//	        AllDisruptionModePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type AllDisruptionModePatchPtrInput interface {
+	pulumi.Input
+
+	ToAllDisruptionModePatchPtrOutput() AllDisruptionModePatchPtrOutput
+	ToAllDisruptionModePatchPtrOutputWithContext(context.Context) AllDisruptionModePatchPtrOutput
+}
+
+type allDisruptionModePatchPtrType AllDisruptionModePatchArgs
+
+func AllDisruptionModePatchPtr(v *AllDisruptionModePatchArgs) AllDisruptionModePatchPtrInput {
+	return (*allDisruptionModePatchPtrType)(v)
+}
+
+func (*allDisruptionModePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AllDisruptionModePatch)(nil)).Elem()
+}
+
+func (i *allDisruptionModePatchPtrType) ToAllDisruptionModePatchPtrOutput() AllDisruptionModePatchPtrOutput {
+	return i.ToAllDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *allDisruptionModePatchPtrType) ToAllDisruptionModePatchPtrOutputWithContext(ctx context.Context) AllDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AllDisruptionModePatchPtrOutput)
+}
+
+// AllDisruptionMode specifies that children can only be disrupted together.
+type AllDisruptionModePatchOutput struct{ *pulumi.OutputState }
+
+func (AllDisruptionModePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AllDisruptionModePatch)(nil)).Elem()
+}
+
+func (o AllDisruptionModePatchOutput) ToAllDisruptionModePatchOutput() AllDisruptionModePatchOutput {
+	return o
+}
+
+func (o AllDisruptionModePatchOutput) ToAllDisruptionModePatchOutputWithContext(ctx context.Context) AllDisruptionModePatchOutput {
+	return o
+}
+
+func (o AllDisruptionModePatchOutput) ToAllDisruptionModePatchPtrOutput() AllDisruptionModePatchPtrOutput {
+	return o.ToAllDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (o AllDisruptionModePatchOutput) ToAllDisruptionModePatchPtrOutputWithContext(ctx context.Context) AllDisruptionModePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AllDisruptionModePatch) *AllDisruptionModePatch {
+		return &v
+	}).(AllDisruptionModePatchPtrOutput)
+}
+
+type AllDisruptionModePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (AllDisruptionModePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AllDisruptionModePatch)(nil)).Elem()
+}
+
+func (o AllDisruptionModePatchPtrOutput) ToAllDisruptionModePatchPtrOutput() AllDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o AllDisruptionModePatchPtrOutput) ToAllDisruptionModePatchPtrOutputWithContext(ctx context.Context) AllDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o AllDisruptionModePatchPtrOutput) Elem() AllDisruptionModePatchOutput {
+	return o.ApplyT(func(v *AllDisruptionModePatch) AllDisruptionModePatch {
+		if v != nil {
+			return *v
+		}
+		var ret AllDisruptionModePatch
+		return ret
+	}).(AllDisruptionModePatchOutput)
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicy struct {
+}
+
+// BasicSchedulingPolicyInput is an input type that accepts BasicSchedulingPolicyArgs and BasicSchedulingPolicyOutput values.
+// You can construct a concrete instance of `BasicSchedulingPolicyInput` via:
+//
+//	BasicSchedulingPolicyArgs{...}
+type BasicSchedulingPolicyInput interface {
+	pulumi.Input
+
+	ToBasicSchedulingPolicyOutput() BasicSchedulingPolicyOutput
+	ToBasicSchedulingPolicyOutputWithContext(context.Context) BasicSchedulingPolicyOutput
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyArgs struct {
+}
+
+func (BasicSchedulingPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*BasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (i BasicSchedulingPolicyArgs) ToBasicSchedulingPolicyOutput() BasicSchedulingPolicyOutput {
+	return i.ToBasicSchedulingPolicyOutputWithContext(context.Background())
+}
+
+func (i BasicSchedulingPolicyArgs) ToBasicSchedulingPolicyOutputWithContext(ctx context.Context) BasicSchedulingPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyOutput)
+}
+
+func (i BasicSchedulingPolicyArgs) ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput {
+	return i.ToBasicSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i BasicSchedulingPolicyArgs) ToBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyOutput).ToBasicSchedulingPolicyPtrOutputWithContext(ctx)
+}
+
+// BasicSchedulingPolicyPtrInput is an input type that accepts BasicSchedulingPolicyArgs, BasicSchedulingPolicyPtr and BasicSchedulingPolicyPtrOutput values.
+// You can construct a concrete instance of `BasicSchedulingPolicyPtrInput` via:
+//
+//	        BasicSchedulingPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type BasicSchedulingPolicyPtrInput interface {
+	pulumi.Input
+
+	ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput
+	ToBasicSchedulingPolicyPtrOutputWithContext(context.Context) BasicSchedulingPolicyPtrOutput
+}
+
+type basicSchedulingPolicyPtrType BasicSchedulingPolicyArgs
+
+func BasicSchedulingPolicyPtr(v *BasicSchedulingPolicyArgs) BasicSchedulingPolicyPtrInput {
+	return (*basicSchedulingPolicyPtrType)(v)
+}
+
+func (*basicSchedulingPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**BasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (i *basicSchedulingPolicyPtrType) ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput {
+	return i.ToBasicSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *basicSchedulingPolicyPtrType) ToBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyPtrOutput)
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyOutput struct{ *pulumi.OutputState }
+
+func (BasicSchedulingPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (o BasicSchedulingPolicyOutput) ToBasicSchedulingPolicyOutput() BasicSchedulingPolicyOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyOutput) ToBasicSchedulingPolicyOutputWithContext(ctx context.Context) BasicSchedulingPolicyOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyOutput) ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput {
+	return o.ToBasicSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o BasicSchedulingPolicyOutput) ToBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v BasicSchedulingPolicy) *BasicSchedulingPolicy {
+		return &v
+	}).(BasicSchedulingPolicyPtrOutput)
+}
+
+type BasicSchedulingPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (BasicSchedulingPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**BasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (o BasicSchedulingPolicyPtrOutput) ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPtrOutput) ToBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPtrOutput) Elem() BasicSchedulingPolicyOutput {
+	return o.ApplyT(func(v *BasicSchedulingPolicy) BasicSchedulingPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret BasicSchedulingPolicy
+		return ret
+	}).(BasicSchedulingPolicyOutput)
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyPatch struct {
+}
+
+// BasicSchedulingPolicyPatchInput is an input type that accepts BasicSchedulingPolicyPatchArgs and BasicSchedulingPolicyPatchOutput values.
+// You can construct a concrete instance of `BasicSchedulingPolicyPatchInput` via:
+//
+//	BasicSchedulingPolicyPatchArgs{...}
+type BasicSchedulingPolicyPatchInput interface {
+	pulumi.Input
+
+	ToBasicSchedulingPolicyPatchOutput() BasicSchedulingPolicyPatchOutput
+	ToBasicSchedulingPolicyPatchOutputWithContext(context.Context) BasicSchedulingPolicyPatchOutput
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyPatchArgs struct {
+}
+
+func (BasicSchedulingPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*BasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i BasicSchedulingPolicyPatchArgs) ToBasicSchedulingPolicyPatchOutput() BasicSchedulingPolicyPatchOutput {
+	return i.ToBasicSchedulingPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i BasicSchedulingPolicyPatchArgs) ToBasicSchedulingPolicyPatchOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyPatchOutput)
+}
+
+func (i BasicSchedulingPolicyPatchArgs) ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput {
+	return i.ToBasicSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i BasicSchedulingPolicyPatchArgs) ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyPatchOutput).ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// BasicSchedulingPolicyPatchPtrInput is an input type that accepts BasicSchedulingPolicyPatchArgs, BasicSchedulingPolicyPatchPtr and BasicSchedulingPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `BasicSchedulingPolicyPatchPtrInput` via:
+//
+//	        BasicSchedulingPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type BasicSchedulingPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput
+	ToBasicSchedulingPolicyPatchPtrOutputWithContext(context.Context) BasicSchedulingPolicyPatchPtrOutput
+}
+
+type basicSchedulingPolicyPatchPtrType BasicSchedulingPolicyPatchArgs
+
+func BasicSchedulingPolicyPatchPtr(v *BasicSchedulingPolicyPatchArgs) BasicSchedulingPolicyPatchPtrInput {
+	return (*basicSchedulingPolicyPatchPtrType)(v)
+}
+
+func (*basicSchedulingPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**BasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i *basicSchedulingPolicyPatchPtrType) ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput {
+	return i.ToBasicSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *basicSchedulingPolicyPatchPtrType) ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyPatchPtrOutput)
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (BasicSchedulingPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o BasicSchedulingPolicyPatchOutput) ToBasicSchedulingPolicyPatchOutput() BasicSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPatchOutput) ToBasicSchedulingPolicyPatchOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPatchOutput) ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput {
+	return o.ToBasicSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o BasicSchedulingPolicyPatchOutput) ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v BasicSchedulingPolicyPatch) *BasicSchedulingPolicyPatch {
+		return &v
+	}).(BasicSchedulingPolicyPatchPtrOutput)
+}
+
+type BasicSchedulingPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (BasicSchedulingPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**BasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o BasicSchedulingPolicyPatchPtrOutput) ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPatchPtrOutput) ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPatchPtrOutput) Elem() BasicSchedulingPolicyPatchOutput {
+	return o.ApplyT(func(v *BasicSchedulingPolicyPatch) BasicSchedulingPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret BasicSchedulingPolicyPatch
+		return ret
+	}).(BasicSchedulingPolicyPatchOutput)
+}
+
+// CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+type CompositeBasicSchedulingPolicy struct {
+}
+
+// CompositeBasicSchedulingPolicyInput is an input type that accepts CompositeBasicSchedulingPolicyArgs and CompositeBasicSchedulingPolicyOutput values.
+// You can construct a concrete instance of `CompositeBasicSchedulingPolicyInput` via:
+//
+//	CompositeBasicSchedulingPolicyArgs{...}
+type CompositeBasicSchedulingPolicyInput interface {
+	pulumi.Input
+
+	ToCompositeBasicSchedulingPolicyOutput() CompositeBasicSchedulingPolicyOutput
+	ToCompositeBasicSchedulingPolicyOutputWithContext(context.Context) CompositeBasicSchedulingPolicyOutput
+}
+
+// CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+type CompositeBasicSchedulingPolicyArgs struct {
+}
+
+func (CompositeBasicSchedulingPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeBasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (i CompositeBasicSchedulingPolicyArgs) ToCompositeBasicSchedulingPolicyOutput() CompositeBasicSchedulingPolicyOutput {
+	return i.ToCompositeBasicSchedulingPolicyOutputWithContext(context.Background())
+}
+
+func (i CompositeBasicSchedulingPolicyArgs) ToCompositeBasicSchedulingPolicyOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeBasicSchedulingPolicyOutput)
+}
+
+func (i CompositeBasicSchedulingPolicyArgs) ToCompositeBasicSchedulingPolicyPtrOutput() CompositeBasicSchedulingPolicyPtrOutput {
+	return i.ToCompositeBasicSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i CompositeBasicSchedulingPolicyArgs) ToCompositeBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeBasicSchedulingPolicyOutput).ToCompositeBasicSchedulingPolicyPtrOutputWithContext(ctx)
+}
+
+// CompositeBasicSchedulingPolicyPtrInput is an input type that accepts CompositeBasicSchedulingPolicyArgs, CompositeBasicSchedulingPolicyPtr and CompositeBasicSchedulingPolicyPtrOutput values.
+// You can construct a concrete instance of `CompositeBasicSchedulingPolicyPtrInput` via:
+//
+//	        CompositeBasicSchedulingPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type CompositeBasicSchedulingPolicyPtrInput interface {
+	pulumi.Input
+
+	ToCompositeBasicSchedulingPolicyPtrOutput() CompositeBasicSchedulingPolicyPtrOutput
+	ToCompositeBasicSchedulingPolicyPtrOutputWithContext(context.Context) CompositeBasicSchedulingPolicyPtrOutput
+}
+
+type compositeBasicSchedulingPolicyPtrType CompositeBasicSchedulingPolicyArgs
+
+func CompositeBasicSchedulingPolicyPtr(v *CompositeBasicSchedulingPolicyArgs) CompositeBasicSchedulingPolicyPtrInput {
+	return (*compositeBasicSchedulingPolicyPtrType)(v)
+}
+
+func (*compositeBasicSchedulingPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeBasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (i *compositeBasicSchedulingPolicyPtrType) ToCompositeBasicSchedulingPolicyPtrOutput() CompositeBasicSchedulingPolicyPtrOutput {
+	return i.ToCompositeBasicSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *compositeBasicSchedulingPolicyPtrType) ToCompositeBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeBasicSchedulingPolicyPtrOutput)
+}
+
+// CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+type CompositeBasicSchedulingPolicyOutput struct{ *pulumi.OutputState }
+
+func (CompositeBasicSchedulingPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeBasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (o CompositeBasicSchedulingPolicyOutput) ToCompositeBasicSchedulingPolicyOutput() CompositeBasicSchedulingPolicyOutput {
+	return o
+}
+
+func (o CompositeBasicSchedulingPolicyOutput) ToCompositeBasicSchedulingPolicyOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyOutput {
+	return o
+}
+
+func (o CompositeBasicSchedulingPolicyOutput) ToCompositeBasicSchedulingPolicyPtrOutput() CompositeBasicSchedulingPolicyPtrOutput {
+	return o.ToCompositeBasicSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o CompositeBasicSchedulingPolicyOutput) ToCompositeBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CompositeBasicSchedulingPolicy) *CompositeBasicSchedulingPolicy {
+		return &v
+	}).(CompositeBasicSchedulingPolicyPtrOutput)
+}
+
+type CompositeBasicSchedulingPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (CompositeBasicSchedulingPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeBasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (o CompositeBasicSchedulingPolicyPtrOutput) ToCompositeBasicSchedulingPolicyPtrOutput() CompositeBasicSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o CompositeBasicSchedulingPolicyPtrOutput) ToCompositeBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o CompositeBasicSchedulingPolicyPtrOutput) Elem() CompositeBasicSchedulingPolicyOutput {
+	return o.ApplyT(func(v *CompositeBasicSchedulingPolicy) CompositeBasicSchedulingPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret CompositeBasicSchedulingPolicy
+		return ret
+	}).(CompositeBasicSchedulingPolicyOutput)
+}
+
+// CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+type CompositeBasicSchedulingPolicyPatch struct {
+}
+
+// CompositeBasicSchedulingPolicyPatchInput is an input type that accepts CompositeBasicSchedulingPolicyPatchArgs and CompositeBasicSchedulingPolicyPatchOutput values.
+// You can construct a concrete instance of `CompositeBasicSchedulingPolicyPatchInput` via:
+//
+//	CompositeBasicSchedulingPolicyPatchArgs{...}
+type CompositeBasicSchedulingPolicyPatchInput interface {
+	pulumi.Input
+
+	ToCompositeBasicSchedulingPolicyPatchOutput() CompositeBasicSchedulingPolicyPatchOutput
+	ToCompositeBasicSchedulingPolicyPatchOutputWithContext(context.Context) CompositeBasicSchedulingPolicyPatchOutput
+}
+
+// CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+type CompositeBasicSchedulingPolicyPatchArgs struct {
+}
+
+func (CompositeBasicSchedulingPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeBasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i CompositeBasicSchedulingPolicyPatchArgs) ToCompositeBasicSchedulingPolicyPatchOutput() CompositeBasicSchedulingPolicyPatchOutput {
+	return i.ToCompositeBasicSchedulingPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i CompositeBasicSchedulingPolicyPatchArgs) ToCompositeBasicSchedulingPolicyPatchOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeBasicSchedulingPolicyPatchOutput)
+}
+
+func (i CompositeBasicSchedulingPolicyPatchArgs) ToCompositeBasicSchedulingPolicyPatchPtrOutput() CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return i.ToCompositeBasicSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i CompositeBasicSchedulingPolicyPatchArgs) ToCompositeBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeBasicSchedulingPolicyPatchOutput).ToCompositeBasicSchedulingPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// CompositeBasicSchedulingPolicyPatchPtrInput is an input type that accepts CompositeBasicSchedulingPolicyPatchArgs, CompositeBasicSchedulingPolicyPatchPtr and CompositeBasicSchedulingPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `CompositeBasicSchedulingPolicyPatchPtrInput` via:
+//
+//	        CompositeBasicSchedulingPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type CompositeBasicSchedulingPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToCompositeBasicSchedulingPolicyPatchPtrOutput() CompositeBasicSchedulingPolicyPatchPtrOutput
+	ToCompositeBasicSchedulingPolicyPatchPtrOutputWithContext(context.Context) CompositeBasicSchedulingPolicyPatchPtrOutput
+}
+
+type compositeBasicSchedulingPolicyPatchPtrType CompositeBasicSchedulingPolicyPatchArgs
+
+func CompositeBasicSchedulingPolicyPatchPtr(v *CompositeBasicSchedulingPolicyPatchArgs) CompositeBasicSchedulingPolicyPatchPtrInput {
+	return (*compositeBasicSchedulingPolicyPatchPtrType)(v)
+}
+
+func (*compositeBasicSchedulingPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeBasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i *compositeBasicSchedulingPolicyPatchPtrType) ToCompositeBasicSchedulingPolicyPatchPtrOutput() CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return i.ToCompositeBasicSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *compositeBasicSchedulingPolicyPatchPtrType) ToCompositeBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeBasicSchedulingPolicyPatchPtrOutput)
+}
+
+// CompositeBasicSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled independently.
+type CompositeBasicSchedulingPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (CompositeBasicSchedulingPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeBasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o CompositeBasicSchedulingPolicyPatchOutput) ToCompositeBasicSchedulingPolicyPatchOutput() CompositeBasicSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o CompositeBasicSchedulingPolicyPatchOutput) ToCompositeBasicSchedulingPolicyPatchOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o CompositeBasicSchedulingPolicyPatchOutput) ToCompositeBasicSchedulingPolicyPatchPtrOutput() CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return o.ToCompositeBasicSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o CompositeBasicSchedulingPolicyPatchOutput) ToCompositeBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CompositeBasicSchedulingPolicyPatch) *CompositeBasicSchedulingPolicyPatch {
+		return &v
+	}).(CompositeBasicSchedulingPolicyPatchPtrOutput)
+}
+
+type CompositeBasicSchedulingPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (CompositeBasicSchedulingPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeBasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o CompositeBasicSchedulingPolicyPatchPtrOutput) ToCompositeBasicSchedulingPolicyPatchPtrOutput() CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o CompositeBasicSchedulingPolicyPatchPtrOutput) ToCompositeBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o CompositeBasicSchedulingPolicyPatchPtrOutput) Elem() CompositeBasicSchedulingPolicyPatchOutput {
+	return o.ApplyT(func(v *CompositeBasicSchedulingPolicyPatch) CompositeBasicSchedulingPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret CompositeBasicSchedulingPolicyPatch
+		return ret
+	}).(CompositeBasicSchedulingPolicyPatchOutput)
+}
+
+// CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+type CompositeDisruptionMode struct {
+	// all specifies that all children groups can only be disrupted together.
+	All *AllCompositeDisruptionMode `pulumi:"all"`
+	// single specifies that children groups can be disrupted independently from each other.
+	Single *SingleCompositeDisruptionMode `pulumi:"single"`
+}
+
+// CompositeDisruptionModeInput is an input type that accepts CompositeDisruptionModeArgs and CompositeDisruptionModeOutput values.
+// You can construct a concrete instance of `CompositeDisruptionModeInput` via:
+//
+//	CompositeDisruptionModeArgs{...}
+type CompositeDisruptionModeInput interface {
+	pulumi.Input
+
+	ToCompositeDisruptionModeOutput() CompositeDisruptionModeOutput
+	ToCompositeDisruptionModeOutputWithContext(context.Context) CompositeDisruptionModeOutput
+}
+
+// CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+type CompositeDisruptionModeArgs struct {
+	// all specifies that all children groups can only be disrupted together.
+	All AllCompositeDisruptionModePtrInput `pulumi:"all"`
+	// single specifies that children groups can be disrupted independently from each other.
+	Single SingleCompositeDisruptionModePtrInput `pulumi:"single"`
+}
+
+func (CompositeDisruptionModeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeDisruptionMode)(nil)).Elem()
+}
+
+func (i CompositeDisruptionModeArgs) ToCompositeDisruptionModeOutput() CompositeDisruptionModeOutput {
+	return i.ToCompositeDisruptionModeOutputWithContext(context.Background())
+}
+
+func (i CompositeDisruptionModeArgs) ToCompositeDisruptionModeOutputWithContext(ctx context.Context) CompositeDisruptionModeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeDisruptionModeOutput)
+}
+
+func (i CompositeDisruptionModeArgs) ToCompositeDisruptionModePtrOutput() CompositeDisruptionModePtrOutput {
+	return i.ToCompositeDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i CompositeDisruptionModeArgs) ToCompositeDisruptionModePtrOutputWithContext(ctx context.Context) CompositeDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeDisruptionModeOutput).ToCompositeDisruptionModePtrOutputWithContext(ctx)
+}
+
+// CompositeDisruptionModePtrInput is an input type that accepts CompositeDisruptionModeArgs, CompositeDisruptionModePtr and CompositeDisruptionModePtrOutput values.
+// You can construct a concrete instance of `CompositeDisruptionModePtrInput` via:
+//
+//	        CompositeDisruptionModeArgs{...}
+//
+//	or:
+//
+//	        nil
+type CompositeDisruptionModePtrInput interface {
+	pulumi.Input
+
+	ToCompositeDisruptionModePtrOutput() CompositeDisruptionModePtrOutput
+	ToCompositeDisruptionModePtrOutputWithContext(context.Context) CompositeDisruptionModePtrOutput
+}
+
+type compositeDisruptionModePtrType CompositeDisruptionModeArgs
+
+func CompositeDisruptionModePtr(v *CompositeDisruptionModeArgs) CompositeDisruptionModePtrInput {
+	return (*compositeDisruptionModePtrType)(v)
+}
+
+func (*compositeDisruptionModePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeDisruptionMode)(nil)).Elem()
+}
+
+func (i *compositeDisruptionModePtrType) ToCompositeDisruptionModePtrOutput() CompositeDisruptionModePtrOutput {
+	return i.ToCompositeDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i *compositeDisruptionModePtrType) ToCompositeDisruptionModePtrOutputWithContext(ctx context.Context) CompositeDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeDisruptionModePtrOutput)
+}
+
+// CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+type CompositeDisruptionModeOutput struct{ *pulumi.OutputState }
+
+func (CompositeDisruptionModeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeDisruptionMode)(nil)).Elem()
+}
+
+func (o CompositeDisruptionModeOutput) ToCompositeDisruptionModeOutput() CompositeDisruptionModeOutput {
+	return o
+}
+
+func (o CompositeDisruptionModeOutput) ToCompositeDisruptionModeOutputWithContext(ctx context.Context) CompositeDisruptionModeOutput {
+	return o
+}
+
+func (o CompositeDisruptionModeOutput) ToCompositeDisruptionModePtrOutput() CompositeDisruptionModePtrOutput {
+	return o.ToCompositeDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (o CompositeDisruptionModeOutput) ToCompositeDisruptionModePtrOutputWithContext(ctx context.Context) CompositeDisruptionModePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CompositeDisruptionMode) *CompositeDisruptionMode {
+		return &v
+	}).(CompositeDisruptionModePtrOutput)
+}
+
+// all specifies that all children groups can only be disrupted together.
+func (o CompositeDisruptionModeOutput) All() AllCompositeDisruptionModePtrOutput {
+	return o.ApplyT(func(v CompositeDisruptionMode) *AllCompositeDisruptionMode { return v.All }).(AllCompositeDisruptionModePtrOutput)
+}
+
+// single specifies that children groups can be disrupted independently from each other.
+func (o CompositeDisruptionModeOutput) Single() SingleCompositeDisruptionModePtrOutput {
+	return o.ApplyT(func(v CompositeDisruptionMode) *SingleCompositeDisruptionMode { return v.Single }).(SingleCompositeDisruptionModePtrOutput)
+}
+
+type CompositeDisruptionModePtrOutput struct{ *pulumi.OutputState }
+
+func (CompositeDisruptionModePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeDisruptionMode)(nil)).Elem()
+}
+
+func (o CompositeDisruptionModePtrOutput) ToCompositeDisruptionModePtrOutput() CompositeDisruptionModePtrOutput {
+	return o
+}
+
+func (o CompositeDisruptionModePtrOutput) ToCompositeDisruptionModePtrOutputWithContext(ctx context.Context) CompositeDisruptionModePtrOutput {
+	return o
+}
+
+func (o CompositeDisruptionModePtrOutput) Elem() CompositeDisruptionModeOutput {
+	return o.ApplyT(func(v *CompositeDisruptionMode) CompositeDisruptionMode {
+		if v != nil {
+			return *v
+		}
+		var ret CompositeDisruptionMode
+		return ret
+	}).(CompositeDisruptionModeOutput)
+}
+
+// all specifies that all children groups can only be disrupted together.
+func (o CompositeDisruptionModePtrOutput) All() AllCompositeDisruptionModePtrOutput {
+	return o.ApplyT(func(v *CompositeDisruptionMode) *AllCompositeDisruptionMode {
+		if v == nil {
+			return nil
+		}
+		return v.All
+	}).(AllCompositeDisruptionModePtrOutput)
+}
+
+// single specifies that children groups can be disrupted independently from each other.
+func (o CompositeDisruptionModePtrOutput) Single() SingleCompositeDisruptionModePtrOutput {
+	return o.ApplyT(func(v *CompositeDisruptionMode) *SingleCompositeDisruptionMode {
+		if v == nil {
+			return nil
+		}
+		return v.Single
+	}).(SingleCompositeDisruptionModePtrOutput)
+}
+
+// CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+type CompositeDisruptionModePatch struct {
+	// all specifies that all children groups can only be disrupted together.
+	All *AllCompositeDisruptionModePatch `pulumi:"all"`
+	// single specifies that children groups can be disrupted independently from each other.
+	Single *SingleCompositeDisruptionModePatch `pulumi:"single"`
+}
+
+// CompositeDisruptionModePatchInput is an input type that accepts CompositeDisruptionModePatchArgs and CompositeDisruptionModePatchOutput values.
+// You can construct a concrete instance of `CompositeDisruptionModePatchInput` via:
+//
+//	CompositeDisruptionModePatchArgs{...}
+type CompositeDisruptionModePatchInput interface {
+	pulumi.Input
+
+	ToCompositeDisruptionModePatchOutput() CompositeDisruptionModePatchOutput
+	ToCompositeDisruptionModePatchOutputWithContext(context.Context) CompositeDisruptionModePatchOutput
+}
+
+// CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+type CompositeDisruptionModePatchArgs struct {
+	// all specifies that all children groups can only be disrupted together.
+	All AllCompositeDisruptionModePatchPtrInput `pulumi:"all"`
+	// single specifies that children groups can be disrupted independently from each other.
+	Single SingleCompositeDisruptionModePatchPtrInput `pulumi:"single"`
+}
+
+func (CompositeDisruptionModePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (i CompositeDisruptionModePatchArgs) ToCompositeDisruptionModePatchOutput() CompositeDisruptionModePatchOutput {
+	return i.ToCompositeDisruptionModePatchOutputWithContext(context.Background())
+}
+
+func (i CompositeDisruptionModePatchArgs) ToCompositeDisruptionModePatchOutputWithContext(ctx context.Context) CompositeDisruptionModePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeDisruptionModePatchOutput)
+}
+
+func (i CompositeDisruptionModePatchArgs) ToCompositeDisruptionModePatchPtrOutput() CompositeDisruptionModePatchPtrOutput {
+	return i.ToCompositeDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i CompositeDisruptionModePatchArgs) ToCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) CompositeDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeDisruptionModePatchOutput).ToCompositeDisruptionModePatchPtrOutputWithContext(ctx)
+}
+
+// CompositeDisruptionModePatchPtrInput is an input type that accepts CompositeDisruptionModePatchArgs, CompositeDisruptionModePatchPtr and CompositeDisruptionModePatchPtrOutput values.
+// You can construct a concrete instance of `CompositeDisruptionModePatchPtrInput` via:
+//
+//	        CompositeDisruptionModePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type CompositeDisruptionModePatchPtrInput interface {
+	pulumi.Input
+
+	ToCompositeDisruptionModePatchPtrOutput() CompositeDisruptionModePatchPtrOutput
+	ToCompositeDisruptionModePatchPtrOutputWithContext(context.Context) CompositeDisruptionModePatchPtrOutput
+}
+
+type compositeDisruptionModePatchPtrType CompositeDisruptionModePatchArgs
+
+func CompositeDisruptionModePatchPtr(v *CompositeDisruptionModePatchArgs) CompositeDisruptionModePatchPtrInput {
+	return (*compositeDisruptionModePatchPtrType)(v)
+}
+
+func (*compositeDisruptionModePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (i *compositeDisruptionModePatchPtrType) ToCompositeDisruptionModePatchPtrOutput() CompositeDisruptionModePatchPtrOutput {
+	return i.ToCompositeDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *compositeDisruptionModePatchPtrType) ToCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) CompositeDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeDisruptionModePatchPtrOutput)
+}
+
+// CompositeDisruptionMode defines how individual entities within a composite pod group can be disrupted. Exactly one mode must be set.
+type CompositeDisruptionModePatchOutput struct{ *pulumi.OutputState }
+
+func (CompositeDisruptionModePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (o CompositeDisruptionModePatchOutput) ToCompositeDisruptionModePatchOutput() CompositeDisruptionModePatchOutput {
+	return o
+}
+
+func (o CompositeDisruptionModePatchOutput) ToCompositeDisruptionModePatchOutputWithContext(ctx context.Context) CompositeDisruptionModePatchOutput {
+	return o
+}
+
+func (o CompositeDisruptionModePatchOutput) ToCompositeDisruptionModePatchPtrOutput() CompositeDisruptionModePatchPtrOutput {
+	return o.ToCompositeDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (o CompositeDisruptionModePatchOutput) ToCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) CompositeDisruptionModePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CompositeDisruptionModePatch) *CompositeDisruptionModePatch {
+		return &v
+	}).(CompositeDisruptionModePatchPtrOutput)
+}
+
+// all specifies that all children groups can only be disrupted together.
+func (o CompositeDisruptionModePatchOutput) All() AllCompositeDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v CompositeDisruptionModePatch) *AllCompositeDisruptionModePatch { return v.All }).(AllCompositeDisruptionModePatchPtrOutput)
+}
+
+// single specifies that children groups can be disrupted independently from each other.
+func (o CompositeDisruptionModePatchOutput) Single() SingleCompositeDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v CompositeDisruptionModePatch) *SingleCompositeDisruptionModePatch { return v.Single }).(SingleCompositeDisruptionModePatchPtrOutput)
+}
+
+type CompositeDisruptionModePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (CompositeDisruptionModePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (o CompositeDisruptionModePatchPtrOutput) ToCompositeDisruptionModePatchPtrOutput() CompositeDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o CompositeDisruptionModePatchPtrOutput) ToCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) CompositeDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o CompositeDisruptionModePatchPtrOutput) Elem() CompositeDisruptionModePatchOutput {
+	return o.ApplyT(func(v *CompositeDisruptionModePatch) CompositeDisruptionModePatch {
+		if v != nil {
+			return *v
+		}
+		var ret CompositeDisruptionModePatch
+		return ret
+	}).(CompositeDisruptionModePatchOutput)
+}
+
+// all specifies that all children groups can only be disrupted together.
+func (o CompositeDisruptionModePatchPtrOutput) All() AllCompositeDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v *CompositeDisruptionModePatch) *AllCompositeDisruptionModePatch {
+		if v == nil {
+			return nil
+		}
+		return v.All
+	}).(AllCompositeDisruptionModePatchPtrOutput)
+}
+
+// single specifies that children groups can be disrupted independently from each other.
+func (o CompositeDisruptionModePatchPtrOutput) Single() SingleCompositeDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v *CompositeDisruptionModePatch) *SingleCompositeDisruptionModePatch {
+		if v == nil {
+			return nil
+		}
+		return v.Single
+	}).(SingleCompositeDisruptionModePatchPtrOutput)
+}
+
+// CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+type CompositeGangSchedulingPolicy struct {
+	// minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+	MinGroupCount int `pulumi:"minGroupCount"`
+}
+
+// CompositeGangSchedulingPolicyInput is an input type that accepts CompositeGangSchedulingPolicyArgs and CompositeGangSchedulingPolicyOutput values.
+// You can construct a concrete instance of `CompositeGangSchedulingPolicyInput` via:
+//
+//	CompositeGangSchedulingPolicyArgs{...}
+type CompositeGangSchedulingPolicyInput interface {
+	pulumi.Input
+
+	ToCompositeGangSchedulingPolicyOutput() CompositeGangSchedulingPolicyOutput
+	ToCompositeGangSchedulingPolicyOutputWithContext(context.Context) CompositeGangSchedulingPolicyOutput
+}
+
+// CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+type CompositeGangSchedulingPolicyArgs struct {
+	// minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+	MinGroupCount pulumi.IntInput `pulumi:"minGroupCount"`
+}
+
+func (CompositeGangSchedulingPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeGangSchedulingPolicy)(nil)).Elem()
+}
+
+func (i CompositeGangSchedulingPolicyArgs) ToCompositeGangSchedulingPolicyOutput() CompositeGangSchedulingPolicyOutput {
+	return i.ToCompositeGangSchedulingPolicyOutputWithContext(context.Background())
+}
+
+func (i CompositeGangSchedulingPolicyArgs) ToCompositeGangSchedulingPolicyOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeGangSchedulingPolicyOutput)
+}
+
+func (i CompositeGangSchedulingPolicyArgs) ToCompositeGangSchedulingPolicyPtrOutput() CompositeGangSchedulingPolicyPtrOutput {
+	return i.ToCompositeGangSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i CompositeGangSchedulingPolicyArgs) ToCompositeGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeGangSchedulingPolicyOutput).ToCompositeGangSchedulingPolicyPtrOutputWithContext(ctx)
+}
+
+// CompositeGangSchedulingPolicyPtrInput is an input type that accepts CompositeGangSchedulingPolicyArgs, CompositeGangSchedulingPolicyPtr and CompositeGangSchedulingPolicyPtrOutput values.
+// You can construct a concrete instance of `CompositeGangSchedulingPolicyPtrInput` via:
+//
+//	        CompositeGangSchedulingPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type CompositeGangSchedulingPolicyPtrInput interface {
+	pulumi.Input
+
+	ToCompositeGangSchedulingPolicyPtrOutput() CompositeGangSchedulingPolicyPtrOutput
+	ToCompositeGangSchedulingPolicyPtrOutputWithContext(context.Context) CompositeGangSchedulingPolicyPtrOutput
+}
+
+type compositeGangSchedulingPolicyPtrType CompositeGangSchedulingPolicyArgs
+
+func CompositeGangSchedulingPolicyPtr(v *CompositeGangSchedulingPolicyArgs) CompositeGangSchedulingPolicyPtrInput {
+	return (*compositeGangSchedulingPolicyPtrType)(v)
+}
+
+func (*compositeGangSchedulingPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeGangSchedulingPolicy)(nil)).Elem()
+}
+
+func (i *compositeGangSchedulingPolicyPtrType) ToCompositeGangSchedulingPolicyPtrOutput() CompositeGangSchedulingPolicyPtrOutput {
+	return i.ToCompositeGangSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *compositeGangSchedulingPolicyPtrType) ToCompositeGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeGangSchedulingPolicyPtrOutput)
+}
+
+// CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+type CompositeGangSchedulingPolicyOutput struct{ *pulumi.OutputState }
+
+func (CompositeGangSchedulingPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeGangSchedulingPolicy)(nil)).Elem()
+}
+
+func (o CompositeGangSchedulingPolicyOutput) ToCompositeGangSchedulingPolicyOutput() CompositeGangSchedulingPolicyOutput {
+	return o
+}
+
+func (o CompositeGangSchedulingPolicyOutput) ToCompositeGangSchedulingPolicyOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyOutput {
+	return o
+}
+
+func (o CompositeGangSchedulingPolicyOutput) ToCompositeGangSchedulingPolicyPtrOutput() CompositeGangSchedulingPolicyPtrOutput {
+	return o.ToCompositeGangSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o CompositeGangSchedulingPolicyOutput) ToCompositeGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CompositeGangSchedulingPolicy) *CompositeGangSchedulingPolicy {
+		return &v
+	}).(CompositeGangSchedulingPolicyPtrOutput)
+}
+
+// minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+func (o CompositeGangSchedulingPolicyOutput) MinGroupCount() pulumi.IntOutput {
+	return o.ApplyT(func(v CompositeGangSchedulingPolicy) int { return v.MinGroupCount }).(pulumi.IntOutput)
+}
+
+type CompositeGangSchedulingPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (CompositeGangSchedulingPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeGangSchedulingPolicy)(nil)).Elem()
+}
+
+func (o CompositeGangSchedulingPolicyPtrOutput) ToCompositeGangSchedulingPolicyPtrOutput() CompositeGangSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o CompositeGangSchedulingPolicyPtrOutput) ToCompositeGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o CompositeGangSchedulingPolicyPtrOutput) Elem() CompositeGangSchedulingPolicyOutput {
+	return o.ApplyT(func(v *CompositeGangSchedulingPolicy) CompositeGangSchedulingPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret CompositeGangSchedulingPolicy
+		return ret
+	}).(CompositeGangSchedulingPolicyOutput)
+}
+
+// minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+func (o CompositeGangSchedulingPolicyPtrOutput) MinGroupCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CompositeGangSchedulingPolicy) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.MinGroupCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+type CompositeGangSchedulingPolicyPatch struct {
+	// minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+	MinGroupCount *int `pulumi:"minGroupCount"`
+}
+
+// CompositeGangSchedulingPolicyPatchInput is an input type that accepts CompositeGangSchedulingPolicyPatchArgs and CompositeGangSchedulingPolicyPatchOutput values.
+// You can construct a concrete instance of `CompositeGangSchedulingPolicyPatchInput` via:
+//
+//	CompositeGangSchedulingPolicyPatchArgs{...}
+type CompositeGangSchedulingPolicyPatchInput interface {
+	pulumi.Input
+
+	ToCompositeGangSchedulingPolicyPatchOutput() CompositeGangSchedulingPolicyPatchOutput
+	ToCompositeGangSchedulingPolicyPatchOutputWithContext(context.Context) CompositeGangSchedulingPolicyPatchOutput
+}
+
+// CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+type CompositeGangSchedulingPolicyPatchArgs struct {
+	// minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+	MinGroupCount pulumi.IntPtrInput `pulumi:"minGroupCount"`
+}
+
+func (CompositeGangSchedulingPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeGangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i CompositeGangSchedulingPolicyPatchArgs) ToCompositeGangSchedulingPolicyPatchOutput() CompositeGangSchedulingPolicyPatchOutput {
+	return i.ToCompositeGangSchedulingPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i CompositeGangSchedulingPolicyPatchArgs) ToCompositeGangSchedulingPolicyPatchOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeGangSchedulingPolicyPatchOutput)
+}
+
+func (i CompositeGangSchedulingPolicyPatchArgs) ToCompositeGangSchedulingPolicyPatchPtrOutput() CompositeGangSchedulingPolicyPatchPtrOutput {
+	return i.ToCompositeGangSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i CompositeGangSchedulingPolicyPatchArgs) ToCompositeGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeGangSchedulingPolicyPatchOutput).ToCompositeGangSchedulingPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// CompositeGangSchedulingPolicyPatchPtrInput is an input type that accepts CompositeGangSchedulingPolicyPatchArgs, CompositeGangSchedulingPolicyPatchPtr and CompositeGangSchedulingPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `CompositeGangSchedulingPolicyPatchPtrInput` via:
+//
+//	        CompositeGangSchedulingPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type CompositeGangSchedulingPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToCompositeGangSchedulingPolicyPatchPtrOutput() CompositeGangSchedulingPolicyPatchPtrOutput
+	ToCompositeGangSchedulingPolicyPatchPtrOutputWithContext(context.Context) CompositeGangSchedulingPolicyPatchPtrOutput
+}
+
+type compositeGangSchedulingPolicyPatchPtrType CompositeGangSchedulingPolicyPatchArgs
+
+func CompositeGangSchedulingPolicyPatchPtr(v *CompositeGangSchedulingPolicyPatchArgs) CompositeGangSchedulingPolicyPatchPtrInput {
+	return (*compositeGangSchedulingPolicyPatchPtrType)(v)
+}
+
+func (*compositeGangSchedulingPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeGangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i *compositeGangSchedulingPolicyPatchPtrType) ToCompositeGangSchedulingPolicyPatchPtrOutput() CompositeGangSchedulingPolicyPatchPtrOutput {
+	return i.ToCompositeGangSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *compositeGangSchedulingPolicyPatchPtrType) ToCompositeGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositeGangSchedulingPolicyPatchPtrOutput)
+}
+
+// CompositeGangSchedulingPolicy indicates that the groups belonging to the composite group should be scheduled using all-or-nothing semantics.
+type CompositeGangSchedulingPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (CompositeGangSchedulingPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositeGangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o CompositeGangSchedulingPolicyPatchOutput) ToCompositeGangSchedulingPolicyPatchOutput() CompositeGangSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o CompositeGangSchedulingPolicyPatchOutput) ToCompositeGangSchedulingPolicyPatchOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o CompositeGangSchedulingPolicyPatchOutput) ToCompositeGangSchedulingPolicyPatchPtrOutput() CompositeGangSchedulingPolicyPatchPtrOutput {
+	return o.ToCompositeGangSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o CompositeGangSchedulingPolicyPatchOutput) ToCompositeGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CompositeGangSchedulingPolicyPatch) *CompositeGangSchedulingPolicyPatch {
+		return &v
+	}).(CompositeGangSchedulingPolicyPatchPtrOutput)
+}
+
+// minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+func (o CompositeGangSchedulingPolicyPatchOutput) MinGroupCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CompositeGangSchedulingPolicyPatch) *int { return v.MinGroupCount }).(pulumi.IntPtrOutput)
+}
+
+type CompositeGangSchedulingPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (CompositeGangSchedulingPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositeGangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o CompositeGangSchedulingPolicyPatchPtrOutput) ToCompositeGangSchedulingPolicyPatchPtrOutput() CompositeGangSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o CompositeGangSchedulingPolicyPatchPtrOutput) ToCompositeGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositeGangSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o CompositeGangSchedulingPolicyPatchPtrOutput) Elem() CompositeGangSchedulingPolicyPatchOutput {
+	return o.ApplyT(func(v *CompositeGangSchedulingPolicyPatch) CompositeGangSchedulingPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret CompositeGangSchedulingPolicyPatch
+		return ret
+	}).(CompositeGangSchedulingPolicyPatchOutput)
+}
+
+// minGroupCount is the minimum number of child groups that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+func (o CompositeGangSchedulingPolicyPatchPtrOutput) MinGroupCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CompositeGangSchedulingPolicyPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MinGroupCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+type CompositePodGroupSchedulingConstraints struct {
+	// topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+	Topology []TopologyConstraint `pulumi:"topology"`
+}
+
+// CompositePodGroupSchedulingConstraintsInput is an input type that accepts CompositePodGroupSchedulingConstraintsArgs and CompositePodGroupSchedulingConstraintsOutput values.
+// You can construct a concrete instance of `CompositePodGroupSchedulingConstraintsInput` via:
+//
+//	CompositePodGroupSchedulingConstraintsArgs{...}
+type CompositePodGroupSchedulingConstraintsInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupSchedulingConstraintsOutput() CompositePodGroupSchedulingConstraintsOutput
+	ToCompositePodGroupSchedulingConstraintsOutputWithContext(context.Context) CompositePodGroupSchedulingConstraintsOutput
+}
+
+// CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+type CompositePodGroupSchedulingConstraintsArgs struct {
+	// topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+	Topology TopologyConstraintArrayInput `pulumi:"topology"`
+}
+
+func (CompositePodGroupSchedulingConstraintsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupSchedulingConstraints)(nil)).Elem()
+}
+
+func (i CompositePodGroupSchedulingConstraintsArgs) ToCompositePodGroupSchedulingConstraintsOutput() CompositePodGroupSchedulingConstraintsOutput {
+	return i.ToCompositePodGroupSchedulingConstraintsOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupSchedulingConstraintsArgs) ToCompositePodGroupSchedulingConstraintsOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingConstraintsOutput)
+}
+
+func (i CompositePodGroupSchedulingConstraintsArgs) ToCompositePodGroupSchedulingConstraintsPtrOutput() CompositePodGroupSchedulingConstraintsPtrOutput {
+	return i.ToCompositePodGroupSchedulingConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupSchedulingConstraintsArgs) ToCompositePodGroupSchedulingConstraintsPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingConstraintsOutput).ToCompositePodGroupSchedulingConstraintsPtrOutputWithContext(ctx)
+}
+
+// CompositePodGroupSchedulingConstraintsPtrInput is an input type that accepts CompositePodGroupSchedulingConstraintsArgs, CompositePodGroupSchedulingConstraintsPtr and CompositePodGroupSchedulingConstraintsPtrOutput values.
+// You can construct a concrete instance of `CompositePodGroupSchedulingConstraintsPtrInput` via:
+//
+//	        CompositePodGroupSchedulingConstraintsArgs{...}
+//
+//	or:
+//
+//	        nil
+type CompositePodGroupSchedulingConstraintsPtrInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupSchedulingConstraintsPtrOutput() CompositePodGroupSchedulingConstraintsPtrOutput
+	ToCompositePodGroupSchedulingConstraintsPtrOutputWithContext(context.Context) CompositePodGroupSchedulingConstraintsPtrOutput
+}
+
+type compositePodGroupSchedulingConstraintsPtrType CompositePodGroupSchedulingConstraintsArgs
+
+func CompositePodGroupSchedulingConstraintsPtr(v *CompositePodGroupSchedulingConstraintsArgs) CompositePodGroupSchedulingConstraintsPtrInput {
+	return (*compositePodGroupSchedulingConstraintsPtrType)(v)
+}
+
+func (*compositePodGroupSchedulingConstraintsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositePodGroupSchedulingConstraints)(nil)).Elem()
+}
+
+func (i *compositePodGroupSchedulingConstraintsPtrType) ToCompositePodGroupSchedulingConstraintsPtrOutput() CompositePodGroupSchedulingConstraintsPtrOutput {
+	return i.ToCompositePodGroupSchedulingConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (i *compositePodGroupSchedulingConstraintsPtrType) ToCompositePodGroupSchedulingConstraintsPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingConstraintsPtrOutput)
+}
+
+// CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+type CompositePodGroupSchedulingConstraintsOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupSchedulingConstraintsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupSchedulingConstraints)(nil)).Elem()
+}
+
+func (o CompositePodGroupSchedulingConstraintsOutput) ToCompositePodGroupSchedulingConstraintsOutput() CompositePodGroupSchedulingConstraintsOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingConstraintsOutput) ToCompositePodGroupSchedulingConstraintsOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingConstraintsOutput) ToCompositePodGroupSchedulingConstraintsPtrOutput() CompositePodGroupSchedulingConstraintsPtrOutput {
+	return o.ToCompositePodGroupSchedulingConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (o CompositePodGroupSchedulingConstraintsOutput) ToCompositePodGroupSchedulingConstraintsPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CompositePodGroupSchedulingConstraints) *CompositePodGroupSchedulingConstraints {
+		return &v
+	}).(CompositePodGroupSchedulingConstraintsPtrOutput)
+}
+
+// topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+func (o CompositePodGroupSchedulingConstraintsOutput) Topology() TopologyConstraintArrayOutput {
+	return o.ApplyT(func(v CompositePodGroupSchedulingConstraints) []TopologyConstraint { return v.Topology }).(TopologyConstraintArrayOutput)
+}
+
+type CompositePodGroupSchedulingConstraintsPtrOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupSchedulingConstraintsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositePodGroupSchedulingConstraints)(nil)).Elem()
+}
+
+func (o CompositePodGroupSchedulingConstraintsPtrOutput) ToCompositePodGroupSchedulingConstraintsPtrOutput() CompositePodGroupSchedulingConstraintsPtrOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingConstraintsPtrOutput) ToCompositePodGroupSchedulingConstraintsPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPtrOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingConstraintsPtrOutput) Elem() CompositePodGroupSchedulingConstraintsOutput {
+	return o.ApplyT(func(v *CompositePodGroupSchedulingConstraints) CompositePodGroupSchedulingConstraints {
+		if v != nil {
+			return *v
+		}
+		var ret CompositePodGroupSchedulingConstraints
+		return ret
+	}).(CompositePodGroupSchedulingConstraintsOutput)
+}
+
+// topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+func (o CompositePodGroupSchedulingConstraintsPtrOutput) Topology() TopologyConstraintArrayOutput {
+	return o.ApplyT(func(v *CompositePodGroupSchedulingConstraints) []TopologyConstraint {
+		if v == nil {
+			return nil
+		}
+		return v.Topology
+	}).(TopologyConstraintArrayOutput)
+}
+
+// CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+type CompositePodGroupSchedulingConstraintsPatch struct {
+	// topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+	Topology []TopologyConstraintPatch `pulumi:"topology"`
+}
+
+// CompositePodGroupSchedulingConstraintsPatchInput is an input type that accepts CompositePodGroupSchedulingConstraintsPatchArgs and CompositePodGroupSchedulingConstraintsPatchOutput values.
+// You can construct a concrete instance of `CompositePodGroupSchedulingConstraintsPatchInput` via:
+//
+//	CompositePodGroupSchedulingConstraintsPatchArgs{...}
+type CompositePodGroupSchedulingConstraintsPatchInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupSchedulingConstraintsPatchOutput() CompositePodGroupSchedulingConstraintsPatchOutput
+	ToCompositePodGroupSchedulingConstraintsPatchOutputWithContext(context.Context) CompositePodGroupSchedulingConstraintsPatchOutput
+}
+
+// CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+type CompositePodGroupSchedulingConstraintsPatchArgs struct {
+	// topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+	Topology TopologyConstraintPatchArrayInput `pulumi:"topology"`
+}
+
+func (CompositePodGroupSchedulingConstraintsPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupSchedulingConstraintsPatch)(nil)).Elem()
+}
+
+func (i CompositePodGroupSchedulingConstraintsPatchArgs) ToCompositePodGroupSchedulingConstraintsPatchOutput() CompositePodGroupSchedulingConstraintsPatchOutput {
+	return i.ToCompositePodGroupSchedulingConstraintsPatchOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupSchedulingConstraintsPatchArgs) ToCompositePodGroupSchedulingConstraintsPatchOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingConstraintsPatchOutput)
+}
+
+func (i CompositePodGroupSchedulingConstraintsPatchArgs) ToCompositePodGroupSchedulingConstraintsPatchPtrOutput() CompositePodGroupSchedulingConstraintsPatchPtrOutput {
+	return i.ToCompositePodGroupSchedulingConstraintsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupSchedulingConstraintsPatchArgs) ToCompositePodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingConstraintsPatchOutput).ToCompositePodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx)
+}
+
+// CompositePodGroupSchedulingConstraintsPatchPtrInput is an input type that accepts CompositePodGroupSchedulingConstraintsPatchArgs, CompositePodGroupSchedulingConstraintsPatchPtr and CompositePodGroupSchedulingConstraintsPatchPtrOutput values.
+// You can construct a concrete instance of `CompositePodGroupSchedulingConstraintsPatchPtrInput` via:
+//
+//	        CompositePodGroupSchedulingConstraintsPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type CompositePodGroupSchedulingConstraintsPatchPtrInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupSchedulingConstraintsPatchPtrOutput() CompositePodGroupSchedulingConstraintsPatchPtrOutput
+	ToCompositePodGroupSchedulingConstraintsPatchPtrOutputWithContext(context.Context) CompositePodGroupSchedulingConstraintsPatchPtrOutput
+}
+
+type compositePodGroupSchedulingConstraintsPatchPtrType CompositePodGroupSchedulingConstraintsPatchArgs
+
+func CompositePodGroupSchedulingConstraintsPatchPtr(v *CompositePodGroupSchedulingConstraintsPatchArgs) CompositePodGroupSchedulingConstraintsPatchPtrInput {
+	return (*compositePodGroupSchedulingConstraintsPatchPtrType)(v)
+}
+
+func (*compositePodGroupSchedulingConstraintsPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositePodGroupSchedulingConstraintsPatch)(nil)).Elem()
+}
+
+func (i *compositePodGroupSchedulingConstraintsPatchPtrType) ToCompositePodGroupSchedulingConstraintsPatchPtrOutput() CompositePodGroupSchedulingConstraintsPatchPtrOutput {
+	return i.ToCompositePodGroupSchedulingConstraintsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *compositePodGroupSchedulingConstraintsPatchPtrType) ToCompositePodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// CompositePodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a CompositePodGroup.
+type CompositePodGroupSchedulingConstraintsPatchOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupSchedulingConstraintsPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupSchedulingConstraintsPatch)(nil)).Elem()
+}
+
+func (o CompositePodGroupSchedulingConstraintsPatchOutput) ToCompositePodGroupSchedulingConstraintsPatchOutput() CompositePodGroupSchedulingConstraintsPatchOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingConstraintsPatchOutput) ToCompositePodGroupSchedulingConstraintsPatchOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPatchOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingConstraintsPatchOutput) ToCompositePodGroupSchedulingConstraintsPatchPtrOutput() CompositePodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ToCompositePodGroupSchedulingConstraintsPatchPtrOutputWithContext(context.Background())
+}
+
+func (o CompositePodGroupSchedulingConstraintsPatchOutput) ToCompositePodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CompositePodGroupSchedulingConstraintsPatch) *CompositePodGroupSchedulingConstraintsPatch {
+		return &v
+	}).(CompositePodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+func (o CompositePodGroupSchedulingConstraintsPatchOutput) Topology() TopologyConstraintPatchArrayOutput {
+	return o.ApplyT(func(v CompositePodGroupSchedulingConstraintsPatch) []TopologyConstraintPatch { return v.Topology }).(TopologyConstraintPatchArrayOutput)
+}
+
+type CompositePodGroupSchedulingConstraintsPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupSchedulingConstraintsPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositePodGroupSchedulingConstraintsPatch)(nil)).Elem()
+}
+
+func (o CompositePodGroupSchedulingConstraintsPatchPtrOutput) ToCompositePodGroupSchedulingConstraintsPatchPtrOutput() CompositePodGroupSchedulingConstraintsPatchPtrOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingConstraintsPatchPtrOutput) ToCompositePodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingConstraintsPatchPtrOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingConstraintsPatchPtrOutput) Elem() CompositePodGroupSchedulingConstraintsPatchOutput {
+	return o.ApplyT(func(v *CompositePodGroupSchedulingConstraintsPatch) CompositePodGroupSchedulingConstraintsPatch {
+		if v != nil {
+			return *v
+		}
+		var ret CompositePodGroupSchedulingConstraintsPatch
+		return ret
+	}).(CompositePodGroupSchedulingConstraintsPatchOutput)
+}
+
+// topology defines the topology constraints for the composite pod group. Currently only a single topology constraint can be specified. This may change in the future.
+func (o CompositePodGroupSchedulingConstraintsPatchPtrOutput) Topology() TopologyConstraintPatchArrayOutput {
+	return o.ApplyT(func(v *CompositePodGroupSchedulingConstraintsPatch) []TopologyConstraintPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Topology
+	}).(TopologyConstraintPatchArrayOutput)
+}
+
+// CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+type CompositePodGroupSchedulingPolicy struct {
+	// basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+	Basic *CompositeBasicSchedulingPolicy `pulumi:"basic"`
+	// gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+	Gang *CompositeGangSchedulingPolicy `pulumi:"gang"`
+}
+
+// CompositePodGroupSchedulingPolicyInput is an input type that accepts CompositePodGroupSchedulingPolicyArgs and CompositePodGroupSchedulingPolicyOutput values.
+// You can construct a concrete instance of `CompositePodGroupSchedulingPolicyInput` via:
+//
+//	CompositePodGroupSchedulingPolicyArgs{...}
+type CompositePodGroupSchedulingPolicyInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupSchedulingPolicyOutput() CompositePodGroupSchedulingPolicyOutput
+	ToCompositePodGroupSchedulingPolicyOutputWithContext(context.Context) CompositePodGroupSchedulingPolicyOutput
+}
+
+// CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+type CompositePodGroupSchedulingPolicyArgs struct {
+	// basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+	Basic CompositeBasicSchedulingPolicyPtrInput `pulumi:"basic"`
+	// gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+	Gang CompositeGangSchedulingPolicyPtrInput `pulumi:"gang"`
+}
+
+func (CompositePodGroupSchedulingPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupSchedulingPolicy)(nil)).Elem()
+}
+
+func (i CompositePodGroupSchedulingPolicyArgs) ToCompositePodGroupSchedulingPolicyOutput() CompositePodGroupSchedulingPolicyOutput {
+	return i.ToCompositePodGroupSchedulingPolicyOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupSchedulingPolicyArgs) ToCompositePodGroupSchedulingPolicyOutputWithContext(ctx context.Context) CompositePodGroupSchedulingPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingPolicyOutput)
+}
+
+// CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+type CompositePodGroupSchedulingPolicyOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupSchedulingPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupSchedulingPolicy)(nil)).Elem()
+}
+
+func (o CompositePodGroupSchedulingPolicyOutput) ToCompositePodGroupSchedulingPolicyOutput() CompositePodGroupSchedulingPolicyOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingPolicyOutput) ToCompositePodGroupSchedulingPolicyOutputWithContext(ctx context.Context) CompositePodGroupSchedulingPolicyOutput {
+	return o
+}
+
+// basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+func (o CompositePodGroupSchedulingPolicyOutput) Basic() CompositeBasicSchedulingPolicyPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupSchedulingPolicy) *CompositeBasicSchedulingPolicy { return v.Basic }).(CompositeBasicSchedulingPolicyPtrOutput)
+}
+
+// gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+func (o CompositePodGroupSchedulingPolicyOutput) Gang() CompositeGangSchedulingPolicyPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupSchedulingPolicy) *CompositeGangSchedulingPolicy { return v.Gang }).(CompositeGangSchedulingPolicyPtrOutput)
+}
+
+// CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+type CompositePodGroupSchedulingPolicyPatch struct {
+	// basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+	Basic *CompositeBasicSchedulingPolicyPatch `pulumi:"basic"`
+	// gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+	Gang *CompositeGangSchedulingPolicyPatch `pulumi:"gang"`
+}
+
+// CompositePodGroupSchedulingPolicyPatchInput is an input type that accepts CompositePodGroupSchedulingPolicyPatchArgs and CompositePodGroupSchedulingPolicyPatchOutput values.
+// You can construct a concrete instance of `CompositePodGroupSchedulingPolicyPatchInput` via:
+//
+//	CompositePodGroupSchedulingPolicyPatchArgs{...}
+type CompositePodGroupSchedulingPolicyPatchInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupSchedulingPolicyPatchOutput() CompositePodGroupSchedulingPolicyPatchOutput
+	ToCompositePodGroupSchedulingPolicyPatchOutputWithContext(context.Context) CompositePodGroupSchedulingPolicyPatchOutput
+}
+
+// CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+type CompositePodGroupSchedulingPolicyPatchArgs struct {
+	// basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+	Basic CompositeBasicSchedulingPolicyPatchPtrInput `pulumi:"basic"`
+	// gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+	Gang CompositeGangSchedulingPolicyPatchPtrInput `pulumi:"gang"`
+}
+
+func (CompositePodGroupSchedulingPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i CompositePodGroupSchedulingPolicyPatchArgs) ToCompositePodGroupSchedulingPolicyPatchOutput() CompositePodGroupSchedulingPolicyPatchOutput {
+	return i.ToCompositePodGroupSchedulingPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupSchedulingPolicyPatchArgs) ToCompositePodGroupSchedulingPolicyPatchOutputWithContext(ctx context.Context) CompositePodGroupSchedulingPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingPolicyPatchOutput)
+}
+
+func (i CompositePodGroupSchedulingPolicyPatchArgs) ToCompositePodGroupSchedulingPolicyPatchPtrOutput() CompositePodGroupSchedulingPolicyPatchPtrOutput {
+	return i.ToCompositePodGroupSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupSchedulingPolicyPatchArgs) ToCompositePodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingPolicyPatchOutput).ToCompositePodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// CompositePodGroupSchedulingPolicyPatchPtrInput is an input type that accepts CompositePodGroupSchedulingPolicyPatchArgs, CompositePodGroupSchedulingPolicyPatchPtr and CompositePodGroupSchedulingPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `CompositePodGroupSchedulingPolicyPatchPtrInput` via:
+//
+//	        CompositePodGroupSchedulingPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type CompositePodGroupSchedulingPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupSchedulingPolicyPatchPtrOutput() CompositePodGroupSchedulingPolicyPatchPtrOutput
+	ToCompositePodGroupSchedulingPolicyPatchPtrOutputWithContext(context.Context) CompositePodGroupSchedulingPolicyPatchPtrOutput
+}
+
+type compositePodGroupSchedulingPolicyPatchPtrType CompositePodGroupSchedulingPolicyPatchArgs
+
+func CompositePodGroupSchedulingPolicyPatchPtr(v *CompositePodGroupSchedulingPolicyPatchArgs) CompositePodGroupSchedulingPolicyPatchPtrInput {
+	return (*compositePodGroupSchedulingPolicyPatchPtrType)(v)
+}
+
+func (*compositePodGroupSchedulingPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositePodGroupSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i *compositePodGroupSchedulingPolicyPatchPtrType) ToCompositePodGroupSchedulingPolicyPatchPtrOutput() CompositePodGroupSchedulingPolicyPatchPtrOutput {
+	return i.ToCompositePodGroupSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *compositePodGroupSchedulingPolicyPatchPtrType) ToCompositePodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupSchedulingPolicyPatchPtrOutput)
+}
+
+// CompositePodGroupSchedulingPolicy defines the scheduling configuration for a CompositePodGroup. Exactly one policy must be set.
+type CompositePodGroupSchedulingPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupSchedulingPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o CompositePodGroupSchedulingPolicyPatchOutput) ToCompositePodGroupSchedulingPolicyPatchOutput() CompositePodGroupSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingPolicyPatchOutput) ToCompositePodGroupSchedulingPolicyPatchOutputWithContext(ctx context.Context) CompositePodGroupSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingPolicyPatchOutput) ToCompositePodGroupSchedulingPolicyPatchPtrOutput() CompositePodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ToCompositePodGroupSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o CompositePodGroupSchedulingPolicyPatchOutput) ToCompositePodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CompositePodGroupSchedulingPolicyPatch) *CompositePodGroupSchedulingPolicyPatch {
+		return &v
+	}).(CompositePodGroupSchedulingPolicyPatchPtrOutput)
+}
+
+// basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+func (o CompositePodGroupSchedulingPolicyPatchOutput) Basic() CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupSchedulingPolicyPatch) *CompositeBasicSchedulingPolicyPatch { return v.Basic }).(CompositeBasicSchedulingPolicyPatchPtrOutput)
+}
+
+// gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+func (o CompositePodGroupSchedulingPolicyPatchOutput) Gang() CompositeGangSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupSchedulingPolicyPatch) *CompositeGangSchedulingPolicyPatch { return v.Gang }).(CompositeGangSchedulingPolicyPatchPtrOutput)
+}
+
+type CompositePodGroupSchedulingPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupSchedulingPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CompositePodGroupSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o CompositePodGroupSchedulingPolicyPatchPtrOutput) ToCompositePodGroupSchedulingPolicyPatchPtrOutput() CompositePodGroupSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingPolicyPatchPtrOutput) ToCompositePodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) CompositePodGroupSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o CompositePodGroupSchedulingPolicyPatchPtrOutput) Elem() CompositePodGroupSchedulingPolicyPatchOutput {
+	return o.ApplyT(func(v *CompositePodGroupSchedulingPolicyPatch) CompositePodGroupSchedulingPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret CompositePodGroupSchedulingPolicyPatch
+		return ret
+	}).(CompositePodGroupSchedulingPolicyPatchOutput)
+}
+
+// basic specifies that the groups of this composite group should be scheduled independently. This field is immutable.
+func (o CompositePodGroupSchedulingPolicyPatchPtrOutput) Basic() CompositeBasicSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v *CompositePodGroupSchedulingPolicyPatch) *CompositeBasicSchedulingPolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Basic
+	}).(CompositeBasicSchedulingPolicyPatchPtrOutput)
+}
+
+// gang specifies that the groups of this composite group should be scheduled using all-or-nothing semantics.
+func (o CompositePodGroupSchedulingPolicyPatchPtrOutput) Gang() CompositeGangSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v *CompositePodGroupSchedulingPolicyPatch) *CompositeGangSchedulingPolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Gang
+	}).(CompositeGangSchedulingPolicyPatchPtrOutput)
+}
+
+// CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+type CompositePodGroupTemplate struct {
+	// compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+	CompositePodGroupTemplates []CompositePodGroupTemplate `pulumi:"compositePodGroupTemplates"`
+	// disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+	DisruptionMode *CompositeDisruptionMode `pulumi:"disruptionMode"`
+	// name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+	Name string `pulumi:"name"`
+	// podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+	PodGroupTemplates []PodGroupTemplate `pulumi:"podGroupTemplates"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+	Priority *int `pulumi:"priority"`
+	// priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+	PriorityClassName *string `pulumi:"priorityClassName"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+	SchedulingConstraints *CompositePodGroupSchedulingConstraints `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this template.
+	SchedulingPolicy CompositePodGroupSchedulingPolicy `pulumi:"schedulingPolicy"`
+}
+
+// CompositePodGroupTemplateInput is an input type that accepts CompositePodGroupTemplateArgs and CompositePodGroupTemplateOutput values.
+// You can construct a concrete instance of `CompositePodGroupTemplateInput` via:
+//
+//	CompositePodGroupTemplateArgs{...}
+type CompositePodGroupTemplateInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupTemplateOutput() CompositePodGroupTemplateOutput
+	ToCompositePodGroupTemplateOutputWithContext(context.Context) CompositePodGroupTemplateOutput
+}
+
+// CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+type CompositePodGroupTemplateArgs struct {
+	// compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+	CompositePodGroupTemplates CompositePodGroupTemplateArrayInput `pulumi:"compositePodGroupTemplates"`
+	// disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+	DisruptionMode CompositeDisruptionModePtrInput `pulumi:"disruptionMode"`
+	// name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+	Name pulumi.StringInput `pulumi:"name"`
+	// podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+	PodGroupTemplates PodGroupTemplateArrayInput `pulumi:"podGroupTemplates"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+	Priority pulumi.IntPtrInput `pulumi:"priority"`
+	// priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+	PriorityClassName pulumi.StringPtrInput `pulumi:"priorityClassName"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+	SchedulingConstraints CompositePodGroupSchedulingConstraintsPtrInput `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this template.
+	SchedulingPolicy CompositePodGroupSchedulingPolicyInput `pulumi:"schedulingPolicy"`
+}
+
+func (CompositePodGroupTemplateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupTemplate)(nil)).Elem()
+}
+
+func (i CompositePodGroupTemplateArgs) ToCompositePodGroupTemplateOutput() CompositePodGroupTemplateOutput {
+	return i.ToCompositePodGroupTemplateOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupTemplateArgs) ToCompositePodGroupTemplateOutputWithContext(ctx context.Context) CompositePodGroupTemplateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupTemplateOutput)
+}
+
+// CompositePodGroupTemplateArrayInput is an input type that accepts CompositePodGroupTemplateArray and CompositePodGroupTemplateArrayOutput values.
+// You can construct a concrete instance of `CompositePodGroupTemplateArrayInput` via:
+//
+//	CompositePodGroupTemplateArray{ CompositePodGroupTemplateArgs{...} }
+type CompositePodGroupTemplateArrayInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupTemplateArrayOutput() CompositePodGroupTemplateArrayOutput
+	ToCompositePodGroupTemplateArrayOutputWithContext(context.Context) CompositePodGroupTemplateArrayOutput
+}
+
+type CompositePodGroupTemplateArray []CompositePodGroupTemplateInput
+
+func (CompositePodGroupTemplateArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CompositePodGroupTemplate)(nil)).Elem()
+}
+
+func (i CompositePodGroupTemplateArray) ToCompositePodGroupTemplateArrayOutput() CompositePodGroupTemplateArrayOutput {
+	return i.ToCompositePodGroupTemplateArrayOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupTemplateArray) ToCompositePodGroupTemplateArrayOutputWithContext(ctx context.Context) CompositePodGroupTemplateArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupTemplateArrayOutput)
+}
+
+// CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+type CompositePodGroupTemplateOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupTemplate)(nil)).Elem()
+}
+
+func (o CompositePodGroupTemplateOutput) ToCompositePodGroupTemplateOutput() CompositePodGroupTemplateOutput {
+	return o
+}
+
+func (o CompositePodGroupTemplateOutput) ToCompositePodGroupTemplateOutputWithContext(ctx context.Context) CompositePodGroupTemplateOutput {
+	return o
+}
+
+// compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+func (o CompositePodGroupTemplateOutput) CompositePodGroupTemplates() CompositePodGroupTemplateArrayOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplate) []CompositePodGroupTemplate { return v.CompositePodGroupTemplates }).(CompositePodGroupTemplateArrayOutput)
+}
+
+// disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+func (o CompositePodGroupTemplateOutput) DisruptionMode() CompositeDisruptionModePtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplate) *CompositeDisruptionMode { return v.DisruptionMode }).(CompositeDisruptionModePtrOutput)
+}
+
+// name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+func (o CompositePodGroupTemplateOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplate) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+func (o CompositePodGroupTemplateOutput) PodGroupTemplates() PodGroupTemplateArrayOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplate) []PodGroupTemplate { return v.PodGroupTemplates }).(PodGroupTemplateArrayOutput)
+}
+
+// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+func (o CompositePodGroupTemplateOutput) PreemptionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplate) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
+}
+
+// priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+func (o CompositePodGroupTemplateOutput) Priority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplate) *int { return v.Priority }).(pulumi.IntPtrOutput)
+}
+
+// priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+func (o CompositePodGroupTemplateOutput) PriorityClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplate) *string { return v.PriorityClassName }).(pulumi.StringPtrOutput)
+}
+
+// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+func (o CompositePodGroupTemplateOutput) SchedulingConstraints() CompositePodGroupSchedulingConstraintsPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplate) *CompositePodGroupSchedulingConstraints {
+		return v.SchedulingConstraints
+	}).(CompositePodGroupSchedulingConstraintsPtrOutput)
+}
+
+// schedulingPolicy defines the scheduling policy for this template.
+func (o CompositePodGroupTemplateOutput) SchedulingPolicy() CompositePodGroupSchedulingPolicyOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplate) CompositePodGroupSchedulingPolicy { return v.SchedulingPolicy }).(CompositePodGroupSchedulingPolicyOutput)
+}
+
+type CompositePodGroupTemplateArrayOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupTemplateArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CompositePodGroupTemplate)(nil)).Elem()
+}
+
+func (o CompositePodGroupTemplateArrayOutput) ToCompositePodGroupTemplateArrayOutput() CompositePodGroupTemplateArrayOutput {
+	return o
+}
+
+func (o CompositePodGroupTemplateArrayOutput) ToCompositePodGroupTemplateArrayOutputWithContext(ctx context.Context) CompositePodGroupTemplateArrayOutput {
+	return o
+}
+
+func (o CompositePodGroupTemplateArrayOutput) Index(i pulumi.IntInput) CompositePodGroupTemplateOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CompositePodGroupTemplate {
+		return vs[0].([]CompositePodGroupTemplate)[vs[1].(int)]
+	}).(CompositePodGroupTemplateOutput)
+}
+
+// CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+type CompositePodGroupTemplatePatch struct {
+	// compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+	CompositePodGroupTemplates []CompositePodGroupTemplatePatch `pulumi:"compositePodGroupTemplates"`
+	// disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+	DisruptionMode *CompositeDisruptionModePatch `pulumi:"disruptionMode"`
+	// name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+	Name *string `pulumi:"name"`
+	// podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+	PodGroupTemplates []PodGroupTemplatePatch `pulumi:"podGroupTemplates"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+	Priority *int `pulumi:"priority"`
+	// priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+	PriorityClassName *string `pulumi:"priorityClassName"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+	SchedulingConstraints *CompositePodGroupSchedulingConstraintsPatch `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this template.
+	SchedulingPolicy *CompositePodGroupSchedulingPolicyPatch `pulumi:"schedulingPolicy"`
+}
+
+// CompositePodGroupTemplatePatchInput is an input type that accepts CompositePodGroupTemplatePatchArgs and CompositePodGroupTemplatePatchOutput values.
+// You can construct a concrete instance of `CompositePodGroupTemplatePatchInput` via:
+//
+//	CompositePodGroupTemplatePatchArgs{...}
+type CompositePodGroupTemplatePatchInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupTemplatePatchOutput() CompositePodGroupTemplatePatchOutput
+	ToCompositePodGroupTemplatePatchOutputWithContext(context.Context) CompositePodGroupTemplatePatchOutput
+}
+
+// CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+type CompositePodGroupTemplatePatchArgs struct {
+	// compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+	CompositePodGroupTemplates CompositePodGroupTemplatePatchArrayInput `pulumi:"compositePodGroupTemplates"`
+	// disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+	DisruptionMode CompositeDisruptionModePatchPtrInput `pulumi:"disruptionMode"`
+	// name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+	PodGroupTemplates PodGroupTemplatePatchArrayInput `pulumi:"podGroupTemplates"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+	Priority pulumi.IntPtrInput `pulumi:"priority"`
+	// priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+	PriorityClassName pulumi.StringPtrInput `pulumi:"priorityClassName"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+	SchedulingConstraints CompositePodGroupSchedulingConstraintsPatchPtrInput `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this template.
+	SchedulingPolicy CompositePodGroupSchedulingPolicyPatchPtrInput `pulumi:"schedulingPolicy"`
+}
+
+func (CompositePodGroupTemplatePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupTemplatePatch)(nil)).Elem()
+}
+
+func (i CompositePodGroupTemplatePatchArgs) ToCompositePodGroupTemplatePatchOutput() CompositePodGroupTemplatePatchOutput {
+	return i.ToCompositePodGroupTemplatePatchOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupTemplatePatchArgs) ToCompositePodGroupTemplatePatchOutputWithContext(ctx context.Context) CompositePodGroupTemplatePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupTemplatePatchOutput)
+}
+
+// CompositePodGroupTemplatePatchArrayInput is an input type that accepts CompositePodGroupTemplatePatchArray and CompositePodGroupTemplatePatchArrayOutput values.
+// You can construct a concrete instance of `CompositePodGroupTemplatePatchArrayInput` via:
+//
+//	CompositePodGroupTemplatePatchArray{ CompositePodGroupTemplatePatchArgs{...} }
+type CompositePodGroupTemplatePatchArrayInput interface {
+	pulumi.Input
+
+	ToCompositePodGroupTemplatePatchArrayOutput() CompositePodGroupTemplatePatchArrayOutput
+	ToCompositePodGroupTemplatePatchArrayOutputWithContext(context.Context) CompositePodGroupTemplatePatchArrayOutput
+}
+
+type CompositePodGroupTemplatePatchArray []CompositePodGroupTemplatePatchInput
+
+func (CompositePodGroupTemplatePatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CompositePodGroupTemplatePatch)(nil)).Elem()
+}
+
+func (i CompositePodGroupTemplatePatchArray) ToCompositePodGroupTemplatePatchArrayOutput() CompositePodGroupTemplatePatchArrayOutput {
+	return i.ToCompositePodGroupTemplatePatchArrayOutputWithContext(context.Background())
+}
+
+func (i CompositePodGroupTemplatePatchArray) ToCompositePodGroupTemplatePatchArrayOutputWithContext(ctx context.Context) CompositePodGroupTemplatePatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CompositePodGroupTemplatePatchArrayOutput)
+}
+
+// CompositePodGroupTemplate represents a template for a CompositePodGroup with a scheduling policy.
+type CompositePodGroupTemplatePatchOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupTemplatePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CompositePodGroupTemplatePatch)(nil)).Elem()
+}
+
+func (o CompositePodGroupTemplatePatchOutput) ToCompositePodGroupTemplatePatchOutput() CompositePodGroupTemplatePatchOutput {
+	return o
+}
+
+func (o CompositePodGroupTemplatePatchOutput) ToCompositePodGroupTemplatePatchOutputWithContext(ctx context.Context) CompositePodGroupTemplatePatchOutput {
+	return o
+}
+
+// compositePodGroupTemplates is the list of templates for children CompositePodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+func (o CompositePodGroupTemplatePatchOutput) CompositePodGroupTemplates() CompositePodGroupTemplatePatchArrayOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplatePatch) []CompositePodGroupTemplatePatch {
+		return v.CompositePodGroupTemplates
+	}).(CompositePodGroupTemplatePatchArrayOutput)
+}
+
+// disruptionMode defines the mode in which a given CompositePodGroup can be disrupted. One of Single, All. This field is immutable.
+func (o CompositePodGroupTemplatePatchOutput) DisruptionMode() CompositeDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplatePatch) *CompositeDisruptionModePatch { return v.DisruptionMode }).(CompositeDisruptionModePatchPtrOutput)
+}
+
+// name is a unique identifier for the CompositePodGroupTemplate within the Workload. It must be a DNS label. This field is required.
+func (o CompositePodGroupTemplatePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplatePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// podGroupTemplates is the list of templates for children PodGroups. The maximum number of templates is 8. At least one entry in CompositePodGroupTemplates or PodGroupTemplates must be set.
+func (o CompositePodGroupTemplatePatchOutput) PodGroupTemplates() PodGroupTemplatePatchArrayOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplatePatch) []PodGroupTemplatePatch { return v.PodGroupTemplates }).(PodGroupTemplatePatchArrayOutput)
+}
+
+// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+func (o CompositePodGroupTemplatePatchOutput) PreemptionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplatePatch) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
+}
+
+// priority is the value of priority of composite pod groups created from this template. Various system components use this field to find the priority of the composite pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+func (o CompositePodGroupTemplatePatchOutput) Priority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplatePatch) *int { return v.Priority }).(pulumi.IntPtrOutput)
+}
+
+// priorityClassName indicates the priority that should be considered when scheduling a composite pod group created from this template. If no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, composite pod groups created from this template will have the priority set to zero. This field is immutable.
+func (o CompositePodGroupTemplatePatchOutput) PriorityClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplatePatch) *string { return v.PriorityClassName }).(pulumi.StringPtrOutput)
+}
+
+// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this CompositePodGroupTemplate. This field is immutable.
+func (o CompositePodGroupTemplatePatchOutput) SchedulingConstraints() CompositePodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplatePatch) *CompositePodGroupSchedulingConstraintsPatch {
+		return v.SchedulingConstraints
+	}).(CompositePodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// schedulingPolicy defines the scheduling policy for this template.
+func (o CompositePodGroupTemplatePatchOutput) SchedulingPolicy() CompositePodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v CompositePodGroupTemplatePatch) *CompositePodGroupSchedulingPolicyPatch {
+		return v.SchedulingPolicy
+	}).(CompositePodGroupSchedulingPolicyPatchPtrOutput)
+}
+
+type CompositePodGroupTemplatePatchArrayOutput struct{ *pulumi.OutputState }
+
+func (CompositePodGroupTemplatePatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CompositePodGroupTemplatePatch)(nil)).Elem()
+}
+
+func (o CompositePodGroupTemplatePatchArrayOutput) ToCompositePodGroupTemplatePatchArrayOutput() CompositePodGroupTemplatePatchArrayOutput {
+	return o
+}
+
+func (o CompositePodGroupTemplatePatchArrayOutput) ToCompositePodGroupTemplatePatchArrayOutputWithContext(ctx context.Context) CompositePodGroupTemplatePatchArrayOutput {
+	return o
+}
+
+func (o CompositePodGroupTemplatePatchArrayOutput) Index(i pulumi.IntInput) CompositePodGroupTemplatePatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CompositePodGroupTemplatePatch {
+		return vs[0].([]CompositePodGroupTemplatePatch)[vs[1].(int)]
+	}).(CompositePodGroupTemplatePatchOutput)
+}
+
+// DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+type DisruptionMode struct {
+	// all specifies that all children can only be disrupted together.
+	All *AllDisruptionMode `pulumi:"all"`
+	// single specifies that children can be disrupted independently from each other.
+	Single *SingleDisruptionMode `pulumi:"single"`
+}
+
+// DisruptionModeInput is an input type that accepts DisruptionModeArgs and DisruptionModeOutput values.
+// You can construct a concrete instance of `DisruptionModeInput` via:
+//
+//	DisruptionModeArgs{...}
+type DisruptionModeInput interface {
+	pulumi.Input
+
+	ToDisruptionModeOutput() DisruptionModeOutput
+	ToDisruptionModeOutputWithContext(context.Context) DisruptionModeOutput
+}
+
+// DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+type DisruptionModeArgs struct {
+	// all specifies that all children can only be disrupted together.
+	All AllDisruptionModePtrInput `pulumi:"all"`
+	// single specifies that children can be disrupted independently from each other.
+	Single SingleDisruptionModePtrInput `pulumi:"single"`
+}
+
+func (DisruptionModeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DisruptionMode)(nil)).Elem()
+}
+
+func (i DisruptionModeArgs) ToDisruptionModeOutput() DisruptionModeOutput {
+	return i.ToDisruptionModeOutputWithContext(context.Background())
+}
+
+func (i DisruptionModeArgs) ToDisruptionModeOutputWithContext(ctx context.Context) DisruptionModeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DisruptionModeOutput)
+}
+
+func (i DisruptionModeArgs) ToDisruptionModePtrOutput() DisruptionModePtrOutput {
+	return i.ToDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i DisruptionModeArgs) ToDisruptionModePtrOutputWithContext(ctx context.Context) DisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DisruptionModeOutput).ToDisruptionModePtrOutputWithContext(ctx)
+}
+
+// DisruptionModePtrInput is an input type that accepts DisruptionModeArgs, DisruptionModePtr and DisruptionModePtrOutput values.
+// You can construct a concrete instance of `DisruptionModePtrInput` via:
+//
+//	        DisruptionModeArgs{...}
+//
+//	or:
+//
+//	        nil
+type DisruptionModePtrInput interface {
+	pulumi.Input
+
+	ToDisruptionModePtrOutput() DisruptionModePtrOutput
+	ToDisruptionModePtrOutputWithContext(context.Context) DisruptionModePtrOutput
+}
+
+type disruptionModePtrType DisruptionModeArgs
+
+func DisruptionModePtr(v *DisruptionModeArgs) DisruptionModePtrInput {
+	return (*disruptionModePtrType)(v)
+}
+
+func (*disruptionModePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DisruptionMode)(nil)).Elem()
+}
+
+func (i *disruptionModePtrType) ToDisruptionModePtrOutput() DisruptionModePtrOutput {
+	return i.ToDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i *disruptionModePtrType) ToDisruptionModePtrOutputWithContext(ctx context.Context) DisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DisruptionModePtrOutput)
+}
+
+// DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+type DisruptionModeOutput struct{ *pulumi.OutputState }
+
+func (DisruptionModeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DisruptionMode)(nil)).Elem()
+}
+
+func (o DisruptionModeOutput) ToDisruptionModeOutput() DisruptionModeOutput {
+	return o
+}
+
+func (o DisruptionModeOutput) ToDisruptionModeOutputWithContext(ctx context.Context) DisruptionModeOutput {
+	return o
+}
+
+func (o DisruptionModeOutput) ToDisruptionModePtrOutput() DisruptionModePtrOutput {
+	return o.ToDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (o DisruptionModeOutput) ToDisruptionModePtrOutputWithContext(ctx context.Context) DisruptionModePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DisruptionMode) *DisruptionMode {
+		return &v
+	}).(DisruptionModePtrOutput)
+}
+
+// all specifies that all children can only be disrupted together.
+func (o DisruptionModeOutput) All() AllDisruptionModePtrOutput {
+	return o.ApplyT(func(v DisruptionMode) *AllDisruptionMode { return v.All }).(AllDisruptionModePtrOutput)
+}
+
+// single specifies that children can be disrupted independently from each other.
+func (o DisruptionModeOutput) Single() SingleDisruptionModePtrOutput {
+	return o.ApplyT(func(v DisruptionMode) *SingleDisruptionMode { return v.Single }).(SingleDisruptionModePtrOutput)
+}
+
+type DisruptionModePtrOutput struct{ *pulumi.OutputState }
+
+func (DisruptionModePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DisruptionMode)(nil)).Elem()
+}
+
+func (o DisruptionModePtrOutput) ToDisruptionModePtrOutput() DisruptionModePtrOutput {
+	return o
+}
+
+func (o DisruptionModePtrOutput) ToDisruptionModePtrOutputWithContext(ctx context.Context) DisruptionModePtrOutput {
+	return o
+}
+
+func (o DisruptionModePtrOutput) Elem() DisruptionModeOutput {
+	return o.ApplyT(func(v *DisruptionMode) DisruptionMode {
+		if v != nil {
+			return *v
+		}
+		var ret DisruptionMode
+		return ret
+	}).(DisruptionModeOutput)
+}
+
+// all specifies that all children can only be disrupted together.
+func (o DisruptionModePtrOutput) All() AllDisruptionModePtrOutput {
+	return o.ApplyT(func(v *DisruptionMode) *AllDisruptionMode {
+		if v == nil {
+			return nil
+		}
+		return v.All
+	}).(AllDisruptionModePtrOutput)
+}
+
+// single specifies that children can be disrupted independently from each other.
+func (o DisruptionModePtrOutput) Single() SingleDisruptionModePtrOutput {
+	return o.ApplyT(func(v *DisruptionMode) *SingleDisruptionMode {
+		if v == nil {
+			return nil
+		}
+		return v.Single
+	}).(SingleDisruptionModePtrOutput)
+}
+
+// DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+type DisruptionModePatch struct {
+	// all specifies that all children can only be disrupted together.
+	All *AllDisruptionModePatch `pulumi:"all"`
+	// single specifies that children can be disrupted independently from each other.
+	Single *SingleDisruptionModePatch `pulumi:"single"`
+}
+
+// DisruptionModePatchInput is an input type that accepts DisruptionModePatchArgs and DisruptionModePatchOutput values.
+// You can construct a concrete instance of `DisruptionModePatchInput` via:
+//
+//	DisruptionModePatchArgs{...}
+type DisruptionModePatchInput interface {
+	pulumi.Input
+
+	ToDisruptionModePatchOutput() DisruptionModePatchOutput
+	ToDisruptionModePatchOutputWithContext(context.Context) DisruptionModePatchOutput
+}
+
+// DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+type DisruptionModePatchArgs struct {
+	// all specifies that all children can only be disrupted together.
+	All AllDisruptionModePatchPtrInput `pulumi:"all"`
+	// single specifies that children can be disrupted independently from each other.
+	Single SingleDisruptionModePatchPtrInput `pulumi:"single"`
+}
+
+func (DisruptionModePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DisruptionModePatch)(nil)).Elem()
+}
+
+func (i DisruptionModePatchArgs) ToDisruptionModePatchOutput() DisruptionModePatchOutput {
+	return i.ToDisruptionModePatchOutputWithContext(context.Background())
+}
+
+func (i DisruptionModePatchArgs) ToDisruptionModePatchOutputWithContext(ctx context.Context) DisruptionModePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DisruptionModePatchOutput)
+}
+
+func (i DisruptionModePatchArgs) ToDisruptionModePatchPtrOutput() DisruptionModePatchPtrOutput {
+	return i.ToDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i DisruptionModePatchArgs) ToDisruptionModePatchPtrOutputWithContext(ctx context.Context) DisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DisruptionModePatchOutput).ToDisruptionModePatchPtrOutputWithContext(ctx)
+}
+
+// DisruptionModePatchPtrInput is an input type that accepts DisruptionModePatchArgs, DisruptionModePatchPtr and DisruptionModePatchPtrOutput values.
+// You can construct a concrete instance of `DisruptionModePatchPtrInput` via:
+//
+//	        DisruptionModePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type DisruptionModePatchPtrInput interface {
+	pulumi.Input
+
+	ToDisruptionModePatchPtrOutput() DisruptionModePatchPtrOutput
+	ToDisruptionModePatchPtrOutputWithContext(context.Context) DisruptionModePatchPtrOutput
+}
+
+type disruptionModePatchPtrType DisruptionModePatchArgs
+
+func DisruptionModePatchPtr(v *DisruptionModePatchArgs) DisruptionModePatchPtrInput {
+	return (*disruptionModePatchPtrType)(v)
+}
+
+func (*disruptionModePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DisruptionModePatch)(nil)).Elem()
+}
+
+func (i *disruptionModePatchPtrType) ToDisruptionModePatchPtrOutput() DisruptionModePatchPtrOutput {
+	return i.ToDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *disruptionModePatchPtrType) ToDisruptionModePatchPtrOutputWithContext(ctx context.Context) DisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DisruptionModePatchPtrOutput)
+}
+
+// DisruptionMode defines how individual entities within a group can be disrupted. Exactly one mode can be set.
+type DisruptionModePatchOutput struct{ *pulumi.OutputState }
+
+func (DisruptionModePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DisruptionModePatch)(nil)).Elem()
+}
+
+func (o DisruptionModePatchOutput) ToDisruptionModePatchOutput() DisruptionModePatchOutput {
+	return o
+}
+
+func (o DisruptionModePatchOutput) ToDisruptionModePatchOutputWithContext(ctx context.Context) DisruptionModePatchOutput {
+	return o
+}
+
+func (o DisruptionModePatchOutput) ToDisruptionModePatchPtrOutput() DisruptionModePatchPtrOutput {
+	return o.ToDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (o DisruptionModePatchOutput) ToDisruptionModePatchPtrOutputWithContext(ctx context.Context) DisruptionModePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DisruptionModePatch) *DisruptionModePatch {
+		return &v
+	}).(DisruptionModePatchPtrOutput)
+}
+
+// all specifies that all children can only be disrupted together.
+func (o DisruptionModePatchOutput) All() AllDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v DisruptionModePatch) *AllDisruptionModePatch { return v.All }).(AllDisruptionModePatchPtrOutput)
+}
+
+// single specifies that children can be disrupted independently from each other.
+func (o DisruptionModePatchOutput) Single() SingleDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v DisruptionModePatch) *SingleDisruptionModePatch { return v.Single }).(SingleDisruptionModePatchPtrOutput)
+}
+
+type DisruptionModePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (DisruptionModePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DisruptionModePatch)(nil)).Elem()
+}
+
+func (o DisruptionModePatchPtrOutput) ToDisruptionModePatchPtrOutput() DisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o DisruptionModePatchPtrOutput) ToDisruptionModePatchPtrOutputWithContext(ctx context.Context) DisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o DisruptionModePatchPtrOutput) Elem() DisruptionModePatchOutput {
+	return o.ApplyT(func(v *DisruptionModePatch) DisruptionModePatch {
+		if v != nil {
+			return *v
+		}
+		var ret DisruptionModePatch
+		return ret
+	}).(DisruptionModePatchOutput)
+}
+
+// all specifies that all children can only be disrupted together.
+func (o DisruptionModePatchPtrOutput) All() AllDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v *DisruptionModePatch) *AllDisruptionModePatch {
+		if v == nil {
+			return nil
+		}
+		return v.All
+	}).(AllDisruptionModePatchPtrOutput)
+}
+
+// single specifies that children can be disrupted independently from each other.
+func (o DisruptionModePatchPtrOutput) Single() SingleDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v *DisruptionModePatch) *SingleDisruptionModePatch {
+		if v == nil {
+			return nil
+		}
+		return v.Single
+	}).(SingleDisruptionModePatchPtrOutput)
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicy struct {
+	// minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+	//
+	// Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+	MinCount int `pulumi:"minCount"`
+}
+
+// GangSchedulingPolicyInput is an input type that accepts GangSchedulingPolicyArgs and GangSchedulingPolicyOutput values.
+// You can construct a concrete instance of `GangSchedulingPolicyInput` via:
+//
+//	GangSchedulingPolicyArgs{...}
+type GangSchedulingPolicyInput interface {
+	pulumi.Input
+
+	ToGangSchedulingPolicyOutput() GangSchedulingPolicyOutput
+	ToGangSchedulingPolicyOutputWithContext(context.Context) GangSchedulingPolicyOutput
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyArgs struct {
+	// minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+	//
+	// Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+	MinCount pulumi.IntInput `pulumi:"minCount"`
+}
+
+func (GangSchedulingPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GangSchedulingPolicy)(nil)).Elem()
+}
+
+func (i GangSchedulingPolicyArgs) ToGangSchedulingPolicyOutput() GangSchedulingPolicyOutput {
+	return i.ToGangSchedulingPolicyOutputWithContext(context.Background())
+}
+
+func (i GangSchedulingPolicyArgs) ToGangSchedulingPolicyOutputWithContext(ctx context.Context) GangSchedulingPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyOutput)
+}
+
+func (i GangSchedulingPolicyArgs) ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput {
+	return i.ToGangSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i GangSchedulingPolicyArgs) ToGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyOutput).ToGangSchedulingPolicyPtrOutputWithContext(ctx)
+}
+
+// GangSchedulingPolicyPtrInput is an input type that accepts GangSchedulingPolicyArgs, GangSchedulingPolicyPtr and GangSchedulingPolicyPtrOutput values.
+// You can construct a concrete instance of `GangSchedulingPolicyPtrInput` via:
+//
+//	        GangSchedulingPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type GangSchedulingPolicyPtrInput interface {
+	pulumi.Input
+
+	ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput
+	ToGangSchedulingPolicyPtrOutputWithContext(context.Context) GangSchedulingPolicyPtrOutput
+}
+
+type gangSchedulingPolicyPtrType GangSchedulingPolicyArgs
+
+func GangSchedulingPolicyPtr(v *GangSchedulingPolicyArgs) GangSchedulingPolicyPtrInput {
+	return (*gangSchedulingPolicyPtrType)(v)
+}
+
+func (*gangSchedulingPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GangSchedulingPolicy)(nil)).Elem()
+}
+
+func (i *gangSchedulingPolicyPtrType) ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput {
+	return i.ToGangSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *gangSchedulingPolicyPtrType) ToGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyPtrOutput)
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyOutput struct{ *pulumi.OutputState }
+
+func (GangSchedulingPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GangSchedulingPolicy)(nil)).Elem()
+}
+
+func (o GangSchedulingPolicyOutput) ToGangSchedulingPolicyOutput() GangSchedulingPolicyOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyOutput) ToGangSchedulingPolicyOutputWithContext(ctx context.Context) GangSchedulingPolicyOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyOutput) ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput {
+	return o.ToGangSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o GangSchedulingPolicyOutput) ToGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GangSchedulingPolicy) *GangSchedulingPolicy {
+		return &v
+	}).(GangSchedulingPolicyPtrOutput)
+}
+
+// minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+//
+// Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+func (o GangSchedulingPolicyOutput) MinCount() pulumi.IntOutput {
+	return o.ApplyT(func(v GangSchedulingPolicy) int { return v.MinCount }).(pulumi.IntOutput)
+}
+
+type GangSchedulingPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (GangSchedulingPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GangSchedulingPolicy)(nil)).Elem()
+}
+
+func (o GangSchedulingPolicyPtrOutput) ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPtrOutput) ToGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPtrOutput) Elem() GangSchedulingPolicyOutput {
+	return o.ApplyT(func(v *GangSchedulingPolicy) GangSchedulingPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret GangSchedulingPolicy
+		return ret
+	}).(GangSchedulingPolicyOutput)
+}
+
+// minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+//
+// Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+func (o GangSchedulingPolicyPtrOutput) MinCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GangSchedulingPolicy) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.MinCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyPatch struct {
+	// minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+	//
+	// Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+	MinCount *int `pulumi:"minCount"`
+}
+
+// GangSchedulingPolicyPatchInput is an input type that accepts GangSchedulingPolicyPatchArgs and GangSchedulingPolicyPatchOutput values.
+// You can construct a concrete instance of `GangSchedulingPolicyPatchInput` via:
+//
+//	GangSchedulingPolicyPatchArgs{...}
+type GangSchedulingPolicyPatchInput interface {
+	pulumi.Input
+
+	ToGangSchedulingPolicyPatchOutput() GangSchedulingPolicyPatchOutput
+	ToGangSchedulingPolicyPatchOutputWithContext(context.Context) GangSchedulingPolicyPatchOutput
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyPatchArgs struct {
+	// minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+	//
+	// Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+	MinCount pulumi.IntPtrInput `pulumi:"minCount"`
+}
+
+func (GangSchedulingPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i GangSchedulingPolicyPatchArgs) ToGangSchedulingPolicyPatchOutput() GangSchedulingPolicyPatchOutput {
+	return i.ToGangSchedulingPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i GangSchedulingPolicyPatchArgs) ToGangSchedulingPolicyPatchOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyPatchOutput)
+}
+
+func (i GangSchedulingPolicyPatchArgs) ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput {
+	return i.ToGangSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i GangSchedulingPolicyPatchArgs) ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyPatchOutput).ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// GangSchedulingPolicyPatchPtrInput is an input type that accepts GangSchedulingPolicyPatchArgs, GangSchedulingPolicyPatchPtr and GangSchedulingPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `GangSchedulingPolicyPatchPtrInput` via:
+//
+//	        GangSchedulingPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type GangSchedulingPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput
+	ToGangSchedulingPolicyPatchPtrOutputWithContext(context.Context) GangSchedulingPolicyPatchPtrOutput
+}
+
+type gangSchedulingPolicyPatchPtrType GangSchedulingPolicyPatchArgs
+
+func GangSchedulingPolicyPatchPtr(v *GangSchedulingPolicyPatchArgs) GangSchedulingPolicyPatchPtrInput {
+	return (*gangSchedulingPolicyPatchPtrType)(v)
+}
+
+func (*gangSchedulingPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i *gangSchedulingPolicyPatchPtrType) ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput {
+	return i.ToGangSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *gangSchedulingPolicyPatchPtrType) ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyPatchPtrOutput)
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (GangSchedulingPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o GangSchedulingPolicyPatchOutput) ToGangSchedulingPolicyPatchOutput() GangSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPatchOutput) ToGangSchedulingPolicyPatchOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPatchOutput) ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput {
+	return o.ToGangSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o GangSchedulingPolicyPatchOutput) ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GangSchedulingPolicyPatch) *GangSchedulingPolicyPatch {
+		return &v
+	}).(GangSchedulingPolicyPatchPtrOutput)
+}
+
+// minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+//
+// Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+func (o GangSchedulingPolicyPatchOutput) MinCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GangSchedulingPolicyPatch) *int { return v.MinCount }).(pulumi.IntPtrOutput)
+}
+
+type GangSchedulingPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (GangSchedulingPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o GangSchedulingPolicyPatchPtrOutput) ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPatchPtrOutput) ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPatchPtrOutput) Elem() GangSchedulingPolicyPatchOutput {
+	return o.ApplyT(func(v *GangSchedulingPolicyPatch) GangSchedulingPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret GangSchedulingPolicyPatch
+		return ret
+	}).(GangSchedulingPolicyPatchOutput)
+}
+
+// minCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer. This field is mutable to support workload scaling.
+//
+// Note that the scheduler operates on an eventually consistent model. Updates to minCount may not be immediately reflected in scheduling decisions due to propagation delays. If minCount is updated while a scheduling cycle is in progress for that group, the new value may not take effect until the next cycle. Moreover, minCount is only enforced during scheduling, meaning that modifications to this field do not affect already-scheduled pods, applying only to those evaluated in future cycles.
+func (o GangSchedulingPolicyPatchPtrOutput) MinCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GangSchedulingPolicyPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MinCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
+type PodGroupType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// spec defines the desired state of the PodGroup.
+	Spec PodGroupSpec `pulumi:"spec"`
+	// status represents the current observed state of the PodGroup.
+	Status *PodGroupStatus `pulumi:"status"`
+}
+
+// PodGroupTypeInput is an input type that accepts PodGroupTypeArgs and PodGroupTypeOutput values.
+// You can construct a concrete instance of `PodGroupTypeInput` via:
+//
+//	PodGroupTypeArgs{...}
+type PodGroupTypeInput interface {
+	pulumi.Input
+
+	ToPodGroupTypeOutput() PodGroupTypeOutput
+	ToPodGroupTypeOutputWithContext(context.Context) PodGroupTypeOutput
+}
+
+// PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
+type PodGroupTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// spec defines the desired state of the PodGroup.
+	Spec PodGroupSpecInput `pulumi:"spec"`
+	// status represents the current observed state of the PodGroup.
+	Status PodGroupStatusPtrInput `pulumi:"status"`
+}
+
+func (PodGroupTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupType)(nil)).Elem()
+}
+
+func (i PodGroupTypeArgs) ToPodGroupTypeOutput() PodGroupTypeOutput {
+	return i.ToPodGroupTypeOutputWithContext(context.Background())
+}
+
+func (i PodGroupTypeArgs) ToPodGroupTypeOutputWithContext(ctx context.Context) PodGroupTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupTypeOutput)
+}
+
+// PodGroupTypeArrayInput is an input type that accepts PodGroupTypeArray and PodGroupTypeArrayOutput values.
+// You can construct a concrete instance of `PodGroupTypeArrayInput` via:
+//
+//	PodGroupTypeArray{ PodGroupTypeArgs{...} }
+type PodGroupTypeArrayInput interface {
+	pulumi.Input
+
+	ToPodGroupTypeArrayOutput() PodGroupTypeArrayOutput
+	ToPodGroupTypeArrayOutputWithContext(context.Context) PodGroupTypeArrayOutput
+}
+
+type PodGroupTypeArray []PodGroupTypeInput
+
+func (PodGroupTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupType)(nil)).Elem()
+}
+
+func (i PodGroupTypeArray) ToPodGroupTypeArrayOutput() PodGroupTypeArrayOutput {
+	return i.ToPodGroupTypeArrayOutputWithContext(context.Background())
+}
+
+func (i PodGroupTypeArray) ToPodGroupTypeArrayOutputWithContext(ctx context.Context) PodGroupTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupTypeArrayOutput)
+}
+
+// PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
+type PodGroupTypeOutput struct{ *pulumi.OutputState }
+
+func (PodGroupTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupType)(nil)).Elem()
+}
+
+func (o PodGroupTypeOutput) ToPodGroupTypeOutput() PodGroupTypeOutput {
+	return o
+}
+
+func (o PodGroupTypeOutput) ToPodGroupTypeOutputWithContext(ctx context.Context) PodGroupTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodGroupTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodGroupTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PodGroupTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v PodGroupType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec defines the desired state of the PodGroup.
+func (o PodGroupTypeOutput) Spec() PodGroupSpecOutput {
+	return o.ApplyT(func(v PodGroupType) PodGroupSpec { return v.Spec }).(PodGroupSpecOutput)
+}
+
+// status represents the current observed state of the PodGroup.
+func (o PodGroupTypeOutput) Status() PodGroupStatusPtrOutput {
+	return o.ApplyT(func(v PodGroupType) *PodGroupStatus { return v.Status }).(PodGroupStatusPtrOutput)
+}
+
+type PodGroupTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (PodGroupTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupType)(nil)).Elem()
+}
+
+func (o PodGroupTypeArrayOutput) ToPodGroupTypeArrayOutput() PodGroupTypeArrayOutput {
+	return o
+}
+
+func (o PodGroupTypeArrayOutput) ToPodGroupTypeArrayOutputWithContext(ctx context.Context) PodGroupTypeArrayOutput {
+	return o
+}
+
+func (o PodGroupTypeArrayOutput) Index(i pulumi.IntInput) PodGroupTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodGroupType {
+		return vs[0].([]PodGroupType)[vs[1].(int)]
+	}).(PodGroupTypeOutput)
+}
+
+// PodGroupList contains a list of PodGroup resources.
+type PodGroupListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of PodGroups.
+	Items []PodGroupType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata.
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// PodGroupListTypeInput is an input type that accepts PodGroupListTypeArgs and PodGroupListTypeOutput values.
+// You can construct a concrete instance of `PodGroupListTypeInput` via:
+//
+//	PodGroupListTypeArgs{...}
+type PodGroupListTypeInput interface {
+	pulumi.Input
+
+	ToPodGroupListTypeOutput() PodGroupListTypeOutput
+	ToPodGroupListTypeOutputWithContext(context.Context) PodGroupListTypeOutput
+}
+
+// PodGroupList contains a list of PodGroup resources.
+type PodGroupListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of PodGroups.
+	Items PodGroupTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata.
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (PodGroupListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupListType)(nil)).Elem()
+}
+
+func (i PodGroupListTypeArgs) ToPodGroupListTypeOutput() PodGroupListTypeOutput {
+	return i.ToPodGroupListTypeOutputWithContext(context.Background())
+}
+
+func (i PodGroupListTypeArgs) ToPodGroupListTypeOutputWithContext(ctx context.Context) PodGroupListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupListTypeOutput)
+}
+
+// PodGroupList contains a list of PodGroup resources.
+type PodGroupListTypeOutput struct{ *pulumi.OutputState }
+
+func (PodGroupListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupListType)(nil)).Elem()
+}
+
+func (o PodGroupListTypeOutput) ToPodGroupListTypeOutput() PodGroupListTypeOutput {
+	return o
+}
+
+func (o PodGroupListTypeOutput) ToPodGroupListTypeOutputWithContext(ctx context.Context) PodGroupListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodGroupListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of PodGroups.
+func (o PodGroupListTypeOutput) Items() PodGroupTypeArrayOutput {
+	return o.ApplyT(func(v PodGroupListType) []PodGroupType { return v.Items }).(PodGroupTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodGroupListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata.
+func (o PodGroupListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v PodGroupListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
+type PodGroupPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// spec defines the desired state of the PodGroup.
+	Spec *PodGroupSpecPatch `pulumi:"spec"`
+	// status represents the current observed state of the PodGroup.
+	Status *PodGroupStatusPatch `pulumi:"status"`
+}
+
+// PodGroupPatchTypeInput is an input type that accepts PodGroupPatchTypeArgs and PodGroupPatchTypeOutput values.
+// You can construct a concrete instance of `PodGroupPatchTypeInput` via:
+//
+//	PodGroupPatchTypeArgs{...}
+type PodGroupPatchTypeInput interface {
+	pulumi.Input
+
+	ToPodGroupPatchTypeOutput() PodGroupPatchTypeOutput
+	ToPodGroupPatchTypeOutputWithContext(context.Context) PodGroupPatchTypeOutput
+}
+
+// PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
+type PodGroupPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// spec defines the desired state of the PodGroup.
+	Spec PodGroupSpecPatchPtrInput `pulumi:"spec"`
+	// status represents the current observed state of the PodGroup.
+	Status PodGroupStatusPatchPtrInput `pulumi:"status"`
+}
+
+func (PodGroupPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupPatchType)(nil)).Elem()
+}
+
+func (i PodGroupPatchTypeArgs) ToPodGroupPatchTypeOutput() PodGroupPatchTypeOutput {
+	return i.ToPodGroupPatchTypeOutputWithContext(context.Background())
+}
+
+func (i PodGroupPatchTypeArgs) ToPodGroupPatchTypeOutputWithContext(ctx context.Context) PodGroupPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupPatchTypeOutput)
+}
+
+// PodGroup represents a runtime instance of pods grouped together. PodGroups are created by workload controllers (Job, LWS, JobSet, etc...) from Workload.podGroupTemplates. PodGroup API enablement is toggled by the GenericWorkload feature gate.
+type PodGroupPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (PodGroupPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupPatchType)(nil)).Elem()
+}
+
+func (o PodGroupPatchTypeOutput) ToPodGroupPatchTypeOutput() PodGroupPatchTypeOutput {
+	return o
+}
+
+func (o PodGroupPatchTypeOutput) ToPodGroupPatchTypeOutputWithContext(ctx context.Context) PodGroupPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodGroupPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodGroupPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PodGroupPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// spec defines the desired state of the PodGroup.
+func (o PodGroupPatchTypeOutput) Spec() PodGroupSpecPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupPatchType) *PodGroupSpecPatch { return v.Spec }).(PodGroupSpecPatchPtrOutput)
+}
+
+// status represents the current observed state of the PodGroup.
+func (o PodGroupPatchTypeOutput) Status() PodGroupStatusPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupPatchType) *PodGroupStatusPatch { return v.Status }).(PodGroupStatusPatchPtrOutput)
+}
+
+// PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+//
+// It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+type PodGroupResourceClaim struct {
+	// name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+	Name string `pulumi:"name"`
+	// resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+	//
+	// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+	ResourceClaimName *string `pulumi:"resourceClaimName"`
+	// resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+	//
+	// The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+	//
+	// This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+	//
+	// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+	ResourceClaimTemplateName *string `pulumi:"resourceClaimTemplateName"`
+}
+
+// PodGroupResourceClaimInput is an input type that accepts PodGroupResourceClaimArgs and PodGroupResourceClaimOutput values.
+// You can construct a concrete instance of `PodGroupResourceClaimInput` via:
+//
+//	PodGroupResourceClaimArgs{...}
+type PodGroupResourceClaimInput interface {
+	pulumi.Input
+
+	ToPodGroupResourceClaimOutput() PodGroupResourceClaimOutput
+	ToPodGroupResourceClaimOutputWithContext(context.Context) PodGroupResourceClaimOutput
+}
+
+// PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+//
+// It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+type PodGroupResourceClaimArgs struct {
+	// name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+	Name pulumi.StringInput `pulumi:"name"`
+	// resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+	//
+	// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+	ResourceClaimName pulumi.StringPtrInput `pulumi:"resourceClaimName"`
+	// resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+	//
+	// The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+	//
+	// This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+	//
+	// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+	ResourceClaimTemplateName pulumi.StringPtrInput `pulumi:"resourceClaimTemplateName"`
+}
+
+func (PodGroupResourceClaimArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupResourceClaim)(nil)).Elem()
+}
+
+func (i PodGroupResourceClaimArgs) ToPodGroupResourceClaimOutput() PodGroupResourceClaimOutput {
+	return i.ToPodGroupResourceClaimOutputWithContext(context.Background())
+}
+
+func (i PodGroupResourceClaimArgs) ToPodGroupResourceClaimOutputWithContext(ctx context.Context) PodGroupResourceClaimOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupResourceClaimOutput)
+}
+
+// PodGroupResourceClaimArrayInput is an input type that accepts PodGroupResourceClaimArray and PodGroupResourceClaimArrayOutput values.
+// You can construct a concrete instance of `PodGroupResourceClaimArrayInput` via:
+//
+//	PodGroupResourceClaimArray{ PodGroupResourceClaimArgs{...} }
+type PodGroupResourceClaimArrayInput interface {
+	pulumi.Input
+
+	ToPodGroupResourceClaimArrayOutput() PodGroupResourceClaimArrayOutput
+	ToPodGroupResourceClaimArrayOutputWithContext(context.Context) PodGroupResourceClaimArrayOutput
+}
+
+type PodGroupResourceClaimArray []PodGroupResourceClaimInput
+
+func (PodGroupResourceClaimArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupResourceClaim)(nil)).Elem()
+}
+
+func (i PodGroupResourceClaimArray) ToPodGroupResourceClaimArrayOutput() PodGroupResourceClaimArrayOutput {
+	return i.ToPodGroupResourceClaimArrayOutputWithContext(context.Background())
+}
+
+func (i PodGroupResourceClaimArray) ToPodGroupResourceClaimArrayOutputWithContext(ctx context.Context) PodGroupResourceClaimArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupResourceClaimArrayOutput)
+}
+
+// PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+//
+// It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+type PodGroupResourceClaimOutput struct{ *pulumi.OutputState }
+
+func (PodGroupResourceClaimOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupResourceClaim)(nil)).Elem()
+}
+
+func (o PodGroupResourceClaimOutput) ToPodGroupResourceClaimOutput() PodGroupResourceClaimOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimOutput) ToPodGroupResourceClaimOutputWithContext(ctx context.Context) PodGroupResourceClaimOutput {
+	return o
+}
+
+// name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+func (o PodGroupResourceClaimOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PodGroupResourceClaim) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+//
+// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+func (o PodGroupResourceClaimOutput) ResourceClaimName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupResourceClaim) *string { return v.ResourceClaimName }).(pulumi.StringPtrOutput)
+}
+
+// resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+//
+// The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+//
+// This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+//
+// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+func (o PodGroupResourceClaimOutput) ResourceClaimTemplateName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupResourceClaim) *string { return v.ResourceClaimTemplateName }).(pulumi.StringPtrOutput)
+}
+
+type PodGroupResourceClaimArrayOutput struct{ *pulumi.OutputState }
+
+func (PodGroupResourceClaimArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupResourceClaim)(nil)).Elem()
+}
+
+func (o PodGroupResourceClaimArrayOutput) ToPodGroupResourceClaimArrayOutput() PodGroupResourceClaimArrayOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimArrayOutput) ToPodGroupResourceClaimArrayOutputWithContext(ctx context.Context) PodGroupResourceClaimArrayOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimArrayOutput) Index(i pulumi.IntInput) PodGroupResourceClaimOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodGroupResourceClaim {
+		return vs[0].([]PodGroupResourceClaim)[vs[1].(int)]
+	}).(PodGroupResourceClaimOutput)
+}
+
+// PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+//
+// It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+type PodGroupResourceClaimPatch struct {
+	// name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+	Name *string `pulumi:"name"`
+	// resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+	//
+	// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+	ResourceClaimName *string `pulumi:"resourceClaimName"`
+	// resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+	//
+	// The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+	//
+	// This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+	//
+	// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+	ResourceClaimTemplateName *string `pulumi:"resourceClaimTemplateName"`
+}
+
+// PodGroupResourceClaimPatchInput is an input type that accepts PodGroupResourceClaimPatchArgs and PodGroupResourceClaimPatchOutput values.
+// You can construct a concrete instance of `PodGroupResourceClaimPatchInput` via:
+//
+//	PodGroupResourceClaimPatchArgs{...}
+type PodGroupResourceClaimPatchInput interface {
+	pulumi.Input
+
+	ToPodGroupResourceClaimPatchOutput() PodGroupResourceClaimPatchOutput
+	ToPodGroupResourceClaimPatchOutputWithContext(context.Context) PodGroupResourceClaimPatchOutput
+}
+
+// PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+//
+// It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+type PodGroupResourceClaimPatchArgs struct {
+	// name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+	//
+	// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+	ResourceClaimName pulumi.StringPtrInput `pulumi:"resourceClaimName"`
+	// resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+	//
+	// The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+	//
+	// This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+	//
+	// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+	ResourceClaimTemplateName pulumi.StringPtrInput `pulumi:"resourceClaimTemplateName"`
+}
+
+func (PodGroupResourceClaimPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupResourceClaimPatch)(nil)).Elem()
+}
+
+func (i PodGroupResourceClaimPatchArgs) ToPodGroupResourceClaimPatchOutput() PodGroupResourceClaimPatchOutput {
+	return i.ToPodGroupResourceClaimPatchOutputWithContext(context.Background())
+}
+
+func (i PodGroupResourceClaimPatchArgs) ToPodGroupResourceClaimPatchOutputWithContext(ctx context.Context) PodGroupResourceClaimPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupResourceClaimPatchOutput)
+}
+
+// PodGroupResourceClaimPatchArrayInput is an input type that accepts PodGroupResourceClaimPatchArray and PodGroupResourceClaimPatchArrayOutput values.
+// You can construct a concrete instance of `PodGroupResourceClaimPatchArrayInput` via:
+//
+//	PodGroupResourceClaimPatchArray{ PodGroupResourceClaimPatchArgs{...} }
+type PodGroupResourceClaimPatchArrayInput interface {
+	pulumi.Input
+
+	ToPodGroupResourceClaimPatchArrayOutput() PodGroupResourceClaimPatchArrayOutput
+	ToPodGroupResourceClaimPatchArrayOutputWithContext(context.Context) PodGroupResourceClaimPatchArrayOutput
+}
+
+type PodGroupResourceClaimPatchArray []PodGroupResourceClaimPatchInput
+
+func (PodGroupResourceClaimPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupResourceClaimPatch)(nil)).Elem()
+}
+
+func (i PodGroupResourceClaimPatchArray) ToPodGroupResourceClaimPatchArrayOutput() PodGroupResourceClaimPatchArrayOutput {
+	return i.ToPodGroupResourceClaimPatchArrayOutputWithContext(context.Background())
+}
+
+func (i PodGroupResourceClaimPatchArray) ToPodGroupResourceClaimPatchArrayOutputWithContext(ctx context.Context) PodGroupResourceClaimPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupResourceClaimPatchArrayOutput)
+}
+
+// PodGroupResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the PodGroup.
+//
+// It adds a name to it that uniquely identifies the ResourceClaim inside the PodGroup. Pods that need access to the ResourceClaim define a matching reference in its own Spec.ResourceClaims. The Pod's claim must match all fields of the PodGroup's claim exactly.
+type PodGroupResourceClaimPatchOutput struct{ *pulumi.OutputState }
+
+func (PodGroupResourceClaimPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupResourceClaimPatch)(nil)).Elem()
+}
+
+func (o PodGroupResourceClaimPatchOutput) ToPodGroupResourceClaimPatchOutput() PodGroupResourceClaimPatchOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimPatchOutput) ToPodGroupResourceClaimPatchOutputWithContext(ctx context.Context) PodGroupResourceClaimPatchOutput {
+	return o
+}
+
+// name uniquely identifies this resource claim inside the PodGroup. This must be a DNS_LABEL.
+func (o PodGroupResourceClaimPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupResourceClaimPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// resourceClaimName is the name of a ResourceClaim object in the same namespace as this PodGroup. The ResourceClaim will be reserved for the PodGroup instead of its individual pods.
+//
+// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+func (o PodGroupResourceClaimPatchOutput) ResourceClaimName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupResourceClaimPatch) *string { return v.ResourceClaimName }).(pulumi.StringPtrOutput)
+}
+
+// resourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this PodGroup.
+//
+// The template will be used to create a new ResourceClaim, which will be bound to this PodGroup. When this PodGroup is deleted, the ResourceClaim will also be deleted. The PodGroup name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in podgroup.status.resourceClaimStatuses.
+//
+// This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+//
+// Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+func (o PodGroupResourceClaimPatchOutput) ResourceClaimTemplateName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupResourceClaimPatch) *string { return v.ResourceClaimTemplateName }).(pulumi.StringPtrOutput)
+}
+
+type PodGroupResourceClaimPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (PodGroupResourceClaimPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupResourceClaimPatch)(nil)).Elem()
+}
+
+func (o PodGroupResourceClaimPatchArrayOutput) ToPodGroupResourceClaimPatchArrayOutput() PodGroupResourceClaimPatchArrayOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimPatchArrayOutput) ToPodGroupResourceClaimPatchArrayOutputWithContext(ctx context.Context) PodGroupResourceClaimPatchArrayOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimPatchArrayOutput) Index(i pulumi.IntInput) PodGroupResourceClaimPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodGroupResourceClaimPatch {
+		return vs[0].([]PodGroupResourceClaimPatch)[vs[1].(int)]
+	}).(PodGroupResourceClaimPatchOutput)
+}
+
+// PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+type PodGroupResourceClaimStatus struct {
+	// name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+	Name string `pulumi:"name"`
+	// resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+	ResourceClaimName *string `pulumi:"resourceClaimName"`
+}
+
+// PodGroupResourceClaimStatusInput is an input type that accepts PodGroupResourceClaimStatusArgs and PodGroupResourceClaimStatusOutput values.
+// You can construct a concrete instance of `PodGroupResourceClaimStatusInput` via:
+//
+//	PodGroupResourceClaimStatusArgs{...}
+type PodGroupResourceClaimStatusInput interface {
+	pulumi.Input
+
+	ToPodGroupResourceClaimStatusOutput() PodGroupResourceClaimStatusOutput
+	ToPodGroupResourceClaimStatusOutputWithContext(context.Context) PodGroupResourceClaimStatusOutput
+}
+
+// PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+type PodGroupResourceClaimStatusArgs struct {
+	// name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+	Name pulumi.StringInput `pulumi:"name"`
+	// resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+	ResourceClaimName pulumi.StringPtrInput `pulumi:"resourceClaimName"`
+}
+
+func (PodGroupResourceClaimStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupResourceClaimStatus)(nil)).Elem()
+}
+
+func (i PodGroupResourceClaimStatusArgs) ToPodGroupResourceClaimStatusOutput() PodGroupResourceClaimStatusOutput {
+	return i.ToPodGroupResourceClaimStatusOutputWithContext(context.Background())
+}
+
+func (i PodGroupResourceClaimStatusArgs) ToPodGroupResourceClaimStatusOutputWithContext(ctx context.Context) PodGroupResourceClaimStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupResourceClaimStatusOutput)
+}
+
+// PodGroupResourceClaimStatusArrayInput is an input type that accepts PodGroupResourceClaimStatusArray and PodGroupResourceClaimStatusArrayOutput values.
+// You can construct a concrete instance of `PodGroupResourceClaimStatusArrayInput` via:
+//
+//	PodGroupResourceClaimStatusArray{ PodGroupResourceClaimStatusArgs{...} }
+type PodGroupResourceClaimStatusArrayInput interface {
+	pulumi.Input
+
+	ToPodGroupResourceClaimStatusArrayOutput() PodGroupResourceClaimStatusArrayOutput
+	ToPodGroupResourceClaimStatusArrayOutputWithContext(context.Context) PodGroupResourceClaimStatusArrayOutput
+}
+
+type PodGroupResourceClaimStatusArray []PodGroupResourceClaimStatusInput
+
+func (PodGroupResourceClaimStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupResourceClaimStatus)(nil)).Elem()
+}
+
+func (i PodGroupResourceClaimStatusArray) ToPodGroupResourceClaimStatusArrayOutput() PodGroupResourceClaimStatusArrayOutput {
+	return i.ToPodGroupResourceClaimStatusArrayOutputWithContext(context.Background())
+}
+
+func (i PodGroupResourceClaimStatusArray) ToPodGroupResourceClaimStatusArrayOutputWithContext(ctx context.Context) PodGroupResourceClaimStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupResourceClaimStatusArrayOutput)
+}
+
+// PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+type PodGroupResourceClaimStatusOutput struct{ *pulumi.OutputState }
+
+func (PodGroupResourceClaimStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupResourceClaimStatus)(nil)).Elem()
+}
+
+func (o PodGroupResourceClaimStatusOutput) ToPodGroupResourceClaimStatusOutput() PodGroupResourceClaimStatusOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimStatusOutput) ToPodGroupResourceClaimStatusOutputWithContext(ctx context.Context) PodGroupResourceClaimStatusOutput {
+	return o
+}
+
+// name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+func (o PodGroupResourceClaimStatusOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PodGroupResourceClaimStatus) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+func (o PodGroupResourceClaimStatusOutput) ResourceClaimName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupResourceClaimStatus) *string { return v.ResourceClaimName }).(pulumi.StringPtrOutput)
+}
+
+type PodGroupResourceClaimStatusArrayOutput struct{ *pulumi.OutputState }
+
+func (PodGroupResourceClaimStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupResourceClaimStatus)(nil)).Elem()
+}
+
+func (o PodGroupResourceClaimStatusArrayOutput) ToPodGroupResourceClaimStatusArrayOutput() PodGroupResourceClaimStatusArrayOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimStatusArrayOutput) ToPodGroupResourceClaimStatusArrayOutputWithContext(ctx context.Context) PodGroupResourceClaimStatusArrayOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimStatusArrayOutput) Index(i pulumi.IntInput) PodGroupResourceClaimStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodGroupResourceClaimStatus {
+		return vs[0].([]PodGroupResourceClaimStatus)[vs[1].(int)]
+	}).(PodGroupResourceClaimStatusOutput)
+}
+
+// PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+type PodGroupResourceClaimStatusPatch struct {
+	// name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+	Name *string `pulumi:"name"`
+	// resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+	ResourceClaimName *string `pulumi:"resourceClaimName"`
+}
+
+// PodGroupResourceClaimStatusPatchInput is an input type that accepts PodGroupResourceClaimStatusPatchArgs and PodGroupResourceClaimStatusPatchOutput values.
+// You can construct a concrete instance of `PodGroupResourceClaimStatusPatchInput` via:
+//
+//	PodGroupResourceClaimStatusPatchArgs{...}
+type PodGroupResourceClaimStatusPatchInput interface {
+	pulumi.Input
+
+	ToPodGroupResourceClaimStatusPatchOutput() PodGroupResourceClaimStatusPatchOutput
+	ToPodGroupResourceClaimStatusPatchOutputWithContext(context.Context) PodGroupResourceClaimStatusPatchOutput
+}
+
+// PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+type PodGroupResourceClaimStatusPatchArgs struct {
+	// name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+	ResourceClaimName pulumi.StringPtrInput `pulumi:"resourceClaimName"`
+}
+
+func (PodGroupResourceClaimStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupResourceClaimStatusPatch)(nil)).Elem()
+}
+
+func (i PodGroupResourceClaimStatusPatchArgs) ToPodGroupResourceClaimStatusPatchOutput() PodGroupResourceClaimStatusPatchOutput {
+	return i.ToPodGroupResourceClaimStatusPatchOutputWithContext(context.Background())
+}
+
+func (i PodGroupResourceClaimStatusPatchArgs) ToPodGroupResourceClaimStatusPatchOutputWithContext(ctx context.Context) PodGroupResourceClaimStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupResourceClaimStatusPatchOutput)
+}
+
+// PodGroupResourceClaimStatusPatchArrayInput is an input type that accepts PodGroupResourceClaimStatusPatchArray and PodGroupResourceClaimStatusPatchArrayOutput values.
+// You can construct a concrete instance of `PodGroupResourceClaimStatusPatchArrayInput` via:
+//
+//	PodGroupResourceClaimStatusPatchArray{ PodGroupResourceClaimStatusPatchArgs{...} }
+type PodGroupResourceClaimStatusPatchArrayInput interface {
+	pulumi.Input
+
+	ToPodGroupResourceClaimStatusPatchArrayOutput() PodGroupResourceClaimStatusPatchArrayOutput
+	ToPodGroupResourceClaimStatusPatchArrayOutputWithContext(context.Context) PodGroupResourceClaimStatusPatchArrayOutput
+}
+
+type PodGroupResourceClaimStatusPatchArray []PodGroupResourceClaimStatusPatchInput
+
+func (PodGroupResourceClaimStatusPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupResourceClaimStatusPatch)(nil)).Elem()
+}
+
+func (i PodGroupResourceClaimStatusPatchArray) ToPodGroupResourceClaimStatusPatchArrayOutput() PodGroupResourceClaimStatusPatchArrayOutput {
+	return i.ToPodGroupResourceClaimStatusPatchArrayOutputWithContext(context.Background())
+}
+
+func (i PodGroupResourceClaimStatusPatchArray) ToPodGroupResourceClaimStatusPatchArrayOutputWithContext(ctx context.Context) PodGroupResourceClaimStatusPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupResourceClaimStatusPatchArrayOutput)
+}
+
+// PodGroupResourceClaimStatus is stored in the PodGroupStatus for each PodGroupResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
+type PodGroupResourceClaimStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (PodGroupResourceClaimStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupResourceClaimStatusPatch)(nil)).Elem()
+}
+
+func (o PodGroupResourceClaimStatusPatchOutput) ToPodGroupResourceClaimStatusPatchOutput() PodGroupResourceClaimStatusPatchOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimStatusPatchOutput) ToPodGroupResourceClaimStatusPatchOutputWithContext(ctx context.Context) PodGroupResourceClaimStatusPatchOutput {
+	return o
+}
+
+// name uniquely identifies this resource claim inside the PodGroup. This must match the name of an entry in podgroup.spec.resourceClaims, which implies that the string must be a DNS_LABEL.
+func (o PodGroupResourceClaimStatusPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupResourceClaimStatusPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// resourceClaimName is the name of the ResourceClaim that was generated for the PodGroup in the namespace of the PodGroup. If this is unset, then generating a ResourceClaim was not necessary. The podgroup.spec.resourceClaims entry can be ignored in this case.
+func (o PodGroupResourceClaimStatusPatchOutput) ResourceClaimName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupResourceClaimStatusPatch) *string { return v.ResourceClaimName }).(pulumi.StringPtrOutput)
+}
+
+type PodGroupResourceClaimStatusPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (PodGroupResourceClaimStatusPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupResourceClaimStatusPatch)(nil)).Elem()
+}
+
+func (o PodGroupResourceClaimStatusPatchArrayOutput) ToPodGroupResourceClaimStatusPatchArrayOutput() PodGroupResourceClaimStatusPatchArrayOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimStatusPatchArrayOutput) ToPodGroupResourceClaimStatusPatchArrayOutputWithContext(ctx context.Context) PodGroupResourceClaimStatusPatchArrayOutput {
+	return o
+}
+
+func (o PodGroupResourceClaimStatusPatchArrayOutput) Index(i pulumi.IntInput) PodGroupResourceClaimStatusPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodGroupResourceClaimStatusPatch {
+		return vs[0].([]PodGroupResourceClaimStatusPatch)[vs[1].(int)]
+	}).(PodGroupResourceClaimStatusPatchOutput)
+}
+
+// PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+type PodGroupSchedulingConstraints struct {
+	// topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+	Topology []TopologyConstraint `pulumi:"topology"`
+}
+
+// PodGroupSchedulingConstraintsInput is an input type that accepts PodGroupSchedulingConstraintsArgs and PodGroupSchedulingConstraintsOutput values.
+// You can construct a concrete instance of `PodGroupSchedulingConstraintsInput` via:
+//
+//	PodGroupSchedulingConstraintsArgs{...}
+type PodGroupSchedulingConstraintsInput interface {
+	pulumi.Input
+
+	ToPodGroupSchedulingConstraintsOutput() PodGroupSchedulingConstraintsOutput
+	ToPodGroupSchedulingConstraintsOutputWithContext(context.Context) PodGroupSchedulingConstraintsOutput
+}
+
+// PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+type PodGroupSchedulingConstraintsArgs struct {
+	// topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+	Topology TopologyConstraintArrayInput `pulumi:"topology"`
+}
+
+func (PodGroupSchedulingConstraintsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSchedulingConstraints)(nil)).Elem()
+}
+
+func (i PodGroupSchedulingConstraintsArgs) ToPodGroupSchedulingConstraintsOutput() PodGroupSchedulingConstraintsOutput {
+	return i.ToPodGroupSchedulingConstraintsOutputWithContext(context.Background())
+}
+
+func (i PodGroupSchedulingConstraintsArgs) ToPodGroupSchedulingConstraintsOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingConstraintsOutput)
+}
+
+func (i PodGroupSchedulingConstraintsArgs) ToPodGroupSchedulingConstraintsPtrOutput() PodGroupSchedulingConstraintsPtrOutput {
+	return i.ToPodGroupSchedulingConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (i PodGroupSchedulingConstraintsArgs) ToPodGroupSchedulingConstraintsPtrOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingConstraintsOutput).ToPodGroupSchedulingConstraintsPtrOutputWithContext(ctx)
+}
+
+// PodGroupSchedulingConstraintsPtrInput is an input type that accepts PodGroupSchedulingConstraintsArgs, PodGroupSchedulingConstraintsPtr and PodGroupSchedulingConstraintsPtrOutput values.
+// You can construct a concrete instance of `PodGroupSchedulingConstraintsPtrInput` via:
+//
+//	        PodGroupSchedulingConstraintsArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodGroupSchedulingConstraintsPtrInput interface {
+	pulumi.Input
+
+	ToPodGroupSchedulingConstraintsPtrOutput() PodGroupSchedulingConstraintsPtrOutput
+	ToPodGroupSchedulingConstraintsPtrOutputWithContext(context.Context) PodGroupSchedulingConstraintsPtrOutput
+}
+
+type podGroupSchedulingConstraintsPtrType PodGroupSchedulingConstraintsArgs
+
+func PodGroupSchedulingConstraintsPtr(v *PodGroupSchedulingConstraintsArgs) PodGroupSchedulingConstraintsPtrInput {
+	return (*podGroupSchedulingConstraintsPtrType)(v)
+}
+
+func (*podGroupSchedulingConstraintsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupSchedulingConstraints)(nil)).Elem()
+}
+
+func (i *podGroupSchedulingConstraintsPtrType) ToPodGroupSchedulingConstraintsPtrOutput() PodGroupSchedulingConstraintsPtrOutput {
+	return i.ToPodGroupSchedulingConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (i *podGroupSchedulingConstraintsPtrType) ToPodGroupSchedulingConstraintsPtrOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingConstraintsPtrOutput)
+}
+
+// PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+type PodGroupSchedulingConstraintsOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSchedulingConstraintsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSchedulingConstraints)(nil)).Elem()
+}
+
+func (o PodGroupSchedulingConstraintsOutput) ToPodGroupSchedulingConstraintsOutput() PodGroupSchedulingConstraintsOutput {
+	return o
+}
+
+func (o PodGroupSchedulingConstraintsOutput) ToPodGroupSchedulingConstraintsOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsOutput {
+	return o
+}
+
+func (o PodGroupSchedulingConstraintsOutput) ToPodGroupSchedulingConstraintsPtrOutput() PodGroupSchedulingConstraintsPtrOutput {
+	return o.ToPodGroupSchedulingConstraintsPtrOutputWithContext(context.Background())
+}
+
+func (o PodGroupSchedulingConstraintsOutput) ToPodGroupSchedulingConstraintsPtrOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodGroupSchedulingConstraints) *PodGroupSchedulingConstraints {
+		return &v
+	}).(PodGroupSchedulingConstraintsPtrOutput)
+}
+
+// topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+func (o PodGroupSchedulingConstraintsOutput) Topology() TopologyConstraintArrayOutput {
+	return o.ApplyT(func(v PodGroupSchedulingConstraints) []TopologyConstraint { return v.Topology }).(TopologyConstraintArrayOutput)
+}
+
+type PodGroupSchedulingConstraintsPtrOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSchedulingConstraintsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupSchedulingConstraints)(nil)).Elem()
+}
+
+func (o PodGroupSchedulingConstraintsPtrOutput) ToPodGroupSchedulingConstraintsPtrOutput() PodGroupSchedulingConstraintsPtrOutput {
+	return o
+}
+
+func (o PodGroupSchedulingConstraintsPtrOutput) ToPodGroupSchedulingConstraintsPtrOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPtrOutput {
+	return o
+}
+
+func (o PodGroupSchedulingConstraintsPtrOutput) Elem() PodGroupSchedulingConstraintsOutput {
+	return o.ApplyT(func(v *PodGroupSchedulingConstraints) PodGroupSchedulingConstraints {
+		if v != nil {
+			return *v
+		}
+		var ret PodGroupSchedulingConstraints
+		return ret
+	}).(PodGroupSchedulingConstraintsOutput)
+}
+
+// topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+func (o PodGroupSchedulingConstraintsPtrOutput) Topology() TopologyConstraintArrayOutput {
+	return o.ApplyT(func(v *PodGroupSchedulingConstraints) []TopologyConstraint {
+		if v == nil {
+			return nil
+		}
+		return v.Topology
+	}).(TopologyConstraintArrayOutput)
+}
+
+// PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+type PodGroupSchedulingConstraintsPatch struct {
+	// topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+	Topology []TopologyConstraintPatch `pulumi:"topology"`
+}
+
+// PodGroupSchedulingConstraintsPatchInput is an input type that accepts PodGroupSchedulingConstraintsPatchArgs and PodGroupSchedulingConstraintsPatchOutput values.
+// You can construct a concrete instance of `PodGroupSchedulingConstraintsPatchInput` via:
+//
+//	PodGroupSchedulingConstraintsPatchArgs{...}
+type PodGroupSchedulingConstraintsPatchInput interface {
+	pulumi.Input
+
+	ToPodGroupSchedulingConstraintsPatchOutput() PodGroupSchedulingConstraintsPatchOutput
+	ToPodGroupSchedulingConstraintsPatchOutputWithContext(context.Context) PodGroupSchedulingConstraintsPatchOutput
+}
+
+// PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+type PodGroupSchedulingConstraintsPatchArgs struct {
+	// topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+	Topology TopologyConstraintPatchArrayInput `pulumi:"topology"`
+}
+
+func (PodGroupSchedulingConstraintsPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSchedulingConstraintsPatch)(nil)).Elem()
+}
+
+func (i PodGroupSchedulingConstraintsPatchArgs) ToPodGroupSchedulingConstraintsPatchOutput() PodGroupSchedulingConstraintsPatchOutput {
+	return i.ToPodGroupSchedulingConstraintsPatchOutputWithContext(context.Background())
+}
+
+func (i PodGroupSchedulingConstraintsPatchArgs) ToPodGroupSchedulingConstraintsPatchOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingConstraintsPatchOutput)
+}
+
+func (i PodGroupSchedulingConstraintsPatchArgs) ToPodGroupSchedulingConstraintsPatchPtrOutput() PodGroupSchedulingConstraintsPatchPtrOutput {
+	return i.ToPodGroupSchedulingConstraintsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i PodGroupSchedulingConstraintsPatchArgs) ToPodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingConstraintsPatchOutput).ToPodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx)
+}
+
+// PodGroupSchedulingConstraintsPatchPtrInput is an input type that accepts PodGroupSchedulingConstraintsPatchArgs, PodGroupSchedulingConstraintsPatchPtr and PodGroupSchedulingConstraintsPatchPtrOutput values.
+// You can construct a concrete instance of `PodGroupSchedulingConstraintsPatchPtrInput` via:
+//
+//	        PodGroupSchedulingConstraintsPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodGroupSchedulingConstraintsPatchPtrInput interface {
+	pulumi.Input
+
+	ToPodGroupSchedulingConstraintsPatchPtrOutput() PodGroupSchedulingConstraintsPatchPtrOutput
+	ToPodGroupSchedulingConstraintsPatchPtrOutputWithContext(context.Context) PodGroupSchedulingConstraintsPatchPtrOutput
+}
+
+type podGroupSchedulingConstraintsPatchPtrType PodGroupSchedulingConstraintsPatchArgs
+
+func PodGroupSchedulingConstraintsPatchPtr(v *PodGroupSchedulingConstraintsPatchArgs) PodGroupSchedulingConstraintsPatchPtrInput {
+	return (*podGroupSchedulingConstraintsPatchPtrType)(v)
+}
+
+func (*podGroupSchedulingConstraintsPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupSchedulingConstraintsPatch)(nil)).Elem()
+}
+
+func (i *podGroupSchedulingConstraintsPatchPtrType) ToPodGroupSchedulingConstraintsPatchPtrOutput() PodGroupSchedulingConstraintsPatchPtrOutput {
+	return i.ToPodGroupSchedulingConstraintsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *podGroupSchedulingConstraintsPatchPtrType) ToPodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// PodGroupSchedulingConstraints defines scheduling constraints (e.g. topology) for a PodGroup.
+type PodGroupSchedulingConstraintsPatchOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSchedulingConstraintsPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSchedulingConstraintsPatch)(nil)).Elem()
+}
+
+func (o PodGroupSchedulingConstraintsPatchOutput) ToPodGroupSchedulingConstraintsPatchOutput() PodGroupSchedulingConstraintsPatchOutput {
+	return o
+}
+
+func (o PodGroupSchedulingConstraintsPatchOutput) ToPodGroupSchedulingConstraintsPatchOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPatchOutput {
+	return o
+}
+
+func (o PodGroupSchedulingConstraintsPatchOutput) ToPodGroupSchedulingConstraintsPatchPtrOutput() PodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ToPodGroupSchedulingConstraintsPatchPtrOutputWithContext(context.Background())
+}
+
+func (o PodGroupSchedulingConstraintsPatchOutput) ToPodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodGroupSchedulingConstraintsPatch) *PodGroupSchedulingConstraintsPatch {
+		return &v
+	}).(PodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+func (o PodGroupSchedulingConstraintsPatchOutput) Topology() TopologyConstraintPatchArrayOutput {
+	return o.ApplyT(func(v PodGroupSchedulingConstraintsPatch) []TopologyConstraintPatch { return v.Topology }).(TopologyConstraintPatchArrayOutput)
+}
+
+type PodGroupSchedulingConstraintsPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSchedulingConstraintsPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupSchedulingConstraintsPatch)(nil)).Elem()
+}
+
+func (o PodGroupSchedulingConstraintsPatchPtrOutput) ToPodGroupSchedulingConstraintsPatchPtrOutput() PodGroupSchedulingConstraintsPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupSchedulingConstraintsPatchPtrOutput) ToPodGroupSchedulingConstraintsPatchPtrOutputWithContext(ctx context.Context) PodGroupSchedulingConstraintsPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupSchedulingConstraintsPatchPtrOutput) Elem() PodGroupSchedulingConstraintsPatchOutput {
+	return o.ApplyT(func(v *PodGroupSchedulingConstraintsPatch) PodGroupSchedulingConstraintsPatch {
+		if v != nil {
+			return *v
+		}
+		var ret PodGroupSchedulingConstraintsPatch
+		return ret
+	}).(PodGroupSchedulingConstraintsPatchOutput)
+}
+
+// topology defines the topology constraints for the pod group. Currently only a single topology constraint can be specified. This may change in the future.
+func (o PodGroupSchedulingConstraintsPatchPtrOutput) Topology() TopologyConstraintPatchArrayOutput {
+	return o.ApplyT(func(v *PodGroupSchedulingConstraintsPatch) []TopologyConstraintPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Topology
+	}).(TopologyConstraintPatchArrayOutput)
+}
+
+// PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
+type PodGroupSchedulingPolicy struct {
+	// basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
+	Basic *BasicSchedulingPolicy `pulumi:"basic"`
+	// gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
+	Gang *GangSchedulingPolicy `pulumi:"gang"`
+}
+
+// PodGroupSchedulingPolicyInput is an input type that accepts PodGroupSchedulingPolicyArgs and PodGroupSchedulingPolicyOutput values.
+// You can construct a concrete instance of `PodGroupSchedulingPolicyInput` via:
+//
+//	PodGroupSchedulingPolicyArgs{...}
+type PodGroupSchedulingPolicyInput interface {
+	pulumi.Input
+
+	ToPodGroupSchedulingPolicyOutput() PodGroupSchedulingPolicyOutput
+	ToPodGroupSchedulingPolicyOutputWithContext(context.Context) PodGroupSchedulingPolicyOutput
+}
+
+// PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
+type PodGroupSchedulingPolicyArgs struct {
+	// basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
+	Basic BasicSchedulingPolicyPtrInput `pulumi:"basic"`
+	// gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
+	Gang GangSchedulingPolicyPtrInput `pulumi:"gang"`
+}
+
+func (PodGroupSchedulingPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSchedulingPolicy)(nil)).Elem()
+}
+
+func (i PodGroupSchedulingPolicyArgs) ToPodGroupSchedulingPolicyOutput() PodGroupSchedulingPolicyOutput {
+	return i.ToPodGroupSchedulingPolicyOutputWithContext(context.Background())
+}
+
+func (i PodGroupSchedulingPolicyArgs) ToPodGroupSchedulingPolicyOutputWithContext(ctx context.Context) PodGroupSchedulingPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingPolicyOutput)
+}
+
+// PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
+type PodGroupSchedulingPolicyOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSchedulingPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSchedulingPolicy)(nil)).Elem()
+}
+
+func (o PodGroupSchedulingPolicyOutput) ToPodGroupSchedulingPolicyOutput() PodGroupSchedulingPolicyOutput {
+	return o
+}
+
+func (o PodGroupSchedulingPolicyOutput) ToPodGroupSchedulingPolicyOutputWithContext(ctx context.Context) PodGroupSchedulingPolicyOutput {
+	return o
+}
+
+// basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
+func (o PodGroupSchedulingPolicyOutput) Basic() BasicSchedulingPolicyPtrOutput {
+	return o.ApplyT(func(v PodGroupSchedulingPolicy) *BasicSchedulingPolicy { return v.Basic }).(BasicSchedulingPolicyPtrOutput)
+}
+
+// gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
+func (o PodGroupSchedulingPolicyOutput) Gang() GangSchedulingPolicyPtrOutput {
+	return o.ApplyT(func(v PodGroupSchedulingPolicy) *GangSchedulingPolicy { return v.Gang }).(GangSchedulingPolicyPtrOutput)
+}
+
+// PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
+type PodGroupSchedulingPolicyPatch struct {
+	// basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
+	Basic *BasicSchedulingPolicyPatch `pulumi:"basic"`
+	// gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
+	Gang *GangSchedulingPolicyPatch `pulumi:"gang"`
+}
+
+// PodGroupSchedulingPolicyPatchInput is an input type that accepts PodGroupSchedulingPolicyPatchArgs and PodGroupSchedulingPolicyPatchOutput values.
+// You can construct a concrete instance of `PodGroupSchedulingPolicyPatchInput` via:
+//
+//	PodGroupSchedulingPolicyPatchArgs{...}
+type PodGroupSchedulingPolicyPatchInput interface {
+	pulumi.Input
+
+	ToPodGroupSchedulingPolicyPatchOutput() PodGroupSchedulingPolicyPatchOutput
+	ToPodGroupSchedulingPolicyPatchOutputWithContext(context.Context) PodGroupSchedulingPolicyPatchOutput
+}
+
+// PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
+type PodGroupSchedulingPolicyPatchArgs struct {
+	// basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
+	Basic BasicSchedulingPolicyPatchPtrInput `pulumi:"basic"`
+	// gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
+	Gang GangSchedulingPolicyPatchPtrInput `pulumi:"gang"`
+}
+
+func (PodGroupSchedulingPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i PodGroupSchedulingPolicyPatchArgs) ToPodGroupSchedulingPolicyPatchOutput() PodGroupSchedulingPolicyPatchOutput {
+	return i.ToPodGroupSchedulingPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i PodGroupSchedulingPolicyPatchArgs) ToPodGroupSchedulingPolicyPatchOutputWithContext(ctx context.Context) PodGroupSchedulingPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingPolicyPatchOutput)
+}
+
+func (i PodGroupSchedulingPolicyPatchArgs) ToPodGroupSchedulingPolicyPatchPtrOutput() PodGroupSchedulingPolicyPatchPtrOutput {
+	return i.ToPodGroupSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i PodGroupSchedulingPolicyPatchArgs) ToPodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) PodGroupSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingPolicyPatchOutput).ToPodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// PodGroupSchedulingPolicyPatchPtrInput is an input type that accepts PodGroupSchedulingPolicyPatchArgs, PodGroupSchedulingPolicyPatchPtr and PodGroupSchedulingPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `PodGroupSchedulingPolicyPatchPtrInput` via:
+//
+//	        PodGroupSchedulingPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodGroupSchedulingPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToPodGroupSchedulingPolicyPatchPtrOutput() PodGroupSchedulingPolicyPatchPtrOutput
+	ToPodGroupSchedulingPolicyPatchPtrOutputWithContext(context.Context) PodGroupSchedulingPolicyPatchPtrOutput
+}
+
+type podGroupSchedulingPolicyPatchPtrType PodGroupSchedulingPolicyPatchArgs
+
+func PodGroupSchedulingPolicyPatchPtr(v *PodGroupSchedulingPolicyPatchArgs) PodGroupSchedulingPolicyPatchPtrInput {
+	return (*podGroupSchedulingPolicyPatchPtrType)(v)
+}
+
+func (*podGroupSchedulingPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i *podGroupSchedulingPolicyPatchPtrType) ToPodGroupSchedulingPolicyPatchPtrOutput() PodGroupSchedulingPolicyPatchPtrOutput {
+	return i.ToPodGroupSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *podGroupSchedulingPolicyPatchPtrType) ToPodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) PodGroupSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSchedulingPolicyPatchPtrOutput)
+}
+
+// PodGroupSchedulingPolicy defines the scheduling configuration for a PodGroup. Exactly one policy must be set. The policy is chosen at creation time by setting either the Basic or Gang field. The PodGroup may not change policy after creation. Fields within chosen policy may be updated after creation when their individual fields allow it.
+type PodGroupSchedulingPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSchedulingPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o PodGroupSchedulingPolicyPatchOutput) ToPodGroupSchedulingPolicyPatchOutput() PodGroupSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o PodGroupSchedulingPolicyPatchOutput) ToPodGroupSchedulingPolicyPatchOutputWithContext(ctx context.Context) PodGroupSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o PodGroupSchedulingPolicyPatchOutput) ToPodGroupSchedulingPolicyPatchPtrOutput() PodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ToPodGroupSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o PodGroupSchedulingPolicyPatchOutput) ToPodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) PodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodGroupSchedulingPolicyPatch) *PodGroupSchedulingPolicyPatch {
+		return &v
+	}).(PodGroupSchedulingPolicyPatchPtrOutput)
+}
+
+// basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
+func (o PodGroupSchedulingPolicyPatchOutput) Basic() BasicSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupSchedulingPolicyPatch) *BasicSchedulingPolicyPatch { return v.Basic }).(BasicSchedulingPolicyPatchPtrOutput)
+}
+
+// gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
+func (o PodGroupSchedulingPolicyPatchOutput) Gang() GangSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupSchedulingPolicyPatch) *GangSchedulingPolicyPatch { return v.Gang }).(GangSchedulingPolicyPatchPtrOutput)
+}
+
+type PodGroupSchedulingPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSchedulingPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o PodGroupSchedulingPolicyPatchPtrOutput) ToPodGroupSchedulingPolicyPatchPtrOutput() PodGroupSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupSchedulingPolicyPatchPtrOutput) ToPodGroupSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) PodGroupSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupSchedulingPolicyPatchPtrOutput) Elem() PodGroupSchedulingPolicyPatchOutput {
+	return o.ApplyT(func(v *PodGroupSchedulingPolicyPatch) PodGroupSchedulingPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret PodGroupSchedulingPolicyPatch
+		return ret
+	}).(PodGroupSchedulingPolicyPatchOutput)
+}
+
+// basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior. Setting this field at group creation time opts this group to basic scheduling; this field cannot be changed afterward.
+func (o PodGroupSchedulingPolicyPatchPtrOutput) Basic() BasicSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v *PodGroupSchedulingPolicyPatch) *BasicSchedulingPolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Basic
+	}).(BasicSchedulingPolicyPatchPtrOutput)
+}
+
+// gang specifies that the pods in this group should be scheduled using all-or-nothing semantics. Setting this field at group creation time opts this group to gang scheduling; this field cannot be set or unset afterward. The minCount field within Gang scheduling policy remains mutable after group creation.
+func (o PodGroupSchedulingPolicyPatchPtrOutput) Gang() GangSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v *PodGroupSchedulingPolicyPatch) *GangSchedulingPolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Gang
+	}).(GangSchedulingPolicyPatchPtrOutput)
+}
+
+// PodGroupSpec defines the desired state of a PodGroup.
+type PodGroupSpec struct {
+	// disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+	DisruptionMode *DisruptionMode `pulumi:"disruptionMode"`
+	// parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
+	ParentCompositePodGroupName *string `pulumi:"parentCompositePodGroupName"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+	Priority *int `pulumi:"priority"`
+	// priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
+	PriorityClassName *string `pulumi:"priorityClassName"`
+	// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+	//
+	// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+	//
+	// This field is immutable.
+	ResourceClaims []PodGroupResourceClaim `pulumi:"resourceClaims"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+	SchedulingConstraints *PodGroupSchedulingConstraints `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
+	SchedulingPolicy PodGroupSchedulingPolicy `pulumi:"schedulingPolicy"`
+	// workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+	WorkloadRef *WorkloadReference `pulumi:"workloadRef"`
+}
+
+// PodGroupSpecInput is an input type that accepts PodGroupSpecArgs and PodGroupSpecOutput values.
+// You can construct a concrete instance of `PodGroupSpecInput` via:
+//
+//	PodGroupSpecArgs{...}
+type PodGroupSpecInput interface {
+	pulumi.Input
+
+	ToPodGroupSpecOutput() PodGroupSpecOutput
+	ToPodGroupSpecOutputWithContext(context.Context) PodGroupSpecOutput
+}
+
+// PodGroupSpec defines the desired state of a PodGroup.
+type PodGroupSpecArgs struct {
+	// disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+	DisruptionMode DisruptionModePtrInput `pulumi:"disruptionMode"`
+	// parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
+	ParentCompositePodGroupName pulumi.StringPtrInput `pulumi:"parentCompositePodGroupName"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+	Priority pulumi.IntPtrInput `pulumi:"priority"`
+	// priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
+	PriorityClassName pulumi.StringPtrInput `pulumi:"priorityClassName"`
+	// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+	//
+	// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+	//
+	// This field is immutable.
+	ResourceClaims PodGroupResourceClaimArrayInput `pulumi:"resourceClaims"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+	SchedulingConstraints PodGroupSchedulingConstraintsPtrInput `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
+	SchedulingPolicy PodGroupSchedulingPolicyInput `pulumi:"schedulingPolicy"`
+	// workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+	WorkloadRef WorkloadReferencePtrInput `pulumi:"workloadRef"`
+}
+
+func (PodGroupSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSpec)(nil)).Elem()
+}
+
+func (i PodGroupSpecArgs) ToPodGroupSpecOutput() PodGroupSpecOutput {
+	return i.ToPodGroupSpecOutputWithContext(context.Background())
+}
+
+func (i PodGroupSpecArgs) ToPodGroupSpecOutputWithContext(ctx context.Context) PodGroupSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSpecOutput)
+}
+
+// PodGroupSpec defines the desired state of a PodGroup.
+type PodGroupSpecOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSpec)(nil)).Elem()
+}
+
+func (o PodGroupSpecOutput) ToPodGroupSpecOutput() PodGroupSpecOutput {
+	return o
+}
+
+func (o PodGroupSpecOutput) ToPodGroupSpecOutputWithContext(ctx context.Context) PodGroupSpecOutput {
+	return o
+}
+
+// disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+func (o PodGroupSpecOutput) DisruptionMode() DisruptionModePtrOutput {
+	return o.ApplyT(func(v PodGroupSpec) *DisruptionMode { return v.DisruptionMode }).(DisruptionModePtrOutput)
+}
+
+// parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
+func (o PodGroupSpecOutput) ParentCompositePodGroupName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupSpec) *string { return v.ParentCompositePodGroupName }).(pulumi.StringPtrOutput)
+}
+
+// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+func (o PodGroupSpecOutput) PreemptionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupSpec) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
+}
+
+// priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+func (o PodGroupSpecOutput) Priority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodGroupSpec) *int { return v.Priority }).(pulumi.IntPtrOutput)
+}
+
+// priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
+func (o PodGroupSpecOutput) PriorityClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupSpec) *string { return v.PriorityClassName }).(pulumi.StringPtrOutput)
+}
+
+// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+//
+// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+//
+// This field is immutable.
+func (o PodGroupSpecOutput) ResourceClaims() PodGroupResourceClaimArrayOutput {
+	return o.ApplyT(func(v PodGroupSpec) []PodGroupResourceClaim { return v.ResourceClaims }).(PodGroupResourceClaimArrayOutput)
+}
+
+// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+func (o PodGroupSpecOutput) SchedulingConstraints() PodGroupSchedulingConstraintsPtrOutput {
+	return o.ApplyT(func(v PodGroupSpec) *PodGroupSchedulingConstraints { return v.SchedulingConstraints }).(PodGroupSchedulingConstraintsPtrOutput)
+}
+
+// schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
+func (o PodGroupSpecOutput) SchedulingPolicy() PodGroupSchedulingPolicyOutput {
+	return o.ApplyT(func(v PodGroupSpec) PodGroupSchedulingPolicy { return v.SchedulingPolicy }).(PodGroupSchedulingPolicyOutput)
+}
+
+// workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+func (o PodGroupSpecOutput) WorkloadRef() WorkloadReferencePtrOutput {
+	return o.ApplyT(func(v PodGroupSpec) *WorkloadReference { return v.WorkloadRef }).(WorkloadReferencePtrOutput)
+}
+
+// PodGroupSpec defines the desired state of a PodGroup.
+type PodGroupSpecPatch struct {
+	// disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+	DisruptionMode *DisruptionModePatch `pulumi:"disruptionMode"`
+	// parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
+	ParentCompositePodGroupName *string `pulumi:"parentCompositePodGroupName"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+	Priority *int `pulumi:"priority"`
+	// priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
+	PriorityClassName *string `pulumi:"priorityClassName"`
+	// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+	//
+	// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+	//
+	// This field is immutable.
+	ResourceClaims []PodGroupResourceClaimPatch `pulumi:"resourceClaims"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+	SchedulingConstraints *PodGroupSchedulingConstraintsPatch `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
+	SchedulingPolicy *PodGroupSchedulingPolicyPatch `pulumi:"schedulingPolicy"`
+	// workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+	WorkloadRef *WorkloadReferencePatch `pulumi:"workloadRef"`
+}
+
+// PodGroupSpecPatchInput is an input type that accepts PodGroupSpecPatchArgs and PodGroupSpecPatchOutput values.
+// You can construct a concrete instance of `PodGroupSpecPatchInput` via:
+//
+//	PodGroupSpecPatchArgs{...}
+type PodGroupSpecPatchInput interface {
+	pulumi.Input
+
+	ToPodGroupSpecPatchOutput() PodGroupSpecPatchOutput
+	ToPodGroupSpecPatchOutputWithContext(context.Context) PodGroupSpecPatchOutput
+}
+
+// PodGroupSpec defines the desired state of a PodGroup.
+type PodGroupSpecPatchArgs struct {
+	// disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+	DisruptionMode DisruptionModePatchPtrInput `pulumi:"disruptionMode"`
+	// parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
+	ParentCompositePodGroupName pulumi.StringPtrInput `pulumi:"parentCompositePodGroupName"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+	Priority pulumi.IntPtrInput `pulumi:"priority"`
+	// priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
+	PriorityClassName pulumi.StringPtrInput `pulumi:"priorityClassName"`
+	// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+	//
+	// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+	//
+	// This field is immutable.
+	ResourceClaims PodGroupResourceClaimPatchArrayInput `pulumi:"resourceClaims"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+	SchedulingConstraints PodGroupSchedulingConstraintsPatchPtrInput `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
+	SchedulingPolicy PodGroupSchedulingPolicyPatchPtrInput `pulumi:"schedulingPolicy"`
+	// workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+	WorkloadRef WorkloadReferencePatchPtrInput `pulumi:"workloadRef"`
+}
+
+func (PodGroupSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSpecPatch)(nil)).Elem()
+}
+
+func (i PodGroupSpecPatchArgs) ToPodGroupSpecPatchOutput() PodGroupSpecPatchOutput {
+	return i.ToPodGroupSpecPatchOutputWithContext(context.Background())
+}
+
+func (i PodGroupSpecPatchArgs) ToPodGroupSpecPatchOutputWithContext(ctx context.Context) PodGroupSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSpecPatchOutput)
+}
+
+func (i PodGroupSpecPatchArgs) ToPodGroupSpecPatchPtrOutput() PodGroupSpecPatchPtrOutput {
+	return i.ToPodGroupSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i PodGroupSpecPatchArgs) ToPodGroupSpecPatchPtrOutputWithContext(ctx context.Context) PodGroupSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSpecPatchOutput).ToPodGroupSpecPatchPtrOutputWithContext(ctx)
+}
+
+// PodGroupSpecPatchPtrInput is an input type that accepts PodGroupSpecPatchArgs, PodGroupSpecPatchPtr and PodGroupSpecPatchPtrOutput values.
+// You can construct a concrete instance of `PodGroupSpecPatchPtrInput` via:
+//
+//	        PodGroupSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodGroupSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToPodGroupSpecPatchPtrOutput() PodGroupSpecPatchPtrOutput
+	ToPodGroupSpecPatchPtrOutputWithContext(context.Context) PodGroupSpecPatchPtrOutput
+}
+
+type podGroupSpecPatchPtrType PodGroupSpecPatchArgs
+
+func PodGroupSpecPatchPtr(v *PodGroupSpecPatchArgs) PodGroupSpecPatchPtrInput {
+	return (*podGroupSpecPatchPtrType)(v)
+}
+
+func (*podGroupSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupSpecPatch)(nil)).Elem()
+}
+
+func (i *podGroupSpecPatchPtrType) ToPodGroupSpecPatchPtrOutput() PodGroupSpecPatchPtrOutput {
+	return i.ToPodGroupSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *podGroupSpecPatchPtrType) ToPodGroupSpecPatchPtrOutputWithContext(ctx context.Context) PodGroupSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupSpecPatchPtrOutput)
+}
+
+// PodGroupSpec defines the desired state of a PodGroup.
+type PodGroupSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupSpecPatch)(nil)).Elem()
+}
+
+func (o PodGroupSpecPatchOutput) ToPodGroupSpecPatchOutput() PodGroupSpecPatchOutput {
+	return o
+}
+
+func (o PodGroupSpecPatchOutput) ToPodGroupSpecPatchOutputWithContext(ctx context.Context) PodGroupSpecPatchOutput {
+	return o
+}
+
+func (o PodGroupSpecPatchOutput) ToPodGroupSpecPatchPtrOutput() PodGroupSpecPatchPtrOutput {
+	return o.ToPodGroupSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o PodGroupSpecPatchOutput) ToPodGroupSpecPatchPtrOutputWithContext(ctx context.Context) PodGroupSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodGroupSpecPatch) *PodGroupSpecPatch {
+		return &v
+	}).(PodGroupSpecPatchPtrOutput)
+}
+
+// disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+func (o PodGroupSpecPatchOutput) DisruptionMode() DisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v PodGroupSpecPatch) *DisruptionModePatch { return v.DisruptionMode }).(DisruptionModePatchPtrOutput)
+}
+
+// parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
+func (o PodGroupSpecPatchOutput) ParentCompositePodGroupName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupSpecPatch) *string { return v.ParentCompositePodGroupName }).(pulumi.StringPtrOutput)
+}
+
+// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+func (o PodGroupSpecPatchOutput) PreemptionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupSpecPatch) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
+}
+
+// priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+func (o PodGroupSpecPatchOutput) Priority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodGroupSpecPatch) *int { return v.Priority }).(pulumi.IntPtrOutput)
+}
+
+// priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
+func (o PodGroupSpecPatchOutput) PriorityClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupSpecPatch) *string { return v.PriorityClassName }).(pulumi.StringPtrOutput)
+}
+
+// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+//
+// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+//
+// This field is immutable.
+func (o PodGroupSpecPatchOutput) ResourceClaims() PodGroupResourceClaimPatchArrayOutput {
+	return o.ApplyT(func(v PodGroupSpecPatch) []PodGroupResourceClaimPatch { return v.ResourceClaims }).(PodGroupResourceClaimPatchArrayOutput)
+}
+
+// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+func (o PodGroupSpecPatchOutput) SchedulingConstraints() PodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupSpecPatch) *PodGroupSchedulingConstraintsPatch { return v.SchedulingConstraints }).(PodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
+func (o PodGroupSpecPatchOutput) SchedulingPolicy() PodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupSpecPatch) *PodGroupSchedulingPolicyPatch { return v.SchedulingPolicy }).(PodGroupSchedulingPolicyPatchPtrOutput)
+}
+
+// workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+func (o PodGroupSpecPatchOutput) WorkloadRef() WorkloadReferencePatchPtrOutput {
+	return o.ApplyT(func(v PodGroupSpecPatch) *WorkloadReferencePatch { return v.WorkloadRef }).(WorkloadReferencePatchPtrOutput)
+}
+
+type PodGroupSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (PodGroupSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupSpecPatch)(nil)).Elem()
+}
+
+func (o PodGroupSpecPatchPtrOutput) ToPodGroupSpecPatchPtrOutput() PodGroupSpecPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupSpecPatchPtrOutput) ToPodGroupSpecPatchPtrOutputWithContext(ctx context.Context) PodGroupSpecPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupSpecPatchPtrOutput) Elem() PodGroupSpecPatchOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) PodGroupSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret PodGroupSpecPatch
+		return ret
+	}).(PodGroupSpecPatchOutput)
+}
+
+// disruptionMode defines the mode in which a given PodGroup can be disrupted. Controllers are expected to fill this field by copying it from a PodGroupTemplate. One of Single, All. Defaults to Single if unset. This field is immutable.
+func (o PodGroupSpecPatchPtrOutput) DisruptionMode() DisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) *DisruptionModePatch {
+		if v == nil {
+			return nil
+		}
+		return v.DisruptionMode
+	}).(DisruptionModePatchPtrOutput)
+}
+
+// parentCompositePodGroupName contains the name of the parent composite pod group within the same namespace as this pod group. If it's nil, then this pod group is a root of a workload's hierarchy. This field is used only when the CompositePodGroup feature gate is enabled. This field is immutable.
+func (o PodGroupSpecPatchPtrOutput) ParentCompositePodGroupName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ParentCompositePodGroupName
+	}).(pulumi.StringPtrOutput)
+}
+
+// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. When Priority Admission Controller is enabled, it populates this field from PriorityClassName, and defaults to PreemptLowerPriority if value is unset in PriorityClass. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+func (o PodGroupSpecPatchPtrOutput) PreemptionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PreemptionPolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+// priority is the value of priority of this pod group. Various system components use this field to find the priority of the pod group. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority. This field is immutable.
+func (o PodGroupSpecPatchPtrOutput) Priority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Priority
+	}).(pulumi.IntPtrOutput)
+}
+
+// priorityClassName defines the priority that should be considered when scheduling this pod group. Controllers are expected to fill this field by copying it from a PodGroupTemplate. Otherwise, it is validated and resolved similarly to the PriorityClassName on PodGroupTemplate (i.e. if no priority class is specified, admission control can set this to the global default priority class if it exists. Otherwise, the pod group's priority will be zero). This field is immutable.
+func (o PodGroupSpecPatchPtrOutput) PriorityClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PriorityClassName
+	}).(pulumi.StringPtrOutput)
+}
+
+// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+//
+// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+//
+// This field is immutable.
+func (o PodGroupSpecPatchPtrOutput) ResourceClaims() PodGroupResourceClaimPatchArrayOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) []PodGroupResourceClaimPatch {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceClaims
+	}).(PodGroupResourceClaimPatchArrayOutput)
+}
+
+// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate. This field is immutable. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled.
+func (o PodGroupSpecPatchPtrOutput) SchedulingConstraints() PodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) *PodGroupSchedulingConstraintsPatch {
+		if v == nil {
+			return nil
+		}
+		return v.SchedulingConstraints
+	}).(PodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// schedulingPolicy defines the scheduling policy for this instance of the PodGroup. Controllers are expected to fill this field by copying it from a PodGroupTemplate.
+func (o PodGroupSpecPatchPtrOutput) SchedulingPolicy() PodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) *PodGroupSchedulingPolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.SchedulingPolicy
+	}).(PodGroupSchedulingPolicyPatchPtrOutput)
+}
+
+// workloadRef references an optional PodGroup template within the Workload object that was used to create the PodGroup. This field is immutable.
+func (o PodGroupSpecPatchPtrOutput) WorkloadRef() WorkloadReferencePatchPtrOutput {
+	return o.ApplyT(func(v *PodGroupSpecPatch) *WorkloadReferencePatch {
+		if v == nil {
+			return nil
+		}
+		return v.WorkloadRef
+	}).(WorkloadReferencePatchPtrOutput)
+}
+
+// PodGroupStatus represents information about the status of a pod group.
+type PodGroupStatus struct {
+	// conditions represent the latest observations of the PodGroup's state.
+	//
+	// Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+	//   due to disruption such as preemption.
+	//
+	// Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+	//   affinity/anti-affinity rules, or insufficient capacity for the gang.
+	// - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+	//   that happened during scheduling, for example due to nodeAffinity parsing errors.
+	//
+	// Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+	//   higher-priority PodGroups or Pods.
+	Conditions []metav1.Condition `pulumi:"conditions"`
+	// resourceClaimStatuses is status of resource claims.
+	ResourceClaimStatuses []PodGroupResourceClaimStatus `pulumi:"resourceClaimStatuses"`
+}
+
+// PodGroupStatusInput is an input type that accepts PodGroupStatusArgs and PodGroupStatusOutput values.
+// You can construct a concrete instance of `PodGroupStatusInput` via:
+//
+//	PodGroupStatusArgs{...}
+type PodGroupStatusInput interface {
+	pulumi.Input
+
+	ToPodGroupStatusOutput() PodGroupStatusOutput
+	ToPodGroupStatusOutputWithContext(context.Context) PodGroupStatusOutput
+}
+
+// PodGroupStatus represents information about the status of a pod group.
+type PodGroupStatusArgs struct {
+	// conditions represent the latest observations of the PodGroup's state.
+	//
+	// Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+	//   due to disruption such as preemption.
+	//
+	// Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+	//   affinity/anti-affinity rules, or insufficient capacity for the gang.
+	// - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+	//   that happened during scheduling, for example due to nodeAffinity parsing errors.
+	//
+	// Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+	//   higher-priority PodGroups or Pods.
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
+	// resourceClaimStatuses is status of resource claims.
+	ResourceClaimStatuses PodGroupResourceClaimStatusArrayInput `pulumi:"resourceClaimStatuses"`
+}
+
+func (PodGroupStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupStatus)(nil)).Elem()
+}
+
+func (i PodGroupStatusArgs) ToPodGroupStatusOutput() PodGroupStatusOutput {
+	return i.ToPodGroupStatusOutputWithContext(context.Background())
+}
+
+func (i PodGroupStatusArgs) ToPodGroupStatusOutputWithContext(ctx context.Context) PodGroupStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupStatusOutput)
+}
+
+func (i PodGroupStatusArgs) ToPodGroupStatusPtrOutput() PodGroupStatusPtrOutput {
+	return i.ToPodGroupStatusPtrOutputWithContext(context.Background())
+}
+
+func (i PodGroupStatusArgs) ToPodGroupStatusPtrOutputWithContext(ctx context.Context) PodGroupStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupStatusOutput).ToPodGroupStatusPtrOutputWithContext(ctx)
+}
+
+// PodGroupStatusPtrInput is an input type that accepts PodGroupStatusArgs, PodGroupStatusPtr and PodGroupStatusPtrOutput values.
+// You can construct a concrete instance of `PodGroupStatusPtrInput` via:
+//
+//	        PodGroupStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodGroupStatusPtrInput interface {
+	pulumi.Input
+
+	ToPodGroupStatusPtrOutput() PodGroupStatusPtrOutput
+	ToPodGroupStatusPtrOutputWithContext(context.Context) PodGroupStatusPtrOutput
+}
+
+type podGroupStatusPtrType PodGroupStatusArgs
+
+func PodGroupStatusPtr(v *PodGroupStatusArgs) PodGroupStatusPtrInput {
+	return (*podGroupStatusPtrType)(v)
+}
+
+func (*podGroupStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupStatus)(nil)).Elem()
+}
+
+func (i *podGroupStatusPtrType) ToPodGroupStatusPtrOutput() PodGroupStatusPtrOutput {
+	return i.ToPodGroupStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *podGroupStatusPtrType) ToPodGroupStatusPtrOutputWithContext(ctx context.Context) PodGroupStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupStatusPtrOutput)
+}
+
+// PodGroupStatus represents information about the status of a pod group.
+type PodGroupStatusOutput struct{ *pulumi.OutputState }
+
+func (PodGroupStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupStatus)(nil)).Elem()
+}
+
+func (o PodGroupStatusOutput) ToPodGroupStatusOutput() PodGroupStatusOutput {
+	return o
+}
+
+func (o PodGroupStatusOutput) ToPodGroupStatusOutputWithContext(ctx context.Context) PodGroupStatusOutput {
+	return o
+}
+
+func (o PodGroupStatusOutput) ToPodGroupStatusPtrOutput() PodGroupStatusPtrOutput {
+	return o.ToPodGroupStatusPtrOutputWithContext(context.Background())
+}
+
+func (o PodGroupStatusOutput) ToPodGroupStatusPtrOutputWithContext(ctx context.Context) PodGroupStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodGroupStatus) *PodGroupStatus {
+		return &v
+	}).(PodGroupStatusPtrOutput)
+}
+
+// conditions represent the latest observations of the PodGroup's state.
+//
+// Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+//
+//	due to disruption such as preemption.
+//
+// Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+//
+//	affinity/anti-affinity rules, or insufficient capacity for the gang.
+//   - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+//     that happened during scheduling, for example due to nodeAffinity parsing errors.
+//
+// Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+//
+//	higher-priority PodGroups or Pods.
+func (o PodGroupStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v PodGroupStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
+// resourceClaimStatuses is status of resource claims.
+func (o PodGroupStatusOutput) ResourceClaimStatuses() PodGroupResourceClaimStatusArrayOutput {
+	return o.ApplyT(func(v PodGroupStatus) []PodGroupResourceClaimStatus { return v.ResourceClaimStatuses }).(PodGroupResourceClaimStatusArrayOutput)
+}
+
+type PodGroupStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (PodGroupStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupStatus)(nil)).Elem()
+}
+
+func (o PodGroupStatusPtrOutput) ToPodGroupStatusPtrOutput() PodGroupStatusPtrOutput {
+	return o
+}
+
+func (o PodGroupStatusPtrOutput) ToPodGroupStatusPtrOutputWithContext(ctx context.Context) PodGroupStatusPtrOutput {
+	return o
+}
+
+func (o PodGroupStatusPtrOutput) Elem() PodGroupStatusOutput {
+	return o.ApplyT(func(v *PodGroupStatus) PodGroupStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PodGroupStatus
+		return ret
+	}).(PodGroupStatusOutput)
+}
+
+// conditions represent the latest observations of the PodGroup's state.
+//
+// Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+//
+//	due to disruption such as preemption.
+//
+// Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+//
+//	affinity/anti-affinity rules, or insufficient capacity for the gang.
+//   - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+//     that happened during scheduling, for example due to nodeAffinity parsing errors.
+//
+// Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+//
+//	higher-priority PodGroups or Pods.
+func (o PodGroupStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *PodGroupStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
+}
+
+// resourceClaimStatuses is status of resource claims.
+func (o PodGroupStatusPtrOutput) ResourceClaimStatuses() PodGroupResourceClaimStatusArrayOutput {
+	return o.ApplyT(func(v *PodGroupStatus) []PodGroupResourceClaimStatus {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceClaimStatuses
+	}).(PodGroupResourceClaimStatusArrayOutput)
+}
+
+// PodGroupStatus represents information about the status of a pod group.
+type PodGroupStatusPatch struct {
+	// conditions represent the latest observations of the PodGroup's state.
+	//
+	// Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+	//   due to disruption such as preemption.
+	//
+	// Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+	//   affinity/anti-affinity rules, or insufficient capacity for the gang.
+	// - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+	//   that happened during scheduling, for example due to nodeAffinity parsing errors.
+	//
+	// Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+	//   higher-priority PodGroups or Pods.
+	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
+	// resourceClaimStatuses is status of resource claims.
+	ResourceClaimStatuses []PodGroupResourceClaimStatusPatch `pulumi:"resourceClaimStatuses"`
+}
+
+// PodGroupStatusPatchInput is an input type that accepts PodGroupStatusPatchArgs and PodGroupStatusPatchOutput values.
+// You can construct a concrete instance of `PodGroupStatusPatchInput` via:
+//
+//	PodGroupStatusPatchArgs{...}
+type PodGroupStatusPatchInput interface {
+	pulumi.Input
+
+	ToPodGroupStatusPatchOutput() PodGroupStatusPatchOutput
+	ToPodGroupStatusPatchOutputWithContext(context.Context) PodGroupStatusPatchOutput
+}
+
+// PodGroupStatus represents information about the status of a pod group.
+type PodGroupStatusPatchArgs struct {
+	// conditions represent the latest observations of the PodGroup's state.
+	//
+	// Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+	//   due to disruption such as preemption.
+	//
+	// Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+	//   affinity/anti-affinity rules, or insufficient capacity for the gang.
+	// - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+	//   that happened during scheduling, for example due to nodeAffinity parsing errors.
+	//
+	// Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+	//   higher-priority PodGroups or Pods.
+	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
+	// resourceClaimStatuses is status of resource claims.
+	ResourceClaimStatuses PodGroupResourceClaimStatusPatchArrayInput `pulumi:"resourceClaimStatuses"`
+}
+
+func (PodGroupStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupStatusPatch)(nil)).Elem()
+}
+
+func (i PodGroupStatusPatchArgs) ToPodGroupStatusPatchOutput() PodGroupStatusPatchOutput {
+	return i.ToPodGroupStatusPatchOutputWithContext(context.Background())
+}
+
+func (i PodGroupStatusPatchArgs) ToPodGroupStatusPatchOutputWithContext(ctx context.Context) PodGroupStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupStatusPatchOutput)
+}
+
+func (i PodGroupStatusPatchArgs) ToPodGroupStatusPatchPtrOutput() PodGroupStatusPatchPtrOutput {
+	return i.ToPodGroupStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i PodGroupStatusPatchArgs) ToPodGroupStatusPatchPtrOutputWithContext(ctx context.Context) PodGroupStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupStatusPatchOutput).ToPodGroupStatusPatchPtrOutputWithContext(ctx)
+}
+
+// PodGroupStatusPatchPtrInput is an input type that accepts PodGroupStatusPatchArgs, PodGroupStatusPatchPtr and PodGroupStatusPatchPtrOutput values.
+// You can construct a concrete instance of `PodGroupStatusPatchPtrInput` via:
+//
+//	        PodGroupStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodGroupStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToPodGroupStatusPatchPtrOutput() PodGroupStatusPatchPtrOutput
+	ToPodGroupStatusPatchPtrOutputWithContext(context.Context) PodGroupStatusPatchPtrOutput
+}
+
+type podGroupStatusPatchPtrType PodGroupStatusPatchArgs
+
+func PodGroupStatusPatchPtr(v *PodGroupStatusPatchArgs) PodGroupStatusPatchPtrInput {
+	return (*podGroupStatusPatchPtrType)(v)
+}
+
+func (*podGroupStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupStatusPatch)(nil)).Elem()
+}
+
+func (i *podGroupStatusPatchPtrType) ToPodGroupStatusPatchPtrOutput() PodGroupStatusPatchPtrOutput {
+	return i.ToPodGroupStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *podGroupStatusPatchPtrType) ToPodGroupStatusPatchPtrOutputWithContext(ctx context.Context) PodGroupStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupStatusPatchPtrOutput)
+}
+
+// PodGroupStatus represents information about the status of a pod group.
+type PodGroupStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (PodGroupStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupStatusPatch)(nil)).Elem()
+}
+
+func (o PodGroupStatusPatchOutput) ToPodGroupStatusPatchOutput() PodGroupStatusPatchOutput {
+	return o
+}
+
+func (o PodGroupStatusPatchOutput) ToPodGroupStatusPatchOutputWithContext(ctx context.Context) PodGroupStatusPatchOutput {
+	return o
+}
+
+func (o PodGroupStatusPatchOutput) ToPodGroupStatusPatchPtrOutput() PodGroupStatusPatchPtrOutput {
+	return o.ToPodGroupStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o PodGroupStatusPatchOutput) ToPodGroupStatusPatchPtrOutputWithContext(ctx context.Context) PodGroupStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodGroupStatusPatch) *PodGroupStatusPatch {
+		return &v
+	}).(PodGroupStatusPatchPtrOutput)
+}
+
+// conditions represent the latest observations of the PodGroup's state.
+//
+// Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+//
+//	due to disruption such as preemption.
+//
+// Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+//
+//	affinity/anti-affinity rules, or insufficient capacity for the gang.
+//   - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+//     that happened during scheduling, for example due to nodeAffinity parsing errors.
+//
+// Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+//
+//	higher-priority PodGroups or Pods.
+func (o PodGroupStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v PodGroupStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
+}
+
+// resourceClaimStatuses is status of resource claims.
+func (o PodGroupStatusPatchOutput) ResourceClaimStatuses() PodGroupResourceClaimStatusPatchArrayOutput {
+	return o.ApplyT(func(v PodGroupStatusPatch) []PodGroupResourceClaimStatusPatch { return v.ResourceClaimStatuses }).(PodGroupResourceClaimStatusPatchArrayOutput)
+}
+
+type PodGroupStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (PodGroupStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupStatusPatch)(nil)).Elem()
+}
+
+func (o PodGroupStatusPatchPtrOutput) ToPodGroupStatusPatchPtrOutput() PodGroupStatusPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupStatusPatchPtrOutput) ToPodGroupStatusPatchPtrOutputWithContext(ctx context.Context) PodGroupStatusPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupStatusPatchPtrOutput) Elem() PodGroupStatusPatchOutput {
+	return o.ApplyT(func(v *PodGroupStatusPatch) PodGroupStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret PodGroupStatusPatch
+		return ret
+	}).(PodGroupStatusPatchOutput)
+}
+
+// conditions represent the latest observations of the PodGroup's state.
+//
+// Known condition types: - "PodGroupInitiallyScheduled": Indicates whether the scheduling requirement has been satisfied. Once this condition transitions to True, it serves as a terminal state and will never revert to False, even if pods are subsequently evicted and group constraints are no longer met. - "DisruptionTarget": Indicates whether the PodGroup is about to be terminated
+//
+//	due to disruption such as preemption.
+//
+// Known reasons for the PodGroupInitiallyScheduled condition: - "Unschedulable": The PodGroup cannot be scheduled due to resource constraints,
+//
+//	affinity/anti-affinity rules, or insufficient capacity for the gang.
+//   - "SchedulerError": The PodGroup cannot be scheduled due to some internal error
+//     that happened during scheduling, for example due to nodeAffinity parsing errors.
+//
+// Known reasons for the DisruptionTarget condition: - "PreemptionByScheduler": The PodGroup was preempted by the scheduler to make room for
+//
+//	higher-priority PodGroups or Pods.
+func (o PodGroupStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v *PodGroupStatusPatch) []metav1.ConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionPatchArrayOutput)
+}
+
+// resourceClaimStatuses is status of resource claims.
+func (o PodGroupStatusPatchPtrOutput) ResourceClaimStatuses() PodGroupResourceClaimStatusPatchArrayOutput {
+	return o.ApplyT(func(v *PodGroupStatusPatch) []PodGroupResourceClaimStatusPatch {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceClaimStatuses
+	}).(PodGroupResourceClaimStatusPatchArrayOutput)
+}
+
+// PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+type PodGroupTemplate struct {
+	// disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
+	DisruptionMode *DisruptionMode `pulumi:"disruptionMode"`
+	// name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+	Name string `pulumi:"name"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
+	Priority *int `pulumi:"priority"`
+	// priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
+	PriorityClassName *string `pulumi:"priorityClassName"`
+	// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+	//
+	// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+	//
+	// This field is immutable.
+	ResourceClaims []PodGroupResourceClaim `pulumi:"resourceClaims"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
+	SchedulingConstraints *PodGroupSchedulingConstraints `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+	SchedulingPolicy PodGroupSchedulingPolicy `pulumi:"schedulingPolicy"`
+}
+
+// PodGroupTemplateInput is an input type that accepts PodGroupTemplateArgs and PodGroupTemplateOutput values.
+// You can construct a concrete instance of `PodGroupTemplateInput` via:
+//
+//	PodGroupTemplateArgs{...}
+type PodGroupTemplateInput interface {
+	pulumi.Input
+
+	ToPodGroupTemplateOutput() PodGroupTemplateOutput
+	ToPodGroupTemplateOutputWithContext(context.Context) PodGroupTemplateOutput
+}
+
+// PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+type PodGroupTemplateArgs struct {
+	// disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
+	DisruptionMode DisruptionModePtrInput `pulumi:"disruptionMode"`
+	// name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+	Name pulumi.StringInput `pulumi:"name"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
+	Priority pulumi.IntPtrInput `pulumi:"priority"`
+	// priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
+	PriorityClassName pulumi.StringPtrInput `pulumi:"priorityClassName"`
+	// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+	//
+	// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+	//
+	// This field is immutable.
+	ResourceClaims PodGroupResourceClaimArrayInput `pulumi:"resourceClaims"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
+	SchedulingConstraints PodGroupSchedulingConstraintsPtrInput `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+	SchedulingPolicy PodGroupSchedulingPolicyInput `pulumi:"schedulingPolicy"`
+}
+
+func (PodGroupTemplateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupTemplate)(nil)).Elem()
+}
+
+func (i PodGroupTemplateArgs) ToPodGroupTemplateOutput() PodGroupTemplateOutput {
+	return i.ToPodGroupTemplateOutputWithContext(context.Background())
+}
+
+func (i PodGroupTemplateArgs) ToPodGroupTemplateOutputWithContext(ctx context.Context) PodGroupTemplateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupTemplateOutput)
+}
+
+// PodGroupTemplateArrayInput is an input type that accepts PodGroupTemplateArray and PodGroupTemplateArrayOutput values.
+// You can construct a concrete instance of `PodGroupTemplateArrayInput` via:
+//
+//	PodGroupTemplateArray{ PodGroupTemplateArgs{...} }
+type PodGroupTemplateArrayInput interface {
+	pulumi.Input
+
+	ToPodGroupTemplateArrayOutput() PodGroupTemplateArrayOutput
+	ToPodGroupTemplateArrayOutputWithContext(context.Context) PodGroupTemplateArrayOutput
+}
+
+type PodGroupTemplateArray []PodGroupTemplateInput
+
+func (PodGroupTemplateArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupTemplate)(nil)).Elem()
+}
+
+func (i PodGroupTemplateArray) ToPodGroupTemplateArrayOutput() PodGroupTemplateArrayOutput {
+	return i.ToPodGroupTemplateArrayOutputWithContext(context.Background())
+}
+
+func (i PodGroupTemplateArray) ToPodGroupTemplateArrayOutputWithContext(ctx context.Context) PodGroupTemplateArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupTemplateArrayOutput)
+}
+
+// PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+type PodGroupTemplateOutput struct{ *pulumi.OutputState }
+
+func (PodGroupTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupTemplate)(nil)).Elem()
+}
+
+func (o PodGroupTemplateOutput) ToPodGroupTemplateOutput() PodGroupTemplateOutput {
+	return o
+}
+
+func (o PodGroupTemplateOutput) ToPodGroupTemplateOutputWithContext(ctx context.Context) PodGroupTemplateOutput {
+	return o
+}
+
+// disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
+func (o PodGroupTemplateOutput) DisruptionMode() DisruptionModePtrOutput {
+	return o.ApplyT(func(v PodGroupTemplate) *DisruptionMode { return v.DisruptionMode }).(DisruptionModePtrOutput)
+}
+
+// name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+func (o PodGroupTemplateOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PodGroupTemplate) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+func (o PodGroupTemplateOutput) PreemptionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplate) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
+}
+
+// priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
+func (o PodGroupTemplateOutput) Priority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplate) *int { return v.Priority }).(pulumi.IntPtrOutput)
+}
+
+// priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
+func (o PodGroupTemplateOutput) PriorityClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplate) *string { return v.PriorityClassName }).(pulumi.StringPtrOutput)
+}
+
+// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+//
+// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+//
+// This field is immutable.
+func (o PodGroupTemplateOutput) ResourceClaims() PodGroupResourceClaimArrayOutput {
+	return o.ApplyT(func(v PodGroupTemplate) []PodGroupResourceClaim { return v.ResourceClaims }).(PodGroupResourceClaimArrayOutput)
+}
+
+// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
+func (o PodGroupTemplateOutput) SchedulingConstraints() PodGroupSchedulingConstraintsPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplate) *PodGroupSchedulingConstraints { return v.SchedulingConstraints }).(PodGroupSchedulingConstraintsPtrOutput)
+}
+
+// schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+func (o PodGroupTemplateOutput) SchedulingPolicy() PodGroupSchedulingPolicyOutput {
+	return o.ApplyT(func(v PodGroupTemplate) PodGroupSchedulingPolicy { return v.SchedulingPolicy }).(PodGroupSchedulingPolicyOutput)
+}
+
+type PodGroupTemplateArrayOutput struct{ *pulumi.OutputState }
+
+func (PodGroupTemplateArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupTemplate)(nil)).Elem()
+}
+
+func (o PodGroupTemplateArrayOutput) ToPodGroupTemplateArrayOutput() PodGroupTemplateArrayOutput {
+	return o
+}
+
+func (o PodGroupTemplateArrayOutput) ToPodGroupTemplateArrayOutputWithContext(ctx context.Context) PodGroupTemplateArrayOutput {
+	return o
+}
+
+func (o PodGroupTemplateArrayOutput) Index(i pulumi.IntInput) PodGroupTemplateOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodGroupTemplate {
+		return vs[0].([]PodGroupTemplate)[vs[1].(int)]
+	}).(PodGroupTemplateOutput)
+}
+
+// PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+type PodGroupTemplatePatch struct {
+	// disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
+	DisruptionMode *DisruptionModePatch `pulumi:"disruptionMode"`
+	// name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+	Name *string `pulumi:"name"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
+	Priority *int `pulumi:"priority"`
+	// priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
+	PriorityClassName *string `pulumi:"priorityClassName"`
+	// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+	//
+	// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+	//
+	// This field is immutable.
+	ResourceClaims []PodGroupResourceClaimPatch `pulumi:"resourceClaims"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
+	SchedulingConstraints *PodGroupSchedulingConstraintsPatch `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+	SchedulingPolicy *PodGroupSchedulingPolicyPatch `pulumi:"schedulingPolicy"`
+}
+
+// PodGroupTemplatePatchInput is an input type that accepts PodGroupTemplatePatchArgs and PodGroupTemplatePatchOutput values.
+// You can construct a concrete instance of `PodGroupTemplatePatchInput` via:
+//
+//	PodGroupTemplatePatchArgs{...}
+type PodGroupTemplatePatchInput interface {
+	pulumi.Input
+
+	ToPodGroupTemplatePatchOutput() PodGroupTemplatePatchOutput
+	ToPodGroupTemplatePatchOutputWithContext(context.Context) PodGroupTemplatePatchOutput
+}
+
+// PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+type PodGroupTemplatePatchArgs struct {
+	// disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
+	DisruptionMode DisruptionModePatchPtrInput `pulumi:"disruptionMode"`
+	// name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
+	// priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
+	Priority pulumi.IntPtrInput `pulumi:"priority"`
+	// priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
+	PriorityClassName pulumi.StringPtrInput `pulumi:"priorityClassName"`
+	// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+	//
+	// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+	//
+	// This field is immutable.
+	ResourceClaims PodGroupResourceClaimPatchArrayInput `pulumi:"resourceClaims"`
+	// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
+	SchedulingConstraints PodGroupSchedulingConstraintsPatchPtrInput `pulumi:"schedulingConstraints"`
+	// schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+	SchedulingPolicy PodGroupSchedulingPolicyPatchPtrInput `pulumi:"schedulingPolicy"`
+}
+
+func (PodGroupTemplatePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupTemplatePatch)(nil)).Elem()
+}
+
+func (i PodGroupTemplatePatchArgs) ToPodGroupTemplatePatchOutput() PodGroupTemplatePatchOutput {
+	return i.ToPodGroupTemplatePatchOutputWithContext(context.Background())
+}
+
+func (i PodGroupTemplatePatchArgs) ToPodGroupTemplatePatchOutputWithContext(ctx context.Context) PodGroupTemplatePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupTemplatePatchOutput)
+}
+
+// PodGroupTemplatePatchArrayInput is an input type that accepts PodGroupTemplatePatchArray and PodGroupTemplatePatchArrayOutput values.
+// You can construct a concrete instance of `PodGroupTemplatePatchArrayInput` via:
+//
+//	PodGroupTemplatePatchArray{ PodGroupTemplatePatchArgs{...} }
+type PodGroupTemplatePatchArrayInput interface {
+	pulumi.Input
+
+	ToPodGroupTemplatePatchArrayOutput() PodGroupTemplatePatchArrayOutput
+	ToPodGroupTemplatePatchArrayOutputWithContext(context.Context) PodGroupTemplatePatchArrayOutput
+}
+
+type PodGroupTemplatePatchArray []PodGroupTemplatePatchInput
+
+func (PodGroupTemplatePatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupTemplatePatch)(nil)).Elem()
+}
+
+func (i PodGroupTemplatePatchArray) ToPodGroupTemplatePatchArrayOutput() PodGroupTemplatePatchArrayOutput {
+	return i.ToPodGroupTemplatePatchArrayOutputWithContext(context.Background())
+}
+
+func (i PodGroupTemplatePatchArray) ToPodGroupTemplatePatchArrayOutputWithContext(ctx context.Context) PodGroupTemplatePatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupTemplatePatchArrayOutput)
+}
+
+// PodGroupTemplate represents a template for a set of pods with a scheduling policy.
+type PodGroupTemplatePatchOutput struct{ *pulumi.OutputState }
+
+func (PodGroupTemplatePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupTemplatePatch)(nil)).Elem()
+}
+
+func (o PodGroupTemplatePatchOutput) ToPodGroupTemplatePatchOutput() PodGroupTemplatePatchOutput {
+	return o
+}
+
+func (o PodGroupTemplatePatchOutput) ToPodGroupTemplatePatchOutputWithContext(ctx context.Context) PodGroupTemplatePatchOutput {
+	return o
+}
+
+// disruptionMode defines the mode in which a given PodGroup can be disrupted. One of Single, All. This field is immutable.
+func (o PodGroupTemplatePatchOutput) DisruptionMode() DisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplatePatch) *DisruptionModePatch { return v.DisruptionMode }).(DisruptionModePatchPtrOutput)
+}
+
+// name is a unique identifier for the PodGroupTemplate within the Workload. It must be a DNS label. This field is immutable.
+func (o PodGroupTemplatePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplatePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// preemptionPolicy is the Policy for preempting pods/podgroups with lower priority. One of Never, PreemptLowerPriority. This field is immutable. This field is available only when the PodGroupPreemptionPolicy feature gate is enabled.
+func (o PodGroupTemplatePatchOutput) PreemptionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplatePatch) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
+}
+
+// priority is the value of priority of pod groups created from this template. Various system components use this field to find the priority of the pod group. The higher the value, the higher the priority. This field is immutable.
+func (o PodGroupTemplatePatchOutput) Priority() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplatePatch) *int { return v.Priority }).(pulumi.IntPtrOutput)
+}
+
+// priorityClassName indicates the priority that should be considered when scheduling a pod group created from this template. This field is immutable.
+func (o PodGroupTemplatePatchOutput) PriorityClassName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplatePatch) *string { return v.PriorityClassName }).(pulumi.StringPtrOutput)
+}
+
+// resourceClaims defines which ResourceClaims may be shared among Pods in the group. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate.
+//
+// This is a beta-level field and requires that the DRAWorkloadResourceClaims feature gate is enabled.
+//
+// This field is immutable.
+func (o PodGroupTemplatePatchOutput) ResourceClaims() PodGroupResourceClaimPatchArrayOutput {
+	return o.ApplyT(func(v PodGroupTemplatePatch) []PodGroupResourceClaimPatch { return v.ResourceClaims }).(PodGroupResourceClaimPatchArrayOutput)
+}
+
+// schedulingConstraints defines optional scheduling constraints (e.g. topology) for this PodGroupTemplate. This field is only available when the TopologyAwareWorkloadScheduling feature gate is enabled. This field is immutable.
+func (o PodGroupTemplatePatchOutput) SchedulingConstraints() PodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplatePatch) *PodGroupSchedulingConstraintsPatch { return v.SchedulingConstraints }).(PodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// schedulingPolicy defines the scheduling policy for this PodGroupTemplate.
+func (o PodGroupTemplatePatchOutput) SchedulingPolicy() PodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupTemplatePatch) *PodGroupSchedulingPolicyPatch { return v.SchedulingPolicy }).(PodGroupSchedulingPolicyPatchPtrOutput)
+}
+
+type PodGroupTemplatePatchArrayOutput struct{ *pulumi.OutputState }
+
+func (PodGroupTemplatePatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupTemplatePatch)(nil)).Elem()
+}
+
+func (o PodGroupTemplatePatchArrayOutput) ToPodGroupTemplatePatchArrayOutput() PodGroupTemplatePatchArrayOutput {
+	return o
+}
+
+func (o PodGroupTemplatePatchArrayOutput) ToPodGroupTemplatePatchArrayOutputWithContext(ctx context.Context) PodGroupTemplatePatchArrayOutput {
+	return o
+}
+
+func (o PodGroupTemplatePatchArrayOutput) Index(i pulumi.IntInput) PodGroupTemplatePatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodGroupTemplatePatch {
+		return vs[0].([]PodGroupTemplatePatch)[vs[1].(int)]
+	}).(PodGroupTemplatePatchOutput)
+}
+
 // DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
 type PriorityClassType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -359,13 +5935,2127 @@ func (o PriorityClassPatchTypeOutput) Value() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PriorityClassPatchType) *int { return v.Value }).(pulumi.IntPtrOutput)
 }
 
+// SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
+type SingleCompositeDisruptionMode struct {
+}
+
+// SingleCompositeDisruptionModeInput is an input type that accepts SingleCompositeDisruptionModeArgs and SingleCompositeDisruptionModeOutput values.
+// You can construct a concrete instance of `SingleCompositeDisruptionModeInput` via:
+//
+//	SingleCompositeDisruptionModeArgs{...}
+type SingleCompositeDisruptionModeInput interface {
+	pulumi.Input
+
+	ToSingleCompositeDisruptionModeOutput() SingleCompositeDisruptionModeOutput
+	ToSingleCompositeDisruptionModeOutputWithContext(context.Context) SingleCompositeDisruptionModeOutput
+}
+
+// SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
+type SingleCompositeDisruptionModeArgs struct {
+}
+
+func (SingleCompositeDisruptionModeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SingleCompositeDisruptionMode)(nil)).Elem()
+}
+
+func (i SingleCompositeDisruptionModeArgs) ToSingleCompositeDisruptionModeOutput() SingleCompositeDisruptionModeOutput {
+	return i.ToSingleCompositeDisruptionModeOutputWithContext(context.Background())
+}
+
+func (i SingleCompositeDisruptionModeArgs) ToSingleCompositeDisruptionModeOutputWithContext(ctx context.Context) SingleCompositeDisruptionModeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleCompositeDisruptionModeOutput)
+}
+
+func (i SingleCompositeDisruptionModeArgs) ToSingleCompositeDisruptionModePtrOutput() SingleCompositeDisruptionModePtrOutput {
+	return i.ToSingleCompositeDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i SingleCompositeDisruptionModeArgs) ToSingleCompositeDisruptionModePtrOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleCompositeDisruptionModeOutput).ToSingleCompositeDisruptionModePtrOutputWithContext(ctx)
+}
+
+// SingleCompositeDisruptionModePtrInput is an input type that accepts SingleCompositeDisruptionModeArgs, SingleCompositeDisruptionModePtr and SingleCompositeDisruptionModePtrOutput values.
+// You can construct a concrete instance of `SingleCompositeDisruptionModePtrInput` via:
+//
+//	        SingleCompositeDisruptionModeArgs{...}
+//
+//	or:
+//
+//	        nil
+type SingleCompositeDisruptionModePtrInput interface {
+	pulumi.Input
+
+	ToSingleCompositeDisruptionModePtrOutput() SingleCompositeDisruptionModePtrOutput
+	ToSingleCompositeDisruptionModePtrOutputWithContext(context.Context) SingleCompositeDisruptionModePtrOutput
+}
+
+type singleCompositeDisruptionModePtrType SingleCompositeDisruptionModeArgs
+
+func SingleCompositeDisruptionModePtr(v *SingleCompositeDisruptionModeArgs) SingleCompositeDisruptionModePtrInput {
+	return (*singleCompositeDisruptionModePtrType)(v)
+}
+
+func (*singleCompositeDisruptionModePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SingleCompositeDisruptionMode)(nil)).Elem()
+}
+
+func (i *singleCompositeDisruptionModePtrType) ToSingleCompositeDisruptionModePtrOutput() SingleCompositeDisruptionModePtrOutput {
+	return i.ToSingleCompositeDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i *singleCompositeDisruptionModePtrType) ToSingleCompositeDisruptionModePtrOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleCompositeDisruptionModePtrOutput)
+}
+
+// SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
+type SingleCompositeDisruptionModeOutput struct{ *pulumi.OutputState }
+
+func (SingleCompositeDisruptionModeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SingleCompositeDisruptionMode)(nil)).Elem()
+}
+
+func (o SingleCompositeDisruptionModeOutput) ToSingleCompositeDisruptionModeOutput() SingleCompositeDisruptionModeOutput {
+	return o
+}
+
+func (o SingleCompositeDisruptionModeOutput) ToSingleCompositeDisruptionModeOutputWithContext(ctx context.Context) SingleCompositeDisruptionModeOutput {
+	return o
+}
+
+func (o SingleCompositeDisruptionModeOutput) ToSingleCompositeDisruptionModePtrOutput() SingleCompositeDisruptionModePtrOutput {
+	return o.ToSingleCompositeDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (o SingleCompositeDisruptionModeOutput) ToSingleCompositeDisruptionModePtrOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SingleCompositeDisruptionMode) *SingleCompositeDisruptionMode {
+		return &v
+	}).(SingleCompositeDisruptionModePtrOutput)
+}
+
+type SingleCompositeDisruptionModePtrOutput struct{ *pulumi.OutputState }
+
+func (SingleCompositeDisruptionModePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SingleCompositeDisruptionMode)(nil)).Elem()
+}
+
+func (o SingleCompositeDisruptionModePtrOutput) ToSingleCompositeDisruptionModePtrOutput() SingleCompositeDisruptionModePtrOutput {
+	return o
+}
+
+func (o SingleCompositeDisruptionModePtrOutput) ToSingleCompositeDisruptionModePtrOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePtrOutput {
+	return o
+}
+
+func (o SingleCompositeDisruptionModePtrOutput) Elem() SingleCompositeDisruptionModeOutput {
+	return o.ApplyT(func(v *SingleCompositeDisruptionMode) SingleCompositeDisruptionMode {
+		if v != nil {
+			return *v
+		}
+		var ret SingleCompositeDisruptionMode
+		return ret
+	}).(SingleCompositeDisruptionModeOutput)
+}
+
+// SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
+type SingleCompositeDisruptionModePatch struct {
+}
+
+// SingleCompositeDisruptionModePatchInput is an input type that accepts SingleCompositeDisruptionModePatchArgs and SingleCompositeDisruptionModePatchOutput values.
+// You can construct a concrete instance of `SingleCompositeDisruptionModePatchInput` via:
+//
+//	SingleCompositeDisruptionModePatchArgs{...}
+type SingleCompositeDisruptionModePatchInput interface {
+	pulumi.Input
+
+	ToSingleCompositeDisruptionModePatchOutput() SingleCompositeDisruptionModePatchOutput
+	ToSingleCompositeDisruptionModePatchOutputWithContext(context.Context) SingleCompositeDisruptionModePatchOutput
+}
+
+// SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
+type SingleCompositeDisruptionModePatchArgs struct {
+}
+
+func (SingleCompositeDisruptionModePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SingleCompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (i SingleCompositeDisruptionModePatchArgs) ToSingleCompositeDisruptionModePatchOutput() SingleCompositeDisruptionModePatchOutput {
+	return i.ToSingleCompositeDisruptionModePatchOutputWithContext(context.Background())
+}
+
+func (i SingleCompositeDisruptionModePatchArgs) ToSingleCompositeDisruptionModePatchOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleCompositeDisruptionModePatchOutput)
+}
+
+func (i SingleCompositeDisruptionModePatchArgs) ToSingleCompositeDisruptionModePatchPtrOutput() SingleCompositeDisruptionModePatchPtrOutput {
+	return i.ToSingleCompositeDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i SingleCompositeDisruptionModePatchArgs) ToSingleCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleCompositeDisruptionModePatchOutput).ToSingleCompositeDisruptionModePatchPtrOutputWithContext(ctx)
+}
+
+// SingleCompositeDisruptionModePatchPtrInput is an input type that accepts SingleCompositeDisruptionModePatchArgs, SingleCompositeDisruptionModePatchPtr and SingleCompositeDisruptionModePatchPtrOutput values.
+// You can construct a concrete instance of `SingleCompositeDisruptionModePatchPtrInput` via:
+//
+//	        SingleCompositeDisruptionModePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type SingleCompositeDisruptionModePatchPtrInput interface {
+	pulumi.Input
+
+	ToSingleCompositeDisruptionModePatchPtrOutput() SingleCompositeDisruptionModePatchPtrOutput
+	ToSingleCompositeDisruptionModePatchPtrOutputWithContext(context.Context) SingleCompositeDisruptionModePatchPtrOutput
+}
+
+type singleCompositeDisruptionModePatchPtrType SingleCompositeDisruptionModePatchArgs
+
+func SingleCompositeDisruptionModePatchPtr(v *SingleCompositeDisruptionModePatchArgs) SingleCompositeDisruptionModePatchPtrInput {
+	return (*singleCompositeDisruptionModePatchPtrType)(v)
+}
+
+func (*singleCompositeDisruptionModePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SingleCompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (i *singleCompositeDisruptionModePatchPtrType) ToSingleCompositeDisruptionModePatchPtrOutput() SingleCompositeDisruptionModePatchPtrOutput {
+	return i.ToSingleCompositeDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *singleCompositeDisruptionModePatchPtrType) ToSingleCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleCompositeDisruptionModePatchPtrOutput)
+}
+
+// SingleCompositeDisruptionMode means that individual children of a CompositePodGroup can be disrupted or preempted independently.
+type SingleCompositeDisruptionModePatchOutput struct{ *pulumi.OutputState }
+
+func (SingleCompositeDisruptionModePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SingleCompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (o SingleCompositeDisruptionModePatchOutput) ToSingleCompositeDisruptionModePatchOutput() SingleCompositeDisruptionModePatchOutput {
+	return o
+}
+
+func (o SingleCompositeDisruptionModePatchOutput) ToSingleCompositeDisruptionModePatchOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePatchOutput {
+	return o
+}
+
+func (o SingleCompositeDisruptionModePatchOutput) ToSingleCompositeDisruptionModePatchPtrOutput() SingleCompositeDisruptionModePatchPtrOutput {
+	return o.ToSingleCompositeDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (o SingleCompositeDisruptionModePatchOutput) ToSingleCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SingleCompositeDisruptionModePatch) *SingleCompositeDisruptionModePatch {
+		return &v
+	}).(SingleCompositeDisruptionModePatchPtrOutput)
+}
+
+type SingleCompositeDisruptionModePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (SingleCompositeDisruptionModePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SingleCompositeDisruptionModePatch)(nil)).Elem()
+}
+
+func (o SingleCompositeDisruptionModePatchPtrOutput) ToSingleCompositeDisruptionModePatchPtrOutput() SingleCompositeDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o SingleCompositeDisruptionModePatchPtrOutput) ToSingleCompositeDisruptionModePatchPtrOutputWithContext(ctx context.Context) SingleCompositeDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o SingleCompositeDisruptionModePatchPtrOutput) Elem() SingleCompositeDisruptionModePatchOutput {
+	return o.ApplyT(func(v *SingleCompositeDisruptionModePatch) SingleCompositeDisruptionModePatch {
+		if v != nil {
+			return *v
+		}
+		var ret SingleCompositeDisruptionModePatch
+		return ret
+	}).(SingleCompositeDisruptionModePatchOutput)
+}
+
+// SingleDisruptionMode specifies that children can be disrupted independently.
+type SingleDisruptionMode struct {
+}
+
+// SingleDisruptionModeInput is an input type that accepts SingleDisruptionModeArgs and SingleDisruptionModeOutput values.
+// You can construct a concrete instance of `SingleDisruptionModeInput` via:
+//
+//	SingleDisruptionModeArgs{...}
+type SingleDisruptionModeInput interface {
+	pulumi.Input
+
+	ToSingleDisruptionModeOutput() SingleDisruptionModeOutput
+	ToSingleDisruptionModeOutputWithContext(context.Context) SingleDisruptionModeOutput
+}
+
+// SingleDisruptionMode specifies that children can be disrupted independently.
+type SingleDisruptionModeArgs struct {
+}
+
+func (SingleDisruptionModeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SingleDisruptionMode)(nil)).Elem()
+}
+
+func (i SingleDisruptionModeArgs) ToSingleDisruptionModeOutput() SingleDisruptionModeOutput {
+	return i.ToSingleDisruptionModeOutputWithContext(context.Background())
+}
+
+func (i SingleDisruptionModeArgs) ToSingleDisruptionModeOutputWithContext(ctx context.Context) SingleDisruptionModeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleDisruptionModeOutput)
+}
+
+func (i SingleDisruptionModeArgs) ToSingleDisruptionModePtrOutput() SingleDisruptionModePtrOutput {
+	return i.ToSingleDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i SingleDisruptionModeArgs) ToSingleDisruptionModePtrOutputWithContext(ctx context.Context) SingleDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleDisruptionModeOutput).ToSingleDisruptionModePtrOutputWithContext(ctx)
+}
+
+// SingleDisruptionModePtrInput is an input type that accepts SingleDisruptionModeArgs, SingleDisruptionModePtr and SingleDisruptionModePtrOutput values.
+// You can construct a concrete instance of `SingleDisruptionModePtrInput` via:
+//
+//	        SingleDisruptionModeArgs{...}
+//
+//	or:
+//
+//	        nil
+type SingleDisruptionModePtrInput interface {
+	pulumi.Input
+
+	ToSingleDisruptionModePtrOutput() SingleDisruptionModePtrOutput
+	ToSingleDisruptionModePtrOutputWithContext(context.Context) SingleDisruptionModePtrOutput
+}
+
+type singleDisruptionModePtrType SingleDisruptionModeArgs
+
+func SingleDisruptionModePtr(v *SingleDisruptionModeArgs) SingleDisruptionModePtrInput {
+	return (*singleDisruptionModePtrType)(v)
+}
+
+func (*singleDisruptionModePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SingleDisruptionMode)(nil)).Elem()
+}
+
+func (i *singleDisruptionModePtrType) ToSingleDisruptionModePtrOutput() SingleDisruptionModePtrOutput {
+	return i.ToSingleDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (i *singleDisruptionModePtrType) ToSingleDisruptionModePtrOutputWithContext(ctx context.Context) SingleDisruptionModePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleDisruptionModePtrOutput)
+}
+
+// SingleDisruptionMode specifies that children can be disrupted independently.
+type SingleDisruptionModeOutput struct{ *pulumi.OutputState }
+
+func (SingleDisruptionModeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SingleDisruptionMode)(nil)).Elem()
+}
+
+func (o SingleDisruptionModeOutput) ToSingleDisruptionModeOutput() SingleDisruptionModeOutput {
+	return o
+}
+
+func (o SingleDisruptionModeOutput) ToSingleDisruptionModeOutputWithContext(ctx context.Context) SingleDisruptionModeOutput {
+	return o
+}
+
+func (o SingleDisruptionModeOutput) ToSingleDisruptionModePtrOutput() SingleDisruptionModePtrOutput {
+	return o.ToSingleDisruptionModePtrOutputWithContext(context.Background())
+}
+
+func (o SingleDisruptionModeOutput) ToSingleDisruptionModePtrOutputWithContext(ctx context.Context) SingleDisruptionModePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SingleDisruptionMode) *SingleDisruptionMode {
+		return &v
+	}).(SingleDisruptionModePtrOutput)
+}
+
+type SingleDisruptionModePtrOutput struct{ *pulumi.OutputState }
+
+func (SingleDisruptionModePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SingleDisruptionMode)(nil)).Elem()
+}
+
+func (o SingleDisruptionModePtrOutput) ToSingleDisruptionModePtrOutput() SingleDisruptionModePtrOutput {
+	return o
+}
+
+func (o SingleDisruptionModePtrOutput) ToSingleDisruptionModePtrOutputWithContext(ctx context.Context) SingleDisruptionModePtrOutput {
+	return o
+}
+
+func (o SingleDisruptionModePtrOutput) Elem() SingleDisruptionModeOutput {
+	return o.ApplyT(func(v *SingleDisruptionMode) SingleDisruptionMode {
+		if v != nil {
+			return *v
+		}
+		var ret SingleDisruptionMode
+		return ret
+	}).(SingleDisruptionModeOutput)
+}
+
+// SingleDisruptionMode specifies that children can be disrupted independently.
+type SingleDisruptionModePatch struct {
+}
+
+// SingleDisruptionModePatchInput is an input type that accepts SingleDisruptionModePatchArgs and SingleDisruptionModePatchOutput values.
+// You can construct a concrete instance of `SingleDisruptionModePatchInput` via:
+//
+//	SingleDisruptionModePatchArgs{...}
+type SingleDisruptionModePatchInput interface {
+	pulumi.Input
+
+	ToSingleDisruptionModePatchOutput() SingleDisruptionModePatchOutput
+	ToSingleDisruptionModePatchOutputWithContext(context.Context) SingleDisruptionModePatchOutput
+}
+
+// SingleDisruptionMode specifies that children can be disrupted independently.
+type SingleDisruptionModePatchArgs struct {
+}
+
+func (SingleDisruptionModePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SingleDisruptionModePatch)(nil)).Elem()
+}
+
+func (i SingleDisruptionModePatchArgs) ToSingleDisruptionModePatchOutput() SingleDisruptionModePatchOutput {
+	return i.ToSingleDisruptionModePatchOutputWithContext(context.Background())
+}
+
+func (i SingleDisruptionModePatchArgs) ToSingleDisruptionModePatchOutputWithContext(ctx context.Context) SingleDisruptionModePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleDisruptionModePatchOutput)
+}
+
+func (i SingleDisruptionModePatchArgs) ToSingleDisruptionModePatchPtrOutput() SingleDisruptionModePatchPtrOutput {
+	return i.ToSingleDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i SingleDisruptionModePatchArgs) ToSingleDisruptionModePatchPtrOutputWithContext(ctx context.Context) SingleDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleDisruptionModePatchOutput).ToSingleDisruptionModePatchPtrOutputWithContext(ctx)
+}
+
+// SingleDisruptionModePatchPtrInput is an input type that accepts SingleDisruptionModePatchArgs, SingleDisruptionModePatchPtr and SingleDisruptionModePatchPtrOutput values.
+// You can construct a concrete instance of `SingleDisruptionModePatchPtrInput` via:
+//
+//	        SingleDisruptionModePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type SingleDisruptionModePatchPtrInput interface {
+	pulumi.Input
+
+	ToSingleDisruptionModePatchPtrOutput() SingleDisruptionModePatchPtrOutput
+	ToSingleDisruptionModePatchPtrOutputWithContext(context.Context) SingleDisruptionModePatchPtrOutput
+}
+
+type singleDisruptionModePatchPtrType SingleDisruptionModePatchArgs
+
+func SingleDisruptionModePatchPtr(v *SingleDisruptionModePatchArgs) SingleDisruptionModePatchPtrInput {
+	return (*singleDisruptionModePatchPtrType)(v)
+}
+
+func (*singleDisruptionModePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SingleDisruptionModePatch)(nil)).Elem()
+}
+
+func (i *singleDisruptionModePatchPtrType) ToSingleDisruptionModePatchPtrOutput() SingleDisruptionModePatchPtrOutput {
+	return i.ToSingleDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *singleDisruptionModePatchPtrType) ToSingleDisruptionModePatchPtrOutputWithContext(ctx context.Context) SingleDisruptionModePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SingleDisruptionModePatchPtrOutput)
+}
+
+// SingleDisruptionMode specifies that children can be disrupted independently.
+type SingleDisruptionModePatchOutput struct{ *pulumi.OutputState }
+
+func (SingleDisruptionModePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SingleDisruptionModePatch)(nil)).Elem()
+}
+
+func (o SingleDisruptionModePatchOutput) ToSingleDisruptionModePatchOutput() SingleDisruptionModePatchOutput {
+	return o
+}
+
+func (o SingleDisruptionModePatchOutput) ToSingleDisruptionModePatchOutputWithContext(ctx context.Context) SingleDisruptionModePatchOutput {
+	return o
+}
+
+func (o SingleDisruptionModePatchOutput) ToSingleDisruptionModePatchPtrOutput() SingleDisruptionModePatchPtrOutput {
+	return o.ToSingleDisruptionModePatchPtrOutputWithContext(context.Background())
+}
+
+func (o SingleDisruptionModePatchOutput) ToSingleDisruptionModePatchPtrOutputWithContext(ctx context.Context) SingleDisruptionModePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SingleDisruptionModePatch) *SingleDisruptionModePatch {
+		return &v
+	}).(SingleDisruptionModePatchPtrOutput)
+}
+
+type SingleDisruptionModePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (SingleDisruptionModePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SingleDisruptionModePatch)(nil)).Elem()
+}
+
+func (o SingleDisruptionModePatchPtrOutput) ToSingleDisruptionModePatchPtrOutput() SingleDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o SingleDisruptionModePatchPtrOutput) ToSingleDisruptionModePatchPtrOutputWithContext(ctx context.Context) SingleDisruptionModePatchPtrOutput {
+	return o
+}
+
+func (o SingleDisruptionModePatchPtrOutput) Elem() SingleDisruptionModePatchOutput {
+	return o.ApplyT(func(v *SingleDisruptionModePatch) SingleDisruptionModePatch {
+		if v != nil {
+			return *v
+		}
+		var ret SingleDisruptionModePatch
+		return ret
+	}).(SingleDisruptionModePatchOutput)
+}
+
+// TopologyConstraint defines a topology constraint for a PodGroup.
+type TopologyConstraint struct {
+	// key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+	Key string `pulumi:"key"`
+}
+
+// TopologyConstraintInput is an input type that accepts TopologyConstraintArgs and TopologyConstraintOutput values.
+// You can construct a concrete instance of `TopologyConstraintInput` via:
+//
+//	TopologyConstraintArgs{...}
+type TopologyConstraintInput interface {
+	pulumi.Input
+
+	ToTopologyConstraintOutput() TopologyConstraintOutput
+	ToTopologyConstraintOutputWithContext(context.Context) TopologyConstraintOutput
+}
+
+// TopologyConstraint defines a topology constraint for a PodGroup.
+type TopologyConstraintArgs struct {
+	// key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+	Key pulumi.StringInput `pulumi:"key"`
+}
+
+func (TopologyConstraintArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopologyConstraint)(nil)).Elem()
+}
+
+func (i TopologyConstraintArgs) ToTopologyConstraintOutput() TopologyConstraintOutput {
+	return i.ToTopologyConstraintOutputWithContext(context.Background())
+}
+
+func (i TopologyConstraintArgs) ToTopologyConstraintOutputWithContext(ctx context.Context) TopologyConstraintOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopologyConstraintOutput)
+}
+
+// TopologyConstraintArrayInput is an input type that accepts TopologyConstraintArray and TopologyConstraintArrayOutput values.
+// You can construct a concrete instance of `TopologyConstraintArrayInput` via:
+//
+//	TopologyConstraintArray{ TopologyConstraintArgs{...} }
+type TopologyConstraintArrayInput interface {
+	pulumi.Input
+
+	ToTopologyConstraintArrayOutput() TopologyConstraintArrayOutput
+	ToTopologyConstraintArrayOutputWithContext(context.Context) TopologyConstraintArrayOutput
+}
+
+type TopologyConstraintArray []TopologyConstraintInput
+
+func (TopologyConstraintArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TopologyConstraint)(nil)).Elem()
+}
+
+func (i TopologyConstraintArray) ToTopologyConstraintArrayOutput() TopologyConstraintArrayOutput {
+	return i.ToTopologyConstraintArrayOutputWithContext(context.Background())
+}
+
+func (i TopologyConstraintArray) ToTopologyConstraintArrayOutputWithContext(ctx context.Context) TopologyConstraintArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopologyConstraintArrayOutput)
+}
+
+// TopologyConstraint defines a topology constraint for a PodGroup.
+type TopologyConstraintOutput struct{ *pulumi.OutputState }
+
+func (TopologyConstraintOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopologyConstraint)(nil)).Elem()
+}
+
+func (o TopologyConstraintOutput) ToTopologyConstraintOutput() TopologyConstraintOutput {
+	return o
+}
+
+func (o TopologyConstraintOutput) ToTopologyConstraintOutputWithContext(ctx context.Context) TopologyConstraintOutput {
+	return o
+}
+
+// key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+func (o TopologyConstraintOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v TopologyConstraint) string { return v.Key }).(pulumi.StringOutput)
+}
+
+type TopologyConstraintArrayOutput struct{ *pulumi.OutputState }
+
+func (TopologyConstraintArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TopologyConstraint)(nil)).Elem()
+}
+
+func (o TopologyConstraintArrayOutput) ToTopologyConstraintArrayOutput() TopologyConstraintArrayOutput {
+	return o
+}
+
+func (o TopologyConstraintArrayOutput) ToTopologyConstraintArrayOutputWithContext(ctx context.Context) TopologyConstraintArrayOutput {
+	return o
+}
+
+func (o TopologyConstraintArrayOutput) Index(i pulumi.IntInput) TopologyConstraintOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TopologyConstraint {
+		return vs[0].([]TopologyConstraint)[vs[1].(int)]
+	}).(TopologyConstraintOutput)
+}
+
+// TopologyConstraint defines a topology constraint for a PodGroup.
+type TopologyConstraintPatch struct {
+	// key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+	Key *string `pulumi:"key"`
+}
+
+// TopologyConstraintPatchInput is an input type that accepts TopologyConstraintPatchArgs and TopologyConstraintPatchOutput values.
+// You can construct a concrete instance of `TopologyConstraintPatchInput` via:
+//
+//	TopologyConstraintPatchArgs{...}
+type TopologyConstraintPatchInput interface {
+	pulumi.Input
+
+	ToTopologyConstraintPatchOutput() TopologyConstraintPatchOutput
+	ToTopologyConstraintPatchOutputWithContext(context.Context) TopologyConstraintPatchOutput
+}
+
+// TopologyConstraint defines a topology constraint for a PodGroup.
+type TopologyConstraintPatchArgs struct {
+	// key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+	Key pulumi.StringPtrInput `pulumi:"key"`
+}
+
+func (TopologyConstraintPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopologyConstraintPatch)(nil)).Elem()
+}
+
+func (i TopologyConstraintPatchArgs) ToTopologyConstraintPatchOutput() TopologyConstraintPatchOutput {
+	return i.ToTopologyConstraintPatchOutputWithContext(context.Background())
+}
+
+func (i TopologyConstraintPatchArgs) ToTopologyConstraintPatchOutputWithContext(ctx context.Context) TopologyConstraintPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopologyConstraintPatchOutput)
+}
+
+// TopologyConstraintPatchArrayInput is an input type that accepts TopologyConstraintPatchArray and TopologyConstraintPatchArrayOutput values.
+// You can construct a concrete instance of `TopologyConstraintPatchArrayInput` via:
+//
+//	TopologyConstraintPatchArray{ TopologyConstraintPatchArgs{...} }
+type TopologyConstraintPatchArrayInput interface {
+	pulumi.Input
+
+	ToTopologyConstraintPatchArrayOutput() TopologyConstraintPatchArrayOutput
+	ToTopologyConstraintPatchArrayOutputWithContext(context.Context) TopologyConstraintPatchArrayOutput
+}
+
+type TopologyConstraintPatchArray []TopologyConstraintPatchInput
+
+func (TopologyConstraintPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TopologyConstraintPatch)(nil)).Elem()
+}
+
+func (i TopologyConstraintPatchArray) ToTopologyConstraintPatchArrayOutput() TopologyConstraintPatchArrayOutput {
+	return i.ToTopologyConstraintPatchArrayOutputWithContext(context.Background())
+}
+
+func (i TopologyConstraintPatchArray) ToTopologyConstraintPatchArrayOutputWithContext(ctx context.Context) TopologyConstraintPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopologyConstraintPatchArrayOutput)
+}
+
+// TopologyConstraint defines a topology constraint for a PodGroup.
+type TopologyConstraintPatchOutput struct{ *pulumi.OutputState }
+
+func (TopologyConstraintPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopologyConstraintPatch)(nil)).Elem()
+}
+
+func (o TopologyConstraintPatchOutput) ToTopologyConstraintPatchOutput() TopologyConstraintPatchOutput {
+	return o
+}
+
+func (o TopologyConstraintPatchOutput) ToTopologyConstraintPatchOutputWithContext(ctx context.Context) TopologyConstraintPatchOutput {
+	return o
+}
+
+// key specifies the key of the node label representing the topology domain. All pods within the PodGroup must be colocated within the same domain instance. Different PodGroups can land on different domain instances even if they derive from the same PodGroupTemplate. Examples: "topology.kubernetes.io/rack"
+func (o TopologyConstraintPatchOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TopologyConstraintPatch) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+type TopologyConstraintPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (TopologyConstraintPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TopologyConstraintPatch)(nil)).Elem()
+}
+
+func (o TopologyConstraintPatchArrayOutput) ToTopologyConstraintPatchArrayOutput() TopologyConstraintPatchArrayOutput {
+	return o
+}
+
+func (o TopologyConstraintPatchArrayOutput) ToTopologyConstraintPatchArrayOutputWithContext(ctx context.Context) TopologyConstraintPatchArrayOutput {
+	return o
+}
+
+func (o TopologyConstraintPatchArrayOutput) Index(i pulumi.IntInput) TopologyConstraintPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TopologyConstraintPatch {
+		return vs[0].([]TopologyConstraintPatch)[vs[1].(int)]
+	}).(TopologyConstraintPatchOutput)
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReference struct {
+	// apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+	ApiGroup *string `pulumi:"apiGroup"`
+	// kind is the type of resource being referenced. It must be a path segment name.
+	Kind string `pulumi:"kind"`
+	// name is the name of resource being referenced. It must be a path segment name.
+	Name string `pulumi:"name"`
+}
+
+// TypedLocalObjectReferenceInput is an input type that accepts TypedLocalObjectReferenceArgs and TypedLocalObjectReferenceOutput values.
+// You can construct a concrete instance of `TypedLocalObjectReferenceInput` via:
+//
+//	TypedLocalObjectReferenceArgs{...}
+type TypedLocalObjectReferenceInput interface {
+	pulumi.Input
+
+	ToTypedLocalObjectReferenceOutput() TypedLocalObjectReferenceOutput
+	ToTypedLocalObjectReferenceOutputWithContext(context.Context) TypedLocalObjectReferenceOutput
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferenceArgs struct {
+	// apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
+	// kind is the type of resource being referenced. It must be a path segment name.
+	Kind pulumi.StringInput `pulumi:"kind"`
+	// name is the name of resource being referenced. It must be a path segment name.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (TypedLocalObjectReferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypedLocalObjectReference)(nil)).Elem()
+}
+
+func (i TypedLocalObjectReferenceArgs) ToTypedLocalObjectReferenceOutput() TypedLocalObjectReferenceOutput {
+	return i.ToTypedLocalObjectReferenceOutputWithContext(context.Background())
+}
+
+func (i TypedLocalObjectReferenceArgs) ToTypedLocalObjectReferenceOutputWithContext(ctx context.Context) TypedLocalObjectReferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferenceOutput)
+}
+
+func (i TypedLocalObjectReferenceArgs) ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput {
+	return i.ToTypedLocalObjectReferencePtrOutputWithContext(context.Background())
+}
+
+func (i TypedLocalObjectReferenceArgs) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferenceOutput).ToTypedLocalObjectReferencePtrOutputWithContext(ctx)
+}
+
+// TypedLocalObjectReferencePtrInput is an input type that accepts TypedLocalObjectReferenceArgs, TypedLocalObjectReferencePtr and TypedLocalObjectReferencePtrOutput values.
+// You can construct a concrete instance of `TypedLocalObjectReferencePtrInput` via:
+//
+//	        TypedLocalObjectReferenceArgs{...}
+//
+//	or:
+//
+//	        nil
+type TypedLocalObjectReferencePtrInput interface {
+	pulumi.Input
+
+	ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput
+	ToTypedLocalObjectReferencePtrOutputWithContext(context.Context) TypedLocalObjectReferencePtrOutput
+}
+
+type typedLocalObjectReferencePtrType TypedLocalObjectReferenceArgs
+
+func TypedLocalObjectReferencePtr(v *TypedLocalObjectReferenceArgs) TypedLocalObjectReferencePtrInput {
+	return (*typedLocalObjectReferencePtrType)(v)
+}
+
+func (*typedLocalObjectReferencePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypedLocalObjectReference)(nil)).Elem()
+}
+
+func (i *typedLocalObjectReferencePtrType) ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput {
+	return i.ToTypedLocalObjectReferencePtrOutputWithContext(context.Background())
+}
+
+func (i *typedLocalObjectReferencePtrType) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferencePtrOutput)
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferenceOutput struct{ *pulumi.OutputState }
+
+func (TypedLocalObjectReferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypedLocalObjectReference)(nil)).Elem()
+}
+
+func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferenceOutput() TypedLocalObjectReferenceOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferenceOutputWithContext(ctx context.Context) TypedLocalObjectReferenceOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput {
+	return o.ToTypedLocalObjectReferencePtrOutputWithContext(context.Background())
+}
+
+func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TypedLocalObjectReference) *TypedLocalObjectReference {
+		return &v
+	}).(TypedLocalObjectReferencePtrOutput)
+}
+
+// apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+func (o TypedLocalObjectReferenceOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TypedLocalObjectReference) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
+}
+
+// kind is the type of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferenceOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v TypedLocalObjectReference) string { return v.Kind }).(pulumi.StringOutput)
+}
+
+// name is the name of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v TypedLocalObjectReference) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type TypedLocalObjectReferencePtrOutput struct{ *pulumi.OutputState }
+
+func (TypedLocalObjectReferencePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypedLocalObjectReference)(nil)).Elem()
+}
+
+func (o TypedLocalObjectReferencePtrOutput) ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePtrOutput) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePtrOutput) Elem() TypedLocalObjectReferenceOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReference) TypedLocalObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret TypedLocalObjectReference
+		return ret
+	}).(TypedLocalObjectReferenceOutput)
+}
+
+// apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+func (o TypedLocalObjectReferencePtrOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiGroup
+	}).(pulumi.StringPtrOutput)
+}
+
+// kind is the type of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Kind
+	}).(pulumi.StringPtrOutput)
+}
+
+// name is the name of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferencePatch struct {
+	// apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+	ApiGroup *string `pulumi:"apiGroup"`
+	// kind is the type of resource being referenced. It must be a path segment name.
+	Kind *string `pulumi:"kind"`
+	// name is the name of resource being referenced. It must be a path segment name.
+	Name *string `pulumi:"name"`
+}
+
+// TypedLocalObjectReferencePatchInput is an input type that accepts TypedLocalObjectReferencePatchArgs and TypedLocalObjectReferencePatchOutput values.
+// You can construct a concrete instance of `TypedLocalObjectReferencePatchInput` via:
+//
+//	TypedLocalObjectReferencePatchArgs{...}
+type TypedLocalObjectReferencePatchInput interface {
+	pulumi.Input
+
+	ToTypedLocalObjectReferencePatchOutput() TypedLocalObjectReferencePatchOutput
+	ToTypedLocalObjectReferencePatchOutputWithContext(context.Context) TypedLocalObjectReferencePatchOutput
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferencePatchArgs struct {
+	// apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
+	// kind is the type of resource being referenced. It must be a path segment name.
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// name is the name of resource being referenced. It must be a path segment name.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (TypedLocalObjectReferencePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypedLocalObjectReferencePatch)(nil)).Elem()
+}
+
+func (i TypedLocalObjectReferencePatchArgs) ToTypedLocalObjectReferencePatchOutput() TypedLocalObjectReferencePatchOutput {
+	return i.ToTypedLocalObjectReferencePatchOutputWithContext(context.Background())
+}
+
+func (i TypedLocalObjectReferencePatchArgs) ToTypedLocalObjectReferencePatchOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferencePatchOutput)
+}
+
+func (i TypedLocalObjectReferencePatchArgs) ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput {
+	return i.ToTypedLocalObjectReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i TypedLocalObjectReferencePatchArgs) ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferencePatchOutput).ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx)
+}
+
+// TypedLocalObjectReferencePatchPtrInput is an input type that accepts TypedLocalObjectReferencePatchArgs, TypedLocalObjectReferencePatchPtr and TypedLocalObjectReferencePatchPtrOutput values.
+// You can construct a concrete instance of `TypedLocalObjectReferencePatchPtrInput` via:
+//
+//	        TypedLocalObjectReferencePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type TypedLocalObjectReferencePatchPtrInput interface {
+	pulumi.Input
+
+	ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput
+	ToTypedLocalObjectReferencePatchPtrOutputWithContext(context.Context) TypedLocalObjectReferencePatchPtrOutput
+}
+
+type typedLocalObjectReferencePatchPtrType TypedLocalObjectReferencePatchArgs
+
+func TypedLocalObjectReferencePatchPtr(v *TypedLocalObjectReferencePatchArgs) TypedLocalObjectReferencePatchPtrInput {
+	return (*typedLocalObjectReferencePatchPtrType)(v)
+}
+
+func (*typedLocalObjectReferencePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypedLocalObjectReferencePatch)(nil)).Elem()
+}
+
+func (i *typedLocalObjectReferencePatchPtrType) ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput {
+	return i.ToTypedLocalObjectReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *typedLocalObjectReferencePatchPtrType) ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferencePatchPtrOutput)
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferencePatchOutput struct{ *pulumi.OutputState }
+
+func (TypedLocalObjectReferencePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypedLocalObjectReferencePatch)(nil)).Elem()
+}
+
+func (o TypedLocalObjectReferencePatchOutput) ToTypedLocalObjectReferencePatchOutput() TypedLocalObjectReferencePatchOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePatchOutput) ToTypedLocalObjectReferencePatchOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePatchOutput) ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput {
+	return o.ToTypedLocalObjectReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (o TypedLocalObjectReferencePatchOutput) ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TypedLocalObjectReferencePatch) *TypedLocalObjectReferencePatch {
+		return &v
+	}).(TypedLocalObjectReferencePatchPtrOutput)
+}
+
+// apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+func (o TypedLocalObjectReferencePatchOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TypedLocalObjectReferencePatch) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
+}
+
+// kind is the type of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePatchOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TypedLocalObjectReferencePatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// name is the name of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TypedLocalObjectReferencePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type TypedLocalObjectReferencePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (TypedLocalObjectReferencePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypedLocalObjectReferencePatch)(nil)).Elem()
+}
+
+func (o TypedLocalObjectReferencePatchPtrOutput) ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePatchPtrOutput) ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchPtrOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePatchPtrOutput) Elem() TypedLocalObjectReferencePatchOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReferencePatch) TypedLocalObjectReferencePatch {
+		if v != nil {
+			return *v
+		}
+		var ret TypedLocalObjectReferencePatch
+		return ret
+	}).(TypedLocalObjectReferencePatchOutput)
+}
+
+// apiGroup is the group for the resource being referenced. If apiGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting apiGroup is required. It must be a DNS subdomain.
+func (o TypedLocalObjectReferencePatchPtrOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiGroup
+	}).(pulumi.StringPtrOutput)
+}
+
+// kind is the type of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePatchPtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Kind
+	}).(pulumi.StringPtrOutput)
+}
+
+// name is the name of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
+type WorkloadType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// spec defines the desired behavior of a Workload.
+	Spec WorkloadSpec `pulumi:"spec"`
+}
+
+// WorkloadTypeInput is an input type that accepts WorkloadTypeArgs and WorkloadTypeOutput values.
+// You can construct a concrete instance of `WorkloadTypeInput` via:
+//
+//	WorkloadTypeArgs{...}
+type WorkloadTypeInput interface {
+	pulumi.Input
+
+	ToWorkloadTypeOutput() WorkloadTypeOutput
+	ToWorkloadTypeOutputWithContext(context.Context) WorkloadTypeOutput
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
+type WorkloadTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// spec defines the desired behavior of a Workload.
+	Spec WorkloadSpecInput `pulumi:"spec"`
+}
+
+func (WorkloadTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadType)(nil)).Elem()
+}
+
+func (i WorkloadTypeArgs) ToWorkloadTypeOutput() WorkloadTypeOutput {
+	return i.ToWorkloadTypeOutputWithContext(context.Background())
+}
+
+func (i WorkloadTypeArgs) ToWorkloadTypeOutputWithContext(ctx context.Context) WorkloadTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadTypeOutput)
+}
+
+// WorkloadTypeArrayInput is an input type that accepts WorkloadTypeArray and WorkloadTypeArrayOutput values.
+// You can construct a concrete instance of `WorkloadTypeArrayInput` via:
+//
+//	WorkloadTypeArray{ WorkloadTypeArgs{...} }
+type WorkloadTypeArrayInput interface {
+	pulumi.Input
+
+	ToWorkloadTypeArrayOutput() WorkloadTypeArrayOutput
+	ToWorkloadTypeArrayOutputWithContext(context.Context) WorkloadTypeArrayOutput
+}
+
+type WorkloadTypeArray []WorkloadTypeInput
+
+func (WorkloadTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadType)(nil)).Elem()
+}
+
+func (i WorkloadTypeArray) ToWorkloadTypeArrayOutput() WorkloadTypeArrayOutput {
+	return i.ToWorkloadTypeArrayOutputWithContext(context.Background())
+}
+
+func (i WorkloadTypeArray) ToWorkloadTypeArrayOutputWithContext(ctx context.Context) WorkloadTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadTypeArrayOutput)
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
+type WorkloadTypeOutput struct{ *pulumi.OutputState }
+
+func (WorkloadTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadType)(nil)).Elem()
+}
+
+func (o WorkloadTypeOutput) ToWorkloadTypeOutput() WorkloadTypeOutput {
+	return o
+}
+
+func (o WorkloadTypeOutput) ToWorkloadTypeOutputWithContext(ctx context.Context) WorkloadTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o WorkloadTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o WorkloadTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o WorkloadTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v WorkloadType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec defines the desired behavior of a Workload.
+func (o WorkloadTypeOutput) Spec() WorkloadSpecOutput {
+	return o.ApplyT(func(v WorkloadType) WorkloadSpec { return v.Spec }).(WorkloadSpecOutput)
+}
+
+type WorkloadTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (WorkloadTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadType)(nil)).Elem()
+}
+
+func (o WorkloadTypeArrayOutput) ToWorkloadTypeArrayOutput() WorkloadTypeArrayOutput {
+	return o
+}
+
+func (o WorkloadTypeArrayOutput) ToWorkloadTypeArrayOutputWithContext(ctx context.Context) WorkloadTypeArrayOutput {
+	return o
+}
+
+func (o WorkloadTypeArrayOutput) Index(i pulumi.IntInput) WorkloadTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) WorkloadType {
+		return vs[0].([]WorkloadType)[vs[1].(int)]
+	}).(WorkloadTypeOutput)
+}
+
+// WorkloadList contains a list of Workload resources.
+type WorkloadListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items is the list of Workloads.
+	Items []WorkloadType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// metadata is the standard list metadata.
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// WorkloadListTypeInput is an input type that accepts WorkloadListTypeArgs and WorkloadListTypeOutput values.
+// You can construct a concrete instance of `WorkloadListTypeInput` via:
+//
+//	WorkloadListTypeArgs{...}
+type WorkloadListTypeInput interface {
+	pulumi.Input
+
+	ToWorkloadListTypeOutput() WorkloadListTypeOutput
+	ToWorkloadListTypeOutputWithContext(context.Context) WorkloadListTypeOutput
+}
+
+// WorkloadList contains a list of Workload resources.
+type WorkloadListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is the list of Workloads.
+	Items WorkloadTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// metadata is the standard list metadata.
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (WorkloadListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadListType)(nil)).Elem()
+}
+
+func (i WorkloadListTypeArgs) ToWorkloadListTypeOutput() WorkloadListTypeOutput {
+	return i.ToWorkloadListTypeOutputWithContext(context.Background())
+}
+
+func (i WorkloadListTypeArgs) ToWorkloadListTypeOutputWithContext(ctx context.Context) WorkloadListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadListTypeOutput)
+}
+
+// WorkloadList contains a list of Workload resources.
+type WorkloadListTypeOutput struct{ *pulumi.OutputState }
+
+func (WorkloadListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadListType)(nil)).Elem()
+}
+
+func (o WorkloadListTypeOutput) ToWorkloadListTypeOutput() WorkloadListTypeOutput {
+	return o
+}
+
+func (o WorkloadListTypeOutput) ToWorkloadListTypeOutputWithContext(ctx context.Context) WorkloadListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o WorkloadListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is the list of Workloads.
+func (o WorkloadListTypeOutput) Items() WorkloadTypeArrayOutput {
+	return o.ApplyT(func(v WorkloadListType) []WorkloadType { return v.Items }).(WorkloadTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o WorkloadListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// metadata is the standard list metadata.
+func (o WorkloadListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v WorkloadListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
+type WorkloadPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// spec defines the desired behavior of a Workload.
+	Spec *WorkloadSpecPatch `pulumi:"spec"`
+}
+
+// WorkloadPatchTypeInput is an input type that accepts WorkloadPatchTypeArgs and WorkloadPatchTypeOutput values.
+// You can construct a concrete instance of `WorkloadPatchTypeInput` via:
+//
+//	WorkloadPatchTypeArgs{...}
+type WorkloadPatchTypeInput interface {
+	pulumi.Input
+
+	ToWorkloadPatchTypeOutput() WorkloadPatchTypeOutput
+	ToWorkloadPatchTypeOutputWithContext(context.Context) WorkloadPatchTypeOutput
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
+type WorkloadPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// spec defines the desired behavior of a Workload.
+	Spec WorkloadSpecPatchPtrInput `pulumi:"spec"`
+}
+
+func (WorkloadPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadPatchType)(nil)).Elem()
+}
+
+func (i WorkloadPatchTypeArgs) ToWorkloadPatchTypeOutput() WorkloadPatchTypeOutput {
+	return i.ToWorkloadPatchTypeOutputWithContext(context.Background())
+}
+
+func (i WorkloadPatchTypeArgs) ToWorkloadPatchTypeOutputWithContext(ctx context.Context) WorkloadPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadPatchTypeOutput)
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing the lifecycle of workloads from the scheduling perspective, including scheduling, preemption, eviction and other phases. Workload API enablement is toggled by the GenericWorkload feature gate.
+type WorkloadPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (WorkloadPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadPatchType)(nil)).Elem()
+}
+
+func (o WorkloadPatchTypeOutput) ToWorkloadPatchTypeOutput() WorkloadPatchTypeOutput {
+	return o
+}
+
+func (o WorkloadPatchTypeOutput) ToWorkloadPatchTypeOutputWithContext(ctx context.Context) WorkloadPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o WorkloadPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o WorkloadPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o WorkloadPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v WorkloadPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// spec defines the desired behavior of a Workload.
+func (o WorkloadPatchTypeOutput) Spec() WorkloadSpecPatchPtrOutput {
+	return o.ApplyT(func(v WorkloadPatchType) *WorkloadSpecPatch { return v.Spec }).(WorkloadSpecPatchPtrOutput)
+}
+
+// WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+type WorkloadReference struct {
+	// templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+	TemplateName string `pulumi:"templateName"`
+	// workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+	WorkloadName string `pulumi:"workloadName"`
+}
+
+// WorkloadReferenceInput is an input type that accepts WorkloadReferenceArgs and WorkloadReferenceOutput values.
+// You can construct a concrete instance of `WorkloadReferenceInput` via:
+//
+//	WorkloadReferenceArgs{...}
+type WorkloadReferenceInput interface {
+	pulumi.Input
+
+	ToWorkloadReferenceOutput() WorkloadReferenceOutput
+	ToWorkloadReferenceOutputWithContext(context.Context) WorkloadReferenceOutput
+}
+
+// WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+type WorkloadReferenceArgs struct {
+	// templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+	TemplateName pulumi.StringInput `pulumi:"templateName"`
+	// workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+	WorkloadName pulumi.StringInput `pulumi:"workloadName"`
+}
+
+func (WorkloadReferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadReference)(nil)).Elem()
+}
+
+func (i WorkloadReferenceArgs) ToWorkloadReferenceOutput() WorkloadReferenceOutput {
+	return i.ToWorkloadReferenceOutputWithContext(context.Background())
+}
+
+func (i WorkloadReferenceArgs) ToWorkloadReferenceOutputWithContext(ctx context.Context) WorkloadReferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadReferenceOutput)
+}
+
+func (i WorkloadReferenceArgs) ToWorkloadReferencePtrOutput() WorkloadReferencePtrOutput {
+	return i.ToWorkloadReferencePtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadReferenceArgs) ToWorkloadReferencePtrOutputWithContext(ctx context.Context) WorkloadReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadReferenceOutput).ToWorkloadReferencePtrOutputWithContext(ctx)
+}
+
+// WorkloadReferencePtrInput is an input type that accepts WorkloadReferenceArgs, WorkloadReferencePtr and WorkloadReferencePtrOutput values.
+// You can construct a concrete instance of `WorkloadReferencePtrInput` via:
+//
+//	        WorkloadReferenceArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadReferencePtrInput interface {
+	pulumi.Input
+
+	ToWorkloadReferencePtrOutput() WorkloadReferencePtrOutput
+	ToWorkloadReferencePtrOutputWithContext(context.Context) WorkloadReferencePtrOutput
+}
+
+type workloadReferencePtrType WorkloadReferenceArgs
+
+func WorkloadReferencePtr(v *WorkloadReferenceArgs) WorkloadReferencePtrInput {
+	return (*workloadReferencePtrType)(v)
+}
+
+func (*workloadReferencePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadReference)(nil)).Elem()
+}
+
+func (i *workloadReferencePtrType) ToWorkloadReferencePtrOutput() WorkloadReferencePtrOutput {
+	return i.ToWorkloadReferencePtrOutputWithContext(context.Background())
+}
+
+func (i *workloadReferencePtrType) ToWorkloadReferencePtrOutputWithContext(ctx context.Context) WorkloadReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadReferencePtrOutput)
+}
+
+// WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+type WorkloadReferenceOutput struct{ *pulumi.OutputState }
+
+func (WorkloadReferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadReference)(nil)).Elem()
+}
+
+func (o WorkloadReferenceOutput) ToWorkloadReferenceOutput() WorkloadReferenceOutput {
+	return o
+}
+
+func (o WorkloadReferenceOutput) ToWorkloadReferenceOutputWithContext(ctx context.Context) WorkloadReferenceOutput {
+	return o
+}
+
+func (o WorkloadReferenceOutput) ToWorkloadReferencePtrOutput() WorkloadReferencePtrOutput {
+	return o.ToWorkloadReferencePtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadReferenceOutput) ToWorkloadReferencePtrOutputWithContext(ctx context.Context) WorkloadReferencePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadReference) *WorkloadReference {
+		return &v
+	}).(WorkloadReferencePtrOutput)
+}
+
+// templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+func (o WorkloadReferenceOutput) TemplateName() pulumi.StringOutput {
+	return o.ApplyT(func(v WorkloadReference) string { return v.TemplateName }).(pulumi.StringOutput)
+}
+
+// workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+func (o WorkloadReferenceOutput) WorkloadName() pulumi.StringOutput {
+	return o.ApplyT(func(v WorkloadReference) string { return v.WorkloadName }).(pulumi.StringOutput)
+}
+
+type WorkloadReferencePtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadReferencePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadReference)(nil)).Elem()
+}
+
+func (o WorkloadReferencePtrOutput) ToWorkloadReferencePtrOutput() WorkloadReferencePtrOutput {
+	return o
+}
+
+func (o WorkloadReferencePtrOutput) ToWorkloadReferencePtrOutputWithContext(ctx context.Context) WorkloadReferencePtrOutput {
+	return o
+}
+
+func (o WorkloadReferencePtrOutput) Elem() WorkloadReferenceOutput {
+	return o.ApplyT(func(v *WorkloadReference) WorkloadReference {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadReference
+		return ret
+	}).(WorkloadReferenceOutput)
+}
+
+// templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+func (o WorkloadReferencePtrOutput) TemplateName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WorkloadReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.TemplateName
+	}).(pulumi.StringPtrOutput)
+}
+
+// workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+func (o WorkloadReferencePtrOutput) WorkloadName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WorkloadReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.WorkloadName
+	}).(pulumi.StringPtrOutput)
+}
+
+// WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+type WorkloadReferencePatch struct {
+	// templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+	TemplateName *string `pulumi:"templateName"`
+	// workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+	WorkloadName *string `pulumi:"workloadName"`
+}
+
+// WorkloadReferencePatchInput is an input type that accepts WorkloadReferencePatchArgs and WorkloadReferencePatchOutput values.
+// You can construct a concrete instance of `WorkloadReferencePatchInput` via:
+//
+//	WorkloadReferencePatchArgs{...}
+type WorkloadReferencePatchInput interface {
+	pulumi.Input
+
+	ToWorkloadReferencePatchOutput() WorkloadReferencePatchOutput
+	ToWorkloadReferencePatchOutputWithContext(context.Context) WorkloadReferencePatchOutput
+}
+
+// WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+type WorkloadReferencePatchArgs struct {
+	// templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+	TemplateName pulumi.StringPtrInput `pulumi:"templateName"`
+	// workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+	WorkloadName pulumi.StringPtrInput `pulumi:"workloadName"`
+}
+
+func (WorkloadReferencePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadReferencePatch)(nil)).Elem()
+}
+
+func (i WorkloadReferencePatchArgs) ToWorkloadReferencePatchOutput() WorkloadReferencePatchOutput {
+	return i.ToWorkloadReferencePatchOutputWithContext(context.Background())
+}
+
+func (i WorkloadReferencePatchArgs) ToWorkloadReferencePatchOutputWithContext(ctx context.Context) WorkloadReferencePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadReferencePatchOutput)
+}
+
+func (i WorkloadReferencePatchArgs) ToWorkloadReferencePatchPtrOutput() WorkloadReferencePatchPtrOutput {
+	return i.ToWorkloadReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadReferencePatchArgs) ToWorkloadReferencePatchPtrOutputWithContext(ctx context.Context) WorkloadReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadReferencePatchOutput).ToWorkloadReferencePatchPtrOutputWithContext(ctx)
+}
+
+// WorkloadReferencePatchPtrInput is an input type that accepts WorkloadReferencePatchArgs, WorkloadReferencePatchPtr and WorkloadReferencePatchPtrOutput values.
+// You can construct a concrete instance of `WorkloadReferencePatchPtrInput` via:
+//
+//	        WorkloadReferencePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadReferencePatchPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadReferencePatchPtrOutput() WorkloadReferencePatchPtrOutput
+	ToWorkloadReferencePatchPtrOutputWithContext(context.Context) WorkloadReferencePatchPtrOutput
+}
+
+type workloadReferencePatchPtrType WorkloadReferencePatchArgs
+
+func WorkloadReferencePatchPtr(v *WorkloadReferencePatchArgs) WorkloadReferencePatchPtrInput {
+	return (*workloadReferencePatchPtrType)(v)
+}
+
+func (*workloadReferencePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadReferencePatch)(nil)).Elem()
+}
+
+func (i *workloadReferencePatchPtrType) ToWorkloadReferencePatchPtrOutput() WorkloadReferencePatchPtrOutput {
+	return i.ToWorkloadReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadReferencePatchPtrType) ToWorkloadReferencePatchPtrOutputWithContext(ctx context.Context) WorkloadReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadReferencePatchPtrOutput)
+}
+
+// WorkloadReference references the Workload object together with the template that was used to create a particular PodGroup.
+type WorkloadReferencePatchOutput struct{ *pulumi.OutputState }
+
+func (WorkloadReferencePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadReferencePatch)(nil)).Elem()
+}
+
+func (o WorkloadReferencePatchOutput) ToWorkloadReferencePatchOutput() WorkloadReferencePatchOutput {
+	return o
+}
+
+func (o WorkloadReferencePatchOutput) ToWorkloadReferencePatchOutputWithContext(ctx context.Context) WorkloadReferencePatchOutput {
+	return o
+}
+
+func (o WorkloadReferencePatchOutput) ToWorkloadReferencePatchPtrOutput() WorkloadReferencePatchPtrOutput {
+	return o.ToWorkloadReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadReferencePatchOutput) ToWorkloadReferencePatchPtrOutputWithContext(ctx context.Context) WorkloadReferencePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadReferencePatch) *WorkloadReferencePatch {
+		return &v
+	}).(WorkloadReferencePatchPtrOutput)
+}
+
+// templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+func (o WorkloadReferencePatchOutput) TemplateName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadReferencePatch) *string { return v.TemplateName }).(pulumi.StringPtrOutput)
+}
+
+// workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+func (o WorkloadReferencePatchOutput) WorkloadName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadReferencePatch) *string { return v.WorkloadName }).(pulumi.StringPtrOutput)
+}
+
+type WorkloadReferencePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadReferencePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadReferencePatch)(nil)).Elem()
+}
+
+func (o WorkloadReferencePatchPtrOutput) ToWorkloadReferencePatchPtrOutput() WorkloadReferencePatchPtrOutput {
+	return o
+}
+
+func (o WorkloadReferencePatchPtrOutput) ToWorkloadReferencePatchPtrOutputWithContext(ctx context.Context) WorkloadReferencePatchPtrOutput {
+	return o
+}
+
+func (o WorkloadReferencePatchPtrOutput) Elem() WorkloadReferencePatchOutput {
+	return o.ApplyT(func(v *WorkloadReferencePatch) WorkloadReferencePatch {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadReferencePatch
+		return ret
+	}).(WorkloadReferencePatchOutput)
+}
+
+// templateName is the name of a template within the Workload object that was used to create a pod group. It must be a DNS label. This field is required.
+func (o WorkloadReferencePatchPtrOutput) TemplateName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WorkloadReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TemplateName
+	}).(pulumi.StringPtrOutput)
+}
+
+// workloadName is the name of the Workload object that contains a template that was used when creating a pod group. It must be a DNS name. This field is required.
+func (o WorkloadReferencePatchPtrOutput) WorkloadName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WorkloadReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WorkloadName
+	}).(pulumi.StringPtrOutput)
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpec struct {
+	// compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+	//
+	// This field is used only when the CompositePodGroup feature gate is enabled.
+	CompositePodGroupTemplates []CompositePodGroupTemplate `pulumi:"compositePodGroupTemplates"`
+	// controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+	ControllerRef *TypedLocalObjectReference `pulumi:"controllerRef"`
+	// podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+	PodGroupTemplates []PodGroupTemplate `pulumi:"podGroupTemplates"`
+}
+
+// WorkloadSpecInput is an input type that accepts WorkloadSpecArgs and WorkloadSpecOutput values.
+// You can construct a concrete instance of `WorkloadSpecInput` via:
+//
+//	WorkloadSpecArgs{...}
+type WorkloadSpecInput interface {
+	pulumi.Input
+
+	ToWorkloadSpecOutput() WorkloadSpecOutput
+	ToWorkloadSpecOutputWithContext(context.Context) WorkloadSpecOutput
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecArgs struct {
+	// compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+	//
+	// This field is used only when the CompositePodGroup feature gate is enabled.
+	CompositePodGroupTemplates CompositePodGroupTemplateArrayInput `pulumi:"compositePodGroupTemplates"`
+	// controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+	ControllerRef TypedLocalObjectReferencePtrInput `pulumi:"controllerRef"`
+	// podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+	PodGroupTemplates PodGroupTemplateArrayInput `pulumi:"podGroupTemplates"`
+}
+
+func (WorkloadSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadSpec)(nil)).Elem()
+}
+
+func (i WorkloadSpecArgs) ToWorkloadSpecOutput() WorkloadSpecOutput {
+	return i.ToWorkloadSpecOutputWithContext(context.Background())
+}
+
+func (i WorkloadSpecArgs) ToWorkloadSpecOutputWithContext(ctx context.Context) WorkloadSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadSpecOutput)
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecOutput struct{ *pulumi.OutputState }
+
+func (WorkloadSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadSpec)(nil)).Elem()
+}
+
+func (o WorkloadSpecOutput) ToWorkloadSpecOutput() WorkloadSpecOutput {
+	return o
+}
+
+func (o WorkloadSpecOutput) ToWorkloadSpecOutputWithContext(ctx context.Context) WorkloadSpecOutput {
+	return o
+}
+
+// compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+//
+// This field is used only when the CompositePodGroup feature gate is enabled.
+func (o WorkloadSpecOutput) CompositePodGroupTemplates() CompositePodGroupTemplateArrayOutput {
+	return o.ApplyT(func(v WorkloadSpec) []CompositePodGroupTemplate { return v.CompositePodGroupTemplates }).(CompositePodGroupTemplateArrayOutput)
+}
+
+// controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+func (o WorkloadSpecOutput) ControllerRef() TypedLocalObjectReferencePtrOutput {
+	return o.ApplyT(func(v WorkloadSpec) *TypedLocalObjectReference { return v.ControllerRef }).(TypedLocalObjectReferencePtrOutput)
+}
+
+// podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+func (o WorkloadSpecOutput) PodGroupTemplates() PodGroupTemplateArrayOutput {
+	return o.ApplyT(func(v WorkloadSpec) []PodGroupTemplate { return v.PodGroupTemplates }).(PodGroupTemplateArrayOutput)
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecPatch struct {
+	// compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+	//
+	// This field is used only when the CompositePodGroup feature gate is enabled.
+	CompositePodGroupTemplates []CompositePodGroupTemplatePatch `pulumi:"compositePodGroupTemplates"`
+	// controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+	ControllerRef *TypedLocalObjectReferencePatch `pulumi:"controllerRef"`
+	// podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+	PodGroupTemplates []PodGroupTemplatePatch `pulumi:"podGroupTemplates"`
+}
+
+// WorkloadSpecPatchInput is an input type that accepts WorkloadSpecPatchArgs and WorkloadSpecPatchOutput values.
+// You can construct a concrete instance of `WorkloadSpecPatchInput` via:
+//
+//	WorkloadSpecPatchArgs{...}
+type WorkloadSpecPatchInput interface {
+	pulumi.Input
+
+	ToWorkloadSpecPatchOutput() WorkloadSpecPatchOutput
+	ToWorkloadSpecPatchOutputWithContext(context.Context) WorkloadSpecPatchOutput
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecPatchArgs struct {
+	// compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+	//
+	// This field is used only when the CompositePodGroup feature gate is enabled.
+	CompositePodGroupTemplates CompositePodGroupTemplatePatchArrayInput `pulumi:"compositePodGroupTemplates"`
+	// controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+	ControllerRef TypedLocalObjectReferencePatchPtrInput `pulumi:"controllerRef"`
+	// podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+	PodGroupTemplates PodGroupTemplatePatchArrayInput `pulumi:"podGroupTemplates"`
+}
+
+func (WorkloadSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadSpecPatch)(nil)).Elem()
+}
+
+func (i WorkloadSpecPatchArgs) ToWorkloadSpecPatchOutput() WorkloadSpecPatchOutput {
+	return i.ToWorkloadSpecPatchOutputWithContext(context.Background())
+}
+
+func (i WorkloadSpecPatchArgs) ToWorkloadSpecPatchOutputWithContext(ctx context.Context) WorkloadSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadSpecPatchOutput)
+}
+
+func (i WorkloadSpecPatchArgs) ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput {
+	return i.ToWorkloadSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadSpecPatchArgs) ToWorkloadSpecPatchPtrOutputWithContext(ctx context.Context) WorkloadSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadSpecPatchOutput).ToWorkloadSpecPatchPtrOutputWithContext(ctx)
+}
+
+// WorkloadSpecPatchPtrInput is an input type that accepts WorkloadSpecPatchArgs, WorkloadSpecPatchPtr and WorkloadSpecPatchPtrOutput values.
+// You can construct a concrete instance of `WorkloadSpecPatchPtrInput` via:
+//
+//	        WorkloadSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput
+	ToWorkloadSpecPatchPtrOutputWithContext(context.Context) WorkloadSpecPatchPtrOutput
+}
+
+type workloadSpecPatchPtrType WorkloadSpecPatchArgs
+
+func WorkloadSpecPatchPtr(v *WorkloadSpecPatchArgs) WorkloadSpecPatchPtrInput {
+	return (*workloadSpecPatchPtrType)(v)
+}
+
+func (*workloadSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadSpecPatch)(nil)).Elem()
+}
+
+func (i *workloadSpecPatchPtrType) ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput {
+	return i.ToWorkloadSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadSpecPatchPtrType) ToWorkloadSpecPatchPtrOutputWithContext(ctx context.Context) WorkloadSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadSpecPatchPtrOutput)
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (WorkloadSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadSpecPatch)(nil)).Elem()
+}
+
+func (o WorkloadSpecPatchOutput) ToWorkloadSpecPatchOutput() WorkloadSpecPatchOutput {
+	return o
+}
+
+func (o WorkloadSpecPatchOutput) ToWorkloadSpecPatchOutputWithContext(ctx context.Context) WorkloadSpecPatchOutput {
+	return o
+}
+
+func (o WorkloadSpecPatchOutput) ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput {
+	return o.ToWorkloadSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadSpecPatchOutput) ToWorkloadSpecPatchPtrOutputWithContext(ctx context.Context) WorkloadSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadSpecPatch) *WorkloadSpecPatch {
+		return &v
+	}).(WorkloadSpecPatchPtrOutput)
+}
+
+// compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+//
+// This field is used only when the CompositePodGroup feature gate is enabled.
+func (o WorkloadSpecPatchOutput) CompositePodGroupTemplates() CompositePodGroupTemplatePatchArrayOutput {
+	return o.ApplyT(func(v WorkloadSpecPatch) []CompositePodGroupTemplatePatch { return v.CompositePodGroupTemplates }).(CompositePodGroupTemplatePatchArrayOutput)
+}
+
+// controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+func (o WorkloadSpecPatchOutput) ControllerRef() TypedLocalObjectReferencePatchPtrOutput {
+	return o.ApplyT(func(v WorkloadSpecPatch) *TypedLocalObjectReferencePatch { return v.ControllerRef }).(TypedLocalObjectReferencePatchPtrOutput)
+}
+
+// podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+func (o WorkloadSpecPatchOutput) PodGroupTemplates() PodGroupTemplatePatchArrayOutput {
+	return o.ApplyT(func(v WorkloadSpecPatch) []PodGroupTemplatePatch { return v.PodGroupTemplates }).(PodGroupTemplatePatchArrayOutput)
+}
+
+type WorkloadSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadSpecPatch)(nil)).Elem()
+}
+
+func (o WorkloadSpecPatchPtrOutput) ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput {
+	return o
+}
+
+func (o WorkloadSpecPatchPtrOutput) ToWorkloadSpecPatchPtrOutputWithContext(ctx context.Context) WorkloadSpecPatchPtrOutput {
+	return o
+}
+
+func (o WorkloadSpecPatchPtrOutput) Elem() WorkloadSpecPatchOutput {
+	return o.ApplyT(func(v *WorkloadSpecPatch) WorkloadSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadSpecPatch
+		return ret
+	}).(WorkloadSpecPatchOutput)
+}
+
+// compositePodGroupTemplates is the list of CompositePodGroup templates that make up the Workload. The maximum number of templates is 8. This field is immutable. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+//
+// This field is used only when the CompositePodGroup feature gate is enabled.
+func (o WorkloadSpecPatchPtrOutput) CompositePodGroupTemplates() CompositePodGroupTemplatePatchArrayOutput {
+	return o.ApplyT(func(v *WorkloadSpecPatch) []CompositePodGroupTemplatePatch {
+		if v == nil {
+			return nil
+		}
+		return v.CompositePodGroupTemplates
+	}).(CompositePodGroupTemplatePatchArrayOutput)
+}
+
+// controllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. This field is immutable.
+func (o WorkloadSpecPatchPtrOutput) ControllerRef() TypedLocalObjectReferencePatchPtrOutput {
+	return o.ApplyT(func(v *WorkloadSpecPatch) *TypedLocalObjectReferencePatch {
+		if v == nil {
+			return nil
+		}
+		return v.ControllerRef
+	}).(TypedLocalObjectReferencePatchPtrOutput)
+}
+
+// podGroupTemplates is the list of templates that make up the Workload. The maximum number of templates is 8. Templates cannot be added or removed after the workload is created. Existing templates may still be updated where their individual fields allow it. Exactly one of CompositePodGroupTemplates and PodGroupTemplates must be set.
+func (o WorkloadSpecPatchPtrOutput) PodGroupTemplates() PodGroupTemplatePatchArrayOutput {
+	return o.ApplyT(func(v *WorkloadSpecPatch) []PodGroupTemplatePatch {
+		if v == nil {
+			return nil
+		}
+		return v.PodGroupTemplates
+	}).(PodGroupTemplatePatchArrayOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AllCompositeDisruptionModeInput)(nil)).Elem(), AllCompositeDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllCompositeDisruptionModePtrInput)(nil)).Elem(), AllCompositeDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllCompositeDisruptionModePatchInput)(nil)).Elem(), AllCompositeDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllCompositeDisruptionModePatchPtrInput)(nil)).Elem(), AllCompositeDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllDisruptionModeInput)(nil)).Elem(), AllDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllDisruptionModePtrInput)(nil)).Elem(), AllDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllDisruptionModePatchInput)(nil)).Elem(), AllDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AllDisruptionModePatchPtrInput)(nil)).Elem(), AllDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BasicSchedulingPolicyInput)(nil)).Elem(), BasicSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BasicSchedulingPolicyPtrInput)(nil)).Elem(), BasicSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BasicSchedulingPolicyPatchInput)(nil)).Elem(), BasicSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BasicSchedulingPolicyPatchPtrInput)(nil)).Elem(), BasicSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeBasicSchedulingPolicyInput)(nil)).Elem(), CompositeBasicSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeBasicSchedulingPolicyPtrInput)(nil)).Elem(), CompositeBasicSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeBasicSchedulingPolicyPatchInput)(nil)).Elem(), CompositeBasicSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeBasicSchedulingPolicyPatchPtrInput)(nil)).Elem(), CompositeBasicSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeDisruptionModeInput)(nil)).Elem(), CompositeDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeDisruptionModePtrInput)(nil)).Elem(), CompositeDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeDisruptionModePatchInput)(nil)).Elem(), CompositeDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeDisruptionModePatchPtrInput)(nil)).Elem(), CompositeDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeGangSchedulingPolicyInput)(nil)).Elem(), CompositeGangSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeGangSchedulingPolicyPtrInput)(nil)).Elem(), CompositeGangSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeGangSchedulingPolicyPatchInput)(nil)).Elem(), CompositeGangSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositeGangSchedulingPolicyPatchPtrInput)(nil)).Elem(), CompositeGangSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupSchedulingConstraintsInput)(nil)).Elem(), CompositePodGroupSchedulingConstraintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupSchedulingConstraintsPtrInput)(nil)).Elem(), CompositePodGroupSchedulingConstraintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupSchedulingConstraintsPatchInput)(nil)).Elem(), CompositePodGroupSchedulingConstraintsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupSchedulingConstraintsPatchPtrInput)(nil)).Elem(), CompositePodGroupSchedulingConstraintsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupSchedulingPolicyInput)(nil)).Elem(), CompositePodGroupSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupSchedulingPolicyPatchInput)(nil)).Elem(), CompositePodGroupSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupSchedulingPolicyPatchPtrInput)(nil)).Elem(), CompositePodGroupSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupTemplateInput)(nil)).Elem(), CompositePodGroupTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupTemplateArrayInput)(nil)).Elem(), CompositePodGroupTemplateArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupTemplatePatchInput)(nil)).Elem(), CompositePodGroupTemplatePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CompositePodGroupTemplatePatchArrayInput)(nil)).Elem(), CompositePodGroupTemplatePatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DisruptionModeInput)(nil)).Elem(), DisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DisruptionModePtrInput)(nil)).Elem(), DisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DisruptionModePatchInput)(nil)).Elem(), DisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DisruptionModePatchPtrInput)(nil)).Elem(), DisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GangSchedulingPolicyInput)(nil)).Elem(), GangSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GangSchedulingPolicyPtrInput)(nil)).Elem(), GangSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GangSchedulingPolicyPatchInput)(nil)).Elem(), GangSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GangSchedulingPolicyPatchPtrInput)(nil)).Elem(), GangSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupTypeInput)(nil)).Elem(), PodGroupTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupTypeArrayInput)(nil)).Elem(), PodGroupTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupListTypeInput)(nil)).Elem(), PodGroupListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupPatchTypeInput)(nil)).Elem(), PodGroupPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupResourceClaimInput)(nil)).Elem(), PodGroupResourceClaimArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupResourceClaimArrayInput)(nil)).Elem(), PodGroupResourceClaimArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupResourceClaimPatchInput)(nil)).Elem(), PodGroupResourceClaimPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupResourceClaimPatchArrayInput)(nil)).Elem(), PodGroupResourceClaimPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupResourceClaimStatusInput)(nil)).Elem(), PodGroupResourceClaimStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupResourceClaimStatusArrayInput)(nil)).Elem(), PodGroupResourceClaimStatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupResourceClaimStatusPatchInput)(nil)).Elem(), PodGroupResourceClaimStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupResourceClaimStatusPatchArrayInput)(nil)).Elem(), PodGroupResourceClaimStatusPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSchedulingConstraintsInput)(nil)).Elem(), PodGroupSchedulingConstraintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSchedulingConstraintsPtrInput)(nil)).Elem(), PodGroupSchedulingConstraintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSchedulingConstraintsPatchInput)(nil)).Elem(), PodGroupSchedulingConstraintsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSchedulingConstraintsPatchPtrInput)(nil)).Elem(), PodGroupSchedulingConstraintsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSchedulingPolicyInput)(nil)).Elem(), PodGroupSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSchedulingPolicyPatchInput)(nil)).Elem(), PodGroupSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSchedulingPolicyPatchPtrInput)(nil)).Elem(), PodGroupSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSpecInput)(nil)).Elem(), PodGroupSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSpecPatchInput)(nil)).Elem(), PodGroupSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupSpecPatchPtrInput)(nil)).Elem(), PodGroupSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupStatusInput)(nil)).Elem(), PodGroupStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupStatusPtrInput)(nil)).Elem(), PodGroupStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupStatusPatchInput)(nil)).Elem(), PodGroupStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupStatusPatchPtrInput)(nil)).Elem(), PodGroupStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupTemplateInput)(nil)).Elem(), PodGroupTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupTemplateArrayInput)(nil)).Elem(), PodGroupTemplateArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupTemplatePatchInput)(nil)).Elem(), PodGroupTemplatePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupTemplatePatchArrayInput)(nil)).Elem(), PodGroupTemplatePatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeInput)(nil)).Elem(), PriorityClassTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeArrayInput)(nil)).Elem(), PriorityClassTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassListTypeInput)(nil)).Elem(), PriorityClassListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassPatchTypeInput)(nil)).Elem(), PriorityClassPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SingleCompositeDisruptionModeInput)(nil)).Elem(), SingleCompositeDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SingleCompositeDisruptionModePtrInput)(nil)).Elem(), SingleCompositeDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SingleCompositeDisruptionModePatchInput)(nil)).Elem(), SingleCompositeDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SingleCompositeDisruptionModePatchPtrInput)(nil)).Elem(), SingleCompositeDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SingleDisruptionModeInput)(nil)).Elem(), SingleDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SingleDisruptionModePtrInput)(nil)).Elem(), SingleDisruptionModeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SingleDisruptionModePatchInput)(nil)).Elem(), SingleDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SingleDisruptionModePatchPtrInput)(nil)).Elem(), SingleDisruptionModePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologyConstraintInput)(nil)).Elem(), TopologyConstraintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologyConstraintArrayInput)(nil)).Elem(), TopologyConstraintArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologyConstraintPatchInput)(nil)).Elem(), TopologyConstraintPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologyConstraintPatchArrayInput)(nil)).Elem(), TopologyConstraintPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferenceInput)(nil)).Elem(), TypedLocalObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferencePtrInput)(nil)).Elem(), TypedLocalObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferencePatchInput)(nil)).Elem(), TypedLocalObjectReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferencePatchPtrInput)(nil)).Elem(), TypedLocalObjectReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadTypeInput)(nil)).Elem(), WorkloadTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadTypeArrayInput)(nil)).Elem(), WorkloadTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadListTypeInput)(nil)).Elem(), WorkloadListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadPatchTypeInput)(nil)).Elem(), WorkloadPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadReferenceInput)(nil)).Elem(), WorkloadReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadReferencePtrInput)(nil)).Elem(), WorkloadReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadReferencePatchInput)(nil)).Elem(), WorkloadReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadReferencePatchPtrInput)(nil)).Elem(), WorkloadReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadSpecInput)(nil)).Elem(), WorkloadSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadSpecPatchInput)(nil)).Elem(), WorkloadSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadSpecPatchPtrInput)(nil)).Elem(), WorkloadSpecPatchArgs{})
+	pulumi.RegisterOutputType(AllCompositeDisruptionModeOutput{})
+	pulumi.RegisterOutputType(AllCompositeDisruptionModePtrOutput{})
+	pulumi.RegisterOutputType(AllCompositeDisruptionModePatchOutput{})
+	pulumi.RegisterOutputType(AllCompositeDisruptionModePatchPtrOutput{})
+	pulumi.RegisterOutputType(AllDisruptionModeOutput{})
+	pulumi.RegisterOutputType(AllDisruptionModePtrOutput{})
+	pulumi.RegisterOutputType(AllDisruptionModePatchOutput{})
+	pulumi.RegisterOutputType(AllDisruptionModePatchPtrOutput{})
+	pulumi.RegisterOutputType(BasicSchedulingPolicyOutput{})
+	pulumi.RegisterOutputType(BasicSchedulingPolicyPtrOutput{})
+	pulumi.RegisterOutputType(BasicSchedulingPolicyPatchOutput{})
+	pulumi.RegisterOutputType(BasicSchedulingPolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(CompositeBasicSchedulingPolicyOutput{})
+	pulumi.RegisterOutputType(CompositeBasicSchedulingPolicyPtrOutput{})
+	pulumi.RegisterOutputType(CompositeBasicSchedulingPolicyPatchOutput{})
+	pulumi.RegisterOutputType(CompositeBasicSchedulingPolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(CompositeDisruptionModeOutput{})
+	pulumi.RegisterOutputType(CompositeDisruptionModePtrOutput{})
+	pulumi.RegisterOutputType(CompositeDisruptionModePatchOutput{})
+	pulumi.RegisterOutputType(CompositeDisruptionModePatchPtrOutput{})
+	pulumi.RegisterOutputType(CompositeGangSchedulingPolicyOutput{})
+	pulumi.RegisterOutputType(CompositeGangSchedulingPolicyPtrOutput{})
+	pulumi.RegisterOutputType(CompositeGangSchedulingPolicyPatchOutput{})
+	pulumi.RegisterOutputType(CompositeGangSchedulingPolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupSchedulingConstraintsOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupSchedulingConstraintsPtrOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupSchedulingConstraintsPatchOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupSchedulingConstraintsPatchPtrOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupSchedulingPolicyOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupSchedulingPolicyPatchOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupSchedulingPolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupTemplateOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupTemplateArrayOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupTemplatePatchOutput{})
+	pulumi.RegisterOutputType(CompositePodGroupTemplatePatchArrayOutput{})
+	pulumi.RegisterOutputType(DisruptionModeOutput{})
+	pulumi.RegisterOutputType(DisruptionModePtrOutput{})
+	pulumi.RegisterOutputType(DisruptionModePatchOutput{})
+	pulumi.RegisterOutputType(DisruptionModePatchPtrOutput{})
+	pulumi.RegisterOutputType(GangSchedulingPolicyOutput{})
+	pulumi.RegisterOutputType(GangSchedulingPolicyPtrOutput{})
+	pulumi.RegisterOutputType(GangSchedulingPolicyPatchOutput{})
+	pulumi.RegisterOutputType(GangSchedulingPolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodGroupTypeOutput{})
+	pulumi.RegisterOutputType(PodGroupTypeArrayOutput{})
+	pulumi.RegisterOutputType(PodGroupListTypeOutput{})
+	pulumi.RegisterOutputType(PodGroupPatchTypeOutput{})
+	pulumi.RegisterOutputType(PodGroupResourceClaimOutput{})
+	pulumi.RegisterOutputType(PodGroupResourceClaimArrayOutput{})
+	pulumi.RegisterOutputType(PodGroupResourceClaimPatchOutput{})
+	pulumi.RegisterOutputType(PodGroupResourceClaimPatchArrayOutput{})
+	pulumi.RegisterOutputType(PodGroupResourceClaimStatusOutput{})
+	pulumi.RegisterOutputType(PodGroupResourceClaimStatusArrayOutput{})
+	pulumi.RegisterOutputType(PodGroupResourceClaimStatusPatchOutput{})
+	pulumi.RegisterOutputType(PodGroupResourceClaimStatusPatchArrayOutput{})
+	pulumi.RegisterOutputType(PodGroupSchedulingConstraintsOutput{})
+	pulumi.RegisterOutputType(PodGroupSchedulingConstraintsPtrOutput{})
+	pulumi.RegisterOutputType(PodGroupSchedulingConstraintsPatchOutput{})
+	pulumi.RegisterOutputType(PodGroupSchedulingConstraintsPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodGroupSchedulingPolicyOutput{})
+	pulumi.RegisterOutputType(PodGroupSchedulingPolicyPatchOutput{})
+	pulumi.RegisterOutputType(PodGroupSchedulingPolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodGroupSpecOutput{})
+	pulumi.RegisterOutputType(PodGroupSpecPatchOutput{})
+	pulumi.RegisterOutputType(PodGroupSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodGroupStatusOutput{})
+	pulumi.RegisterOutputType(PodGroupStatusPtrOutput{})
+	pulumi.RegisterOutputType(PodGroupStatusPatchOutput{})
+	pulumi.RegisterOutputType(PodGroupStatusPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodGroupTemplateOutput{})
+	pulumi.RegisterOutputType(PodGroupTemplateArrayOutput{})
+	pulumi.RegisterOutputType(PodGroupTemplatePatchOutput{})
+	pulumi.RegisterOutputType(PodGroupTemplatePatchArrayOutput{})
 	pulumi.RegisterOutputType(PriorityClassTypeOutput{})
 	pulumi.RegisterOutputType(PriorityClassTypeArrayOutput{})
 	pulumi.RegisterOutputType(PriorityClassListTypeOutput{})
 	pulumi.RegisterOutputType(PriorityClassPatchTypeOutput{})
+	pulumi.RegisterOutputType(SingleCompositeDisruptionModeOutput{})
+	pulumi.RegisterOutputType(SingleCompositeDisruptionModePtrOutput{})
+	pulumi.RegisterOutputType(SingleCompositeDisruptionModePatchOutput{})
+	pulumi.RegisterOutputType(SingleCompositeDisruptionModePatchPtrOutput{})
+	pulumi.RegisterOutputType(SingleDisruptionModeOutput{})
+	pulumi.RegisterOutputType(SingleDisruptionModePtrOutput{})
+	pulumi.RegisterOutputType(SingleDisruptionModePatchOutput{})
+	pulumi.RegisterOutputType(SingleDisruptionModePatchPtrOutput{})
+	pulumi.RegisterOutputType(TopologyConstraintOutput{})
+	pulumi.RegisterOutputType(TopologyConstraintArrayOutput{})
+	pulumi.RegisterOutputType(TopologyConstraintPatchOutput{})
+	pulumi.RegisterOutputType(TopologyConstraintPatchArrayOutput{})
+	pulumi.RegisterOutputType(TypedLocalObjectReferenceOutput{})
+	pulumi.RegisterOutputType(TypedLocalObjectReferencePtrOutput{})
+	pulumi.RegisterOutputType(TypedLocalObjectReferencePatchOutput{})
+	pulumi.RegisterOutputType(TypedLocalObjectReferencePatchPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadTypeOutput{})
+	pulumi.RegisterOutputType(WorkloadTypeArrayOutput{})
+	pulumi.RegisterOutputType(WorkloadListTypeOutput{})
+	pulumi.RegisterOutputType(WorkloadPatchTypeOutput{})
+	pulumi.RegisterOutputType(WorkloadReferenceOutput{})
+	pulumi.RegisterOutputType(WorkloadReferencePtrOutput{})
+	pulumi.RegisterOutputType(WorkloadReferencePatchOutput{})
+	pulumi.RegisterOutputType(WorkloadReferencePatchPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadSpecOutput{})
+	pulumi.RegisterOutputType(WorkloadSpecPatchOutput{})
+	pulumi.RegisterOutputType(WorkloadSpecPatchPtrOutput{})
 }

@@ -20,11 +20,11 @@ type PodDisruptionBudget struct {
 	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringOutput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
-	// Specification of the desired behavior of the PodDisruptionBudget.
+	// spec is the specification of the desired behavior of the PodDisruptionBudget.
 	Spec PodDisruptionBudgetSpecOutput `pulumi:"spec"`
-	// Most recently observed status of the PodDisruptionBudget.
+	// status is the most recently observed status of the PodDisruptionBudget.
 	Status PodDisruptionBudgetStatusPtrOutput `pulumi:"status"`
 }
 
@@ -80,9 +80,9 @@ type podDisruptionBudgetArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Specification of the desired behavior of the PodDisruptionBudget.
+	// spec is the specification of the desired behavior of the PodDisruptionBudget.
 	Spec *PodDisruptionBudgetSpec `pulumi:"spec"`
 }
 
@@ -92,9 +92,9 @@ type PodDisruptionBudgetArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
-	// Specification of the desired behavior of the PodDisruptionBudget.
+	// spec is the specification of the desired behavior of the PodDisruptionBudget.
 	Spec PodDisruptionBudgetSpecPtrInput
 }
 
@@ -195,17 +195,17 @@ func (o PodDisruptionBudgetOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v *PodDisruptionBudget) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PodDisruptionBudgetOutput) Metadata() metav1.ObjectMetaOutput {
 	return o.ApplyT(func(v *PodDisruptionBudget) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
-// Specification of the desired behavior of the PodDisruptionBudget.
+// spec is the specification of the desired behavior of the PodDisruptionBudget.
 func (o PodDisruptionBudgetOutput) Spec() PodDisruptionBudgetSpecOutput {
 	return o.ApplyT(func(v *PodDisruptionBudget) PodDisruptionBudgetSpecOutput { return v.Spec }).(PodDisruptionBudgetSpecOutput)
 }
 
-// Most recently observed status of the PodDisruptionBudget.
+// status is the most recently observed status of the PodDisruptionBudget.
 func (o PodDisruptionBudgetOutput) Status() PodDisruptionBudgetStatusPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudget) PodDisruptionBudgetStatusPtrOutput { return v.Status }).(PodDisruptionBudgetStatusPtrOutput)
 }

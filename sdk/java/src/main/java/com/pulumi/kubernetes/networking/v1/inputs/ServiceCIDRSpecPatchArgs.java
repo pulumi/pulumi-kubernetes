@@ -21,14 +21,14 @@ public final class ServiceCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
     public static final ServiceCIDRSpecPatchArgs Empty = new ServiceCIDRSpecPatchArgs();
 
     /**
-     * CIDRs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+     * cidrs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
      * 
      */
     @Import(name="cidrs")
     private @Nullable Output<List<String>> cidrs;
 
     /**
-     * @return CIDRs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+     * @return cidrs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
      * 
      */
     public Optional<Output<List<String>>> cidrs() {
@@ -60,7 +60,7 @@ public final class ServiceCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param cidrs CIDRs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+         * @param cidrs cidrs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
          * 
          * @return builder
          * 
@@ -71,7 +71,7 @@ public final class ServiceCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param cidrs CIDRs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+         * @param cidrs cidrs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
          * 
          * @return builder
          * 
@@ -81,7 +81,7 @@ public final class ServiceCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param cidrs CIDRs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+         * @param cidrs cidrs defines the IP blocks in CIDR notation (e.g. &#34;192.168.0.0/24&#34; or &#34;2001:db8::/64&#34;) from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
          * 
          * @return builder
          * 

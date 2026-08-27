@@ -119,8 +119,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         /// <summary>
         /// Data is the serialized representation of the state.
         /// </summary>
-        [Input("data")]
-        public InputJson? Data { get; set; }
+        [Input("data", required: true)]
+        public InputJson Data { get; set; } = null!;
 
         /// <summary>
         /// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -137,8 +137,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         /// <summary>
         /// Revision indicates the revision of the state represented by Data.
         /// </summary>
-        [Input("revision", required: true)]
-        public Input<int> Revision { get; set; } = null!;
+        [Input("revision")]
+        public Input<int>? Revision { get; set; }
 
         public ControllerRevisionArgs()
         {

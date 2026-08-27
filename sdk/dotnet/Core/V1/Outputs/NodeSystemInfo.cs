@@ -53,6 +53,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string OsImage;
         /// <summary>
+        /// Whether the node is running in a user namespace.
+        /// </summary>
+        public readonly bool RunningInUserNamespace;
+        /// <summary>
         /// Swap Info reported by the node.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSwapStatus Swap;
@@ -81,6 +85,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string osImage,
 
+            bool runningInUserNamespace,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSwapStatus swap,
 
             string systemUUID)
@@ -94,6 +100,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             MachineID = machineID;
             OperatingSystem = operatingSystem;
             OsImage = osImage;
+            RunningInUserNamespace = runningInUserNamespace;
             Swap = swap;
             SystemUUID = systemUUID;
         }

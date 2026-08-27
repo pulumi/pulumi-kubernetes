@@ -43,6 +43,15 @@ func NewPodGroupPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("scheduling.k8s.io/v1alpha2")
 	args.Kind = pulumi.StringPtr("PodGroup")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:scheduling.k8s.io/v1alpha3:PodGroupPatch"),
+		},
+		{
+			Type: pulumi.String("kubernetes:scheduling.k8s.io/v1beta1:PodGroupPatch"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource PodGroupPatch
 	err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha2:PodGroupPatch", name, args, &resource, opts...)

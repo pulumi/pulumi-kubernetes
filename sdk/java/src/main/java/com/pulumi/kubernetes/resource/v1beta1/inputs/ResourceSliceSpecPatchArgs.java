@@ -133,6 +133,25 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
     }
 
     /**
+     * PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) whose value labels each device with its partition type, such as &#34;Full&#34; or &#34;Half&#34; for a MIG-style GPU.
+     * 
+     * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+     * 
+     */
+    @Import(name="partitionTypeAttribute")
+    private @Nullable Output<String> partitionTypeAttribute;
+
+    /**
+     * @return PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) whose value labels each device with its partition type, such as &#34;Full&#34; or &#34;Half&#34; for a MIG-style GPU.
+     * 
+     * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+     * 
+     */
+    public Optional<Output<String>> partitionTypeAttribute() {
+        return Optional.ofNullable(this.partitionTypeAttribute);
+    }
+
+    /**
      * PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
      * 
      * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -193,6 +212,35 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         return Optional.ofNullable(this.sharedCounters);
     }
 
+    /**
+     * SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+     * 
+     * - &#34;NodePrepareResources&#34;: NodePrepareResources gRPC calls are skipped. This
+     *   value cannot be specified unless &#34;NodeUnprepareResources&#34; is also listed
+     *   (or &#34;*&#34; is specified).
+     * - &#34;NodeUnprepareResources&#34;: NodeUnprepareResources gRPC calls are skipped. - &#34;*&#34;: All node-local resource operations are skipped.
+     * 
+     * Other values may be added in the future. The kubelet must ignore unknown values.
+     * 
+     */
+    @Import(name="skipNodeOperations")
+    private @Nullable Output<List<String>> skipNodeOperations;
+
+    /**
+     * @return SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+     * 
+     * - &#34;NodePrepareResources&#34;: NodePrepareResources gRPC calls are skipped. This
+     *   value cannot be specified unless &#34;NodeUnprepareResources&#34; is also listed
+     *   (or &#34;*&#34; is specified).
+     * - &#34;NodeUnprepareResources&#34;: NodeUnprepareResources gRPC calls are skipped. - &#34;*&#34;: All node-local resource operations are skipped.
+     * 
+     * Other values may be added in the future. The kubelet must ignore unknown values.
+     * 
+     */
+    public Optional<Output<List<String>>> skipNodeOperations() {
+        return Optional.ofNullable(this.skipNodeOperations);
+    }
+
     private ResourceSliceSpecPatchArgs() {}
 
     private ResourceSliceSpecPatchArgs(ResourceSliceSpecPatchArgs $) {
@@ -201,9 +249,11 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         this.driver = $.driver;
         this.nodeName = $.nodeName;
         this.nodeSelector = $.nodeSelector;
+        this.partitionTypeAttribute = $.partitionTypeAttribute;
         this.perDeviceNodeSelection = $.perDeviceNodeSelection;
         this.pool = $.pool;
         this.sharedCounters = $.sharedCounters;
+        this.skipNodeOperations = $.skipNodeOperations;
     }
 
     public static Builder builder() {
@@ -376,6 +426,31 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
+         * @param partitionTypeAttribute PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) whose value labels each device with its partition type, such as &#34;Full&#34; or &#34;Half&#34; for a MIG-style GPU.
+         * 
+         * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder partitionTypeAttribute(@Nullable Output<String> partitionTypeAttribute) {
+            $.partitionTypeAttribute = partitionTypeAttribute;
+            return this;
+        }
+
+        /**
+         * @param partitionTypeAttribute PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) whose value labels each device with its partition type, such as &#34;Full&#34; or &#34;Half&#34; for a MIG-style GPU.
+         * 
+         * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder partitionTypeAttribute(String partitionTypeAttribute) {
+            return partitionTypeAttribute(Output.of(partitionTypeAttribute));
+        }
+
+        /**
          * @param perDeviceNodeSelection PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
          * 
          * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -468,6 +543,58 @@ public final class ResourceSliceSpecPatchArgs extends com.pulumi.resources.Resou
          */
         public Builder sharedCounters(CounterSetPatchArgs... sharedCounters) {
             return sharedCounters(List.of(sharedCounters));
+        }
+
+        /**
+         * @param skipNodeOperations SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+         * 
+         * - &#34;NodePrepareResources&#34;: NodePrepareResources gRPC calls are skipped. This
+         *   value cannot be specified unless &#34;NodeUnprepareResources&#34; is also listed
+         *   (or &#34;*&#34; is specified).
+         * - &#34;NodeUnprepareResources&#34;: NodeUnprepareResources gRPC calls are skipped. - &#34;*&#34;: All node-local resource operations are skipped.
+         * 
+         * Other values may be added in the future. The kubelet must ignore unknown values.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipNodeOperations(@Nullable Output<List<String>> skipNodeOperations) {
+            $.skipNodeOperations = skipNodeOperations;
+            return this;
+        }
+
+        /**
+         * @param skipNodeOperations SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+         * 
+         * - &#34;NodePrepareResources&#34;: NodePrepareResources gRPC calls are skipped. This
+         *   value cannot be specified unless &#34;NodeUnprepareResources&#34; is also listed
+         *   (or &#34;*&#34; is specified).
+         * - &#34;NodeUnprepareResources&#34;: NodeUnprepareResources gRPC calls are skipped. - &#34;*&#34;: All node-local resource operations are skipped.
+         * 
+         * Other values may be added in the future. The kubelet must ignore unknown values.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipNodeOperations(List<String> skipNodeOperations) {
+            return skipNodeOperations(Output.of(skipNodeOperations));
+        }
+
+        /**
+         * @param skipNodeOperations SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+         * 
+         * - &#34;NodePrepareResources&#34;: NodePrepareResources gRPC calls are skipped. This
+         *   value cannot be specified unless &#34;NodeUnprepareResources&#34; is also listed
+         *   (or &#34;*&#34; is specified).
+         * - &#34;NodeUnprepareResources&#34;: NodeUnprepareResources gRPC calls are skipped. - &#34;*&#34;: All node-local resource operations are skipped.
+         * 
+         * Other values may be added in the future. The kubelet must ignore unknown values.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipNodeOperations(String... skipNodeOperations) {
+            return skipNodeOperations(List.of(skipNodeOperations));
         }
 
         public ResourceSliceSpecPatchArgs build() {

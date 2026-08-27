@@ -199,6 +199,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("startTime")]
         public Input<string>? StartTime { get; set; }
 
+        [Input("volumeHealth")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodVolumeHealthArgs>? _volumeHealth;
+
+        /// <summary>
+        /// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodVolumeHealthArgs> VolumeHealth
+        {
+            get => _volumeHealth ?? (_volumeHealth = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodVolumeHealthArgs>());
+            set => _volumeHealth = value;
+        }
+
         public PodStatusArgs()
         {
         }

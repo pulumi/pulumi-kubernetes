@@ -21,14 +21,14 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
     public static final ClusterRoleArgs Empty = new ClusterRoleArgs();
 
     /**
-     * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+     * aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      * 
      */
     @Import(name="aggregationRule")
     private @Nullable Output<AggregationRuleArgs> aggregationRule;
 
     /**
-     * @return AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+     * @return aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      * 
      */
     public Optional<Output<AggregationRuleArgs>> aggregationRule() {
@@ -66,14 +66,14 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Standard object&#39;s metadata.
+     * metadata is the standard object&#39;s metadata.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -81,14 +81,14 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Rules holds all the PolicyRules for this ClusterRole
+     * rules holds all the PolicyRules for this ClusterRole
      * 
      */
     @Import(name="rules")
     private @Nullable Output<List<PolicyRuleArgs>> rules;
 
     /**
-     * @return Rules holds all the PolicyRules for this ClusterRole
+     * @return rules holds all the PolicyRules for this ClusterRole
      * 
      */
     public Optional<Output<List<PolicyRuleArgs>>> rules() {
@@ -124,7 +124,7 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param aggregationRule AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+         * @param aggregationRule aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
          * 
          * @return builder
          * 
@@ -135,7 +135,7 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param aggregationRule AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+         * @param aggregationRule aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
          * 
          * @return builder
          * 
@@ -187,7 +187,7 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata.
+         * @param metadata metadata is the standard object&#39;s metadata.
          * 
          * @return builder
          * 
@@ -198,7 +198,7 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata.
+         * @param metadata metadata is the standard object&#39;s metadata.
          * 
          * @return builder
          * 
@@ -208,7 +208,7 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rules Rules holds all the PolicyRules for this ClusterRole
+         * @param rules rules holds all the PolicyRules for this ClusterRole
          * 
          * @return builder
          * 
@@ -219,7 +219,7 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rules Rules holds all the PolicyRules for this ClusterRole
+         * @param rules rules holds all the PolicyRules for this ClusterRole
          * 
          * @return builder
          * 
@@ -229,7 +229,7 @@ public final class ClusterRoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rules Rules holds all the PolicyRules for this ClusterRole
+         * @param rules rules holds all the PolicyRules for this ClusterRole
          * 
          * @return builder
          * 

@@ -51,14 +51,14 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Standard object&#39;s metadata.
+     * metadata is the standard object&#39;s metadata.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaPatchArgs> metadata;
 
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Optional<Output<ObjectMetaPatchArgs>> metadata() {
@@ -66,14 +66,14 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     @Import(name="roleRef")
     private @Nullable Output<RoleRefPatchArgs> roleRef;
 
     /**
-     * @return RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * @return roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     public Optional<Output<RoleRefPatchArgs>> roleRef() {
@@ -81,14 +81,14 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Subjects holds references to the objects the role applies to.
+     * subjects holds references to the objects the role applies to.
      * 
      */
     @Import(name="subjects")
     private @Nullable Output<List<SubjectPatchArgs>> subjects;
 
     /**
-     * @return Subjects holds references to the objects the role applies to.
+     * @return subjects holds references to the objects the role applies to.
      * 
      */
     public Optional<Output<List<SubjectPatchArgs>>> subjects() {
@@ -166,7 +166,7 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata.
+         * @param metadata metadata is the standard object&#39;s metadata.
          * 
          * @return builder
          * 
@@ -177,7 +177,7 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata.
+         * @param metadata metadata is the standard object&#39;s metadata.
          * 
          * @return builder
          * 
@@ -187,7 +187,7 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param roleRef RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+         * @param roleRef roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
          * 
          * @return builder
          * 
@@ -198,7 +198,7 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param roleRef RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+         * @param roleRef roleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
          * 
          * @return builder
          * 
@@ -208,7 +208,7 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param subjects Subjects holds references to the objects the role applies to.
+         * @param subjects subjects holds references to the objects the role applies to.
          * 
          * @return builder
          * 
@@ -219,7 +219,7 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param subjects Subjects holds references to the objects the role applies to.
+         * @param subjects subjects holds references to the objects the role applies to.
          * 
          * @return builder
          * 
@@ -229,7 +229,7 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param subjects Subjects holds references to the objects the role applies to.
+         * @param subjects subjects holds references to the objects the role applies to.
          * 
          * @return builder
          * 

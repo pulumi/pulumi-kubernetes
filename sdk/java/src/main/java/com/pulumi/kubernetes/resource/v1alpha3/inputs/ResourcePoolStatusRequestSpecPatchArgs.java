@@ -21,6 +21,29 @@ public final class ResourcePoolStatusRequestSpecPatchArgs extends com.pulumi.res
     public static final ResourcePoolStatusRequestSpecPatchArgs Empty = new ResourcePoolStatusRequestSpecPatchArgs();
 
     /**
+     * DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+     * 
+     * A slice&#39;s own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+     * 
+     * Must include the domain qualifier.
+     * 
+     */
+    @Import(name="defaultPartitionTypeAttribute")
+    private @Nullable Output<String> defaultPartitionTypeAttribute;
+
+    /**
+     * @return DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+     * 
+     * A slice&#39;s own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+     * 
+     * Must include the domain qualifier.
+     * 
+     */
+    public Optional<Output<String>> defaultPartitionTypeAttribute() {
+        return Optional.ofNullable(this.defaultPartitionTypeAttribute);
+    }
+
+    /**
      * Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., &#34;gpu.example.com&#34;).
      * 
      */
@@ -72,6 +95,7 @@ public final class ResourcePoolStatusRequestSpecPatchArgs extends com.pulumi.res
     private ResourcePoolStatusRequestSpecPatchArgs() {}
 
     private ResourcePoolStatusRequestSpecPatchArgs(ResourcePoolStatusRequestSpecPatchArgs $) {
+        this.defaultPartitionTypeAttribute = $.defaultPartitionTypeAttribute;
         this.driver = $.driver;
         this.limit = $.limit;
         this.poolName = $.poolName;
@@ -93,6 +117,35 @@ public final class ResourcePoolStatusRequestSpecPatchArgs extends com.pulumi.res
 
         public Builder(ResourcePoolStatusRequestSpecPatchArgs defaults) {
             $ = new ResourcePoolStatusRequestSpecPatchArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param defaultPartitionTypeAttribute DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+         * 
+         * A slice&#39;s own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+         * 
+         * Must include the domain qualifier.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultPartitionTypeAttribute(@Nullable Output<String> defaultPartitionTypeAttribute) {
+            $.defaultPartitionTypeAttribute = defaultPartitionTypeAttribute;
+            return this;
+        }
+
+        /**
+         * @param defaultPartitionTypeAttribute DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+         * 
+         * A slice&#39;s own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+         * 
+         * Must include the domain qualifier.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder defaultPartitionTypeAttribute(String defaultPartitionTypeAttribute) {
+            return defaultPartitionTypeAttribute(Output.of(defaultPartitionTypeAttribute));
         }
 
         /**

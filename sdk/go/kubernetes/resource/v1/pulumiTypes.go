@@ -763,7 +763,7 @@ type CELDeviceSelector struct {
 	//  - driver (string): the name of the driver which defines this device.
 	//  - attributes (map[string]object): the device's attributes, grouped by prefix
 	//    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-	//    of the attributes which were prefixed by "dra.example.com".
+	//    of the attributes which were prefixed by "dra.example.com").
 	//  - capacity (map[string]object): the device's capacities, grouped by prefix.
 	//  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
 	//    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -782,6 +782,13 @@ type CELDeviceSelector struct {
 	// If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 	//
 	// A robust expression should check for the existence of attributes before referencing them.
+	//
+	// Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+	//   or guarding the check with has() for optional fields.
+	//   See CEL Optional Types for details:
+	//   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+	//
+	// For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 	//
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
@@ -814,7 +821,7 @@ type CELDeviceSelectorArgs struct {
 	//  - driver (string): the name of the driver which defines this device.
 	//  - attributes (map[string]object): the device's attributes, grouped by prefix
 	//    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-	//    of the attributes which were prefixed by "dra.example.com".
+	//    of the attributes which were prefixed by "dra.example.com").
 	//  - capacity (map[string]object): the device's capacities, grouped by prefix.
 	//  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
 	//    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -833,6 +840,13 @@ type CELDeviceSelectorArgs struct {
 	// If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 	//
 	// A robust expression should check for the existence of attributes before referencing them.
+	//
+	// Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+	//   or guarding the check with has() for optional fields.
+	//   See CEL Optional Types for details:
+	//   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+	//
+	// For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 	//
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
@@ -930,7 +944,7 @@ func (o CELDeviceSelectorOutput) ToCELDeviceSelectorPtrOutputWithContext(ctx con
 //   - driver (string): the name of the driver which defines this device.
 //   - attributes (map[string]object): the device's attributes, grouped by prefix
 //     (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-//     of the attributes which were prefixed by "dra.example.com".
+//     of the attributes which were prefixed by "dra.example.com").
 //   - capacity (map[string]object): the device's capacities, grouped by prefix.
 //   - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
 //     (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -949,6 +963,14 @@ func (o CELDeviceSelectorOutput) ToCELDeviceSelectorPtrOutputWithContext(ctx con
 // If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 //
 // A robust expression should check for the existence of attributes before referencing them.
+//
+// Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+//
+//	or guarding the check with has() for optional fields.
+//	See CEL Optional Types for details:
+//	https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+//
+// For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 //
 // For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 //
@@ -993,7 +1015,7 @@ func (o CELDeviceSelectorPtrOutput) Elem() CELDeviceSelectorOutput {
 //   - driver (string): the name of the driver which defines this device.
 //   - attributes (map[string]object): the device's attributes, grouped by prefix
 //     (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-//     of the attributes which were prefixed by "dra.example.com".
+//     of the attributes which were prefixed by "dra.example.com").
 //   - capacity (map[string]object): the device's capacities, grouped by prefix.
 //   - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
 //     (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -1012,6 +1034,14 @@ func (o CELDeviceSelectorPtrOutput) Elem() CELDeviceSelectorOutput {
 // If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 //
 // A robust expression should check for the existence of attributes before referencing them.
+//
+// Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+//
+//	or guarding the check with has() for optional fields.
+//	See CEL Optional Types for details:
+//	https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+//
+// For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 //
 // For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 //
@@ -1039,7 +1069,7 @@ type CELDeviceSelectorPatch struct {
 	//  - driver (string): the name of the driver which defines this device.
 	//  - attributes (map[string]object): the device's attributes, grouped by prefix
 	//    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-	//    of the attributes which were prefixed by "dra.example.com".
+	//    of the attributes which were prefixed by "dra.example.com").
 	//  - capacity (map[string]object): the device's capacities, grouped by prefix.
 	//  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
 	//    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -1058,6 +1088,13 @@ type CELDeviceSelectorPatch struct {
 	// If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 	//
 	// A robust expression should check for the existence of attributes before referencing them.
+	//
+	// Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+	//   or guarding the check with has() for optional fields.
+	//   See CEL Optional Types for details:
+	//   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+	//
+	// For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 	//
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
@@ -1090,7 +1127,7 @@ type CELDeviceSelectorPatchArgs struct {
 	//  - driver (string): the name of the driver which defines this device.
 	//  - attributes (map[string]object): the device's attributes, grouped by prefix
 	//    (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-	//    of the attributes which were prefixed by "dra.example.com".
+	//    of the attributes which were prefixed by "dra.example.com").
 	//  - capacity (map[string]object): the device's capacities, grouped by prefix.
 	//  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
 	//    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -1109,6 +1146,13 @@ type CELDeviceSelectorPatchArgs struct {
 	// If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 	//
 	// A robust expression should check for the existence of attributes before referencing them.
+	//
+	// Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+	//   or guarding the check with has() for optional fields.
+	//   See CEL Optional Types for details:
+	//   https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+	//
+	// For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 	//
 	// For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 	//
@@ -1206,7 +1250,7 @@ func (o CELDeviceSelectorPatchOutput) ToCELDeviceSelectorPatchPtrOutputWithConte
 //   - driver (string): the name of the driver which defines this device.
 //   - attributes (map[string]object): the device's attributes, grouped by prefix
 //     (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-//     of the attributes which were prefixed by "dra.example.com".
+//     of the attributes which were prefixed by "dra.example.com").
 //   - capacity (map[string]object): the device's capacities, grouped by prefix.
 //   - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
 //     (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -1225,6 +1269,14 @@ func (o CELDeviceSelectorPatchOutput) ToCELDeviceSelectorPatchPtrOutputWithConte
 // If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 //
 // A robust expression should check for the existence of attributes before referencing them.
+//
+// Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+//
+//	or guarding the check with has() for optional fields.
+//	See CEL Optional Types for details:
+//	https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+//
+// For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 //
 // For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 //
@@ -1269,7 +1321,7 @@ func (o CELDeviceSelectorPatchPtrOutput) Elem() CELDeviceSelectorPatchOutput {
 //   - driver (string): the name of the driver which defines this device.
 //   - attributes (map[string]object): the device's attributes, grouped by prefix
 //     (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-//     of the attributes which were prefixed by "dra.example.com".
+//     of the attributes which were prefixed by "dra.example.com").
 //   - capacity (map[string]object): the device's capacities, grouped by prefix.
 //   - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
 //     (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -1288,6 +1340,14 @@ func (o CELDeviceSelectorPatchPtrOutput) Elem() CELDeviceSelectorPatchOutput {
 // If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 //
 // A robust expression should check for the existence of attributes before referencing them.
+//
+// Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+//
+//	or guarding the check with has() for optional fields.
+//	See CEL Optional Types for details:
+//	https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+//
+// For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 //
 // For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 //
@@ -1789,6 +1849,8 @@ func (o CapacityRequestPolicyPatchPtrOutput) ValidValues() pulumi.StringArrayOut
 
 // CapacityRequestPolicyRange defines a valid range for consumable capacity values.
 //
+// If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
+//
 //   - If the requested amount is less than Min, it is rounded up to the Min value.
 //   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
 //     it will be rounded up to the next value equal to Min + (n * Step).
@@ -1822,6 +1884,8 @@ type CapacityRequestPolicyRangeInput interface {
 }
 
 // CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+// If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
 //
 //   - If the requested amount is less than Min, it is rounded up to the Min value.
 //   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
@@ -1898,6 +1962,8 @@ func (i *capacityRequestPolicyRangePtrType) ToCapacityRequestPolicyRangePtrOutpu
 }
 
 // CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+// If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
 //
 //   - If the requested amount is less than Min, it is rounded up to the Min value.
 //   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
@@ -2012,6 +2078,8 @@ func (o CapacityRequestPolicyRangePtrOutput) Step() pulumi.StringPtrOutput {
 
 // CapacityRequestPolicyRange defines a valid range for consumable capacity values.
 //
+// If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
+//
 //   - If the requested amount is less than Min, it is rounded up to the Min value.
 //   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
 //     it will be rounded up to the next value equal to Min + (n * Step).
@@ -2045,6 +2113,8 @@ type CapacityRequestPolicyRangePatchInput interface {
 }
 
 // CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+// If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
 //
 //   - If the requested amount is less than Min, it is rounded up to the Min value.
 //   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
@@ -2121,6 +2191,8 @@ func (i *capacityRequestPolicyRangePatchPtrType) ToCapacityRequestPolicyRangePat
 }
 
 // CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+//
+// If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
 //
 //   - If the requested amount is less than Min, it is rounded up to the Min value.
 //   - If Step is set and the requested amount is between Min and Max but not aligned with Step,
@@ -3046,6 +3118,8 @@ type Device struct {
 	Name string `pulumi:"name"`
 	// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
 	NodeAllocatableResourceMappings map[string]NodeAllocatableResourceMapping `pulumi:"nodeAllocatableResourceMappings"`
+	// NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+	NodeAllocatableResources map[string]NodeAllocatableResource `pulumi:"nodeAllocatableResources"`
 	// NodeName identifies the node where the device is available.
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -3123,6 +3197,8 @@ type DeviceArgs struct {
 	Name pulumi.StringInput `pulumi:"name"`
 	// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
 	NodeAllocatableResourceMappings NodeAllocatableResourceMappingMapInput `pulumi:"nodeAllocatableResourceMappings"`
+	// NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+	NodeAllocatableResources NodeAllocatableResourceMapInput `pulumi:"nodeAllocatableResources"`
 	// NodeName identifies the node where the device is available.
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -3267,6 +3343,11 @@ func (o DeviceOutput) Name() pulumi.StringOutput {
 // NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
 func (o DeviceOutput) NodeAllocatableResourceMappings() NodeAllocatableResourceMappingMapOutput {
 	return o.ApplyT(func(v Device) map[string]NodeAllocatableResourceMapping { return v.NodeAllocatableResourceMappings }).(NodeAllocatableResourceMappingMapOutput)
+}
+
+// NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+func (o DeviceOutput) NodeAllocatableResources() NodeAllocatableResourceMapOutput {
+	return o.ApplyT(func(v Device) map[string]NodeAllocatableResource { return v.NodeAllocatableResources }).(NodeAllocatableResourceMapOutput)
 }
 
 // NodeName identifies the node where the device is available.
@@ -5530,8 +5611,6 @@ type DeviceClassSpec struct {
 	// They are passed to the driver, but are not considered while allocating the claim.
 	Config []DeviceClassConfiguration `pulumi:"config"`
 	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-	//
-	// This is a beta field.
 	ExtendedResourceName *string `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors []DeviceSelector `pulumi:"selectors"`
@@ -5555,8 +5634,6 @@ type DeviceClassSpecArgs struct {
 	// They are passed to the driver, but are not considered while allocating the claim.
 	Config DeviceClassConfigurationArrayInput `pulumi:"config"`
 	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-	//
-	// This is a beta field.
 	ExtendedResourceName pulumi.StringPtrInput `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors DeviceSelectorArrayInput `pulumi:"selectors"`
@@ -5597,8 +5674,6 @@ func (o DeviceClassSpecOutput) Config() DeviceClassConfigurationArrayOutput {
 }
 
 // ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-//
-// This is a beta field.
 func (o DeviceClassSpecOutput) ExtendedResourceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceClassSpec) *string { return v.ExtendedResourceName }).(pulumi.StringPtrOutput)
 }
@@ -5615,8 +5690,6 @@ type DeviceClassSpecPatch struct {
 	// They are passed to the driver, but are not considered while allocating the claim.
 	Config []DeviceClassConfigurationPatch `pulumi:"config"`
 	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-	//
-	// This is a beta field.
 	ExtendedResourceName *string `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors []DeviceSelectorPatch `pulumi:"selectors"`
@@ -5640,8 +5713,6 @@ type DeviceClassSpecPatchArgs struct {
 	// They are passed to the driver, but are not considered while allocating the claim.
 	Config DeviceClassConfigurationPatchArrayInput `pulumi:"config"`
 	// ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-	//
-	// This is a beta field.
 	ExtendedResourceName pulumi.StringPtrInput `pulumi:"extendedResourceName"`
 	// Each selector must be satisfied by a device which is claimed via this class.
 	Selectors DeviceSelectorPatchArrayInput `pulumi:"selectors"`
@@ -5733,8 +5804,6 @@ func (o DeviceClassSpecPatchOutput) Config() DeviceClassConfigurationPatchArrayO
 }
 
 // ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-//
-// This is a beta field.
 func (o DeviceClassSpecPatchOutput) ExtendedResourceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceClassSpecPatch) *string { return v.ExtendedResourceName }).(pulumi.StringPtrOutput)
 }
@@ -5781,8 +5850,6 @@ func (o DeviceClassSpecPatchPtrOutput) Config() DeviceClassConfigurationPatchArr
 }
 
 // ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-//
-// This is a beta field.
 func (o DeviceClassSpecPatchPtrOutput) ExtendedResourceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeviceClassSpecPatch) *string {
 		if v == nil {
@@ -6136,6 +6203,16 @@ func (o DeviceConstraintPatchArrayOutput) Index(i pulumi.IntInput) DeviceConstra
 
 // DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
 type DeviceCounterConsumption struct {
+	// CompatibilityGroups is a list of opaque group names for this counter set consumption.
+	//
+	// Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+	//
+	// An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+	//
+	// Group names are opaque and meaningful only within the publishing driver's pool.
+	//
+	// The maximum number of groups is 2, and the names must be unique.
+	CompatibilityGroups []string `pulumi:"compatibilityGroups"`
 	// CounterSet is the name of the set from which the counters defined will be consumed.
 	CounterSet string `pulumi:"counterSet"`
 	// Counters defines the counters that will be consumed by the device.
@@ -6157,6 +6234,16 @@ type DeviceCounterConsumptionInput interface {
 
 // DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
 type DeviceCounterConsumptionArgs struct {
+	// CompatibilityGroups is a list of opaque group names for this counter set consumption.
+	//
+	// Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+	//
+	// An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+	//
+	// Group names are opaque and meaningful only within the publishing driver's pool.
+	//
+	// The maximum number of groups is 2, and the names must be unique.
+	CompatibilityGroups pulumi.StringArrayInput `pulumi:"compatibilityGroups"`
 	// CounterSet is the name of the set from which the counters defined will be consumed.
 	CounterSet pulumi.StringInput `pulumi:"counterSet"`
 	// Counters defines the counters that will be consumed by the device.
@@ -6217,6 +6304,19 @@ func (o DeviceCounterConsumptionOutput) ToDeviceCounterConsumptionOutputWithCont
 	return o
 }
 
+// CompatibilityGroups is a list of opaque group names for this counter set consumption.
+//
+// Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+//
+// An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+//
+// Group names are opaque and meaningful only within the publishing driver's pool.
+//
+// The maximum number of groups is 2, and the names must be unique.
+func (o DeviceCounterConsumptionOutput) CompatibilityGroups() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceCounterConsumption) []string { return v.CompatibilityGroups }).(pulumi.StringArrayOutput)
+}
+
 // CounterSet is the name of the set from which the counters defined will be consumed.
 func (o DeviceCounterConsumptionOutput) CounterSet() pulumi.StringOutput {
 	return o.ApplyT(func(v DeviceCounterConsumption) string { return v.CounterSet }).(pulumi.StringOutput)
@@ -6251,6 +6351,16 @@ func (o DeviceCounterConsumptionArrayOutput) Index(i pulumi.IntInput) DeviceCoun
 
 // DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
 type DeviceCounterConsumptionPatch struct {
+	// CompatibilityGroups is a list of opaque group names for this counter set consumption.
+	//
+	// Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+	//
+	// An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+	//
+	// Group names are opaque and meaningful only within the publishing driver's pool.
+	//
+	// The maximum number of groups is 2, and the names must be unique.
+	CompatibilityGroups []string `pulumi:"compatibilityGroups"`
 	// CounterSet is the name of the set from which the counters defined will be consumed.
 	CounterSet *string `pulumi:"counterSet"`
 	// Counters defines the counters that will be consumed by the device.
@@ -6272,6 +6382,16 @@ type DeviceCounterConsumptionPatchInput interface {
 
 // DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
 type DeviceCounterConsumptionPatchArgs struct {
+	// CompatibilityGroups is a list of opaque group names for this counter set consumption.
+	//
+	// Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+	//
+	// An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+	//
+	// Group names are opaque and meaningful only within the publishing driver's pool.
+	//
+	// The maximum number of groups is 2, and the names must be unique.
+	CompatibilityGroups pulumi.StringArrayInput `pulumi:"compatibilityGroups"`
 	// CounterSet is the name of the set from which the counters defined will be consumed.
 	CounterSet pulumi.StringPtrInput `pulumi:"counterSet"`
 	// Counters defines the counters that will be consumed by the device.
@@ -6332,6 +6452,19 @@ func (o DeviceCounterConsumptionPatchOutput) ToDeviceCounterConsumptionPatchOutp
 	return o
 }
 
+// CompatibilityGroups is a list of opaque group names for this counter set consumption.
+//
+// Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+//
+// An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+//
+// Group names are opaque and meaningful only within the publishing driver's pool.
+//
+// The maximum number of groups is 2, and the names must be unique.
+func (o DeviceCounterConsumptionPatchOutput) CompatibilityGroups() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceCounterConsumptionPatch) []string { return v.CompatibilityGroups }).(pulumi.StringArrayOutput)
+}
+
 // CounterSet is the name of the set from which the counters defined will be consumed.
 func (o DeviceCounterConsumptionPatchOutput) CounterSet() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceCounterConsumptionPatch) *string { return v.CounterSet }).(pulumi.StringPtrOutput)
@@ -6362,6 +6495,308 @@ func (o DeviceCounterConsumptionPatchArrayOutput) Index(i pulumi.IntInput) Devic
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceCounterConsumptionPatch {
 		return vs[0].([]DeviceCounterConsumptionPatch)[vs[1].(int)]
 	}).(DeviceCounterConsumptionPatchOutput)
+}
+
+// DeviceDerivedAttribute defines a derived attribute computed via CEL.
+type DeviceDerivedAttribute struct {
+	// Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+	//
+	// The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+	//
+	// When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+	//
+	// The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+	//
+	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+	Expression string `pulumi:"expression"`
+	// Name is the identifier for this derived attribute, used in constraints.
+	//
+	// It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+	//
+	// If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+	//
+	// It is not valid to define a derived attribute that isn't used in at least one constraint.
+	Name string `pulumi:"name"`
+}
+
+// DeviceDerivedAttributeInput is an input type that accepts DeviceDerivedAttributeArgs and DeviceDerivedAttributeOutput values.
+// You can construct a concrete instance of `DeviceDerivedAttributeInput` via:
+//
+//	DeviceDerivedAttributeArgs{...}
+type DeviceDerivedAttributeInput interface {
+	pulumi.Input
+
+	ToDeviceDerivedAttributeOutput() DeviceDerivedAttributeOutput
+	ToDeviceDerivedAttributeOutputWithContext(context.Context) DeviceDerivedAttributeOutput
+}
+
+// DeviceDerivedAttribute defines a derived attribute computed via CEL.
+type DeviceDerivedAttributeArgs struct {
+	// Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+	//
+	// The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+	//
+	// When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+	//
+	// The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+	//
+	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+	Expression pulumi.StringInput `pulumi:"expression"`
+	// Name is the identifier for this derived attribute, used in constraints.
+	//
+	// It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+	//
+	// If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+	//
+	// It is not valid to define a derived attribute that isn't used in at least one constraint.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (DeviceDerivedAttributeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceDerivedAttribute)(nil)).Elem()
+}
+
+func (i DeviceDerivedAttributeArgs) ToDeviceDerivedAttributeOutput() DeviceDerivedAttributeOutput {
+	return i.ToDeviceDerivedAttributeOutputWithContext(context.Background())
+}
+
+func (i DeviceDerivedAttributeArgs) ToDeviceDerivedAttributeOutputWithContext(ctx context.Context) DeviceDerivedAttributeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceDerivedAttributeOutput)
+}
+
+// DeviceDerivedAttributeArrayInput is an input type that accepts DeviceDerivedAttributeArray and DeviceDerivedAttributeArrayOutput values.
+// You can construct a concrete instance of `DeviceDerivedAttributeArrayInput` via:
+//
+//	DeviceDerivedAttributeArray{ DeviceDerivedAttributeArgs{...} }
+type DeviceDerivedAttributeArrayInput interface {
+	pulumi.Input
+
+	ToDeviceDerivedAttributeArrayOutput() DeviceDerivedAttributeArrayOutput
+	ToDeviceDerivedAttributeArrayOutputWithContext(context.Context) DeviceDerivedAttributeArrayOutput
+}
+
+type DeviceDerivedAttributeArray []DeviceDerivedAttributeInput
+
+func (DeviceDerivedAttributeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceDerivedAttribute)(nil)).Elem()
+}
+
+func (i DeviceDerivedAttributeArray) ToDeviceDerivedAttributeArrayOutput() DeviceDerivedAttributeArrayOutput {
+	return i.ToDeviceDerivedAttributeArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceDerivedAttributeArray) ToDeviceDerivedAttributeArrayOutputWithContext(ctx context.Context) DeviceDerivedAttributeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceDerivedAttributeArrayOutput)
+}
+
+// DeviceDerivedAttribute defines a derived attribute computed via CEL.
+type DeviceDerivedAttributeOutput struct{ *pulumi.OutputState }
+
+func (DeviceDerivedAttributeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceDerivedAttribute)(nil)).Elem()
+}
+
+func (o DeviceDerivedAttributeOutput) ToDeviceDerivedAttributeOutput() DeviceDerivedAttributeOutput {
+	return o
+}
+
+func (o DeviceDerivedAttributeOutput) ToDeviceDerivedAttributeOutputWithContext(ctx context.Context) DeviceDerivedAttributeOutput {
+	return o
+}
+
+// Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+//
+// The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+//
+// When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+//
+// The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+//
+// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+func (o DeviceDerivedAttributeOutput) Expression() pulumi.StringOutput {
+	return o.ApplyT(func(v DeviceDerivedAttribute) string { return v.Expression }).(pulumi.StringOutput)
+}
+
+// Name is the identifier for this derived attribute, used in constraints.
+//
+// It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+//
+// If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+//
+// It is not valid to define a derived attribute that isn't used in at least one constraint.
+func (o DeviceDerivedAttributeOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v DeviceDerivedAttribute) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type DeviceDerivedAttributeArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceDerivedAttributeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceDerivedAttribute)(nil)).Elem()
+}
+
+func (o DeviceDerivedAttributeArrayOutput) ToDeviceDerivedAttributeArrayOutput() DeviceDerivedAttributeArrayOutput {
+	return o
+}
+
+func (o DeviceDerivedAttributeArrayOutput) ToDeviceDerivedAttributeArrayOutputWithContext(ctx context.Context) DeviceDerivedAttributeArrayOutput {
+	return o
+}
+
+func (o DeviceDerivedAttributeArrayOutput) Index(i pulumi.IntInput) DeviceDerivedAttributeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceDerivedAttribute {
+		return vs[0].([]DeviceDerivedAttribute)[vs[1].(int)]
+	}).(DeviceDerivedAttributeOutput)
+}
+
+// DeviceDerivedAttribute defines a derived attribute computed via CEL.
+type DeviceDerivedAttributePatch struct {
+	// Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+	//
+	// The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+	//
+	// When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+	//
+	// The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+	//
+	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+	Expression *string `pulumi:"expression"`
+	// Name is the identifier for this derived attribute, used in constraints.
+	//
+	// It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+	//
+	// If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+	//
+	// It is not valid to define a derived attribute that isn't used in at least one constraint.
+	Name *string `pulumi:"name"`
+}
+
+// DeviceDerivedAttributePatchInput is an input type that accepts DeviceDerivedAttributePatchArgs and DeviceDerivedAttributePatchOutput values.
+// You can construct a concrete instance of `DeviceDerivedAttributePatchInput` via:
+//
+//	DeviceDerivedAttributePatchArgs{...}
+type DeviceDerivedAttributePatchInput interface {
+	pulumi.Input
+
+	ToDeviceDerivedAttributePatchOutput() DeviceDerivedAttributePatchOutput
+	ToDeviceDerivedAttributePatchOutputWithContext(context.Context) DeviceDerivedAttributePatchOutput
+}
+
+// DeviceDerivedAttribute defines a derived attribute computed via CEL.
+type DeviceDerivedAttributePatchArgs struct {
+	// Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+	//
+	// The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+	//
+	// When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+	//
+	// The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+	//
+	// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+	Expression pulumi.StringPtrInput `pulumi:"expression"`
+	// Name is the identifier for this derived attribute, used in constraints.
+	//
+	// It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+	//
+	// If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+	//
+	// It is not valid to define a derived attribute that isn't used in at least one constraint.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (DeviceDerivedAttributePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceDerivedAttributePatch)(nil)).Elem()
+}
+
+func (i DeviceDerivedAttributePatchArgs) ToDeviceDerivedAttributePatchOutput() DeviceDerivedAttributePatchOutput {
+	return i.ToDeviceDerivedAttributePatchOutputWithContext(context.Background())
+}
+
+func (i DeviceDerivedAttributePatchArgs) ToDeviceDerivedAttributePatchOutputWithContext(ctx context.Context) DeviceDerivedAttributePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceDerivedAttributePatchOutput)
+}
+
+// DeviceDerivedAttributePatchArrayInput is an input type that accepts DeviceDerivedAttributePatchArray and DeviceDerivedAttributePatchArrayOutput values.
+// You can construct a concrete instance of `DeviceDerivedAttributePatchArrayInput` via:
+//
+//	DeviceDerivedAttributePatchArray{ DeviceDerivedAttributePatchArgs{...} }
+type DeviceDerivedAttributePatchArrayInput interface {
+	pulumi.Input
+
+	ToDeviceDerivedAttributePatchArrayOutput() DeviceDerivedAttributePatchArrayOutput
+	ToDeviceDerivedAttributePatchArrayOutputWithContext(context.Context) DeviceDerivedAttributePatchArrayOutput
+}
+
+type DeviceDerivedAttributePatchArray []DeviceDerivedAttributePatchInput
+
+func (DeviceDerivedAttributePatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceDerivedAttributePatch)(nil)).Elem()
+}
+
+func (i DeviceDerivedAttributePatchArray) ToDeviceDerivedAttributePatchArrayOutput() DeviceDerivedAttributePatchArrayOutput {
+	return i.ToDeviceDerivedAttributePatchArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceDerivedAttributePatchArray) ToDeviceDerivedAttributePatchArrayOutputWithContext(ctx context.Context) DeviceDerivedAttributePatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceDerivedAttributePatchArrayOutput)
+}
+
+// DeviceDerivedAttribute defines a derived attribute computed via CEL.
+type DeviceDerivedAttributePatchOutput struct{ *pulumi.OutputState }
+
+func (DeviceDerivedAttributePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceDerivedAttributePatch)(nil)).Elem()
+}
+
+func (o DeviceDerivedAttributePatchOutput) ToDeviceDerivedAttributePatchOutput() DeviceDerivedAttributePatchOutput {
+	return o
+}
+
+func (o DeviceDerivedAttributePatchOutput) ToDeviceDerivedAttributePatchOutputWithContext(ctx context.Context) DeviceDerivedAttributePatchOutput {
+	return o
+}
+
+// Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+//
+// The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+//
+// When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+//
+// The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+//
+// The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+func (o DeviceDerivedAttributePatchOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceDerivedAttributePatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
+}
+
+// Name is the identifier for this derived attribute, used in constraints.
+//
+// It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+//
+// If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+//
+// It is not valid to define a derived attribute that isn't used in at least one constraint.
+func (o DeviceDerivedAttributePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceDerivedAttributePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type DeviceDerivedAttributePatchArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceDerivedAttributePatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceDerivedAttributePatch)(nil)).Elem()
+}
+
+func (o DeviceDerivedAttributePatchArrayOutput) ToDeviceDerivedAttributePatchArrayOutput() DeviceDerivedAttributePatchArrayOutput {
+	return o
+}
+
+func (o DeviceDerivedAttributePatchArrayOutput) ToDeviceDerivedAttributePatchArrayOutputWithContext(ctx context.Context) DeviceDerivedAttributePatchArrayOutput {
+	return o
+}
+
+func (o DeviceDerivedAttributePatchArrayOutput) Index(i pulumi.IntInput) DeviceDerivedAttributePatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceDerivedAttributePatch {
+		return vs[0].([]DeviceDerivedAttributePatch)[vs[1].(int)]
+	}).(DeviceDerivedAttributePatchOutput)
 }
 
 // Device represents one individual hardware instance that can be selected based on its attributes. Besides the name, exactly one field must be set.
@@ -6412,6 +6847,8 @@ type DevicePatch struct {
 	Name *string `pulumi:"name"`
 	// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
 	NodeAllocatableResourceMappings map[string]NodeAllocatableResourceMapping `pulumi:"nodeAllocatableResourceMappings"`
+	// NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+	NodeAllocatableResources map[string]NodeAllocatableResource `pulumi:"nodeAllocatableResources"`
 	// NodeName identifies the node where the device is available.
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -6489,6 +6926,8 @@ type DevicePatchArgs struct {
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
 	NodeAllocatableResourceMappings NodeAllocatableResourceMappingMapInput `pulumi:"nodeAllocatableResourceMappings"`
+	// NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+	NodeAllocatableResources NodeAllocatableResourceMapInput `pulumi:"nodeAllocatableResources"`
 	// NodeName identifies the node where the device is available.
 	//
 	// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -6635,6 +7074,11 @@ func (o DevicePatchOutput) NodeAllocatableResourceMappings() NodeAllocatableReso
 	return o.ApplyT(func(v DevicePatch) map[string]NodeAllocatableResourceMapping {
 		return v.NodeAllocatableResourceMappings
 	}).(NodeAllocatableResourceMappingMapOutput)
+}
+
+// NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+func (o DevicePatchOutput) NodeAllocatableResources() NodeAllocatableResourceMapOutput {
+	return o.ApplyT(func(v DevicePatch) map[string]NodeAllocatableResource { return v.NodeAllocatableResources }).(NodeAllocatableResourceMapOutput)
 }
 
 // NodeName identifies the node where the device is available.
@@ -6860,6 +7304,8 @@ type DeviceRequestAllocationResult struct {
 	Request string `pulumi:"request"`
 	// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
 	ShareID *string `pulumi:"shareID"`
+	// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+	SkipNodeOperations []string `pulumi:"skipNodeOperations"`
 	// A copy of all tolerations specified in the request at the time when the device got allocated.
 	//
 	// The maximum number of tolerations is 16.
@@ -6915,6 +7361,8 @@ type DeviceRequestAllocationResultArgs struct {
 	Request pulumi.StringInput `pulumi:"request"`
 	// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
 	ShareID pulumi.StringPtrInput `pulumi:"shareID"`
+	// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+	SkipNodeOperations pulumi.StringArrayInput `pulumi:"skipNodeOperations"`
 	// A copy of all tolerations specified in the request at the time when the device got allocated.
 	//
 	// The maximum number of tolerations is 16.
@@ -7036,6 +7484,11 @@ func (o DeviceRequestAllocationResultOutput) ShareID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResult) *string { return v.ShareID }).(pulumi.StringPtrOutput)
 }
 
+// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+func (o DeviceRequestAllocationResultOutput) SkipNodeOperations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResult) []string { return v.SkipNodeOperations }).(pulumi.StringArrayOutput)
+}
+
 // A copy of all tolerations specified in the request at the time when the device got allocated.
 //
 // The maximum number of tolerations is 16.
@@ -7101,6 +7554,8 @@ type DeviceRequestAllocationResultPatch struct {
 	Request *string `pulumi:"request"`
 	// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
 	ShareID *string `pulumi:"shareID"`
+	// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+	SkipNodeOperations []string `pulumi:"skipNodeOperations"`
 	// A copy of all tolerations specified in the request at the time when the device got allocated.
 	//
 	// The maximum number of tolerations is 16.
@@ -7156,6 +7611,8 @@ type DeviceRequestAllocationResultPatchArgs struct {
 	Request pulumi.StringPtrInput `pulumi:"request"`
 	// ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
 	ShareID pulumi.StringPtrInput `pulumi:"shareID"`
+	// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+	SkipNodeOperations pulumi.StringArrayInput `pulumi:"skipNodeOperations"`
 	// A copy of all tolerations specified in the request at the time when the device got allocated.
 	//
 	// The maximum number of tolerations is 16.
@@ -7275,6 +7732,11 @@ func (o DeviceRequestAllocationResultPatchOutput) Request() pulumi.StringPtrOutp
 // ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
 func (o DeviceRequestAllocationResultPatchOutput) ShareID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) *string { return v.ShareID }).(pulumi.StringPtrOutput)
+}
+
+// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+func (o DeviceRequestAllocationResultPatchOutput) SkipNodeOperations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DeviceRequestAllocationResultPatch) []string { return v.SkipNodeOperations }).(pulumi.StringArrayOutput)
 }
 
 // A copy of all tolerations specified in the request at the time when the device got allocated.
@@ -7674,6 +8136,16 @@ type DeviceSubRequest struct {
 	Capacity *CapacityRequirements `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count *int `pulumi:"count"`
+	// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+	//
+	// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+	//
+	// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+	//
+	// The maximum number of derived attributes is 32.
+	//
+	// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+	DerivedAttributes []DeviceDerivedAttribute `pulumi:"derivedAttributes"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
 	//
 	// A class is required. Which classes are available depends on the cluster.
@@ -7735,6 +8207,16 @@ type DeviceSubRequestArgs struct {
 	Capacity CapacityRequirementsPtrInput `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count pulumi.IntPtrInput `pulumi:"count"`
+	// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+	//
+	// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+	//
+	// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+	//
+	// The maximum number of derived attributes is 32.
+	//
+	// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+	DerivedAttributes DeviceDerivedAttributeArrayInput `pulumi:"derivedAttributes"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
 	//
 	// A class is required. Which classes are available depends on the cluster.
@@ -7844,6 +8326,19 @@ func (o DeviceSubRequestOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceSubRequest) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
+// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+//
+// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+//
+// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+//
+// The maximum number of derived attributes is 32.
+//
+// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+func (o DeviceSubRequestOutput) DerivedAttributes() DeviceDerivedAttributeArrayOutput {
+	return o.ApplyT(func(v DeviceSubRequest) []DeviceDerivedAttribute { return v.DerivedAttributes }).(DeviceDerivedAttributeArrayOutput)
+}
+
 // DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
 //
 // A class is required. Which classes are available depends on the cluster.
@@ -7924,6 +8419,16 @@ type DeviceSubRequestPatch struct {
 	Capacity *CapacityRequirementsPatch `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count *int `pulumi:"count"`
+	// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+	//
+	// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+	//
+	// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+	//
+	// The maximum number of derived attributes is 32.
+	//
+	// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+	DerivedAttributes []DeviceDerivedAttributePatch `pulumi:"derivedAttributes"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
 	//
 	// A class is required. Which classes are available depends on the cluster.
@@ -7985,6 +8490,16 @@ type DeviceSubRequestPatchArgs struct {
 	Capacity CapacityRequirementsPatchPtrInput `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count pulumi.IntPtrInput `pulumi:"count"`
+	// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+	//
+	// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+	//
+	// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+	//
+	// The maximum number of derived attributes is 32.
+	//
+	// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+	DerivedAttributes DeviceDerivedAttributePatchArrayInput `pulumi:"derivedAttributes"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
 	//
 	// A class is required. Which classes are available depends on the cluster.
@@ -8092,6 +8607,19 @@ func (o DeviceSubRequestPatchOutput) Capacity() CapacityRequirementsPatchPtrOutp
 // Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 func (o DeviceSubRequestPatchOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeviceSubRequestPatch) *int { return v.Count }).(pulumi.IntPtrOutput)
+}
+
+// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+//
+// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+//
+// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+//
+// The maximum number of derived attributes is 32.
+//
+// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+func (o DeviceSubRequestPatchOutput) DerivedAttributes() DeviceDerivedAttributePatchArrayOutput {
+	return o.ApplyT(func(v DeviceSubRequestPatch) []DeviceDerivedAttributePatch { return v.DerivedAttributes }).(DeviceDerivedAttributePatchArrayOutput)
 }
 
 // DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
@@ -8342,6 +8870,47 @@ func (i DeviceTaintPatchArgs) ToDeviceTaintPatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintPatchOutput)
 }
 
+func (i DeviceTaintPatchArgs) ToDeviceTaintPatchPtrOutput() DeviceTaintPatchPtrOutput {
+	return i.ToDeviceTaintPatchPtrOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintPatchArgs) ToDeviceTaintPatchPtrOutputWithContext(ctx context.Context) DeviceTaintPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintPatchOutput).ToDeviceTaintPatchPtrOutputWithContext(ctx)
+}
+
+// DeviceTaintPatchPtrInput is an input type that accepts DeviceTaintPatchArgs, DeviceTaintPatchPtr and DeviceTaintPatchPtrOutput values.
+// You can construct a concrete instance of `DeviceTaintPatchPtrInput` via:
+//
+//	        DeviceTaintPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type DeviceTaintPatchPtrInput interface {
+	pulumi.Input
+
+	ToDeviceTaintPatchPtrOutput() DeviceTaintPatchPtrOutput
+	ToDeviceTaintPatchPtrOutputWithContext(context.Context) DeviceTaintPatchPtrOutput
+}
+
+type deviceTaintPatchPtrType DeviceTaintPatchArgs
+
+func DeviceTaintPatchPtr(v *DeviceTaintPatchArgs) DeviceTaintPatchPtrInput {
+	return (*deviceTaintPatchPtrType)(v)
+}
+
+func (*deviceTaintPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintPatch)(nil)).Elem()
+}
+
+func (i *deviceTaintPatchPtrType) ToDeviceTaintPatchPtrOutput() DeviceTaintPatchPtrOutput {
+	return i.ToDeviceTaintPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *deviceTaintPatchPtrType) ToDeviceTaintPatchPtrOutputWithContext(ctx context.Context) DeviceTaintPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintPatchPtrOutput)
+}
+
 // DeviceTaintPatchArrayInput is an input type that accepts DeviceTaintPatchArray and DeviceTaintPatchArrayOutput values.
 // You can construct a concrete instance of `DeviceTaintPatchArrayInput` via:
 //
@@ -8382,6 +8951,16 @@ func (o DeviceTaintPatchOutput) ToDeviceTaintPatchOutputWithContext(ctx context.
 	return o
 }
 
+func (o DeviceTaintPatchOutput) ToDeviceTaintPatchPtrOutput() DeviceTaintPatchPtrOutput {
+	return o.ToDeviceTaintPatchPtrOutputWithContext(context.Background())
+}
+
+func (o DeviceTaintPatchOutput) ToDeviceTaintPatchPtrOutputWithContext(ctx context.Context) DeviceTaintPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeviceTaintPatch) *DeviceTaintPatch {
+		return &v
+	}).(DeviceTaintPatchPtrOutput)
+}
+
 // The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
 //
 // Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
@@ -8406,6 +8985,74 @@ func (o DeviceTaintPatchOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeviceTaintPatch) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
 
+type DeviceTaintPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintPatch)(nil)).Elem()
+}
+
+func (o DeviceTaintPatchPtrOutput) ToDeviceTaintPatchPtrOutput() DeviceTaintPatchPtrOutput {
+	return o
+}
+
+func (o DeviceTaintPatchPtrOutput) ToDeviceTaintPatchPtrOutputWithContext(ctx context.Context) DeviceTaintPatchPtrOutput {
+	return o
+}
+
+func (o DeviceTaintPatchPtrOutput) Elem() DeviceTaintPatchOutput {
+	return o.ApplyT(func(v *DeviceTaintPatch) DeviceTaintPatch {
+		if v != nil {
+			return *v
+		}
+		var ret DeviceTaintPatch
+		return ret
+	}).(DeviceTaintPatchOutput)
+}
+
+// The effect of the taint on claims that do not tolerate the taint and through such claims on the pods using them.
+//
+// Valid effects are None, NoSchedule and NoExecute. PreferNoSchedule as used for nodes is not valid here. More effects may get added in the future. Consumers must treat unknown effects like None.
+func (o DeviceTaintPatchPtrOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Effect
+	}).(pulumi.StringPtrOutput)
+}
+
+// The taint key to be applied to a device. Must be a label name.
+func (o DeviceTaintPatchPtrOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Key
+	}).(pulumi.StringPtrOutput)
+}
+
+// TimeAdded represents the time at which the taint was added or (only in a DeviceTaintRule) the effect was modified. Added automatically during create or update if not set.
+//
+// In addition, in a DeviceTaintRule a value provided during an update gets replaced with the current time if the provided value is the same as the old one and the new effect is different. Changing the key and/or value while keeping the effect unchanged is possible and does not update the time stamp because the eviction which uses it is either already started (NoExecute) or not started yet (NoEffect, NoSchedule).
+func (o DeviceTaintPatchPtrOutput) TimeAdded() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TimeAdded
+	}).(pulumi.StringPtrOutput)
+}
+
+// The taint value corresponding to the taint key. Must be a label value.
+func (o DeviceTaintPatchPtrOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Value
+	}).(pulumi.StringPtrOutput)
+}
+
 type DeviceTaintPatchArrayOutput struct{ *pulumi.OutputState }
 
 func (DeviceTaintPatchArrayOutput) ElementType() reflect.Type {
@@ -8424,6 +9071,1294 @@ func (o DeviceTaintPatchArrayOutput) Index(i pulumi.IntInput) DeviceTaintPatchOu
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceTaintPatch {
 		return vs[0].([]DeviceTaintPatch)[vs[1].(int)]
 	}).(DeviceTaintPatchOutput)
+}
+
+// DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+type DeviceTaintRuleType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec specifies the selector and one taint.
+	//
+	// Changing the spec automatically increments the metadata.generation number.
+	Spec DeviceTaintRuleSpec `pulumi:"spec"`
+	// Status provides information about what was requested in the spec.
+	Status *DeviceTaintRuleStatus `pulumi:"status"`
+}
+
+// DeviceTaintRuleTypeInput is an input type that accepts DeviceTaintRuleTypeArgs and DeviceTaintRuleTypeOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleTypeInput` via:
+//
+//	DeviceTaintRuleTypeArgs{...}
+type DeviceTaintRuleTypeInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleTypeOutput() DeviceTaintRuleTypeOutput
+	ToDeviceTaintRuleTypeOutputWithContext(context.Context) DeviceTaintRuleTypeOutput
+}
+
+// DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+type DeviceTaintRuleTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec specifies the selector and one taint.
+	//
+	// Changing the spec automatically increments the metadata.generation number.
+	Spec DeviceTaintRuleSpecInput `pulumi:"spec"`
+	// Status provides information about what was requested in the spec.
+	Status DeviceTaintRuleStatusPtrInput `pulumi:"status"`
+}
+
+func (DeviceTaintRuleTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleType)(nil)).Elem()
+}
+
+func (i DeviceTaintRuleTypeArgs) ToDeviceTaintRuleTypeOutput() DeviceTaintRuleTypeOutput {
+	return i.ToDeviceTaintRuleTypeOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleTypeArgs) ToDeviceTaintRuleTypeOutputWithContext(ctx context.Context) DeviceTaintRuleTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleTypeOutput)
+}
+
+// DeviceTaintRuleTypeArrayInput is an input type that accepts DeviceTaintRuleTypeArray and DeviceTaintRuleTypeArrayOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleTypeArrayInput` via:
+//
+//	DeviceTaintRuleTypeArray{ DeviceTaintRuleTypeArgs{...} }
+type DeviceTaintRuleTypeArrayInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleTypeArrayOutput() DeviceTaintRuleTypeArrayOutput
+	ToDeviceTaintRuleTypeArrayOutputWithContext(context.Context) DeviceTaintRuleTypeArrayOutput
+}
+
+type DeviceTaintRuleTypeArray []DeviceTaintRuleTypeInput
+
+func (DeviceTaintRuleTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceTaintRuleType)(nil)).Elem()
+}
+
+func (i DeviceTaintRuleTypeArray) ToDeviceTaintRuleTypeArrayOutput() DeviceTaintRuleTypeArrayOutput {
+	return i.ToDeviceTaintRuleTypeArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleTypeArray) ToDeviceTaintRuleTypeArrayOutputWithContext(ctx context.Context) DeviceTaintRuleTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleTypeArrayOutput)
+}
+
+// DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+type DeviceTaintRuleTypeOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleType)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleTypeOutput) ToDeviceTaintRuleTypeOutput() DeviceTaintRuleTypeOutput {
+	return o
+}
+
+func (o DeviceTaintRuleTypeOutput) ToDeviceTaintRuleTypeOutputWithContext(ctx context.Context) DeviceTaintRuleTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o DeviceTaintRuleTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o DeviceTaintRuleTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o DeviceTaintRuleTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec specifies the selector and one taint.
+//
+// Changing the spec automatically increments the metadata.generation number.
+func (o DeviceTaintRuleTypeOutput) Spec() DeviceTaintRuleSpecOutput {
+	return o.ApplyT(func(v DeviceTaintRuleType) DeviceTaintRuleSpec { return v.Spec }).(DeviceTaintRuleSpecOutput)
+}
+
+// Status provides information about what was requested in the spec.
+func (o DeviceTaintRuleTypeOutput) Status() DeviceTaintRuleStatusPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleType) *DeviceTaintRuleStatus { return v.Status }).(DeviceTaintRuleStatusPtrOutput)
+}
+
+type DeviceTaintRuleTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceTaintRuleType)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleTypeArrayOutput) ToDeviceTaintRuleTypeArrayOutput() DeviceTaintRuleTypeArrayOutput {
+	return o
+}
+
+func (o DeviceTaintRuleTypeArrayOutput) ToDeviceTaintRuleTypeArrayOutputWithContext(ctx context.Context) DeviceTaintRuleTypeArrayOutput {
+	return o
+}
+
+func (o DeviceTaintRuleTypeArrayOutput) Index(i pulumi.IntInput) DeviceTaintRuleTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceTaintRuleType {
+		return vs[0].([]DeviceTaintRuleType)[vs[1].(int)]
+	}).(DeviceTaintRuleTypeOutput)
+}
+
+// DeviceTaintRuleList is a collection of DeviceTaintRules.
+type DeviceTaintRuleListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of DeviceTaintRules.
+	Items []DeviceTaintRuleType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// DeviceTaintRuleListTypeInput is an input type that accepts DeviceTaintRuleListTypeArgs and DeviceTaintRuleListTypeOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleListTypeInput` via:
+//
+//	DeviceTaintRuleListTypeArgs{...}
+type DeviceTaintRuleListTypeInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleListTypeOutput() DeviceTaintRuleListTypeOutput
+	ToDeviceTaintRuleListTypeOutputWithContext(context.Context) DeviceTaintRuleListTypeOutput
+}
+
+// DeviceTaintRuleList is a collection of DeviceTaintRules.
+type DeviceTaintRuleListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of DeviceTaintRules.
+	Items DeviceTaintRuleTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (DeviceTaintRuleListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleListType)(nil)).Elem()
+}
+
+func (i DeviceTaintRuleListTypeArgs) ToDeviceTaintRuleListTypeOutput() DeviceTaintRuleListTypeOutput {
+	return i.ToDeviceTaintRuleListTypeOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleListTypeArgs) ToDeviceTaintRuleListTypeOutputWithContext(ctx context.Context) DeviceTaintRuleListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleListTypeOutput)
+}
+
+// DeviceTaintRuleList is a collection of DeviceTaintRules.
+type DeviceTaintRuleListTypeOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleListType)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleListTypeOutput) ToDeviceTaintRuleListTypeOutput() DeviceTaintRuleListTypeOutput {
+	return o
+}
+
+func (o DeviceTaintRuleListTypeOutput) ToDeviceTaintRuleListTypeOutputWithContext(ctx context.Context) DeviceTaintRuleListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o DeviceTaintRuleListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of DeviceTaintRules.
+func (o DeviceTaintRuleListTypeOutput) Items() DeviceTaintRuleTypeArrayOutput {
+	return o.ApplyT(func(v DeviceTaintRuleListType) []DeviceTaintRuleType { return v.Items }).(DeviceTaintRuleTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o DeviceTaintRuleListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata
+func (o DeviceTaintRuleListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+type DeviceTaintRulePatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// Spec specifies the selector and one taint.
+	//
+	// Changing the spec automatically increments the metadata.generation number.
+	Spec *DeviceTaintRuleSpecPatch `pulumi:"spec"`
+	// Status provides information about what was requested in the spec.
+	Status *DeviceTaintRuleStatusPatch `pulumi:"status"`
+}
+
+// DeviceTaintRulePatchTypeInput is an input type that accepts DeviceTaintRulePatchTypeArgs and DeviceTaintRulePatchTypeOutput values.
+// You can construct a concrete instance of `DeviceTaintRulePatchTypeInput` via:
+//
+//	DeviceTaintRulePatchTypeArgs{...}
+type DeviceTaintRulePatchTypeInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRulePatchTypeOutput() DeviceTaintRulePatchTypeOutput
+	ToDeviceTaintRulePatchTypeOutputWithContext(context.Context) DeviceTaintRulePatchTypeOutput
+}
+
+// DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+type DeviceTaintRulePatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// Spec specifies the selector and one taint.
+	//
+	// Changing the spec automatically increments the metadata.generation number.
+	Spec DeviceTaintRuleSpecPatchPtrInput `pulumi:"spec"`
+	// Status provides information about what was requested in the spec.
+	Status DeviceTaintRuleStatusPatchPtrInput `pulumi:"status"`
+}
+
+func (DeviceTaintRulePatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRulePatchType)(nil)).Elem()
+}
+
+func (i DeviceTaintRulePatchTypeArgs) ToDeviceTaintRulePatchTypeOutput() DeviceTaintRulePatchTypeOutput {
+	return i.ToDeviceTaintRulePatchTypeOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRulePatchTypeArgs) ToDeviceTaintRulePatchTypeOutputWithContext(ctx context.Context) DeviceTaintRulePatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRulePatchTypeOutput)
+}
+
+// DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.
+type DeviceTaintRulePatchTypeOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRulePatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRulePatchType)(nil)).Elem()
+}
+
+func (o DeviceTaintRulePatchTypeOutput) ToDeviceTaintRulePatchTypeOutput() DeviceTaintRulePatchTypeOutput {
+	return o
+}
+
+func (o DeviceTaintRulePatchTypeOutput) ToDeviceTaintRulePatchTypeOutputWithContext(ctx context.Context) DeviceTaintRulePatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o DeviceTaintRulePatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRulePatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o DeviceTaintRulePatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRulePatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object metadata
+func (o DeviceTaintRulePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRulePatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// Spec specifies the selector and one taint.
+//
+// Changing the spec automatically increments the metadata.generation number.
+func (o DeviceTaintRulePatchTypeOutput) Spec() DeviceTaintRuleSpecPatchPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRulePatchType) *DeviceTaintRuleSpecPatch { return v.Spec }).(DeviceTaintRuleSpecPatchPtrOutput)
+}
+
+// Status provides information about what was requested in the spec.
+func (o DeviceTaintRulePatchTypeOutput) Status() DeviceTaintRuleStatusPatchPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRulePatchType) *DeviceTaintRuleStatusPatch { return v.Status }).(DeviceTaintRuleStatusPatchPtrOutput)
+}
+
+// DeviceTaintRuleSpec specifies the selector and one taint.
+type DeviceTaintRuleSpec struct {
+	// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+	DeviceSelector *DeviceTaintSelector `pulumi:"deviceSelector"`
+	// The taint that gets applied to matching devices.
+	Taint DeviceTaint `pulumi:"taint"`
+}
+
+// DeviceTaintRuleSpecInput is an input type that accepts DeviceTaintRuleSpecArgs and DeviceTaintRuleSpecOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleSpecInput` via:
+//
+//	DeviceTaintRuleSpecArgs{...}
+type DeviceTaintRuleSpecInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleSpecOutput() DeviceTaintRuleSpecOutput
+	ToDeviceTaintRuleSpecOutputWithContext(context.Context) DeviceTaintRuleSpecOutput
+}
+
+// DeviceTaintRuleSpec specifies the selector and one taint.
+type DeviceTaintRuleSpecArgs struct {
+	// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+	DeviceSelector DeviceTaintSelectorPtrInput `pulumi:"deviceSelector"`
+	// The taint that gets applied to matching devices.
+	Taint DeviceTaintInput `pulumi:"taint"`
+}
+
+func (DeviceTaintRuleSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleSpec)(nil)).Elem()
+}
+
+func (i DeviceTaintRuleSpecArgs) ToDeviceTaintRuleSpecOutput() DeviceTaintRuleSpecOutput {
+	return i.ToDeviceTaintRuleSpecOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleSpecArgs) ToDeviceTaintRuleSpecOutputWithContext(ctx context.Context) DeviceTaintRuleSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleSpecOutput)
+}
+
+// DeviceTaintRuleSpec specifies the selector and one taint.
+type DeviceTaintRuleSpecOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleSpec)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleSpecOutput) ToDeviceTaintRuleSpecOutput() DeviceTaintRuleSpecOutput {
+	return o
+}
+
+func (o DeviceTaintRuleSpecOutput) ToDeviceTaintRuleSpecOutputWithContext(ctx context.Context) DeviceTaintRuleSpecOutput {
+	return o
+}
+
+// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+func (o DeviceTaintRuleSpecOutput) DeviceSelector() DeviceTaintSelectorPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleSpec) *DeviceTaintSelector { return v.DeviceSelector }).(DeviceTaintSelectorPtrOutput)
+}
+
+// The taint that gets applied to matching devices.
+func (o DeviceTaintRuleSpecOutput) Taint() DeviceTaintOutput {
+	return o.ApplyT(func(v DeviceTaintRuleSpec) DeviceTaint { return v.Taint }).(DeviceTaintOutput)
+}
+
+// DeviceTaintRuleSpec specifies the selector and one taint.
+type DeviceTaintRuleSpecPatch struct {
+	// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+	DeviceSelector *DeviceTaintSelectorPatch `pulumi:"deviceSelector"`
+	// The taint that gets applied to matching devices.
+	Taint *DeviceTaintPatch `pulumi:"taint"`
+}
+
+// DeviceTaintRuleSpecPatchInput is an input type that accepts DeviceTaintRuleSpecPatchArgs and DeviceTaintRuleSpecPatchOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleSpecPatchInput` via:
+//
+//	DeviceTaintRuleSpecPatchArgs{...}
+type DeviceTaintRuleSpecPatchInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleSpecPatchOutput() DeviceTaintRuleSpecPatchOutput
+	ToDeviceTaintRuleSpecPatchOutputWithContext(context.Context) DeviceTaintRuleSpecPatchOutput
+}
+
+// DeviceTaintRuleSpec specifies the selector and one taint.
+type DeviceTaintRuleSpecPatchArgs struct {
+	// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+	DeviceSelector DeviceTaintSelectorPatchPtrInput `pulumi:"deviceSelector"`
+	// The taint that gets applied to matching devices.
+	Taint DeviceTaintPatchPtrInput `pulumi:"taint"`
+}
+
+func (DeviceTaintRuleSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleSpecPatch)(nil)).Elem()
+}
+
+func (i DeviceTaintRuleSpecPatchArgs) ToDeviceTaintRuleSpecPatchOutput() DeviceTaintRuleSpecPatchOutput {
+	return i.ToDeviceTaintRuleSpecPatchOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleSpecPatchArgs) ToDeviceTaintRuleSpecPatchOutputWithContext(ctx context.Context) DeviceTaintRuleSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleSpecPatchOutput)
+}
+
+func (i DeviceTaintRuleSpecPatchArgs) ToDeviceTaintRuleSpecPatchPtrOutput() DeviceTaintRuleSpecPatchPtrOutput {
+	return i.ToDeviceTaintRuleSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleSpecPatchArgs) ToDeviceTaintRuleSpecPatchPtrOutputWithContext(ctx context.Context) DeviceTaintRuleSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleSpecPatchOutput).ToDeviceTaintRuleSpecPatchPtrOutputWithContext(ctx)
+}
+
+// DeviceTaintRuleSpecPatchPtrInput is an input type that accepts DeviceTaintRuleSpecPatchArgs, DeviceTaintRuleSpecPatchPtr and DeviceTaintRuleSpecPatchPtrOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleSpecPatchPtrInput` via:
+//
+//	        DeviceTaintRuleSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type DeviceTaintRuleSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleSpecPatchPtrOutput() DeviceTaintRuleSpecPatchPtrOutput
+	ToDeviceTaintRuleSpecPatchPtrOutputWithContext(context.Context) DeviceTaintRuleSpecPatchPtrOutput
+}
+
+type deviceTaintRuleSpecPatchPtrType DeviceTaintRuleSpecPatchArgs
+
+func DeviceTaintRuleSpecPatchPtr(v *DeviceTaintRuleSpecPatchArgs) DeviceTaintRuleSpecPatchPtrInput {
+	return (*deviceTaintRuleSpecPatchPtrType)(v)
+}
+
+func (*deviceTaintRuleSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintRuleSpecPatch)(nil)).Elem()
+}
+
+func (i *deviceTaintRuleSpecPatchPtrType) ToDeviceTaintRuleSpecPatchPtrOutput() DeviceTaintRuleSpecPatchPtrOutput {
+	return i.ToDeviceTaintRuleSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *deviceTaintRuleSpecPatchPtrType) ToDeviceTaintRuleSpecPatchPtrOutputWithContext(ctx context.Context) DeviceTaintRuleSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleSpecPatchPtrOutput)
+}
+
+// DeviceTaintRuleSpec specifies the selector and one taint.
+type DeviceTaintRuleSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleSpecPatch)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleSpecPatchOutput) ToDeviceTaintRuleSpecPatchOutput() DeviceTaintRuleSpecPatchOutput {
+	return o
+}
+
+func (o DeviceTaintRuleSpecPatchOutput) ToDeviceTaintRuleSpecPatchOutputWithContext(ctx context.Context) DeviceTaintRuleSpecPatchOutput {
+	return o
+}
+
+func (o DeviceTaintRuleSpecPatchOutput) ToDeviceTaintRuleSpecPatchPtrOutput() DeviceTaintRuleSpecPatchPtrOutput {
+	return o.ToDeviceTaintRuleSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o DeviceTaintRuleSpecPatchOutput) ToDeviceTaintRuleSpecPatchPtrOutputWithContext(ctx context.Context) DeviceTaintRuleSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeviceTaintRuleSpecPatch) *DeviceTaintRuleSpecPatch {
+		return &v
+	}).(DeviceTaintRuleSpecPatchPtrOutput)
+}
+
+// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+func (o DeviceTaintRuleSpecPatchOutput) DeviceSelector() DeviceTaintSelectorPatchPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleSpecPatch) *DeviceTaintSelectorPatch { return v.DeviceSelector }).(DeviceTaintSelectorPatchPtrOutput)
+}
+
+// The taint that gets applied to matching devices.
+func (o DeviceTaintRuleSpecPatchOutput) Taint() DeviceTaintPatchPtrOutput {
+	return o.ApplyT(func(v DeviceTaintRuleSpecPatch) *DeviceTaintPatch { return v.Taint }).(DeviceTaintPatchPtrOutput)
+}
+
+type DeviceTaintRuleSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintRuleSpecPatch)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleSpecPatchPtrOutput) ToDeviceTaintRuleSpecPatchPtrOutput() DeviceTaintRuleSpecPatchPtrOutput {
+	return o
+}
+
+func (o DeviceTaintRuleSpecPatchPtrOutput) ToDeviceTaintRuleSpecPatchPtrOutputWithContext(ctx context.Context) DeviceTaintRuleSpecPatchPtrOutput {
+	return o
+}
+
+func (o DeviceTaintRuleSpecPatchPtrOutput) Elem() DeviceTaintRuleSpecPatchOutput {
+	return o.ApplyT(func(v *DeviceTaintRuleSpecPatch) DeviceTaintRuleSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret DeviceTaintRuleSpecPatch
+		return ret
+	}).(DeviceTaintRuleSpecPatchOutput)
+}
+
+// DeviceSelector defines which device(s) the taint is applied to. All selector criteria must be satisfied for a device to match. The empty selector matches all devices. Without a selector, no devices are matches.
+func (o DeviceTaintRuleSpecPatchPtrOutput) DeviceSelector() DeviceTaintSelectorPatchPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintRuleSpecPatch) *DeviceTaintSelectorPatch {
+		if v == nil {
+			return nil
+		}
+		return v.DeviceSelector
+	}).(DeviceTaintSelectorPatchPtrOutput)
+}
+
+// The taint that gets applied to matching devices.
+func (o DeviceTaintRuleSpecPatchPtrOutput) Taint() DeviceTaintPatchPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintRuleSpecPatch) *DeviceTaintPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Taint
+	}).(DeviceTaintPatchPtrOutput)
+}
+
+// DeviceTaintRuleStatus provides information about an on-going pod eviction.
+type DeviceTaintRuleStatus struct {
+	// Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+	//
+	// The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+	//   (includes the effects which don't cause eviction).
+	// - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+	//   in a human-readable format, updated periodically, may change
+	//
+	// For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+	//
+	// Must have 8 or fewer entries.
+	Conditions []metav1.Condition `pulumi:"conditions"`
+}
+
+// DeviceTaintRuleStatusInput is an input type that accepts DeviceTaintRuleStatusArgs and DeviceTaintRuleStatusOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleStatusInput` via:
+//
+//	DeviceTaintRuleStatusArgs{...}
+type DeviceTaintRuleStatusInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleStatusOutput() DeviceTaintRuleStatusOutput
+	ToDeviceTaintRuleStatusOutputWithContext(context.Context) DeviceTaintRuleStatusOutput
+}
+
+// DeviceTaintRuleStatus provides information about an on-going pod eviction.
+type DeviceTaintRuleStatusArgs struct {
+	// Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+	//
+	// The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+	//   (includes the effects which don't cause eviction).
+	// - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+	//   in a human-readable format, updated periodically, may change
+	//
+	// For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+	//
+	// Must have 8 or fewer entries.
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
+}
+
+func (DeviceTaintRuleStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleStatus)(nil)).Elem()
+}
+
+func (i DeviceTaintRuleStatusArgs) ToDeviceTaintRuleStatusOutput() DeviceTaintRuleStatusOutput {
+	return i.ToDeviceTaintRuleStatusOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleStatusArgs) ToDeviceTaintRuleStatusOutputWithContext(ctx context.Context) DeviceTaintRuleStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleStatusOutput)
+}
+
+func (i DeviceTaintRuleStatusArgs) ToDeviceTaintRuleStatusPtrOutput() DeviceTaintRuleStatusPtrOutput {
+	return i.ToDeviceTaintRuleStatusPtrOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleStatusArgs) ToDeviceTaintRuleStatusPtrOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleStatusOutput).ToDeviceTaintRuleStatusPtrOutputWithContext(ctx)
+}
+
+// DeviceTaintRuleStatusPtrInput is an input type that accepts DeviceTaintRuleStatusArgs, DeviceTaintRuleStatusPtr and DeviceTaintRuleStatusPtrOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleStatusPtrInput` via:
+//
+//	        DeviceTaintRuleStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type DeviceTaintRuleStatusPtrInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleStatusPtrOutput() DeviceTaintRuleStatusPtrOutput
+	ToDeviceTaintRuleStatusPtrOutputWithContext(context.Context) DeviceTaintRuleStatusPtrOutput
+}
+
+type deviceTaintRuleStatusPtrType DeviceTaintRuleStatusArgs
+
+func DeviceTaintRuleStatusPtr(v *DeviceTaintRuleStatusArgs) DeviceTaintRuleStatusPtrInput {
+	return (*deviceTaintRuleStatusPtrType)(v)
+}
+
+func (*deviceTaintRuleStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintRuleStatus)(nil)).Elem()
+}
+
+func (i *deviceTaintRuleStatusPtrType) ToDeviceTaintRuleStatusPtrOutput() DeviceTaintRuleStatusPtrOutput {
+	return i.ToDeviceTaintRuleStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *deviceTaintRuleStatusPtrType) ToDeviceTaintRuleStatusPtrOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleStatusPtrOutput)
+}
+
+// DeviceTaintRuleStatus provides information about an on-going pod eviction.
+type DeviceTaintRuleStatusOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleStatus)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleStatusOutput) ToDeviceTaintRuleStatusOutput() DeviceTaintRuleStatusOutput {
+	return o
+}
+
+func (o DeviceTaintRuleStatusOutput) ToDeviceTaintRuleStatusOutputWithContext(ctx context.Context) DeviceTaintRuleStatusOutput {
+	return o
+}
+
+func (o DeviceTaintRuleStatusOutput) ToDeviceTaintRuleStatusPtrOutput() DeviceTaintRuleStatusPtrOutput {
+	return o.ToDeviceTaintRuleStatusPtrOutputWithContext(context.Background())
+}
+
+func (o DeviceTaintRuleStatusOutput) ToDeviceTaintRuleStatusPtrOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeviceTaintRuleStatus) *DeviceTaintRuleStatus {
+		return &v
+	}).(DeviceTaintRuleStatusPtrOutput)
+}
+
+// Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+//
+// The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+//
+//	(includes the effects which don't cause eviction).
+//   - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+//     in a human-readable format, updated periodically, may change
+//
+// For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+//
+// Must have 8 or fewer entries.
+func (o DeviceTaintRuleStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v DeviceTaintRuleStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
+type DeviceTaintRuleStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintRuleStatus)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleStatusPtrOutput) ToDeviceTaintRuleStatusPtrOutput() DeviceTaintRuleStatusPtrOutput {
+	return o
+}
+
+func (o DeviceTaintRuleStatusPtrOutput) ToDeviceTaintRuleStatusPtrOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPtrOutput {
+	return o
+}
+
+func (o DeviceTaintRuleStatusPtrOutput) Elem() DeviceTaintRuleStatusOutput {
+	return o.ApplyT(func(v *DeviceTaintRuleStatus) DeviceTaintRuleStatus {
+		if v != nil {
+			return *v
+		}
+		var ret DeviceTaintRuleStatus
+		return ret
+	}).(DeviceTaintRuleStatusOutput)
+}
+
+// Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+//
+// The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+//
+//	(includes the effects which don't cause eviction).
+//   - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+//     in a human-readable format, updated periodically, may change
+//
+// For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+//
+// Must have 8 or fewer entries.
+func (o DeviceTaintRuleStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *DeviceTaintRuleStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
+}
+
+// DeviceTaintRuleStatus provides information about an on-going pod eviction.
+type DeviceTaintRuleStatusPatch struct {
+	// Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+	//
+	// The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+	//   (includes the effects which don't cause eviction).
+	// - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+	//   in a human-readable format, updated periodically, may change
+	//
+	// For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+	//
+	// Must have 8 or fewer entries.
+	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
+}
+
+// DeviceTaintRuleStatusPatchInput is an input type that accepts DeviceTaintRuleStatusPatchArgs and DeviceTaintRuleStatusPatchOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleStatusPatchInput` via:
+//
+//	DeviceTaintRuleStatusPatchArgs{...}
+type DeviceTaintRuleStatusPatchInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleStatusPatchOutput() DeviceTaintRuleStatusPatchOutput
+	ToDeviceTaintRuleStatusPatchOutputWithContext(context.Context) DeviceTaintRuleStatusPatchOutput
+}
+
+// DeviceTaintRuleStatus provides information about an on-going pod eviction.
+type DeviceTaintRuleStatusPatchArgs struct {
+	// Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+	//
+	// The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+	//   (includes the effects which don't cause eviction).
+	// - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+	//   in a human-readable format, updated periodically, may change
+	//
+	// For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+	//
+	// Must have 8 or fewer entries.
+	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
+}
+
+func (DeviceTaintRuleStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleStatusPatch)(nil)).Elem()
+}
+
+func (i DeviceTaintRuleStatusPatchArgs) ToDeviceTaintRuleStatusPatchOutput() DeviceTaintRuleStatusPatchOutput {
+	return i.ToDeviceTaintRuleStatusPatchOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleStatusPatchArgs) ToDeviceTaintRuleStatusPatchOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleStatusPatchOutput)
+}
+
+func (i DeviceTaintRuleStatusPatchArgs) ToDeviceTaintRuleStatusPatchPtrOutput() DeviceTaintRuleStatusPatchPtrOutput {
+	return i.ToDeviceTaintRuleStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintRuleStatusPatchArgs) ToDeviceTaintRuleStatusPatchPtrOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleStatusPatchOutput).ToDeviceTaintRuleStatusPatchPtrOutputWithContext(ctx)
+}
+
+// DeviceTaintRuleStatusPatchPtrInput is an input type that accepts DeviceTaintRuleStatusPatchArgs, DeviceTaintRuleStatusPatchPtr and DeviceTaintRuleStatusPatchPtrOutput values.
+// You can construct a concrete instance of `DeviceTaintRuleStatusPatchPtrInput` via:
+//
+//	        DeviceTaintRuleStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type DeviceTaintRuleStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToDeviceTaintRuleStatusPatchPtrOutput() DeviceTaintRuleStatusPatchPtrOutput
+	ToDeviceTaintRuleStatusPatchPtrOutputWithContext(context.Context) DeviceTaintRuleStatusPatchPtrOutput
+}
+
+type deviceTaintRuleStatusPatchPtrType DeviceTaintRuleStatusPatchArgs
+
+func DeviceTaintRuleStatusPatchPtr(v *DeviceTaintRuleStatusPatchArgs) DeviceTaintRuleStatusPatchPtrInput {
+	return (*deviceTaintRuleStatusPatchPtrType)(v)
+}
+
+func (*deviceTaintRuleStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintRuleStatusPatch)(nil)).Elem()
+}
+
+func (i *deviceTaintRuleStatusPatchPtrType) ToDeviceTaintRuleStatusPatchPtrOutput() DeviceTaintRuleStatusPatchPtrOutput {
+	return i.ToDeviceTaintRuleStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *deviceTaintRuleStatusPatchPtrType) ToDeviceTaintRuleStatusPatchPtrOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintRuleStatusPatchPtrOutput)
+}
+
+// DeviceTaintRuleStatus provides information about an on-going pod eviction.
+type DeviceTaintRuleStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintRuleStatusPatch)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleStatusPatchOutput) ToDeviceTaintRuleStatusPatchOutput() DeviceTaintRuleStatusPatchOutput {
+	return o
+}
+
+func (o DeviceTaintRuleStatusPatchOutput) ToDeviceTaintRuleStatusPatchOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPatchOutput {
+	return o
+}
+
+func (o DeviceTaintRuleStatusPatchOutput) ToDeviceTaintRuleStatusPatchPtrOutput() DeviceTaintRuleStatusPatchPtrOutput {
+	return o.ToDeviceTaintRuleStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o DeviceTaintRuleStatusPatchOutput) ToDeviceTaintRuleStatusPatchPtrOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeviceTaintRuleStatusPatch) *DeviceTaintRuleStatusPatch {
+		return &v
+	}).(DeviceTaintRuleStatusPatchPtrOutput)
+}
+
+// Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+//
+// The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+//
+//	(includes the effects which don't cause eviction).
+//   - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+//     in a human-readable format, updated periodically, may change
+//
+// For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+//
+// Must have 8 or fewer entries.
+func (o DeviceTaintRuleStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v DeviceTaintRuleStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
+}
+
+type DeviceTaintRuleStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintRuleStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintRuleStatusPatch)(nil)).Elem()
+}
+
+func (o DeviceTaintRuleStatusPatchPtrOutput) ToDeviceTaintRuleStatusPatchPtrOutput() DeviceTaintRuleStatusPatchPtrOutput {
+	return o
+}
+
+func (o DeviceTaintRuleStatusPatchPtrOutput) ToDeviceTaintRuleStatusPatchPtrOutputWithContext(ctx context.Context) DeviceTaintRuleStatusPatchPtrOutput {
+	return o
+}
+
+func (o DeviceTaintRuleStatusPatchPtrOutput) Elem() DeviceTaintRuleStatusPatchOutput {
+	return o.ApplyT(func(v *DeviceTaintRuleStatusPatch) DeviceTaintRuleStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret DeviceTaintRuleStatusPatch
+		return ret
+	}).(DeviceTaintRuleStatusPatchOutput)
+}
+
+// Conditions provide information about the state of the DeviceTaintRule and the cluster at some point in time, in a machine-readable and human-readable format.
+//
+// The following condition is currently defined as part of this API, more may get added: - Type: EvictionInProgress - Status: True if there are currently pods which need to be evicted, False otherwise
+//
+//	(includes the effects which don't cause eviction).
+//   - Reason: not specified, may change - Message: includes information about number of pending pods and already evicted pods
+//     in a human-readable format, updated periodically, may change
+//
+// For `effect: None`, the condition above gets set once for each change to the spec, with the message containing information about what would happen if the effect was `NoExecute`. This feedback can be used to decide whether changing the effect to `NoExecute` will work as intended. It only gets set once to avoid having to constantly update the status.
+//
+// Must have 8 or fewer entries.
+func (o DeviceTaintRuleStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v *DeviceTaintRuleStatusPatch) []metav1.ConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionPatchArrayOutput)
+}
+
+// DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+type DeviceTaintSelector struct {
+	// If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+	//
+	// Setting also driver and pool may be required to avoid ambiguity, but is not required.
+	Device *string `pulumi:"device"`
+	// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+	Driver *string `pulumi:"driver"`
+	// If pool is set, only devices in that pool are selected.
+	//
+	// Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+	Pool *string `pulumi:"pool"`
+}
+
+// DeviceTaintSelectorInput is an input type that accepts DeviceTaintSelectorArgs and DeviceTaintSelectorOutput values.
+// You can construct a concrete instance of `DeviceTaintSelectorInput` via:
+//
+//	DeviceTaintSelectorArgs{...}
+type DeviceTaintSelectorInput interface {
+	pulumi.Input
+
+	ToDeviceTaintSelectorOutput() DeviceTaintSelectorOutput
+	ToDeviceTaintSelectorOutputWithContext(context.Context) DeviceTaintSelectorOutput
+}
+
+// DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+type DeviceTaintSelectorArgs struct {
+	// If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+	//
+	// Setting also driver and pool may be required to avoid ambiguity, but is not required.
+	Device pulumi.StringPtrInput `pulumi:"device"`
+	// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+	Driver pulumi.StringPtrInput `pulumi:"driver"`
+	// If pool is set, only devices in that pool are selected.
+	//
+	// Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+	Pool pulumi.StringPtrInput `pulumi:"pool"`
+}
+
+func (DeviceTaintSelectorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintSelector)(nil)).Elem()
+}
+
+func (i DeviceTaintSelectorArgs) ToDeviceTaintSelectorOutput() DeviceTaintSelectorOutput {
+	return i.ToDeviceTaintSelectorOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintSelectorArgs) ToDeviceTaintSelectorOutputWithContext(ctx context.Context) DeviceTaintSelectorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintSelectorOutput)
+}
+
+func (i DeviceTaintSelectorArgs) ToDeviceTaintSelectorPtrOutput() DeviceTaintSelectorPtrOutput {
+	return i.ToDeviceTaintSelectorPtrOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintSelectorArgs) ToDeviceTaintSelectorPtrOutputWithContext(ctx context.Context) DeviceTaintSelectorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintSelectorOutput).ToDeviceTaintSelectorPtrOutputWithContext(ctx)
+}
+
+// DeviceTaintSelectorPtrInput is an input type that accepts DeviceTaintSelectorArgs, DeviceTaintSelectorPtr and DeviceTaintSelectorPtrOutput values.
+// You can construct a concrete instance of `DeviceTaintSelectorPtrInput` via:
+//
+//	        DeviceTaintSelectorArgs{...}
+//
+//	or:
+//
+//	        nil
+type DeviceTaintSelectorPtrInput interface {
+	pulumi.Input
+
+	ToDeviceTaintSelectorPtrOutput() DeviceTaintSelectorPtrOutput
+	ToDeviceTaintSelectorPtrOutputWithContext(context.Context) DeviceTaintSelectorPtrOutput
+}
+
+type deviceTaintSelectorPtrType DeviceTaintSelectorArgs
+
+func DeviceTaintSelectorPtr(v *DeviceTaintSelectorArgs) DeviceTaintSelectorPtrInput {
+	return (*deviceTaintSelectorPtrType)(v)
+}
+
+func (*deviceTaintSelectorPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintSelector)(nil)).Elem()
+}
+
+func (i *deviceTaintSelectorPtrType) ToDeviceTaintSelectorPtrOutput() DeviceTaintSelectorPtrOutput {
+	return i.ToDeviceTaintSelectorPtrOutputWithContext(context.Background())
+}
+
+func (i *deviceTaintSelectorPtrType) ToDeviceTaintSelectorPtrOutputWithContext(ctx context.Context) DeviceTaintSelectorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintSelectorPtrOutput)
+}
+
+// DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+type DeviceTaintSelectorOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintSelectorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintSelector)(nil)).Elem()
+}
+
+func (o DeviceTaintSelectorOutput) ToDeviceTaintSelectorOutput() DeviceTaintSelectorOutput {
+	return o
+}
+
+func (o DeviceTaintSelectorOutput) ToDeviceTaintSelectorOutputWithContext(ctx context.Context) DeviceTaintSelectorOutput {
+	return o
+}
+
+func (o DeviceTaintSelectorOutput) ToDeviceTaintSelectorPtrOutput() DeviceTaintSelectorPtrOutput {
+	return o.ToDeviceTaintSelectorPtrOutputWithContext(context.Background())
+}
+
+func (o DeviceTaintSelectorOutput) ToDeviceTaintSelectorPtrOutputWithContext(ctx context.Context) DeviceTaintSelectorPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeviceTaintSelector) *DeviceTaintSelector {
+		return &v
+	}).(DeviceTaintSelectorPtrOutput)
+}
+
+// If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+//
+// Setting also driver and pool may be required to avoid ambiguity, but is not required.
+func (o DeviceTaintSelectorOutput) Device() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintSelector) *string { return v.Device }).(pulumi.StringPtrOutput)
+}
+
+// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+func (o DeviceTaintSelectorOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintSelector) *string { return v.Driver }).(pulumi.StringPtrOutput)
+}
+
+// If pool is set, only devices in that pool are selected.
+//
+// Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+func (o DeviceTaintSelectorOutput) Pool() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintSelector) *string { return v.Pool }).(pulumi.StringPtrOutput)
+}
+
+type DeviceTaintSelectorPtrOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintSelectorPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintSelector)(nil)).Elem()
+}
+
+func (o DeviceTaintSelectorPtrOutput) ToDeviceTaintSelectorPtrOutput() DeviceTaintSelectorPtrOutput {
+	return o
+}
+
+func (o DeviceTaintSelectorPtrOutput) ToDeviceTaintSelectorPtrOutputWithContext(ctx context.Context) DeviceTaintSelectorPtrOutput {
+	return o
+}
+
+func (o DeviceTaintSelectorPtrOutput) Elem() DeviceTaintSelectorOutput {
+	return o.ApplyT(func(v *DeviceTaintSelector) DeviceTaintSelector {
+		if v != nil {
+			return *v
+		}
+		var ret DeviceTaintSelector
+		return ret
+	}).(DeviceTaintSelectorOutput)
+}
+
+// If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+//
+// Setting also driver and pool may be required to avoid ambiguity, but is not required.
+func (o DeviceTaintSelectorPtrOutput) Device() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintSelector) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Device
+	}).(pulumi.StringPtrOutput)
+}
+
+// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+func (o DeviceTaintSelectorPtrOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintSelector) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Driver
+	}).(pulumi.StringPtrOutput)
+}
+
+// If pool is set, only devices in that pool are selected.
+//
+// Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+func (o DeviceTaintSelectorPtrOutput) Pool() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintSelector) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Pool
+	}).(pulumi.StringPtrOutput)
+}
+
+// DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+type DeviceTaintSelectorPatch struct {
+	// If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+	//
+	// Setting also driver and pool may be required to avoid ambiguity, but is not required.
+	Device *string `pulumi:"device"`
+	// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+	Driver *string `pulumi:"driver"`
+	// If pool is set, only devices in that pool are selected.
+	//
+	// Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+	Pool *string `pulumi:"pool"`
+}
+
+// DeviceTaintSelectorPatchInput is an input type that accepts DeviceTaintSelectorPatchArgs and DeviceTaintSelectorPatchOutput values.
+// You can construct a concrete instance of `DeviceTaintSelectorPatchInput` via:
+//
+//	DeviceTaintSelectorPatchArgs{...}
+type DeviceTaintSelectorPatchInput interface {
+	pulumi.Input
+
+	ToDeviceTaintSelectorPatchOutput() DeviceTaintSelectorPatchOutput
+	ToDeviceTaintSelectorPatchOutputWithContext(context.Context) DeviceTaintSelectorPatchOutput
+}
+
+// DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+type DeviceTaintSelectorPatchArgs struct {
+	// If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+	//
+	// Setting also driver and pool may be required to avoid ambiguity, but is not required.
+	Device pulumi.StringPtrInput `pulumi:"device"`
+	// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+	Driver pulumi.StringPtrInput `pulumi:"driver"`
+	// If pool is set, only devices in that pool are selected.
+	//
+	// Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+	Pool pulumi.StringPtrInput `pulumi:"pool"`
+}
+
+func (DeviceTaintSelectorPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintSelectorPatch)(nil)).Elem()
+}
+
+func (i DeviceTaintSelectorPatchArgs) ToDeviceTaintSelectorPatchOutput() DeviceTaintSelectorPatchOutput {
+	return i.ToDeviceTaintSelectorPatchOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintSelectorPatchArgs) ToDeviceTaintSelectorPatchOutputWithContext(ctx context.Context) DeviceTaintSelectorPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintSelectorPatchOutput)
+}
+
+func (i DeviceTaintSelectorPatchArgs) ToDeviceTaintSelectorPatchPtrOutput() DeviceTaintSelectorPatchPtrOutput {
+	return i.ToDeviceTaintSelectorPatchPtrOutputWithContext(context.Background())
+}
+
+func (i DeviceTaintSelectorPatchArgs) ToDeviceTaintSelectorPatchPtrOutputWithContext(ctx context.Context) DeviceTaintSelectorPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintSelectorPatchOutput).ToDeviceTaintSelectorPatchPtrOutputWithContext(ctx)
+}
+
+// DeviceTaintSelectorPatchPtrInput is an input type that accepts DeviceTaintSelectorPatchArgs, DeviceTaintSelectorPatchPtr and DeviceTaintSelectorPatchPtrOutput values.
+// You can construct a concrete instance of `DeviceTaintSelectorPatchPtrInput` via:
+//
+//	        DeviceTaintSelectorPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type DeviceTaintSelectorPatchPtrInput interface {
+	pulumi.Input
+
+	ToDeviceTaintSelectorPatchPtrOutput() DeviceTaintSelectorPatchPtrOutput
+	ToDeviceTaintSelectorPatchPtrOutputWithContext(context.Context) DeviceTaintSelectorPatchPtrOutput
+}
+
+type deviceTaintSelectorPatchPtrType DeviceTaintSelectorPatchArgs
+
+func DeviceTaintSelectorPatchPtr(v *DeviceTaintSelectorPatchArgs) DeviceTaintSelectorPatchPtrInput {
+	return (*deviceTaintSelectorPatchPtrType)(v)
+}
+
+func (*deviceTaintSelectorPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintSelectorPatch)(nil)).Elem()
+}
+
+func (i *deviceTaintSelectorPatchPtrType) ToDeviceTaintSelectorPatchPtrOutput() DeviceTaintSelectorPatchPtrOutput {
+	return i.ToDeviceTaintSelectorPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *deviceTaintSelectorPatchPtrType) ToDeviceTaintSelectorPatchPtrOutputWithContext(ctx context.Context) DeviceTaintSelectorPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceTaintSelectorPatchPtrOutput)
+}
+
+// DeviceTaintSelector defines which device(s) a DeviceTaintRule applies to. The empty selector matches all devices. Without a selector, no devices are matched.
+type DeviceTaintSelectorPatchOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintSelectorPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceTaintSelectorPatch)(nil)).Elem()
+}
+
+func (o DeviceTaintSelectorPatchOutput) ToDeviceTaintSelectorPatchOutput() DeviceTaintSelectorPatchOutput {
+	return o
+}
+
+func (o DeviceTaintSelectorPatchOutput) ToDeviceTaintSelectorPatchOutputWithContext(ctx context.Context) DeviceTaintSelectorPatchOutput {
+	return o
+}
+
+func (o DeviceTaintSelectorPatchOutput) ToDeviceTaintSelectorPatchPtrOutput() DeviceTaintSelectorPatchPtrOutput {
+	return o.ToDeviceTaintSelectorPatchPtrOutputWithContext(context.Background())
+}
+
+func (o DeviceTaintSelectorPatchOutput) ToDeviceTaintSelectorPatchPtrOutputWithContext(ctx context.Context) DeviceTaintSelectorPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeviceTaintSelectorPatch) *DeviceTaintSelectorPatch {
+		return &v
+	}).(DeviceTaintSelectorPatchPtrOutput)
+}
+
+// If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+//
+// Setting also driver and pool may be required to avoid ambiguity, but is not required.
+func (o DeviceTaintSelectorPatchOutput) Device() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintSelectorPatch) *string { return v.Device }).(pulumi.StringPtrOutput)
+}
+
+// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+func (o DeviceTaintSelectorPatchOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintSelectorPatch) *string { return v.Driver }).(pulumi.StringPtrOutput)
+}
+
+// If pool is set, only devices in that pool are selected.
+//
+// Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+func (o DeviceTaintSelectorPatchOutput) Pool() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceTaintSelectorPatch) *string { return v.Pool }).(pulumi.StringPtrOutput)
+}
+
+type DeviceTaintSelectorPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (DeviceTaintSelectorPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceTaintSelectorPatch)(nil)).Elem()
+}
+
+func (o DeviceTaintSelectorPatchPtrOutput) ToDeviceTaintSelectorPatchPtrOutput() DeviceTaintSelectorPatchPtrOutput {
+	return o
+}
+
+func (o DeviceTaintSelectorPatchPtrOutput) ToDeviceTaintSelectorPatchPtrOutputWithContext(ctx context.Context) DeviceTaintSelectorPatchPtrOutput {
+	return o
+}
+
+func (o DeviceTaintSelectorPatchPtrOutput) Elem() DeviceTaintSelectorPatchOutput {
+	return o.ApplyT(func(v *DeviceTaintSelectorPatch) DeviceTaintSelectorPatch {
+		if v != nil {
+			return *v
+		}
+		var ret DeviceTaintSelectorPatch
+		return ret
+	}).(DeviceTaintSelectorPatchOutput)
+}
+
+// If device is set, only devices with that name are selected. This field corresponds to slice.spec.devices[].name.
+//
+// Setting also driver and pool may be required to avoid ambiguity, but is not required.
+func (o DeviceTaintSelectorPatchPtrOutput) Device() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintSelectorPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Device
+	}).(pulumi.StringPtrOutput)
+}
+
+// If driver is set, only devices from that driver are selected. This fields corresponds to slice.spec.driver.
+func (o DeviceTaintSelectorPatchPtrOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintSelectorPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Driver
+	}).(pulumi.StringPtrOutput)
+}
+
+// If pool is set, only devices in that pool are selected.
+//
+// Also setting the driver name may be useful to avoid ambiguity when different drivers use the same pool name, but this is not required because selecting pools from different drivers may also be useful, for example when drivers with node-local devices use the node name as their pool name.
+func (o DeviceTaintSelectorPatchPtrOutput) Pool() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceTaintSelectorPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Pool
+	}).(pulumi.StringPtrOutput)
 }
 
 // The ResourceClaim this DeviceToleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
@@ -8727,6 +10662,16 @@ type ExactDeviceRequest struct {
 	Capacity *CapacityRequirements `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count *int `pulumi:"count"`
+	// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+	//
+	// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+	//
+	// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+	//
+	// The maximum number of derived attributes is 32.
+	//
+	// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+	DerivedAttributes []DeviceDerivedAttribute `pulumi:"derivedAttributes"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 	//
 	// A DeviceClassName is required.
@@ -8787,6 +10732,16 @@ type ExactDeviceRequestArgs struct {
 	Capacity CapacityRequirementsPtrInput `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count pulumi.IntPtrInput `pulumi:"count"`
+	// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+	//
+	// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+	//
+	// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+	//
+	// The maximum number of derived attributes is 32.
+	//
+	// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+	DerivedAttributes DeviceDerivedAttributeArrayInput `pulumi:"derivedAttributes"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 	//
 	// A DeviceClassName is required.
@@ -8924,6 +10879,19 @@ func (o ExactDeviceRequestOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ExactDeviceRequest) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
+// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+//
+// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+//
+// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+//
+// The maximum number of derived attributes is 32.
+//
+// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+func (o ExactDeviceRequestOutput) DerivedAttributes() DeviceDerivedAttributeArrayOutput {
+	return o.ApplyT(func(v ExactDeviceRequest) []DeviceDerivedAttribute { return v.DerivedAttributes }).(DeviceDerivedAttributeArrayOutput)
+}
+
 // DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 //
 // A DeviceClassName is required.
@@ -9034,6 +11002,24 @@ func (o ExactDeviceRequestPtrOutput) Count() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+//
+// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+//
+// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+//
+// The maximum number of derived attributes is 32.
+//
+// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+func (o ExactDeviceRequestPtrOutput) DerivedAttributes() DeviceDerivedAttributeArrayOutput {
+	return o.ApplyT(func(v *ExactDeviceRequest) []DeviceDerivedAttribute {
+		if v == nil {
+			return nil
+		}
+		return v.DerivedAttributes
+	}).(DeviceDerivedAttributeArrayOutput)
+}
+
 // DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 //
 // A DeviceClassName is required.
@@ -9105,6 +11091,16 @@ type ExactDeviceRequestPatch struct {
 	Capacity *CapacityRequirementsPatch `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count *int `pulumi:"count"`
+	// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+	//
+	// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+	//
+	// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+	//
+	// The maximum number of derived attributes is 32.
+	//
+	// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+	DerivedAttributes []DeviceDerivedAttributePatch `pulumi:"derivedAttributes"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 	//
 	// A DeviceClassName is required.
@@ -9165,6 +11161,16 @@ type ExactDeviceRequestPatchArgs struct {
 	Capacity CapacityRequirementsPatchPtrInput `pulumi:"capacity"`
 	// Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
 	Count pulumi.IntPtrInput `pulumi:"count"`
+	// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+	//
+	// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+	//
+	// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+	//
+	// The maximum number of derived attributes is 32.
+	//
+	// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+	DerivedAttributes DeviceDerivedAttributePatchArrayInput `pulumi:"derivedAttributes"`
 	// DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 	//
 	// A DeviceClassName is required.
@@ -9302,6 +11308,19 @@ func (o ExactDeviceRequestPatchOutput) Count() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ExactDeviceRequestPatch) *int { return v.Count }).(pulumi.IntPtrOutput)
 }
 
+// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+//
+// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+//
+// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+//
+// The maximum number of derived attributes is 32.
+//
+// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+func (o ExactDeviceRequestPatchOutput) DerivedAttributes() DeviceDerivedAttributePatchArrayOutput {
+	return o.ApplyT(func(v ExactDeviceRequestPatch) []DeviceDerivedAttributePatch { return v.DerivedAttributes }).(DeviceDerivedAttributePatchArrayOutput)
+}
+
 // DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
 //
 // A DeviceClassName is required.
@@ -9410,6 +11429,24 @@ func (o ExactDeviceRequestPatchPtrOutput) Count() pulumi.IntPtrOutput {
 		}
 		return v.Count
 	}).(pulumi.IntPtrOutput)
+}
+
+// DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+//
+// Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+//
+// Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+//
+// The maximum number of derived attributes is 32.
+//
+// This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+func (o ExactDeviceRequestPatchPtrOutput) DerivedAttributes() DeviceDerivedAttributePatchArrayOutput {
+	return o.ApplyT(func(v *ExactDeviceRequestPatch) []DeviceDerivedAttributePatch {
+		if v == nil {
+			return nil
+		}
+		return v.DerivedAttributes
+	}).(DeviceDerivedAttributePatchArrayOutput)
 }
 
 // DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
@@ -9842,6 +11879,789 @@ func (o NetworkDeviceDataPatchPtrOutput) Ips() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+// NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+type NodeAllocatableMapping struct {
+	// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+	CapacityKey *string `pulumi:"capacityKey"`
+	// CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+	CapacityMultiplier *string `pulumi:"capacityMultiplier"`
+	// DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+	DeviceMultiplier *string `pulumi:"deviceMultiplier"`
+}
+
+// NodeAllocatableMappingInput is an input type that accepts NodeAllocatableMappingArgs and NodeAllocatableMappingOutput values.
+// You can construct a concrete instance of `NodeAllocatableMappingInput` via:
+//
+//	NodeAllocatableMappingArgs{...}
+type NodeAllocatableMappingInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableMappingOutput() NodeAllocatableMappingOutput
+	ToNodeAllocatableMappingOutputWithContext(context.Context) NodeAllocatableMappingOutput
+}
+
+// NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+type NodeAllocatableMappingArgs struct {
+	// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+	CapacityKey pulumi.StringPtrInput `pulumi:"capacityKey"`
+	// CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+	CapacityMultiplier pulumi.StringPtrInput `pulumi:"capacityMultiplier"`
+	// DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+	DeviceMultiplier pulumi.StringPtrInput `pulumi:"deviceMultiplier"`
+}
+
+func (NodeAllocatableMappingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableMapping)(nil)).Elem()
+}
+
+func (i NodeAllocatableMappingArgs) ToNodeAllocatableMappingOutput() NodeAllocatableMappingOutput {
+	return i.ToNodeAllocatableMappingOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableMappingArgs) ToNodeAllocatableMappingOutputWithContext(ctx context.Context) NodeAllocatableMappingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappingOutput)
+}
+
+func (i NodeAllocatableMappingArgs) ToNodeAllocatableMappingPtrOutput() NodeAllocatableMappingPtrOutput {
+	return i.ToNodeAllocatableMappingPtrOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableMappingArgs) ToNodeAllocatableMappingPtrOutputWithContext(ctx context.Context) NodeAllocatableMappingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappingOutput).ToNodeAllocatableMappingPtrOutputWithContext(ctx)
+}
+
+// NodeAllocatableMappingPtrInput is an input type that accepts NodeAllocatableMappingArgs, NodeAllocatableMappingPtr and NodeAllocatableMappingPtrOutput values.
+// You can construct a concrete instance of `NodeAllocatableMappingPtrInput` via:
+//
+//	        NodeAllocatableMappingArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeAllocatableMappingPtrInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableMappingPtrOutput() NodeAllocatableMappingPtrOutput
+	ToNodeAllocatableMappingPtrOutputWithContext(context.Context) NodeAllocatableMappingPtrOutput
+}
+
+type nodeAllocatableMappingPtrType NodeAllocatableMappingArgs
+
+func NodeAllocatableMappingPtr(v *NodeAllocatableMappingArgs) NodeAllocatableMappingPtrInput {
+	return (*nodeAllocatableMappingPtrType)(v)
+}
+
+func (*nodeAllocatableMappingPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeAllocatableMapping)(nil)).Elem()
+}
+
+func (i *nodeAllocatableMappingPtrType) ToNodeAllocatableMappingPtrOutput() NodeAllocatableMappingPtrOutput {
+	return i.ToNodeAllocatableMappingPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeAllocatableMappingPtrType) ToNodeAllocatableMappingPtrOutputWithContext(ctx context.Context) NodeAllocatableMappingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappingPtrOutput)
+}
+
+// NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+type NodeAllocatableMappingOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableMappingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableMapping)(nil)).Elem()
+}
+
+func (o NodeAllocatableMappingOutput) ToNodeAllocatableMappingOutput() NodeAllocatableMappingOutput {
+	return o
+}
+
+func (o NodeAllocatableMappingOutput) ToNodeAllocatableMappingOutputWithContext(ctx context.Context) NodeAllocatableMappingOutput {
+	return o
+}
+
+func (o NodeAllocatableMappingOutput) ToNodeAllocatableMappingPtrOutput() NodeAllocatableMappingPtrOutput {
+	return o.ToNodeAllocatableMappingPtrOutputWithContext(context.Background())
+}
+
+func (o NodeAllocatableMappingOutput) ToNodeAllocatableMappingPtrOutputWithContext(ctx context.Context) NodeAllocatableMappingPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeAllocatableMapping) *NodeAllocatableMapping {
+		return &v
+	}).(NodeAllocatableMappingPtrOutput)
+}
+
+// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+func (o NodeAllocatableMappingOutput) CapacityKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableMapping) *string { return v.CapacityKey }).(pulumi.StringPtrOutput)
+}
+
+// CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+func (o NodeAllocatableMappingOutput) CapacityMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableMapping) *string { return v.CapacityMultiplier }).(pulumi.StringPtrOutput)
+}
+
+// DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+func (o NodeAllocatableMappingOutput) DeviceMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableMapping) *string { return v.DeviceMultiplier }).(pulumi.StringPtrOutput)
+}
+
+type NodeAllocatableMappingPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableMappingPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeAllocatableMapping)(nil)).Elem()
+}
+
+func (o NodeAllocatableMappingPtrOutput) ToNodeAllocatableMappingPtrOutput() NodeAllocatableMappingPtrOutput {
+	return o
+}
+
+func (o NodeAllocatableMappingPtrOutput) ToNodeAllocatableMappingPtrOutputWithContext(ctx context.Context) NodeAllocatableMappingPtrOutput {
+	return o
+}
+
+func (o NodeAllocatableMappingPtrOutput) Elem() NodeAllocatableMappingOutput {
+	return o.ApplyT(func(v *NodeAllocatableMapping) NodeAllocatableMapping {
+		if v != nil {
+			return *v
+		}
+		var ret NodeAllocatableMapping
+		return ret
+	}).(NodeAllocatableMappingOutput)
+}
+
+// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+func (o NodeAllocatableMappingPtrOutput) CapacityKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableMapping) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CapacityKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+func (o NodeAllocatableMappingPtrOutput) CapacityMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableMapping) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CapacityMultiplier
+	}).(pulumi.StringPtrOutput)
+}
+
+// DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+func (o NodeAllocatableMappingPtrOutput) DeviceMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableMapping) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DeviceMultiplier
+	}).(pulumi.StringPtrOutput)
+}
+
+// NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+type NodeAllocatableMappingPatch struct {
+	// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+	CapacityKey *string `pulumi:"capacityKey"`
+	// CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+	CapacityMultiplier *string `pulumi:"capacityMultiplier"`
+	// DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+	DeviceMultiplier *string `pulumi:"deviceMultiplier"`
+}
+
+// NodeAllocatableMappingPatchInput is an input type that accepts NodeAllocatableMappingPatchArgs and NodeAllocatableMappingPatchOutput values.
+// You can construct a concrete instance of `NodeAllocatableMappingPatchInput` via:
+//
+//	NodeAllocatableMappingPatchArgs{...}
+type NodeAllocatableMappingPatchInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableMappingPatchOutput() NodeAllocatableMappingPatchOutput
+	ToNodeAllocatableMappingPatchOutputWithContext(context.Context) NodeAllocatableMappingPatchOutput
+}
+
+// NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+type NodeAllocatableMappingPatchArgs struct {
+	// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+	CapacityKey pulumi.StringPtrInput `pulumi:"capacityKey"`
+	// CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+	CapacityMultiplier pulumi.StringPtrInput `pulumi:"capacityMultiplier"`
+	// DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+	DeviceMultiplier pulumi.StringPtrInput `pulumi:"deviceMultiplier"`
+}
+
+func (NodeAllocatableMappingPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableMappingPatch)(nil)).Elem()
+}
+
+func (i NodeAllocatableMappingPatchArgs) ToNodeAllocatableMappingPatchOutput() NodeAllocatableMappingPatchOutput {
+	return i.ToNodeAllocatableMappingPatchOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableMappingPatchArgs) ToNodeAllocatableMappingPatchOutputWithContext(ctx context.Context) NodeAllocatableMappingPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappingPatchOutput)
+}
+
+func (i NodeAllocatableMappingPatchArgs) ToNodeAllocatableMappingPatchPtrOutput() NodeAllocatableMappingPatchPtrOutput {
+	return i.ToNodeAllocatableMappingPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableMappingPatchArgs) ToNodeAllocatableMappingPatchPtrOutputWithContext(ctx context.Context) NodeAllocatableMappingPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappingPatchOutput).ToNodeAllocatableMappingPatchPtrOutputWithContext(ctx)
+}
+
+// NodeAllocatableMappingPatchPtrInput is an input type that accepts NodeAllocatableMappingPatchArgs, NodeAllocatableMappingPatchPtr and NodeAllocatableMappingPatchPtrOutput values.
+// You can construct a concrete instance of `NodeAllocatableMappingPatchPtrInput` via:
+//
+//	        NodeAllocatableMappingPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeAllocatableMappingPatchPtrInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableMappingPatchPtrOutput() NodeAllocatableMappingPatchPtrOutput
+	ToNodeAllocatableMappingPatchPtrOutputWithContext(context.Context) NodeAllocatableMappingPatchPtrOutput
+}
+
+type nodeAllocatableMappingPatchPtrType NodeAllocatableMappingPatchArgs
+
+func NodeAllocatableMappingPatchPtr(v *NodeAllocatableMappingPatchArgs) NodeAllocatableMappingPatchPtrInput {
+	return (*nodeAllocatableMappingPatchPtrType)(v)
+}
+
+func (*nodeAllocatableMappingPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeAllocatableMappingPatch)(nil)).Elem()
+}
+
+func (i *nodeAllocatableMappingPatchPtrType) ToNodeAllocatableMappingPatchPtrOutput() NodeAllocatableMappingPatchPtrOutput {
+	return i.ToNodeAllocatableMappingPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeAllocatableMappingPatchPtrType) ToNodeAllocatableMappingPatchPtrOutputWithContext(ctx context.Context) NodeAllocatableMappingPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableMappingPatchPtrOutput)
+}
+
+// NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+type NodeAllocatableMappingPatchOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableMappingPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableMappingPatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableMappingPatchOutput) ToNodeAllocatableMappingPatchOutput() NodeAllocatableMappingPatchOutput {
+	return o
+}
+
+func (o NodeAllocatableMappingPatchOutput) ToNodeAllocatableMappingPatchOutputWithContext(ctx context.Context) NodeAllocatableMappingPatchOutput {
+	return o
+}
+
+func (o NodeAllocatableMappingPatchOutput) ToNodeAllocatableMappingPatchPtrOutput() NodeAllocatableMappingPatchPtrOutput {
+	return o.ToNodeAllocatableMappingPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NodeAllocatableMappingPatchOutput) ToNodeAllocatableMappingPatchPtrOutputWithContext(ctx context.Context) NodeAllocatableMappingPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeAllocatableMappingPatch) *NodeAllocatableMappingPatch {
+		return &v
+	}).(NodeAllocatableMappingPatchPtrOutput)
+}
+
+// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+func (o NodeAllocatableMappingPatchOutput) CapacityKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableMappingPatch) *string { return v.CapacityKey }).(pulumi.StringPtrOutput)
+}
+
+// CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+func (o NodeAllocatableMappingPatchOutput) CapacityMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableMappingPatch) *string { return v.CapacityMultiplier }).(pulumi.StringPtrOutput)
+}
+
+// DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+func (o NodeAllocatableMappingPatchOutput) DeviceMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableMappingPatch) *string { return v.DeviceMultiplier }).(pulumi.StringPtrOutput)
+}
+
+type NodeAllocatableMappingPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableMappingPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeAllocatableMappingPatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableMappingPatchPtrOutput) ToNodeAllocatableMappingPatchPtrOutput() NodeAllocatableMappingPatchPtrOutput {
+	return o
+}
+
+func (o NodeAllocatableMappingPatchPtrOutput) ToNodeAllocatableMappingPatchPtrOutputWithContext(ctx context.Context) NodeAllocatableMappingPatchPtrOutput {
+	return o
+}
+
+func (o NodeAllocatableMappingPatchPtrOutput) Elem() NodeAllocatableMappingPatchOutput {
+	return o.ApplyT(func(v *NodeAllocatableMappingPatch) NodeAllocatableMappingPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NodeAllocatableMappingPatch
+		return ret
+	}).(NodeAllocatableMappingPatchOutput)
+}
+
+// CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+func (o NodeAllocatableMappingPatchPtrOutput) CapacityKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableMappingPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CapacityKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+func (o NodeAllocatableMappingPatchPtrOutput) CapacityMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableMappingPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CapacityMultiplier
+	}).(pulumi.StringPtrOutput)
+}
+
+// DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+func (o NodeAllocatableMappingPatchPtrOutput) DeviceMultiplier() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableMappingPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DeviceMultiplier
+	}).(pulumi.StringPtrOutput)
+}
+
+// NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+type NodeAllocatableOverhead struct {
+	// PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+	PerContainer *string `pulumi:"perContainer"`
+	// PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+	PerPod *string `pulumi:"perPod"`
+}
+
+// NodeAllocatableOverheadInput is an input type that accepts NodeAllocatableOverheadArgs and NodeAllocatableOverheadOutput values.
+// You can construct a concrete instance of `NodeAllocatableOverheadInput` via:
+//
+//	NodeAllocatableOverheadArgs{...}
+type NodeAllocatableOverheadInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableOverheadOutput() NodeAllocatableOverheadOutput
+	ToNodeAllocatableOverheadOutputWithContext(context.Context) NodeAllocatableOverheadOutput
+}
+
+// NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+type NodeAllocatableOverheadArgs struct {
+	// PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+	PerContainer pulumi.StringPtrInput `pulumi:"perContainer"`
+	// PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+	PerPod pulumi.StringPtrInput `pulumi:"perPod"`
+}
+
+func (NodeAllocatableOverheadArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableOverhead)(nil)).Elem()
+}
+
+func (i NodeAllocatableOverheadArgs) ToNodeAllocatableOverheadOutput() NodeAllocatableOverheadOutput {
+	return i.ToNodeAllocatableOverheadOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableOverheadArgs) ToNodeAllocatableOverheadOutputWithContext(ctx context.Context) NodeAllocatableOverheadOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadOutput)
+}
+
+func (i NodeAllocatableOverheadArgs) ToNodeAllocatableOverheadPtrOutput() NodeAllocatableOverheadPtrOutput {
+	return i.ToNodeAllocatableOverheadPtrOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableOverheadArgs) ToNodeAllocatableOverheadPtrOutputWithContext(ctx context.Context) NodeAllocatableOverheadPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadOutput).ToNodeAllocatableOverheadPtrOutputWithContext(ctx)
+}
+
+// NodeAllocatableOverheadPtrInput is an input type that accepts NodeAllocatableOverheadArgs, NodeAllocatableOverheadPtr and NodeAllocatableOverheadPtrOutput values.
+// You can construct a concrete instance of `NodeAllocatableOverheadPtrInput` via:
+//
+//	        NodeAllocatableOverheadArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeAllocatableOverheadPtrInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableOverheadPtrOutput() NodeAllocatableOverheadPtrOutput
+	ToNodeAllocatableOverheadPtrOutputWithContext(context.Context) NodeAllocatableOverheadPtrOutput
+}
+
+type nodeAllocatableOverheadPtrType NodeAllocatableOverheadArgs
+
+func NodeAllocatableOverheadPtr(v *NodeAllocatableOverheadArgs) NodeAllocatableOverheadPtrInput {
+	return (*nodeAllocatableOverheadPtrType)(v)
+}
+
+func (*nodeAllocatableOverheadPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeAllocatableOverhead)(nil)).Elem()
+}
+
+func (i *nodeAllocatableOverheadPtrType) ToNodeAllocatableOverheadPtrOutput() NodeAllocatableOverheadPtrOutput {
+	return i.ToNodeAllocatableOverheadPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeAllocatableOverheadPtrType) ToNodeAllocatableOverheadPtrOutputWithContext(ctx context.Context) NodeAllocatableOverheadPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadPtrOutput)
+}
+
+// NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+type NodeAllocatableOverheadOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableOverheadOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableOverhead)(nil)).Elem()
+}
+
+func (o NodeAllocatableOverheadOutput) ToNodeAllocatableOverheadOutput() NodeAllocatableOverheadOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadOutput) ToNodeAllocatableOverheadOutputWithContext(ctx context.Context) NodeAllocatableOverheadOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadOutput) ToNodeAllocatableOverheadPtrOutput() NodeAllocatableOverheadPtrOutput {
+	return o.ToNodeAllocatableOverheadPtrOutputWithContext(context.Background())
+}
+
+func (o NodeAllocatableOverheadOutput) ToNodeAllocatableOverheadPtrOutputWithContext(ctx context.Context) NodeAllocatableOverheadPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeAllocatableOverhead) *NodeAllocatableOverhead {
+		return &v
+	}).(NodeAllocatableOverheadPtrOutput)
+}
+
+// PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+func (o NodeAllocatableOverheadOutput) PerContainer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableOverhead) *string { return v.PerContainer }).(pulumi.StringPtrOutput)
+}
+
+// PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+func (o NodeAllocatableOverheadOutput) PerPod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableOverhead) *string { return v.PerPod }).(pulumi.StringPtrOutput)
+}
+
+type NodeAllocatableOverheadPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableOverheadPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeAllocatableOverhead)(nil)).Elem()
+}
+
+func (o NodeAllocatableOverheadPtrOutput) ToNodeAllocatableOverheadPtrOutput() NodeAllocatableOverheadPtrOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadPtrOutput) ToNodeAllocatableOverheadPtrOutputWithContext(ctx context.Context) NodeAllocatableOverheadPtrOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadPtrOutput) Elem() NodeAllocatableOverheadOutput {
+	return o.ApplyT(func(v *NodeAllocatableOverhead) NodeAllocatableOverhead {
+		if v != nil {
+			return *v
+		}
+		var ret NodeAllocatableOverhead
+		return ret
+	}).(NodeAllocatableOverheadOutput)
+}
+
+// PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+func (o NodeAllocatableOverheadPtrOutput) PerContainer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableOverhead) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PerContainer
+	}).(pulumi.StringPtrOutput)
+}
+
+// PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+func (o NodeAllocatableOverheadPtrOutput) PerPod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableOverhead) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PerPod
+	}).(pulumi.StringPtrOutput)
+}
+
+// NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+type NodeAllocatableOverheadPatch struct {
+	// PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+	PerContainer *string `pulumi:"perContainer"`
+	// PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+	PerPod *string `pulumi:"perPod"`
+}
+
+// NodeAllocatableOverheadPatchInput is an input type that accepts NodeAllocatableOverheadPatchArgs and NodeAllocatableOverheadPatchOutput values.
+// You can construct a concrete instance of `NodeAllocatableOverheadPatchInput` via:
+//
+//	NodeAllocatableOverheadPatchArgs{...}
+type NodeAllocatableOverheadPatchInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableOverheadPatchOutput() NodeAllocatableOverheadPatchOutput
+	ToNodeAllocatableOverheadPatchOutputWithContext(context.Context) NodeAllocatableOverheadPatchOutput
+}
+
+// NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+type NodeAllocatableOverheadPatchArgs struct {
+	// PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+	PerContainer pulumi.StringPtrInput `pulumi:"perContainer"`
+	// PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+	PerPod pulumi.StringPtrInput `pulumi:"perPod"`
+}
+
+func (NodeAllocatableOverheadPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableOverheadPatch)(nil)).Elem()
+}
+
+func (i NodeAllocatableOverheadPatchArgs) ToNodeAllocatableOverheadPatchOutput() NodeAllocatableOverheadPatchOutput {
+	return i.ToNodeAllocatableOverheadPatchOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableOverheadPatchArgs) ToNodeAllocatableOverheadPatchOutputWithContext(ctx context.Context) NodeAllocatableOverheadPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadPatchOutput)
+}
+
+func (i NodeAllocatableOverheadPatchArgs) ToNodeAllocatableOverheadPatchPtrOutput() NodeAllocatableOverheadPatchPtrOutput {
+	return i.ToNodeAllocatableOverheadPatchPtrOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableOverheadPatchArgs) ToNodeAllocatableOverheadPatchPtrOutputWithContext(ctx context.Context) NodeAllocatableOverheadPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadPatchOutput).ToNodeAllocatableOverheadPatchPtrOutputWithContext(ctx)
+}
+
+// NodeAllocatableOverheadPatchPtrInput is an input type that accepts NodeAllocatableOverheadPatchArgs, NodeAllocatableOverheadPatchPtr and NodeAllocatableOverheadPatchPtrOutput values.
+// You can construct a concrete instance of `NodeAllocatableOverheadPatchPtrInput` via:
+//
+//	        NodeAllocatableOverheadPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type NodeAllocatableOverheadPatchPtrInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableOverheadPatchPtrOutput() NodeAllocatableOverheadPatchPtrOutput
+	ToNodeAllocatableOverheadPatchPtrOutputWithContext(context.Context) NodeAllocatableOverheadPatchPtrOutput
+}
+
+type nodeAllocatableOverheadPatchPtrType NodeAllocatableOverheadPatchArgs
+
+func NodeAllocatableOverheadPatchPtr(v *NodeAllocatableOverheadPatchArgs) NodeAllocatableOverheadPatchPtrInput {
+	return (*nodeAllocatableOverheadPatchPtrType)(v)
+}
+
+func (*nodeAllocatableOverheadPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeAllocatableOverheadPatch)(nil)).Elem()
+}
+
+func (i *nodeAllocatableOverheadPatchPtrType) ToNodeAllocatableOverheadPatchPtrOutput() NodeAllocatableOverheadPatchPtrOutput {
+	return i.ToNodeAllocatableOverheadPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *nodeAllocatableOverheadPatchPtrType) ToNodeAllocatableOverheadPatchPtrOutputWithContext(ctx context.Context) NodeAllocatableOverheadPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableOverheadPatchPtrOutput)
+}
+
+// NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+type NodeAllocatableOverheadPatchOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableOverheadPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableOverheadPatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableOverheadPatchOutput) ToNodeAllocatableOverheadPatchOutput() NodeAllocatableOverheadPatchOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadPatchOutput) ToNodeAllocatableOverheadPatchOutputWithContext(ctx context.Context) NodeAllocatableOverheadPatchOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadPatchOutput) ToNodeAllocatableOverheadPatchPtrOutput() NodeAllocatableOverheadPatchPtrOutput {
+	return o.ToNodeAllocatableOverheadPatchPtrOutputWithContext(context.Background())
+}
+
+func (o NodeAllocatableOverheadPatchOutput) ToNodeAllocatableOverheadPatchPtrOutputWithContext(ctx context.Context) NodeAllocatableOverheadPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeAllocatableOverheadPatch) *NodeAllocatableOverheadPatch {
+		return &v
+	}).(NodeAllocatableOverheadPatchPtrOutput)
+}
+
+// PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+func (o NodeAllocatableOverheadPatchOutput) PerContainer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableOverheadPatch) *string { return v.PerContainer }).(pulumi.StringPtrOutput)
+}
+
+// PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+func (o NodeAllocatableOverheadPatchOutput) PerPod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableOverheadPatch) *string { return v.PerPod }).(pulumi.StringPtrOutput)
+}
+
+type NodeAllocatableOverheadPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableOverheadPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NodeAllocatableOverheadPatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableOverheadPatchPtrOutput) ToNodeAllocatableOverheadPatchPtrOutput() NodeAllocatableOverheadPatchPtrOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadPatchPtrOutput) ToNodeAllocatableOverheadPatchPtrOutputWithContext(ctx context.Context) NodeAllocatableOverheadPatchPtrOutput {
+	return o
+}
+
+func (o NodeAllocatableOverheadPatchPtrOutput) Elem() NodeAllocatableOverheadPatchOutput {
+	return o.ApplyT(func(v *NodeAllocatableOverheadPatch) NodeAllocatableOverheadPatch {
+		if v != nil {
+			return *v
+		}
+		var ret NodeAllocatableOverheadPatch
+		return ret
+	}).(NodeAllocatableOverheadPatchOutput)
+}
+
+// PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+func (o NodeAllocatableOverheadPatchPtrOutput) PerContainer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableOverheadPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PerContainer
+	}).(pulumi.StringPtrOutput)
+}
+
+// PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+func (o NodeAllocatableOverheadPatchPtrOutput) PerPod() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodeAllocatableOverheadPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PerPod
+	}).(pulumi.StringPtrOutput)
+}
+
+// NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+type NodeAllocatableResource struct {
+	// Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+	Mapping *NodeAllocatableMapping `pulumi:"mapping"`
+	// Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+	Overhead *NodeAllocatableOverhead `pulumi:"overhead"`
+}
+
+// NodeAllocatableResourceInput is an input type that accepts NodeAllocatableResourceArgs and NodeAllocatableResourceOutput values.
+// You can construct a concrete instance of `NodeAllocatableResourceInput` via:
+//
+//	NodeAllocatableResourceArgs{...}
+type NodeAllocatableResourceInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableResourceOutput() NodeAllocatableResourceOutput
+	ToNodeAllocatableResourceOutputWithContext(context.Context) NodeAllocatableResourceOutput
+}
+
+// NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+type NodeAllocatableResourceArgs struct {
+	// Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+	Mapping NodeAllocatableMappingPtrInput `pulumi:"mapping"`
+	// Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+	Overhead NodeAllocatableOverheadPtrInput `pulumi:"overhead"`
+}
+
+func (NodeAllocatableResourceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableResource)(nil)).Elem()
+}
+
+func (i NodeAllocatableResourceArgs) ToNodeAllocatableResourceOutput() NodeAllocatableResourceOutput {
+	return i.ToNodeAllocatableResourceOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableResourceArgs) ToNodeAllocatableResourceOutputWithContext(ctx context.Context) NodeAllocatableResourceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableResourceOutput)
+}
+
+// NodeAllocatableResourceMapInput is an input type that accepts NodeAllocatableResourceMap and NodeAllocatableResourceMapOutput values.
+// You can construct a concrete instance of `NodeAllocatableResourceMapInput` via:
+//
+//	NodeAllocatableResourceMap{ "key": NodeAllocatableResourceArgs{...} }
+type NodeAllocatableResourceMapInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableResourceMapOutput() NodeAllocatableResourceMapOutput
+	ToNodeAllocatableResourceMapOutputWithContext(context.Context) NodeAllocatableResourceMapOutput
+}
+
+type NodeAllocatableResourceMap map[string]NodeAllocatableResourceInput
+
+func (NodeAllocatableResourceMap) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]NodeAllocatableResource)(nil)).Elem()
+}
+
+func (i NodeAllocatableResourceMap) ToNodeAllocatableResourceMapOutput() NodeAllocatableResourceMapOutput {
+	return i.ToNodeAllocatableResourceMapOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableResourceMap) ToNodeAllocatableResourceMapOutputWithContext(ctx context.Context) NodeAllocatableResourceMapOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableResourceMapOutput)
+}
+
+// NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+type NodeAllocatableResourceOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableResourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableResource)(nil)).Elem()
+}
+
+func (o NodeAllocatableResourceOutput) ToNodeAllocatableResourceOutput() NodeAllocatableResourceOutput {
+	return o
+}
+
+func (o NodeAllocatableResourceOutput) ToNodeAllocatableResourceOutputWithContext(ctx context.Context) NodeAllocatableResourceOutput {
+	return o
+}
+
+// Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+func (o NodeAllocatableResourceOutput) Mapping() NodeAllocatableMappingPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableResource) *NodeAllocatableMapping { return v.Mapping }).(NodeAllocatableMappingPtrOutput)
+}
+
+// Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+func (o NodeAllocatableResourceOutput) Overhead() NodeAllocatableOverheadPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableResource) *NodeAllocatableOverhead { return v.Overhead }).(NodeAllocatableOverheadPtrOutput)
+}
+
+type NodeAllocatableResourceMapOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableResourceMapOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*map[string]NodeAllocatableResource)(nil)).Elem()
+}
+
+func (o NodeAllocatableResourceMapOutput) ToNodeAllocatableResourceMapOutput() NodeAllocatableResourceMapOutput {
+	return o
+}
+
+func (o NodeAllocatableResourceMapOutput) ToNodeAllocatableResourceMapOutputWithContext(ctx context.Context) NodeAllocatableResourceMapOutput {
+	return o
+}
+
+func (o NodeAllocatableResourceMapOutput) MapIndex(k pulumi.StringInput) NodeAllocatableResourceOutput {
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) NodeAllocatableResource {
+		return vs[0].(map[string]NodeAllocatableResource)[vs[1].(string)]
+	}).(NodeAllocatableResourceOutput)
+}
+
 // NodeAllocatableResourceMapping defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource.
 type NodeAllocatableResourceMapping struct {
 	// AllocationMultiplier is used as a multiplier for the allocated device count or the allocated capacity in the claim. It defaults to 1 if not specified. How the field is used also depends on whether `capacityKey` is set. 1.  If `capacityKey` is NOT set: `allocationMultiplier` multiplies the device count allocated to the claim.
@@ -10099,6 +12919,70 @@ func (o NodeAllocatableResourceMappingPatchOutput) AllocationMultiplier() pulumi
 // CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. If `allocationMultiplier` is also set, it is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi", and `allocationMultiplier` should be omitted or set to "1".
 func (o NodeAllocatableResourceMappingPatchOutput) CapacityKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeAllocatableResourceMappingPatch) *string { return v.CapacityKey }).(pulumi.StringPtrOutput)
+}
+
+// NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+type NodeAllocatableResourcePatch struct {
+	// Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+	Mapping *NodeAllocatableMappingPatch `pulumi:"mapping"`
+	// Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+	Overhead *NodeAllocatableOverheadPatch `pulumi:"overhead"`
+}
+
+// NodeAllocatableResourcePatchInput is an input type that accepts NodeAllocatableResourcePatchArgs and NodeAllocatableResourcePatchOutput values.
+// You can construct a concrete instance of `NodeAllocatableResourcePatchInput` via:
+//
+//	NodeAllocatableResourcePatchArgs{...}
+type NodeAllocatableResourcePatchInput interface {
+	pulumi.Input
+
+	ToNodeAllocatableResourcePatchOutput() NodeAllocatableResourcePatchOutput
+	ToNodeAllocatableResourcePatchOutputWithContext(context.Context) NodeAllocatableResourcePatchOutput
+}
+
+// NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+type NodeAllocatableResourcePatchArgs struct {
+	// Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+	Mapping NodeAllocatableMappingPatchPtrInput `pulumi:"mapping"`
+	// Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+	Overhead NodeAllocatableOverheadPatchPtrInput `pulumi:"overhead"`
+}
+
+func (NodeAllocatableResourcePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableResourcePatch)(nil)).Elem()
+}
+
+func (i NodeAllocatableResourcePatchArgs) ToNodeAllocatableResourcePatchOutput() NodeAllocatableResourcePatchOutput {
+	return i.ToNodeAllocatableResourcePatchOutputWithContext(context.Background())
+}
+
+func (i NodeAllocatableResourcePatchArgs) ToNodeAllocatableResourcePatchOutputWithContext(ctx context.Context) NodeAllocatableResourcePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodeAllocatableResourcePatchOutput)
+}
+
+// NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+type NodeAllocatableResourcePatchOutput struct{ *pulumi.OutputState }
+
+func (NodeAllocatableResourcePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodeAllocatableResourcePatch)(nil)).Elem()
+}
+
+func (o NodeAllocatableResourcePatchOutput) ToNodeAllocatableResourcePatchOutput() NodeAllocatableResourcePatchOutput {
+	return o
+}
+
+func (o NodeAllocatableResourcePatchOutput) ToNodeAllocatableResourcePatchOutputWithContext(ctx context.Context) NodeAllocatableResourcePatchOutput {
+	return o
+}
+
+// Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+func (o NodeAllocatableResourcePatchOutput) Mapping() NodeAllocatableMappingPatchPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableResourcePatch) *NodeAllocatableMappingPatch { return v.Mapping }).(NodeAllocatableMappingPatchPtrOutput)
+}
+
+// Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+func (o NodeAllocatableResourcePatchOutput) Overhead() NodeAllocatableOverheadPatchPtrOutput {
+	return o.ApplyT(func(v NodeAllocatableResourcePatch) *NodeAllocatableOverheadPatch { return v.Overhead }).(NodeAllocatableOverheadPatchPtrOutput)
 }
 
 // OpaqueDeviceConfiguration contains configuration parameters for a driver in a format defined by the driver vendor.
@@ -12161,7 +15045,7 @@ type ResourcePool struct {
 	//
 	// Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
 	Generation int `pulumi:"generation"`
-	// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+	// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
 	//
 	// It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
 	Name string `pulumi:"name"`
@@ -12188,7 +15072,7 @@ type ResourcePoolArgs struct {
 	//
 	// Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
 	Generation pulumi.IntInput `pulumi:"generation"`
-	// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+	// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
 	//
 	// It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
 	Name pulumi.StringInput `pulumi:"name"`
@@ -12232,7 +15116,7 @@ func (o ResourcePoolOutput) Generation() pulumi.IntOutput {
 	return o.ApplyT(func(v ResourcePool) int { return v.Generation }).(pulumi.IntOutput)
 }
 
-// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
 //
 // It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
 func (o ResourcePoolOutput) Name() pulumi.StringOutput {
@@ -12252,7 +15136,7 @@ type ResourcePoolPatch struct {
 	//
 	// Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
 	Generation *int `pulumi:"generation"`
-	// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+	// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
 	//
 	// It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
 	Name *string `pulumi:"name"`
@@ -12279,7 +15163,7 @@ type ResourcePoolPatchArgs struct {
 	//
 	// Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
 	Generation pulumi.IntPtrInput `pulumi:"generation"`
-	// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+	// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
 	//
 	// It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -12374,7 +15258,7 @@ func (o ResourcePoolPatchOutput) Generation() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ResourcePoolPatch) *int { return v.Generation }).(pulumi.IntPtrOutput)
 }
 
-// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
 //
 // It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
 func (o ResourcePoolPatchOutput) Name() pulumi.StringPtrOutput {
@@ -12424,7 +15308,7 @@ func (o ResourcePoolPatchPtrOutput) Generation() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+// Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
 //
 // It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
 func (o ResourcePoolPatchPtrOutput) Name() pulumi.StringPtrOutput {
@@ -12827,6 +15711,10 @@ type ResourceSliceSpec struct {
 	//
 	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	NodeSelector *corev1.NodeSelector `pulumi:"nodeSelector"`
+	// PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+	//
+	// When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+	PartitionTypeAttribute *string `pulumi:"partitionTypeAttribute"`
 	// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
 	//
 	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -12841,6 +15729,15 @@ type ResourceSliceSpec struct {
 	//
 	// The maximum number of counter sets is 8.
 	SharedCounters []CounterSet `pulumi:"sharedCounters"`
+	// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+	//
+	// - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+	//   value cannot be specified unless "NodeUnprepareResources" is also listed
+	//   (or "*" is specified).
+	// - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+	//
+	// Other values may be added in the future. The kubelet must ignore unknown values.
+	SkipNodeOperations []string `pulumi:"skipNodeOperations"`
 }
 
 // ResourceSliceSpecInput is an input type that accepts ResourceSliceSpecArgs and ResourceSliceSpecOutput values.
@@ -12882,6 +15779,10 @@ type ResourceSliceSpecArgs struct {
 	//
 	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	NodeSelector corev1.NodeSelectorPtrInput `pulumi:"nodeSelector"`
+	// PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+	//
+	// When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+	PartitionTypeAttribute pulumi.StringPtrInput `pulumi:"partitionTypeAttribute"`
 	// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
 	//
 	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -12896,6 +15797,15 @@ type ResourceSliceSpecArgs struct {
 	//
 	// The maximum number of counter sets is 8.
 	SharedCounters CounterSetArrayInput `pulumi:"sharedCounters"`
+	// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+	//
+	// - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+	//   value cannot be specified unless "NodeUnprepareResources" is also listed
+	//   (or "*" is specified).
+	// - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+	//
+	// Other values may be added in the future. The kubelet must ignore unknown values.
+	SkipNodeOperations pulumi.StringArrayInput `pulumi:"skipNodeOperations"`
 }
 
 func (ResourceSliceSpecArgs) ElementType() reflect.Type {
@@ -12966,6 +15876,13 @@ func (o ResourceSliceSpecOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 	return o.ApplyT(func(v ResourceSliceSpec) *corev1.NodeSelector { return v.NodeSelector }).(corev1.NodeSelectorPtrOutput)
 }
 
+// PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+//
+// When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+func (o ResourceSliceSpecOutput) PartitionTypeAttribute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSliceSpec) *string { return v.PartitionTypeAttribute }).(pulumi.StringPtrOutput)
+}
+
 // PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
 //
 // Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -12987,6 +15904,18 @@ func (o ResourceSliceSpecOutput) Pool() ResourcePoolOutput {
 // The maximum number of counter sets is 8.
 func (o ResourceSliceSpecOutput) SharedCounters() CounterSetArrayOutput {
 	return o.ApplyT(func(v ResourceSliceSpec) []CounterSet { return v.SharedCounters }).(CounterSetArrayOutput)
+}
+
+// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+//
+//   - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+//     value cannot be specified unless "NodeUnprepareResources" is also listed
+//     (or "*" is specified).
+//   - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+//
+// Other values may be added in the future. The kubelet must ignore unknown values.
+func (o ResourceSliceSpecOutput) SkipNodeOperations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ResourceSliceSpec) []string { return v.SkipNodeOperations }).(pulumi.StringArrayOutput)
 }
 
 // ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
@@ -13017,6 +15946,10 @@ type ResourceSliceSpecPatch struct {
 	//
 	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	NodeSelector *corev1.NodeSelectorPatch `pulumi:"nodeSelector"`
+	// PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+	//
+	// When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+	PartitionTypeAttribute *string `pulumi:"partitionTypeAttribute"`
 	// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
 	//
 	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -13031,6 +15964,15 @@ type ResourceSliceSpecPatch struct {
 	//
 	// The maximum number of counter sets is 8.
 	SharedCounters []CounterSetPatch `pulumi:"sharedCounters"`
+	// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+	//
+	// - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+	//   value cannot be specified unless "NodeUnprepareResources" is also listed
+	//   (or "*" is specified).
+	// - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+	//
+	// Other values may be added in the future. The kubelet must ignore unknown values.
+	SkipNodeOperations []string `pulumi:"skipNodeOperations"`
 }
 
 // ResourceSliceSpecPatchInput is an input type that accepts ResourceSliceSpecPatchArgs and ResourceSliceSpecPatchOutput values.
@@ -13072,6 +16014,10 @@ type ResourceSliceSpecPatchArgs struct {
 	//
 	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
 	NodeSelector corev1.NodeSelectorPatchPtrInput `pulumi:"nodeSelector"`
+	// PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+	//
+	// When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+	PartitionTypeAttribute pulumi.StringPtrInput `pulumi:"partitionTypeAttribute"`
 	// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
 	//
 	// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -13086,6 +16032,15 @@ type ResourceSliceSpecPatchArgs struct {
 	//
 	// The maximum number of counter sets is 8.
 	SharedCounters CounterSetPatchArrayInput `pulumi:"sharedCounters"`
+	// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+	//
+	// - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+	//   value cannot be specified unless "NodeUnprepareResources" is also listed
+	//   (or "*" is specified).
+	// - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+	//
+	// Other values may be added in the future. The kubelet must ignore unknown values.
+	SkipNodeOperations pulumi.StringArrayInput `pulumi:"skipNodeOperations"`
 }
 
 func (ResourceSliceSpecPatchArgs) ElementType() reflect.Type {
@@ -13207,6 +16162,13 @@ func (o ResourceSliceSpecPatchOutput) NodeSelector() corev1.NodeSelectorPatchPtr
 	return o.ApplyT(func(v ResourceSliceSpecPatch) *corev1.NodeSelectorPatch { return v.NodeSelector }).(corev1.NodeSelectorPatchPtrOutput)
 }
 
+// PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+//
+// When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+func (o ResourceSliceSpecPatchOutput) PartitionTypeAttribute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourceSliceSpecPatch) *string { return v.PartitionTypeAttribute }).(pulumi.StringPtrOutput)
+}
+
 // PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
 //
 // Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -13228,6 +16190,18 @@ func (o ResourceSliceSpecPatchOutput) Pool() ResourcePoolPatchPtrOutput {
 // The maximum number of counter sets is 8.
 func (o ResourceSliceSpecPatchOutput) SharedCounters() CounterSetPatchArrayOutput {
 	return o.ApplyT(func(v ResourceSliceSpecPatch) []CounterSetPatch { return v.SharedCounters }).(CounterSetPatchArrayOutput)
+}
+
+// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+//
+//   - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+//     value cannot be specified unless "NodeUnprepareResources" is also listed
+//     (or "*" is specified).
+//   - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+//
+// Other values may be added in the future. The kubelet must ignore unknown values.
+func (o ResourceSliceSpecPatchOutput) SkipNodeOperations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ResourceSliceSpecPatch) []string { return v.SkipNodeOperations }).(pulumi.StringArrayOutput)
 }
 
 type ResourceSliceSpecPatchPtrOutput struct{ *pulumi.OutputState }
@@ -13320,6 +16294,18 @@ func (o ResourceSliceSpecPatchPtrOutput) NodeSelector() corev1.NodeSelectorPatch
 	}).(corev1.NodeSelectorPatchPtrOutput)
 }
 
+// PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+//
+// When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+func (o ResourceSliceSpecPatchPtrOutput) PartitionTypeAttribute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ResourceSliceSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PartitionTypeAttribute
+	}).(pulumi.StringPtrOutput)
+}
+
 // PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
 //
 // Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -13356,6 +16342,23 @@ func (o ResourceSliceSpecPatchPtrOutput) SharedCounters() CounterSetPatchArrayOu
 		}
 		return v.SharedCounters
 	}).(CounterSetPatchArrayOutput)
+}
+
+// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+//
+//   - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+//     value cannot be specified unless "NodeUnprepareResources" is also listed
+//     (or "*" is specified).
+//   - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+//
+// Other values may be added in the future. The kubelet must ignore unknown values.
+func (o ResourceSliceSpecPatchPtrOutput) SkipNodeOperations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ResourceSliceSpecPatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.SkipNodeOperations
+	}).(pulumi.StringArrayOutput)
 }
 
 func init() {
@@ -13433,6 +16436,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceCounterConsumptionArrayInput)(nil)).Elem(), DeviceCounterConsumptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceCounterConsumptionPatchInput)(nil)).Elem(), DeviceCounterConsumptionPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceCounterConsumptionPatchArrayInput)(nil)).Elem(), DeviceCounterConsumptionPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceDerivedAttributeInput)(nil)).Elem(), DeviceDerivedAttributeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceDerivedAttributeArrayInput)(nil)).Elem(), DeviceDerivedAttributeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceDerivedAttributePatchInput)(nil)).Elem(), DeviceDerivedAttributePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceDerivedAttributePatchArrayInput)(nil)).Elem(), DeviceDerivedAttributePatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePatchInput)(nil)).Elem(), DevicePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePatchArrayInput)(nil)).Elem(), DevicePatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceRequestInput)(nil)).Elem(), DeviceRequestArgs{})
@@ -13454,7 +16461,23 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintInput)(nil)).Elem(), DeviceTaintArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintArrayInput)(nil)).Elem(), DeviceTaintArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintPatchInput)(nil)).Elem(), DeviceTaintPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintPatchPtrInput)(nil)).Elem(), DeviceTaintPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintPatchArrayInput)(nil)).Elem(), DeviceTaintPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleTypeInput)(nil)).Elem(), DeviceTaintRuleTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleTypeArrayInput)(nil)).Elem(), DeviceTaintRuleTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleListTypeInput)(nil)).Elem(), DeviceTaintRuleListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRulePatchTypeInput)(nil)).Elem(), DeviceTaintRulePatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleSpecInput)(nil)).Elem(), DeviceTaintRuleSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleSpecPatchInput)(nil)).Elem(), DeviceTaintRuleSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleSpecPatchPtrInput)(nil)).Elem(), DeviceTaintRuleSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleStatusInput)(nil)).Elem(), DeviceTaintRuleStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleStatusPtrInput)(nil)).Elem(), DeviceTaintRuleStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleStatusPatchInput)(nil)).Elem(), DeviceTaintRuleStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintRuleStatusPatchPtrInput)(nil)).Elem(), DeviceTaintRuleStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintSelectorInput)(nil)).Elem(), DeviceTaintSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintSelectorPtrInput)(nil)).Elem(), DeviceTaintSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintSelectorPatchInput)(nil)).Elem(), DeviceTaintSelectorPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTaintSelectorPatchPtrInput)(nil)).Elem(), DeviceTaintSelectorPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTolerationInput)(nil)).Elem(), DeviceTolerationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTolerationArrayInput)(nil)).Elem(), DeviceTolerationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DeviceTolerationPatchInput)(nil)).Elem(), DeviceTolerationPatchArgs{})
@@ -13467,9 +16490,20 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPtrInput)(nil)).Elem(), NetworkDeviceDataArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPatchInput)(nil)).Elem(), NetworkDeviceDataPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkDeviceDataPatchPtrInput)(nil)).Elem(), NetworkDeviceDataPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableMappingInput)(nil)).Elem(), NodeAllocatableMappingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableMappingPtrInput)(nil)).Elem(), NodeAllocatableMappingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableMappingPatchInput)(nil)).Elem(), NodeAllocatableMappingPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableMappingPatchPtrInput)(nil)).Elem(), NodeAllocatableMappingPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableOverheadInput)(nil)).Elem(), NodeAllocatableOverheadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableOverheadPtrInput)(nil)).Elem(), NodeAllocatableOverheadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableOverheadPatchInput)(nil)).Elem(), NodeAllocatableOverheadPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableOverheadPatchPtrInput)(nil)).Elem(), NodeAllocatableOverheadPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceInput)(nil)).Elem(), NodeAllocatableResourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceMapInput)(nil)).Elem(), NodeAllocatableResourceMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceMappingInput)(nil)).Elem(), NodeAllocatableResourceMappingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceMappingMapInput)(nil)).Elem(), NodeAllocatableResourceMappingMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourceMappingPatchInput)(nil)).Elem(), NodeAllocatableResourceMappingPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAllocatableResourcePatchInput)(nil)).Elem(), NodeAllocatableResourcePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationInput)(nil)).Elem(), OpaqueDeviceConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationPtrInput)(nil)).Elem(), OpaqueDeviceConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationPatchInput)(nil)).Elem(), OpaqueDeviceConfigurationPatchArgs{})
@@ -13580,6 +16614,10 @@ func init() {
 	pulumi.RegisterOutputType(DeviceCounterConsumptionArrayOutput{})
 	pulumi.RegisterOutputType(DeviceCounterConsumptionPatchOutput{})
 	pulumi.RegisterOutputType(DeviceCounterConsumptionPatchArrayOutput{})
+	pulumi.RegisterOutputType(DeviceDerivedAttributeOutput{})
+	pulumi.RegisterOutputType(DeviceDerivedAttributeArrayOutput{})
+	pulumi.RegisterOutputType(DeviceDerivedAttributePatchOutput{})
+	pulumi.RegisterOutputType(DeviceDerivedAttributePatchArrayOutput{})
 	pulumi.RegisterOutputType(DevicePatchOutput{})
 	pulumi.RegisterOutputType(DevicePatchArrayOutput{})
 	pulumi.RegisterOutputType(DeviceRequestOutput{})
@@ -13601,7 +16639,23 @@ func init() {
 	pulumi.RegisterOutputType(DeviceTaintOutput{})
 	pulumi.RegisterOutputType(DeviceTaintArrayOutput{})
 	pulumi.RegisterOutputType(DeviceTaintPatchOutput{})
+	pulumi.RegisterOutputType(DeviceTaintPatchPtrOutput{})
 	pulumi.RegisterOutputType(DeviceTaintPatchArrayOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleTypeOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleTypeArrayOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleListTypeOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRulePatchTypeOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleSpecOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleSpecPatchOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleStatusOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleStatusPtrOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleStatusPatchOutput{})
+	pulumi.RegisterOutputType(DeviceTaintRuleStatusPatchPtrOutput{})
+	pulumi.RegisterOutputType(DeviceTaintSelectorOutput{})
+	pulumi.RegisterOutputType(DeviceTaintSelectorPtrOutput{})
+	pulumi.RegisterOutputType(DeviceTaintSelectorPatchOutput{})
+	pulumi.RegisterOutputType(DeviceTaintSelectorPatchPtrOutput{})
 	pulumi.RegisterOutputType(DeviceTolerationOutput{})
 	pulumi.RegisterOutputType(DeviceTolerationArrayOutput{})
 	pulumi.RegisterOutputType(DeviceTolerationPatchOutput{})
@@ -13614,9 +16668,20 @@ func init() {
 	pulumi.RegisterOutputType(NetworkDeviceDataPtrOutput{})
 	pulumi.RegisterOutputType(NetworkDeviceDataPatchOutput{})
 	pulumi.RegisterOutputType(NetworkDeviceDataPatchPtrOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableMappingOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableMappingPtrOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableMappingPatchOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableMappingPatchPtrOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableOverheadOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableOverheadPtrOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableOverheadPatchOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableOverheadPatchPtrOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableResourceOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableResourceMapOutput{})
 	pulumi.RegisterOutputType(NodeAllocatableResourceMappingOutput{})
 	pulumi.RegisterOutputType(NodeAllocatableResourceMappingMapOutput{})
 	pulumi.RegisterOutputType(NodeAllocatableResourceMappingPatchOutput{})
+	pulumi.RegisterOutputType(NodeAllocatableResourcePatchOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationPtrOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationPatchOutput{})

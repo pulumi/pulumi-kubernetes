@@ -135,7 +135,7 @@ class LeaseCandidate(dict):
         :param 'LeaseCandidateSpecArgs' spec: spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param Literal['coordination.k8s.io/v1beta1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['LeaseCandidate'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param '_meta.v1.ObjectMetaArgs' metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param '_meta.v1.ObjectMetaArgs' metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         pulumi.set(__self__, "spec", spec)
         if api_version is not None:
@@ -173,7 +173,7 @@ class LeaseCandidate(dict):
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
         """
-        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
 
@@ -218,12 +218,12 @@ class LeaseCandidateSpec(dict):
         """
         LeaseCandidateSpec is a specification of a Lease.
 
-        :param _builtins.str binary_version: BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
-        :param _builtins.str lease_name: LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
-        :param _builtins.str strategy: Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
-        :param _builtins.str emulation_version: EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
-        :param _builtins.str ping_time: PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
-        :param _builtins.str renew_time: RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+        :param _builtins.str binary_version: binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+        :param _builtins.str lease_name: leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+        :param _builtins.str strategy: strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+        :param _builtins.str emulation_version: emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+        :param _builtins.str ping_time: pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+        :param _builtins.str renew_time: renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
         """
         pulumi.set(__self__, "binary_version", binary_version)
         pulumi.set(__self__, "lease_name", lease_name)
@@ -239,7 +239,7 @@ class LeaseCandidateSpec(dict):
     @pulumi.getter(name="binaryVersion")
     def binary_version(self) -> _builtins.str:
         """
-        BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+        binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
         """
         return pulumi.get(self, "binary_version")
 
@@ -247,7 +247,7 @@ class LeaseCandidateSpec(dict):
     @pulumi.getter(name="leaseName")
     def lease_name(self) -> _builtins.str:
         """
-        LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+        leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
         """
         return pulumi.get(self, "lease_name")
 
@@ -255,7 +255,7 @@ class LeaseCandidateSpec(dict):
     @pulumi.getter
     def strategy(self) -> _builtins.str:
         """
-        Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+        strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
         """
         return pulumi.get(self, "strategy")
 
@@ -263,7 +263,7 @@ class LeaseCandidateSpec(dict):
     @pulumi.getter(name="emulationVersion")
     def emulation_version(self) -> Optional[_builtins.str]:
         """
-        EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+        emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
         """
         return pulumi.get(self, "emulation_version")
 
@@ -271,7 +271,7 @@ class LeaseCandidateSpec(dict):
     @pulumi.getter(name="pingTime")
     def ping_time(self) -> Optional[_builtins.str]:
         """
-        PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+        pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
         """
         return pulumi.get(self, "ping_time")
 
@@ -279,7 +279,7 @@ class LeaseCandidateSpec(dict):
     @pulumi.getter(name="renewTime")
     def renew_time(self) -> Optional[_builtins.str]:
         """
-        RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+        renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
         """
         return pulumi.get(self, "renew_time")
 
@@ -324,12 +324,12 @@ class LeaseCandidateSpecPatch(dict):
         """
         LeaseCandidateSpec is a specification of a Lease.
 
-        :param _builtins.str binary_version: BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
-        :param _builtins.str emulation_version: EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
-        :param _builtins.str lease_name: LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
-        :param _builtins.str ping_time: PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
-        :param _builtins.str renew_time: RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
-        :param _builtins.str strategy: Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+        :param _builtins.str binary_version: binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+        :param _builtins.str emulation_version: emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+        :param _builtins.str lease_name: leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+        :param _builtins.str ping_time: pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+        :param _builtins.str renew_time: renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+        :param _builtins.str strategy: strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
         """
         if binary_version is not None:
             pulumi.set(__self__, "binary_version", binary_version)
@@ -348,7 +348,7 @@ class LeaseCandidateSpecPatch(dict):
     @pulumi.getter(name="binaryVersion")
     def binary_version(self) -> Optional[_builtins.str]:
         """
-        BinaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
+        binaryVersion is the binary version. It must be in a semver format without leading `v`. This field is required.
         """
         return pulumi.get(self, "binary_version")
 
@@ -356,7 +356,7 @@ class LeaseCandidateSpecPatch(dict):
     @pulumi.getter(name="emulationVersion")
     def emulation_version(self) -> Optional[_builtins.str]:
         """
-        EmulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
+        emulationVersion is the emulation version. It must be in a semver format without leading `v`. EmulationVersion must be less than or equal to BinaryVersion. This field is required when strategy is "OldestEmulationVersion"
         """
         return pulumi.get(self, "emulation_version")
 
@@ -364,7 +364,7 @@ class LeaseCandidateSpecPatch(dict):
     @pulumi.getter(name="leaseName")
     def lease_name(self) -> Optional[_builtins.str]:
         """
-        LeaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
+        leaseName is the name of the lease for which this candidate is contending. The limits on this field are the same as on Lease.name. Multiple lease candidates may reference the same Lease.name. This field is immutable.
         """
         return pulumi.get(self, "lease_name")
 
@@ -372,7 +372,7 @@ class LeaseCandidateSpecPatch(dict):
     @pulumi.getter(name="pingTime")
     def ping_time(self) -> Optional[_builtins.str]:
         """
-        PingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
+        pingTime is the last time that the server has requested the LeaseCandidate to renew. It is only done during leader election to check if any LeaseCandidates have become ineligible. When PingTime is updated, the LeaseCandidate will respond by updating RenewTime.
         """
         return pulumi.get(self, "ping_time")
 
@@ -380,7 +380,7 @@ class LeaseCandidateSpecPatch(dict):
     @pulumi.getter(name="renewTime")
     def renew_time(self) -> Optional[_builtins.str]:
         """
-        RenewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
+        renewTime is the time that the LeaseCandidate was last updated. Any time a Lease needs to do leader election, the PingTime field is updated to signal to the LeaseCandidate that they should update the RenewTime. Old LeaseCandidate objects are also garbage collected if it has been hours since the last renew. The PingTime field is updated regularly to prevent garbage collection for still active LeaseCandidates.
         """
         return pulumi.get(self, "renew_time")
 
@@ -388,7 +388,7 @@ class LeaseCandidateSpecPatch(dict):
     @pulumi.getter
     def strategy(self) -> Optional[_builtins.str]:
         """
-        Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
+        strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
         """
         return pulumi.get(self, "strategy")
 

@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.inputs.NodeSwapStatusArgs;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -157,6 +158,21 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
+     * Whether the node is running in a user namespace.
+     * 
+     */
+    @Import(name="runningInUserNamespace")
+    private @Nullable Output<Boolean> runningInUserNamespace;
+
+    /**
+     * @return Whether the node is running in a user namespace.
+     * 
+     */
+    public Optional<Output<Boolean>> runningInUserNamespace() {
+        return Optional.ofNullable(this.runningInUserNamespace);
+    }
+
+    /**
      * Swap Info reported by the node.
      * 
      */
@@ -198,6 +214,7 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
         this.machineID = $.machineID;
         this.operatingSystem = $.operatingSystem;
         this.osImage = $.osImage;
+        this.runningInUserNamespace = $.runningInUserNamespace;
         this.swap = $.swap;
         this.systemUUID = $.systemUUID;
     }
@@ -407,6 +424,27 @@ public final class NodeSystemInfoArgs extends com.pulumi.resources.ResourceArgs 
          */
         public Builder osImage(String osImage) {
             return osImage(Output.of(osImage));
+        }
+
+        /**
+         * @param runningInUserNamespace Whether the node is running in a user namespace.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder runningInUserNamespace(@Nullable Output<Boolean> runningInUserNamespace) {
+            $.runningInUserNamespace = runningInUserNamespace;
+            return this;
+        }
+
+        /**
+         * @param runningInUserNamespace Whether the node is running in a user namespace.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder runningInUserNamespace(Boolean runningInUserNamespace) {
+            return runningInUserNamespace(Output.of(runningInUserNamespace));
         }
 
         /**

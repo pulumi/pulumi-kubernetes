@@ -69,6 +69,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("signerName")]
         public Input<string>? SignerName { get; set; }
 
+        /// <summary>
+        /// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        [Input("user")]
+        public Input<int>? User { get; set; }
+
         [Input("userAnnotations")]
         private InputMap<string>? _userAnnotations;
 

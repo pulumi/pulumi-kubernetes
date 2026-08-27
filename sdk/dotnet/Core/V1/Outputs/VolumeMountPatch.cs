@@ -17,7 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class VolumeMountPatch
     {
         /// <summary>
-        /// Path within the container at which the volume should be mounted.  Must not contain ':'.
+        /// bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+        /// </summary>
+        public readonly ImmutableArray<string> BindMountOptions;
+        /// <summary>
+        /// Path within the container at which the volume should be mounted.
         /// </summary>
         public readonly string MountPath;
         /// <summary>
@@ -55,6 +59,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
         [OutputConstructor]
         private VolumeMountPatch(
+            ImmutableArray<string> bindMountOptions,
+
             string mountPath,
 
             string mountPropagation,
@@ -69,6 +75,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string subPathExpr)
         {
+            BindMountOptions = bindMountOptions;
             MountPath = mountPath;
             MountPropagation = mountPropagation;
             Name = name;

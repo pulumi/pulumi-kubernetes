@@ -139,6 +139,7 @@ public class StorageVersionMigration extends com.pulumi.resources.CustomResource
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:storagemigration.k8s.io/v1:StorageVersionMigration").build()),
                 Output.of(Alias.builder().type("kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigration").build())
             ))
             .build();

@@ -69,6 +69,9 @@ export class FlowSchema extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if (args?.spec === undefined && !opts.urn) {
+                throw new Error("Missing required property 'spec'");
+            }
             resourceInputs["apiVersion"] = "flowcontrol.apiserver.k8s.io/v1";
             resourceInputs["kind"] = "FlowSchema";
             resourceInputs["metadata"] = args?.metadata;
@@ -107,5 +110,5 @@ export interface FlowSchemaArgs {
     /**
      * `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
-    spec?: pulumi.Input<inputs.flowcontrol.v1.FlowSchemaSpec | undefined>;
+    spec: pulumi.Input<inputs.flowcontrol.v1.FlowSchemaSpec>;
 }

@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class ConfigMapKeySelector
     {
         /// <summary>
-        /// The key to select.
+        /// The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         /// </summary>
         public readonly string Key;
         /// <summary>

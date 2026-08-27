@@ -33,7 +33,7 @@ public final class LeaseSpecPatch {
      */
     private @Nullable Integer leaseTransitions;
     /**
-     * @return PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+     * @return preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
      * 
      */
     private @Nullable String preferredHolder;
@@ -43,7 +43,7 @@ public final class LeaseSpecPatch {
      */
     private @Nullable String renewTime;
     /**
-     * @return Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+     * @return strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
      * 
      */
     private @Nullable String strategy;
@@ -78,7 +78,7 @@ public final class LeaseSpecPatch {
         return Optional.ofNullable(this.leaseTransitions);
     }
     /**
-     * @return PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+     * @return preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
      * 
      */
     public Optional<String> preferredHolder() {
@@ -92,7 +92,7 @@ public final class LeaseSpecPatch {
         return Optional.ofNullable(this.renewTime);
     }
     /**
-     * @return Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+     * @return strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
      * 
      */
     public Optional<String> strategy() {

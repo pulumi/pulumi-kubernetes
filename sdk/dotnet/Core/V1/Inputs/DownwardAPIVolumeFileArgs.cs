@@ -39,6 +39,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("resourceFieldRef")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceFieldSelectorArgs>? ResourceFieldRef { get; set; }
 
+        /// <summary>
+        /// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        [Input("user")]
+        public Input<int>? User { get; set; }
+
         public DownwardAPIVolumeFileArgs()
         {
         }

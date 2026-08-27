@@ -310,7 +310,7 @@ public class StatefulSet extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public StatefulSet(java.lang.String name, @Nullable StatefulSetArgs args) {
+    public StatefulSet(java.lang.String name, StatefulSetArgs args) {
         this(name, args, null);
     }
     /**
@@ -319,7 +319,7 @@ public class StatefulSet extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public StatefulSet(java.lang.String name, @Nullable StatefulSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public StatefulSet(java.lang.String name, StatefulSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1:StatefulSet", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
@@ -327,7 +327,7 @@ public class StatefulSet extends com.pulumi.resources.CustomResource {
         super("kubernetes:apps/v1:StatefulSet", name, null, makeResourceOptions(options, id), false);
     }
 
-    private static StatefulSetArgs makeArgs(@Nullable StatefulSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    private static StatefulSetArgs makeArgs(StatefulSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         if (options != null && options.getUrn().isPresent()) {
             return null;
         }

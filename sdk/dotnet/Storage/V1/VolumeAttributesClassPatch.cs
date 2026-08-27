@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Name of the CSI driver This field is immutable.
+        /// driverName is the name of the CSI driver This field is immutable.
         /// </summary>
         [Output("driverName")]
         public Output<string> DriverName { get; private set; } = null!;
@@ -40,7 +40,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch> Metadata { get; private set; } = null!;
@@ -125,7 +125,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public Input<string>? ApiVersion { get; set; }
 
         /// <summary>
-        /// Name of the CSI driver This field is immutable.
+        /// driverName is the name of the CSI driver This field is immutable.
         /// </summary>
         [Input("driverName")]
         public Input<string>? DriverName { get; set; }
@@ -137,7 +137,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }

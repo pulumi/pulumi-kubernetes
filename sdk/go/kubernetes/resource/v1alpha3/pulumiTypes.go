@@ -6707,6 +6707,260 @@ func (o OpaqueDeviceConfigurationPatchPtrOutput) Parameters() pulumi.AnyOutput {
 	}).(pulumi.AnyOutput)
 }
 
+// PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+type PartitionTypeStatus struct {
+	// Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+	Allocatable int `pulumi:"allocatable"`
+	// Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+	Attribute string `pulumi:"attribute"`
+	// Total is the number of devices of this partition type in the pool.
+	Total int `pulumi:"total"`
+	// Type is the partition type value (e.g. "Full" or "Half").
+	Type string `pulumi:"type"`
+}
+
+// PartitionTypeStatusInput is an input type that accepts PartitionTypeStatusArgs and PartitionTypeStatusOutput values.
+// You can construct a concrete instance of `PartitionTypeStatusInput` via:
+//
+//	PartitionTypeStatusArgs{...}
+type PartitionTypeStatusInput interface {
+	pulumi.Input
+
+	ToPartitionTypeStatusOutput() PartitionTypeStatusOutput
+	ToPartitionTypeStatusOutputWithContext(context.Context) PartitionTypeStatusOutput
+}
+
+// PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+type PartitionTypeStatusArgs struct {
+	// Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+	Allocatable pulumi.IntInput `pulumi:"allocatable"`
+	// Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+	Attribute pulumi.StringInput `pulumi:"attribute"`
+	// Total is the number of devices of this partition type in the pool.
+	Total pulumi.IntInput `pulumi:"total"`
+	// Type is the partition type value (e.g. "Full" or "Half").
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (PartitionTypeStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PartitionTypeStatus)(nil)).Elem()
+}
+
+func (i PartitionTypeStatusArgs) ToPartitionTypeStatusOutput() PartitionTypeStatusOutput {
+	return i.ToPartitionTypeStatusOutputWithContext(context.Background())
+}
+
+func (i PartitionTypeStatusArgs) ToPartitionTypeStatusOutputWithContext(ctx context.Context) PartitionTypeStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PartitionTypeStatusOutput)
+}
+
+// PartitionTypeStatusArrayInput is an input type that accepts PartitionTypeStatusArray and PartitionTypeStatusArrayOutput values.
+// You can construct a concrete instance of `PartitionTypeStatusArrayInput` via:
+//
+//	PartitionTypeStatusArray{ PartitionTypeStatusArgs{...} }
+type PartitionTypeStatusArrayInput interface {
+	pulumi.Input
+
+	ToPartitionTypeStatusArrayOutput() PartitionTypeStatusArrayOutput
+	ToPartitionTypeStatusArrayOutputWithContext(context.Context) PartitionTypeStatusArrayOutput
+}
+
+type PartitionTypeStatusArray []PartitionTypeStatusInput
+
+func (PartitionTypeStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PartitionTypeStatus)(nil)).Elem()
+}
+
+func (i PartitionTypeStatusArray) ToPartitionTypeStatusArrayOutput() PartitionTypeStatusArrayOutput {
+	return i.ToPartitionTypeStatusArrayOutputWithContext(context.Background())
+}
+
+func (i PartitionTypeStatusArray) ToPartitionTypeStatusArrayOutputWithContext(ctx context.Context) PartitionTypeStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PartitionTypeStatusArrayOutput)
+}
+
+// PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+type PartitionTypeStatusOutput struct{ *pulumi.OutputState }
+
+func (PartitionTypeStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PartitionTypeStatus)(nil)).Elem()
+}
+
+func (o PartitionTypeStatusOutput) ToPartitionTypeStatusOutput() PartitionTypeStatusOutput {
+	return o
+}
+
+func (o PartitionTypeStatusOutput) ToPartitionTypeStatusOutputWithContext(ctx context.Context) PartitionTypeStatusOutput {
+	return o
+}
+
+// Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+func (o PartitionTypeStatusOutput) Allocatable() pulumi.IntOutput {
+	return o.ApplyT(func(v PartitionTypeStatus) int { return v.Allocatable }).(pulumi.IntOutput)
+}
+
+// Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+func (o PartitionTypeStatusOutput) Attribute() pulumi.StringOutput {
+	return o.ApplyT(func(v PartitionTypeStatus) string { return v.Attribute }).(pulumi.StringOutput)
+}
+
+// Total is the number of devices of this partition type in the pool.
+func (o PartitionTypeStatusOutput) Total() pulumi.IntOutput {
+	return o.ApplyT(func(v PartitionTypeStatus) int { return v.Total }).(pulumi.IntOutput)
+}
+
+// Type is the partition type value (e.g. "Full" or "Half").
+func (o PartitionTypeStatusOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PartitionTypeStatus) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type PartitionTypeStatusArrayOutput struct{ *pulumi.OutputState }
+
+func (PartitionTypeStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PartitionTypeStatus)(nil)).Elem()
+}
+
+func (o PartitionTypeStatusArrayOutput) ToPartitionTypeStatusArrayOutput() PartitionTypeStatusArrayOutput {
+	return o
+}
+
+func (o PartitionTypeStatusArrayOutput) ToPartitionTypeStatusArrayOutputWithContext(ctx context.Context) PartitionTypeStatusArrayOutput {
+	return o
+}
+
+func (o PartitionTypeStatusArrayOutput) Index(i pulumi.IntInput) PartitionTypeStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PartitionTypeStatus {
+		return vs[0].([]PartitionTypeStatus)[vs[1].(int)]
+	}).(PartitionTypeStatusOutput)
+}
+
+// PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+type PartitionTypeStatusPatch struct {
+	// Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+	Allocatable *int `pulumi:"allocatable"`
+	// Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+	Attribute *string `pulumi:"attribute"`
+	// Total is the number of devices of this partition type in the pool.
+	Total *int `pulumi:"total"`
+	// Type is the partition type value (e.g. "Full" or "Half").
+	Type *string `pulumi:"type"`
+}
+
+// PartitionTypeStatusPatchInput is an input type that accepts PartitionTypeStatusPatchArgs and PartitionTypeStatusPatchOutput values.
+// You can construct a concrete instance of `PartitionTypeStatusPatchInput` via:
+//
+//	PartitionTypeStatusPatchArgs{...}
+type PartitionTypeStatusPatchInput interface {
+	pulumi.Input
+
+	ToPartitionTypeStatusPatchOutput() PartitionTypeStatusPatchOutput
+	ToPartitionTypeStatusPatchOutputWithContext(context.Context) PartitionTypeStatusPatchOutput
+}
+
+// PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+type PartitionTypeStatusPatchArgs struct {
+	// Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+	Allocatable pulumi.IntPtrInput `pulumi:"allocatable"`
+	// Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+	Attribute pulumi.StringPtrInput `pulumi:"attribute"`
+	// Total is the number of devices of this partition type in the pool.
+	Total pulumi.IntPtrInput `pulumi:"total"`
+	// Type is the partition type value (e.g. "Full" or "Half").
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (PartitionTypeStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PartitionTypeStatusPatch)(nil)).Elem()
+}
+
+func (i PartitionTypeStatusPatchArgs) ToPartitionTypeStatusPatchOutput() PartitionTypeStatusPatchOutput {
+	return i.ToPartitionTypeStatusPatchOutputWithContext(context.Background())
+}
+
+func (i PartitionTypeStatusPatchArgs) ToPartitionTypeStatusPatchOutputWithContext(ctx context.Context) PartitionTypeStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PartitionTypeStatusPatchOutput)
+}
+
+// PartitionTypeStatusPatchArrayInput is an input type that accepts PartitionTypeStatusPatchArray and PartitionTypeStatusPatchArrayOutput values.
+// You can construct a concrete instance of `PartitionTypeStatusPatchArrayInput` via:
+//
+//	PartitionTypeStatusPatchArray{ PartitionTypeStatusPatchArgs{...} }
+type PartitionTypeStatusPatchArrayInput interface {
+	pulumi.Input
+
+	ToPartitionTypeStatusPatchArrayOutput() PartitionTypeStatusPatchArrayOutput
+	ToPartitionTypeStatusPatchArrayOutputWithContext(context.Context) PartitionTypeStatusPatchArrayOutput
+}
+
+type PartitionTypeStatusPatchArray []PartitionTypeStatusPatchInput
+
+func (PartitionTypeStatusPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PartitionTypeStatusPatch)(nil)).Elem()
+}
+
+func (i PartitionTypeStatusPatchArray) ToPartitionTypeStatusPatchArrayOutput() PartitionTypeStatusPatchArrayOutput {
+	return i.ToPartitionTypeStatusPatchArrayOutputWithContext(context.Background())
+}
+
+func (i PartitionTypeStatusPatchArray) ToPartitionTypeStatusPatchArrayOutputWithContext(ctx context.Context) PartitionTypeStatusPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PartitionTypeStatusPatchArrayOutput)
+}
+
+// PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+type PartitionTypeStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (PartitionTypeStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PartitionTypeStatusPatch)(nil)).Elem()
+}
+
+func (o PartitionTypeStatusPatchOutput) ToPartitionTypeStatusPatchOutput() PartitionTypeStatusPatchOutput {
+	return o
+}
+
+func (o PartitionTypeStatusPatchOutput) ToPartitionTypeStatusPatchOutputWithContext(ctx context.Context) PartitionTypeStatusPatchOutput {
+	return o
+}
+
+// Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+func (o PartitionTypeStatusPatchOutput) Allocatable() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PartitionTypeStatusPatch) *int { return v.Allocatable }).(pulumi.IntPtrOutput)
+}
+
+// Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+func (o PartitionTypeStatusPatchOutput) Attribute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PartitionTypeStatusPatch) *string { return v.Attribute }).(pulumi.StringPtrOutput)
+}
+
+// Total is the number of devices of this partition type in the pool.
+func (o PartitionTypeStatusPatchOutput) Total() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PartitionTypeStatusPatch) *int { return v.Total }).(pulumi.IntPtrOutput)
+}
+
+// Type is the partition type value (e.g. "Full" or "Half").
+func (o PartitionTypeStatusPatchOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PartitionTypeStatusPatch) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type PartitionTypeStatusPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (PartitionTypeStatusPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PartitionTypeStatusPatch)(nil)).Elem()
+}
+
+func (o PartitionTypeStatusPatchArrayOutput) ToPartitionTypeStatusPatchArrayOutput() PartitionTypeStatusPatchArrayOutput {
+	return o
+}
+
+func (o PartitionTypeStatusPatchArrayOutput) ToPartitionTypeStatusPatchArrayOutputWithContext(ctx context.Context) PartitionTypeStatusPatchArrayOutput {
+	return o
+}
+
+func (o PartitionTypeStatusPatchArrayOutput) Index(i pulumi.IntInput) PartitionTypeStatusPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PartitionTypeStatusPatch {
+		return vs[0].([]PartitionTypeStatusPatch)[vs[1].(int)]
+	}).(PartitionTypeStatusPatchOutput)
+}
+
 // PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
 //
 // This is an alpha type and requires enabling the DRAControlPlaneController feature gate.
@@ -7557,10 +7811,14 @@ type PoolStatus struct {
 	Generation int `pulumi:"generation"`
 	// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
 	NodeName *string `pulumi:"nodeName"`
+	// PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+	PartitionSummary []PartitionTypeStatus `pulumi:"partitionSummary"`
 	// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
 	PoolName string `pulumi:"poolName"`
 	// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
 	ResourceSliceCount *int `pulumi:"resourceSliceCount"`
+	// ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+	ShareableSummary *ShareableSummaryStatus `pulumi:"shareableSummary"`
 	// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
 	TotalDevices *int `pulumi:"totalDevices"`
 	// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
@@ -7592,10 +7850,14 @@ type PoolStatusArgs struct {
 	Generation pulumi.IntInput `pulumi:"generation"`
 	// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+	PartitionSummary PartitionTypeStatusArrayInput `pulumi:"partitionSummary"`
 	// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
 	PoolName pulumi.StringInput `pulumi:"poolName"`
 	// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
 	ResourceSliceCount pulumi.IntPtrInput `pulumi:"resourceSliceCount"`
+	// ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+	ShareableSummary ShareableSummaryStatusPtrInput `pulumi:"shareableSummary"`
 	// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
 	TotalDevices pulumi.IntPtrInput `pulumi:"totalDevices"`
 	// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
@@ -7681,6 +7943,11 @@ func (o PoolStatusOutput) NodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PoolStatus) *string { return v.NodeName }).(pulumi.StringPtrOutput)
 }
 
+// PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+func (o PoolStatusOutput) PartitionSummary() PartitionTypeStatusArrayOutput {
+	return o.ApplyT(func(v PoolStatus) []PartitionTypeStatus { return v.PartitionSummary }).(PartitionTypeStatusArrayOutput)
+}
+
 // PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
 func (o PoolStatusOutput) PoolName() pulumi.StringOutput {
 	return o.ApplyT(func(v PoolStatus) string { return v.PoolName }).(pulumi.StringOutput)
@@ -7689,6 +7956,11 @@ func (o PoolStatusOutput) PoolName() pulumi.StringOutput {
 // ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
 func (o PoolStatusOutput) ResourceSliceCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PoolStatus) *int { return v.ResourceSliceCount }).(pulumi.IntPtrOutput)
+}
+
+// ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+func (o PoolStatusOutput) ShareableSummary() ShareableSummaryStatusPtrOutput {
+	return o.ApplyT(func(v PoolStatus) *ShareableSummaryStatus { return v.ShareableSummary }).(ShareableSummaryStatusPtrOutput)
 }
 
 // TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
@@ -7738,10 +8010,14 @@ type PoolStatusPatch struct {
 	Generation *int `pulumi:"generation"`
 	// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
 	NodeName *string `pulumi:"nodeName"`
+	// PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+	PartitionSummary []PartitionTypeStatusPatch `pulumi:"partitionSummary"`
 	// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
 	PoolName *string `pulumi:"poolName"`
 	// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
 	ResourceSliceCount *int `pulumi:"resourceSliceCount"`
+	// ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+	ShareableSummary *ShareableSummaryStatusPatch `pulumi:"shareableSummary"`
 	// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
 	TotalDevices *int `pulumi:"totalDevices"`
 	// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
@@ -7773,10 +8049,14 @@ type PoolStatusPatchArgs struct {
 	Generation pulumi.IntPtrInput `pulumi:"generation"`
 	// NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+	PartitionSummary PartitionTypeStatusPatchArrayInput `pulumi:"partitionSummary"`
 	// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
 	PoolName pulumi.StringPtrInput `pulumi:"poolName"`
 	// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
 	ResourceSliceCount pulumi.IntPtrInput `pulumi:"resourceSliceCount"`
+	// ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+	ShareableSummary ShareableSummaryStatusPatchPtrInput `pulumi:"shareableSummary"`
 	// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
 	TotalDevices pulumi.IntPtrInput `pulumi:"totalDevices"`
 	// UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
@@ -7862,6 +8142,11 @@ func (o PoolStatusPatchOutput) NodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PoolStatusPatch) *string { return v.NodeName }).(pulumi.StringPtrOutput)
 }
 
+// PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+func (o PoolStatusPatchOutput) PartitionSummary() PartitionTypeStatusPatchArrayOutput {
+	return o.ApplyT(func(v PoolStatusPatch) []PartitionTypeStatusPatch { return v.PartitionSummary }).(PartitionTypeStatusPatchArrayOutput)
+}
+
 // PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
 func (o PoolStatusPatchOutput) PoolName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PoolStatusPatch) *string { return v.PoolName }).(pulumi.StringPtrOutput)
@@ -7870,6 +8155,11 @@ func (o PoolStatusPatchOutput) PoolName() pulumi.StringPtrOutput {
 // ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
 func (o PoolStatusPatchOutput) ResourceSliceCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PoolStatusPatch) *int { return v.ResourceSliceCount }).(pulumi.IntPtrOutput)
+}
+
+// ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+func (o PoolStatusPatchOutput) ShareableSummary() ShareableSummaryStatusPatchPtrOutput {
+	return o.ApplyT(func(v PoolStatusPatch) *ShareableSummaryStatusPatch { return v.ShareableSummary }).(ShareableSummaryStatusPatchPtrOutput)
 }
 
 // TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
@@ -10541,6 +10831,12 @@ func (o ResourcePoolStatusRequestPatchTypeOutput) Status() ResourcePoolStatusReq
 
 // ResourcePoolStatusRequestSpec defines the filters for the pool status request.
 type ResourcePoolStatusRequestSpec struct {
+	// DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+	//
+	// A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+	//
+	// Must include the domain qualifier.
+	DefaultPartitionTypeAttribute *string `pulumi:"defaultPartitionTypeAttribute"`
 	// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
 	Driver string `pulumi:"driver"`
 	// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
@@ -10564,6 +10860,12 @@ type ResourcePoolStatusRequestSpecInput interface {
 
 // ResourcePoolStatusRequestSpec defines the filters for the pool status request.
 type ResourcePoolStatusRequestSpecArgs struct {
+	// DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+	//
+	// A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+	//
+	// Must include the domain qualifier.
+	DefaultPartitionTypeAttribute pulumi.StringPtrInput `pulumi:"defaultPartitionTypeAttribute"`
 	// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
 	Driver pulumi.StringInput `pulumi:"driver"`
 	// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
@@ -10601,6 +10903,15 @@ func (o ResourcePoolStatusRequestSpecOutput) ToResourcePoolStatusRequestSpecOutp
 	return o
 }
 
+// DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+//
+// A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+//
+// Must include the domain qualifier.
+func (o ResourcePoolStatusRequestSpecOutput) DefaultPartitionTypeAttribute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestSpec) *string { return v.DefaultPartitionTypeAttribute }).(pulumi.StringPtrOutput)
+}
+
 // Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
 func (o ResourcePoolStatusRequestSpecOutput) Driver() pulumi.StringOutput {
 	return o.ApplyT(func(v ResourcePoolStatusRequestSpec) string { return v.Driver }).(pulumi.StringOutput)
@@ -10620,6 +10931,12 @@ func (o ResourcePoolStatusRequestSpecOutput) PoolName() pulumi.StringPtrOutput {
 
 // ResourcePoolStatusRequestSpec defines the filters for the pool status request.
 type ResourcePoolStatusRequestSpecPatch struct {
+	// DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+	//
+	// A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+	//
+	// Must include the domain qualifier.
+	DefaultPartitionTypeAttribute *string `pulumi:"defaultPartitionTypeAttribute"`
 	// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
 	Driver *string `pulumi:"driver"`
 	// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
@@ -10643,6 +10960,12 @@ type ResourcePoolStatusRequestSpecPatchInput interface {
 
 // ResourcePoolStatusRequestSpec defines the filters for the pool status request.
 type ResourcePoolStatusRequestSpecPatchArgs struct {
+	// DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+	//
+	// A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+	//
+	// Must include the domain qualifier.
+	DefaultPartitionTypeAttribute pulumi.StringPtrInput `pulumi:"defaultPartitionTypeAttribute"`
 	// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
 	// Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
@@ -10731,6 +11054,15 @@ func (o ResourcePoolStatusRequestSpecPatchOutput) ToResourcePoolStatusRequestSpe
 	}).(ResourcePoolStatusRequestSpecPatchPtrOutput)
 }
 
+// DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+//
+// A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+//
+// Must include the domain qualifier.
+func (o ResourcePoolStatusRequestSpecPatchOutput) DefaultPartitionTypeAttribute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ResourcePoolStatusRequestSpecPatch) *string { return v.DefaultPartitionTypeAttribute }).(pulumi.StringPtrOutput)
+}
+
 // Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
 func (o ResourcePoolStatusRequestSpecPatchOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourcePoolStatusRequestSpecPatch) *string { return v.Driver }).(pulumi.StringPtrOutput)
@@ -10770,6 +11102,20 @@ func (o ResourcePoolStatusRequestSpecPatchPtrOutput) Elem() ResourcePoolStatusRe
 		var ret ResourcePoolStatusRequestSpecPatch
 		return ret
 	}).(ResourcePoolStatusRequestSpecPatchOutput)
+}
+
+// DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+//
+// A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+//
+// Must include the domain qualifier.
+func (o ResourcePoolStatusRequestSpecPatchPtrOutput) DefaultPartitionTypeAttribute() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ResourcePoolStatusRequestSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DefaultPartitionTypeAttribute
+	}).(pulumi.StringPtrOutput)
 }
 
 // Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
@@ -11972,6 +12318,616 @@ func (o ResourceSliceSpecPatchPtrOutput) Pool() ResourcePoolPatchPtrOutput {
 	}).(ResourcePoolPatchPtrOutput)
 }
 
+// ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+type ShareableCapacityStatus struct {
+	// Available is Total minus Consumed, never negative.
+	Available string `pulumi:"available"`
+	// Consumed is the amount drawn by current allocations.
+	Consumed string `pulumi:"consumed"`
+	// Name is the capacity name.
+	Name string `pulumi:"name"`
+	// Total is the sum of this capacity across shareable devices in the pool.
+	Total string `pulumi:"total"`
+}
+
+// ShareableCapacityStatusInput is an input type that accepts ShareableCapacityStatusArgs and ShareableCapacityStatusOutput values.
+// You can construct a concrete instance of `ShareableCapacityStatusInput` via:
+//
+//	ShareableCapacityStatusArgs{...}
+type ShareableCapacityStatusInput interface {
+	pulumi.Input
+
+	ToShareableCapacityStatusOutput() ShareableCapacityStatusOutput
+	ToShareableCapacityStatusOutputWithContext(context.Context) ShareableCapacityStatusOutput
+}
+
+// ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+type ShareableCapacityStatusArgs struct {
+	// Available is Total minus Consumed, never negative.
+	Available pulumi.StringInput `pulumi:"available"`
+	// Consumed is the amount drawn by current allocations.
+	Consumed pulumi.StringInput `pulumi:"consumed"`
+	// Name is the capacity name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Total is the sum of this capacity across shareable devices in the pool.
+	Total pulumi.StringInput `pulumi:"total"`
+}
+
+func (ShareableCapacityStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShareableCapacityStatus)(nil)).Elem()
+}
+
+func (i ShareableCapacityStatusArgs) ToShareableCapacityStatusOutput() ShareableCapacityStatusOutput {
+	return i.ToShareableCapacityStatusOutputWithContext(context.Background())
+}
+
+func (i ShareableCapacityStatusArgs) ToShareableCapacityStatusOutputWithContext(ctx context.Context) ShareableCapacityStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableCapacityStatusOutput)
+}
+
+// ShareableCapacityStatusArrayInput is an input type that accepts ShareableCapacityStatusArray and ShareableCapacityStatusArrayOutput values.
+// You can construct a concrete instance of `ShareableCapacityStatusArrayInput` via:
+//
+//	ShareableCapacityStatusArray{ ShareableCapacityStatusArgs{...} }
+type ShareableCapacityStatusArrayInput interface {
+	pulumi.Input
+
+	ToShareableCapacityStatusArrayOutput() ShareableCapacityStatusArrayOutput
+	ToShareableCapacityStatusArrayOutputWithContext(context.Context) ShareableCapacityStatusArrayOutput
+}
+
+type ShareableCapacityStatusArray []ShareableCapacityStatusInput
+
+func (ShareableCapacityStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ShareableCapacityStatus)(nil)).Elem()
+}
+
+func (i ShareableCapacityStatusArray) ToShareableCapacityStatusArrayOutput() ShareableCapacityStatusArrayOutput {
+	return i.ToShareableCapacityStatusArrayOutputWithContext(context.Background())
+}
+
+func (i ShareableCapacityStatusArray) ToShareableCapacityStatusArrayOutputWithContext(ctx context.Context) ShareableCapacityStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableCapacityStatusArrayOutput)
+}
+
+// ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+type ShareableCapacityStatusOutput struct{ *pulumi.OutputState }
+
+func (ShareableCapacityStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShareableCapacityStatus)(nil)).Elem()
+}
+
+func (o ShareableCapacityStatusOutput) ToShareableCapacityStatusOutput() ShareableCapacityStatusOutput {
+	return o
+}
+
+func (o ShareableCapacityStatusOutput) ToShareableCapacityStatusOutputWithContext(ctx context.Context) ShareableCapacityStatusOutput {
+	return o
+}
+
+// Available is Total minus Consumed, never negative.
+func (o ShareableCapacityStatusOutput) Available() pulumi.StringOutput {
+	return o.ApplyT(func(v ShareableCapacityStatus) string { return v.Available }).(pulumi.StringOutput)
+}
+
+// Consumed is the amount drawn by current allocations.
+func (o ShareableCapacityStatusOutput) Consumed() pulumi.StringOutput {
+	return o.ApplyT(func(v ShareableCapacityStatus) string { return v.Consumed }).(pulumi.StringOutput)
+}
+
+// Name is the capacity name.
+func (o ShareableCapacityStatusOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ShareableCapacityStatus) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Total is the sum of this capacity across shareable devices in the pool.
+func (o ShareableCapacityStatusOutput) Total() pulumi.StringOutput {
+	return o.ApplyT(func(v ShareableCapacityStatus) string { return v.Total }).(pulumi.StringOutput)
+}
+
+type ShareableCapacityStatusArrayOutput struct{ *pulumi.OutputState }
+
+func (ShareableCapacityStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ShareableCapacityStatus)(nil)).Elem()
+}
+
+func (o ShareableCapacityStatusArrayOutput) ToShareableCapacityStatusArrayOutput() ShareableCapacityStatusArrayOutput {
+	return o
+}
+
+func (o ShareableCapacityStatusArrayOutput) ToShareableCapacityStatusArrayOutputWithContext(ctx context.Context) ShareableCapacityStatusArrayOutput {
+	return o
+}
+
+func (o ShareableCapacityStatusArrayOutput) Index(i pulumi.IntInput) ShareableCapacityStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ShareableCapacityStatus {
+		return vs[0].([]ShareableCapacityStatus)[vs[1].(int)]
+	}).(ShareableCapacityStatusOutput)
+}
+
+// ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+type ShareableCapacityStatusPatch struct {
+	// Available is Total minus Consumed, never negative.
+	Available *string `pulumi:"available"`
+	// Consumed is the amount drawn by current allocations.
+	Consumed *string `pulumi:"consumed"`
+	// Name is the capacity name.
+	Name *string `pulumi:"name"`
+	// Total is the sum of this capacity across shareable devices in the pool.
+	Total *string `pulumi:"total"`
+}
+
+// ShareableCapacityStatusPatchInput is an input type that accepts ShareableCapacityStatusPatchArgs and ShareableCapacityStatusPatchOutput values.
+// You can construct a concrete instance of `ShareableCapacityStatusPatchInput` via:
+//
+//	ShareableCapacityStatusPatchArgs{...}
+type ShareableCapacityStatusPatchInput interface {
+	pulumi.Input
+
+	ToShareableCapacityStatusPatchOutput() ShareableCapacityStatusPatchOutput
+	ToShareableCapacityStatusPatchOutputWithContext(context.Context) ShareableCapacityStatusPatchOutput
+}
+
+// ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+type ShareableCapacityStatusPatchArgs struct {
+	// Available is Total minus Consumed, never negative.
+	Available pulumi.StringPtrInput `pulumi:"available"`
+	// Consumed is the amount drawn by current allocations.
+	Consumed pulumi.StringPtrInput `pulumi:"consumed"`
+	// Name is the capacity name.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Total is the sum of this capacity across shareable devices in the pool.
+	Total pulumi.StringPtrInput `pulumi:"total"`
+}
+
+func (ShareableCapacityStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShareableCapacityStatusPatch)(nil)).Elem()
+}
+
+func (i ShareableCapacityStatusPatchArgs) ToShareableCapacityStatusPatchOutput() ShareableCapacityStatusPatchOutput {
+	return i.ToShareableCapacityStatusPatchOutputWithContext(context.Background())
+}
+
+func (i ShareableCapacityStatusPatchArgs) ToShareableCapacityStatusPatchOutputWithContext(ctx context.Context) ShareableCapacityStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableCapacityStatusPatchOutput)
+}
+
+// ShareableCapacityStatusPatchArrayInput is an input type that accepts ShareableCapacityStatusPatchArray and ShareableCapacityStatusPatchArrayOutput values.
+// You can construct a concrete instance of `ShareableCapacityStatusPatchArrayInput` via:
+//
+//	ShareableCapacityStatusPatchArray{ ShareableCapacityStatusPatchArgs{...} }
+type ShareableCapacityStatusPatchArrayInput interface {
+	pulumi.Input
+
+	ToShareableCapacityStatusPatchArrayOutput() ShareableCapacityStatusPatchArrayOutput
+	ToShareableCapacityStatusPatchArrayOutputWithContext(context.Context) ShareableCapacityStatusPatchArrayOutput
+}
+
+type ShareableCapacityStatusPatchArray []ShareableCapacityStatusPatchInput
+
+func (ShareableCapacityStatusPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ShareableCapacityStatusPatch)(nil)).Elem()
+}
+
+func (i ShareableCapacityStatusPatchArray) ToShareableCapacityStatusPatchArrayOutput() ShareableCapacityStatusPatchArrayOutput {
+	return i.ToShareableCapacityStatusPatchArrayOutputWithContext(context.Background())
+}
+
+func (i ShareableCapacityStatusPatchArray) ToShareableCapacityStatusPatchArrayOutputWithContext(ctx context.Context) ShareableCapacityStatusPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableCapacityStatusPatchArrayOutput)
+}
+
+// ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+type ShareableCapacityStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (ShareableCapacityStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShareableCapacityStatusPatch)(nil)).Elem()
+}
+
+func (o ShareableCapacityStatusPatchOutput) ToShareableCapacityStatusPatchOutput() ShareableCapacityStatusPatchOutput {
+	return o
+}
+
+func (o ShareableCapacityStatusPatchOutput) ToShareableCapacityStatusPatchOutputWithContext(ctx context.Context) ShareableCapacityStatusPatchOutput {
+	return o
+}
+
+// Available is Total minus Consumed, never negative.
+func (o ShareableCapacityStatusPatchOutput) Available() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShareableCapacityStatusPatch) *string { return v.Available }).(pulumi.StringPtrOutput)
+}
+
+// Consumed is the amount drawn by current allocations.
+func (o ShareableCapacityStatusPatchOutput) Consumed() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShareableCapacityStatusPatch) *string { return v.Consumed }).(pulumi.StringPtrOutput)
+}
+
+// Name is the capacity name.
+func (o ShareableCapacityStatusPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShareableCapacityStatusPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Total is the sum of this capacity across shareable devices in the pool.
+func (o ShareableCapacityStatusPatchOutput) Total() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ShareableCapacityStatusPatch) *string { return v.Total }).(pulumi.StringPtrOutput)
+}
+
+type ShareableCapacityStatusPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (ShareableCapacityStatusPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ShareableCapacityStatusPatch)(nil)).Elem()
+}
+
+func (o ShareableCapacityStatusPatchArrayOutput) ToShareableCapacityStatusPatchArrayOutput() ShareableCapacityStatusPatchArrayOutput {
+	return o
+}
+
+func (o ShareableCapacityStatusPatchArrayOutput) ToShareableCapacityStatusPatchArrayOutputWithContext(ctx context.Context) ShareableCapacityStatusPatchArrayOutput {
+	return o
+}
+
+func (o ShareableCapacityStatusPatchArrayOutput) Index(i pulumi.IntInput) ShareableCapacityStatusPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ShareableCapacityStatusPatch {
+		return vs[0].([]ShareableCapacityStatusPatch)[vs[1].(int)]
+	}).(ShareableCapacityStatusPatchOutput)
+}
+
+// ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+type ShareableSummaryStatus struct {
+	// Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+	Capacity []ShareableCapacityStatus `pulumi:"capacity"`
+	// FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+	FullyAvailableDevices int `pulumi:"fullyAvailableDevices"`
+	// PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+	PartiallyAvailableDevices int `pulumi:"partiallyAvailableDevices"`
+}
+
+// ShareableSummaryStatusInput is an input type that accepts ShareableSummaryStatusArgs and ShareableSummaryStatusOutput values.
+// You can construct a concrete instance of `ShareableSummaryStatusInput` via:
+//
+//	ShareableSummaryStatusArgs{...}
+type ShareableSummaryStatusInput interface {
+	pulumi.Input
+
+	ToShareableSummaryStatusOutput() ShareableSummaryStatusOutput
+	ToShareableSummaryStatusOutputWithContext(context.Context) ShareableSummaryStatusOutput
+}
+
+// ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+type ShareableSummaryStatusArgs struct {
+	// Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+	Capacity ShareableCapacityStatusArrayInput `pulumi:"capacity"`
+	// FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+	FullyAvailableDevices pulumi.IntInput `pulumi:"fullyAvailableDevices"`
+	// PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+	PartiallyAvailableDevices pulumi.IntInput `pulumi:"partiallyAvailableDevices"`
+}
+
+func (ShareableSummaryStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShareableSummaryStatus)(nil)).Elem()
+}
+
+func (i ShareableSummaryStatusArgs) ToShareableSummaryStatusOutput() ShareableSummaryStatusOutput {
+	return i.ToShareableSummaryStatusOutputWithContext(context.Background())
+}
+
+func (i ShareableSummaryStatusArgs) ToShareableSummaryStatusOutputWithContext(ctx context.Context) ShareableSummaryStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableSummaryStatusOutput)
+}
+
+func (i ShareableSummaryStatusArgs) ToShareableSummaryStatusPtrOutput() ShareableSummaryStatusPtrOutput {
+	return i.ToShareableSummaryStatusPtrOutputWithContext(context.Background())
+}
+
+func (i ShareableSummaryStatusArgs) ToShareableSummaryStatusPtrOutputWithContext(ctx context.Context) ShareableSummaryStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableSummaryStatusOutput).ToShareableSummaryStatusPtrOutputWithContext(ctx)
+}
+
+// ShareableSummaryStatusPtrInput is an input type that accepts ShareableSummaryStatusArgs, ShareableSummaryStatusPtr and ShareableSummaryStatusPtrOutput values.
+// You can construct a concrete instance of `ShareableSummaryStatusPtrInput` via:
+//
+//	        ShareableSummaryStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type ShareableSummaryStatusPtrInput interface {
+	pulumi.Input
+
+	ToShareableSummaryStatusPtrOutput() ShareableSummaryStatusPtrOutput
+	ToShareableSummaryStatusPtrOutputWithContext(context.Context) ShareableSummaryStatusPtrOutput
+}
+
+type shareableSummaryStatusPtrType ShareableSummaryStatusArgs
+
+func ShareableSummaryStatusPtr(v *ShareableSummaryStatusArgs) ShareableSummaryStatusPtrInput {
+	return (*shareableSummaryStatusPtrType)(v)
+}
+
+func (*shareableSummaryStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShareableSummaryStatus)(nil)).Elem()
+}
+
+func (i *shareableSummaryStatusPtrType) ToShareableSummaryStatusPtrOutput() ShareableSummaryStatusPtrOutput {
+	return i.ToShareableSummaryStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *shareableSummaryStatusPtrType) ToShareableSummaryStatusPtrOutputWithContext(ctx context.Context) ShareableSummaryStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableSummaryStatusPtrOutput)
+}
+
+// ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+type ShareableSummaryStatusOutput struct{ *pulumi.OutputState }
+
+func (ShareableSummaryStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShareableSummaryStatus)(nil)).Elem()
+}
+
+func (o ShareableSummaryStatusOutput) ToShareableSummaryStatusOutput() ShareableSummaryStatusOutput {
+	return o
+}
+
+func (o ShareableSummaryStatusOutput) ToShareableSummaryStatusOutputWithContext(ctx context.Context) ShareableSummaryStatusOutput {
+	return o
+}
+
+func (o ShareableSummaryStatusOutput) ToShareableSummaryStatusPtrOutput() ShareableSummaryStatusPtrOutput {
+	return o.ToShareableSummaryStatusPtrOutputWithContext(context.Background())
+}
+
+func (o ShareableSummaryStatusOutput) ToShareableSummaryStatusPtrOutputWithContext(ctx context.Context) ShareableSummaryStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ShareableSummaryStatus) *ShareableSummaryStatus {
+		return &v
+	}).(ShareableSummaryStatusPtrOutput)
+}
+
+// Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+func (o ShareableSummaryStatusOutput) Capacity() ShareableCapacityStatusArrayOutput {
+	return o.ApplyT(func(v ShareableSummaryStatus) []ShareableCapacityStatus { return v.Capacity }).(ShareableCapacityStatusArrayOutput)
+}
+
+// FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+func (o ShareableSummaryStatusOutput) FullyAvailableDevices() pulumi.IntOutput {
+	return o.ApplyT(func(v ShareableSummaryStatus) int { return v.FullyAvailableDevices }).(pulumi.IntOutput)
+}
+
+// PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+func (o ShareableSummaryStatusOutput) PartiallyAvailableDevices() pulumi.IntOutput {
+	return o.ApplyT(func(v ShareableSummaryStatus) int { return v.PartiallyAvailableDevices }).(pulumi.IntOutput)
+}
+
+type ShareableSummaryStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (ShareableSummaryStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShareableSummaryStatus)(nil)).Elem()
+}
+
+func (o ShareableSummaryStatusPtrOutput) ToShareableSummaryStatusPtrOutput() ShareableSummaryStatusPtrOutput {
+	return o
+}
+
+func (o ShareableSummaryStatusPtrOutput) ToShareableSummaryStatusPtrOutputWithContext(ctx context.Context) ShareableSummaryStatusPtrOutput {
+	return o
+}
+
+func (o ShareableSummaryStatusPtrOutput) Elem() ShareableSummaryStatusOutput {
+	return o.ApplyT(func(v *ShareableSummaryStatus) ShareableSummaryStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ShareableSummaryStatus
+		return ret
+	}).(ShareableSummaryStatusOutput)
+}
+
+// Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+func (o ShareableSummaryStatusPtrOutput) Capacity() ShareableCapacityStatusArrayOutput {
+	return o.ApplyT(func(v *ShareableSummaryStatus) []ShareableCapacityStatus {
+		if v == nil {
+			return nil
+		}
+		return v.Capacity
+	}).(ShareableCapacityStatusArrayOutput)
+}
+
+// FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+func (o ShareableSummaryStatusPtrOutput) FullyAvailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ShareableSummaryStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.FullyAvailableDevices
+	}).(pulumi.IntPtrOutput)
+}
+
+// PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+func (o ShareableSummaryStatusPtrOutput) PartiallyAvailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ShareableSummaryStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.PartiallyAvailableDevices
+	}).(pulumi.IntPtrOutput)
+}
+
+// ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+type ShareableSummaryStatusPatch struct {
+	// Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+	Capacity []ShareableCapacityStatusPatch `pulumi:"capacity"`
+	// FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+	FullyAvailableDevices *int `pulumi:"fullyAvailableDevices"`
+	// PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+	PartiallyAvailableDevices *int `pulumi:"partiallyAvailableDevices"`
+}
+
+// ShareableSummaryStatusPatchInput is an input type that accepts ShareableSummaryStatusPatchArgs and ShareableSummaryStatusPatchOutput values.
+// You can construct a concrete instance of `ShareableSummaryStatusPatchInput` via:
+//
+//	ShareableSummaryStatusPatchArgs{...}
+type ShareableSummaryStatusPatchInput interface {
+	pulumi.Input
+
+	ToShareableSummaryStatusPatchOutput() ShareableSummaryStatusPatchOutput
+	ToShareableSummaryStatusPatchOutputWithContext(context.Context) ShareableSummaryStatusPatchOutput
+}
+
+// ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+type ShareableSummaryStatusPatchArgs struct {
+	// Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+	Capacity ShareableCapacityStatusPatchArrayInput `pulumi:"capacity"`
+	// FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+	FullyAvailableDevices pulumi.IntPtrInput `pulumi:"fullyAvailableDevices"`
+	// PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+	PartiallyAvailableDevices pulumi.IntPtrInput `pulumi:"partiallyAvailableDevices"`
+}
+
+func (ShareableSummaryStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShareableSummaryStatusPatch)(nil)).Elem()
+}
+
+func (i ShareableSummaryStatusPatchArgs) ToShareableSummaryStatusPatchOutput() ShareableSummaryStatusPatchOutput {
+	return i.ToShareableSummaryStatusPatchOutputWithContext(context.Background())
+}
+
+func (i ShareableSummaryStatusPatchArgs) ToShareableSummaryStatusPatchOutputWithContext(ctx context.Context) ShareableSummaryStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableSummaryStatusPatchOutput)
+}
+
+func (i ShareableSummaryStatusPatchArgs) ToShareableSummaryStatusPatchPtrOutput() ShareableSummaryStatusPatchPtrOutput {
+	return i.ToShareableSummaryStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ShareableSummaryStatusPatchArgs) ToShareableSummaryStatusPatchPtrOutputWithContext(ctx context.Context) ShareableSummaryStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableSummaryStatusPatchOutput).ToShareableSummaryStatusPatchPtrOutputWithContext(ctx)
+}
+
+// ShareableSummaryStatusPatchPtrInput is an input type that accepts ShareableSummaryStatusPatchArgs, ShareableSummaryStatusPatchPtr and ShareableSummaryStatusPatchPtrOutput values.
+// You can construct a concrete instance of `ShareableSummaryStatusPatchPtrInput` via:
+//
+//	        ShareableSummaryStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ShareableSummaryStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToShareableSummaryStatusPatchPtrOutput() ShareableSummaryStatusPatchPtrOutput
+	ToShareableSummaryStatusPatchPtrOutputWithContext(context.Context) ShareableSummaryStatusPatchPtrOutput
+}
+
+type shareableSummaryStatusPatchPtrType ShareableSummaryStatusPatchArgs
+
+func ShareableSummaryStatusPatchPtr(v *ShareableSummaryStatusPatchArgs) ShareableSummaryStatusPatchPtrInput {
+	return (*shareableSummaryStatusPatchPtrType)(v)
+}
+
+func (*shareableSummaryStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShareableSummaryStatusPatch)(nil)).Elem()
+}
+
+func (i *shareableSummaryStatusPatchPtrType) ToShareableSummaryStatusPatchPtrOutput() ShareableSummaryStatusPatchPtrOutput {
+	return i.ToShareableSummaryStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *shareableSummaryStatusPatchPtrType) ToShareableSummaryStatusPatchPtrOutputWithContext(ctx context.Context) ShareableSummaryStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ShareableSummaryStatusPatchPtrOutput)
+}
+
+// ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+type ShareableSummaryStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (ShareableSummaryStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ShareableSummaryStatusPatch)(nil)).Elem()
+}
+
+func (o ShareableSummaryStatusPatchOutput) ToShareableSummaryStatusPatchOutput() ShareableSummaryStatusPatchOutput {
+	return o
+}
+
+func (o ShareableSummaryStatusPatchOutput) ToShareableSummaryStatusPatchOutputWithContext(ctx context.Context) ShareableSummaryStatusPatchOutput {
+	return o
+}
+
+func (o ShareableSummaryStatusPatchOutput) ToShareableSummaryStatusPatchPtrOutput() ShareableSummaryStatusPatchPtrOutput {
+	return o.ToShareableSummaryStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ShareableSummaryStatusPatchOutput) ToShareableSummaryStatusPatchPtrOutputWithContext(ctx context.Context) ShareableSummaryStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ShareableSummaryStatusPatch) *ShareableSummaryStatusPatch {
+		return &v
+	}).(ShareableSummaryStatusPatchPtrOutput)
+}
+
+// Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+func (o ShareableSummaryStatusPatchOutput) Capacity() ShareableCapacityStatusPatchArrayOutput {
+	return o.ApplyT(func(v ShareableSummaryStatusPatch) []ShareableCapacityStatusPatch { return v.Capacity }).(ShareableCapacityStatusPatchArrayOutput)
+}
+
+// FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+func (o ShareableSummaryStatusPatchOutput) FullyAvailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ShareableSummaryStatusPatch) *int { return v.FullyAvailableDevices }).(pulumi.IntPtrOutput)
+}
+
+// PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+func (o ShareableSummaryStatusPatchOutput) PartiallyAvailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ShareableSummaryStatusPatch) *int { return v.PartiallyAvailableDevices }).(pulumi.IntPtrOutput)
+}
+
+type ShareableSummaryStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ShareableSummaryStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ShareableSummaryStatusPatch)(nil)).Elem()
+}
+
+func (o ShareableSummaryStatusPatchPtrOutput) ToShareableSummaryStatusPatchPtrOutput() ShareableSummaryStatusPatchPtrOutput {
+	return o
+}
+
+func (o ShareableSummaryStatusPatchPtrOutput) ToShareableSummaryStatusPatchPtrOutputWithContext(ctx context.Context) ShareableSummaryStatusPatchPtrOutput {
+	return o
+}
+
+func (o ShareableSummaryStatusPatchPtrOutput) Elem() ShareableSummaryStatusPatchOutput {
+	return o.ApplyT(func(v *ShareableSummaryStatusPatch) ShareableSummaryStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ShareableSummaryStatusPatch
+		return ret
+	}).(ShareableSummaryStatusPatchOutput)
+}
+
+// Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+func (o ShareableSummaryStatusPatchPtrOutput) Capacity() ShareableCapacityStatusPatchArrayOutput {
+	return o.ApplyT(func(v *ShareableSummaryStatusPatch) []ShareableCapacityStatusPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Capacity
+	}).(ShareableCapacityStatusPatchArrayOutput)
+}
+
+// FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+func (o ShareableSummaryStatusPatchPtrOutput) FullyAvailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ShareableSummaryStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.FullyAvailableDevices
+	}).(pulumi.IntPtrOutput)
+}
+
+// PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+func (o ShareableSummaryStatusPatchPtrOutput) PartiallyAvailableDevices() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ShareableSummaryStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.PartiallyAvailableDevices
+	}).(pulumi.IntPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AllocationResultInput)(nil)).Elem(), AllocationResultArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AllocationResultPtrInput)(nil)).Elem(), AllocationResultArgs{})
@@ -12057,6 +13013,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationPtrInput)(nil)).Elem(), OpaqueDeviceConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationPatchInput)(nil)).Elem(), OpaqueDeviceConfigurationPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*OpaqueDeviceConfigurationPatchPtrInput)(nil)).Elem(), OpaqueDeviceConfigurationPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PartitionTypeStatusInput)(nil)).Elem(), PartitionTypeStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PartitionTypeStatusArrayInput)(nil)).Elem(), PartitionTypeStatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PartitionTypeStatusPatchInput)(nil)).Elem(), PartitionTypeStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PartitionTypeStatusPatchArrayInput)(nil)).Elem(), PartitionTypeStatusPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSchedulingContextTypeInput)(nil)).Elem(), PodSchedulingContextTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSchedulingContextTypeArrayInput)(nil)).Elem(), PodSchedulingContextTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSchedulingContextListTypeInput)(nil)).Elem(), PodSchedulingContextListTypeArgs{})
@@ -12119,6 +13079,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceSpecInput)(nil)).Elem(), ResourceSliceSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceSpecPatchInput)(nil)).Elem(), ResourceSliceSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceSliceSpecPatchPtrInput)(nil)).Elem(), ResourceSliceSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShareableCapacityStatusInput)(nil)).Elem(), ShareableCapacityStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShareableCapacityStatusArrayInput)(nil)).Elem(), ShareableCapacityStatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShareableCapacityStatusPatchInput)(nil)).Elem(), ShareableCapacityStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShareableCapacityStatusPatchArrayInput)(nil)).Elem(), ShareableCapacityStatusPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShareableSummaryStatusInput)(nil)).Elem(), ShareableSummaryStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShareableSummaryStatusPtrInput)(nil)).Elem(), ShareableSummaryStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShareableSummaryStatusPatchInput)(nil)).Elem(), ShareableSummaryStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ShareableSummaryStatusPatchPtrInput)(nil)).Elem(), ShareableSummaryStatusPatchArgs{})
 	pulumi.RegisterOutputType(AllocationResultOutput{})
 	pulumi.RegisterOutputType(AllocationResultPtrOutput{})
 	pulumi.RegisterOutputType(AllocationResultPatchOutput{})
@@ -12203,6 +13171,10 @@ func init() {
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationPtrOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationPatchOutput{})
 	pulumi.RegisterOutputType(OpaqueDeviceConfigurationPatchPtrOutput{})
+	pulumi.RegisterOutputType(PartitionTypeStatusOutput{})
+	pulumi.RegisterOutputType(PartitionTypeStatusArrayOutput{})
+	pulumi.RegisterOutputType(PartitionTypeStatusPatchOutput{})
+	pulumi.RegisterOutputType(PartitionTypeStatusPatchArrayOutput{})
 	pulumi.RegisterOutputType(PodSchedulingContextTypeOutput{})
 	pulumi.RegisterOutputType(PodSchedulingContextTypeArrayOutput{})
 	pulumi.RegisterOutputType(PodSchedulingContextListTypeOutput{})
@@ -12265,4 +13237,12 @@ func init() {
 	pulumi.RegisterOutputType(ResourceSliceSpecOutput{})
 	pulumi.RegisterOutputType(ResourceSliceSpecPatchOutput{})
 	pulumi.RegisterOutputType(ResourceSliceSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(ShareableCapacityStatusOutput{})
+	pulumi.RegisterOutputType(ShareableCapacityStatusArrayOutput{})
+	pulumi.RegisterOutputType(ShareableCapacityStatusPatchOutput{})
+	pulumi.RegisterOutputType(ShareableCapacityStatusPatchArrayOutput{})
+	pulumi.RegisterOutputType(ShareableSummaryStatusOutput{})
+	pulumi.RegisterOutputType(ShareableSummaryStatusPtrOutput{})
+	pulumi.RegisterOutputType(ShareableSummaryStatusPatchOutput{})
+	pulumi.RegisterOutputType(ShareableSummaryStatusPatchPtrOutput{})
 }

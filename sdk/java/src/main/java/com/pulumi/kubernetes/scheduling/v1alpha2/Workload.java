@@ -3,6 +3,7 @@
 
 package com.pulumi.kubernetes.scheduling.v1alpha2;
 
+import com.pulumi.core.Alias;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
@@ -12,6 +13,7 @@ import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.scheduling.v1alpha2.WorkloadArgs;
 import com.pulumi.kubernetes.scheduling.v1alpha2.outputs.WorkloadSpec;
 import java.lang.String;
+import java.util.List;
 import javax.annotation.Nullable;
 
 /**
@@ -120,6 +122,11 @@ public class Workload extends com.pulumi.resources.CustomResource {
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:scheduling.k8s.io/v1alpha1:Workload").build()),
+                Output.of(Alias.builder().type("kubernetes:scheduling.k8s.io/v1alpha3:Workload").build()),
+                Output.of(Alias.builder().type("kubernetes:scheduling.k8s.io/v1beta1:Workload").build())
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

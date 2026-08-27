@@ -16,6 +16,7 @@ from ... import _utilities
 from ... import batch as _batch
 from ... import core as _core
 from ... import meta as _meta
+from ... import scheduling as _scheduling
 
 __all__ = [
     'CronJobArgs',

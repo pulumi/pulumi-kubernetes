@@ -9,6 +9,9 @@ import typing
 from .DeviceClass import *
 from .DeviceClassList import *
 from .DeviceClassPatch import *
+from .DeviceTaintRule import *
+from .DeviceTaintRuleList import *
+from .DeviceTaintRulePatch import *
 from .ResourceClaim import *
 from .ResourceClaimList import *
 from .ResourceClaimPatch import *

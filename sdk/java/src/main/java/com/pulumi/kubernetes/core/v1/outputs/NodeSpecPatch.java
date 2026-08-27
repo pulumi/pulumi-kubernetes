@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.NodeConfigSourcePatch;
+import com.pulumi.kubernetes.core.v1.outputs.NodePodPreemptionPolicyPatch;
 import com.pulumi.kubernetes.core.v1.outputs.TaintPatch;
 import java.lang.Boolean;
 import java.lang.String;
@@ -35,6 +36,11 @@ public final class NodeSpecPatch {
      * 
      */
     private @Nullable List<String> podCIDRs;
+    /**
+     * @return PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+     * 
+     */
+    private @Nullable NodePodPreemptionPolicyPatch podPreemptionPolicy;
     /**
      * @return ID of the node assigned by the cloud provider in the format: &lt;ProviderName&gt;://&lt;ProviderSpecificNodeID&gt;
      * 
@@ -81,6 +87,13 @@ public final class NodeSpecPatch {
         return this.podCIDRs == null ? List.of() : this.podCIDRs;
     }
     /**
+     * @return PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+     * 
+     */
+    public Optional<NodePodPreemptionPolicyPatch> podPreemptionPolicy() {
+        return Optional.ofNullable(this.podPreemptionPolicy);
+    }
+    /**
      * @return ID of the node assigned by the cloud provider in the format: &lt;ProviderName&gt;://&lt;ProviderSpecificNodeID&gt;
      * 
      */
@@ -115,6 +128,7 @@ public final class NodeSpecPatch {
         private @Nullable String externalID;
         private @Nullable String podCIDR;
         private @Nullable List<String> podCIDRs;
+        private @Nullable NodePodPreemptionPolicyPatch podPreemptionPolicy;
         private @Nullable String providerID;
         private @Nullable List<TaintPatch> taints;
         private @Nullable Boolean unschedulable;
@@ -125,6 +139,7 @@ public final class NodeSpecPatch {
     	      this.externalID = defaults.externalID;
     	      this.podCIDR = defaults.podCIDR;
     	      this.podCIDRs = defaults.podCIDRs;
+    	      this.podPreemptionPolicy = defaults.podPreemptionPolicy;
     	      this.providerID = defaults.providerID;
     	      this.taints = defaults.taints;
     	      this.unschedulable = defaults.unschedulable;
@@ -158,6 +173,12 @@ public final class NodeSpecPatch {
             return podCIDRs(List.of(podCIDRs));
         }
         @CustomType.Setter
+        public Builder podPreemptionPolicy(@Nullable NodePodPreemptionPolicyPatch podPreemptionPolicy) {
+
+            this.podPreemptionPolicy = podPreemptionPolicy;
+            return this;
+        }
+        @CustomType.Setter
         public Builder providerID(@Nullable String providerID) {
 
             this.providerID = providerID;
@@ -184,6 +205,7 @@ public final class NodeSpecPatch {
             _resultValue.externalID = externalID;
             _resultValue.podCIDR = podCIDR;
             _resultValue.podCIDRs = podCIDRs;
+            _resultValue.podPreemptionPolicy = podPreemptionPolicy;
             _resultValue.providerID = providerID;
             _resultValue.taints = taints;
             _resultValue.unschedulable = unschedulable;

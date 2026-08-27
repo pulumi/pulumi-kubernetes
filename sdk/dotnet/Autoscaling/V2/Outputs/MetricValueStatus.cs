@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2
     public sealed class MetricValueStatus
     {
         /// <summary>
-        /// currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+        /// averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
         /// </summary>
         public readonly int AverageUtilization;
         /// <summary>

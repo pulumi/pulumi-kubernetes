@@ -669,7 +669,7 @@ type FlowSchemaType struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *FlowSchemaSpec `pulumi:"spec"`
+	Spec FlowSchemaSpec `pulumi:"spec"`
 	// `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status *FlowSchemaStatus `pulumi:"status"`
 }
@@ -694,7 +694,7 @@ type FlowSchemaTypeArgs struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec FlowSchemaSpecPtrInput `pulumi:"spec"`
+	Spec FlowSchemaSpecInput `pulumi:"spec"`
 	// `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status FlowSchemaStatusPtrInput `pulumi:"status"`
 }
@@ -767,8 +767,8 @@ func (o FlowSchemaTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o FlowSchemaTypeOutput) Spec() FlowSchemaSpecPtrOutput {
-	return o.ApplyT(func(v FlowSchemaType) *FlowSchemaSpec { return v.Spec }).(FlowSchemaSpecPtrOutput)
+func (o FlowSchemaTypeOutput) Spec() FlowSchemaSpecOutput {
+	return o.ApplyT(func(v FlowSchemaType) FlowSchemaSpec { return v.Spec }).(FlowSchemaSpecOutput)
 }
 
 // `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -804,10 +804,10 @@ type FlowSchemaCondition struct {
 	Message *string `pulumi:"message"`
 	// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
-	// `status` is the status of the condition. Can be True, False, Unknown. Required.
+	// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 	Status *string `pulumi:"status"`
 	// `type` is the type of the condition. Required.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // FlowSchemaConditionInput is an input type that accepts FlowSchemaConditionArgs and FlowSchemaConditionOutput values.
@@ -829,10 +829,10 @@ type FlowSchemaConditionArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
-	// `status` is the status of the condition. Can be True, False, Unknown. Required.
+	// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 	Status pulumi.StringPtrInput `pulumi:"status"`
 	// `type` is the type of the condition. Required.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (FlowSchemaConditionArgs) ElementType() reflect.Type {
@@ -902,14 +902,14 @@ func (o FlowSchemaConditionOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlowSchemaCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-// `status` is the status of the condition. Can be True, False, Unknown. Required.
+// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 func (o FlowSchemaConditionOutput) Status() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlowSchemaCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
 // `type` is the type of the condition. Required.
-func (o FlowSchemaConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlowSchemaCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o FlowSchemaConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v FlowSchemaCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type FlowSchemaConditionArrayOutput struct{ *pulumi.OutputState }
@@ -940,7 +940,7 @@ type FlowSchemaConditionPatch struct {
 	Message *string `pulumi:"message"`
 	// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
-	// `status` is the status of the condition. Can be True, False, Unknown. Required.
+	// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 	Status *string `pulumi:"status"`
 	// `type` is the type of the condition. Required.
 	Type *string `pulumi:"type"`
@@ -965,7 +965,7 @@ type FlowSchemaConditionPatchArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
-	// `status` is the status of the condition. Can be True, False, Unknown. Required.
+	// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 	Status pulumi.StringPtrInput `pulumi:"status"`
 	// `type` is the type of the condition. Required.
 	Type pulumi.StringPtrInput `pulumi:"type"`
@@ -1038,7 +1038,7 @@ func (o FlowSchemaConditionPatchOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlowSchemaConditionPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-// `status` is the status of the condition. Can be True, False, Unknown. Required.
+// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 func (o FlowSchemaConditionPatchOutput) Status() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlowSchemaConditionPatch) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
@@ -1288,47 +1288,6 @@ func (i FlowSchemaSpecArgs) ToFlowSchemaSpecOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaSpecOutput)
 }
 
-func (i FlowSchemaSpecArgs) ToFlowSchemaSpecPtrOutput() FlowSchemaSpecPtrOutput {
-	return i.ToFlowSchemaSpecPtrOutputWithContext(context.Background())
-}
-
-func (i FlowSchemaSpecArgs) ToFlowSchemaSpecPtrOutputWithContext(ctx context.Context) FlowSchemaSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaSpecOutput).ToFlowSchemaSpecPtrOutputWithContext(ctx)
-}
-
-// FlowSchemaSpecPtrInput is an input type that accepts FlowSchemaSpecArgs, FlowSchemaSpecPtr and FlowSchemaSpecPtrOutput values.
-// You can construct a concrete instance of `FlowSchemaSpecPtrInput` via:
-//
-//	        FlowSchemaSpecArgs{...}
-//
-//	or:
-//
-//	        nil
-type FlowSchemaSpecPtrInput interface {
-	pulumi.Input
-
-	ToFlowSchemaSpecPtrOutput() FlowSchemaSpecPtrOutput
-	ToFlowSchemaSpecPtrOutputWithContext(context.Context) FlowSchemaSpecPtrOutput
-}
-
-type flowSchemaSpecPtrType FlowSchemaSpecArgs
-
-func FlowSchemaSpecPtr(v *FlowSchemaSpecArgs) FlowSchemaSpecPtrInput {
-	return (*flowSchemaSpecPtrType)(v)
-}
-
-func (*flowSchemaSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**FlowSchemaSpec)(nil)).Elem()
-}
-
-func (i *flowSchemaSpecPtrType) ToFlowSchemaSpecPtrOutput() FlowSchemaSpecPtrOutput {
-	return i.ToFlowSchemaSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *flowSchemaSpecPtrType) ToFlowSchemaSpecPtrOutputWithContext(ctx context.Context) FlowSchemaSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaSpecPtrOutput)
-}
-
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
 type FlowSchemaSpecOutput struct{ *pulumi.OutputState }
 
@@ -1342,16 +1301,6 @@ func (o FlowSchemaSpecOutput) ToFlowSchemaSpecOutput() FlowSchemaSpecOutput {
 
 func (o FlowSchemaSpecOutput) ToFlowSchemaSpecOutputWithContext(ctx context.Context) FlowSchemaSpecOutput {
 	return o
-}
-
-func (o FlowSchemaSpecOutput) ToFlowSchemaSpecPtrOutput() FlowSchemaSpecPtrOutput {
-	return o.ToFlowSchemaSpecPtrOutputWithContext(context.Background())
-}
-
-func (o FlowSchemaSpecOutput) ToFlowSchemaSpecPtrOutputWithContext(ctx context.Context) FlowSchemaSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlowSchemaSpec) *FlowSchemaSpec {
-		return &v
-	}).(FlowSchemaSpecPtrOutput)
 }
 
 // `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
@@ -1372,70 +1321,6 @@ func (o FlowSchemaSpecOutput) PriorityLevelConfiguration() PriorityLevelConfigur
 // `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
 func (o FlowSchemaSpecOutput) Rules() PolicyRulesWithSubjectsArrayOutput {
 	return o.ApplyT(func(v FlowSchemaSpec) []PolicyRulesWithSubjects { return v.Rules }).(PolicyRulesWithSubjectsArrayOutput)
-}
-
-type FlowSchemaSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (FlowSchemaSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**FlowSchemaSpec)(nil)).Elem()
-}
-
-func (o FlowSchemaSpecPtrOutput) ToFlowSchemaSpecPtrOutput() FlowSchemaSpecPtrOutput {
-	return o
-}
-
-func (o FlowSchemaSpecPtrOutput) ToFlowSchemaSpecPtrOutputWithContext(ctx context.Context) FlowSchemaSpecPtrOutput {
-	return o
-}
-
-func (o FlowSchemaSpecPtrOutput) Elem() FlowSchemaSpecOutput {
-	return o.ApplyT(func(v *FlowSchemaSpec) FlowSchemaSpec {
-		if v != nil {
-			return *v
-		}
-		var ret FlowSchemaSpec
-		return ret
-	}).(FlowSchemaSpecOutput)
-}
-
-// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
-func (o FlowSchemaSpecPtrOutput) DistinguisherMethod() FlowDistinguisherMethodPtrOutput {
-	return o.ApplyT(func(v *FlowSchemaSpec) *FlowDistinguisherMethod {
-		if v == nil {
-			return nil
-		}
-		return v.DistinguisherMethod
-	}).(FlowDistinguisherMethodPtrOutput)
-}
-
-// `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
-func (o FlowSchemaSpecPtrOutput) MatchingPrecedence() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *FlowSchemaSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MatchingPrecedence
-	}).(pulumi.IntPtrOutput)
-}
-
-// `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
-func (o FlowSchemaSpecPtrOutput) PriorityLevelConfiguration() PriorityLevelConfigurationReferencePtrOutput {
-	return o.ApplyT(func(v *FlowSchemaSpec) *PriorityLevelConfigurationReference {
-		if v == nil {
-			return nil
-		}
-		return &v.PriorityLevelConfiguration
-	}).(PriorityLevelConfigurationReferencePtrOutput)
-}
-
-// `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
-func (o FlowSchemaSpecPtrOutput) Rules() PolicyRulesWithSubjectsArrayOutput {
-	return o.ApplyT(func(v *FlowSchemaSpec) []PolicyRulesWithSubjects {
-		if v == nil {
-			return nil
-		}
-		return v.Rules
-	}).(PolicyRulesWithSubjectsArrayOutput)
 }
 
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
@@ -2530,7 +2415,7 @@ type LimitedPriorityLevelConfiguration struct {
 	// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
 	LendablePercent *int `pulumi:"lendablePercent"`
 	// `limitResponse` indicates what to do with requests that can not be executed right now
-	LimitResponse *LimitResponse `pulumi:"limitResponse"`
+	LimitResponse LimitResponse `pulumi:"limitResponse"`
 	// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
 	//
 	// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
@@ -2569,7 +2454,7 @@ type LimitedPriorityLevelConfigurationArgs struct {
 	// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
 	LendablePercent pulumi.IntPtrInput `pulumi:"lendablePercent"`
 	// `limitResponse` indicates what to do with requests that can not be executed right now
-	LimitResponse LimitResponsePtrInput `pulumi:"limitResponse"`
+	LimitResponse LimitResponseInput `pulumi:"limitResponse"`
 	// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
 	//
 	// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
@@ -2679,8 +2564,8 @@ func (o LimitedPriorityLevelConfigurationOutput) LendablePercent() pulumi.IntPtr
 }
 
 // `limitResponse` indicates what to do with requests that can not be executed right now
-func (o LimitedPriorityLevelConfigurationOutput) LimitResponse() LimitResponsePtrOutput {
-	return o.ApplyT(func(v LimitedPriorityLevelConfiguration) *LimitResponse { return v.LimitResponse }).(LimitResponsePtrOutput)
+func (o LimitedPriorityLevelConfigurationOutput) LimitResponse() LimitResponseOutput {
+	return o.ApplyT(func(v LimitedPriorityLevelConfiguration) LimitResponse { return v.LimitResponse }).(LimitResponseOutput)
 }
 
 // `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
@@ -2752,7 +2637,7 @@ func (o LimitedPriorityLevelConfigurationPtrOutput) LimitResponse() LimitRespons
 		if v == nil {
 			return nil
 		}
-		return v.LimitResponse
+		return &v.LimitResponse
 	}).(LimitResponsePtrOutput)
 }
 
@@ -3532,7 +3417,7 @@ type PriorityLevelConfigurationType struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *PriorityLevelConfigurationSpec `pulumi:"spec"`
+	Spec PriorityLevelConfigurationSpec `pulumi:"spec"`
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status *PriorityLevelConfigurationStatus `pulumi:"status"`
 }
@@ -3557,7 +3442,7 @@ type PriorityLevelConfigurationTypeArgs struct {
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec PriorityLevelConfigurationSpecPtrInput `pulumi:"spec"`
+	Spec PriorityLevelConfigurationSpecInput `pulumi:"spec"`
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status PriorityLevelConfigurationStatusPtrInput `pulumi:"status"`
 }
@@ -3630,8 +3515,8 @@ func (o PriorityLevelConfigurationTypeOutput) Metadata() metav1.ObjectMetaPtrOut
 }
 
 // `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o PriorityLevelConfigurationTypeOutput) Spec() PriorityLevelConfigurationSpecPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationType) *PriorityLevelConfigurationSpec { return v.Spec }).(PriorityLevelConfigurationSpecPtrOutput)
+func (o PriorityLevelConfigurationTypeOutput) Spec() PriorityLevelConfigurationSpecOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationType) PriorityLevelConfigurationSpec { return v.Spec }).(PriorityLevelConfigurationSpecOutput)
 }
 
 // `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -3667,10 +3552,10 @@ type PriorityLevelConfigurationCondition struct {
 	Message *string `pulumi:"message"`
 	// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
-	// `status` is the status of the condition. Can be True, False, Unknown. Required.
+	// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 	Status *string `pulumi:"status"`
 	// `type` is the type of the condition. Required.
-	Type *string `pulumi:"type"`
+	Type string `pulumi:"type"`
 }
 
 // PriorityLevelConfigurationConditionInput is an input type that accepts PriorityLevelConfigurationConditionArgs and PriorityLevelConfigurationConditionOutput values.
@@ -3692,10 +3577,10 @@ type PriorityLevelConfigurationConditionArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
-	// `status` is the status of the condition. Can be True, False, Unknown. Required.
+	// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 	Status pulumi.StringPtrInput `pulumi:"status"`
 	// `type` is the type of the condition. Required.
-	Type pulumi.StringPtrInput `pulumi:"type"`
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (PriorityLevelConfigurationConditionArgs) ElementType() reflect.Type {
@@ -3765,14 +3650,14 @@ func (o PriorityLevelConfigurationConditionOutput) Reason() pulumi.StringPtrOutp
 	return o.ApplyT(func(v PriorityLevelConfigurationCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-// `status` is the status of the condition. Can be True, False, Unknown. Required.
+// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 func (o PriorityLevelConfigurationConditionOutput) Status() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
 // `type` is the type of the condition. Required.
-func (o PriorityLevelConfigurationConditionOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationCondition) *string { return v.Type }).(pulumi.StringPtrOutput)
+func (o PriorityLevelConfigurationConditionOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationCondition) string { return v.Type }).(pulumi.StringOutput)
 }
 
 type PriorityLevelConfigurationConditionArrayOutput struct{ *pulumi.OutputState }
@@ -3803,7 +3688,7 @@ type PriorityLevelConfigurationConditionPatch struct {
 	Message *string `pulumi:"message"`
 	// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason *string `pulumi:"reason"`
-	// `status` is the status of the condition. Can be True, False, Unknown. Required.
+	// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 	Status *string `pulumi:"status"`
 	// `type` is the type of the condition. Required.
 	Type *string `pulumi:"type"`
@@ -3828,7 +3713,7 @@ type PriorityLevelConfigurationConditionPatchArgs struct {
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
-	// `status` is the status of the condition. Can be True, False, Unknown. Required.
+	// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 	Status pulumi.StringPtrInput `pulumi:"status"`
 	// `type` is the type of the condition. Required.
 	Type pulumi.StringPtrInput `pulumi:"type"`
@@ -3901,7 +3786,7 @@ func (o PriorityLevelConfigurationConditionPatchOutput) Reason() pulumi.StringPt
 	return o.ApplyT(func(v PriorityLevelConfigurationConditionPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
 
-// `status` is the status of the condition. Can be True, False, Unknown. Required.
+// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
 func (o PriorityLevelConfigurationConditionPatchOutput) Status() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationConditionPatch) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
@@ -4139,47 +4024,6 @@ func (i PriorityLevelConfigurationReferenceArgs) ToPriorityLevelConfigurationRef
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationReferenceOutput)
 }
 
-func (i PriorityLevelConfigurationReferenceArgs) ToPriorityLevelConfigurationReferencePtrOutput() PriorityLevelConfigurationReferencePtrOutput {
-	return i.ToPriorityLevelConfigurationReferencePtrOutputWithContext(context.Background())
-}
-
-func (i PriorityLevelConfigurationReferenceArgs) ToPriorityLevelConfigurationReferencePtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationReferencePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationReferenceOutput).ToPriorityLevelConfigurationReferencePtrOutputWithContext(ctx)
-}
-
-// PriorityLevelConfigurationReferencePtrInput is an input type that accepts PriorityLevelConfigurationReferenceArgs, PriorityLevelConfigurationReferencePtr and PriorityLevelConfigurationReferencePtrOutput values.
-// You can construct a concrete instance of `PriorityLevelConfigurationReferencePtrInput` via:
-//
-//	        PriorityLevelConfigurationReferenceArgs{...}
-//
-//	or:
-//
-//	        nil
-type PriorityLevelConfigurationReferencePtrInput interface {
-	pulumi.Input
-
-	ToPriorityLevelConfigurationReferencePtrOutput() PriorityLevelConfigurationReferencePtrOutput
-	ToPriorityLevelConfigurationReferencePtrOutputWithContext(context.Context) PriorityLevelConfigurationReferencePtrOutput
-}
-
-type priorityLevelConfigurationReferencePtrType PriorityLevelConfigurationReferenceArgs
-
-func PriorityLevelConfigurationReferencePtr(v *PriorityLevelConfigurationReferenceArgs) PriorityLevelConfigurationReferencePtrInput {
-	return (*priorityLevelConfigurationReferencePtrType)(v)
-}
-
-func (*priorityLevelConfigurationReferencePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**PriorityLevelConfigurationReference)(nil)).Elem()
-}
-
-func (i *priorityLevelConfigurationReferencePtrType) ToPriorityLevelConfigurationReferencePtrOutput() PriorityLevelConfigurationReferencePtrOutput {
-	return i.ToPriorityLevelConfigurationReferencePtrOutputWithContext(context.Background())
-}
-
-func (i *priorityLevelConfigurationReferencePtrType) ToPriorityLevelConfigurationReferencePtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationReferencePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationReferencePtrOutput)
-}
-
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
 type PriorityLevelConfigurationReferenceOutput struct{ *pulumi.OutputState }
 
@@ -4195,53 +4039,9 @@ func (o PriorityLevelConfigurationReferenceOutput) ToPriorityLevelConfigurationR
 	return o
 }
 
-func (o PriorityLevelConfigurationReferenceOutput) ToPriorityLevelConfigurationReferencePtrOutput() PriorityLevelConfigurationReferencePtrOutput {
-	return o.ToPriorityLevelConfigurationReferencePtrOutputWithContext(context.Background())
-}
-
-func (o PriorityLevelConfigurationReferenceOutput) ToPriorityLevelConfigurationReferencePtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationReferencePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityLevelConfigurationReference) *PriorityLevelConfigurationReference {
-		return &v
-	}).(PriorityLevelConfigurationReferencePtrOutput)
-}
-
 // `name` is the name of the priority level configuration being referenced Required.
 func (o PriorityLevelConfigurationReferenceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationReference) string { return v.Name }).(pulumi.StringOutput)
-}
-
-type PriorityLevelConfigurationReferencePtrOutput struct{ *pulumi.OutputState }
-
-func (PriorityLevelConfigurationReferencePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PriorityLevelConfigurationReference)(nil)).Elem()
-}
-
-func (o PriorityLevelConfigurationReferencePtrOutput) ToPriorityLevelConfigurationReferencePtrOutput() PriorityLevelConfigurationReferencePtrOutput {
-	return o
-}
-
-func (o PriorityLevelConfigurationReferencePtrOutput) ToPriorityLevelConfigurationReferencePtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationReferencePtrOutput {
-	return o
-}
-
-func (o PriorityLevelConfigurationReferencePtrOutput) Elem() PriorityLevelConfigurationReferenceOutput {
-	return o.ApplyT(func(v *PriorityLevelConfigurationReference) PriorityLevelConfigurationReference {
-		if v != nil {
-			return *v
-		}
-		var ret PriorityLevelConfigurationReference
-		return ret
-	}).(PriorityLevelConfigurationReferenceOutput)
-}
-
-// `name` is the name of the priority level configuration being referenced Required.
-func (o PriorityLevelConfigurationReferencePtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PriorityLevelConfigurationReference) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Name
-	}).(pulumi.StringPtrOutput)
 }
 
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
@@ -4427,47 +4227,6 @@ func (i PriorityLevelConfigurationSpecArgs) ToPriorityLevelConfigurationSpecOutp
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationSpecOutput)
 }
 
-func (i PriorityLevelConfigurationSpecArgs) ToPriorityLevelConfigurationSpecPtrOutput() PriorityLevelConfigurationSpecPtrOutput {
-	return i.ToPriorityLevelConfigurationSpecPtrOutputWithContext(context.Background())
-}
-
-func (i PriorityLevelConfigurationSpecArgs) ToPriorityLevelConfigurationSpecPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationSpecOutput).ToPriorityLevelConfigurationSpecPtrOutputWithContext(ctx)
-}
-
-// PriorityLevelConfigurationSpecPtrInput is an input type that accepts PriorityLevelConfigurationSpecArgs, PriorityLevelConfigurationSpecPtr and PriorityLevelConfigurationSpecPtrOutput values.
-// You can construct a concrete instance of `PriorityLevelConfigurationSpecPtrInput` via:
-//
-//	        PriorityLevelConfigurationSpecArgs{...}
-//
-//	or:
-//
-//	        nil
-type PriorityLevelConfigurationSpecPtrInput interface {
-	pulumi.Input
-
-	ToPriorityLevelConfigurationSpecPtrOutput() PriorityLevelConfigurationSpecPtrOutput
-	ToPriorityLevelConfigurationSpecPtrOutputWithContext(context.Context) PriorityLevelConfigurationSpecPtrOutput
-}
-
-type priorityLevelConfigurationSpecPtrType PriorityLevelConfigurationSpecArgs
-
-func PriorityLevelConfigurationSpecPtr(v *PriorityLevelConfigurationSpecArgs) PriorityLevelConfigurationSpecPtrInput {
-	return (*priorityLevelConfigurationSpecPtrType)(v)
-}
-
-func (*priorityLevelConfigurationSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**PriorityLevelConfigurationSpec)(nil)).Elem()
-}
-
-func (i *priorityLevelConfigurationSpecPtrType) ToPriorityLevelConfigurationSpecPtrOutput() PriorityLevelConfigurationSpecPtrOutput {
-	return i.ToPriorityLevelConfigurationSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *priorityLevelConfigurationSpecPtrType) ToPriorityLevelConfigurationSpecPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationSpecPtrOutput)
-}
-
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 type PriorityLevelConfigurationSpecOutput struct{ *pulumi.OutputState }
 
@@ -4483,16 +4242,6 @@ func (o PriorityLevelConfigurationSpecOutput) ToPriorityLevelConfigurationSpecOu
 	return o
 }
 
-func (o PriorityLevelConfigurationSpecOutput) ToPriorityLevelConfigurationSpecPtrOutput() PriorityLevelConfigurationSpecPtrOutput {
-	return o.ToPriorityLevelConfigurationSpecPtrOutputWithContext(context.Background())
-}
-
-func (o PriorityLevelConfigurationSpecOutput) ToPriorityLevelConfigurationSpecPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityLevelConfigurationSpec) *PriorityLevelConfigurationSpec {
-		return &v
-	}).(PriorityLevelConfigurationSpecPtrOutput)
-}
-
 // `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
 func (o PriorityLevelConfigurationSpecOutput) Exempt() ExemptPriorityLevelConfigurationPtrOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationSpec) *ExemptPriorityLevelConfiguration { return v.Exempt }).(ExemptPriorityLevelConfigurationPtrOutput)
@@ -4506,60 +4255,6 @@ func (o PriorityLevelConfigurationSpecOutput) Limited() LimitedPriorityLevelConf
 // `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
 func (o PriorityLevelConfigurationSpecOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationSpec) string { return v.Type }).(pulumi.StringOutput)
-}
-
-type PriorityLevelConfigurationSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (PriorityLevelConfigurationSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PriorityLevelConfigurationSpec)(nil)).Elem()
-}
-
-func (o PriorityLevelConfigurationSpecPtrOutput) ToPriorityLevelConfigurationSpecPtrOutput() PriorityLevelConfigurationSpecPtrOutput {
-	return o
-}
-
-func (o PriorityLevelConfigurationSpecPtrOutput) ToPriorityLevelConfigurationSpecPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationSpecPtrOutput {
-	return o
-}
-
-func (o PriorityLevelConfigurationSpecPtrOutput) Elem() PriorityLevelConfigurationSpecOutput {
-	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) PriorityLevelConfigurationSpec {
-		if v != nil {
-			return *v
-		}
-		var ret PriorityLevelConfigurationSpec
-		return ret
-	}).(PriorityLevelConfigurationSpecOutput)
-}
-
-// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
-func (o PriorityLevelConfigurationSpecPtrOutput) Exempt() ExemptPriorityLevelConfigurationPtrOutput {
-	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) *ExemptPriorityLevelConfiguration {
-		if v == nil {
-			return nil
-		}
-		return v.Exempt
-	}).(ExemptPriorityLevelConfigurationPtrOutput)
-}
-
-// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
-func (o PriorityLevelConfigurationSpecPtrOutput) Limited() LimitedPriorityLevelConfigurationPtrOutput {
-	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) *LimitedPriorityLevelConfiguration {
-		if v == nil {
-			return nil
-		}
-		return v.Limited
-	}).(LimitedPriorityLevelConfigurationPtrOutput)
-}
-
-// `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
-func (o PriorityLevelConfigurationSpecPtrOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Type
-	}).(pulumi.StringPtrOutput)
 }
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
@@ -6520,7 +6215,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaListTypeInput)(nil)).Elem(), FlowSchemaListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaPatchTypeInput)(nil)).Elem(), FlowSchemaPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaSpecInput)(nil)).Elem(), FlowSchemaSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaSpecPtrInput)(nil)).Elem(), FlowSchemaSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaSpecPatchInput)(nil)).Elem(), FlowSchemaSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaSpecPatchPtrInput)(nil)).Elem(), FlowSchemaSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaStatusInput)(nil)).Elem(), FlowSchemaStatusArgs{})
@@ -6556,11 +6250,9 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationListTypeInput)(nil)).Elem(), PriorityLevelConfigurationListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationPatchTypeInput)(nil)).Elem(), PriorityLevelConfigurationPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationReferenceInput)(nil)).Elem(), PriorityLevelConfigurationReferenceArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationReferencePtrInput)(nil)).Elem(), PriorityLevelConfigurationReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationReferencePatchInput)(nil)).Elem(), PriorityLevelConfigurationReferencePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationReferencePatchPtrInput)(nil)).Elem(), PriorityLevelConfigurationReferencePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationSpecInput)(nil)).Elem(), PriorityLevelConfigurationSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationSpecPtrInput)(nil)).Elem(), PriorityLevelConfigurationSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationSpecPatchInput)(nil)).Elem(), PriorityLevelConfigurationSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationSpecPatchPtrInput)(nil)).Elem(), PriorityLevelConfigurationSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationStatusInput)(nil)).Elem(), PriorityLevelConfigurationStatusArgs{})
@@ -6604,7 +6296,6 @@ func init() {
 	pulumi.RegisterOutputType(FlowSchemaListTypeOutput{})
 	pulumi.RegisterOutputType(FlowSchemaPatchTypeOutput{})
 	pulumi.RegisterOutputType(FlowSchemaSpecOutput{})
-	pulumi.RegisterOutputType(FlowSchemaSpecPtrOutput{})
 	pulumi.RegisterOutputType(FlowSchemaSpecPatchOutput{})
 	pulumi.RegisterOutputType(FlowSchemaSpecPatchPtrOutput{})
 	pulumi.RegisterOutputType(FlowSchemaStatusOutput{})
@@ -6640,11 +6331,9 @@ func init() {
 	pulumi.RegisterOutputType(PriorityLevelConfigurationListTypeOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationPatchTypeOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationReferenceOutput{})
-	pulumi.RegisterOutputType(PriorityLevelConfigurationReferencePtrOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationReferencePatchOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationReferencePatchPtrOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationSpecOutput{})
-	pulumi.RegisterOutputType(PriorityLevelConfigurationSpecPtrOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationSpecPatchOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationSpecPatchPtrOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationStatusOutput{})

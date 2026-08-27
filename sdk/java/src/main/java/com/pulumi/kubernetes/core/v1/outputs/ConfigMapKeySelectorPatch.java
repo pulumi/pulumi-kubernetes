@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ConfigMapKeySelectorPatch {
     /**
-     * @return The key to select.
+     * @return The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
      * 
      */
     private @Nullable String key;
@@ -30,7 +30,7 @@ public final class ConfigMapKeySelectorPatch {
 
     private ConfigMapKeySelectorPatch() {}
     /**
-     * @return The key to select.
+     * @return The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
      * 
      */
     public Optional<String> key() {

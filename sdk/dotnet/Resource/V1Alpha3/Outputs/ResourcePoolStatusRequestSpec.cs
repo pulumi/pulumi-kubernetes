@@ -17,6 +17,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
     public sealed class ResourcePoolStatusRequestSpec
     {
         /// <summary>
+        /// DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+        /// 
+        /// A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+        /// 
+        /// Must include the domain qualifier.
+        /// </summary>
+        public readonly string DefaultPartitionTypeAttribute;
+        /// <summary>
         /// Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
         /// </summary>
         public readonly string Driver;
@@ -33,12 +41,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
 
         [OutputConstructor]
         private ResourcePoolStatusRequestSpec(
+            string defaultPartitionTypeAttribute,
+
             string driver,
 
             int limit,
 
             string poolName)
         {
+            DefaultPartitionTypeAttribute = defaultPartitionTypeAttribute;
             Driver = driver;
             Limit = limit;
             PoolName = poolName;

@@ -131,8 +131,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         /// <summary>
         /// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
-        [Input("spec")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.DaemonSetSpecArgs>? Spec { get; set; }
+        [Input("spec", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.DaemonSetSpecArgs> Spec { get; set; } = null!;
 
         public DaemonSetArgs()
         {

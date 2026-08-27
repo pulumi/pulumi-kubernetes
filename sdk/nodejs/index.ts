@@ -28,6 +28,7 @@ import * as extensions from "./extensions";
 import * as flowcontrol from "./flowcontrol";
 import * as helm from "./helm";
 import * as kustomize from "./kustomize";
+import * as lifecycle from "./lifecycle";
 import * as meta from "./meta";
 import * as networking from "./networking";
 import * as node from "./node";
@@ -58,6 +59,7 @@ export {
     flowcontrol,
     helm,
     kustomize,
+    lifecycle,
     meta,
     networking,
     node,

@@ -6,8 +6,14 @@ import builtins as _builtins
 from ... import _utilities
 import typing
 # Export this package's modules as members:
+from .PodGroup import *
+from .PodGroupList import *
+from .PodGroupPatch import *
 from .PriorityClass import *
 from .PriorityClassList import *
 from .PriorityClassPatch import *
+from .Workload import *
+from .WorkloadList import *
+from .WorkloadPatch import *
 from ._inputs import *
 from . import outputs

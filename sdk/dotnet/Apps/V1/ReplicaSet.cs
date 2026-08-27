@@ -131,8 +131,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         /// <summary>
         /// Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
-        [Input("spec")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.ReplicaSetSpecArgs>? Spec { get; set; }
+        [Input("spec", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.ReplicaSetSpecArgs> Spec { get; set; } = null!;
 
         public ReplicaSetArgs()
         {

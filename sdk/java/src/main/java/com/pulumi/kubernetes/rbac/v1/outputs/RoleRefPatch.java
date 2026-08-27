@@ -12,38 +12,38 @@ import javax.annotation.Nullable;
 @CustomType
 public final class RoleRefPatch {
     /**
-     * @return APIGroup is the group for the resource being referenced
+     * @return apiGroup is the group for the resource being referenced
      * 
      */
     private @Nullable String apiGroup;
     /**
-     * @return Kind is the type of resource being referenced
+     * @return kind is the type of resource being referenced
      * 
      */
     private @Nullable String kind;
     /**
-     * @return Name is the name of resource being referenced
+     * @return name is the name of resource being referenced
      * 
      */
     private @Nullable String name;
 
     private RoleRefPatch() {}
     /**
-     * @return APIGroup is the group for the resource being referenced
+     * @return apiGroup is the group for the resource being referenced
      * 
      */
     public Optional<String> apiGroup() {
         return Optional.ofNullable(this.apiGroup);
     }
     /**
-     * @return Kind is the type of resource being referenced
+     * @return kind is the type of resource being referenced
      * 
      */
     public Optional<String> kind() {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Name is the name of resource being referenced
+     * @return name is the name of resource being referenced
      * 
      */
     public Optional<String> name() {

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.outputs.ReplicaSetSpec;
 import com.pulumi.kubernetes.apps.v1.outputs.ReplicaSetStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
@@ -33,7 +34,7 @@ public final class ReplicaSet {
      * @return Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    private @Nullable ReplicaSetSpec spec;
+    private ReplicaSetSpec spec;
     /**
      * @return Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
@@ -66,8 +67,8 @@ public final class ReplicaSet {
      * @return Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<ReplicaSetSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public ReplicaSetSpec spec() {
+        return this.spec;
     }
     /**
      * @return Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -89,7 +90,7 @@ public final class ReplicaSet {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable ReplicaSetSpec spec;
+        private ReplicaSetSpec spec;
         private @Nullable ReplicaSetStatus status;
         public Builder() {}
         public Builder(ReplicaSet defaults) {
@@ -120,8 +121,10 @@ public final class ReplicaSet {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable ReplicaSetSpec spec) {
-
+        public Builder spec(ReplicaSetSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("ReplicaSet", "spec");
+            }
             this.spec = spec;
             return this;
         }

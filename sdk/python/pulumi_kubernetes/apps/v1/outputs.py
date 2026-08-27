@@ -88,37 +88,37 @@ class ControllerRevision(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 revision: _builtins.int,
+                 data: Any,
                  api_version: Optional[Literal['apps/v1']] = None,
-                 data: Optional[Any] = None,
                  kind: Optional[Literal['ControllerRevision']] = None,
-                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None):
+                 metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+                 revision: Optional[_builtins.int] = None):
         """
         ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
 
-        :param _builtins.int revision: Revision indicates the revision of the state represented by Data.
-        :param Literal['apps/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Any data: Data is the serialized representation of the state.
+        :param Literal['apps/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['ControllerRevision'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param _builtins.int revision: Revision indicates the revision of the state represented by Data.
         """
-        pulumi.set(__self__, "revision", revision)
+        pulumi.set(__self__, "data", data)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'apps/v1')
-        if data is not None:
-            pulumi.set(__self__, "data", data)
         if kind is not None:
             pulumi.set(__self__, "kind", 'ControllerRevision')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
+        if revision is not None:
+            pulumi.set(__self__, "revision", revision)
 
     @_builtins.property
     @pulumi.getter
-    def revision(self) -> _builtins.int:
+    def data(self) -> Any:
         """
-        Revision indicates the revision of the state represented by Data.
+        Data is the serialized representation of the state.
         """
-        return pulumi.get(self, "revision")
+        return pulumi.get(self, "data")
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -127,14 +127,6 @@ class ControllerRevision(dict):
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
         return pulumi.get(self, "api_version")
-
-    @_builtins.property
-    @pulumi.getter
-    def data(self) -> Optional[Any]:
-        """
-        Data is the serialized representation of the state.
-        """
-        return pulumi.get(self, "data")
 
     @_builtins.property
     @pulumi.getter
@@ -151,6 +143,14 @@ class ControllerRevision(dict):
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
+
+    @_builtins.property
+    @pulumi.getter
+    def revision(self) -> Optional[_builtins.int]:
+        """
+        Revision indicates the revision of the state represented by Data.
+        """
+        return pulumi.get(self, "revision")
 
 
 @pulumi.output_type
@@ -176,30 +176,37 @@ class DaemonSet(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 spec: 'outputs.DaemonSetSpec',
                  api_version: Optional[Literal['apps/v1']] = None,
                  kind: Optional[Literal['DaemonSet']] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.DaemonSetSpec'] = None,
                  status: Optional['outputs.DaemonSetStatus'] = None):
         """
         DaemonSet represents the configuration of a daemon set.
 
+        :param 'DaemonSetSpecArgs' spec: The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param Literal['apps/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['DaemonSet'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'DaemonSetSpecArgs' spec: The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param 'DaemonSetStatusArgs' status: The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'apps/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'DaemonSet')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
         if status is not None:
             pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.DaemonSetSpec':
+        """
+        The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -224,14 +231,6 @@ class DaemonSet(dict):
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional['outputs.DaemonSetSpec']:
-        """
-        The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter
@@ -1079,10 +1078,10 @@ class Deployment(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 spec: 'outputs.DeploymentSpec',
                  api_version: Optional[Literal['apps/v1']] = None,
                  kind: Optional[Literal['Deployment']] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.DeploymentSpec'] = None,
                  status: Optional['outputs.DeploymentStatus'] = None):
         """
         Deployment enables declarative updates for Pods and ReplicaSets.
@@ -1109,22 +1108,29 @@ class Deployment(dict):
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
 
+        :param 'DeploymentSpecArgs' spec: Specification of the desired behavior of the Deployment.
         :param Literal['apps/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['Deployment'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'DeploymentSpecArgs' spec: Specification of the desired behavior of the Deployment.
         :param 'DeploymentStatusArgs' status: Most recently observed status of the Deployment.
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'apps/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'Deployment')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
         if status is not None:
             pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.DeploymentSpec':
+        """
+        Specification of the desired behavior of the Deployment.
+        """
+        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -1149,14 +1155,6 @@ class Deployment(dict):
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional['outputs.DeploymentSpec']:
-        """
-        Specification of the desired behavior of the Deployment.
-        """
-        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter
@@ -2062,30 +2060,37 @@ class ReplicaSet(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 spec: 'outputs.ReplicaSetSpec',
                  api_version: Optional[Literal['apps/v1']] = None,
                  kind: Optional[Literal['ReplicaSet']] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.ReplicaSetSpec'] = None,
                  status: Optional['outputs.ReplicaSetStatus'] = None):
         """
         ReplicaSet ensures that a specified number of pod replicas are running at any given time.
 
+        :param 'ReplicaSetSpecArgs' spec: Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param Literal['apps/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['ReplicaSet'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'ReplicaSetSpecArgs' spec: Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param 'ReplicaSetStatusArgs' status: Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'apps/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'ReplicaSet')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
         if status is not None:
             pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.ReplicaSetSpec':
+        """
+        Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -2110,14 +2115,6 @@ class ReplicaSet(dict):
         If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional['outputs.ReplicaSetSpec']:
-        """
-        Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter
@@ -3072,10 +3069,10 @@ class StatefulSet(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 spec: 'outputs.StatefulSetSpec',
                  api_version: Optional[Literal['apps/v1']] = None,
                  kind: Optional[Literal['StatefulSet']] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.StatefulSetSpec'] = None,
                  status: Optional['outputs.StatefulSetStatus'] = None):
         """
         StatefulSet represents a set of pods with consistent identities. Identities are defined as:
@@ -3097,22 +3094,29 @@ class StatefulSet(dict):
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
 
+        :param 'StatefulSetSpecArgs' spec: Spec defines the desired identities of pods in this set.
         :param Literal['apps/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['StatefulSet'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'StatefulSetSpecArgs' spec: Spec defines the desired identities of pods in this set.
         :param 'StatefulSetStatusArgs' status: Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'apps/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'StatefulSet')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
         if status is not None:
             pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.StatefulSetSpec':
+        """
+        Spec defines the desired identities of pods in this set.
+        """
+        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -3137,14 +3141,6 @@ class StatefulSet(dict):
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional['outputs.StatefulSetSpec']:
-        """
-        Spec defines the desired identities of pods in this set.
-        """
-        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter

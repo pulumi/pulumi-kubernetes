@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import java.lang.Boolean;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -21,14 +22,29 @@ public final class VolumeMountPatchArgs extends com.pulumi.resources.ResourceArg
     public static final VolumeMountPatchArgs Empty = new VolumeMountPatchArgs();
 
     /**
-     * Path within the container at which the volume should be mounted.  Must not contain &#39;:&#39;.
+     * bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+     * 
+     */
+    @Import(name="bindMountOptions")
+    private @Nullable Output<List<String>> bindMountOptions;
+
+    /**
+     * @return bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+     * 
+     */
+    public Optional<Output<List<String>>> bindMountOptions() {
+        return Optional.ofNullable(this.bindMountOptions);
+    }
+
+    /**
+     * Path within the container at which the volume should be mounted.
      * 
      */
     @Import(name="mountPath")
     private @Nullable Output<String> mountPath;
 
     /**
-     * @return Path within the container at which the volume should be mounted.  Must not contain &#39;:&#39;.
+     * @return Path within the container at which the volume should be mounted.
      * 
      */
     public Optional<Output<String>> mountPath() {
@@ -144,6 +160,7 @@ public final class VolumeMountPatchArgs extends com.pulumi.resources.ResourceArg
     private VolumeMountPatchArgs() {}
 
     private VolumeMountPatchArgs(VolumeMountPatchArgs $) {
+        this.bindMountOptions = $.bindMountOptions;
         this.mountPath = $.mountPath;
         this.mountPropagation = $.mountPropagation;
         this.name = $.name;
@@ -172,7 +189,38 @@ public final class VolumeMountPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param mountPath Path within the container at which the volume should be mounted.  Must not contain &#39;:&#39;.
+         * @param bindMountOptions bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindMountOptions(@Nullable Output<List<String>> bindMountOptions) {
+            $.bindMountOptions = bindMountOptions;
+            return this;
+        }
+
+        /**
+         * @param bindMountOptions bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindMountOptions(List<String> bindMountOptions) {
+            return bindMountOptions(Output.of(bindMountOptions));
+        }
+
+        /**
+         * @param bindMountOptions bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bindMountOptions(String... bindMountOptions) {
+            return bindMountOptions(List.of(bindMountOptions));
+        }
+
+        /**
+         * @param mountPath Path within the container at which the volume should be mounted.
          * 
          * @return builder
          * 
@@ -183,7 +231,7 @@ public final class VolumeMountPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param mountPath Path within the container at which the volume should be mounted.  Must not contain &#39;:&#39;.
+         * @param mountPath Path within the container at which the volume should be mounted.
          * 
          * @return builder
          * 

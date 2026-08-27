@@ -27,7 +27,7 @@ public final class PriorityLevelConfigurationConditionPatch {
      */
     private @Nullable String reason;
     /**
-     * @return `status` is the status of the condition. Can be True, False, Unknown. Required.
+     * @return `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
      * 
      */
     private @Nullable String status;
@@ -60,7 +60,7 @@ public final class PriorityLevelConfigurationConditionPatch {
         return Optional.ofNullable(this.reason);
     }
     /**
-     * @return `status` is the status of the condition. Can be True, False, Unknown. Required.
+     * @return `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
      * 
      */
     public Optional<String> status() {

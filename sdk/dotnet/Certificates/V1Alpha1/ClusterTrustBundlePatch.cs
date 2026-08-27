@@ -86,6 +86,7 @@ namespace Pulumi.Kubernetes.Certificates.V1Alpha1
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new global::Pulumi.Alias { Type = "kubernetes:certificates.k8s.io/v1:ClusterTrustBundlePatch" },
                     new global::Pulumi.Alias { Type = "kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundlePatch" },
                 },
             };

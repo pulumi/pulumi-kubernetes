@@ -7,6 +7,7 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelector;
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,6 +40,11 @@ public final class ClusterTrustBundleProjection {
      * 
      */
     private @Nullable String signerName;
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer user;
 
     private ClusterTrustBundleProjection() {}
     /**
@@ -76,6 +82,13 @@ public final class ClusterTrustBundleProjection {
     public Optional<String> signerName() {
         return Optional.ofNullable(this.signerName);
     }
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> user() {
+        return Optional.ofNullable(this.user);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -91,6 +104,7 @@ public final class ClusterTrustBundleProjection {
         private @Nullable Boolean optional;
         private String path;
         private @Nullable String signerName;
+        private @Nullable Integer user;
         public Builder() {}
         public Builder(ClusterTrustBundleProjection defaults) {
     	      Objects.requireNonNull(defaults);
@@ -99,6 +113,7 @@ public final class ClusterTrustBundleProjection {
     	      this.optional = defaults.optional;
     	      this.path = defaults.path;
     	      this.signerName = defaults.signerName;
+    	      this.user = defaults.user;
         }
 
         @CustomType.Setter
@@ -133,6 +148,12 @@ public final class ClusterTrustBundleProjection {
             this.signerName = signerName;
             return this;
         }
+        @CustomType.Setter
+        public Builder user(@Nullable Integer user) {
+
+            this.user = user;
+            return this;
+        }
         public ClusterTrustBundleProjection build() {
             final var _resultValue = new ClusterTrustBundleProjection();
             _resultValue.labelSelector = labelSelector;
@@ -140,6 +161,7 @@ public final class ClusterTrustBundleProjection {
             _resultValue.optional = optional;
             _resultValue.path = path;
             _resultValue.signerName = signerName;
+            _resultValue.user = user;
             return _resultValue;
         }
     }

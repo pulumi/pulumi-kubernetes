@@ -72,6 +72,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         /// </summary>
         public readonly string PodReplacementPolicy;
         /// <summary>
+        /// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Batch.V1.JobSchedulingConfiguration Scheduling;
+        /// <summary>
         /// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.LabelSelector Selector;
@@ -116,6 +120,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
 
             string podReplacementPolicy,
 
+            Pulumi.Kubernetes.Types.Outputs.Batch.V1.JobSchedulingConfiguration scheduling,
+
             Pulumi.Kubernetes.Types.Outputs.Meta.V1.LabelSelector selector,
 
             Pulumi.Kubernetes.Types.Outputs.Batch.V1.SuccessPolicy successPolicy,
@@ -137,6 +143,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
             Parallelism = parallelism;
             PodFailurePolicy = podFailurePolicy;
             PodReplacementPolicy = podReplacementPolicy;
+            Scheduling = scheduling;
             Selector = selector;
             SuccessPolicy = successPolicy;
             Suspend = suspend;

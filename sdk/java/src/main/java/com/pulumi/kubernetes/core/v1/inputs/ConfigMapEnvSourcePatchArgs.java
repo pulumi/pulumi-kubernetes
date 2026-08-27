@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 /**
  * ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
  * 
- * The contents of the target ConfigMap&#39;s Data field will represent the key-value pairs as environment variables.
+ * The contents of the target ConfigMap&#39;s Data field will represent the key-value pairs as environment variables. Keys in the BinaryData field are not currently propagated to container env vars.
  * 
  */
 public final class ConfigMapEnvSourcePatchArgs extends com.pulumi.resources.ResourceArgs {

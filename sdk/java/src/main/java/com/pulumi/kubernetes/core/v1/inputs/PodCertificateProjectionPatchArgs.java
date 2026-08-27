@@ -148,6 +148,21 @@ public final class PodCertificateProjectionPatchArgs extends com.pulumi.resource
     }
 
     /**
+     * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    @Import(name="user")
+    private @Nullable Output<Integer> user;
+
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Output<Integer>> user() {
+        return Optional.ofNullable(this.user);
+    }
+
+    /**
      * userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
      * 
      * These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -183,6 +198,7 @@ public final class PodCertificateProjectionPatchArgs extends com.pulumi.resource
         this.keyType = $.keyType;
         this.maxExpirationSeconds = $.maxExpirationSeconds;
         this.signerName = $.signerName;
+        this.user = $.user;
         this.userAnnotations = $.userAnnotations;
     }
 
@@ -364,6 +380,27 @@ public final class PodCertificateProjectionPatchArgs extends com.pulumi.resource
          */
         public Builder signerName(String signerName) {
             return signerName(Output.of(signerName));
+        }
+
+        /**
+         * @param user user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(@Nullable Output<Integer> user) {
+            $.user = user;
+            return this;
+        }
+
+        /**
+         * @param user user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(Integer user) {
+            return user(Output.of(user));
         }
 
         /**

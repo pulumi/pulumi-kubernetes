@@ -83,6 +83,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1
         /// </summary>
         public readonly ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1.NodeAllocatableResourceMapping> NodeAllocatableResourceMappings;
         /// <summary>
+        /// NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+        /// </summary>
+        public readonly ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1.NodeAllocatableResource> NodeAllocatableResources;
+        /// <summary>
         /// NodeName identifies the node where the device is available.
         /// 
         /// Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -127,6 +131,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1
 
             ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1.NodeAllocatableResourceMapping> nodeAllocatableResourceMappings,
 
+            ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Resource.V1.NodeAllocatableResource> nodeAllocatableResources,
+
             string nodeName,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSelectorPatch nodeSelector,
@@ -143,6 +149,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1
             ConsumesCounters = consumesCounters;
             Name = name;
             NodeAllocatableResourceMappings = nodeAllocatableResourceMappings;
+            NodeAllocatableResources = nodeAllocatableResources;
             NodeName = nodeName;
             NodeSelector = nodeSelector;
             Taints = taints;

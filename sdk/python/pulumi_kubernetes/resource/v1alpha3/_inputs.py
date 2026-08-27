@@ -89,6 +89,8 @@ __all__ = [
     'OpaqueDeviceConfigurationArgsDict',
     'OpaqueDeviceConfigurationPatchArgs',
     'OpaqueDeviceConfigurationPatchArgsDict',
+    'PartitionTypeStatusArgs',
+    'PartitionTypeStatusArgsDict',
     'PodSchedulingContextArgs',
     'PodSchedulingContextArgsDict',
     'PodSchedulingContextSpecArgs',
@@ -133,6 +135,10 @@ __all__ = [
     'ResourceSliceSpecArgsDict',
     'ResourceSliceSpecPatchArgs',
     'ResourceSliceSpecPatchArgsDict',
+    'ShareableCapacityStatusArgs',
+    'ShareableCapacityStatusArgsDict',
+    'ShareableSummaryStatusArgs',
+    'ShareableSummaryStatusArgsDict',
 ]
 
 class AllocationResultArgsDict(TypedDict):
@@ -3010,6 +3016,96 @@ class OpaqueDeviceConfigurationPatchArgs:
         pulumi.set(self, "parameters", value)
 
 
+class PartitionTypeStatusArgsDict(TypedDict):
+    """
+    PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+    """
+    allocatable: pulumi.Input[_builtins.int]
+    """
+    Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+    """
+    attribute: pulumi.Input[_builtins.str]
+    """
+    Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+    """
+    total: pulumi.Input[_builtins.int]
+    """
+    Total is the number of devices of this partition type in the pool.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    Type is the partition type value (e.g. "Full" or "Half").
+    """
+
+@pulumi.input_type
+class PartitionTypeStatusArgs:
+    def __init__(__self__, *,
+                 allocatable: pulumi.Input[_builtins.int],
+                 attribute: pulumi.Input[_builtins.str],
+                 total: pulumi.Input[_builtins.int],
+                 type: pulumi.Input[_builtins.str]):
+        """
+        PartitionTypeStatus reports allocatability for a single partition type, identified by the value of a grouping attribute.
+
+        :param pulumi.Input[_builtins.int] allocatable: Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+        :param pulumi.Input[_builtins.str] attribute: Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+        :param pulumi.Input[_builtins.int] total: Total is the number of devices of this partition type in the pool.
+        :param pulumi.Input[_builtins.str] type: Type is the partition type value (e.g. "Full" or "Half").
+        """
+        pulumi.set(__self__, "allocatable", allocatable)
+        pulumi.set(__self__, "attribute", attribute)
+        pulumi.set(__self__, "total", total)
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def allocatable(self) -> pulumi.Input[_builtins.int]:
+        """
+        Allocatable is the number of additional devices of this partition type that could still be allocated given current shared-counter consumption.
+        """
+        return pulumi.get(self, "allocatable")
+
+    @allocatable.setter
+    def allocatable(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "allocatable", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def attribute(self) -> pulumi.Input[_builtins.str]:
+        """
+        Attribute is the fully qualified name of the device attribute whose value groups this entry. It is the PartitionTypeAttribute declared by the devices' own slice, or the default named in the request when their slice declares none.
+        """
+        return pulumi.get(self, "attribute")
+
+    @attribute.setter
+    def attribute(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "attribute", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def total(self) -> pulumi.Input[_builtins.int]:
+        """
+        Total is the number of devices of this partition type in the pool.
+        """
+        return pulumi.get(self, "total")
+
+    @total.setter
+    def total(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "total", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Type is the partition type value (e.g. "Full" or "Half").
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+
 class PodSchedulingContextArgsDict(TypedDict):
     """
     PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
@@ -3309,9 +3405,17 @@ class PoolStatusArgsDict(TypedDict):
     """
     NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
     """
+    partition_summary: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PartitionTypeStatusArgsDict']]]]]
+    """
+    PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+    """
     resource_slice_count: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+    """
+    shareable_summary: NotRequired[pulumi.Input[Optional['ShareableSummaryStatusArgsDict']]]
+    """
+    ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
     """
     total_devices: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
@@ -3335,7 +3439,9 @@ class PoolStatusArgs:
                  allocated_devices: pulumi.Input[Optional[_builtins.int]] = None,
                  available_devices: pulumi.Input[Optional[_builtins.int]] = None,
                  node_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 partition_summary: pulumi.Input[Optional[Sequence[pulumi.Input['PartitionTypeStatusArgs']]]] = None,
                  resource_slice_count: pulumi.Input[Optional[_builtins.int]] = None,
+                 shareable_summary: pulumi.Input[Optional['ShareableSummaryStatusArgs']] = None,
                  total_devices: pulumi.Input[Optional[_builtins.int]] = None,
                  unavailable_devices: pulumi.Input[Optional[_builtins.int]] = None,
                  validation_error: pulumi.Input[Optional[_builtins.str]] = None):
@@ -3348,7 +3454,9 @@ class PoolStatusArgs:
         :param pulumi.Input[_builtins.int] allocated_devices: AllocatedDevices is the number of devices currently allocated to claims. A value of 0 means no devices are allocated. May be unset when validationError is set.
         :param pulumi.Input[_builtins.int] available_devices: AvailableDevices is the number of devices available for allocation. This equals TotalDevices - AllocatedDevices - UnavailableDevices. A value of 0 means no devices are currently available. May be unset when validationError is set.
         :param pulumi.Input[_builtins.str] node_name: NodeName is the node this pool is associated with. When omitted, the pool is not associated with a specific node. Must be a valid DNS subdomain name (RFC1123).
+        :param pulumi.Input[Sequence[pulumi.Input['PartitionTypeStatusArgs']]] partition_summary: PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
         :param pulumi.Input[_builtins.int] resource_slice_count: ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
+        :param pulumi.Input['ShareableSummaryStatusArgs'] shareable_summary: ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
         :param pulumi.Input[_builtins.int] total_devices: TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
         :param pulumi.Input[_builtins.int] unavailable_devices: UnavailableDevices is the number of devices that are not available due to taints or other conditions, but are not allocated. A value of 0 means all unallocated devices are available. May be unset when validationError is set.
         :param pulumi.Input[_builtins.str] validation_error: ValidationError is set when the pool's data could not be fully validated (e.g., incomplete slice publication). When set, device count fields and ResourceSliceCount may be unset.
@@ -3362,8 +3470,12 @@ class PoolStatusArgs:
             pulumi.set(__self__, "available_devices", available_devices)
         if node_name is not None:
             pulumi.set(__self__, "node_name", node_name)
+        if partition_summary is not None:
+            pulumi.set(__self__, "partition_summary", partition_summary)
         if resource_slice_count is not None:
             pulumi.set(__self__, "resource_slice_count", resource_slice_count)
+        if shareable_summary is not None:
+            pulumi.set(__self__, "shareable_summary", shareable_summary)
         if total_devices is not None:
             pulumi.set(__self__, "total_devices", total_devices)
         if unavailable_devices is not None:
@@ -3444,6 +3556,18 @@ class PoolStatusArgs:
         pulumi.set(self, "node_name", value)
 
     @_builtins.property
+    @pulumi.getter(name="partitionSummary")
+    def partition_summary(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PartitionTypeStatusArgs']]]]:
+        """
+        PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+        """
+        return pulumi.get(self, "partition_summary")
+
+    @partition_summary.setter
+    def partition_summary(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PartitionTypeStatusArgs']]]]):
+        pulumi.set(self, "partition_summary", value)
+
+    @_builtins.property
     @pulumi.getter(name="resourceSliceCount")
     def resource_slice_count(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
@@ -3454,6 +3578,18 @@ class PoolStatusArgs:
     @resource_slice_count.setter
     def resource_slice_count(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "resource_slice_count", value)
+
+    @_builtins.property
+    @pulumi.getter(name="shareableSummary")
+    def shareable_summary(self) -> pulumi.Input[Optional['ShareableSummaryStatusArgs']]:
+        """
+        ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+        """
+        return pulumi.get(self, "shareable_summary")
+
+    @shareable_summary.setter
+    def shareable_summary(self, value: pulumi.Input[Optional['ShareableSummaryStatusArgs']]):
+        pulumi.set(self, "shareable_summary", value)
 
     @_builtins.property
     @pulumi.getter(name="totalDevices")
@@ -4506,6 +4642,14 @@ class ResourcePoolStatusRequestSpecArgsDict(TypedDict):
     """
     Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
     """
+    default_partition_type_attribute: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+
+    A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+
+    Must include the domain qualifier.
+    """
     limit: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
@@ -4521,18 +4665,26 @@ class ResourcePoolStatusRequestSpecArgsDict(TypedDict):
 class ResourcePoolStatusRequestSpecArgs:
     def __init__(__self__, *,
                  driver: pulumi.Input[_builtins.str],
+                 default_partition_type_attribute: pulumi.Input[Optional[_builtins.str]] = None,
                  limit: pulumi.Input[Optional[_builtins.int]] = None,
                  pool_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ResourcePoolStatusRequestSpec defines the filters for the pool status request.
 
         :param pulumi.Input[_builtins.str] driver: Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
+        :param pulumi.Input[_builtins.str] default_partition_type_attribute: DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+               
+               A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+               
+               Must include the domain qualifier.
         :param pulumi.Input[_builtins.int] limit: Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
                
                Default: 100 Minimum: 1 Maximum: 1000
         :param pulumi.Input[_builtins.str] pool_name: PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
         """
         pulumi.set(__self__, "driver", driver)
+        if default_partition_type_attribute is not None:
+            pulumi.set(__self__, "default_partition_type_attribute", default_partition_type_attribute)
         if limit is not None:
             pulumi.set(__self__, "limit", limit)
         if pool_name is not None:
@@ -4549,6 +4701,22 @@ class ResourcePoolStatusRequestSpecArgs:
     @driver.setter
     def driver(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "driver", value)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultPartitionTypeAttribute")
+    def default_partition_type_attribute(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+
+        A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+
+        Must include the domain qualifier.
+        """
+        return pulumi.get(self, "default_partition_type_attribute")
+
+    @default_partition_type_attribute.setter
+    def default_partition_type_attribute(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "default_partition_type_attribute", value)
 
     @_builtins.property
     @pulumi.getter
@@ -4581,6 +4749,14 @@ class ResourcePoolStatusRequestSpecPatchArgsDict(TypedDict):
     """
     ResourcePoolStatusRequestSpec defines the filters for the pool status request.
     """
+    default_partition_type_attribute: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+
+    A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+
+    Must include the domain qualifier.
+    """
     driver: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
@@ -4599,24 +4775,48 @@ class ResourcePoolStatusRequestSpecPatchArgsDict(TypedDict):
 @pulumi.input_type
 class ResourcePoolStatusRequestSpecPatchArgs:
     def __init__(__self__, *,
+                 default_partition_type_attribute: pulumi.Input[Optional[_builtins.str]] = None,
                  driver: pulumi.Input[Optional[_builtins.str]] = None,
                  limit: pulumi.Input[Optional[_builtins.int]] = None,
                  pool_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         ResourcePoolStatusRequestSpec defines the filters for the pool status request.
 
+        :param pulumi.Input[_builtins.str] default_partition_type_attribute: DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+               
+               A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+               
+               Must include the domain qualifier.
         :param pulumi.Input[_builtins.str] driver: Driver specifies the DRA driver name to filter pools. Only pools from ResourceSlices with this driver will be included. Must be a DNS subdomain (e.g., "gpu.example.com").
         :param pulumi.Input[_builtins.int] limit: Limit optionally specifies the maximum number of pools to return in the status. If more pools match the filter criteria, the response will be truncated (i.e., len(status.pools) < status.poolCount).
                
                Default: 100 Minimum: 1 Maximum: 1000
         :param pulumi.Input[_builtins.str] pool_name: PoolName optionally filters to a specific pool name. If not specified, all pools from the specified driver are included. When specified, must be a non-empty valid resource pool name (DNS subdomains separated by "/").
         """
+        if default_partition_type_attribute is not None:
+            pulumi.set(__self__, "default_partition_type_attribute", default_partition_type_attribute)
         if driver is not None:
             pulumi.set(__self__, "driver", driver)
         if limit is not None:
             pulumi.set(__self__, "limit", limit)
         if pool_name is not None:
             pulumi.set(__self__, "pool_name", pool_name)
+
+    @_builtins.property
+    @pulumi.getter(name="defaultPartitionTypeAttribute")
+    def default_partition_type_attribute(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        DefaultPartitionTypeAttribute optionally names a device attribute (by its fully qualified name, e.g. "gpu.example.com/profile") to use as the default grouping attribute for partitionable devices whose slice has not declared one themselves.
+
+        A slice's own PartitionTypeAttribute always takes precedence. This default applies only to devices whose slice does not declare one, so that a request can still get an accurate partitionSummary from a driver that has not been updated to declare it. When neither the slice nor this default names an attribute, a partitionable pool reports no partitionSummary.
+
+        Must include the domain qualifier.
+        """
+        return pulumi.get(self, "default_partition_type_attribute")
+
+    @default_partition_type_attribute.setter
+    def default_partition_type_attribute(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "default_partition_type_attribute", value)
 
     @_builtins.property
     @pulumi.getter
@@ -5084,5 +5284,167 @@ class ResourceSliceSpecPatchArgs:
     @pool.setter
     def pool(self, value: pulumi.Input[Optional['ResourcePoolPatchArgs']]):
         pulumi.set(self, "pool", value)
+
+
+class ShareableCapacityStatusArgsDict(TypedDict):
+    """
+    ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+    """
+    available: pulumi.Input[_builtins.str]
+    """
+    Available is Total minus Consumed, never negative.
+    """
+    consumed: pulumi.Input[_builtins.str]
+    """
+    Consumed is the amount drawn by current allocations.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name is the capacity name.
+    """
+    total: pulumi.Input[_builtins.str]
+    """
+    Total is the sum of this capacity across shareable devices in the pool.
+    """
+
+@pulumi.input_type
+class ShareableCapacityStatusArgs:
+    def __init__(__self__, *,
+                 available: pulumi.Input[_builtins.str],
+                 consumed: pulumi.Input[_builtins.str],
+                 name: pulumi.Input[_builtins.str],
+                 total: pulumi.Input[_builtins.str]):
+        """
+        ShareableCapacityStatus reports aggregate amounts for a single shareable capacity key.
+
+        :param pulumi.Input[_builtins.str] available: Available is Total minus Consumed, never negative.
+        :param pulumi.Input[_builtins.str] consumed: Consumed is the amount drawn by current allocations.
+        :param pulumi.Input[_builtins.str] name: Name is the capacity name.
+        :param pulumi.Input[_builtins.str] total: Total is the sum of this capacity across shareable devices in the pool.
+        """
+        pulumi.set(__self__, "available", available)
+        pulumi.set(__self__, "consumed", consumed)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "total", total)
+
+    @_builtins.property
+    @pulumi.getter
+    def available(self) -> pulumi.Input[_builtins.str]:
+        """
+        Available is Total minus Consumed, never negative.
+        """
+        return pulumi.get(self, "available")
+
+    @available.setter
+    def available(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "available", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def consumed(self) -> pulumi.Input[_builtins.str]:
+        """
+        Consumed is the amount drawn by current allocations.
+        """
+        return pulumi.get(self, "consumed")
+
+    @consumed.setter
+    def consumed(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "consumed", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name is the capacity name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def total(self) -> pulumi.Input[_builtins.str]:
+        """
+        Total is the sum of this capacity across shareable devices in the pool.
+        """
+        return pulumi.get(self, "total")
+
+    @total.setter
+    def total(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "total", value)
+
+
+class ShareableSummaryStatusArgsDict(TypedDict):
+    """
+    ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+    """
+    fully_available_devices: pulumi.Input[_builtins.int]
+    """
+    FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+    """
+    partially_available_devices: pulumi.Input[_builtins.int]
+    """
+    PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+    """
+    capacity: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['ShareableCapacityStatusArgsDict']]]]]
+    """
+    Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+    """
+
+@pulumi.input_type
+class ShareableSummaryStatusArgs:
+    def __init__(__self__, *,
+                 fully_available_devices: pulumi.Input[_builtins.int],
+                 partially_available_devices: pulumi.Input[_builtins.int],
+                 capacity: pulumi.Input[Optional[Sequence[pulumi.Input['ShareableCapacityStatusArgs']]]] = None):
+        """
+        ShareableSummaryStatus reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations.
+
+        :param pulumi.Input[_builtins.int] fully_available_devices: FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+        :param pulumi.Input[_builtins.int] partially_available_devices: PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+        :param pulumi.Input[Sequence[pulumi.Input['ShareableCapacityStatusArgs']]] capacity: Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+        """
+        pulumi.set(__self__, "fully_available_devices", fully_available_devices)
+        pulumi.set(__self__, "partially_available_devices", partially_available_devices)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
+
+    @_builtins.property
+    @pulumi.getter(name="fullyAvailableDevices")
+    def fully_available_devices(self) -> pulumi.Input[_builtins.int]:
+        """
+        FullyAvailableDevices is the number of shareable devices with no capacity consumed.
+        """
+        return pulumi.get(self, "fully_available_devices")
+
+    @fully_available_devices.setter
+    def fully_available_devices(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "fully_available_devices", value)
+
+    @_builtins.property
+    @pulumi.getter(name="partiallyAvailableDevices")
+    def partially_available_devices(self) -> pulumi.Input[_builtins.int]:
+        """
+        PartiallyAvailableDevices is the number of shareable devices with some but not all capacity consumed.
+        """
+        return pulumi.get(self, "partially_available_devices")
+
+    @partially_available_devices.setter
+    def partially_available_devices(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "partially_available_devices", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def capacity(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ShareableCapacityStatusArgs']]]]:
+        """
+        Capacity reports aggregate total, consumed, and available amounts per shareable capacity key across the pool.
+        """
+        return pulumi.get(self, "capacity")
+
+    @capacity.setter
+    def capacity(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ShareableCapacityStatusArgs']]]]):
+        pulumi.set(self, "capacity", value)
 
 

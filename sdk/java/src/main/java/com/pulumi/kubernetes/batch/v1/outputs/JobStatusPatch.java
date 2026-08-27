@@ -69,8 +69,6 @@ public final class JobStatusPatch {
     /**
      * @return The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
      * 
-     * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
-     * 
      */
     private @Nullable Integer terminating;
     /**
@@ -158,8 +156,6 @@ public final class JobStatusPatch {
     }
     /**
      * @return The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-     * 
-     * This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
      * 
      */
     public Optional<Integer> terminating() {

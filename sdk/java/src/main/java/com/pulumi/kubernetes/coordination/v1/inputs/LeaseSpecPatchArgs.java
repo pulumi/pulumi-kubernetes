@@ -81,14 +81,14 @@ public final class LeaseSpecPatchArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+     * preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
      * 
      */
     @Import(name="preferredHolder")
     private @Nullable Output<String> preferredHolder;
 
     /**
-     * @return PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+     * @return preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
      * 
      */
     public Optional<Output<String>> preferredHolder() {
@@ -111,14 +111,14 @@ public final class LeaseSpecPatchArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
-     * Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+     * strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
      * 
      */
     @Import(name="strategy")
     private @Nullable Output<String> strategy;
 
     /**
-     * @return Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+     * @return strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
      * 
      */
     public Optional<Output<String>> strategy() {
@@ -240,7 +240,7 @@ public final class LeaseSpecPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param preferredHolder PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+         * @param preferredHolder preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
          * 
          * @return builder
          * 
@@ -251,7 +251,7 @@ public final class LeaseSpecPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param preferredHolder PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+         * @param preferredHolder preferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
          * 
          * @return builder
          * 
@@ -282,7 +282,7 @@ public final class LeaseSpecPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param strategy Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+         * @param strategy strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
          * 
          * @return builder
          * 
@@ -293,7 +293,7 @@ public final class LeaseSpecPatchArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param strategy Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+         * @param strategy strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
          * 
          * @return builder
          * 

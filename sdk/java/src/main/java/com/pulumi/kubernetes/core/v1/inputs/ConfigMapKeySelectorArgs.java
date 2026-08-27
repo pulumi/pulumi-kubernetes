@@ -22,14 +22,14 @@ public final class ConfigMapKeySelectorArgs extends com.pulumi.resources.Resourc
     public static final ConfigMapKeySelectorArgs Empty = new ConfigMapKeySelectorArgs();
 
     /**
-     * The key to select.
+     * The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
      * 
      */
     @Import(name="key", required=true)
     private Output<String> key;
 
     /**
-     * @return The key to select.
+     * @return The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
      * 
      */
     public Output<String> key() {
@@ -93,7 +93,7 @@ public final class ConfigMapKeySelectorArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param key The key to select.
+         * @param key The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
          * 
          * @return builder
          * 
@@ -104,7 +104,7 @@ public final class ConfigMapKeySelectorArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param key The key to select.
+         * @param key The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
          * 
          * @return builder
          * 

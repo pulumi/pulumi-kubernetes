@@ -8,6 +8,7 @@ import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.core.v1.outputs.Affinity;
 import com.pulumi.kubernetes.core.v1.outputs.Container;
 import com.pulumi.kubernetes.core.v1.outputs.EphemeralContainer;
+import com.pulumi.kubernetes.core.v1.outputs.EvictionResponder;
 import com.pulumi.kubernetes.core.v1.outputs.HostAlias;
 import com.pulumi.kubernetes.core.v1.outputs.LocalObjectReference;
 import com.pulumi.kubernetes.core.v1.outputs.PodDNSConfig;
@@ -21,6 +22,7 @@ import com.pulumi.kubernetes.core.v1.outputs.ResourceRequirements;
 import com.pulumi.kubernetes.core.v1.outputs.Toleration;
 import com.pulumi.kubernetes.core.v1.outputs.TopologySpreadConstraint;
 import com.pulumi.kubernetes.core.v1.outputs.Volume;
+import com.pulumi.kubernetes.core.v1.outputs.WorkloadReference;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
@@ -73,6 +75,15 @@ public final class PodSpec {
      */
     private @Nullable List<EphemeralContainer> ephemeralContainers;
     /**
+     * @return evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+     * 
+     * Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/&lt;name&gt;/eviction subresource).
+     * 
+     * The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+     * 
+     */
+    private @Nullable List<EvictionResponder> evictionResponders;
+    /**
      * @return HostAliases is an optional list of hosts and IPs that will be injected into the pod&#39;s hosts file if specified.
      * 
      */
@@ -105,7 +116,7 @@ public final class PodSpec {
     /**
      * @return HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
      * 
-     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
      * 
      */
     private @Nullable String hostnameOverride;
@@ -144,7 +155,7 @@ public final class PodSpec {
      */
     private @Nullable Map<String,String> overhead;
     /**
-     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
      * 
      */
     private @Nullable String preemptionPolicy;
@@ -258,6 +269,11 @@ public final class PodSpec {
      * 
      */
     private @Nullable List<Volume> volumes;
+    /**
+     * @return WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    private @Nullable WorkloadReference workloadRef;
 
     private PodSpec() {}
     /**
@@ -317,6 +333,17 @@ public final class PodSpec {
         return this.ephemeralContainers == null ? List.of() : this.ephemeralContainers;
     }
     /**
+     * @return evictionResponders reference responders that react to Evictions based on EvictionRequests. Responders should observe and communicate through the Eviction Resource API to help with the graceful termination of a pod. The responders are selected sequentially, according to their specified priority.
+     * 
+     * Responders should periodically report on an eviction progress by updating the .status.responders[].heartbeatTime field of the Eviction object. If this field is not updated within the heartbeat deadline defined by the Eviction API (currently 20 minutes), the eviction is passed over to the next responder with a lower priority. If there is no other responder, the last default imperative-eviction.k8s.io/evictor responder with a priority of 100 will evict the pod using the imperative Eviction API (pods/&lt;name&gt;/eviction subresource).
+     * 
+     * The maximum length of the responders list is 10. Responders are not supported when the pod is part of a PodGroup (.spec.schedulingGroup is set). This field can only be set on creation and is immutable afterwards.
+     * 
+     */
+    public List<EvictionResponder> evictionResponders() {
+        return this.evictionResponders == null ? List.of() : this.evictionResponders;
+    }
+    /**
      * @return HostAliases is an optional list of hosts and IPs that will be injected into the pod&#39;s hosts file if specified.
      * 
      */
@@ -361,7 +388,7 @@ public final class PodSpec {
     /**
      * @return HostnameOverride specifies an explicit override for the pod&#39;s hostname as perceived by the pod. This field only specifies the pod&#39;s hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod&#39;s hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
      * 
-     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters.
      * 
      */
     public Optional<String> hostnameOverride() {
@@ -414,7 +441,7 @@ public final class PodSpec {
         return this.overhead == null ? Map.of() : this.overhead;
     }
     /**
-     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. Defaults to PreemptLowerPriority if unset.
      * 
      */
     public Optional<String> preemptionPolicy() {
@@ -570,6 +597,13 @@ public final class PodSpec {
     public List<Volume> volumes() {
         return this.volumes == null ? List.of() : this.volumes;
     }
+    /**
+     * @return WorkloadRef provides a reference to the Workload object that this Pod belongs to. This field is used by the scheduler to identify the PodGroup and apply the correct group scheduling policies. The Workload object referenced by this field may not exist at the time the Pod is created. This field is immutable, but a Workload object with the same name may be recreated with different policies. Doing this during pod scheduling may result in the placement not conforming to the expected policies.
+     * 
+     */
+    public Optional<WorkloadReference> workloadRef() {
+        return Optional.ofNullable(this.workloadRef);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -588,6 +622,7 @@ public final class PodSpec {
         private @Nullable String dnsPolicy;
         private @Nullable Boolean enableServiceLinks;
         private @Nullable List<EphemeralContainer> ephemeralContainers;
+        private @Nullable List<EvictionResponder> evictionResponders;
         private @Nullable List<HostAlias> hostAliases;
         private @Nullable Boolean hostIPC;
         private @Nullable Boolean hostNetwork;
@@ -622,6 +657,7 @@ public final class PodSpec {
         private @Nullable List<Toleration> tolerations;
         private @Nullable List<TopologySpreadConstraint> topologySpreadConstraints;
         private @Nullable List<Volume> volumes;
+        private @Nullable WorkloadReference workloadRef;
         public Builder() {}
         public Builder(PodSpec defaults) {
     	      Objects.requireNonNull(defaults);
@@ -633,6 +669,7 @@ public final class PodSpec {
     	      this.dnsPolicy = defaults.dnsPolicy;
     	      this.enableServiceLinks = defaults.enableServiceLinks;
     	      this.ephemeralContainers = defaults.ephemeralContainers;
+    	      this.evictionResponders = defaults.evictionResponders;
     	      this.hostAliases = defaults.hostAliases;
     	      this.hostIPC = defaults.hostIPC;
     	      this.hostNetwork = defaults.hostNetwork;
@@ -667,6 +704,7 @@ public final class PodSpec {
     	      this.tolerations = defaults.tolerations;
     	      this.topologySpreadConstraints = defaults.topologySpreadConstraints;
     	      this.volumes = defaults.volumes;
+    	      this.workloadRef = defaults.workloadRef;
         }
 
         @CustomType.Setter
@@ -724,6 +762,15 @@ public final class PodSpec {
         }
         public Builder ephemeralContainers(EphemeralContainer... ephemeralContainers) {
             return ephemeralContainers(List.of(ephemeralContainers));
+        }
+        @CustomType.Setter
+        public Builder evictionResponders(@Nullable List<EvictionResponder> evictionResponders) {
+
+            this.evictionResponders = evictionResponders;
+            return this;
+        }
+        public Builder evictionResponders(EvictionResponder... evictionResponders) {
+            return evictionResponders(List.of(evictionResponders));
         }
         @CustomType.Setter
         public Builder hostAliases(@Nullable List<HostAlias> hostAliases) {
@@ -956,6 +1003,12 @@ public final class PodSpec {
         public Builder volumes(Volume... volumes) {
             return volumes(List.of(volumes));
         }
+        @CustomType.Setter
+        public Builder workloadRef(@Nullable WorkloadReference workloadRef) {
+
+            this.workloadRef = workloadRef;
+            return this;
+        }
         public PodSpec build() {
             final var _resultValue = new PodSpec();
             _resultValue.activeDeadlineSeconds = activeDeadlineSeconds;
@@ -966,6 +1019,7 @@ public final class PodSpec {
             _resultValue.dnsPolicy = dnsPolicy;
             _resultValue.enableServiceLinks = enableServiceLinks;
             _resultValue.ephemeralContainers = ephemeralContainers;
+            _resultValue.evictionResponders = evictionResponders;
             _resultValue.hostAliases = hostAliases;
             _resultValue.hostIPC = hostIPC;
             _resultValue.hostNetwork = hostNetwork;
@@ -1000,6 +1054,7 @@ public final class PodSpec {
             _resultValue.tolerations = tolerations;
             _resultValue.topologySpreadConstraints = topologySpreadConstraints;
             _resultValue.volumes = volumes;
+            _resultValue.workloadRef = workloadRef;
             return _resultValue;
         }
     }

@@ -20,41 +20,41 @@ __all__ = ['ControllerRevisionInitArgs', 'ControllerRevision']
 @pulumi.input_type
 class ControllerRevisionInitArgs:
     def __init__(__self__, *,
-                 revision: pulumi.Input[_builtins.int],
+                 data: Any,
                  api_version: pulumi.Input[Optional[Literal['apps/v1']]] = None,
-                 data: Optional[Any] = None,
                  kind: pulumi.Input[Optional[Literal['ControllerRevision']]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
+                 revision: pulumi.Input[Optional[_builtins.int]] = None):
         """
         The set of arguments for constructing a ControllerRevision resource.
 
-        :param pulumi.Input[_builtins.int] revision: Revision indicates the revision of the state represented by Data.
-        :param pulumi.Input[Literal['apps/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Any data: Data is the serialized representation of the state.
+        :param pulumi.Input[Literal['apps/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ControllerRevision']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[_builtins.int] revision: Revision indicates the revision of the state represented by Data.
         """
-        pulumi.set(__self__, "revision", revision)
+        pulumi.set(__self__, "data", data)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'apps/v1')
-        if data is not None:
-            pulumi.set(__self__, "data", data)
         if kind is not None:
             pulumi.set(__self__, "kind", 'ControllerRevision')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
+        if revision is not None:
+            pulumi.set(__self__, "revision", revision)
 
     @_builtins.property
     @pulumi.getter
-    def revision(self) -> pulumi.Input[_builtins.int]:
+    def data(self) -> Any:
         """
-        Revision indicates the revision of the state represented by Data.
+        Data is the serialized representation of the state.
         """
-        return pulumi.get(self, "revision")
+        return pulumi.get(self, "data")
 
-    @revision.setter
-    def revision(self, value: pulumi.Input[_builtins.int]):
-        pulumi.set(self, "revision", value)
+    @data.setter
+    def data(self, value: Any):
+        pulumi.set(self, "data", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -67,18 +67,6 @@ class ControllerRevisionInitArgs:
     @api_version.setter
     def api_version(self, value: pulumi.Input[Optional[Literal['apps/v1']]]):
         pulumi.set(self, "api_version", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def data(self) -> Optional[Any]:
-        """
-        Data is the serialized representation of the state.
-        """
-        return pulumi.get(self, "data")
-
-    @data.setter
-    def data(self, value: Optional[Any]):
-        pulumi.set(self, "data", value)
 
     @_builtins.property
     @pulumi.getter
@@ -103,6 +91,18 @@ class ControllerRevisionInitArgs:
     @metadata.setter
     def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def revision(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Revision indicates the revision of the state represented by Data.
+        """
+        return pulumi.get(self, "revision")
+
+    @revision.setter
+    def revision(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "revision", value)
 
 
 @pulumi.type_token("kubernetes:apps/v1:ControllerRevision")
@@ -167,11 +167,11 @@ class ControllerRevision(pulumi.CustomResource):
             __props__ = ControllerRevisionInitArgs.__new__(ControllerRevisionInitArgs)
 
             __props__.__dict__["api_version"] = 'apps/v1'
+            if data is None and not opts.urn:
+                raise TypeError("Missing required property 'data'")
             __props__.__dict__["data"] = data
             __props__.__dict__["kind"] = 'ControllerRevision'
             __props__.__dict__["metadata"] = metadata
-            if revision is None and not opts.urn:
-                raise TypeError("Missing required property 'revision'")
             __props__.__dict__["revision"] = revision
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:apps/v1beta1:ControllerRevision"), pulumi.Alias(type_="kubernetes:apps/v1beta2:ControllerRevision")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

@@ -83,8 +83,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
 
         /// <summary>
         /// The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-        /// 
-        /// This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
         /// </summary>
         [Input("terminating")]
         public Input<int>? Terminating { get; set; }

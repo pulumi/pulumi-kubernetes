@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.apps.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.inputs.StatefulSetSpecArgs;
 import com.pulumi.kubernetes.apps.v1.inputs.StatefulSetStatusArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
@@ -89,15 +90,15 @@ public final class StatefulSetArgs extends com.pulumi.resources.ResourceArgs {
      * Spec defines the desired identities of pods in this set.
      * 
      */
-    @Import(name="spec")
-    private @Nullable Output<StatefulSetSpecArgs> spec;
+    @Import(name="spec", required=true)
+    private Output<StatefulSetSpecArgs> spec;
 
     /**
      * @return Spec defines the desired identities of pods in this set.
      * 
      */
-    public Optional<Output<StatefulSetSpecArgs>> spec() {
-        return Optional.ofNullable(this.spec);
+    public Output<StatefulSetSpecArgs> spec() {
+        return this.spec;
     }
 
     /**
@@ -212,7 +213,7 @@ public final class StatefulSetArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder spec(@Nullable Output<StatefulSetSpecArgs> spec) {
+        public Builder spec(Output<StatefulSetSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
@@ -251,6 +252,9 @@ public final class StatefulSetArgs extends com.pulumi.resources.ResourceArgs {
         public StatefulSetArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            if ($.spec == null) {
+                throw new MissingRequiredPropertyException("StatefulSetArgs", "spec");
+            }
             return $;
         }
     }

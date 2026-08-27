@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2.MetricValueStatusArgs> Current { get; set; } = null!;
 
         /// <summary>
-        /// DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+        /// describedObject specifies the descriptions of a object,such as kind,name apiVersion
         /// </summary>
         [Input("describedObject", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2.CrossVersionObjectReferenceArgs> DescribedObject { get; set; } = null!;

@@ -64,6 +64,7 @@ import (
 	flowcontrolv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1beta1"
 	flowcontrolv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1beta2"
 	flowcontrolv1beta3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1beta3"
+	lifecyclev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/lifecycle/v1alpha1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/networking/v1"
 	networkingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/networking/v1alpha1"
@@ -85,11 +86,13 @@ import (
 	schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1"
 	schedulingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1alpha1"
 	schedulingv1alpha2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1alpha2"
+	schedulingv1alpha3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1alpha3"
 	schedulingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1beta1"
 	settingsv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/settings/v1alpha1"
 	storagev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storage/v1"
 	storagev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storage/v1alpha1"
 	storagev1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storage/v1beta1"
+	storagemigrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storagemigration/v1"
 	storagemigrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storagemigration/v1alpha1"
 	storagemigrationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storagemigration/v1beta1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -329,6 +332,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"batch/v1beta1/CronJobList",
 		"batch/v2alpha1/CronJobList",
 		"certificates.k8s.io/v1/CertificateSigningRequestList",
+		"certificates.k8s.io/v1/ClusterTrustBundleList",
+		"certificates.k8s.io/v1/PodCertificateRequestList",
 		"certificates.k8s.io/v1alpha1/ClusterTrustBundleList",
 		"certificates.k8s.io/v1beta1/CertificateSigningRequestList",
 		"certificates.k8s.io/v1beta1/ClusterTrustBundleList",
@@ -373,6 +378,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList",
 		"flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList",
 		"flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList",
+		"lifecycle.k8s.io/v1alpha1/EvictionList",
+		"lifecycle.k8s.io/v1alpha1/EvictionRequestList",
 		"networking.k8s.io/v1/IPAddressList",
 		"networking.k8s.io/v1/IngressClassList",
 		"networking.k8s.io/v1/IngressList",
@@ -404,6 +411,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"rbac.authorization.k8s.io/v1beta1/RoleBindingList",
 		"rbac.authorization.k8s.io/v1beta1/RoleList",
 		"resource.k8s.io/v1/DeviceClassList",
+		"resource.k8s.io/v1/DeviceTaintRuleList",
 		"resource.k8s.io/v1/ResourceClaimList",
 		"resource.k8s.io/v1/ResourceClaimTemplateList",
 		"resource.k8s.io/v1/ResourceSliceList",
@@ -435,9 +443,15 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"resource.k8s.io/v1beta2/ResourceSliceList",
 		"scheduling.k8s.io/v1/PriorityClassList",
 		"scheduling.k8s.io/v1alpha1/PriorityClassList",
+		"scheduling.k8s.io/v1alpha1/WorkloadList",
 		"scheduling.k8s.io/v1alpha2/PodGroupList",
 		"scheduling.k8s.io/v1alpha2/WorkloadList",
+		"scheduling.k8s.io/v1alpha3/CompositePodGroupList",
+		"scheduling.k8s.io/v1alpha3/PodGroupList",
+		"scheduling.k8s.io/v1alpha3/WorkloadList",
+		"scheduling.k8s.io/v1beta1/PodGroupList",
 		"scheduling.k8s.io/v1beta1/PriorityClassList",
+		"scheduling.k8s.io/v1beta1/WorkloadList",
 		"settings.k8s.io/v1alpha1/PodPresetList",
 		"storage.k8s.io/v1/CSIDriverList",
 		"storage.k8s.io/v1/CSINodeList",
@@ -453,6 +467,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"storage.k8s.io/v1beta1/StorageClassList",
 		"storage.k8s.io/v1beta1/VolumeAttachmentList",
 		"storage.k8s.io/v1beta1/VolumeAttributesClassList",
+		"storagemigration.k8s.io/v1/StorageVersionMigrationList",
 		"storagemigration.k8s.io/v1alpha1/StorageVersionMigrationList",
 		"storagemigration.k8s.io/v1beta1/StorageVersionMigrationList":
 		var resources []resourceTuple
@@ -811,6 +826,20 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "certificates.k8s.io/v1/ClusterTrustBundle":
+		var res certificatesv1.ClusterTrustBundle
+		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1:ClusterTrustBundle", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "certificates.k8s.io/v1/PodCertificateRequest":
+		var res certificatesv1.PodCertificateRequest
+		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1:PodCertificateRequest", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "certificates.k8s.io/v1alpha1/ClusterTrustBundle":
 		var res certificatesv1alpha1.ClusterTrustBundle
 		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundle", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -1126,6 +1155,20 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "lifecycle.k8s.io/v1alpha1/Eviction":
+		var res lifecyclev1alpha1.Eviction
+		err := ctx.RegisterResource("kubernetes:lifecycle.k8s.io/v1alpha1:Eviction", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "lifecycle.k8s.io/v1alpha1/EvictionRequest":
+		var res lifecyclev1alpha1.EvictionRequest
+		err := ctx.RegisterResource("kubernetes:lifecycle.k8s.io/v1alpha1:EvictionRequest", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "meta/v1/Status":
 		var res metav1.Status
 		err := ctx.RegisterResource("kubernetes:meta/v1:Status", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -1346,6 +1389,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "resource.k8s.io/v1/DeviceClass":
 		var res resourcev1.DeviceClass
 		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1:DeviceClass", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1/DeviceTaintRule":
+		var res resourcev1.DeviceTaintRule
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1:DeviceTaintRule", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1574,6 +1624,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "scheduling.k8s.io/v1alpha1/Workload":
+		var res schedulingv1alpha1.Workload
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha1:Workload", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "scheduling.k8s.io/v1alpha2/PodGroup":
 		var res schedulingv1alpha2.PodGroup
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha2:PodGroup", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -1588,9 +1645,44 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "scheduling.k8s.io/v1alpha3/CompositePodGroup":
+		var res schedulingv1alpha3.CompositePodGroup
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha3:CompositePodGroup", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "scheduling.k8s.io/v1alpha3/PodGroup":
+		var res schedulingv1alpha3.PodGroup
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha3:PodGroup", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "scheduling.k8s.io/v1alpha3/Workload":
+		var res schedulingv1alpha3.Workload
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha3:Workload", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "scheduling.k8s.io/v1beta1/PodGroup":
+		var res schedulingv1beta1.PodGroup
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PodGroup", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "scheduling.k8s.io/v1beta1/PriorityClass":
 		var res schedulingv1beta1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "scheduling.k8s.io/v1beta1/Workload":
+		var res schedulingv1beta1.Workload
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:Workload", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1696,6 +1788,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "storage.k8s.io/v1beta1/VolumeAttributesClass":
 		var res storagev1beta1.VolumeAttributesClass
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClass", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "storagemigration.k8s.io/v1/StorageVersionMigration":
+		var res storagemigrationv1.StorageVersionMigration
+		err := ctx.RegisterResource("kubernetes:storagemigration.k8s.io/v1:StorageVersionMigration", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

@@ -263,30 +263,37 @@ class FlowSchema(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 spec: 'outputs.FlowSchemaSpec',
                  api_version: Optional[Literal['flowcontrol.apiserver.k8s.io/v1']] = None,
                  kind: Optional[Literal['FlowSchema']] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.FlowSchemaSpec'] = None,
                  status: Optional['outputs.FlowSchemaStatus'] = None):
         """
         FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 
+        :param 'FlowSchemaSpecArgs' spec: `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param Literal['flowcontrol.apiserver.k8s.io/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['FlowSchema'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'FlowSchemaSpecArgs' spec: `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param 'FlowSchemaStatusArgs' status: `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'flowcontrol.apiserver.k8s.io/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'FlowSchema')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
         if status is not None:
             pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.FlowSchemaSpec':
+        """
+        `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -311,14 +318,6 @@ class FlowSchema(dict):
         `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional['outputs.FlowSchemaSpec']:
-        """
-        `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter
@@ -352,20 +351,21 @@ class FlowSchemaCondition(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 type: _builtins.str,
                  last_transition_time: Optional[_builtins.str] = None,
                  message: Optional[_builtins.str] = None,
                  reason: Optional[_builtins.str] = None,
-                 status: Optional[_builtins.str] = None,
-                 type: Optional[_builtins.str] = None):
+                 status: Optional[_builtins.str] = None):
         """
         FlowSchemaCondition describes conditions for a FlowSchema.
 
+        :param _builtins.str type: `type` is the type of the condition. Required.
         :param _builtins.str last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param _builtins.str message: `message` is a human-readable message indicating details about last transition.
         :param _builtins.str reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
-        :param _builtins.str status: `status` is the status of the condition. Can be True, False, Unknown. Required.
-        :param _builtins.str type: `type` is the type of the condition. Required.
+        :param _builtins.str status: `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
             pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
@@ -374,8 +374,14 @@ class FlowSchemaCondition(dict):
             pulumi.set(__self__, "reason", reason)
         if status is not None:
             pulumi.set(__self__, "status", status)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        `type` is the type of the condition. Required.
+        """
+        return pulumi.get(self, "type")
 
     @_builtins.property
     @pulumi.getter(name="lastTransitionTime")
@@ -405,17 +411,9 @@ class FlowSchemaCondition(dict):
     @pulumi.getter
     def status(self) -> Optional[_builtins.str]:
         """
-        `status` is the status of the condition. Can be True, False, Unknown. Required.
+        `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
         return pulumi.get(self, "status")
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> Optional[_builtins.str]:
-        """
-        `type` is the type of the condition. Required.
-        """
-        return pulumi.get(self, "type")
 
 
 @pulumi.output_type
@@ -452,7 +450,7 @@ class FlowSchemaConditionPatch(dict):
         :param _builtins.str last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param _builtins.str message: `message` is a human-readable message indicating details about last transition.
         :param _builtins.str reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
-        :param _builtins.str status: `status` is the status of the condition. Can be True, False, Unknown. Required.
+        :param _builtins.str status: `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         :param _builtins.str type: `type` is the type of the condition. Required.
         """
         if last_transition_time is not None:
@@ -494,7 +492,7 @@ class FlowSchemaConditionPatch(dict):
     @pulumi.getter
     def status(self) -> Optional[_builtins.str]:
         """
-        `status` is the status of the condition. Can be True, False, Unknown. Required.
+        `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
         return pulumi.get(self, "status")
 
@@ -844,12 +842,12 @@ class LimitedPriorityLevelConfiguration(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "borrowingLimitPercent":
+        if key == "limitResponse":
+            suggest = "limit_response"
+        elif key == "borrowingLimitPercent":
             suggest = "borrowing_limit_percent"
         elif key == "lendablePercent":
             suggest = "lendable_percent"
-        elif key == "limitResponse":
-            suggest = "limit_response"
         elif key == "nominalConcurrencyShares":
             suggest = "nominal_concurrency_shares"
 
@@ -865,15 +863,16 @@ class LimitedPriorityLevelConfiguration(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 limit_response: 'outputs.LimitResponse',
                  borrowing_limit_percent: Optional[_builtins.int] = None,
                  lendable_percent: Optional[_builtins.int] = None,
-                 limit_response: Optional['outputs.LimitResponse'] = None,
                  nominal_concurrency_shares: Optional[_builtins.int] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
           - How are requests for this priority level limited?
           - What should be done with requests that exceed the limit?
 
+        :param 'LimitResponseArgs' limit_response: `limitResponse` indicates what to do with requests that can not be executed right now
         :param _builtins.int borrowing_limit_percent: `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
                
                BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
@@ -882,7 +881,6 @@ class LimitedPriorityLevelConfiguration(dict):
         :param _builtins.int lendable_percent: `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
                
                LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
-        :param 'LimitResponseArgs' limit_response: `limitResponse` indicates what to do with requests that can not be executed right now
         :param _builtins.int nominal_concurrency_shares: `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
                
                NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
@@ -893,14 +891,21 @@ class LimitedPriorityLevelConfiguration(dict):
                
                Setting this field to zero supports the construction of a "jail" for this priority level that is used to hold some request(s)
         """
+        pulumi.set(__self__, "limit_response", limit_response)
         if borrowing_limit_percent is not None:
             pulumi.set(__self__, "borrowing_limit_percent", borrowing_limit_percent)
         if lendable_percent is not None:
             pulumi.set(__self__, "lendable_percent", lendable_percent)
-        if limit_response is not None:
-            pulumi.set(__self__, "limit_response", limit_response)
         if nominal_concurrency_shares is not None:
             pulumi.set(__self__, "nominal_concurrency_shares", nominal_concurrency_shares)
+
+    @_builtins.property
+    @pulumi.getter(name="limitResponse")
+    def limit_response(self) -> 'outputs.LimitResponse':
+        """
+        `limitResponse` indicates what to do with requests that can not be executed right now
+        """
+        return pulumi.get(self, "limit_response")
 
     @_builtins.property
     @pulumi.getter(name="borrowingLimitPercent")
@@ -923,14 +928,6 @@ class LimitedPriorityLevelConfiguration(dict):
         LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
         """
         return pulumi.get(self, "lendable_percent")
-
-    @_builtins.property
-    @pulumi.getter(name="limitResponse")
-    def limit_response(self) -> Optional['outputs.LimitResponse']:
-        """
-        `limitResponse` indicates what to do with requests that can not be executed right now
-        """
-        return pulumi.get(self, "limit_response")
 
     @_builtins.property
     @pulumi.getter(name="nominalConcurrencyShares")
@@ -1348,30 +1345,37 @@ class PriorityLevelConfiguration(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 spec: 'outputs.PriorityLevelConfigurationSpec',
                  api_version: Optional[Literal['flowcontrol.apiserver.k8s.io/v1']] = None,
                  kind: Optional[Literal['PriorityLevelConfiguration']] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.PriorityLevelConfigurationSpec'] = None,
                  status: Optional['outputs.PriorityLevelConfigurationStatus'] = None):
         """
         PriorityLevelConfiguration represents the configuration of a priority level.
 
+        :param 'PriorityLevelConfigurationSpecArgs' spec: `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param Literal['flowcontrol.apiserver.k8s.io/v1'] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Literal['PriorityLevelConfiguration'] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'PriorityLevelConfigurationSpecArgs' spec: `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param 'PriorityLevelConfigurationStatusArgs' status: `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'flowcontrol.apiserver.k8s.io/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'PriorityLevelConfiguration')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
         if status is not None:
             pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> 'outputs.PriorityLevelConfigurationSpec':
+        """
+        `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -1396,14 +1400,6 @@ class PriorityLevelConfiguration(dict):
         `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> Optional['outputs.PriorityLevelConfigurationSpec']:
-        """
-        `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
 
     @_builtins.property
     @pulumi.getter
@@ -1437,20 +1433,21 @@ class PriorityLevelConfigurationCondition(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 type: _builtins.str,
                  last_transition_time: Optional[_builtins.str] = None,
                  message: Optional[_builtins.str] = None,
                  reason: Optional[_builtins.str] = None,
-                 status: Optional[_builtins.str] = None,
-                 type: Optional[_builtins.str] = None):
+                 status: Optional[_builtins.str] = None):
         """
         PriorityLevelConfigurationCondition defines the condition of priority level.
 
+        :param _builtins.str type: `type` is the type of the condition. Required.
         :param _builtins.str last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param _builtins.str message: `message` is a human-readable message indicating details about last transition.
         :param _builtins.str reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
-        :param _builtins.str status: `status` is the status of the condition. Can be True, False, Unknown. Required.
-        :param _builtins.str type: `type` is the type of the condition. Required.
+        :param _builtins.str status: `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
             pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
@@ -1459,8 +1456,14 @@ class PriorityLevelConfigurationCondition(dict):
             pulumi.set(__self__, "reason", reason)
         if status is not None:
             pulumi.set(__self__, "status", status)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        `type` is the type of the condition. Required.
+        """
+        return pulumi.get(self, "type")
 
     @_builtins.property
     @pulumi.getter(name="lastTransitionTime")
@@ -1490,17 +1493,9 @@ class PriorityLevelConfigurationCondition(dict):
     @pulumi.getter
     def status(self) -> Optional[_builtins.str]:
         """
-        `status` is the status of the condition. Can be True, False, Unknown. Required.
+        `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
         return pulumi.get(self, "status")
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> Optional[_builtins.str]:
-        """
-        `type` is the type of the condition. Required.
-        """
-        return pulumi.get(self, "type")
 
 
 @pulumi.output_type
@@ -1537,7 +1532,7 @@ class PriorityLevelConfigurationConditionPatch(dict):
         :param _builtins.str last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param _builtins.str message: `message` is a human-readable message indicating details about last transition.
         :param _builtins.str reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
-        :param _builtins.str status: `status` is the status of the condition. Can be True, False, Unknown. Required.
+        :param _builtins.str status: `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         :param _builtins.str type: `type` is the type of the condition. Required.
         """
         if last_transition_time is not None:
@@ -1579,7 +1574,7 @@ class PriorityLevelConfigurationConditionPatch(dict):
     @pulumi.getter
     def status(self) -> Optional[_builtins.str]:
         """
-        `status` is the status of the condition. Can be True, False, Unknown. Required.
+        `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
         return pulumi.get(self, "status")
 

@@ -7,6 +7,7 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.storage.v1.outputs.CSINodeSpec;
+import com.pulumi.kubernetes.storage.v1.outputs.CSINodeStatus;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,7 +26,7 @@ public final class CSINode {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+     * @return metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     private @Nullable ObjectMeta metadata;
@@ -34,6 +35,11 @@ public final class CSINode {
      * 
      */
     private CSINodeSpec spec;
+    /**
+     * @return status contains health and status information for the node&#39;s storage.
+     * 
+     */
+    private @Nullable CSINodeStatus status;
 
     private CSINode() {}
     /**
@@ -51,7 +57,7 @@ public final class CSINode {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
+     * @return metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     public Optional<ObjectMeta> metadata() {
@@ -63,6 +69,13 @@ public final class CSINode {
      */
     public CSINodeSpec spec() {
         return this.spec;
+    }
+    /**
+     * @return status contains health and status information for the node&#39;s storage.
+     * 
+     */
+    public Optional<CSINodeStatus> status() {
+        return Optional.ofNullable(this.status);
     }
 
     public static Builder builder() {
@@ -78,6 +91,7 @@ public final class CSINode {
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
         private CSINodeSpec spec;
+        private @Nullable CSINodeStatus status;
         public Builder() {}
         public Builder(CSINode defaults) {
     	      Objects.requireNonNull(defaults);
@@ -85,6 +99,7 @@ public final class CSINode {
     	      this.kind = defaults.kind;
     	      this.metadata = defaults.metadata;
     	      this.spec = defaults.spec;
+    	      this.status = defaults.status;
         }
 
         @CustomType.Setter
@@ -113,12 +128,19 @@ public final class CSINode {
             this.spec = spec;
             return this;
         }
+        @CustomType.Setter
+        public Builder status(@Nullable CSINodeStatus status) {
+
+            this.status = status;
+            return this;
+        }
         public CSINode build() {
             final var _resultValue = new CSINode();
             _resultValue.apiVersion = apiVersion;
             _resultValue.kind = kind;
             _resultValue.metadata = metadata;
             _resultValue.spec = spec;
+            _resultValue.status = status;
             return _resultValue;
         }
     }

@@ -25,11 +25,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Standard object's metadata.
+        /// metadata is the standard object's metadata.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Rules holds all the PolicyRules for this Role
+        /// rules holds all the PolicyRules for this Role
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Rbac.V1.PolicyRule> Rules;
 

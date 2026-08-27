@@ -60,7 +60,7 @@ export class PriorityClassPatch extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"PriorityClass">;
     /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
@@ -127,7 +127,7 @@ export interface PriorityClassPatchArgs {
      */
     kind?: pulumi.Input<"PriorityClass" | undefined>;
     /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**

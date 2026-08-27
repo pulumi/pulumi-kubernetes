@@ -12,50 +12,50 @@ import javax.annotation.Nullable;
 @CustomType
 public final class SubjectPatch {
     /**
-     * @return APIGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
+     * @return apiGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
      * 
      */
     private @Nullable String apiGroup;
     /**
-     * @return Kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+     * @return kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
      * 
      */
     private @Nullable String kind;
     /**
-     * @return Name of the object being referenced.
+     * @return name of the object being referenced.
      * 
      */
     private @Nullable String name;
     /**
-     * @return Namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
+     * @return namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
      * 
      */
     private @Nullable String namespace;
 
     private SubjectPatch() {}
     /**
-     * @return APIGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
+     * @return apiGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
      * 
      */
     public Optional<String> apiGroup() {
         return Optional.ofNullable(this.apiGroup);
     }
     /**
-     * @return Kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+     * @return kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
      * 
      */
     public Optional<String> kind() {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Name of the object being referenced.
+     * @return name of the object being referenced.
      * 
      */
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
     }
     /**
-     * @return Namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
+     * @return namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
      * 
      */
     public Optional<String> namespace() {

@@ -19,6 +19,11 @@ public final class ProjectedVolumeSourcePatch {
      */
     private @Nullable Integer defaultMode;
     /**
+     * @return defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer defaultUser;
+    /**
      * @return sources is the list of volume projections. Each entry in this list handles one source.
      * 
      */
@@ -31,6 +36,13 @@ public final class ProjectedVolumeSourcePatch {
      */
     public Optional<Integer> defaultMode() {
         return Optional.ofNullable(this.defaultMode);
+    }
+    /**
+     * @return defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> defaultUser() {
+        return Optional.ofNullable(this.defaultUser);
     }
     /**
      * @return sources is the list of volume projections. Each entry in this list handles one source.
@@ -50,11 +62,13 @@ public final class ProjectedVolumeSourcePatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Integer defaultMode;
+        private @Nullable Integer defaultUser;
         private @Nullable List<VolumeProjectionPatch> sources;
         public Builder() {}
         public Builder(ProjectedVolumeSourcePatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.defaultMode = defaults.defaultMode;
+    	      this.defaultUser = defaults.defaultUser;
     	      this.sources = defaults.sources;
         }
 
@@ -62,6 +76,12 @@ public final class ProjectedVolumeSourcePatch {
         public Builder defaultMode(@Nullable Integer defaultMode) {
 
             this.defaultMode = defaultMode;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder defaultUser(@Nullable Integer defaultUser) {
+
+            this.defaultUser = defaultUser;
             return this;
         }
         @CustomType.Setter
@@ -76,6 +96,7 @@ public final class ProjectedVolumeSourcePatch {
         public ProjectedVolumeSourcePatch build() {
             final var _resultValue = new ProjectedVolumeSourcePatch();
             _resultValue.defaultMode = defaultMode;
+            _resultValue.defaultUser = defaultUser;
             _resultValue.sources = sources;
             return _resultValue;
         }

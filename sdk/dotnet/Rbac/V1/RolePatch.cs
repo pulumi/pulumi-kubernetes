@@ -34,13 +34,13 @@ namespace Pulumi.Kubernetes.Rbac.V1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// Standard object's metadata.
+        /// metadata is the standard object's metadata.
         /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Rules holds all the PolicyRules for this Role
+        /// rules holds all the PolicyRules for this Role
         /// </summary>
         [Output("rules")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Rbac.V1.PolicyRulePatch>> Rules { get; private set; } = null!;
@@ -123,7 +123,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Standard object's metadata.
+        /// metadata is the standard object's metadata.
         /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
@@ -132,7 +132,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Rbac.V1.PolicyRulePatchArgs>? _rules;
 
         /// <summary>
-        /// Rules holds all the PolicyRules for this Role
+        /// rules holds all the PolicyRules for this Role
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Rbac.V1.PolicyRulePatchArgs> Rules
         {

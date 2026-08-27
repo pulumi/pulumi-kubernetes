@@ -23,14 +23,14 @@ public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs 
     public static final ResourceStatusArgs Empty = new ResourceStatusArgs();
 
     /**
-     * Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
+     * Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34; when container.resources.claims[*].request is set or &#34;claim:&lt;claim_name&gt;&#34; when container.resources.claims[*].request is empty. For DRA-backed extended resources, &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34; is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
+     * @return Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34; when container.resources.claims[*].request is set or &#34;claim:&lt;claim_name&gt;&#34; when container.resources.claims[*].request is empty. For DRA-backed extended resources, &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34; is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
      * 
      */
     public Output<String> name() {
@@ -78,7 +78,7 @@ public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param name Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
+         * @param name Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34; when container.resources.claims[*].request is set or &#34;claim:&lt;claim_name&gt;&#34; when container.resources.claims[*].request is empty. For DRA-backed extended resources, &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34; is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
          * 
          * @return builder
          * 
@@ -89,7 +89,7 @@ public final class ResourceStatusArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param name Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34;. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
+         * @param name Name of the resource. Must be unique within the pod and in case of non-DRA resource, match one of the resources from the pod spec. For DRA resources, the value must be &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34; when container.resources.claims[*].request is set or &#34;claim:&lt;claim_name&gt;&#34; when container.resources.claims[*].request is empty. For DRA-backed extended resources, &#34;claim:&lt;claim_name&gt;/&lt;request&gt;&#34; is used when the claim name and request name are recorded in pod.status.extendedResourceClaimStatus. When this status is reported about a container, the &#34;claim_name&#34; and &#34;request&#34; must match one of the claims of this container.
          * 
          * @return builder
          * 

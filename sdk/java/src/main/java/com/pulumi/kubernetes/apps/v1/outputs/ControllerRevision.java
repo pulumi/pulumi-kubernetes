@@ -24,7 +24,7 @@ public final class ControllerRevision {
      * @return Data is the serialized representation of the state.
      * 
      */
-    private @Nullable JsonElement data;
+    private JsonElement data;
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
@@ -39,7 +39,7 @@ public final class ControllerRevision {
      * @return Revision indicates the revision of the state represented by Data.
      * 
      */
-    private Integer revision;
+    private @Nullable Integer revision;
 
     private ControllerRevision() {}
     /**
@@ -53,8 +53,8 @@ public final class ControllerRevision {
      * @return Data is the serialized representation of the state.
      * 
      */
-    public Optional<JsonElement> data() {
-        return Optional.ofNullable(this.data);
+    public JsonElement data() {
+        return this.data;
     }
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -74,8 +74,8 @@ public final class ControllerRevision {
      * @return Revision indicates the revision of the state represented by Data.
      * 
      */
-    public Integer revision() {
-        return this.revision;
+    public Optional<Integer> revision() {
+        return Optional.ofNullable(this.revision);
     }
 
     public static Builder builder() {
@@ -88,10 +88,10 @@ public final class ControllerRevision {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String apiVersion;
-        private @Nullable JsonElement data;
+        private JsonElement data;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private Integer revision;
+        private @Nullable Integer revision;
         public Builder() {}
         public Builder(ControllerRevision defaults) {
     	      Objects.requireNonNull(defaults);
@@ -109,8 +109,10 @@ public final class ControllerRevision {
             return this;
         }
         @CustomType.Setter
-        public Builder data(@Nullable JsonElement data) {
-
+        public Builder data(JsonElement data) {
+            if (data == null) {
+              throw new MissingRequiredPropertyException("ControllerRevision", "data");
+            }
             this.data = data;
             return this;
         }
@@ -127,10 +129,8 @@ public final class ControllerRevision {
             return this;
         }
         @CustomType.Setter
-        public Builder revision(Integer revision) {
-            if (revision == null) {
-              throw new MissingRequiredPropertyException("ControllerRevision", "revision");
-            }
+        public Builder revision(@Nullable Integer revision) {
+
             this.revision = revision;
             return this;
         }
