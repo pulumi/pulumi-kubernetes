@@ -33,6 +33,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<string> PodCIDRs;
         /// <summary>
+        /// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodePodPreemptionPolicy PodPreemptionPolicy;
+        /// <summary>
         /// ID of the node assigned by the cloud provider in the format: &lt;ProviderName&gt;://&lt;ProviderSpecificNodeID&gt;
         /// </summary>
         public readonly string ProviderID;
@@ -55,6 +59,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             ImmutableArray<string> podCIDRs,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.NodePodPreemptionPolicy podPreemptionPolicy,
+
             string providerID,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.Taint> taints,
@@ -65,6 +71,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             ExternalID = externalID;
             PodCIDR = podCIDR;
             PodCIDRs = podCIDRs;
+            PodPreemptionPolicy = podPreemptionPolicy;
             ProviderID = providerID;
             Taints = taints;
             Unschedulable = unschedulable;

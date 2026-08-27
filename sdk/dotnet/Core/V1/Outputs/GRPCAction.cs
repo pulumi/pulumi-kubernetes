@@ -17,6 +17,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class GRPCAction
     {
         /// <summary>
+        /// mode specifies the connection mode for the gRPC health probe. Set to "TLS" to use TLS without certificate verification. Set to "Plaintext" to use a plaintext (insecure) connection explicitly. If not specified, the probe uses a plaintext (insecure) connection.
+        /// </summary>
+        public readonly string Mode;
+        /// <summary>
         /// Port number of the gRPC service. Number must be in the range 1 to 65535.
         /// </summary>
         public readonly int Port;
@@ -29,10 +33,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
         [OutputConstructor]
         private GRPCAction(
+            string mode,
+
             int port,
 
             string service)
         {
+            Mode = mode;
             Port = port;
             Service = service;
         }

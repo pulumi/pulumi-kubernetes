@@ -68,6 +68,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeSelectorArgs>? NodeSelector { get; set; }
 
         /// <summary>
+        /// PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+        /// 
+        /// When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+        /// </summary>
+        [Input("partitionTypeAttribute")]
+        public Input<string>? PartitionTypeAttribute { get; set; }
+
+        /// <summary>
         /// PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
         /// 
         /// Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -97,6 +105,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1
         {
             get => _sharedCounters ?? (_sharedCounters = new InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1.CounterSetArgs>());
             set => _sharedCounters = value;
+        }
+
+        [Input("skipNodeOperations")]
+        private InputList<string>? _skipNodeOperations;
+
+        /// <summary>
+        /// SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+        /// 
+        /// - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+        ///   value cannot be specified unless "NodeUnprepareResources" is also listed
+        ///   (or "*" is specified).
+        /// - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+        /// 
+        /// Other values may be added in the future. The kubelet must ignore unknown values.
+        /// </summary>
+        public InputList<string> SkipNodeOperations
+        {
+            get => _skipNodeOperations ?? (_skipNodeOperations = new InputList<string>());
+            set => _skipNodeOperations = value;
         }
 
         public ResourceSliceSpecArgs()

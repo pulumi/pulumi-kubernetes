@@ -5,6 +5,21 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
+export { PodGroupArgs } from "./podGroup";
+export type PodGroup = import("./podGroup").PodGroup;
+export const PodGroup: typeof import("./podGroup").PodGroup = null as any;
+utilities.lazyLoad(exports, ["PodGroup"], () => require("./podGroup"));
+
+export { PodGroupListArgs } from "./podGroupList";
+export type PodGroupList = import("./podGroupList").PodGroupList;
+export const PodGroupList: typeof import("./podGroupList").PodGroupList = null as any;
+utilities.lazyLoad(exports, ["PodGroupList"], () => require("./podGroupList"));
+
+export { PodGroupPatchArgs } from "./podGroupPatch";
+export type PodGroupPatch = import("./podGroupPatch").PodGroupPatch;
+export const PodGroupPatch: typeof import("./podGroupPatch").PodGroupPatch = null as any;
+utilities.lazyLoad(exports, ["PodGroupPatch"], () => require("./podGroupPatch"));
+
 export { PriorityClassArgs } from "./priorityClass";
 export type PriorityClass = import("./priorityClass").PriorityClass;
 export const PriorityClass: typeof import("./priorityClass").PriorityClass = null as any;
@@ -20,17 +35,44 @@ export type PriorityClassPatch = import("./priorityClassPatch").PriorityClassPat
 export const PriorityClassPatch: typeof import("./priorityClassPatch").PriorityClassPatch = null as any;
 utilities.lazyLoad(exports, ["PriorityClassPatch"], () => require("./priorityClassPatch"));
 
+export { WorkloadArgs } from "./workload";
+export type Workload = import("./workload").Workload;
+export const Workload: typeof import("./workload").Workload = null as any;
+utilities.lazyLoad(exports, ["Workload"], () => require("./workload"));
+
+export { WorkloadListArgs } from "./workloadList";
+export type WorkloadList = import("./workloadList").WorkloadList;
+export const WorkloadList: typeof import("./workloadList").WorkloadList = null as any;
+utilities.lazyLoad(exports, ["WorkloadList"], () => require("./workloadList"));
+
+export { WorkloadPatchArgs } from "./workloadPatch";
+export type WorkloadPatch = import("./workloadPatch").WorkloadPatch;
+export const WorkloadPatch: typeof import("./workloadPatch").WorkloadPatch = null as any;
+utilities.lazyLoad(exports, ["WorkloadPatch"], () => require("./workloadPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "kubernetes:scheduling.k8s.io/v1beta1:PodGroup":
+                return new PodGroup(name, <any>undefined, { urn })
+            case "kubernetes:scheduling.k8s.io/v1beta1:PodGroupList":
+                return new PodGroupList(name, <any>undefined, { urn })
+            case "kubernetes:scheduling.k8s.io/v1beta1:PodGroupPatch":
+                return new PodGroupPatch(name, <any>undefined, { urn })
             case "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass":
                 return new PriorityClass(name, <any>undefined, { urn })
             case "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList":
                 return new PriorityClassList(name, <any>undefined, { urn })
             case "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassPatch":
                 return new PriorityClassPatch(name, <any>undefined, { urn })
+            case "kubernetes:scheduling.k8s.io/v1beta1:Workload":
+                return new Workload(name, <any>undefined, { urn })
+            case "kubernetes:scheduling.k8s.io/v1beta1:WorkloadList":
+                return new WorkloadList(name, <any>undefined, { urn })
+            case "kubernetes:scheduling.k8s.io/v1beta1:WorkloadPatch":
+                return new WorkloadPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

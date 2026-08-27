@@ -16,9 +16,346 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
+    'BasicSchedulingPolicyArgs',
+    'BasicSchedulingPolicyArgsDict',
+    'BasicSchedulingPolicyPatchArgs',
+    'BasicSchedulingPolicyPatchArgsDict',
+    'GangSchedulingPolicyArgs',
+    'GangSchedulingPolicyArgsDict',
+    'GangSchedulingPolicyPatchArgs',
+    'GangSchedulingPolicyPatchArgsDict',
+    'PodGroupArgs',
+    'PodGroupArgsDict',
+    'PodGroupPatchArgs',
+    'PodGroupPatchArgsDict',
+    'PodGroupPolicyArgs',
+    'PodGroupPolicyArgsDict',
+    'PodGroupPolicyPatchArgs',
+    'PodGroupPolicyPatchArgsDict',
     'PriorityClassArgs',
     'PriorityClassArgsDict',
+    'TypedLocalObjectReferenceArgs',
+    'TypedLocalObjectReferenceArgsDict',
+    'TypedLocalObjectReferencePatchArgs',
+    'TypedLocalObjectReferencePatchArgsDict',
+    'WorkloadArgs',
+    'WorkloadArgsDict',
+    'WorkloadSpecArgs',
+    'WorkloadSpecArgsDict',
+    'WorkloadSpecPatchArgs',
+    'WorkloadSpecPatchArgsDict',
 ]
+
+class BasicSchedulingPolicyArgsDict(TypedDict):
+    """
+    BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+    """
+    pass
+
+@pulumi.input_type
+class BasicSchedulingPolicyArgs:
+    def __init__(__self__):
+        """
+        BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+        """
+        pass
+
+
+class BasicSchedulingPolicyPatchArgsDict(TypedDict):
+    """
+    BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+    """
+    pass
+
+@pulumi.input_type
+class BasicSchedulingPolicyPatchArgs:
+    def __init__(__self__):
+        """
+        BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+        """
+        pass
+
+
+class GangSchedulingPolicyArgsDict(TypedDict):
+    """
+    GangSchedulingPolicy defines the parameters for gang scheduling.
+    """
+    min_count: pulumi.Input[_builtins.int]
+    """
+    MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+    """
+
+@pulumi.input_type
+class GangSchedulingPolicyArgs:
+    def __init__(__self__, *,
+                 min_count: pulumi.Input[_builtins.int]):
+        """
+        GangSchedulingPolicy defines the parameters for gang scheduling.
+
+        :param pulumi.Input[_builtins.int] min_count: MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+        """
+        pulumi.set(__self__, "min_count", min_count)
+
+    @_builtins.property
+    @pulumi.getter(name="minCount")
+    def min_count(self) -> pulumi.Input[_builtins.int]:
+        """
+        MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+        """
+        return pulumi.get(self, "min_count")
+
+    @min_count.setter
+    def min_count(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "min_count", value)
+
+
+class GangSchedulingPolicyPatchArgsDict(TypedDict):
+    """
+    GangSchedulingPolicy defines the parameters for gang scheduling.
+    """
+    min_count: NotRequired[pulumi.Input[Optional[_builtins.int]]]
+    """
+    MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+    """
+
+@pulumi.input_type
+class GangSchedulingPolicyPatchArgs:
+    def __init__(__self__, *,
+                 min_count: pulumi.Input[Optional[_builtins.int]] = None):
+        """
+        GangSchedulingPolicy defines the parameters for gang scheduling.
+
+        :param pulumi.Input[_builtins.int] min_count: MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+        """
+        if min_count is not None:
+            pulumi.set(__self__, "min_count", min_count)
+
+    @_builtins.property
+    @pulumi.getter(name="minCount")
+    def min_count(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+        """
+        return pulumi.get(self, "min_count")
+
+    @min_count.setter
+    def min_count(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "min_count", value)
+
+
+class PodGroupArgsDict(TypedDict):
+    """
+    PodGroup represents a set of pods with a common scheduling policy.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+    """
+    policy: pulumi.Input['PodGroupPolicyArgsDict']
+    """
+    Policy defines the scheduling policy for this PodGroup.
+    """
+
+@pulumi.input_type
+class PodGroupArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[_builtins.str],
+                 policy: pulumi.Input['PodGroupPolicyArgs']):
+        """
+        PodGroup represents a set of pods with a common scheduling policy.
+
+        :param pulumi.Input[_builtins.str] name: Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+        :param pulumi.Input['PodGroupPolicyArgs'] policy: Policy defines the scheduling policy for this PodGroup.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "policy", policy)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def policy(self) -> pulumi.Input['PodGroupPolicyArgs']:
+        """
+        Policy defines the scheduling policy for this PodGroup.
+        """
+        return pulumi.get(self, "policy")
+
+    @policy.setter
+    def policy(self, value: pulumi.Input['PodGroupPolicyArgs']):
+        pulumi.set(self, "policy", value)
+
+
+class PodGroupPatchArgsDict(TypedDict):
+    """
+    PodGroup represents a set of pods with a common scheduling policy.
+    """
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+    """
+    policy: NotRequired[pulumi.Input[Optional['PodGroupPolicyPatchArgsDict']]]
+    """
+    Policy defines the scheduling policy for this PodGroup.
+    """
+
+@pulumi.input_type
+class PodGroupPatchArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 policy: pulumi.Input[Optional['PodGroupPolicyPatchArgs']] = None):
+        """
+        PodGroup represents a set of pods with a common scheduling policy.
+
+        :param pulumi.Input[_builtins.str] name: Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+        :param pulumi.Input['PodGroupPolicyPatchArgs'] policy: Policy defines the scheduling policy for this PodGroup.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if policy is not None:
+            pulumi.set(__self__, "policy", policy)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def policy(self) -> pulumi.Input[Optional['PodGroupPolicyPatchArgs']]:
+        """
+        Policy defines the scheduling policy for this PodGroup.
+        """
+        return pulumi.get(self, "policy")
+
+    @policy.setter
+    def policy(self, value: pulumi.Input[Optional['PodGroupPolicyPatchArgs']]):
+        pulumi.set(self, "policy", value)
+
+
+class PodGroupPolicyArgsDict(TypedDict):
+    """
+    PodGroupPolicy defines the scheduling configuration for a PodGroup.
+    """
+    basic: NotRequired[pulumi.Input[Optional['BasicSchedulingPolicyArgsDict']]]
+    """
+    Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+    """
+    gang: NotRequired[pulumi.Input[Optional['GangSchedulingPolicyArgsDict']]]
+    """
+    Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+    """
+
+@pulumi.input_type
+class PodGroupPolicyArgs:
+    def __init__(__self__, *,
+                 basic: pulumi.Input[Optional['BasicSchedulingPolicyArgs']] = None,
+                 gang: pulumi.Input[Optional['GangSchedulingPolicyArgs']] = None):
+        """
+        PodGroupPolicy defines the scheduling configuration for a PodGroup.
+
+        :param pulumi.Input['BasicSchedulingPolicyArgs'] basic: Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+        :param pulumi.Input['GangSchedulingPolicyArgs'] gang: Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+        """
+        if basic is not None:
+            pulumi.set(__self__, "basic", basic)
+        if gang is not None:
+            pulumi.set(__self__, "gang", gang)
+
+    @_builtins.property
+    @pulumi.getter
+    def basic(self) -> pulumi.Input[Optional['BasicSchedulingPolicyArgs']]:
+        """
+        Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+        """
+        return pulumi.get(self, "basic")
+
+    @basic.setter
+    def basic(self, value: pulumi.Input[Optional['BasicSchedulingPolicyArgs']]):
+        pulumi.set(self, "basic", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def gang(self) -> pulumi.Input[Optional['GangSchedulingPolicyArgs']]:
+        """
+        Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+        """
+        return pulumi.get(self, "gang")
+
+    @gang.setter
+    def gang(self, value: pulumi.Input[Optional['GangSchedulingPolicyArgs']]):
+        pulumi.set(self, "gang", value)
+
+
+class PodGroupPolicyPatchArgsDict(TypedDict):
+    """
+    PodGroupPolicy defines the scheduling configuration for a PodGroup.
+    """
+    basic: NotRequired[pulumi.Input[Optional['BasicSchedulingPolicyPatchArgsDict']]]
+    """
+    Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+    """
+    gang: NotRequired[pulumi.Input[Optional['GangSchedulingPolicyPatchArgsDict']]]
+    """
+    Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+    """
+
+@pulumi.input_type
+class PodGroupPolicyPatchArgs:
+    def __init__(__self__, *,
+                 basic: pulumi.Input[Optional['BasicSchedulingPolicyPatchArgs']] = None,
+                 gang: pulumi.Input[Optional['GangSchedulingPolicyPatchArgs']] = None):
+        """
+        PodGroupPolicy defines the scheduling configuration for a PodGroup.
+
+        :param pulumi.Input['BasicSchedulingPolicyPatchArgs'] basic: Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+        :param pulumi.Input['GangSchedulingPolicyPatchArgs'] gang: Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+        """
+        if basic is not None:
+            pulumi.set(__self__, "basic", basic)
+        if gang is not None:
+            pulumi.set(__self__, "gang", gang)
+
+    @_builtins.property
+    @pulumi.getter
+    def basic(self) -> pulumi.Input[Optional['BasicSchedulingPolicyPatchArgs']]:
+        """
+        Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+        """
+        return pulumi.get(self, "basic")
+
+    @basic.setter
+    def basic(self, value: pulumi.Input[Optional['BasicSchedulingPolicyPatchArgs']]):
+        pulumi.set(self, "basic", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def gang(self) -> pulumi.Input[Optional['GangSchedulingPolicyPatchArgs']]:
+        """
+        Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+        """
+        return pulumi.get(self, "gang")
+
+    @gang.setter
+    def gang(self, value: pulumi.Input[Optional['GangSchedulingPolicyPatchArgs']]):
+        pulumi.set(self, "gang", value)
+
 
 class PriorityClassArgsDict(TypedDict):
     """
@@ -171,5 +508,351 @@ class PriorityClassArgs:
     @preemption_policy.setter
     def preemption_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "preemption_policy", value)
+
+
+class TypedLocalObjectReferenceArgsDict(TypedDict):
+    """
+    TypedLocalObjectReference allows to reference typed object inside the same namespace.
+    """
+    kind: pulumi.Input[_builtins.str]
+    """
+    Kind is the type of resource being referenced. It must be a path segment name.
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name is the name of resource being referenced. It must be a path segment name.
+    """
+    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+    """
+
+@pulumi.input_type
+class TypedLocalObjectReferenceArgs:
+    def __init__(__self__, *,
+                 kind: pulumi.Input[_builtins.str],
+                 name: pulumi.Input[_builtins.str],
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        TypedLocalObjectReference allows to reference typed object inside the same namespace.
+
+        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. It must be a path segment name.
+        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced. It must be a path segment name.
+        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+        """
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "name", name)
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[_builtins.str]:
+        """
+        Kind is the type of resource being referenced. It must be a path segment name.
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name is the name of resource being referenced. It must be a path segment name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+        """
+        return pulumi.get(self, "api_group")
+
+    @api_group.setter
+    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_group", value)
+
+
+class TypedLocalObjectReferencePatchArgsDict(TypedDict):
+    """
+    TypedLocalObjectReference allows to reference typed object inside the same namespace.
+    """
+    api_group: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+    """
+    kind: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Kind is the type of resource being referenced. It must be a path segment name.
+    """
+    name: NotRequired[pulumi.Input[Optional[_builtins.str]]]
+    """
+    Name is the name of resource being referenced. It must be a path segment name.
+    """
+
+@pulumi.input_type
+class TypedLocalObjectReferencePatchArgs:
+    def __init__(__self__, *,
+                 api_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 kind: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
+        """
+        TypedLocalObjectReference allows to reference typed object inside the same namespace.
+
+        :param pulumi.Input[_builtins.str] api_group: APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+        :param pulumi.Input[_builtins.str] kind: Kind is the type of resource being referenced. It must be a path segment name.
+        :param pulumi.Input[_builtins.str] name: Name is the name of resource being referenced. It must be a path segment name.
+        """
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @_builtins.property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+        """
+        return pulumi.get(self, "api_group")
+
+    @api_group.setter
+    def api_group(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "api_group", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Kind is the type of resource being referenced. It must be a path segment name.
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        Name is the name of resource being referenced. It must be a path segment name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "name", value)
+
+
+class WorkloadArgsDict(TypedDict):
+    """
+    Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+    """
+    spec: pulumi.Input['WorkloadSpecArgsDict']
+    """
+    Spec defines the desired behavior of a Workload.
+    """
+    api_version: NotRequired[pulumi.Input[Optional[Literal['scheduling.k8s.io/v1alpha1']]]]
+    """
+    APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+    """
+    kind: NotRequired[pulumi.Input[Optional[Literal['Workload']]]]
+    """
+    Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    """
+    metadata: NotRequired[pulumi.Input[Optional['_meta.v1.ObjectMetaArgsDict']]]
+    """
+    Standard object's metadata. Name must be a DNS subdomain.
+    """
+
+@pulumi.input_type
+class WorkloadArgs:
+    def __init__(__self__, *,
+                 spec: pulumi.Input['WorkloadSpecArgs'],
+                 api_version: pulumi.Input[Optional[Literal['scheduling.k8s.io/v1alpha1']]] = None,
+                 kind: pulumi.Input[Optional[Literal['Workload']]] = None,
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
+        """
+        Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+
+        :param pulumi.Input['WorkloadSpecArgs'] spec: Spec defines the desired behavior of a Workload.
+        :param pulumi.Input[Literal['scheduling.k8s.io/v1alpha1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Literal['Workload']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. Name must be a DNS subdomain.
+        """
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'scheduling.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'Workload')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['WorkloadSpecArgs']:
+        """
+        Spec defines the desired behavior of a Workload.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['WorkloadSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[Optional[Literal['scheduling.k8s.io/v1alpha1']]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[Optional[Literal['scheduling.k8s.io/v1alpha1']]]):
+        pulumi.set(self, "api_version", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[Optional[Literal['Workload']]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[Optional[Literal['Workload']]]):
+        pulumi.set(self, "kind", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. Name must be a DNS subdomain.
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+
+class WorkloadSpecArgsDict(TypedDict):
+    """
+    WorkloadSpec defines the desired state of a Workload.
+    """
+    pod_groups: pulumi.Input[Sequence[pulumi.Input['PodGroupArgsDict']]]
+    """
+    PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+    """
+    controller_ref: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferenceArgsDict']]]
+    """
+    ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+    """
+
+@pulumi.input_type
+class WorkloadSpecArgs:
+    def __init__(__self__, *,
+                 pod_groups: pulumi.Input[Sequence[pulumi.Input['PodGroupArgs']]],
+                 controller_ref: pulumi.Input[Optional['TypedLocalObjectReferenceArgs']] = None):
+        """
+        WorkloadSpec defines the desired state of a Workload.
+
+        :param pulumi.Input[Sequence[pulumi.Input['PodGroupArgs']]] pod_groups: PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+        :param pulumi.Input['TypedLocalObjectReferenceArgs'] controller_ref: ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+        """
+        pulumi.set(__self__, "pod_groups", pod_groups)
+        if controller_ref is not None:
+            pulumi.set(__self__, "controller_ref", controller_ref)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroups")
+    def pod_groups(self) -> pulumi.Input[Sequence[pulumi.Input['PodGroupArgs']]]:
+        """
+        PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+        """
+        return pulumi.get(self, "pod_groups")
+
+    @pod_groups.setter
+    def pod_groups(self, value: pulumi.Input[Sequence[pulumi.Input['PodGroupArgs']]]):
+        pulumi.set(self, "pod_groups", value)
+
+    @_builtins.property
+    @pulumi.getter(name="controllerRef")
+    def controller_ref(self) -> pulumi.Input[Optional['TypedLocalObjectReferenceArgs']]:
+        """
+        ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+        """
+        return pulumi.get(self, "controller_ref")
+
+    @controller_ref.setter
+    def controller_ref(self, value: pulumi.Input[Optional['TypedLocalObjectReferenceArgs']]):
+        pulumi.set(self, "controller_ref", value)
+
+
+class WorkloadSpecPatchArgsDict(TypedDict):
+    """
+    WorkloadSpec defines the desired state of a Workload.
+    """
+    controller_ref: NotRequired[pulumi.Input[Optional['TypedLocalObjectReferencePatchArgsDict']]]
+    """
+    ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+    """
+    pod_groups: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupPatchArgsDict']]]]]
+    """
+    PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+    """
+
+@pulumi.input_type
+class WorkloadSpecPatchArgs:
+    def __init__(__self__, *,
+                 controller_ref: pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']] = None,
+                 pod_groups: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupPatchArgs']]]] = None):
+        """
+        WorkloadSpec defines the desired state of a Workload.
+
+        :param pulumi.Input['TypedLocalObjectReferencePatchArgs'] controller_ref: ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+        :param pulumi.Input[Sequence[pulumi.Input['PodGroupPatchArgs']]] pod_groups: PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+        """
+        if controller_ref is not None:
+            pulumi.set(__self__, "controller_ref", controller_ref)
+        if pod_groups is not None:
+            pulumi.set(__self__, "pod_groups", pod_groups)
+
+    @_builtins.property
+    @pulumi.getter(name="controllerRef")
+    def controller_ref(self) -> pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']]:
+        """
+        ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+        """
+        return pulumi.get(self, "controller_ref")
+
+    @controller_ref.setter
+    def controller_ref(self, value: pulumi.Input[Optional['TypedLocalObjectReferencePatchArgs']]):
+        pulumi.set(self, "controller_ref", value)
+
+    @_builtins.property
+    @pulumi.getter(name="podGroups")
+    def pod_groups(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupPatchArgs']]]]:
+        """
+        PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+        """
+        return pulumi.get(self, "pod_groups")
+
+    @pod_groups.setter
+    def pod_groups(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PodGroupPatchArgs']]]]):
+        pulumi.set(self, "pod_groups", value)
 
 

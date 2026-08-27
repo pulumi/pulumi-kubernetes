@@ -9,6 +9,7 @@ import (
 
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
+	schedulingv1alpha3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1alpha3"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -1804,6 +1805,416 @@ func (o JobPatchTypeOutput) Status() JobStatusPatchPtrOutput {
 	return o.ApplyT(func(v JobPatchType) *JobStatusPatch { return v.Status }).(JobStatusPatchPtrOutput)
 }
 
+// JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+type JobSchedulingConfiguration struct {
+	// DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+	DisruptionMode *schedulingv1alpha3.WorkloadPodGroupDisruptionMode `pulumi:"disruptionMode"`
+	// ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+	ResourceClaims []schedulingv1alpha3.WorkloadPodGroupResourceClaim `pulumi:"resourceClaims"`
+	// SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+	SchedulingConstraints *schedulingv1alpha3.WorkloadPodGroupSchedulingConstraints `pulumi:"schedulingConstraints"`
+	// SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+	SchedulingPolicy *schedulingv1alpha3.WorkloadPodGroupSchedulingPolicy `pulumi:"schedulingPolicy"`
+}
+
+// JobSchedulingConfigurationInput is an input type that accepts JobSchedulingConfigurationArgs and JobSchedulingConfigurationOutput values.
+// You can construct a concrete instance of `JobSchedulingConfigurationInput` via:
+//
+//	JobSchedulingConfigurationArgs{...}
+type JobSchedulingConfigurationInput interface {
+	pulumi.Input
+
+	ToJobSchedulingConfigurationOutput() JobSchedulingConfigurationOutput
+	ToJobSchedulingConfigurationOutputWithContext(context.Context) JobSchedulingConfigurationOutput
+}
+
+// JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+type JobSchedulingConfigurationArgs struct {
+	// DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+	DisruptionMode schedulingv1alpha3.WorkloadPodGroupDisruptionModePtrInput `pulumi:"disruptionMode"`
+	// ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+	ResourceClaims schedulingv1alpha3.WorkloadPodGroupResourceClaimArrayInput `pulumi:"resourceClaims"`
+	// SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+	SchedulingConstraints schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPtrInput `pulumi:"schedulingConstraints"`
+	// SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+	SchedulingPolicy schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPtrInput `pulumi:"schedulingPolicy"`
+}
+
+func (JobSchedulingConfigurationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JobSchedulingConfiguration)(nil)).Elem()
+}
+
+func (i JobSchedulingConfigurationArgs) ToJobSchedulingConfigurationOutput() JobSchedulingConfigurationOutput {
+	return i.ToJobSchedulingConfigurationOutputWithContext(context.Background())
+}
+
+func (i JobSchedulingConfigurationArgs) ToJobSchedulingConfigurationOutputWithContext(ctx context.Context) JobSchedulingConfigurationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JobSchedulingConfigurationOutput)
+}
+
+func (i JobSchedulingConfigurationArgs) ToJobSchedulingConfigurationPtrOutput() JobSchedulingConfigurationPtrOutput {
+	return i.ToJobSchedulingConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i JobSchedulingConfigurationArgs) ToJobSchedulingConfigurationPtrOutputWithContext(ctx context.Context) JobSchedulingConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JobSchedulingConfigurationOutput).ToJobSchedulingConfigurationPtrOutputWithContext(ctx)
+}
+
+// JobSchedulingConfigurationPtrInput is an input type that accepts JobSchedulingConfigurationArgs, JobSchedulingConfigurationPtr and JobSchedulingConfigurationPtrOutput values.
+// You can construct a concrete instance of `JobSchedulingConfigurationPtrInput` via:
+//
+//	        JobSchedulingConfigurationArgs{...}
+//
+//	or:
+//
+//	        nil
+type JobSchedulingConfigurationPtrInput interface {
+	pulumi.Input
+
+	ToJobSchedulingConfigurationPtrOutput() JobSchedulingConfigurationPtrOutput
+	ToJobSchedulingConfigurationPtrOutputWithContext(context.Context) JobSchedulingConfigurationPtrOutput
+}
+
+type jobSchedulingConfigurationPtrType JobSchedulingConfigurationArgs
+
+func JobSchedulingConfigurationPtr(v *JobSchedulingConfigurationArgs) JobSchedulingConfigurationPtrInput {
+	return (*jobSchedulingConfigurationPtrType)(v)
+}
+
+func (*jobSchedulingConfigurationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**JobSchedulingConfiguration)(nil)).Elem()
+}
+
+func (i *jobSchedulingConfigurationPtrType) ToJobSchedulingConfigurationPtrOutput() JobSchedulingConfigurationPtrOutput {
+	return i.ToJobSchedulingConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i *jobSchedulingConfigurationPtrType) ToJobSchedulingConfigurationPtrOutputWithContext(ctx context.Context) JobSchedulingConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JobSchedulingConfigurationPtrOutput)
+}
+
+// JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+type JobSchedulingConfigurationOutput struct{ *pulumi.OutputState }
+
+func (JobSchedulingConfigurationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JobSchedulingConfiguration)(nil)).Elem()
+}
+
+func (o JobSchedulingConfigurationOutput) ToJobSchedulingConfigurationOutput() JobSchedulingConfigurationOutput {
+	return o
+}
+
+func (o JobSchedulingConfigurationOutput) ToJobSchedulingConfigurationOutputWithContext(ctx context.Context) JobSchedulingConfigurationOutput {
+	return o
+}
+
+func (o JobSchedulingConfigurationOutput) ToJobSchedulingConfigurationPtrOutput() JobSchedulingConfigurationPtrOutput {
+	return o.ToJobSchedulingConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (o JobSchedulingConfigurationOutput) ToJobSchedulingConfigurationPtrOutputWithContext(ctx context.Context) JobSchedulingConfigurationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobSchedulingConfiguration) *JobSchedulingConfiguration {
+		return &v
+	}).(JobSchedulingConfigurationPtrOutput)
+}
+
+// DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+func (o JobSchedulingConfigurationOutput) DisruptionMode() schedulingv1alpha3.WorkloadPodGroupDisruptionModePtrOutput {
+	return o.ApplyT(func(v JobSchedulingConfiguration) *schedulingv1alpha3.WorkloadPodGroupDisruptionMode {
+		return v.DisruptionMode
+	}).(schedulingv1alpha3.WorkloadPodGroupDisruptionModePtrOutput)
+}
+
+// ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+func (o JobSchedulingConfigurationOutput) ResourceClaims() schedulingv1alpha3.WorkloadPodGroupResourceClaimArrayOutput {
+	return o.ApplyT(func(v JobSchedulingConfiguration) []schedulingv1alpha3.WorkloadPodGroupResourceClaim {
+		return v.ResourceClaims
+	}).(schedulingv1alpha3.WorkloadPodGroupResourceClaimArrayOutput)
+}
+
+// SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+func (o JobSchedulingConfigurationOutput) SchedulingConstraints() schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPtrOutput {
+	return o.ApplyT(func(v JobSchedulingConfiguration) *schedulingv1alpha3.WorkloadPodGroupSchedulingConstraints {
+		return v.SchedulingConstraints
+	}).(schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPtrOutput)
+}
+
+// SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+func (o JobSchedulingConfigurationOutput) SchedulingPolicy() schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPtrOutput {
+	return o.ApplyT(func(v JobSchedulingConfiguration) *schedulingv1alpha3.WorkloadPodGroupSchedulingPolicy {
+		return v.SchedulingPolicy
+	}).(schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPtrOutput)
+}
+
+type JobSchedulingConfigurationPtrOutput struct{ *pulumi.OutputState }
+
+func (JobSchedulingConfigurationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**JobSchedulingConfiguration)(nil)).Elem()
+}
+
+func (o JobSchedulingConfigurationPtrOutput) ToJobSchedulingConfigurationPtrOutput() JobSchedulingConfigurationPtrOutput {
+	return o
+}
+
+func (o JobSchedulingConfigurationPtrOutput) ToJobSchedulingConfigurationPtrOutputWithContext(ctx context.Context) JobSchedulingConfigurationPtrOutput {
+	return o
+}
+
+func (o JobSchedulingConfigurationPtrOutput) Elem() JobSchedulingConfigurationOutput {
+	return o.ApplyT(func(v *JobSchedulingConfiguration) JobSchedulingConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret JobSchedulingConfiguration
+		return ret
+	}).(JobSchedulingConfigurationOutput)
+}
+
+// DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+func (o JobSchedulingConfigurationPtrOutput) DisruptionMode() schedulingv1alpha3.WorkloadPodGroupDisruptionModePtrOutput {
+	return o.ApplyT(func(v *JobSchedulingConfiguration) *schedulingv1alpha3.WorkloadPodGroupDisruptionMode {
+		if v == nil {
+			return nil
+		}
+		return v.DisruptionMode
+	}).(schedulingv1alpha3.WorkloadPodGroupDisruptionModePtrOutput)
+}
+
+// ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+func (o JobSchedulingConfigurationPtrOutput) ResourceClaims() schedulingv1alpha3.WorkloadPodGroupResourceClaimArrayOutput {
+	return o.ApplyT(func(v *JobSchedulingConfiguration) []schedulingv1alpha3.WorkloadPodGroupResourceClaim {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceClaims
+	}).(schedulingv1alpha3.WorkloadPodGroupResourceClaimArrayOutput)
+}
+
+// SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+func (o JobSchedulingConfigurationPtrOutput) SchedulingConstraints() schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPtrOutput {
+	return o.ApplyT(func(v *JobSchedulingConfiguration) *schedulingv1alpha3.WorkloadPodGroupSchedulingConstraints {
+		if v == nil {
+			return nil
+		}
+		return v.SchedulingConstraints
+	}).(schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPtrOutput)
+}
+
+// SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+func (o JobSchedulingConfigurationPtrOutput) SchedulingPolicy() schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPtrOutput {
+	return o.ApplyT(func(v *JobSchedulingConfiguration) *schedulingv1alpha3.WorkloadPodGroupSchedulingPolicy {
+		if v == nil {
+			return nil
+		}
+		return v.SchedulingPolicy
+	}).(schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPtrOutput)
+}
+
+// JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+type JobSchedulingConfigurationPatch struct {
+	// DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+	DisruptionMode *schedulingv1alpha3.WorkloadPodGroupDisruptionModePatch `pulumi:"disruptionMode"`
+	// ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+	ResourceClaims []schedulingv1alpha3.WorkloadPodGroupResourceClaimPatch `pulumi:"resourceClaims"`
+	// SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+	SchedulingConstraints *schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPatch `pulumi:"schedulingConstraints"`
+	// SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+	SchedulingPolicy *schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPatch `pulumi:"schedulingPolicy"`
+}
+
+// JobSchedulingConfigurationPatchInput is an input type that accepts JobSchedulingConfigurationPatchArgs and JobSchedulingConfigurationPatchOutput values.
+// You can construct a concrete instance of `JobSchedulingConfigurationPatchInput` via:
+//
+//	JobSchedulingConfigurationPatchArgs{...}
+type JobSchedulingConfigurationPatchInput interface {
+	pulumi.Input
+
+	ToJobSchedulingConfigurationPatchOutput() JobSchedulingConfigurationPatchOutput
+	ToJobSchedulingConfigurationPatchOutputWithContext(context.Context) JobSchedulingConfigurationPatchOutput
+}
+
+// JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+type JobSchedulingConfigurationPatchArgs struct {
+	// DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+	DisruptionMode schedulingv1alpha3.WorkloadPodGroupDisruptionModePatchPtrInput `pulumi:"disruptionMode"`
+	// ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+	ResourceClaims schedulingv1alpha3.WorkloadPodGroupResourceClaimPatchArrayInput `pulumi:"resourceClaims"`
+	// SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+	SchedulingConstraints schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPatchPtrInput `pulumi:"schedulingConstraints"`
+	// SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+	SchedulingPolicy schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPatchPtrInput `pulumi:"schedulingPolicy"`
+}
+
+func (JobSchedulingConfigurationPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*JobSchedulingConfigurationPatch)(nil)).Elem()
+}
+
+func (i JobSchedulingConfigurationPatchArgs) ToJobSchedulingConfigurationPatchOutput() JobSchedulingConfigurationPatchOutput {
+	return i.ToJobSchedulingConfigurationPatchOutputWithContext(context.Background())
+}
+
+func (i JobSchedulingConfigurationPatchArgs) ToJobSchedulingConfigurationPatchOutputWithContext(ctx context.Context) JobSchedulingConfigurationPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JobSchedulingConfigurationPatchOutput)
+}
+
+func (i JobSchedulingConfigurationPatchArgs) ToJobSchedulingConfigurationPatchPtrOutput() JobSchedulingConfigurationPatchPtrOutput {
+	return i.ToJobSchedulingConfigurationPatchPtrOutputWithContext(context.Background())
+}
+
+func (i JobSchedulingConfigurationPatchArgs) ToJobSchedulingConfigurationPatchPtrOutputWithContext(ctx context.Context) JobSchedulingConfigurationPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JobSchedulingConfigurationPatchOutput).ToJobSchedulingConfigurationPatchPtrOutputWithContext(ctx)
+}
+
+// JobSchedulingConfigurationPatchPtrInput is an input type that accepts JobSchedulingConfigurationPatchArgs, JobSchedulingConfigurationPatchPtr and JobSchedulingConfigurationPatchPtrOutput values.
+// You can construct a concrete instance of `JobSchedulingConfigurationPatchPtrInput` via:
+//
+//	        JobSchedulingConfigurationPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type JobSchedulingConfigurationPatchPtrInput interface {
+	pulumi.Input
+
+	ToJobSchedulingConfigurationPatchPtrOutput() JobSchedulingConfigurationPatchPtrOutput
+	ToJobSchedulingConfigurationPatchPtrOutputWithContext(context.Context) JobSchedulingConfigurationPatchPtrOutput
+}
+
+type jobSchedulingConfigurationPatchPtrType JobSchedulingConfigurationPatchArgs
+
+func JobSchedulingConfigurationPatchPtr(v *JobSchedulingConfigurationPatchArgs) JobSchedulingConfigurationPatchPtrInput {
+	return (*jobSchedulingConfigurationPatchPtrType)(v)
+}
+
+func (*jobSchedulingConfigurationPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**JobSchedulingConfigurationPatch)(nil)).Elem()
+}
+
+func (i *jobSchedulingConfigurationPatchPtrType) ToJobSchedulingConfigurationPatchPtrOutput() JobSchedulingConfigurationPatchPtrOutput {
+	return i.ToJobSchedulingConfigurationPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *jobSchedulingConfigurationPatchPtrType) ToJobSchedulingConfigurationPatchPtrOutputWithContext(ctx context.Context) JobSchedulingConfigurationPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(JobSchedulingConfigurationPatchPtrOutput)
+}
+
+// JobSchedulingConfiguration composes the reusable workload-aware scheduling building blocks.
+type JobSchedulingConfigurationPatchOutput struct{ *pulumi.OutputState }
+
+func (JobSchedulingConfigurationPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*JobSchedulingConfigurationPatch)(nil)).Elem()
+}
+
+func (o JobSchedulingConfigurationPatchOutput) ToJobSchedulingConfigurationPatchOutput() JobSchedulingConfigurationPatchOutput {
+	return o
+}
+
+func (o JobSchedulingConfigurationPatchOutput) ToJobSchedulingConfigurationPatchOutputWithContext(ctx context.Context) JobSchedulingConfigurationPatchOutput {
+	return o
+}
+
+func (o JobSchedulingConfigurationPatchOutput) ToJobSchedulingConfigurationPatchPtrOutput() JobSchedulingConfigurationPatchPtrOutput {
+	return o.ToJobSchedulingConfigurationPatchPtrOutputWithContext(context.Background())
+}
+
+func (o JobSchedulingConfigurationPatchOutput) ToJobSchedulingConfigurationPatchPtrOutputWithContext(ctx context.Context) JobSchedulingConfigurationPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobSchedulingConfigurationPatch) *JobSchedulingConfigurationPatch {
+		return &v
+	}).(JobSchedulingConfigurationPatchPtrOutput)
+}
+
+// DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+func (o JobSchedulingConfigurationPatchOutput) DisruptionMode() schedulingv1alpha3.WorkloadPodGroupDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v JobSchedulingConfigurationPatch) *schedulingv1alpha3.WorkloadPodGroupDisruptionModePatch {
+		return v.DisruptionMode
+	}).(schedulingv1alpha3.WorkloadPodGroupDisruptionModePatchPtrOutput)
+}
+
+// ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+func (o JobSchedulingConfigurationPatchOutput) ResourceClaims() schedulingv1alpha3.WorkloadPodGroupResourceClaimPatchArrayOutput {
+	return o.ApplyT(func(v JobSchedulingConfigurationPatch) []schedulingv1alpha3.WorkloadPodGroupResourceClaimPatch {
+		return v.ResourceClaims
+	}).(schedulingv1alpha3.WorkloadPodGroupResourceClaimPatchArrayOutput)
+}
+
+// SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+func (o JobSchedulingConfigurationPatchOutput) SchedulingConstraints() schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ApplyT(func(v JobSchedulingConfigurationPatch) *schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPatch {
+		return v.SchedulingConstraints
+	}).(schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+func (o JobSchedulingConfigurationPatchOutput) SchedulingPolicy() schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v JobSchedulingConfigurationPatch) *schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPatch {
+		return v.SchedulingPolicy
+	}).(schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPatchPtrOutput)
+}
+
+type JobSchedulingConfigurationPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (JobSchedulingConfigurationPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**JobSchedulingConfigurationPatch)(nil)).Elem()
+}
+
+func (o JobSchedulingConfigurationPatchPtrOutput) ToJobSchedulingConfigurationPatchPtrOutput() JobSchedulingConfigurationPatchPtrOutput {
+	return o
+}
+
+func (o JobSchedulingConfigurationPatchPtrOutput) ToJobSchedulingConfigurationPatchPtrOutputWithContext(ctx context.Context) JobSchedulingConfigurationPatchPtrOutput {
+	return o
+}
+
+func (o JobSchedulingConfigurationPatchPtrOutput) Elem() JobSchedulingConfigurationPatchOutput {
+	return o.ApplyT(func(v *JobSchedulingConfigurationPatch) JobSchedulingConfigurationPatch {
+		if v != nil {
+			return *v
+		}
+		var ret JobSchedulingConfigurationPatch
+		return ret
+	}).(JobSchedulingConfigurationPatchOutput)
+}
+
+// DisruptionMode defines the mode in which the Job's pods can be disrupted. One of Single, All. This field is immutable after creation: it may not be added or removed, and the selected mode may not be changed.
+func (o JobSchedulingConfigurationPatchPtrOutput) DisruptionMode() schedulingv1alpha3.WorkloadPodGroupDisruptionModePatchPtrOutput {
+	return o.ApplyT(func(v *JobSchedulingConfigurationPatch) *schedulingv1alpha3.WorkloadPodGroupDisruptionModePatch {
+		if v == nil {
+			return nil
+		}
+		return v.DisruptionMode
+	}).(schedulingv1alpha3.WorkloadPodGroupDisruptionModePatchPtrOutput)
+}
+
+// ResourceClaims defines which ResourceClaims may be shared among Pods in the Job. Pods consume the devices allocated to a PodGroup's claim by defining a claim in its own Spec.ResourceClaims that matches the PodGroup's claim exactly. The claim must have the same name and refer to the same ResourceClaim or ResourceClaimTemplate. At most 4 claims may be set, matching the limit on the resulting PodGroup. This list is immutable after creation: entries may neither be added, removed, nor modified.
+func (o JobSchedulingConfigurationPatchPtrOutput) ResourceClaims() schedulingv1alpha3.WorkloadPodGroupResourceClaimPatchArrayOutput {
+	return o.ApplyT(func(v *JobSchedulingConfigurationPatch) []schedulingv1alpha3.WorkloadPodGroupResourceClaimPatch {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceClaims
+	}).(schedulingv1alpha3.WorkloadPodGroupResourceClaimPatchArrayOutput)
+}
+
+// SchedulingConstraints defines scheduling constraints (e.g. topology) for the Job's pods. This field is immutable after creation.
+func (o JobSchedulingConfigurationPatchPtrOutput) SchedulingConstraints() schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPatchPtrOutput {
+	return o.ApplyT(func(v *JobSchedulingConfigurationPatch) *schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPatch {
+		if v == nil {
+			return nil
+		}
+		return v.SchedulingConstraints
+	}).(schedulingv1alpha3.WorkloadPodGroupSchedulingConstraintsPatchPtrOutput)
+}
+
+// SchedulingPolicy defines the scheduling policy for this Job. Exactly one of Basic or Gang must be set. This field is immutable after creation: the policy may not be added or removed. The policy variant (basic/gang) is frozen by hand-written validation; only schedulingPolicy.gang.minCount may be changed.
+func (o JobSchedulingConfigurationPatchPtrOutput) SchedulingPolicy() schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v *JobSchedulingConfigurationPatch) *schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.SchedulingPolicy
+	}).(schedulingv1alpha3.WorkloadPodGroupSchedulingPolicyPatchPtrOutput)
+}
+
 // JobSpec describes how the job execution will look like.
 type JobSpec struct {
 	// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
@@ -1839,6 +2250,8 @@ type JobSpec struct {
 	//
 	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 	PodReplacementPolicy *string `pulumi:"podReplacementPolicy"`
+	// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+	Scheduling *JobSchedulingConfiguration `pulumi:"scheduling"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
@@ -1897,6 +2310,8 @@ type JobSpecArgs struct {
 	//
 	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 	PodReplacementPolicy pulumi.StringPtrInput `pulumi:"podReplacementPolicy"`
+	// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+	Scheduling JobSchedulingConfigurationPtrInput `pulumi:"scheduling"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
@@ -2052,6 +2467,11 @@ func (o JobSpecOutput) PodFailurePolicy() PodFailurePolicyPtrOutput {
 // When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 func (o JobSpecOutput) PodReplacementPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpec) *string { return v.PodReplacementPolicy }).(pulumi.StringPtrOutput)
+}
+
+// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+func (o JobSpecOutput) Scheduling() JobSchedulingConfigurationPtrOutput {
+	return o.ApplyT(func(v JobSpec) *JobSchedulingConfiguration { return v.Scheduling }).(JobSchedulingConfigurationPtrOutput)
 }
 
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -2225,6 +2645,16 @@ func (o JobSpecPtrOutput) PodReplacementPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+func (o JobSpecPtrOutput) Scheduling() JobSchedulingConfigurationPtrOutput {
+	return o.ApplyT(func(v *JobSpec) *JobSchedulingConfiguration {
+		if v == nil {
+			return nil
+		}
+		return v.Scheduling
+	}).(JobSchedulingConfigurationPtrOutput)
+}
+
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o JobSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *metav1.LabelSelector {
@@ -2310,6 +2740,8 @@ type JobSpecPatch struct {
 	//
 	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 	PodReplacementPolicy *string `pulumi:"podReplacementPolicy"`
+	// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+	Scheduling *JobSchedulingConfigurationPatch `pulumi:"scheduling"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
@@ -2368,6 +2800,8 @@ type JobSpecPatchArgs struct {
 	//
 	// When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 	PodReplacementPolicy pulumi.StringPtrInput `pulumi:"podReplacementPolicy"`
+	// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+	Scheduling JobSchedulingConfigurationPatchPtrInput `pulumi:"scheduling"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 	// successPolicy specifies the policy when the Job can be declared as succeeded. If empty, the default behavior applies - the Job is declared as succeeded only when the number of succeeded pods equals to the completions. When the field is specified, it must be immutable and works only for the Indexed Jobs. Once the Job meets the SuccessPolicy, the lingering pods are terminated.
@@ -2523,6 +2957,11 @@ func (o JobSpecPatchOutput) PodFailurePolicy() PodFailurePolicyPatchPtrOutput {
 // When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
 func (o JobSpecPatchOutput) PodReplacementPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *string { return v.PodReplacementPolicy }).(pulumi.StringPtrOutput)
+}
+
+// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+func (o JobSpecPatchOutput) Scheduling() JobSchedulingConfigurationPatchPtrOutput {
+	return o.ApplyT(func(v JobSpecPatch) *JobSchedulingConfigurationPatch { return v.Scheduling }).(JobSchedulingConfigurationPatchPtrOutput)
 }
 
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -2696,6 +3135,16 @@ func (o JobSpecPatchPtrOutput) PodReplacementPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+func (o JobSpecPatchPtrOutput) Scheduling() JobSchedulingConfigurationPatchPtrOutput {
+	return o.ApplyT(func(v *JobSpecPatch) *JobSchedulingConfigurationPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Scheduling
+	}).(JobSchedulingConfigurationPatchPtrOutput)
+}
+
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o JobSpecPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *metav1.LabelSelectorPatch {
@@ -2773,8 +3222,6 @@ type JobStatus struct {
 	// The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
 	Succeeded *int `pulumi:"succeeded"`
 	// The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-	//
-	// This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
 	Terminating *int `pulumi:"terminating"`
 	// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 	//
@@ -2825,8 +3272,6 @@ type JobStatusArgs struct {
 	// The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
 	Succeeded pulumi.IntPtrInput `pulumi:"succeeded"`
 	// The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-	//
-	// This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
 	Terminating pulumi.IntPtrInput `pulumi:"terminating"`
 	// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 	//
@@ -2969,8 +3414,6 @@ func (o JobStatusOutput) Succeeded() pulumi.IntPtrOutput {
 }
 
 // The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-//
-// This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
 func (o JobStatusOutput) Terminating() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatus) *int { return v.Terminating }).(pulumi.IntPtrOutput)
 }
@@ -3108,8 +3551,6 @@ func (o JobStatusPtrOutput) Succeeded() pulumi.IntPtrOutput {
 }
 
 // The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-//
-// This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
 func (o JobStatusPtrOutput) Terminating() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobStatus) *int {
 		if v == nil {
@@ -3163,8 +3604,6 @@ type JobStatusPatch struct {
 	// The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
 	Succeeded *int `pulumi:"succeeded"`
 	// The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-	//
-	// This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
 	Terminating *int `pulumi:"terminating"`
 	// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 	//
@@ -3215,8 +3654,6 @@ type JobStatusPatchArgs struct {
 	// The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
 	Succeeded pulumi.IntPtrInput `pulumi:"succeeded"`
 	// The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-	//
-	// This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
 	Terminating pulumi.IntPtrInput `pulumi:"terminating"`
 	// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 	//
@@ -3359,8 +3796,6 @@ func (o JobStatusPatchOutput) Succeeded() pulumi.IntPtrOutput {
 }
 
 // The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-//
-// This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
 func (o JobStatusPatchOutput) Terminating() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatusPatch) *int { return v.Terminating }).(pulumi.IntPtrOutput)
 }
@@ -3498,8 +3933,6 @@ func (o JobStatusPatchPtrOutput) Succeeded() pulumi.IntPtrOutput {
 }
 
 // The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
-//
-// This field is beta-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (enabled by default).
 func (o JobStatusPatchPtrOutput) Terminating() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobStatusPatch) *int {
 		if v == nil {
@@ -5801,6 +6234,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*JobConditionPatchArrayInput)(nil)).Elem(), JobConditionPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobListTypeInput)(nil)).Elem(), JobListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobPatchTypeInput)(nil)).Elem(), JobPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobSchedulingConfigurationInput)(nil)).Elem(), JobSchedulingConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobSchedulingConfigurationPtrInput)(nil)).Elem(), JobSchedulingConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobSchedulingConfigurationPatchInput)(nil)).Elem(), JobSchedulingConfigurationPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobSchedulingConfigurationPatchPtrInput)(nil)).Elem(), JobSchedulingConfigurationPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobSpecInput)(nil)).Elem(), JobSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobSpecPtrInput)(nil)).Elem(), JobSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobSpecPatchInput)(nil)).Elem(), JobSpecPatchArgs{})
@@ -5859,6 +6296,10 @@ func init() {
 	pulumi.RegisterOutputType(JobConditionPatchArrayOutput{})
 	pulumi.RegisterOutputType(JobListTypeOutput{})
 	pulumi.RegisterOutputType(JobPatchTypeOutput{})
+	pulumi.RegisterOutputType(JobSchedulingConfigurationOutput{})
+	pulumi.RegisterOutputType(JobSchedulingConfigurationPtrOutput{})
+	pulumi.RegisterOutputType(JobSchedulingConfigurationPatchOutput{})
+	pulumi.RegisterOutputType(JobSchedulingConfigurationPatchPtrOutput{})
 	pulumi.RegisterOutputType(JobSpecOutput{})
 	pulumi.RegisterOutputType(JobSpecPtrOutput{})
 	pulumi.RegisterOutputType(JobSpecPatchOutput{})

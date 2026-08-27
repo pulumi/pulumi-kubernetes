@@ -166,6 +166,16 @@ func init() {
 	addManualEntry("scheduling.k8s.io", "v1alpha1", "PriorityClassList",
 		1, 10, 1, 17, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1", Kind: "PriorityClassList"})
 
+	// scheduling.k8s.io/v1alpha2 (no lifecycle files in k8s.io/api)
+	addManualEntry("scheduling.k8s.io", "v1alpha2", "Workload",
+		1, 36, 1, 37, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1beta1", Kind: "Workload"})
+	addManualEntry("scheduling.k8s.io", "v1alpha2", "WorkloadList",
+		1, 36, 1, 37, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1beta1", Kind: "WorkloadList"})
+	addManualEntry("scheduling.k8s.io", "v1alpha2", "PodGroup",
+		1, 36, 1, 37, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1beta1", Kind: "PodGroup"})
+	addManualEntry("scheduling.k8s.io", "v1alpha2", "PodGroupList",
+		1, 36, 1, 37, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1beta1", Kind: "PodGroupList"})
+
 	// resource.k8s.io/v1beta1 — has lifecycle data but no APILifecycleReplacement.
 	// The replacement is v1beta2.
 	setReplacement("resource.k8s.io", "v1beta1", "DeviceClass",

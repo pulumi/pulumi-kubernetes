@@ -88,6 +88,7 @@ namespace Pulumi.Kubernetes.StorageMigration.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new global::Pulumi.Alias { Type = "kubernetes:storagemigration.k8s.io/v1:StorageVersionMigrationPatch" },
                     new global::Pulumi.Alias { Type = "kubernetes:storagemigration.k8s.io/v1alpha1:StorageVersionMigrationPatch" },
                 },
             };

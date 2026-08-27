@@ -14,6 +14,969 @@ import (
 
 var _ = utilities.GetEnvOrDefault
 
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicy struct {
+}
+
+// BasicSchedulingPolicyInput is an input type that accepts BasicSchedulingPolicyArgs and BasicSchedulingPolicyOutput values.
+// You can construct a concrete instance of `BasicSchedulingPolicyInput` via:
+//
+//	BasicSchedulingPolicyArgs{...}
+type BasicSchedulingPolicyInput interface {
+	pulumi.Input
+
+	ToBasicSchedulingPolicyOutput() BasicSchedulingPolicyOutput
+	ToBasicSchedulingPolicyOutputWithContext(context.Context) BasicSchedulingPolicyOutput
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyArgs struct {
+}
+
+func (BasicSchedulingPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*BasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (i BasicSchedulingPolicyArgs) ToBasicSchedulingPolicyOutput() BasicSchedulingPolicyOutput {
+	return i.ToBasicSchedulingPolicyOutputWithContext(context.Background())
+}
+
+func (i BasicSchedulingPolicyArgs) ToBasicSchedulingPolicyOutputWithContext(ctx context.Context) BasicSchedulingPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyOutput)
+}
+
+func (i BasicSchedulingPolicyArgs) ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput {
+	return i.ToBasicSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i BasicSchedulingPolicyArgs) ToBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyOutput).ToBasicSchedulingPolicyPtrOutputWithContext(ctx)
+}
+
+// BasicSchedulingPolicyPtrInput is an input type that accepts BasicSchedulingPolicyArgs, BasicSchedulingPolicyPtr and BasicSchedulingPolicyPtrOutput values.
+// You can construct a concrete instance of `BasicSchedulingPolicyPtrInput` via:
+//
+//	        BasicSchedulingPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type BasicSchedulingPolicyPtrInput interface {
+	pulumi.Input
+
+	ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput
+	ToBasicSchedulingPolicyPtrOutputWithContext(context.Context) BasicSchedulingPolicyPtrOutput
+}
+
+type basicSchedulingPolicyPtrType BasicSchedulingPolicyArgs
+
+func BasicSchedulingPolicyPtr(v *BasicSchedulingPolicyArgs) BasicSchedulingPolicyPtrInput {
+	return (*basicSchedulingPolicyPtrType)(v)
+}
+
+func (*basicSchedulingPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**BasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (i *basicSchedulingPolicyPtrType) ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput {
+	return i.ToBasicSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *basicSchedulingPolicyPtrType) ToBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyPtrOutput)
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyOutput struct{ *pulumi.OutputState }
+
+func (BasicSchedulingPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (o BasicSchedulingPolicyOutput) ToBasicSchedulingPolicyOutput() BasicSchedulingPolicyOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyOutput) ToBasicSchedulingPolicyOutputWithContext(ctx context.Context) BasicSchedulingPolicyOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyOutput) ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput {
+	return o.ToBasicSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o BasicSchedulingPolicyOutput) ToBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v BasicSchedulingPolicy) *BasicSchedulingPolicy {
+		return &v
+	}).(BasicSchedulingPolicyPtrOutput)
+}
+
+type BasicSchedulingPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (BasicSchedulingPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**BasicSchedulingPolicy)(nil)).Elem()
+}
+
+func (o BasicSchedulingPolicyPtrOutput) ToBasicSchedulingPolicyPtrOutput() BasicSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPtrOutput) ToBasicSchedulingPolicyPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPtrOutput) Elem() BasicSchedulingPolicyOutput {
+	return o.ApplyT(func(v *BasicSchedulingPolicy) BasicSchedulingPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret BasicSchedulingPolicy
+		return ret
+	}).(BasicSchedulingPolicyOutput)
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyPatch struct {
+}
+
+// BasicSchedulingPolicyPatchInput is an input type that accepts BasicSchedulingPolicyPatchArgs and BasicSchedulingPolicyPatchOutput values.
+// You can construct a concrete instance of `BasicSchedulingPolicyPatchInput` via:
+//
+//	BasicSchedulingPolicyPatchArgs{...}
+type BasicSchedulingPolicyPatchInput interface {
+	pulumi.Input
+
+	ToBasicSchedulingPolicyPatchOutput() BasicSchedulingPolicyPatchOutput
+	ToBasicSchedulingPolicyPatchOutputWithContext(context.Context) BasicSchedulingPolicyPatchOutput
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyPatchArgs struct {
+}
+
+func (BasicSchedulingPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*BasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i BasicSchedulingPolicyPatchArgs) ToBasicSchedulingPolicyPatchOutput() BasicSchedulingPolicyPatchOutput {
+	return i.ToBasicSchedulingPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i BasicSchedulingPolicyPatchArgs) ToBasicSchedulingPolicyPatchOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyPatchOutput)
+}
+
+func (i BasicSchedulingPolicyPatchArgs) ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput {
+	return i.ToBasicSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i BasicSchedulingPolicyPatchArgs) ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyPatchOutput).ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// BasicSchedulingPolicyPatchPtrInput is an input type that accepts BasicSchedulingPolicyPatchArgs, BasicSchedulingPolicyPatchPtr and BasicSchedulingPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `BasicSchedulingPolicyPatchPtrInput` via:
+//
+//	        BasicSchedulingPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type BasicSchedulingPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput
+	ToBasicSchedulingPolicyPatchPtrOutputWithContext(context.Context) BasicSchedulingPolicyPatchPtrOutput
+}
+
+type basicSchedulingPolicyPatchPtrType BasicSchedulingPolicyPatchArgs
+
+func BasicSchedulingPolicyPatchPtr(v *BasicSchedulingPolicyPatchArgs) BasicSchedulingPolicyPatchPtrInput {
+	return (*basicSchedulingPolicyPatchPtrType)(v)
+}
+
+func (*basicSchedulingPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**BasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i *basicSchedulingPolicyPatchPtrType) ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput {
+	return i.ToBasicSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *basicSchedulingPolicyPatchPtrType) ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BasicSchedulingPolicyPatchPtrOutput)
+}
+
+// BasicSchedulingPolicy indicates that standard Kubernetes scheduling behavior should be used.
+type BasicSchedulingPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (BasicSchedulingPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o BasicSchedulingPolicyPatchOutput) ToBasicSchedulingPolicyPatchOutput() BasicSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPatchOutput) ToBasicSchedulingPolicyPatchOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPatchOutput) ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput {
+	return o.ToBasicSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o BasicSchedulingPolicyPatchOutput) ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v BasicSchedulingPolicyPatch) *BasicSchedulingPolicyPatch {
+		return &v
+	}).(BasicSchedulingPolicyPatchPtrOutput)
+}
+
+type BasicSchedulingPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (BasicSchedulingPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**BasicSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o BasicSchedulingPolicyPatchPtrOutput) ToBasicSchedulingPolicyPatchPtrOutput() BasicSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPatchPtrOutput) ToBasicSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) BasicSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o BasicSchedulingPolicyPatchPtrOutput) Elem() BasicSchedulingPolicyPatchOutput {
+	return o.ApplyT(func(v *BasicSchedulingPolicyPatch) BasicSchedulingPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret BasicSchedulingPolicyPatch
+		return ret
+	}).(BasicSchedulingPolicyPatchOutput)
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicy struct {
+	// MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+	MinCount int `pulumi:"minCount"`
+}
+
+// GangSchedulingPolicyInput is an input type that accepts GangSchedulingPolicyArgs and GangSchedulingPolicyOutput values.
+// You can construct a concrete instance of `GangSchedulingPolicyInput` via:
+//
+//	GangSchedulingPolicyArgs{...}
+type GangSchedulingPolicyInput interface {
+	pulumi.Input
+
+	ToGangSchedulingPolicyOutput() GangSchedulingPolicyOutput
+	ToGangSchedulingPolicyOutputWithContext(context.Context) GangSchedulingPolicyOutput
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyArgs struct {
+	// MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+	MinCount pulumi.IntInput `pulumi:"minCount"`
+}
+
+func (GangSchedulingPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GangSchedulingPolicy)(nil)).Elem()
+}
+
+func (i GangSchedulingPolicyArgs) ToGangSchedulingPolicyOutput() GangSchedulingPolicyOutput {
+	return i.ToGangSchedulingPolicyOutputWithContext(context.Background())
+}
+
+func (i GangSchedulingPolicyArgs) ToGangSchedulingPolicyOutputWithContext(ctx context.Context) GangSchedulingPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyOutput)
+}
+
+func (i GangSchedulingPolicyArgs) ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput {
+	return i.ToGangSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i GangSchedulingPolicyArgs) ToGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyOutput).ToGangSchedulingPolicyPtrOutputWithContext(ctx)
+}
+
+// GangSchedulingPolicyPtrInput is an input type that accepts GangSchedulingPolicyArgs, GangSchedulingPolicyPtr and GangSchedulingPolicyPtrOutput values.
+// You can construct a concrete instance of `GangSchedulingPolicyPtrInput` via:
+//
+//	        GangSchedulingPolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type GangSchedulingPolicyPtrInput interface {
+	pulumi.Input
+
+	ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput
+	ToGangSchedulingPolicyPtrOutputWithContext(context.Context) GangSchedulingPolicyPtrOutput
+}
+
+type gangSchedulingPolicyPtrType GangSchedulingPolicyArgs
+
+func GangSchedulingPolicyPtr(v *GangSchedulingPolicyArgs) GangSchedulingPolicyPtrInput {
+	return (*gangSchedulingPolicyPtrType)(v)
+}
+
+func (*gangSchedulingPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GangSchedulingPolicy)(nil)).Elem()
+}
+
+func (i *gangSchedulingPolicyPtrType) ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput {
+	return i.ToGangSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *gangSchedulingPolicyPtrType) ToGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyPtrOutput)
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyOutput struct{ *pulumi.OutputState }
+
+func (GangSchedulingPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GangSchedulingPolicy)(nil)).Elem()
+}
+
+func (o GangSchedulingPolicyOutput) ToGangSchedulingPolicyOutput() GangSchedulingPolicyOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyOutput) ToGangSchedulingPolicyOutputWithContext(ctx context.Context) GangSchedulingPolicyOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyOutput) ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput {
+	return o.ToGangSchedulingPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o GangSchedulingPolicyOutput) ToGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GangSchedulingPolicy) *GangSchedulingPolicy {
+		return &v
+	}).(GangSchedulingPolicyPtrOutput)
+}
+
+// MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+func (o GangSchedulingPolicyOutput) MinCount() pulumi.IntOutput {
+	return o.ApplyT(func(v GangSchedulingPolicy) int { return v.MinCount }).(pulumi.IntOutput)
+}
+
+type GangSchedulingPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (GangSchedulingPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GangSchedulingPolicy)(nil)).Elem()
+}
+
+func (o GangSchedulingPolicyPtrOutput) ToGangSchedulingPolicyPtrOutput() GangSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPtrOutput) ToGangSchedulingPolicyPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPtrOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPtrOutput) Elem() GangSchedulingPolicyOutput {
+	return o.ApplyT(func(v *GangSchedulingPolicy) GangSchedulingPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret GangSchedulingPolicy
+		return ret
+	}).(GangSchedulingPolicyOutput)
+}
+
+// MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+func (o GangSchedulingPolicyPtrOutput) MinCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GangSchedulingPolicy) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.MinCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyPatch struct {
+	// MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+	MinCount *int `pulumi:"minCount"`
+}
+
+// GangSchedulingPolicyPatchInput is an input type that accepts GangSchedulingPolicyPatchArgs and GangSchedulingPolicyPatchOutput values.
+// You can construct a concrete instance of `GangSchedulingPolicyPatchInput` via:
+//
+//	GangSchedulingPolicyPatchArgs{...}
+type GangSchedulingPolicyPatchInput interface {
+	pulumi.Input
+
+	ToGangSchedulingPolicyPatchOutput() GangSchedulingPolicyPatchOutput
+	ToGangSchedulingPolicyPatchOutputWithContext(context.Context) GangSchedulingPolicyPatchOutput
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyPatchArgs struct {
+	// MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+	MinCount pulumi.IntPtrInput `pulumi:"minCount"`
+}
+
+func (GangSchedulingPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i GangSchedulingPolicyPatchArgs) ToGangSchedulingPolicyPatchOutput() GangSchedulingPolicyPatchOutput {
+	return i.ToGangSchedulingPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i GangSchedulingPolicyPatchArgs) ToGangSchedulingPolicyPatchOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyPatchOutput)
+}
+
+func (i GangSchedulingPolicyPatchArgs) ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput {
+	return i.ToGangSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i GangSchedulingPolicyPatchArgs) ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyPatchOutput).ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// GangSchedulingPolicyPatchPtrInput is an input type that accepts GangSchedulingPolicyPatchArgs, GangSchedulingPolicyPatchPtr and GangSchedulingPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `GangSchedulingPolicyPatchPtrInput` via:
+//
+//	        GangSchedulingPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type GangSchedulingPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput
+	ToGangSchedulingPolicyPatchPtrOutputWithContext(context.Context) GangSchedulingPolicyPatchPtrOutput
+}
+
+type gangSchedulingPolicyPatchPtrType GangSchedulingPolicyPatchArgs
+
+func GangSchedulingPolicyPatchPtr(v *GangSchedulingPolicyPatchArgs) GangSchedulingPolicyPatchPtrInput {
+	return (*gangSchedulingPolicyPatchPtrType)(v)
+}
+
+func (*gangSchedulingPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (i *gangSchedulingPolicyPatchPtrType) ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput {
+	return i.ToGangSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *gangSchedulingPolicyPatchPtrType) ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GangSchedulingPolicyPatchPtrOutput)
+}
+
+// GangSchedulingPolicy defines the parameters for gang scheduling.
+type GangSchedulingPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (GangSchedulingPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o GangSchedulingPolicyPatchOutput) ToGangSchedulingPolicyPatchOutput() GangSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPatchOutput) ToGangSchedulingPolicyPatchOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPatchOutput) ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput {
+	return o.ToGangSchedulingPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o GangSchedulingPolicyPatchOutput) ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GangSchedulingPolicyPatch) *GangSchedulingPolicyPatch {
+		return &v
+	}).(GangSchedulingPolicyPatchPtrOutput)
+}
+
+// MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+func (o GangSchedulingPolicyPatchOutput) MinCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GangSchedulingPolicyPatch) *int { return v.MinCount }).(pulumi.IntPtrOutput)
+}
+
+type GangSchedulingPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (GangSchedulingPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GangSchedulingPolicyPatch)(nil)).Elem()
+}
+
+func (o GangSchedulingPolicyPatchPtrOutput) ToGangSchedulingPolicyPatchPtrOutput() GangSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPatchPtrOutput) ToGangSchedulingPolicyPatchPtrOutputWithContext(ctx context.Context) GangSchedulingPolicyPatchPtrOutput {
+	return o
+}
+
+func (o GangSchedulingPolicyPatchPtrOutput) Elem() GangSchedulingPolicyPatchOutput {
+	return o.ApplyT(func(v *GangSchedulingPolicyPatch) GangSchedulingPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret GangSchedulingPolicyPatch
+		return ret
+	}).(GangSchedulingPolicyPatchOutput)
+}
+
+// MinCount is the minimum number of pods that must be schedulable or scheduled at the same time for the scheduler to admit the entire group. It must be a positive integer.
+func (o GangSchedulingPolicyPatchPtrOutput) MinCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GangSchedulingPolicyPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MinCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// PodGroup represents a set of pods with a common scheduling policy.
+type PodGroup struct {
+	// Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+	Name string `pulumi:"name"`
+	// Policy defines the scheduling policy for this PodGroup.
+	Policy PodGroupPolicy `pulumi:"policy"`
+}
+
+// PodGroupInput is an input type that accepts PodGroupArgs and PodGroupOutput values.
+// You can construct a concrete instance of `PodGroupInput` via:
+//
+//	PodGroupArgs{...}
+type PodGroupInput interface {
+	pulumi.Input
+
+	ToPodGroupOutput() PodGroupOutput
+	ToPodGroupOutputWithContext(context.Context) PodGroupOutput
+}
+
+// PodGroup represents a set of pods with a common scheduling policy.
+type PodGroupArgs struct {
+	// Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Policy defines the scheduling policy for this PodGroup.
+	Policy PodGroupPolicyInput `pulumi:"policy"`
+}
+
+func (PodGroupArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroup)(nil)).Elem()
+}
+
+func (i PodGroupArgs) ToPodGroupOutput() PodGroupOutput {
+	return i.ToPodGroupOutputWithContext(context.Background())
+}
+
+func (i PodGroupArgs) ToPodGroupOutputWithContext(ctx context.Context) PodGroupOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupOutput)
+}
+
+// PodGroupArrayInput is an input type that accepts PodGroupArray and PodGroupArrayOutput values.
+// You can construct a concrete instance of `PodGroupArrayInput` via:
+//
+//	PodGroupArray{ PodGroupArgs{...} }
+type PodGroupArrayInput interface {
+	pulumi.Input
+
+	ToPodGroupArrayOutput() PodGroupArrayOutput
+	ToPodGroupArrayOutputWithContext(context.Context) PodGroupArrayOutput
+}
+
+type PodGroupArray []PodGroupInput
+
+func (PodGroupArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroup)(nil)).Elem()
+}
+
+func (i PodGroupArray) ToPodGroupArrayOutput() PodGroupArrayOutput {
+	return i.ToPodGroupArrayOutputWithContext(context.Background())
+}
+
+func (i PodGroupArray) ToPodGroupArrayOutputWithContext(ctx context.Context) PodGroupArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupArrayOutput)
+}
+
+// PodGroup represents a set of pods with a common scheduling policy.
+type PodGroupOutput struct{ *pulumi.OutputState }
+
+func (PodGroupOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroup)(nil)).Elem()
+}
+
+func (o PodGroupOutput) ToPodGroupOutput() PodGroupOutput {
+	return o
+}
+
+func (o PodGroupOutput) ToPodGroupOutputWithContext(ctx context.Context) PodGroupOutput {
+	return o
+}
+
+// Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+func (o PodGroupOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PodGroup) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Policy defines the scheduling policy for this PodGroup.
+func (o PodGroupOutput) Policy() PodGroupPolicyOutput {
+	return o.ApplyT(func(v PodGroup) PodGroupPolicy { return v.Policy }).(PodGroupPolicyOutput)
+}
+
+type PodGroupArrayOutput struct{ *pulumi.OutputState }
+
+func (PodGroupArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroup)(nil)).Elem()
+}
+
+func (o PodGroupArrayOutput) ToPodGroupArrayOutput() PodGroupArrayOutput {
+	return o
+}
+
+func (o PodGroupArrayOutput) ToPodGroupArrayOutputWithContext(ctx context.Context) PodGroupArrayOutput {
+	return o
+}
+
+func (o PodGroupArrayOutput) Index(i pulumi.IntInput) PodGroupOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodGroup {
+		return vs[0].([]PodGroup)[vs[1].(int)]
+	}).(PodGroupOutput)
+}
+
+// PodGroup represents a set of pods with a common scheduling policy.
+type PodGroupPatch struct {
+	// Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+	Name *string `pulumi:"name"`
+	// Policy defines the scheduling policy for this PodGroup.
+	Policy *PodGroupPolicyPatch `pulumi:"policy"`
+}
+
+// PodGroupPatchInput is an input type that accepts PodGroupPatchArgs and PodGroupPatchOutput values.
+// You can construct a concrete instance of `PodGroupPatchInput` via:
+//
+//	PodGroupPatchArgs{...}
+type PodGroupPatchInput interface {
+	pulumi.Input
+
+	ToPodGroupPatchOutput() PodGroupPatchOutput
+	ToPodGroupPatchOutputWithContext(context.Context) PodGroupPatchOutput
+}
+
+// PodGroup represents a set of pods with a common scheduling policy.
+type PodGroupPatchArgs struct {
+	// Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Policy defines the scheduling policy for this PodGroup.
+	Policy PodGroupPolicyPatchPtrInput `pulumi:"policy"`
+}
+
+func (PodGroupPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupPatch)(nil)).Elem()
+}
+
+func (i PodGroupPatchArgs) ToPodGroupPatchOutput() PodGroupPatchOutput {
+	return i.ToPodGroupPatchOutputWithContext(context.Background())
+}
+
+func (i PodGroupPatchArgs) ToPodGroupPatchOutputWithContext(ctx context.Context) PodGroupPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupPatchOutput)
+}
+
+// PodGroupPatchArrayInput is an input type that accepts PodGroupPatchArray and PodGroupPatchArrayOutput values.
+// You can construct a concrete instance of `PodGroupPatchArrayInput` via:
+//
+//	PodGroupPatchArray{ PodGroupPatchArgs{...} }
+type PodGroupPatchArrayInput interface {
+	pulumi.Input
+
+	ToPodGroupPatchArrayOutput() PodGroupPatchArrayOutput
+	ToPodGroupPatchArrayOutputWithContext(context.Context) PodGroupPatchArrayOutput
+}
+
+type PodGroupPatchArray []PodGroupPatchInput
+
+func (PodGroupPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupPatch)(nil)).Elem()
+}
+
+func (i PodGroupPatchArray) ToPodGroupPatchArrayOutput() PodGroupPatchArrayOutput {
+	return i.ToPodGroupPatchArrayOutputWithContext(context.Background())
+}
+
+func (i PodGroupPatchArray) ToPodGroupPatchArrayOutputWithContext(ctx context.Context) PodGroupPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupPatchArrayOutput)
+}
+
+// PodGroup represents a set of pods with a common scheduling policy.
+type PodGroupPatchOutput struct{ *pulumi.OutputState }
+
+func (PodGroupPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupPatch)(nil)).Elem()
+}
+
+func (o PodGroupPatchOutput) ToPodGroupPatchOutput() PodGroupPatchOutput {
+	return o
+}
+
+func (o PodGroupPatchOutput) ToPodGroupPatchOutputWithContext(ctx context.Context) PodGroupPatchOutput {
+	return o
+}
+
+// Name is a unique identifier for the PodGroup within the Workload. It must be a DNS label. This field is immutable.
+func (o PodGroupPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodGroupPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Policy defines the scheduling policy for this PodGroup.
+func (o PodGroupPatchOutput) Policy() PodGroupPolicyPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupPatch) *PodGroupPolicyPatch { return v.Policy }).(PodGroupPolicyPatchPtrOutput)
+}
+
+type PodGroupPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (PodGroupPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodGroupPatch)(nil)).Elem()
+}
+
+func (o PodGroupPatchArrayOutput) ToPodGroupPatchArrayOutput() PodGroupPatchArrayOutput {
+	return o
+}
+
+func (o PodGroupPatchArrayOutput) ToPodGroupPatchArrayOutputWithContext(ctx context.Context) PodGroupPatchArrayOutput {
+	return o
+}
+
+func (o PodGroupPatchArrayOutput) Index(i pulumi.IntInput) PodGroupPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodGroupPatch {
+		return vs[0].([]PodGroupPatch)[vs[1].(int)]
+	}).(PodGroupPatchOutput)
+}
+
+// PodGroupPolicy defines the scheduling configuration for a PodGroup.
+type PodGroupPolicy struct {
+	// Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+	Basic *BasicSchedulingPolicy `pulumi:"basic"`
+	// Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+	Gang *GangSchedulingPolicy `pulumi:"gang"`
+}
+
+// PodGroupPolicyInput is an input type that accepts PodGroupPolicyArgs and PodGroupPolicyOutput values.
+// You can construct a concrete instance of `PodGroupPolicyInput` via:
+//
+//	PodGroupPolicyArgs{...}
+type PodGroupPolicyInput interface {
+	pulumi.Input
+
+	ToPodGroupPolicyOutput() PodGroupPolicyOutput
+	ToPodGroupPolicyOutputWithContext(context.Context) PodGroupPolicyOutput
+}
+
+// PodGroupPolicy defines the scheduling configuration for a PodGroup.
+type PodGroupPolicyArgs struct {
+	// Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+	Basic BasicSchedulingPolicyPtrInput `pulumi:"basic"`
+	// Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+	Gang GangSchedulingPolicyPtrInput `pulumi:"gang"`
+}
+
+func (PodGroupPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupPolicy)(nil)).Elem()
+}
+
+func (i PodGroupPolicyArgs) ToPodGroupPolicyOutput() PodGroupPolicyOutput {
+	return i.ToPodGroupPolicyOutputWithContext(context.Background())
+}
+
+func (i PodGroupPolicyArgs) ToPodGroupPolicyOutputWithContext(ctx context.Context) PodGroupPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupPolicyOutput)
+}
+
+// PodGroupPolicy defines the scheduling configuration for a PodGroup.
+type PodGroupPolicyOutput struct{ *pulumi.OutputState }
+
+func (PodGroupPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupPolicy)(nil)).Elem()
+}
+
+func (o PodGroupPolicyOutput) ToPodGroupPolicyOutput() PodGroupPolicyOutput {
+	return o
+}
+
+func (o PodGroupPolicyOutput) ToPodGroupPolicyOutputWithContext(ctx context.Context) PodGroupPolicyOutput {
+	return o
+}
+
+// Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+func (o PodGroupPolicyOutput) Basic() BasicSchedulingPolicyPtrOutput {
+	return o.ApplyT(func(v PodGroupPolicy) *BasicSchedulingPolicy { return v.Basic }).(BasicSchedulingPolicyPtrOutput)
+}
+
+// Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+func (o PodGroupPolicyOutput) Gang() GangSchedulingPolicyPtrOutput {
+	return o.ApplyT(func(v PodGroupPolicy) *GangSchedulingPolicy { return v.Gang }).(GangSchedulingPolicyPtrOutput)
+}
+
+// PodGroupPolicy defines the scheduling configuration for a PodGroup.
+type PodGroupPolicyPatch struct {
+	// Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+	Basic *BasicSchedulingPolicyPatch `pulumi:"basic"`
+	// Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+	Gang *GangSchedulingPolicyPatch `pulumi:"gang"`
+}
+
+// PodGroupPolicyPatchInput is an input type that accepts PodGroupPolicyPatchArgs and PodGroupPolicyPatchOutput values.
+// You can construct a concrete instance of `PodGroupPolicyPatchInput` via:
+//
+//	PodGroupPolicyPatchArgs{...}
+type PodGroupPolicyPatchInput interface {
+	pulumi.Input
+
+	ToPodGroupPolicyPatchOutput() PodGroupPolicyPatchOutput
+	ToPodGroupPolicyPatchOutputWithContext(context.Context) PodGroupPolicyPatchOutput
+}
+
+// PodGroupPolicy defines the scheduling configuration for a PodGroup.
+type PodGroupPolicyPatchArgs struct {
+	// Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+	Basic BasicSchedulingPolicyPatchPtrInput `pulumi:"basic"`
+	// Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+	Gang GangSchedulingPolicyPatchPtrInput `pulumi:"gang"`
+}
+
+func (PodGroupPolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupPolicyPatch)(nil)).Elem()
+}
+
+func (i PodGroupPolicyPatchArgs) ToPodGroupPolicyPatchOutput() PodGroupPolicyPatchOutput {
+	return i.ToPodGroupPolicyPatchOutputWithContext(context.Background())
+}
+
+func (i PodGroupPolicyPatchArgs) ToPodGroupPolicyPatchOutputWithContext(ctx context.Context) PodGroupPolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupPolicyPatchOutput)
+}
+
+func (i PodGroupPolicyPatchArgs) ToPodGroupPolicyPatchPtrOutput() PodGroupPolicyPatchPtrOutput {
+	return i.ToPodGroupPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i PodGroupPolicyPatchArgs) ToPodGroupPolicyPatchPtrOutputWithContext(ctx context.Context) PodGroupPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupPolicyPatchOutput).ToPodGroupPolicyPatchPtrOutputWithContext(ctx)
+}
+
+// PodGroupPolicyPatchPtrInput is an input type that accepts PodGroupPolicyPatchArgs, PodGroupPolicyPatchPtr and PodGroupPolicyPatchPtrOutput values.
+// You can construct a concrete instance of `PodGroupPolicyPatchPtrInput` via:
+//
+//	        PodGroupPolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodGroupPolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToPodGroupPolicyPatchPtrOutput() PodGroupPolicyPatchPtrOutput
+	ToPodGroupPolicyPatchPtrOutputWithContext(context.Context) PodGroupPolicyPatchPtrOutput
+}
+
+type podGroupPolicyPatchPtrType PodGroupPolicyPatchArgs
+
+func PodGroupPolicyPatchPtr(v *PodGroupPolicyPatchArgs) PodGroupPolicyPatchPtrInput {
+	return (*podGroupPolicyPatchPtrType)(v)
+}
+
+func (*podGroupPolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupPolicyPatch)(nil)).Elem()
+}
+
+func (i *podGroupPolicyPatchPtrType) ToPodGroupPolicyPatchPtrOutput() PodGroupPolicyPatchPtrOutput {
+	return i.ToPodGroupPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *podGroupPolicyPatchPtrType) ToPodGroupPolicyPatchPtrOutputWithContext(ctx context.Context) PodGroupPolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodGroupPolicyPatchPtrOutput)
+}
+
+// PodGroupPolicy defines the scheduling configuration for a PodGroup.
+type PodGroupPolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (PodGroupPolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodGroupPolicyPatch)(nil)).Elem()
+}
+
+func (o PodGroupPolicyPatchOutput) ToPodGroupPolicyPatchOutput() PodGroupPolicyPatchOutput {
+	return o
+}
+
+func (o PodGroupPolicyPatchOutput) ToPodGroupPolicyPatchOutputWithContext(ctx context.Context) PodGroupPolicyPatchOutput {
+	return o
+}
+
+func (o PodGroupPolicyPatchOutput) ToPodGroupPolicyPatchPtrOutput() PodGroupPolicyPatchPtrOutput {
+	return o.ToPodGroupPolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o PodGroupPolicyPatchOutput) ToPodGroupPolicyPatchPtrOutputWithContext(ctx context.Context) PodGroupPolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodGroupPolicyPatch) *PodGroupPolicyPatch {
+		return &v
+	}).(PodGroupPolicyPatchPtrOutput)
+}
+
+// Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+func (o PodGroupPolicyPatchOutput) Basic() BasicSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupPolicyPatch) *BasicSchedulingPolicyPatch { return v.Basic }).(BasicSchedulingPolicyPatchPtrOutput)
+}
+
+// Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+func (o PodGroupPolicyPatchOutput) Gang() GangSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v PodGroupPolicyPatch) *GangSchedulingPolicyPatch { return v.Gang }).(GangSchedulingPolicyPatchPtrOutput)
+}
+
+type PodGroupPolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (PodGroupPolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodGroupPolicyPatch)(nil)).Elem()
+}
+
+func (o PodGroupPolicyPatchPtrOutput) ToPodGroupPolicyPatchPtrOutput() PodGroupPolicyPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupPolicyPatchPtrOutput) ToPodGroupPolicyPatchPtrOutputWithContext(ctx context.Context) PodGroupPolicyPatchPtrOutput {
+	return o
+}
+
+func (o PodGroupPolicyPatchPtrOutput) Elem() PodGroupPolicyPatchOutput {
+	return o.ApplyT(func(v *PodGroupPolicyPatch) PodGroupPolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret PodGroupPolicyPatch
+		return ret
+	}).(PodGroupPolicyPatchOutput)
+}
+
+// Basic specifies that the pods in this group should be scheduled using standard Kubernetes scheduling behavior.
+func (o PodGroupPolicyPatchPtrOutput) Basic() BasicSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v *PodGroupPolicyPatch) *BasicSchedulingPolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Basic
+	}).(BasicSchedulingPolicyPatchPtrOutput)
+}
+
+// Gang specifies that the pods in this group should be scheduled using all-or-nothing semantics.
+func (o PodGroupPolicyPatchPtrOutput) Gang() GangSchedulingPolicyPatchPtrOutput {
+	return o.ApplyT(func(v *PodGroupPolicyPatch) *GangSchedulingPolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Gang
+	}).(GangSchedulingPolicyPatchPtrOutput)
+}
+
 // DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
 type PriorityClassType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -359,13 +1322,935 @@ func (o PriorityClassPatchTypeOutput) Value() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PriorityClassPatchType) *int { return v.Value }).(pulumi.IntPtrOutput)
 }
 
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReference struct {
+	// APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+	ApiGroup *string `pulumi:"apiGroup"`
+	// Kind is the type of resource being referenced. It must be a path segment name.
+	Kind string `pulumi:"kind"`
+	// Name is the name of resource being referenced. It must be a path segment name.
+	Name string `pulumi:"name"`
+}
+
+// TypedLocalObjectReferenceInput is an input type that accepts TypedLocalObjectReferenceArgs and TypedLocalObjectReferenceOutput values.
+// You can construct a concrete instance of `TypedLocalObjectReferenceInput` via:
+//
+//	TypedLocalObjectReferenceArgs{...}
+type TypedLocalObjectReferenceInput interface {
+	pulumi.Input
+
+	ToTypedLocalObjectReferenceOutput() TypedLocalObjectReferenceOutput
+	ToTypedLocalObjectReferenceOutputWithContext(context.Context) TypedLocalObjectReferenceOutput
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferenceArgs struct {
+	// APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
+	// Kind is the type of resource being referenced. It must be a path segment name.
+	Kind pulumi.StringInput `pulumi:"kind"`
+	// Name is the name of resource being referenced. It must be a path segment name.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (TypedLocalObjectReferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypedLocalObjectReference)(nil)).Elem()
+}
+
+func (i TypedLocalObjectReferenceArgs) ToTypedLocalObjectReferenceOutput() TypedLocalObjectReferenceOutput {
+	return i.ToTypedLocalObjectReferenceOutputWithContext(context.Background())
+}
+
+func (i TypedLocalObjectReferenceArgs) ToTypedLocalObjectReferenceOutputWithContext(ctx context.Context) TypedLocalObjectReferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferenceOutput)
+}
+
+func (i TypedLocalObjectReferenceArgs) ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput {
+	return i.ToTypedLocalObjectReferencePtrOutputWithContext(context.Background())
+}
+
+func (i TypedLocalObjectReferenceArgs) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferenceOutput).ToTypedLocalObjectReferencePtrOutputWithContext(ctx)
+}
+
+// TypedLocalObjectReferencePtrInput is an input type that accepts TypedLocalObjectReferenceArgs, TypedLocalObjectReferencePtr and TypedLocalObjectReferencePtrOutput values.
+// You can construct a concrete instance of `TypedLocalObjectReferencePtrInput` via:
+//
+//	        TypedLocalObjectReferenceArgs{...}
+//
+//	or:
+//
+//	        nil
+type TypedLocalObjectReferencePtrInput interface {
+	pulumi.Input
+
+	ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput
+	ToTypedLocalObjectReferencePtrOutputWithContext(context.Context) TypedLocalObjectReferencePtrOutput
+}
+
+type typedLocalObjectReferencePtrType TypedLocalObjectReferenceArgs
+
+func TypedLocalObjectReferencePtr(v *TypedLocalObjectReferenceArgs) TypedLocalObjectReferencePtrInput {
+	return (*typedLocalObjectReferencePtrType)(v)
+}
+
+func (*typedLocalObjectReferencePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypedLocalObjectReference)(nil)).Elem()
+}
+
+func (i *typedLocalObjectReferencePtrType) ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput {
+	return i.ToTypedLocalObjectReferencePtrOutputWithContext(context.Background())
+}
+
+func (i *typedLocalObjectReferencePtrType) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferencePtrOutput)
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferenceOutput struct{ *pulumi.OutputState }
+
+func (TypedLocalObjectReferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypedLocalObjectReference)(nil)).Elem()
+}
+
+func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferenceOutput() TypedLocalObjectReferenceOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferenceOutputWithContext(ctx context.Context) TypedLocalObjectReferenceOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput {
+	return o.ToTypedLocalObjectReferencePtrOutputWithContext(context.Background())
+}
+
+func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TypedLocalObjectReference) *TypedLocalObjectReference {
+		return &v
+	}).(TypedLocalObjectReferencePtrOutput)
+}
+
+// APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+func (o TypedLocalObjectReferenceOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TypedLocalObjectReference) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
+}
+
+// Kind is the type of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferenceOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v TypedLocalObjectReference) string { return v.Kind }).(pulumi.StringOutput)
+}
+
+// Name is the name of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferenceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v TypedLocalObjectReference) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type TypedLocalObjectReferencePtrOutput struct{ *pulumi.OutputState }
+
+func (TypedLocalObjectReferencePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypedLocalObjectReference)(nil)).Elem()
+}
+
+func (o TypedLocalObjectReferencePtrOutput) ToTypedLocalObjectReferencePtrOutput() TypedLocalObjectReferencePtrOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePtrOutput) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePtrOutput) Elem() TypedLocalObjectReferenceOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReference) TypedLocalObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret TypedLocalObjectReference
+		return ret
+	}).(TypedLocalObjectReferenceOutput)
+}
+
+// APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+func (o TypedLocalObjectReferencePtrOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiGroup
+	}).(pulumi.StringPtrOutput)
+}
+
+// Kind is the type of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Kind
+	}).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReference) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferencePatch struct {
+	// APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+	ApiGroup *string `pulumi:"apiGroup"`
+	// Kind is the type of resource being referenced. It must be a path segment name.
+	Kind *string `pulumi:"kind"`
+	// Name is the name of resource being referenced. It must be a path segment name.
+	Name *string `pulumi:"name"`
+}
+
+// TypedLocalObjectReferencePatchInput is an input type that accepts TypedLocalObjectReferencePatchArgs and TypedLocalObjectReferencePatchOutput values.
+// You can construct a concrete instance of `TypedLocalObjectReferencePatchInput` via:
+//
+//	TypedLocalObjectReferencePatchArgs{...}
+type TypedLocalObjectReferencePatchInput interface {
+	pulumi.Input
+
+	ToTypedLocalObjectReferencePatchOutput() TypedLocalObjectReferencePatchOutput
+	ToTypedLocalObjectReferencePatchOutputWithContext(context.Context) TypedLocalObjectReferencePatchOutput
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferencePatchArgs struct {
+	// APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
+	// Kind is the type of resource being referenced. It must be a path segment name.
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Name is the name of resource being referenced. It must be a path segment name.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (TypedLocalObjectReferencePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypedLocalObjectReferencePatch)(nil)).Elem()
+}
+
+func (i TypedLocalObjectReferencePatchArgs) ToTypedLocalObjectReferencePatchOutput() TypedLocalObjectReferencePatchOutput {
+	return i.ToTypedLocalObjectReferencePatchOutputWithContext(context.Background())
+}
+
+func (i TypedLocalObjectReferencePatchArgs) ToTypedLocalObjectReferencePatchOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferencePatchOutput)
+}
+
+func (i TypedLocalObjectReferencePatchArgs) ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput {
+	return i.ToTypedLocalObjectReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i TypedLocalObjectReferencePatchArgs) ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferencePatchOutput).ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx)
+}
+
+// TypedLocalObjectReferencePatchPtrInput is an input type that accepts TypedLocalObjectReferencePatchArgs, TypedLocalObjectReferencePatchPtr and TypedLocalObjectReferencePatchPtrOutput values.
+// You can construct a concrete instance of `TypedLocalObjectReferencePatchPtrInput` via:
+//
+//	        TypedLocalObjectReferencePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type TypedLocalObjectReferencePatchPtrInput interface {
+	pulumi.Input
+
+	ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput
+	ToTypedLocalObjectReferencePatchPtrOutputWithContext(context.Context) TypedLocalObjectReferencePatchPtrOutput
+}
+
+type typedLocalObjectReferencePatchPtrType TypedLocalObjectReferencePatchArgs
+
+func TypedLocalObjectReferencePatchPtr(v *TypedLocalObjectReferencePatchArgs) TypedLocalObjectReferencePatchPtrInput {
+	return (*typedLocalObjectReferencePatchPtrType)(v)
+}
+
+func (*typedLocalObjectReferencePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypedLocalObjectReferencePatch)(nil)).Elem()
+}
+
+func (i *typedLocalObjectReferencePatchPtrType) ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput {
+	return i.ToTypedLocalObjectReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *typedLocalObjectReferencePatchPtrType) ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypedLocalObjectReferencePatchPtrOutput)
+}
+
+// TypedLocalObjectReference allows to reference typed object inside the same namespace.
+type TypedLocalObjectReferencePatchOutput struct{ *pulumi.OutputState }
+
+func (TypedLocalObjectReferencePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypedLocalObjectReferencePatch)(nil)).Elem()
+}
+
+func (o TypedLocalObjectReferencePatchOutput) ToTypedLocalObjectReferencePatchOutput() TypedLocalObjectReferencePatchOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePatchOutput) ToTypedLocalObjectReferencePatchOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePatchOutput) ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput {
+	return o.ToTypedLocalObjectReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (o TypedLocalObjectReferencePatchOutput) ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TypedLocalObjectReferencePatch) *TypedLocalObjectReferencePatch {
+		return &v
+	}).(TypedLocalObjectReferencePatchPtrOutput)
+}
+
+// APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+func (o TypedLocalObjectReferencePatchOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TypedLocalObjectReferencePatch) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
+}
+
+// Kind is the type of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePatchOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TypedLocalObjectReferencePatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TypedLocalObjectReferencePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type TypedLocalObjectReferencePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (TypedLocalObjectReferencePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypedLocalObjectReferencePatch)(nil)).Elem()
+}
+
+func (o TypedLocalObjectReferencePatchPtrOutput) ToTypedLocalObjectReferencePatchPtrOutput() TypedLocalObjectReferencePatchPtrOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePatchPtrOutput) ToTypedLocalObjectReferencePatchPtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePatchPtrOutput {
+	return o
+}
+
+func (o TypedLocalObjectReferencePatchPtrOutput) Elem() TypedLocalObjectReferencePatchOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReferencePatch) TypedLocalObjectReferencePatch {
+		if v != nil {
+			return *v
+		}
+		var ret TypedLocalObjectReferencePatch
+		return ret
+	}).(TypedLocalObjectReferencePatchOutput)
+}
+
+// APIGroup is the group for the resource being referenced. If APIGroup is empty, the specified Kind must be in the core API group. For any other third-party types, setting APIGroup is required. It must be a DNS subdomain.
+func (o TypedLocalObjectReferencePatchPtrOutput) ApiGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ApiGroup
+	}).(pulumi.StringPtrOutput)
+}
+
+// Kind is the type of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePatchPtrOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Kind
+	}).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of resource being referenced. It must be a path segment name.
+func (o TypedLocalObjectReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TypedLocalObjectReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+type WorkloadType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. Name must be a DNS subdomain.
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec defines the desired behavior of a Workload.
+	Spec WorkloadSpec `pulumi:"spec"`
+}
+
+// WorkloadTypeInput is an input type that accepts WorkloadTypeArgs and WorkloadTypeOutput values.
+// You can construct a concrete instance of `WorkloadTypeInput` via:
+//
+//	WorkloadTypeArgs{...}
+type WorkloadTypeInput interface {
+	pulumi.Input
+
+	ToWorkloadTypeOutput() WorkloadTypeOutput
+	ToWorkloadTypeOutputWithContext(context.Context) WorkloadTypeOutput
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+type WorkloadTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. Name must be a DNS subdomain.
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec defines the desired behavior of a Workload.
+	Spec WorkloadSpecInput `pulumi:"spec"`
+}
+
+func (WorkloadTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadType)(nil)).Elem()
+}
+
+func (i WorkloadTypeArgs) ToWorkloadTypeOutput() WorkloadTypeOutput {
+	return i.ToWorkloadTypeOutputWithContext(context.Background())
+}
+
+func (i WorkloadTypeArgs) ToWorkloadTypeOutputWithContext(ctx context.Context) WorkloadTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadTypeOutput)
+}
+
+// WorkloadTypeArrayInput is an input type that accepts WorkloadTypeArray and WorkloadTypeArrayOutput values.
+// You can construct a concrete instance of `WorkloadTypeArrayInput` via:
+//
+//	WorkloadTypeArray{ WorkloadTypeArgs{...} }
+type WorkloadTypeArrayInput interface {
+	pulumi.Input
+
+	ToWorkloadTypeArrayOutput() WorkloadTypeArrayOutput
+	ToWorkloadTypeArrayOutputWithContext(context.Context) WorkloadTypeArrayOutput
+}
+
+type WorkloadTypeArray []WorkloadTypeInput
+
+func (WorkloadTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadType)(nil)).Elem()
+}
+
+func (i WorkloadTypeArray) ToWorkloadTypeArrayOutput() WorkloadTypeArrayOutput {
+	return i.ToWorkloadTypeArrayOutputWithContext(context.Background())
+}
+
+func (i WorkloadTypeArray) ToWorkloadTypeArrayOutputWithContext(ctx context.Context) WorkloadTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadTypeArrayOutput)
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+type WorkloadTypeOutput struct{ *pulumi.OutputState }
+
+func (WorkloadTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadType)(nil)).Elem()
+}
+
+func (o WorkloadTypeOutput) ToWorkloadTypeOutput() WorkloadTypeOutput {
+	return o
+}
+
+func (o WorkloadTypeOutput) ToWorkloadTypeOutputWithContext(ctx context.Context) WorkloadTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o WorkloadTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o WorkloadTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. Name must be a DNS subdomain.
+func (o WorkloadTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v WorkloadType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines the desired behavior of a Workload.
+func (o WorkloadTypeOutput) Spec() WorkloadSpecOutput {
+	return o.ApplyT(func(v WorkloadType) WorkloadSpec { return v.Spec }).(WorkloadSpecOutput)
+}
+
+type WorkloadTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (WorkloadTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]WorkloadType)(nil)).Elem()
+}
+
+func (o WorkloadTypeArrayOutput) ToWorkloadTypeArrayOutput() WorkloadTypeArrayOutput {
+	return o
+}
+
+func (o WorkloadTypeArrayOutput) ToWorkloadTypeArrayOutputWithContext(ctx context.Context) WorkloadTypeArrayOutput {
+	return o
+}
+
+func (o WorkloadTypeArrayOutput) Index(i pulumi.IntInput) WorkloadTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) WorkloadType {
+		return vs[0].([]WorkloadType)[vs[1].(int)]
+	}).(WorkloadTypeOutput)
+}
+
+// WorkloadList contains a list of Workload resources.
+type WorkloadListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of Workloads.
+	Items []WorkloadType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata.
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// WorkloadListTypeInput is an input type that accepts WorkloadListTypeArgs and WorkloadListTypeOutput values.
+// You can construct a concrete instance of `WorkloadListTypeInput` via:
+//
+//	WorkloadListTypeArgs{...}
+type WorkloadListTypeInput interface {
+	pulumi.Input
+
+	ToWorkloadListTypeOutput() WorkloadListTypeOutput
+	ToWorkloadListTypeOutputWithContext(context.Context) WorkloadListTypeOutput
+}
+
+// WorkloadList contains a list of Workload resources.
+type WorkloadListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of Workloads.
+	Items WorkloadTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata.
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (WorkloadListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadListType)(nil)).Elem()
+}
+
+func (i WorkloadListTypeArgs) ToWorkloadListTypeOutput() WorkloadListTypeOutput {
+	return i.ToWorkloadListTypeOutputWithContext(context.Background())
+}
+
+func (i WorkloadListTypeArgs) ToWorkloadListTypeOutputWithContext(ctx context.Context) WorkloadListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadListTypeOutput)
+}
+
+// WorkloadList contains a list of Workload resources.
+type WorkloadListTypeOutput struct{ *pulumi.OutputState }
+
+func (WorkloadListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadListType)(nil)).Elem()
+}
+
+func (o WorkloadListTypeOutput) ToWorkloadListTypeOutput() WorkloadListTypeOutput {
+	return o
+}
+
+func (o WorkloadListTypeOutput) ToWorkloadListTypeOutputWithContext(ctx context.Context) WorkloadListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o WorkloadListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of Workloads.
+func (o WorkloadListTypeOutput) Items() WorkloadTypeArrayOutput {
+	return o.ApplyT(func(v WorkloadListType) []WorkloadType { return v.Items }).(WorkloadTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o WorkloadListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata.
+func (o WorkloadListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v WorkloadListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+type WorkloadPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. Name must be a DNS subdomain.
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// Spec defines the desired behavior of a Workload.
+	Spec *WorkloadSpecPatch `pulumi:"spec"`
+}
+
+// WorkloadPatchTypeInput is an input type that accepts WorkloadPatchTypeArgs and WorkloadPatchTypeOutput values.
+// You can construct a concrete instance of `WorkloadPatchTypeInput` via:
+//
+//	WorkloadPatchTypeArgs{...}
+type WorkloadPatchTypeInput interface {
+	pulumi.Input
+
+	ToWorkloadPatchTypeOutput() WorkloadPatchTypeOutput
+	ToWorkloadPatchTypeOutputWithContext(context.Context) WorkloadPatchTypeOutput
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+type WorkloadPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. Name must be a DNS subdomain.
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// Spec defines the desired behavior of a Workload.
+	Spec WorkloadSpecPatchPtrInput `pulumi:"spec"`
+}
+
+func (WorkloadPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadPatchType)(nil)).Elem()
+}
+
+func (i WorkloadPatchTypeArgs) ToWorkloadPatchTypeOutput() WorkloadPatchTypeOutput {
+	return i.ToWorkloadPatchTypeOutputWithContext(context.Background())
+}
+
+func (i WorkloadPatchTypeArgs) ToWorkloadPatchTypeOutputWithContext(ctx context.Context) WorkloadPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadPatchTypeOutput)
+}
+
+// Workload allows for expressing scheduling constraints that should be used when managing lifecycle of workloads from scheduling perspective, including scheduling, preemption, eviction and other phases.
+type WorkloadPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (WorkloadPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadPatchType)(nil)).Elem()
+}
+
+func (o WorkloadPatchTypeOutput) ToWorkloadPatchTypeOutput() WorkloadPatchTypeOutput {
+	return o
+}
+
+func (o WorkloadPatchTypeOutput) ToWorkloadPatchTypeOutputWithContext(ctx context.Context) WorkloadPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o WorkloadPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o WorkloadPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WorkloadPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. Name must be a DNS subdomain.
+func (o WorkloadPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v WorkloadPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// Spec defines the desired behavior of a Workload.
+func (o WorkloadPatchTypeOutput) Spec() WorkloadSpecPatchPtrOutput {
+	return o.ApplyT(func(v WorkloadPatchType) *WorkloadSpecPatch { return v.Spec }).(WorkloadSpecPatchPtrOutput)
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpec struct {
+	// ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+	ControllerRef *TypedLocalObjectReference `pulumi:"controllerRef"`
+	// PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+	PodGroups []PodGroup `pulumi:"podGroups"`
+}
+
+// WorkloadSpecInput is an input type that accepts WorkloadSpecArgs and WorkloadSpecOutput values.
+// You can construct a concrete instance of `WorkloadSpecInput` via:
+//
+//	WorkloadSpecArgs{...}
+type WorkloadSpecInput interface {
+	pulumi.Input
+
+	ToWorkloadSpecOutput() WorkloadSpecOutput
+	ToWorkloadSpecOutputWithContext(context.Context) WorkloadSpecOutput
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecArgs struct {
+	// ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+	ControllerRef TypedLocalObjectReferencePtrInput `pulumi:"controllerRef"`
+	// PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+	PodGroups PodGroupArrayInput `pulumi:"podGroups"`
+}
+
+func (WorkloadSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadSpec)(nil)).Elem()
+}
+
+func (i WorkloadSpecArgs) ToWorkloadSpecOutput() WorkloadSpecOutput {
+	return i.ToWorkloadSpecOutputWithContext(context.Background())
+}
+
+func (i WorkloadSpecArgs) ToWorkloadSpecOutputWithContext(ctx context.Context) WorkloadSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadSpecOutput)
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecOutput struct{ *pulumi.OutputState }
+
+func (WorkloadSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadSpec)(nil)).Elem()
+}
+
+func (o WorkloadSpecOutput) ToWorkloadSpecOutput() WorkloadSpecOutput {
+	return o
+}
+
+func (o WorkloadSpecOutput) ToWorkloadSpecOutputWithContext(ctx context.Context) WorkloadSpecOutput {
+	return o
+}
+
+// ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+func (o WorkloadSpecOutput) ControllerRef() TypedLocalObjectReferencePtrOutput {
+	return o.ApplyT(func(v WorkloadSpec) *TypedLocalObjectReference { return v.ControllerRef }).(TypedLocalObjectReferencePtrOutput)
+}
+
+// PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+func (o WorkloadSpecOutput) PodGroups() PodGroupArrayOutput {
+	return o.ApplyT(func(v WorkloadSpec) []PodGroup { return v.PodGroups }).(PodGroupArrayOutput)
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecPatch struct {
+	// ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+	ControllerRef *TypedLocalObjectReferencePatch `pulumi:"controllerRef"`
+	// PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+	PodGroups []PodGroupPatch `pulumi:"podGroups"`
+}
+
+// WorkloadSpecPatchInput is an input type that accepts WorkloadSpecPatchArgs and WorkloadSpecPatchOutput values.
+// You can construct a concrete instance of `WorkloadSpecPatchInput` via:
+//
+//	WorkloadSpecPatchArgs{...}
+type WorkloadSpecPatchInput interface {
+	pulumi.Input
+
+	ToWorkloadSpecPatchOutput() WorkloadSpecPatchOutput
+	ToWorkloadSpecPatchOutputWithContext(context.Context) WorkloadSpecPatchOutput
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecPatchArgs struct {
+	// ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+	ControllerRef TypedLocalObjectReferencePatchPtrInput `pulumi:"controllerRef"`
+	// PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+	PodGroups PodGroupPatchArrayInput `pulumi:"podGroups"`
+}
+
+func (WorkloadSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadSpecPatch)(nil)).Elem()
+}
+
+func (i WorkloadSpecPatchArgs) ToWorkloadSpecPatchOutput() WorkloadSpecPatchOutput {
+	return i.ToWorkloadSpecPatchOutputWithContext(context.Background())
+}
+
+func (i WorkloadSpecPatchArgs) ToWorkloadSpecPatchOutputWithContext(ctx context.Context) WorkloadSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadSpecPatchOutput)
+}
+
+func (i WorkloadSpecPatchArgs) ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput {
+	return i.ToWorkloadSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i WorkloadSpecPatchArgs) ToWorkloadSpecPatchPtrOutputWithContext(ctx context.Context) WorkloadSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadSpecPatchOutput).ToWorkloadSpecPatchPtrOutputWithContext(ctx)
+}
+
+// WorkloadSpecPatchPtrInput is an input type that accepts WorkloadSpecPatchArgs, WorkloadSpecPatchPtr and WorkloadSpecPatchPtrOutput values.
+// You can construct a concrete instance of `WorkloadSpecPatchPtrInput` via:
+//
+//	        WorkloadSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type WorkloadSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput
+	ToWorkloadSpecPatchPtrOutputWithContext(context.Context) WorkloadSpecPatchPtrOutput
+}
+
+type workloadSpecPatchPtrType WorkloadSpecPatchArgs
+
+func WorkloadSpecPatchPtr(v *WorkloadSpecPatchArgs) WorkloadSpecPatchPtrInput {
+	return (*workloadSpecPatchPtrType)(v)
+}
+
+func (*workloadSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadSpecPatch)(nil)).Elem()
+}
+
+func (i *workloadSpecPatchPtrType) ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput {
+	return i.ToWorkloadSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *workloadSpecPatchPtrType) ToWorkloadSpecPatchPtrOutputWithContext(ctx context.Context) WorkloadSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WorkloadSpecPatchPtrOutput)
+}
+
+// WorkloadSpec defines the desired state of a Workload.
+type WorkloadSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (WorkloadSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WorkloadSpecPatch)(nil)).Elem()
+}
+
+func (o WorkloadSpecPatchOutput) ToWorkloadSpecPatchOutput() WorkloadSpecPatchOutput {
+	return o
+}
+
+func (o WorkloadSpecPatchOutput) ToWorkloadSpecPatchOutputWithContext(ctx context.Context) WorkloadSpecPatchOutput {
+	return o
+}
+
+func (o WorkloadSpecPatchOutput) ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput {
+	return o.ToWorkloadSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o WorkloadSpecPatchOutput) ToWorkloadSpecPatchPtrOutputWithContext(ctx context.Context) WorkloadSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WorkloadSpecPatch) *WorkloadSpecPatch {
+		return &v
+	}).(WorkloadSpecPatchPtrOutput)
+}
+
+// ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+func (o WorkloadSpecPatchOutput) ControllerRef() TypedLocalObjectReferencePatchPtrOutput {
+	return o.ApplyT(func(v WorkloadSpecPatch) *TypedLocalObjectReferencePatch { return v.ControllerRef }).(TypedLocalObjectReferencePatchPtrOutput)
+}
+
+// PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+func (o WorkloadSpecPatchOutput) PodGroups() PodGroupPatchArrayOutput {
+	return o.ApplyT(func(v WorkloadSpecPatch) []PodGroupPatch { return v.PodGroups }).(PodGroupPatchArrayOutput)
+}
+
+type WorkloadSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (WorkloadSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WorkloadSpecPatch)(nil)).Elem()
+}
+
+func (o WorkloadSpecPatchPtrOutput) ToWorkloadSpecPatchPtrOutput() WorkloadSpecPatchPtrOutput {
+	return o
+}
+
+func (o WorkloadSpecPatchPtrOutput) ToWorkloadSpecPatchPtrOutputWithContext(ctx context.Context) WorkloadSpecPatchPtrOutput {
+	return o
+}
+
+func (o WorkloadSpecPatchPtrOutput) Elem() WorkloadSpecPatchOutput {
+	return o.ApplyT(func(v *WorkloadSpecPatch) WorkloadSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret WorkloadSpecPatch
+		return ret
+	}).(WorkloadSpecPatchOutput)
+}
+
+// ControllerRef is an optional reference to the controlling object, such as a Deployment or Job. This field is intended for use by tools like CLIs to provide a link back to the original workload definition. When set, it cannot be changed.
+func (o WorkloadSpecPatchPtrOutput) ControllerRef() TypedLocalObjectReferencePatchPtrOutput {
+	return o.ApplyT(func(v *WorkloadSpecPatch) *TypedLocalObjectReferencePatch {
+		if v == nil {
+			return nil
+		}
+		return v.ControllerRef
+	}).(TypedLocalObjectReferencePatchPtrOutput)
+}
+
+// PodGroups is the list of pod groups that make up the Workload. The maximum number of pod groups is 8. This field is immutable.
+func (o WorkloadSpecPatchPtrOutput) PodGroups() PodGroupPatchArrayOutput {
+	return o.ApplyT(func(v *WorkloadSpecPatch) []PodGroupPatch {
+		if v == nil {
+			return nil
+		}
+		return v.PodGroups
+	}).(PodGroupPatchArrayOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*BasicSchedulingPolicyInput)(nil)).Elem(), BasicSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BasicSchedulingPolicyPtrInput)(nil)).Elem(), BasicSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BasicSchedulingPolicyPatchInput)(nil)).Elem(), BasicSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BasicSchedulingPolicyPatchPtrInput)(nil)).Elem(), BasicSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GangSchedulingPolicyInput)(nil)).Elem(), GangSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GangSchedulingPolicyPtrInput)(nil)).Elem(), GangSchedulingPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GangSchedulingPolicyPatchInput)(nil)).Elem(), GangSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GangSchedulingPolicyPatchPtrInput)(nil)).Elem(), GangSchedulingPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupInput)(nil)).Elem(), PodGroupArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupArrayInput)(nil)).Elem(), PodGroupArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupPatchInput)(nil)).Elem(), PodGroupPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupPatchArrayInput)(nil)).Elem(), PodGroupPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupPolicyInput)(nil)).Elem(), PodGroupPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupPolicyPatchInput)(nil)).Elem(), PodGroupPolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodGroupPolicyPatchPtrInput)(nil)).Elem(), PodGroupPolicyPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeInput)(nil)).Elem(), PriorityClassTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeArrayInput)(nil)).Elem(), PriorityClassTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassListTypeInput)(nil)).Elem(), PriorityClassListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassPatchTypeInput)(nil)).Elem(), PriorityClassPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferenceInput)(nil)).Elem(), TypedLocalObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferencePtrInput)(nil)).Elem(), TypedLocalObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferencePatchInput)(nil)).Elem(), TypedLocalObjectReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferencePatchPtrInput)(nil)).Elem(), TypedLocalObjectReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadTypeInput)(nil)).Elem(), WorkloadTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadTypeArrayInput)(nil)).Elem(), WorkloadTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadListTypeInput)(nil)).Elem(), WorkloadListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadPatchTypeInput)(nil)).Elem(), WorkloadPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadSpecInput)(nil)).Elem(), WorkloadSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadSpecPatchInput)(nil)).Elem(), WorkloadSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WorkloadSpecPatchPtrInput)(nil)).Elem(), WorkloadSpecPatchArgs{})
+	pulumi.RegisterOutputType(BasicSchedulingPolicyOutput{})
+	pulumi.RegisterOutputType(BasicSchedulingPolicyPtrOutput{})
+	pulumi.RegisterOutputType(BasicSchedulingPolicyPatchOutput{})
+	pulumi.RegisterOutputType(BasicSchedulingPolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(GangSchedulingPolicyOutput{})
+	pulumi.RegisterOutputType(GangSchedulingPolicyPtrOutput{})
+	pulumi.RegisterOutputType(GangSchedulingPolicyPatchOutput{})
+	pulumi.RegisterOutputType(GangSchedulingPolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodGroupOutput{})
+	pulumi.RegisterOutputType(PodGroupArrayOutput{})
+	pulumi.RegisterOutputType(PodGroupPatchOutput{})
+	pulumi.RegisterOutputType(PodGroupPatchArrayOutput{})
+	pulumi.RegisterOutputType(PodGroupPolicyOutput{})
+	pulumi.RegisterOutputType(PodGroupPolicyPatchOutput{})
+	pulumi.RegisterOutputType(PodGroupPolicyPatchPtrOutput{})
 	pulumi.RegisterOutputType(PriorityClassTypeOutput{})
 	pulumi.RegisterOutputType(PriorityClassTypeArrayOutput{})
 	pulumi.RegisterOutputType(PriorityClassListTypeOutput{})
 	pulumi.RegisterOutputType(PriorityClassPatchTypeOutput{})
+	pulumi.RegisterOutputType(TypedLocalObjectReferenceOutput{})
+	pulumi.RegisterOutputType(TypedLocalObjectReferencePtrOutput{})
+	pulumi.RegisterOutputType(TypedLocalObjectReferencePatchOutput{})
+	pulumi.RegisterOutputType(TypedLocalObjectReferencePatchPtrOutput{})
+	pulumi.RegisterOutputType(WorkloadTypeOutput{})
+	pulumi.RegisterOutputType(WorkloadTypeArrayOutput{})
+	pulumi.RegisterOutputType(WorkloadListTypeOutput{})
+	pulumi.RegisterOutputType(WorkloadPatchTypeOutput{})
+	pulumi.RegisterOutputType(WorkloadSpecOutput{})
+	pulumi.RegisterOutputType(WorkloadSpecPatchOutput{})
+	pulumi.RegisterOutputType(WorkloadSpecPatchPtrOutput{})
 }

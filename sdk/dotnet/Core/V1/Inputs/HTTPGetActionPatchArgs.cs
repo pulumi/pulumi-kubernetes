@@ -46,6 +46,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public InputUnion<int, string>? Port { get; set; }
 
         /// <summary>
+        /// Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+        /// </summary>
+        [Input("protocol")]
+        public Input<string>? Protocol { get; set; }
+
+        /// <summary>
         /// Scheme to use for connecting to the host. Defaults to HTTP.
         /// </summary>
         [Input("scheme")]

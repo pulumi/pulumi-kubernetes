@@ -45,6 +45,12 @@ func NewPodCertificateRequestPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("certificates.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("PodCertificateRequest")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:certificates.k8s.io/v1:PodCertificateRequestPatch"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource PodCertificateRequestPatch
 	err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1beta1:PodCertificateRequestPatch", name, args, &resource, opts...)

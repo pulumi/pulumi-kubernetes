@@ -59,6 +59,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string SignerName;
         /// <summary>
+        /// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        public readonly int User;
+        /// <summary>
         /// userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
         /// 
         /// These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -83,6 +87,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string signerName,
 
+            int user,
+
             ImmutableDictionary<string, string> userAnnotations)
         {
             CertificateChainPath = certificateChainPath;
@@ -91,6 +97,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             KeyType = keyType;
             MaxExpirationSeconds = maxExpirationSeconds;
             SignerName = signerName;
+            User = user;
             UserAnnotations = userAnnotations;
         }
     }

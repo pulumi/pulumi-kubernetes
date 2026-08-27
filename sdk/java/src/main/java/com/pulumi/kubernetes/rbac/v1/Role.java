@@ -51,28 +51,28 @@ public class Role extends com.pulumi.resources.CustomResource {
         return this.kind;
     }
     /**
-     * Standard object&#39;s metadata.
+     * metadata is the standard object&#39;s metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output<ObjectMeta> metadata;
 
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Output<ObjectMeta> metadata() {
         return this.metadata;
     }
     /**
-     * Rules holds all the PolicyRules for this Role
+     * rules holds all the PolicyRules for this Role
      * 
      */
     @Export(name="rules", refs={List.class,PolicyRule.class}, tree="[0,1]")
     private Output<List<PolicyRule>> rules;
 
     /**
-     * @return Rules holds all the PolicyRules for this Role
+     * @return rules holds all the PolicyRules for this Role
      * 
      */
     public Output<List<PolicyRule>> rules() {

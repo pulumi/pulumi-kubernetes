@@ -27,17 +27,17 @@ public final class ClusterRoleBinding {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * @return roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     private RoleRef roleRef;
     /**
-     * @return Subjects holds references to the objects the role applies to.
+     * @return subjects holds references to the objects the role applies to.
      * 
      */
     private @Nullable List<Subject> subjects;
@@ -58,21 +58,21 @@ public final class ClusterRoleBinding {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Optional<ObjectMeta> metadata() {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * @return roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     public RoleRef roleRef() {
         return this.roleRef;
     }
     /**
-     * @return Subjects holds references to the objects the role applies to.
+     * @return subjects holds references to the objects the role applies to.
      * 
      */
     public List<Subject> subjects() {

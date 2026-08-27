@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.resource.v1beta2.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.CapacityRequirementsPatchArgs;
+import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceDerivedAttributePatchArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceSelectorPatchArgs;
 import com.pulumi.kubernetes.resource.v1beta2.inputs.DeviceTolerationPatchArgs;
 import java.lang.Boolean;
@@ -124,6 +125,37 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
+     * DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+     * 
+     * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+     * 
+     * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+     * 
+     * The maximum number of derived attributes is 32.
+     * 
+     * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+     * 
+     */
+    @Import(name="derivedAttributes")
+    private @Nullable Output<List<DeviceDerivedAttributePatchArgs>> derivedAttributes;
+
+    /**
+     * @return DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+     * 
+     * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+     * 
+     * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+     * 
+     * The maximum number of derived attributes is 32.
+     * 
+     * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+     * 
+     */
+    public Optional<Output<List<DeviceDerivedAttributePatchArgs>>> derivedAttributes() {
+        return Optional.ofNullable(this.derivedAttributes);
+    }
+
+    /**
      * DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
      * 
      * A DeviceClassName is required.
@@ -199,6 +231,7 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
         this.allocationMode = $.allocationMode;
         this.capacity = $.capacity;
         this.count = $.count;
+        this.derivedAttributes = $.derivedAttributes;
         this.deviceClassName = $.deviceClassName;
         this.selectors = $.selectors;
         this.tolerations = $.tolerations;
@@ -342,6 +375,61 @@ public final class ExactDeviceRequestPatchArgs extends com.pulumi.resources.Reso
          */
         public Builder count(Integer count) {
             return count(Output.of(count));
+        }
+
+        /**
+         * @param derivedAttributes DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+         * 
+         * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+         * 
+         * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+         * 
+         * The maximum number of derived attributes is 32.
+         * 
+         * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder derivedAttributes(@Nullable Output<List<DeviceDerivedAttributePatchArgs>> derivedAttributes) {
+            $.derivedAttributes = derivedAttributes;
+            return this;
+        }
+
+        /**
+         * @param derivedAttributes DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+         * 
+         * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+         * 
+         * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+         * 
+         * The maximum number of derived attributes is 32.
+         * 
+         * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder derivedAttributes(List<DeviceDerivedAttributePatchArgs> derivedAttributes) {
+            return derivedAttributes(Output.of(derivedAttributes));
+        }
+
+        /**
+         * @param derivedAttributes DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+         * 
+         * Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+         * 
+         * Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+         * 
+         * The maximum number of derived attributes is 32.
+         * 
+         * This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder derivedAttributes(DeviceDerivedAttributePatchArgs... derivedAttributes) {
+            return derivedAttributes(List.of(derivedAttributes));
         }
 
         /**

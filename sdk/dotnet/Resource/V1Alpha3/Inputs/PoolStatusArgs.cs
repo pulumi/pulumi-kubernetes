@@ -45,6 +45,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         [Input("nodeName")]
         public Input<string>? NodeName { get; set; }
 
+        [Input("partitionSummary")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.PartitionTypeStatusArgs>? _partitionSummary;
+
+        /// <summary>
+        /// PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.PartitionTypeStatusArgs> PartitionSummary
+        {
+            get => _partitionSummary ?? (_partitionSummary = new InputList<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.PartitionTypeStatusArgs>());
+            set => _partitionSummary = value;
+        }
+
         /// <summary>
         /// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
         /// </summary>
@@ -56,6 +68,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3
         /// </summary>
         [Input("resourceSliceCount")]
         public Input<int>? ResourceSliceCount { get; set; }
+
+        /// <summary>
+        /// ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+        /// </summary>
+        [Input("shareableSummary")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Resource.V1Alpha3.ShareableSummaryStatusArgs>? ShareableSummary { get; set; }
 
         /// <summary>
         /// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.

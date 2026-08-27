@@ -50,7 +50,7 @@ export class EventList extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"EventList">;
     /**
-     * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ListMeta>;
 
@@ -100,7 +100,7 @@ export interface EventListArgs {
      */
     kind?: pulumi.Input<"EventList" | undefined>;
     /**
-     * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     * metadata is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     metadata?: pulumi.Input<inputs.meta.v1.ListMeta | undefined>;
 }

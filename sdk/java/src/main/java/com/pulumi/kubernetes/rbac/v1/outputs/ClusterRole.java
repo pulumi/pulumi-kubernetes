@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ClusterRole {
     /**
-     * @return AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+     * @return aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      * 
      */
     private @Nullable AggregationRule aggregationRule;
@@ -31,19 +31,19 @@ public final class ClusterRole {
      */
     private @Nullable String kind;
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Rules holds all the PolicyRules for this ClusterRole
+     * @return rules holds all the PolicyRules for this ClusterRole
      * 
      */
     private @Nullable List<PolicyRule> rules;
 
     private ClusterRole() {}
     /**
-     * @return AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+     * @return aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      * 
      */
     public Optional<AggregationRule> aggregationRule() {
@@ -64,14 +64,14 @@ public final class ClusterRole {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Optional<ObjectMeta> metadata() {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Rules holds all the PolicyRules for this ClusterRole
+     * @return rules holds all the PolicyRules for this ClusterRole
      * 
      */
     public List<PolicyRule> rules() {

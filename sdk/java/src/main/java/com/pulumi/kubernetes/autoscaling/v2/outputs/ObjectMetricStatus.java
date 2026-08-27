@@ -18,7 +18,7 @@ public final class ObjectMetricStatus {
      */
     private MetricValueStatus current;
     /**
-     * @return DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+     * @return describedObject specifies the descriptions of a object,such as kind,name apiVersion
      * 
      */
     private CrossVersionObjectReference describedObject;
@@ -37,7 +37,7 @@ public final class ObjectMetricStatus {
         return this.current;
     }
     /**
-     * @return DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+     * @return describedObject specifies the descriptions of a object,such as kind,name apiVersion
      * 
      */
     public CrossVersionObjectReference describedObject() {

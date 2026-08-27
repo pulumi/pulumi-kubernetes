@@ -305,6 +305,10 @@ class FlowSchemaArgsDict(TypedDict):
     """
     FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
     """
+    spec: pulumi.Input['FlowSchemaSpecArgsDict']
+    """
+    `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
     api_version: NotRequired[pulumi.Input[Optional[Literal['flowcontrol.apiserver.k8s.io/v1']]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -317,10 +321,6 @@ class FlowSchemaArgsDict(TypedDict):
     """
     `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['FlowSchemaSpecArgsDict']]]
-    """
-    `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-    """
     status: NotRequired[pulumi.Input[Optional['FlowSchemaStatusArgsDict']]]
     """
     `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -329,30 +329,41 @@ class FlowSchemaArgsDict(TypedDict):
 @pulumi.input_type
 class FlowSchemaArgs:
     def __init__(__self__, *,
+                 spec: pulumi.Input['FlowSchemaSpecArgs'],
                  api_version: pulumi.Input[Optional[Literal['flowcontrol.apiserver.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['FlowSchema']]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: pulumi.Input[Optional['FlowSchemaSpecArgs']] = None,
                  status: pulumi.Input[Optional['FlowSchemaStatusArgs']] = None):
         """
         FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 
+        :param pulumi.Input['FlowSchemaSpecArgs'] spec: `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input[Literal['flowcontrol.apiserver.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['FlowSchema']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['FlowSchemaSpecArgs'] spec: `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input['FlowSchemaStatusArgs'] status: `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'flowcontrol.apiserver.k8s.io/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'FlowSchema')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
         if status is not None:
             pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['FlowSchemaSpecArgs']:
+        """
+        `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['FlowSchemaSpecArgs']):
+        pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -392,18 +403,6 @@ class FlowSchemaArgs:
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['FlowSchemaSpecArgs']]:
-        """
-        `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input[Optional['FlowSchemaSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter
     def status(self) -> pulumi.Input[Optional['FlowSchemaStatusArgs']]:
         """
         `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -419,6 +418,10 @@ class FlowSchemaConditionArgsDict(TypedDict):
     """
     FlowSchemaCondition describes conditions for a FlowSchema.
     """
+    type: pulumi.Input[_builtins.str]
+    """
+    `type` is the type of the condition. Required.
+    """
     last_transition_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `lastTransitionTime` is the last time the condition transitioned from one status to another.
@@ -433,30 +436,27 @@ class FlowSchemaConditionArgsDict(TypedDict):
     """
     status: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    `status` is the status of the condition. Can be True, False, Unknown. Required.
-    """
-    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    `type` is the type of the condition. Required.
+    `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
     """
 
 @pulumi.input_type
 class FlowSchemaConditionArgs:
     def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
                  last_transition_time: pulumi.Input[Optional[_builtins.str]] = None,
                  message: pulumi.Input[Optional[_builtins.str]] = None,
                  reason: pulumi.Input[Optional[_builtins.str]] = None,
-                 status: pulumi.Input[Optional[_builtins.str]] = None,
-                 type: pulumi.Input[Optional[_builtins.str]] = None):
+                 status: pulumi.Input[Optional[_builtins.str]] = None):
         """
         FlowSchemaCondition describes conditions for a FlowSchema.
 
+        :param pulumi.Input[_builtins.str] type: `type` is the type of the condition. Required.
         :param pulumi.Input[_builtins.str] last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param pulumi.Input[_builtins.str] message: `message` is a human-readable message indicating details about last transition.
         :param pulumi.Input[_builtins.str] reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
-        :param pulumi.Input[_builtins.str] status: `status` is the status of the condition. Can be True, False, Unknown. Required.
-        :param pulumi.Input[_builtins.str] type: `type` is the type of the condition. Required.
+        :param pulumi.Input[_builtins.str] status: `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
             pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
@@ -465,8 +465,18 @@ class FlowSchemaConditionArgs:
             pulumi.set(__self__, "reason", reason)
         if status is not None:
             pulumi.set(__self__, "status", status)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        `type` is the type of the condition. Required.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
 
     @_builtins.property
     @pulumi.getter(name="lastTransitionTime")
@@ -508,25 +518,13 @@ class FlowSchemaConditionArgs:
     @pulumi.getter
     def status(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        `status` is the status of the condition. Can be True, False, Unknown. Required.
+        `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
         return pulumi.get(self, "status")
 
     @status.setter
     def status(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "status", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        `type` is the type of the condition. Required.
-        """
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "type", value)
 
 
 class FlowSchemaSpecArgsDict(TypedDict):
@@ -930,6 +928,10 @@ class LimitedPriorityLevelConfigurationArgsDict(TypedDict):
       - How are requests for this priority level limited?
       - What should be done with requests that exceed the limit?
     """
+    limit_response: pulumi.Input['LimitResponseArgsDict']
+    """
+    `limitResponse` indicates what to do with requests that can not be executed right now
+    """
     borrowing_limit_percent: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
@@ -943,10 +945,6 @@ class LimitedPriorityLevelConfigurationArgsDict(TypedDict):
     `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
 
     LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
-    """
-    limit_response: NotRequired[pulumi.Input[Optional['LimitResponseArgsDict']]]
-    """
-    `limitResponse` indicates what to do with requests that can not be executed right now
     """
     nominal_concurrency_shares: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
@@ -964,15 +962,16 @@ class LimitedPriorityLevelConfigurationArgsDict(TypedDict):
 @pulumi.input_type
 class LimitedPriorityLevelConfigurationArgs:
     def __init__(__self__, *,
+                 limit_response: pulumi.Input['LimitResponseArgs'],
                  borrowing_limit_percent: pulumi.Input[Optional[_builtins.int]] = None,
                  lendable_percent: pulumi.Input[Optional[_builtins.int]] = None,
-                 limit_response: pulumi.Input[Optional['LimitResponseArgs']] = None,
                  nominal_concurrency_shares: pulumi.Input[Optional[_builtins.int]] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
           - How are requests for this priority level limited?
           - What should be done with requests that exceed the limit?
 
+        :param pulumi.Input['LimitResponseArgs'] limit_response: `limitResponse` indicates what to do with requests that can not be executed right now
         :param pulumi.Input[_builtins.int] borrowing_limit_percent: `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
                
                BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
@@ -981,7 +980,6 @@ class LimitedPriorityLevelConfigurationArgs:
         :param pulumi.Input[_builtins.int] lendable_percent: `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
                
                LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
-        :param pulumi.Input['LimitResponseArgs'] limit_response: `limitResponse` indicates what to do with requests that can not be executed right now
         :param pulumi.Input[_builtins.int] nominal_concurrency_shares: `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
                
                NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
@@ -992,14 +990,25 @@ class LimitedPriorityLevelConfigurationArgs:
                
                Setting this field to zero supports the construction of a "jail" for this priority level that is used to hold some request(s)
         """
+        pulumi.set(__self__, "limit_response", limit_response)
         if borrowing_limit_percent is not None:
             pulumi.set(__self__, "borrowing_limit_percent", borrowing_limit_percent)
         if lendable_percent is not None:
             pulumi.set(__self__, "lendable_percent", lendable_percent)
-        if limit_response is not None:
-            pulumi.set(__self__, "limit_response", limit_response)
         if nominal_concurrency_shares is not None:
             pulumi.set(__self__, "nominal_concurrency_shares", nominal_concurrency_shares)
+
+    @_builtins.property
+    @pulumi.getter(name="limitResponse")
+    def limit_response(self) -> pulumi.Input['LimitResponseArgs']:
+        """
+        `limitResponse` indicates what to do with requests that can not be executed right now
+        """
+        return pulumi.get(self, "limit_response")
+
+    @limit_response.setter
+    def limit_response(self, value: pulumi.Input['LimitResponseArgs']):
+        pulumi.set(self, "limit_response", value)
 
     @_builtins.property
     @pulumi.getter(name="borrowingLimitPercent")
@@ -1030,18 +1039,6 @@ class LimitedPriorityLevelConfigurationArgs:
     @lendable_percent.setter
     def lendable_percent(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "lendable_percent", value)
-
-    @_builtins.property
-    @pulumi.getter(name="limitResponse")
-    def limit_response(self) -> pulumi.Input[Optional['LimitResponseArgs']]:
-        """
-        `limitResponse` indicates what to do with requests that can not be executed right now
-        """
-        return pulumi.get(self, "limit_response")
-
-    @limit_response.setter
-    def limit_response(self, value: pulumi.Input[Optional['LimitResponseArgs']]):
-        pulumi.set(self, "limit_response", value)
 
     @_builtins.property
     @pulumi.getter(name="nominalConcurrencyShares")
@@ -1497,6 +1494,10 @@ class PriorityLevelConfigurationArgsDict(TypedDict):
     """
     PriorityLevelConfiguration represents the configuration of a priority level.
     """
+    spec: pulumi.Input['PriorityLevelConfigurationSpecArgsDict']
+    """
+    `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    """
     api_version: NotRequired[pulumi.Input[Optional[Literal['flowcontrol.apiserver.k8s.io/v1']]]]
     """
     APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1509,10 +1510,6 @@ class PriorityLevelConfigurationArgsDict(TypedDict):
     """
     `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
     """
-    spec: NotRequired[pulumi.Input[Optional['PriorityLevelConfigurationSpecArgsDict']]]
-    """
-    `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-    """
     status: NotRequired[pulumi.Input[Optional['PriorityLevelConfigurationStatusArgsDict']]]
     """
     `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -1521,30 +1518,41 @@ class PriorityLevelConfigurationArgsDict(TypedDict):
 @pulumi.input_type
 class PriorityLevelConfigurationArgs:
     def __init__(__self__, *,
+                 spec: pulumi.Input['PriorityLevelConfigurationSpecArgs'],
                  api_version: pulumi.Input[Optional[Literal['flowcontrol.apiserver.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['PriorityLevelConfiguration']]] = None,
                  metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: pulumi.Input[Optional['PriorityLevelConfigurationSpecArgs']] = None,
                  status: pulumi.Input[Optional['PriorityLevelConfigurationStatusArgs']] = None):
         """
         PriorityLevelConfiguration represents the configuration of a priority level.
 
+        :param pulumi.Input['PriorityLevelConfigurationSpecArgs'] spec: `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input[Literal['flowcontrol.apiserver.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['PriorityLevelConfiguration']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PriorityLevelConfigurationSpecArgs'] spec: `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input['PriorityLevelConfigurationStatusArgs'] status: `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'flowcontrol.apiserver.k8s.io/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'PriorityLevelConfiguration')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
         if status is not None:
             pulumi.set(__self__, "status", status)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['PriorityLevelConfigurationSpecArgs']:
+        """
+        `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['PriorityLevelConfigurationSpecArgs']):
+        pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -1584,18 +1592,6 @@ class PriorityLevelConfigurationArgs:
 
     @_builtins.property
     @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['PriorityLevelConfigurationSpecArgs']]:
-        """
-        `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input[Optional['PriorityLevelConfigurationSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @_builtins.property
-    @pulumi.getter
     def status(self) -> pulumi.Input[Optional['PriorityLevelConfigurationStatusArgs']]:
         """
         `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -1611,6 +1607,10 @@ class PriorityLevelConfigurationConditionArgsDict(TypedDict):
     """
     PriorityLevelConfigurationCondition defines the condition of priority level.
     """
+    type: pulumi.Input[_builtins.str]
+    """
+    `type` is the type of the condition. Required.
+    """
     last_transition_time: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     `lastTransitionTime` is the last time the condition transitioned from one status to another.
@@ -1625,30 +1625,27 @@ class PriorityLevelConfigurationConditionArgsDict(TypedDict):
     """
     status: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
-    `status` is the status of the condition. Can be True, False, Unknown. Required.
-    """
-    type: NotRequired[pulumi.Input[Optional[_builtins.str]]]
-    """
-    `type` is the type of the condition. Required.
+    `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
     """
 
 @pulumi.input_type
 class PriorityLevelConfigurationConditionArgs:
     def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
                  last_transition_time: pulumi.Input[Optional[_builtins.str]] = None,
                  message: pulumi.Input[Optional[_builtins.str]] = None,
                  reason: pulumi.Input[Optional[_builtins.str]] = None,
-                 status: pulumi.Input[Optional[_builtins.str]] = None,
-                 type: pulumi.Input[Optional[_builtins.str]] = None):
+                 status: pulumi.Input[Optional[_builtins.str]] = None):
         """
         PriorityLevelConfigurationCondition defines the condition of priority level.
 
+        :param pulumi.Input[_builtins.str] type: `type` is the type of the condition. Required.
         :param pulumi.Input[_builtins.str] last_transition_time: `lastTransitionTime` is the last time the condition transitioned from one status to another.
         :param pulumi.Input[_builtins.str] message: `message` is a human-readable message indicating details about last transition.
         :param pulumi.Input[_builtins.str] reason: `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
-        :param pulumi.Input[_builtins.str] status: `status` is the status of the condition. Can be True, False, Unknown. Required.
-        :param pulumi.Input[_builtins.str] type: `type` is the type of the condition. Required.
+        :param pulumi.Input[_builtins.str] status: `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
             pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
@@ -1657,8 +1654,18 @@ class PriorityLevelConfigurationConditionArgs:
             pulumi.set(__self__, "reason", reason)
         if status is not None:
             pulumi.set(__self__, "status", status)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        `type` is the type of the condition. Required.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
 
     @_builtins.property
     @pulumi.getter(name="lastTransitionTime")
@@ -1700,25 +1707,13 @@ class PriorityLevelConfigurationConditionArgs:
     @pulumi.getter
     def status(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        `status` is the status of the condition. Can be True, False, Unknown. Required.
+        `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         """
         return pulumi.get(self, "status")
 
     @status.setter
     def status(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "status", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def type(self) -> pulumi.Input[Optional[_builtins.str]]:
-        """
-        `type` is the type of the condition. Required.
-        """
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: pulumi.Input[Optional[_builtins.str]]):
-        pulumi.set(self, "type", value)
 
 
 class PriorityLevelConfigurationReferenceArgsDict(TypedDict):

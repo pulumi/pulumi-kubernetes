@@ -104,6 +104,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         /// </summary>
         public readonly string StartTime;
+        /// <summary>
+        /// volumeHealth contains node-reported health for each volume the pod is using. Populated by the kubelet on the pod's node.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodVolumeHealthPatch> VolumeHealth;
 
         [OutputConstructor]
         private PodStatusPatch(
@@ -147,7 +151,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirementsPatch resources,
 
-            string startTime)
+            string startTime,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodVolumeHealthPatch> volumeHealth)
         {
             AllocatedResources = allocatedResources;
             Conditions = conditions;
@@ -170,6 +176,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             ResourceClaimStatuses = resourceClaimStatuses;
             Resources = resources;
             StartTime = startTime;
+            VolumeHealth = volumeHealth;
         }
     }
 }

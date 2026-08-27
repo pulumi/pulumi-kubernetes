@@ -4,6 +4,8 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.core.v1.outputs.NodeAllocatableMappedResourcesPatch;
+import com.pulumi.kubernetes.core.v1.outputs.NodeAllocatableOverheadResourcesPatch;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,16 @@ public final class NodeAllocatableResourceClaimStatusPatch {
      * 
      */
     private @Nullable List<String> containers;
+    /**
+     * @return Mapping contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    private @Nullable List<NodeAllocatableMappedResourcesPatch> mapping;
+    /**
+     * @return Overhead contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    private @Nullable List<NodeAllocatableOverheadResourcesPatch> overhead;
     /**
      * @return ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
      * 
@@ -36,6 +48,20 @@ public final class NodeAllocatableResourceClaimStatusPatch {
      */
     public List<String> containers() {
         return this.containers == null ? List.of() : this.containers;
+    }
+    /**
+     * @return Mapping contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].mapping` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    public List<NodeAllocatableMappedResourcesPatch> mapping() {
+        return this.mapping == null ? List.of() : this.mapping;
+    }
+    /**
+     * @return Overhead contains allocations through devices mapped in the device spec&#39;s `nodeAllocatableResources[...].overhead` field. This is used by kubelet for pod level and container-level cgroup enforcement.
+     * 
+     */
+    public List<NodeAllocatableOverheadResourcesPatch> overhead() {
+        return this.overhead == null ? List.of() : this.overhead;
     }
     /**
      * @return ResourceClaimName is the resource claim referenced by the pod that resulted in this node allocatable resource allocation.
@@ -62,12 +88,16 @@ public final class NodeAllocatableResourceClaimStatusPatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable List<String> containers;
+        private @Nullable List<NodeAllocatableMappedResourcesPatch> mapping;
+        private @Nullable List<NodeAllocatableOverheadResourcesPatch> overhead;
         private @Nullable String resourceClaimName;
         private @Nullable Map<String,String> resources;
         public Builder() {}
         public Builder(NodeAllocatableResourceClaimStatusPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.containers = defaults.containers;
+    	      this.mapping = defaults.mapping;
+    	      this.overhead = defaults.overhead;
     	      this.resourceClaimName = defaults.resourceClaimName;
     	      this.resources = defaults.resources;
         }
@@ -80,6 +110,24 @@ public final class NodeAllocatableResourceClaimStatusPatch {
         }
         public Builder containers(String... containers) {
             return containers(List.of(containers));
+        }
+        @CustomType.Setter
+        public Builder mapping(@Nullable List<NodeAllocatableMappedResourcesPatch> mapping) {
+
+            this.mapping = mapping;
+            return this;
+        }
+        public Builder mapping(NodeAllocatableMappedResourcesPatch... mapping) {
+            return mapping(List.of(mapping));
+        }
+        @CustomType.Setter
+        public Builder overhead(@Nullable List<NodeAllocatableOverheadResourcesPatch> overhead) {
+
+            this.overhead = overhead;
+            return this;
+        }
+        public Builder overhead(NodeAllocatableOverheadResourcesPatch... overhead) {
+            return overhead(List.of(overhead));
         }
         @CustomType.Setter
         public Builder resourceClaimName(@Nullable String resourceClaimName) {
@@ -96,6 +144,8 @@ public final class NodeAllocatableResourceClaimStatusPatch {
         public NodeAllocatableResourceClaimStatusPatch build() {
             final var _resultValue = new NodeAllocatableResourceClaimStatusPatch();
             _resultValue.containers = containers;
+            _resultValue.mapping = mapping;
+            _resultValue.overhead = overhead;
             _resultValue.resourceClaimName = resourceClaimName;
             _resultValue.resources = resources;
             return _resultValue;

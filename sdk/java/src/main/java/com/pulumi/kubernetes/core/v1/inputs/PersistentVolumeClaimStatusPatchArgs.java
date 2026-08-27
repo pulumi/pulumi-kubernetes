@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ModifyVolumeStatusPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PersistentVolumeClaimConditionPatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.VolumeHealthStatusPatchArgs;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -184,6 +185,21 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
     }
 
     /**
+     * healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+     * 
+     */
+    @Import(name="healthStatus")
+    private @Nullable Output<VolumeHealthStatusPatchArgs> healthStatus;
+
+    /**
+     * @return healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+     * 
+     */
+    public Optional<Output<VolumeHealthStatusPatchArgs>> healthStatus() {
+        return Optional.ofNullable(this.healthStatus);
+    }
+
+    /**
      * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
      * 
      */
@@ -237,6 +253,7 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
         this.capacity = $.capacity;
         this.conditions = $.conditions;
         this.currentVolumeAttributesClassName = $.currentVolumeAttributesClassName;
+        this.healthStatus = $.healthStatus;
         this.modifyVolumeStatus = $.modifyVolumeStatus;
         this.phase = $.phase;
         this.resizeStatus = $.resizeStatus;
@@ -474,6 +491,27 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
          */
         public Builder currentVolumeAttributesClassName(String currentVolumeAttributesClassName) {
             return currentVolumeAttributesClassName(Output.of(currentVolumeAttributesClassName));
+        }
+
+        /**
+         * @param healthStatus healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder healthStatus(@Nullable Output<VolumeHealthStatusPatchArgs> healthStatus) {
+            $.healthStatus = healthStatus;
+            return this;
+        }
+
+        /**
+         * @param healthStatus healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder healthStatus(VolumeHealthStatusPatchArgs healthStatus) {
+            return healthStatus(Output.of(healthStatus));
         }
 
         /**

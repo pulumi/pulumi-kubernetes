@@ -51,6 +51,8 @@ __all__ = [
     'DeviceConstraintPatch',
     'DeviceCounterConsumption',
     'DeviceCounterConsumptionPatch',
+    'DeviceDerivedAttribute',
+    'DeviceDerivedAttributePatch',
     'DevicePatch',
     'DeviceRequest',
     'DeviceRequestAllocationResult',
@@ -75,6 +77,9 @@ __all__ = [
     'ExactDeviceRequestPatch',
     'NetworkDeviceData',
     'NetworkDeviceDataPatch',
+    'NodeAllocatableMapping',
+    'NodeAllocatableOverhead',
+    'NodeAllocatableResource',
     'NodeAllocatableResourceMapping',
     'OpaqueDeviceConfiguration',
     'OpaqueDeviceConfigurationPatch',
@@ -520,7 +525,7 @@ class CELDeviceSelector(dict):
                 - driver (string): the name of the driver which defines this device.
                 - attributes (map[string]object): the device's attributes, grouped by prefix
                   (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-                  of the attributes which were prefixed by "dra.example.com".
+                  of the attributes which were prefixed by "dra.example.com").
                 - capacity (map[string]object): the device's capacities, grouped by prefix.
                 - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
                   (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -539,6 +544,13 @@ class CELDeviceSelector(dict):
                If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
                
                A robust expression should check for the existence of attributes before referencing them.
+               
+               Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+                 or guarding the check with has() for optional fields.
+                 See CEL Optional Types for details:
+                 https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+               
+               For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
                
                For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
                
@@ -562,7 +574,7 @@ class CELDeviceSelector(dict):
          - driver (string): the name of the driver which defines this device.
          - attributes (map[string]object): the device's attributes, grouped by prefix
            (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-           of the attributes which were prefixed by "dra.example.com".
+           of the attributes which were prefixed by "dra.example.com").
          - capacity (map[string]object): the device's capacities, grouped by prefix.
          - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
            (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -581,6 +593,13 @@ class CELDeviceSelector(dict):
         If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 
         A robust expression should check for the existence of attributes before referencing them.
+
+        Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+          or guarding the check with has() for optional fields.
+          See CEL Optional Types for details:
+          https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+
+        For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 
         For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 
@@ -611,7 +630,7 @@ class CELDeviceSelectorPatch(dict):
                 - driver (string): the name of the driver which defines this device.
                 - attributes (map[string]object): the device's attributes, grouped by prefix
                   (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-                  of the attributes which were prefixed by "dra.example.com".
+                  of the attributes which were prefixed by "dra.example.com").
                 - capacity (map[string]object): the device's capacities, grouped by prefix.
                 - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
                   (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -630,6 +649,13 @@ class CELDeviceSelectorPatch(dict):
                If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
                
                A robust expression should check for the existence of attributes before referencing them.
+               
+               Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+                 or guarding the check with has() for optional fields.
+                 See CEL Optional Types for details:
+                 https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+               
+               For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
                
                For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
                
@@ -654,7 +680,7 @@ class CELDeviceSelectorPatch(dict):
          - driver (string): the name of the driver which defines this device.
          - attributes (map[string]object): the device's attributes, grouped by prefix
            (e.g. device.attributes["dra.example.com"] evaluates to an object with all
-           of the attributes which were prefixed by "dra.example.com".
+           of the attributes which were prefixed by "dra.example.com").
          - capacity (map[string]object): the device's capacities, grouped by prefix.
          - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
            (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -673,6 +699,13 @@ class CELDeviceSelectorPatch(dict):
         If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
 
         A robust expression should check for the existence of attributes before referencing them.
+
+        Common errors: - "no such key": Use optional chaining (.? followed by orValue())
+          or guarding the check with has() for optional fields.
+          See CEL Optional Types for details:
+          https://pkg.go.dev/github.com/google/cel-go@v0.17.4/cel#OptionalTypes
+
+        For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
 
         For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
 
@@ -791,6 +824,8 @@ class CapacityRequestPolicyRange(dict):
     """
     CapacityRequestPolicyRange defines a valid range for consumable capacity values.
 
+    If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
+
       - If the requested amount is less than Min, it is rounded up to the Min value.
       - If Step is set and the requested amount is between Min and Max but not aligned with Step,
         it will be rounded up to the next value equal to Min + (n * Step).
@@ -804,6 +839,8 @@ class CapacityRequestPolicyRange(dict):
                  step: Optional[_builtins.str] = None):
         """
         CapacityRequestPolicyRange defines a valid range for consumable capacity values.
+
+        If the DRAFractionalCapacityRange feature gate is enabled and at least one of Min, Max, or Step is a fractional quantity (i.e. its value is not an integer), milli-unit arithmetic is used instead, supporting values with up to 3 decimal places (e.g. 100m = 0.1). The largest supported value then is 1000 times smaller compared to using 64-bit integers. Otherwise, all comparisons use 64-bit integer arithmetic via resource.Quantity.Value().
 
           - If the requested amount is less than Min, it is rounded up to the Min value.
           - If Step is set and the requested amount is between Min and Max but not aligned with Step,
@@ -1078,6 +1115,8 @@ class Device(dict):
             suggest = "consumes_counters"
         elif key == "nodeAllocatableResourceMappings":
             suggest = "node_allocatable_resource_mappings"
+        elif key == "nodeAllocatableResources":
+            suggest = "node_allocatable_resources"
         elif key == "nodeName":
             suggest = "node_name"
         elif key == "nodeSelector":
@@ -1105,6 +1144,7 @@ class Device(dict):
                  capacity: Optional[Mapping[str, 'outputs.DeviceCapacity']] = None,
                  consumes_counters: Optional[Sequence['outputs.DeviceCounterConsumption']] = None,
                  node_allocatable_resource_mappings: Optional[Mapping[str, 'outputs.NodeAllocatableResourceMapping']] = None,
+                 node_allocatable_resources: Optional[Mapping[str, 'outputs.NodeAllocatableResource']] = None,
                  node_name: Optional[_builtins.str] = None,
                  node_selector: Optional['_core.v1.outputs.NodeSelector'] = None,
                  taints: Optional[Sequence['outputs.DeviceTaint']] = None):
@@ -1147,6 +1187,7 @@ class Device(dict):
                
                The maximum number of device counter consumptions per device is 2.
         :param Mapping[str, 'NodeAllocatableResourceMappingArgs'] node_allocatable_resource_mappings: NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+        :param Mapping[str, 'NodeAllocatableResourceArgs'] node_allocatable_resources: NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
         :param _builtins.str node_name: NodeName identifies the node where the device is available.
                
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -1180,6 +1221,8 @@ class Device(dict):
             pulumi.set(__self__, "consumes_counters", consumes_counters)
         if node_allocatable_resource_mappings is not None:
             pulumi.set(__self__, "node_allocatable_resource_mappings", node_allocatable_resource_mappings)
+        if node_allocatable_resources is not None:
+            pulumi.set(__self__, "node_allocatable_resources", node_allocatable_resources)
         if node_name is not None:
             pulumi.set(__self__, "node_name", node_name)
         if node_selector is not None:
@@ -1292,6 +1335,14 @@ class Device(dict):
         NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
         """
         return pulumi.get(self, "node_allocatable_resource_mappings")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAllocatableResources")
+    def node_allocatable_resources(self) -> Optional[Mapping[str, 'outputs.NodeAllocatableResource']]:
+        """
+        NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+        """
+        return pulumi.get(self, "node_allocatable_resources")
 
     @_builtins.property
     @pulumi.getter(name="nodeName")
@@ -2040,8 +2091,6 @@ class DeviceClassSpec(dict):
                
                They are passed to the driver, but are not considered while allocating the claim.
         :param _builtins.str extended_resource_name: ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-               
-               This is a beta field.
         :param Sequence['DeviceSelectorArgs'] selectors: Each selector must be satisfied by a device which is claimed via this class.
         """
         if config is not None:
@@ -2066,8 +2115,6 @@ class DeviceClassSpec(dict):
     def extended_resource_name(self) -> Optional[_builtins.str]:
         """
         ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-
-        This is a beta field.
         """
         return pulumi.get(self, "extended_resource_name")
 
@@ -2113,8 +2160,6 @@ class DeviceClassSpecPatch(dict):
                
                They are passed to the driver, but are not considered while allocating the claim.
         :param _builtins.str extended_resource_name: ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-               
-               This is a beta field.
         :param Sequence['DeviceSelectorPatchArgs'] selectors: Each selector must be satisfied by a device which is claimed via this class.
         """
         if config is not None:
@@ -2139,8 +2184,6 @@ class DeviceClassSpecPatch(dict):
     def extended_resource_name(self) -> Optional[_builtins.str]:
         """
         ExtendedResourceName is the extended resource name for the devices of this class. The devices of this class can be used to satisfy a pod's extended resource requests. It has the same format as the name of a pod's extended resource. It should be unique among all the device classes in a cluster. If two device classes have the same name, then the class created later is picked to satisfy a pod's extended resource requests. If two classes are created at the same time, then the name of the class lexicographically sorted first is picked.
-
-        This is a beta field.
         """
         return pulumi.get(self, "extended_resource_name")
 
@@ -2361,6 +2404,8 @@ class DeviceCounterConsumption(dict):
         suggest = None
         if key == "counterSet":
             suggest = "counter_set"
+        elif key == "compatibilityGroups":
+            suggest = "compatibility_groups"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in DeviceCounterConsumption. Access the value via the '{suggest}' property getter instead.")
@@ -2375,7 +2420,8 @@ class DeviceCounterConsumption(dict):
 
     def __init__(__self__, *,
                  counter_set: _builtins.str,
-                 counters: Mapping[str, 'outputs.Counter']):
+                 counters: Mapping[str, 'outputs.Counter'],
+                 compatibility_groups: Optional[Sequence[_builtins.str]] = None):
         """
         DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
 
@@ -2383,9 +2429,20 @@ class DeviceCounterConsumption(dict):
         :param Mapping[str, 'CounterArgs'] counters: Counters defines the counters that will be consumed by the device.
                
                The maximum number of counters is 32.
+        :param Sequence[_builtins.str] compatibility_groups: CompatibilityGroups is a list of opaque group names for this counter set consumption.
+               
+               Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+               
+               An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+               
+               Group names are opaque and meaningful only within the publishing driver's pool.
+               
+               The maximum number of groups is 2, and the names must be unique.
         """
         pulumi.set(__self__, "counter_set", counter_set)
         pulumi.set(__self__, "counters", counters)
+        if compatibility_groups is not None:
+            pulumi.set(__self__, "compatibility_groups", compatibility_groups)
 
     @_builtins.property
     @pulumi.getter(name="counterSet")
@@ -2405,6 +2462,22 @@ class DeviceCounterConsumption(dict):
         """
         return pulumi.get(self, "counters")
 
+    @_builtins.property
+    @pulumi.getter(name="compatibilityGroups")
+    def compatibility_groups(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        CompatibilityGroups is a list of opaque group names for this counter set consumption.
+
+        Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+
+        An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+
+        Group names are opaque and meaningful only within the publishing driver's pool.
+
+        The maximum number of groups is 2, and the names must be unique.
+        """
+        return pulumi.get(self, "compatibility_groups")
+
 
 @pulumi.output_type
 class DeviceCounterConsumptionPatch(dict):
@@ -2414,7 +2487,9 @@ class DeviceCounterConsumptionPatch(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "counterSet":
+        if key == "compatibilityGroups":
+            suggest = "compatibility_groups"
+        elif key == "counterSet":
             suggest = "counter_set"
 
         if suggest:
@@ -2429,20 +2504,48 @@ class DeviceCounterConsumptionPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 compatibility_groups: Optional[Sequence[_builtins.str]] = None,
                  counter_set: Optional[_builtins.str] = None,
                  counters: Optional[Mapping[str, 'outputs.Counter']] = None):
         """
         DeviceCounterConsumption defines a set of counters that a device will consume from a CounterSet.
 
+        :param Sequence[_builtins.str] compatibility_groups: CompatibilityGroups is a list of opaque group names for this counter set consumption.
+               
+               Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+               
+               An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+               
+               Group names are opaque and meaningful only within the publishing driver's pool.
+               
+               The maximum number of groups is 2, and the names must be unique.
         :param _builtins.str counter_set: CounterSet is the name of the set from which the counters defined will be consumed.
         :param Mapping[str, 'CounterArgs'] counters: Counters defines the counters that will be consumed by the device.
                
                The maximum number of counters is 32.
         """
+        if compatibility_groups is not None:
+            pulumi.set(__self__, "compatibility_groups", compatibility_groups)
         if counter_set is not None:
             pulumi.set(__self__, "counter_set", counter_set)
         if counters is not None:
             pulumi.set(__self__, "counters", counters)
+
+    @_builtins.property
+    @pulumi.getter(name="compatibilityGroups")
+    def compatibility_groups(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        CompatibilityGroups is a list of opaque group names for this counter set consumption.
+
+        Devices that consume counters from the same counter set may only be allocated at the same time ("co-allocated") if they all share at least one common group: the intersection of the CompatibilityGroups of all co-allocated devices on that counter set must be non-empty. Devices that consume from different counter sets are never compared via this field.
+
+        An unset field, an explicit nil, and an empty list are equivalent and mean "no groups": such a device is only co-allocatable with sibling devices on the same counter set that also have no groups, and is never co-allocatable with a device that declares one or more groups.
+
+        Group names are opaque and meaningful only within the publishing driver's pool.
+
+        The maximum number of groups is 2, and the names must be unique.
+        """
+        return pulumi.get(self, "compatibility_groups")
 
     @_builtins.property
     @pulumi.getter(name="counterSet")
@@ -2461,6 +2564,132 @@ class DeviceCounterConsumptionPatch(dict):
         The maximum number of counters is 32.
         """
         return pulumi.get(self, "counters")
+
+
+@pulumi.output_type
+class DeviceDerivedAttribute(dict):
+    """
+    DeviceDerivedAttribute defines a derived attribute computed via CEL.
+    """
+    def __init__(__self__, *,
+                 expression: _builtins.str,
+                 name: _builtins.str):
+        """
+        DeviceDerivedAttribute defines a derived attribute computed via CEL.
+
+        :param _builtins.str expression: Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+               
+               The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+               
+               When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+               
+               The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+               
+               The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+        :param _builtins.str name: Name is the identifier for this derived attribute, used in constraints.
+               
+               It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+               
+               If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+               
+               It is not valid to define a derived attribute that isn't used in at least one constraint.
+        """
+        pulumi.set(__self__, "expression", expression)
+        pulumi.set(__self__, "name", name)
+
+    @_builtins.property
+    @pulumi.getter
+    def expression(self) -> _builtins.str:
+        """
+        Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+
+        The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+
+        When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+
+        The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+
+        The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+        """
+        return pulumi.get(self, "expression")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        Name is the identifier for this derived attribute, used in constraints.
+
+        It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+
+        If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+
+        It is not valid to define a derived attribute that isn't used in at least one constraint.
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class DeviceDerivedAttributePatch(dict):
+    """
+    DeviceDerivedAttribute defines a derived attribute computed via CEL.
+    """
+    def __init__(__self__, *,
+                 expression: Optional[_builtins.str] = None,
+                 name: Optional[_builtins.str] = None):
+        """
+        DeviceDerivedAttribute defines a derived attribute computed via CEL.
+
+        :param _builtins.str expression: Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+               
+               The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+               
+               When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+               
+               The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+               
+               The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+        :param _builtins.str name: Name is the identifier for this derived attribute, used in constraints.
+               
+               It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+               
+               If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+               
+               It is not valid to define a derived attribute that isn't used in at least one constraint.
+        """
+        if expression is not None:
+            pulumi.set(__self__, "expression", expression)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @_builtins.property
+    @pulumi.getter
+    def expression(self) -> Optional[_builtins.str]:
+        """
+        Expression is a CEL expression evaluated against each candidate device. The expression must evaluate to a primitive scalar (string, integer, boolean, or semver) or a list of these scalars ([]string, []int64, []bool, []semver) to act as a virtual grouping key. Any other return type is an error and causes CEL evaluation for the device to fail.
+
+        The expression's input is an object named "device", which carries the same properties as in a CELDeviceSelector.
+
+        When pod scheduling encounters CEL runtime errors (such as looking up an attribute that isn't defined) for some devices, it will abort allocation and fail scheduling for the Pod. Surfacing evaluation errors immediately prevents silent topology matching failures that are extremely hard to detect. A robust expression should, for example, check for the existence of attributes before referencing them to avoid runtime evaluation errors.
+
+        The expression gets evaluated after a device has passed the other selector expressions for the request in which this expression is used. This allows writing expressions that are tailored towards the specific devices being requested (for example, by assuming the device is from a certain vendor and skipping those checks).
+
+        The length of the expression must be smaller or equal to 10 Ki. The cost of evaluating it is also limited based on the estimated number of logical steps; the combined cost of all derived attributes in a claim is capped by a shared CEL cost budget.
+        """
+        return pulumi.get(self, "expression")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> Optional[_builtins.str]:
+        """
+        Name is the identifier for this derived attribute, used in constraints.
+
+        It must be a DNS subdomain followed by a slash ("/") followed by a C identifier (e.g. "example.com/numaNode" or "derived/numaNode").
+
+        If the chosen name matches an existing physical attribute from a driver, the derived attribute's expression will shadow the physical attribute, and its evaluated value will be used in constraints instead. When the goal is to define a derived attribute that is only used within the ResourceClaim and not meant to shadow an existing attribute, use a domain prefix that no DRA driver should be using (e.g. "derived/myAttribute").
+
+        It is not valid to define a derived attribute that isn't used in at least one constraint.
+        """
+        return pulumi.get(self, "name")
 
 
 @pulumi.output_type
@@ -2485,6 +2714,8 @@ class DevicePatch(dict):
             suggest = "consumes_counters"
         elif key == "nodeAllocatableResourceMappings":
             suggest = "node_allocatable_resource_mappings"
+        elif key == "nodeAllocatableResources":
+            suggest = "node_allocatable_resources"
         elif key == "nodeName":
             suggest = "node_name"
         elif key == "nodeSelector":
@@ -2512,6 +2743,7 @@ class DevicePatch(dict):
                  consumes_counters: Optional[Sequence['outputs.DeviceCounterConsumptionPatch']] = None,
                  name: Optional[_builtins.str] = None,
                  node_allocatable_resource_mappings: Optional[Mapping[str, 'outputs.NodeAllocatableResourceMapping']] = None,
+                 node_allocatable_resources: Optional[Mapping[str, 'outputs.NodeAllocatableResource']] = None,
                  node_name: Optional[_builtins.str] = None,
                  node_selector: Optional['_core.v1.outputs.NodeSelectorPatch'] = None,
                  taints: Optional[Sequence['outputs.DeviceTaintPatch']] = None):
@@ -2554,6 +2786,7 @@ class DevicePatch(dict):
                The maximum number of device counter consumptions per device is 2.
         :param _builtins.str name: Name is unique identifier among all devices managed by the driver in the pool. It must be a DNS label.
         :param Mapping[str, 'NodeAllocatableResourceMappingArgs'] node_allocatable_resource_mappings: NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+        :param Mapping[str, 'NodeAllocatableResourceArgs'] node_allocatable_resources: NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
         :param _builtins.str node_name: NodeName identifies the node where the device is available.
                
                Must only be set if Spec.PerDeviceNodeSelection is set to true. At most one of NodeName, NodeSelector and AllNodes can be set.
@@ -2588,6 +2821,8 @@ class DevicePatch(dict):
             pulumi.set(__self__, "name", name)
         if node_allocatable_resource_mappings is not None:
             pulumi.set(__self__, "node_allocatable_resource_mappings", node_allocatable_resource_mappings)
+        if node_allocatable_resources is not None:
+            pulumi.set(__self__, "node_allocatable_resources", node_allocatable_resources)
         if node_name is not None:
             pulumi.set(__self__, "node_name", node_name)
         if node_selector is not None:
@@ -2700,6 +2935,14 @@ class DevicePatch(dict):
         NodeAllocatableResourceMappings defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
         """
         return pulumi.get(self, "node_allocatable_resource_mappings")
+
+    @_builtins.property
+    @pulumi.getter(name="nodeAllocatableResources")
+    def node_allocatable_resources(self) -> Optional[Mapping[str, 'outputs.NodeAllocatableResource']]:
+        """
+        NodeAllocatableResources defines the mapping of node resources that are managed by the DRA driver exposing this device. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages. In addition to standard requests made through the Pod `spec`, these resources can also be requested through claims and allocated by the DRA driver. For example, a CPU DRA driver might allocate exclusive CPUs or auxiliary node memory dependencies of an accelerator device. The keys of this map are the node-allocatable resource names (e.g., "cpu", "memory"). Extended resource names are not permitted as keys.
+        """
+        return pulumi.get(self, "node_allocatable_resources")
 
     @_builtins.property
     @pulumi.getter(name="nodeName")
@@ -2834,6 +3077,8 @@ class DeviceRequestAllocationResult(dict):
             suggest = "consumed_capacity"
         elif key == "shareID":
             suggest = "share_id"
+        elif key == "skipNodeOperations":
+            suggest = "skip_node_operations"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in DeviceRequestAllocationResult. Access the value via the '{suggest}' property getter instead.")
@@ -2856,6 +3101,7 @@ class DeviceRequestAllocationResult(dict):
                  binding_failure_conditions: Optional[Sequence[_builtins.str]] = None,
                  consumed_capacity: Optional[Mapping[str, _builtins.str]] = None,
                  share_id: Optional[_builtins.str] = None,
+                 skip_node_operations: Optional[Sequence[_builtins.str]] = None,
                  tolerations: Optional[Sequence['outputs.DeviceToleration']] = None):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
@@ -2885,6 +3131,7 @@ class DeviceRequestAllocationResult(dict):
                
                This field is populated only for devices that allow multiple allocations. All capacity entries are included, even if the consumed amount is zero.
         :param _builtins.str share_id: ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+        :param Sequence[_builtins.str] skip_node_operations: SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
         :param Sequence['DeviceTolerationArgs'] tolerations: A copy of all tolerations specified in the request at the time when the device got allocated.
                
                The maximum number of tolerations is 16.
@@ -2905,6 +3152,8 @@ class DeviceRequestAllocationResult(dict):
             pulumi.set(__self__, "consumed_capacity", consumed_capacity)
         if share_id is not None:
             pulumi.set(__self__, "share_id", share_id)
+        if skip_node_operations is not None:
+            pulumi.set(__self__, "skip_node_operations", skip_node_operations)
         if tolerations is not None:
             pulumi.set(__self__, "tolerations", tolerations)
 
@@ -2997,6 +3246,14 @@ class DeviceRequestAllocationResult(dict):
         return pulumi.get(self, "share_id")
 
     @_builtins.property
+    @pulumi.getter(name="skipNodeOperations")
+    def skip_node_operations(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+        """
+        return pulumi.get(self, "skip_node_operations")
+
+    @_builtins.property
     @pulumi.getter
     def tolerations(self) -> Optional[Sequence['outputs.DeviceToleration']]:
         """
@@ -3027,6 +3284,8 @@ class DeviceRequestAllocationResultPatch(dict):
             suggest = "consumed_capacity"
         elif key == "shareID":
             suggest = "share_id"
+        elif key == "skipNodeOperations":
+            suggest = "skip_node_operations"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in DeviceRequestAllocationResultPatch. Access the value via the '{suggest}' property getter instead.")
@@ -3049,6 +3308,7 @@ class DeviceRequestAllocationResultPatch(dict):
                  pool: Optional[_builtins.str] = None,
                  request: Optional[_builtins.str] = None,
                  share_id: Optional[_builtins.str] = None,
+                 skip_node_operations: Optional[Sequence[_builtins.str]] = None,
                  tolerations: Optional[Sequence['outputs.DeviceTolerationPatch']] = None):
         """
         DeviceRequestAllocationResult contains the allocation result for one request.
@@ -3078,6 +3338,7 @@ class DeviceRequestAllocationResultPatch(dict):
                
                Multiple devices may have been allocated per request.
         :param _builtins.str share_id: ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
+        :param Sequence[_builtins.str] skip_node_operations: SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
         :param Sequence['DeviceTolerationPatchArgs'] tolerations: A copy of all tolerations specified in the request at the time when the device got allocated.
                
                The maximum number of tolerations is 16.
@@ -3102,6 +3363,8 @@ class DeviceRequestAllocationResultPatch(dict):
             pulumi.set(__self__, "request", request)
         if share_id is not None:
             pulumi.set(__self__, "share_id", share_id)
+        if skip_node_operations is not None:
+            pulumi.set(__self__, "skip_node_operations", skip_node_operations)
         if tolerations is not None:
             pulumi.set(__self__, "tolerations", tolerations)
 
@@ -3192,6 +3455,14 @@ class DeviceRequestAllocationResultPatch(dict):
         ShareID uniquely identifies an individual allocation share of the device, used when the device supports multiple simultaneous allocations. It serves as an additional map key to differentiate concurrent shares of the same device.
         """
         return pulumi.get(self, "share_id")
+
+    @_builtins.property
+    @pulumi.getter(name="skipNodeOperations")
+    def skip_node_operations(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+        """
+        return pulumi.get(self, "skip_node_operations")
 
     @_builtins.property
     @pulumi.getter
@@ -3349,6 +3620,8 @@ class DeviceSubRequest(dict):
             suggest = "device_class_name"
         elif key == "allocationMode":
             suggest = "allocation_mode"
+        elif key == "derivedAttributes":
+            suggest = "derived_attributes"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in DeviceSubRequest. Access the value via the '{suggest}' property getter instead.")
@@ -3367,6 +3640,7 @@ class DeviceSubRequest(dict):
                  allocation_mode: Optional[_builtins.str] = None,
                  capacity: Optional['outputs.CapacityRequirements'] = None,
                  count: Optional[_builtins.int] = None,
+                 derived_attributes: Optional[Sequence['outputs.DeviceDerivedAttribute']] = None,
                  selectors: Optional[Sequence['outputs.DeviceSelector']] = None,
                  tolerations: Optional[Sequence['outputs.DeviceToleration']] = None):
         """
@@ -3401,6 +3675,15 @@ class DeviceSubRequest(dict):
                
                Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
         :param _builtins.int count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        :param Sequence['DeviceDerivedAttributeArgs'] derived_attributes: DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+               
+               Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+               
+               Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+               
+               The maximum number of derived attributes is 32.
+               
+               This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
         :param Sequence['DeviceSelectorArgs'] selectors: Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this subrequest. All selectors must be satisfied for a device to be considered.
         :param Sequence['DeviceTolerationArgs'] tolerations: If specified, the request's tolerations.
                
@@ -3420,6 +3703,8 @@ class DeviceSubRequest(dict):
             pulumi.set(__self__, "capacity", capacity)
         if count is not None:
             pulumi.set(__self__, "count", count)
+        if derived_attributes is not None:
+            pulumi.set(__self__, "derived_attributes", derived_attributes)
         if selectors is not None:
             pulumi.set(__self__, "selectors", selectors)
         if tolerations is not None:
@@ -3488,6 +3773,22 @@ class DeviceSubRequest(dict):
         return pulumi.get(self, "count")
 
     @_builtins.property
+    @pulumi.getter(name="derivedAttributes")
+    def derived_attributes(self) -> Optional[Sequence['outputs.DeviceDerivedAttribute']]:
+        """
+        DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+
+        Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+
+        Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+
+        The maximum number of derived attributes is 32.
+
+        This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+        """
+        return pulumi.get(self, "derived_attributes")
+
+    @_builtins.property
     @pulumi.getter
     def selectors(self) -> Optional[Sequence['outputs.DeviceSelector']]:
         """
@@ -3524,6 +3825,8 @@ class DeviceSubRequestPatch(dict):
         suggest = None
         if key == "allocationMode":
             suggest = "allocation_mode"
+        elif key == "derivedAttributes":
+            suggest = "derived_attributes"
         elif key == "deviceClassName":
             suggest = "device_class_name"
 
@@ -3542,6 +3845,7 @@ class DeviceSubRequestPatch(dict):
                  allocation_mode: Optional[_builtins.str] = None,
                  capacity: Optional['outputs.CapacityRequirementsPatch'] = None,
                  count: Optional[_builtins.int] = None,
+                 derived_attributes: Optional[Sequence['outputs.DeviceDerivedAttributePatch']] = None,
                  device_class_name: Optional[_builtins.str] = None,
                  name: Optional[_builtins.str] = None,
                  selectors: Optional[Sequence['outputs.DeviceSelectorPatch']] = None,
@@ -3570,6 +3874,15 @@ class DeviceSubRequestPatch(dict):
                
                Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
         :param _builtins.int count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        :param Sequence['DeviceDerivedAttributePatchArgs'] derived_attributes: DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+               
+               Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+               
+               Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+               
+               The maximum number of derived attributes is 32.
+               
+               This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
         :param _builtins.str device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this subrequest.
                
                A class is required. Which classes are available depends on the cluster.
@@ -3595,6 +3908,8 @@ class DeviceSubRequestPatch(dict):
             pulumi.set(__self__, "capacity", capacity)
         if count is not None:
             pulumi.set(__self__, "count", count)
+        if derived_attributes is not None:
+            pulumi.set(__self__, "derived_attributes", derived_attributes)
         if device_class_name is not None:
             pulumi.set(__self__, "device_class_name", device_class_name)
         if name is not None:
@@ -3643,6 +3958,22 @@ class DeviceSubRequestPatch(dict):
         Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
         """
         return pulumi.get(self, "count")
+
+    @_builtins.property
+    @pulumi.getter(name="derivedAttributes")
+    def derived_attributes(self) -> Optional[Sequence['outputs.DeviceDerivedAttributePatch']]:
+        """
+        DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+
+        Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+
+        Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+
+        The maximum number of derived attributes is 32.
+
+        This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+        """
+        return pulumi.get(self, "derived_attributes")
 
     @_builtins.property
     @pulumi.getter(name="deviceClassName")
@@ -4444,6 +4775,8 @@ class ExactDeviceRequest(dict):
             suggest = "admin_access"
         elif key == "allocationMode":
             suggest = "allocation_mode"
+        elif key == "derivedAttributes":
+            suggest = "derived_attributes"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ExactDeviceRequest. Access the value via the '{suggest}' property getter instead.")
@@ -4462,6 +4795,7 @@ class ExactDeviceRequest(dict):
                  allocation_mode: Optional[_builtins.str] = None,
                  capacity: Optional['outputs.CapacityRequirements'] = None,
                  count: Optional[_builtins.int] = None,
+                 derived_attributes: Optional[Sequence['outputs.DeviceDerivedAttribute']] = None,
                  selectors: Optional[Sequence['outputs.DeviceSelector']] = None,
                  tolerations: Optional[Sequence['outputs.DeviceToleration']] = None):
         """
@@ -4495,6 +4829,15 @@ class ExactDeviceRequest(dict):
                
                Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
         :param _builtins.int count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        :param Sequence['DeviceDerivedAttributeArgs'] derived_attributes: DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+               
+               Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+               
+               Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+               
+               The maximum number of derived attributes is 32.
+               
+               This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
         :param Sequence['DeviceSelectorArgs'] selectors: Selectors define criteria which must be satisfied by a specific device in order for that device to be considered for this request. All selectors must be satisfied for a device to be considered.
         :param Sequence['DeviceTolerationArgs'] tolerations: If specified, the request's tolerations.
                
@@ -4515,6 +4858,8 @@ class ExactDeviceRequest(dict):
             pulumi.set(__self__, "capacity", capacity)
         if count is not None:
             pulumi.set(__self__, "count", count)
+        if derived_attributes is not None:
+            pulumi.set(__self__, "derived_attributes", derived_attributes)
         if selectors is not None:
             pulumi.set(__self__, "selectors", selectors)
         if tolerations is not None:
@@ -4584,6 +4929,22 @@ class ExactDeviceRequest(dict):
         return pulumi.get(self, "count")
 
     @_builtins.property
+    @pulumi.getter(name="derivedAttributes")
+    def derived_attributes(self) -> Optional[Sequence['outputs.DeviceDerivedAttribute']]:
+        """
+        DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+
+        Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+
+        Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+
+        The maximum number of derived attributes is 32.
+
+        This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+        """
+        return pulumi.get(self, "derived_attributes")
+
+    @_builtins.property
     @pulumi.getter
     def selectors(self) -> Optional[Sequence['outputs.DeviceSelector']]:
         """
@@ -4620,6 +4981,8 @@ class ExactDeviceRequestPatch(dict):
             suggest = "admin_access"
         elif key == "allocationMode":
             suggest = "allocation_mode"
+        elif key == "derivedAttributes":
+            suggest = "derived_attributes"
         elif key == "deviceClassName":
             suggest = "device_class_name"
 
@@ -4639,6 +5002,7 @@ class ExactDeviceRequestPatch(dict):
                  allocation_mode: Optional[_builtins.str] = None,
                  capacity: Optional['outputs.CapacityRequirementsPatch'] = None,
                  count: Optional[_builtins.int] = None,
+                 derived_attributes: Optional[Sequence['outputs.DeviceDerivedAttributePatch']] = None,
                  device_class_name: Optional[_builtins.str] = None,
                  selectors: Optional[Sequence['outputs.DeviceSelectorPatch']] = None,
                  tolerations: Optional[Sequence['outputs.DeviceTolerationPatch']] = None):
@@ -4668,6 +5032,15 @@ class ExactDeviceRequestPatch(dict):
                
                Applies to each device allocation. If Count > 1, the request fails if there aren't enough devices that meet the requirements. If AllocationMode is set to All, the request fails if there are devices that otherwise match the request, and have this capacity, with a value >= the requested amount, but which cannot be allocated to this request.
         :param _builtins.int count: Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
+        :param Sequence['DeviceDerivedAttributePatchArgs'] derived_attributes: DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+               
+               Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+               
+               Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+               
+               The maximum number of derived attributes is 32.
+               
+               This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
         :param _builtins.str device_class_name: DeviceClassName references a specific DeviceClass, which can define additional configuration and selectors to be inherited by this request.
                
                A DeviceClassName is required.
@@ -4692,6 +5065,8 @@ class ExactDeviceRequestPatch(dict):
             pulumi.set(__self__, "capacity", capacity)
         if count is not None:
             pulumi.set(__self__, "count", count)
+        if derived_attributes is not None:
+            pulumi.set(__self__, "derived_attributes", derived_attributes)
         if device_class_name is not None:
             pulumi.set(__self__, "device_class_name", device_class_name)
         if selectors is not None:
@@ -4749,6 +5124,22 @@ class ExactDeviceRequestPatch(dict):
         Count is used only when the count mode is "ExactCount". Must be greater than zero. If AllocationMode is ExactCount and this field is not specified, the default is one.
         """
         return pulumi.get(self, "count")
+
+    @_builtins.property
+    @pulumi.getter(name="derivedAttributes")
+    def derived_attributes(self) -> Optional[Sequence['outputs.DeviceDerivedAttributePatch']]:
+        """
+        DerivedAttributes defines a set of virtual attributes computed via CEL expressions for each candidate device. These virtual attributes can be referenced in `.devices.constraints` to align and match different devices (e.g., co-allocating a GPU and a NIC on the same NUMA node) even if their drivers publish different attributes. Derived attributes are not available via `device.attributes` in the CEL environment when evaluating selector expressions.
+
+        Derived attributes allow you to extract, transform, or normalize topology information (such as extracting a NUMA index from a complex topology string or renaming a vendor-specific attribute) into a common virtual attribute name at scheduling time. The scheduler then evaluates these virtual attributes exactly like static attributes when matching constraints.
+
+        Every derived attribute defined in this list must be referenced by at least one MatchAttribute or DistinctAttribute constraint in the `.devices.constraints` list.
+
+        The maximum number of derived attributes is 32.
+
+        This is an alpha field and requires enabling the DRADerivedAttributes feature gate.
+        """
+        return pulumi.get(self, "derived_attributes")
 
     @_builtins.property
     @pulumi.getter(name="deviceClassName")
@@ -4935,6 +5326,166 @@ class NetworkDeviceDataPatch(dict):
         IPs lists the network addresses assigned to the device's network interface. This can include both IPv4 and IPv6 addresses. The IPs are in the CIDR notation, which includes both the address and the associated subnet mask. e.g.: "192.0.2.5/24" for IPv4 and "2001:db8::5/64" for IPv6.
         """
         return pulumi.get(self, "ips")
+
+
+@pulumi.output_type
+class NodeAllocatableMapping(dict):
+    """
+    NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "capacityKey":
+            suggest = "capacity_key"
+        elif key == "capacityMultiplier":
+            suggest = "capacity_multiplier"
+        elif key == "deviceMultiplier":
+            suggest = "device_multiplier"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeAllocatableMapping. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeAllocatableMapping.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeAllocatableMapping.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 capacity_key: Optional[_builtins.str] = None,
+                 capacity_multiplier: Optional[_builtins.str] = None,
+                 device_multiplier: Optional[_builtins.str] = None):
+        """
+        NodeAllocatableMapping defines how a DRA allocation directly translates into a node allocatable resource quantity. The mapping can be derived from either the count of allocated devices (via deviceMultiplier) or the specific capacity consumed (via capacityKey and capacityMultiplier). These options are mutually exclusive. Kubelet adds this mapped resource quantity from claim to both requests and limits at the pod-level cgroup, and to limits at the container-level cgroup for each container referencing the claim.
+
+        :param _builtins.str capacity_key: CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+        :param _builtins.str capacity_multiplier: CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+        :param _builtins.str device_multiplier: DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+        """
+        if capacity_key is not None:
+            pulumi.set(__self__, "capacity_key", capacity_key)
+        if capacity_multiplier is not None:
+            pulumi.set(__self__, "capacity_multiplier", capacity_multiplier)
+        if device_multiplier is not None:
+            pulumi.set(__self__, "device_multiplier", device_multiplier)
+
+    @_builtins.property
+    @pulumi.getter(name="capacityKey")
+    def capacity_key(self) -> Optional[_builtins.str]:
+        """
+        CapacityKey references a capacity name defined as a key in the `spec.devices[*].capacity` map. When this field is set, the value associated with this key in the `status.allocation.devices.results[*].consumedCapacity` map (for a specific claim allocation) determines the base quantity for the node allocatable resource. `capacityMultiplier` must also be set and is multiplied with the base quantity. For example, if `spec.devices[*].capacity` has an entry "dra.example.com/memory": "128Gi", and this field is set to "dra.example.com/memory", then for a claim allocation that consumes { "dra.example.com/memory": "4Gi" } the base quantity for the node allocatable resource mapping will be "4Gi". The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`.
+        """
+        return pulumi.get(self, "capacity_key")
+
+    @_builtins.property
+    @pulumi.getter(name="capacityMultiplier")
+    def capacity_multiplier(self) -> Optional[_builtins.str]:
+        """
+        CapacityMultiplier is used as a multiplier for the allocated capacity consumed. It is only valid if `capacityKey` is set. The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `capacityMultiplier`. For example, if a Device's capacity "dra.example.com/cores" is consumed, and each "core" provides 2 "cpu"s, the mapping would be: {ResourceName: "cpu", capacityKey: "dra.example.com/cores", capacityMultiplier: "2"}. If a claim consumes 8 "dra.example.com/cores", the CPU footprint is 8 * 2 = 16.
+        """
+        return pulumi.get(self, "capacity_multiplier")
+
+    @_builtins.property
+    @pulumi.getter(name="deviceMultiplier")
+    def device_multiplier(self) -> Optional[_builtins.str]:
+        """
+        DeviceMultiplier is used as a multiplier for the allocated device count in the claim. The final node allocatable resource amount is `deviceCount` * `deviceMultiplier`. For example, a DRA driver representing each cache complex (CCX) as a device would have {ResourceName: "cpu", deviceMultiplier: "8"} in its `nodeAllocatableResources`. If 2 devices (CCX) are allocated to the claim, 2 * 8 = 16 CPUs would be considered as allocated. It is only valid when `capacityKey` and `capacityMultiplier` are not set.
+        """
+        return pulumi.get(self, "device_multiplier")
+
+
+@pulumi.output_type
+class NodeAllocatableOverhead(dict):
+    """
+    NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "perContainer":
+            suggest = "per_container"
+        elif key == "perPod":
+            suggest = "per_pod"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeAllocatableOverhead. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeAllocatableOverhead.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeAllocatableOverhead.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 per_container: Optional[_builtins.str] = None,
+                 per_pod: Optional[_builtins.str] = None):
+        """
+        NodeAllocatableOverhead defines auxiliary resource overheads incurred when allocating a device. Overheads can be specified as a fixed cost per pod referencing the claim, a variable cost per container reference, or both. Kubelet accounts for this overhead by adding it to both the pod-level and container-level cgroups of referencing containers.
+
+        :param _builtins.str per_container: PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+        :param _builtins.str per_pod: PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+        """
+        if per_container is not None:
+            pulumi.set(__self__, "per_container", per_container)
+        if per_pod is not None:
+            pulumi.set(__self__, "per_pod", per_pod)
+
+    @_builtins.property
+    @pulumi.getter(name="perContainer")
+    def per_container(self) -> Optional[_builtins.str]:
+        """
+        PerContainer is applied per container reference to the claim. This models overhead scaling linearly with the number of containers actively using the device. When both PerPod and PerContainer are specified, the total overhead allocated for each pod referencing the claim is computed as: Quantity = PerPod + (PerContainer * NumReferences) Kubelet accounts for this overhead in cgroups: - Pod-level cgroup (requests and limits): Kubelet adds PerPod + (PerContainer * NumReferences). - Container-level cgroup (limits only): Kubelet adds PerPod + PerContainer for each referencing container. This allows any single container to access the pod-level overhead, while the parent cgroup caps the total usage to account for PerPod exactly once.
+        """
+        return pulumi.get(self, "per_container")
+
+    @_builtins.property
+    @pulumi.getter(name="perPod")
+    def per_pod(self) -> Optional[_builtins.str]:
+        """
+        PerPod is overhead applied once per pod referencing the claim on this node. This is a flat overhead incurred for every pod referencing the claim.
+        """
+        return pulumi.get(self, "per_pod")
+
+
+@pulumi.output_type
+class NodeAllocatableResource(dict):
+    """
+    NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+    """
+    def __init__(__self__, *,
+                 mapping: Optional['outputs.NodeAllocatableMapping'] = None,
+                 overhead: Optional['outputs.NodeAllocatableOverhead'] = None):
+        """
+        NodeAllocatableResource defines the translation between the DRA device/capacity units requested to the corresponding quantity of the node allocatable resource. At least one of Mapping or Overhead must be specified. Not specifying either is an invalid configuration.
+
+        :param 'NodeAllocatableMappingArgs' mapping: Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+        :param 'NodeAllocatableOverheadArgs' overhead: Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+        """
+        if mapping is not None:
+            pulumi.set(__self__, "mapping", mapping)
+        if overhead is not None:
+            pulumi.set(__self__, "overhead", overhead)
+
+    @_builtins.property
+    @pulumi.getter
+    def mapping(self) -> Optional['outputs.NodeAllocatableMapping']:
+        """
+        Mapping is used when the device directly models a node allocatable resource like standard CPU or memory (e.g., with a CPU DRA driver). The calculated quantity is accounted for exactly once per claim instance on the node. To prevent node cgroup isolation friction, the scheduler explicitly blocks sharing mapped device claims across multiple pods.
+        """
+        return pulumi.get(self, "mapping")
+
+    @_builtins.property
+    @pulumi.getter
+    def overhead(self) -> Optional['outputs.NodeAllocatableOverhead']:
+        """
+        Overhead contains fields for modeling auxiliary overhead incurred on node allocatable resources when allocating devices that are not themselves modeling a node allocatable resource (e.g., host memory overhead for GPUs). Sharing overhead-mapped claims across multiple pods is allowed. The node allocatable overhead is accounted for individually for each pod referencing the claim. Overhead is always subtracted from the node's allocatable capacity for the resource, even when mapping is specified for the same resource. Eg: If a device models memory capacity per socket as a consumable capacity pool via Mapping (with CapacityKey), any overhead specified for the same resource will be subtracted from the node's general allocatable capacity and not from the per-socket capacity pool in Mapping.
+        """
+        return pulumi.get(self, "overhead")
 
 
 @pulumi.output_type
@@ -5746,7 +6297,7 @@ class ResourcePool(dict):
         :param _builtins.int generation: Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
                
                Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
-        :param _builtins.str name: Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+        :param _builtins.str name: Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
                
                It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
         :param _builtins.int resource_slice_count: ResourceSliceCount is the total number of ResourceSlices in the pool at this generation number. Must be greater than zero.
@@ -5771,7 +6322,7 @@ class ResourcePool(dict):
     @pulumi.getter
     def name(self) -> _builtins.str:
         """
-        Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+        Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
 
         It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
         """
@@ -5820,7 +6371,7 @@ class ResourcePoolPatch(dict):
         :param _builtins.int generation: Generation tracks the change in a pool over time. Whenever a driver changes something about one or more of the resources in a pool, it must change the generation in all ResourceSlices which are part of that pool. Consumers of ResourceSlices should only consider resources from the pool with the highest generation number. The generation may be reset by drivers, which should be fine for consumers, assuming that all ResourceSlices in a pool are updated to match or deleted.
                
                Combined with ResourceSliceCount, this mechanism enables consumers to detect pools which are comprised of multiple ResourceSlices and are in an incomplete state.
-        :param _builtins.str name: Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+        :param _builtins.str name: Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
                
                It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
         :param _builtins.int resource_slice_count: ResourceSliceCount is the total number of ResourceSlices in the pool at this generation number. Must be greater than zero.
@@ -5848,7 +6399,7 @@ class ResourcePoolPatch(dict):
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
         """
-        Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required.
+        Name is used to identify the pool. For node-local devices, this is often the node name, but this is not required. A field selector can be used to list only ResourceSlice objects belonging to a certain pool.
 
         It must not be longer than 253 characters and must consist of one or more DNS sub-domains separated by slashes. This field is immutable.
         """
@@ -5979,10 +6530,14 @@ class ResourceSliceSpec(dict):
             suggest = "node_name"
         elif key == "nodeSelector":
             suggest = "node_selector"
+        elif key == "partitionTypeAttribute":
+            suggest = "partition_type_attribute"
         elif key == "perDeviceNodeSelection":
             suggest = "per_device_node_selection"
         elif key == "sharedCounters":
             suggest = "shared_counters"
+        elif key == "skipNodeOperations":
+            suggest = "skip_node_operations"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ResourceSliceSpec. Access the value via the '{suggest}' property getter instead.")
@@ -6002,8 +6557,10 @@ class ResourceSliceSpec(dict):
                  devices: Optional[Sequence['outputs.Device']] = None,
                  node_name: Optional[_builtins.str] = None,
                  node_selector: Optional['_core.v1.outputs.NodeSelector'] = None,
+                 partition_type_attribute: Optional[_builtins.str] = None,
                  per_device_node_selection: Optional[_builtins.bool] = None,
-                 shared_counters: Optional[Sequence['outputs.CounterSet']] = None):
+                 shared_counters: Optional[Sequence['outputs.CounterSet']] = None,
+                 skip_node_operations: Optional[Sequence[_builtins.str]] = None):
         """
         ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
 
@@ -6029,6 +6586,9 @@ class ResourceSliceSpec(dict):
                Must use exactly one term.
                
                Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        :param _builtins.str partition_type_attribute: PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+               
+               When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
         :param _builtins.bool per_device_node_selection: PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
                
                Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -6039,6 +6599,14 @@ class ResourceSliceSpec(dict):
                Only one of Devices and SharedCounters can be set in a ResourceSlice.
                
                The maximum number of counter sets is 8.
+        :param Sequence[_builtins.str] skip_node_operations: SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+               
+               - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+                 value cannot be specified unless "NodeUnprepareResources" is also listed
+                 (or "*" is specified).
+               - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+               
+               Other values may be added in the future. The kubelet must ignore unknown values.
         """
         pulumi.set(__self__, "driver", driver)
         pulumi.set(__self__, "pool", pool)
@@ -6050,10 +6618,14 @@ class ResourceSliceSpec(dict):
             pulumi.set(__self__, "node_name", node_name)
         if node_selector is not None:
             pulumi.set(__self__, "node_selector", node_selector)
+        if partition_type_attribute is not None:
+            pulumi.set(__self__, "partition_type_attribute", partition_type_attribute)
         if per_device_node_selection is not None:
             pulumi.set(__self__, "per_device_node_selection", per_device_node_selection)
         if shared_counters is not None:
             pulumi.set(__self__, "shared_counters", shared_counters)
+        if skip_node_operations is not None:
+            pulumi.set(__self__, "skip_node_operations", skip_node_operations)
 
     @_builtins.property
     @pulumi.getter
@@ -6120,6 +6692,16 @@ class ResourceSliceSpec(dict):
         return pulumi.get(self, "node_selector")
 
     @_builtins.property
+    @pulumi.getter(name="partitionTypeAttribute")
+    def partition_type_attribute(self) -> Optional[_builtins.str]:
+        """
+        PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+
+        When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+        """
+        return pulumi.get(self, "partition_type_attribute")
+
+    @_builtins.property
     @pulumi.getter(name="perDeviceNodeSelection")
     def per_device_node_selection(self) -> Optional[_builtins.bool]:
         """
@@ -6143,6 +6725,21 @@ class ResourceSliceSpec(dict):
         """
         return pulumi.get(self, "shared_counters")
 
+    @_builtins.property
+    @pulumi.getter(name="skipNodeOperations")
+    def skip_node_operations(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+
+        - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+          value cannot be specified unless "NodeUnprepareResources" is also listed
+          (or "*" is specified).
+        - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+
+        Other values may be added in the future. The kubelet must ignore unknown values.
+        """
+        return pulumi.get(self, "skip_node_operations")
+
 
 @pulumi.output_type
 class ResourceSliceSpecPatch(dict):
@@ -6158,10 +6755,14 @@ class ResourceSliceSpecPatch(dict):
             suggest = "node_name"
         elif key == "nodeSelector":
             suggest = "node_selector"
+        elif key == "partitionTypeAttribute":
+            suggest = "partition_type_attribute"
         elif key == "perDeviceNodeSelection":
             suggest = "per_device_node_selection"
         elif key == "sharedCounters":
             suggest = "shared_counters"
+        elif key == "skipNodeOperations":
+            suggest = "skip_node_operations"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ResourceSliceSpecPatch. Access the value via the '{suggest}' property getter instead.")
@@ -6180,9 +6781,11 @@ class ResourceSliceSpecPatch(dict):
                  driver: Optional[_builtins.str] = None,
                  node_name: Optional[_builtins.str] = None,
                  node_selector: Optional['_core.v1.outputs.NodeSelectorPatch'] = None,
+                 partition_type_attribute: Optional[_builtins.str] = None,
                  per_device_node_selection: Optional[_builtins.bool] = None,
                  pool: Optional['outputs.ResourcePoolPatch'] = None,
-                 shared_counters: Optional[Sequence['outputs.CounterSetPatch']] = None):
+                 shared_counters: Optional[Sequence['outputs.CounterSetPatch']] = None,
+                 skip_node_operations: Optional[Sequence[_builtins.str]] = None):
         """
         ResourceSliceSpec contains the information published by the driver in one ResourceSlice.
 
@@ -6207,6 +6810,9 @@ class ResourceSliceSpecPatch(dict):
                Must use exactly one term.
                
                Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
+        :param _builtins.str partition_type_attribute: PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+               
+               When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
         :param _builtins.bool per_device_node_selection: PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
                
                Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -6218,6 +6824,14 @@ class ResourceSliceSpecPatch(dict):
                Only one of Devices and SharedCounters can be set in a ResourceSlice.
                
                The maximum number of counter sets is 8.
+        :param Sequence[_builtins.str] skip_node_operations: SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+               
+               - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+                 value cannot be specified unless "NodeUnprepareResources" is also listed
+                 (or "*" is specified).
+               - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+               
+               Other values may be added in the future. The kubelet must ignore unknown values.
         """
         if all_nodes is not None:
             pulumi.set(__self__, "all_nodes", all_nodes)
@@ -6229,12 +6843,16 @@ class ResourceSliceSpecPatch(dict):
             pulumi.set(__self__, "node_name", node_name)
         if node_selector is not None:
             pulumi.set(__self__, "node_selector", node_selector)
+        if partition_type_attribute is not None:
+            pulumi.set(__self__, "partition_type_attribute", partition_type_attribute)
         if per_device_node_selection is not None:
             pulumi.set(__self__, "per_device_node_selection", per_device_node_selection)
         if pool is not None:
             pulumi.set(__self__, "pool", pool)
         if shared_counters is not None:
             pulumi.set(__self__, "shared_counters", shared_counters)
+        if skip_node_operations is not None:
+            pulumi.set(__self__, "skip_node_operations", skip_node_operations)
 
     @_builtins.property
     @pulumi.getter(name="allNodes")
@@ -6293,6 +6911,16 @@ class ResourceSliceSpecPatch(dict):
         return pulumi.get(self, "node_selector")
 
     @_builtins.property
+    @pulumi.getter(name="partitionTypeAttribute")
+    def partition_type_attribute(self) -> Optional[_builtins.str]:
+        """
+        PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. "gpu.example.com/profile") whose value labels each device with its partition type, such as "Full" or "Half" for a MIG-style GPU.
+
+        When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+        """
+        return pulumi.get(self, "partition_type_attribute")
+
+    @_builtins.property
     @pulumi.getter(name="perDeviceNodeSelection")
     def per_device_node_selection(self) -> Optional[_builtins.bool]:
         """
@@ -6323,5 +6951,20 @@ class ResourceSliceSpecPatch(dict):
         The maximum number of counter sets is 8.
         """
         return pulumi.get(self, "shared_counters")
+
+    @_builtins.property
+    @pulumi.getter(name="skipNodeOperations")
+    def skip_node_operations(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+
+        - "NodePrepareResources": NodePrepareResources gRPC calls are skipped. This
+          value cannot be specified unless "NodeUnprepareResources" is also listed
+          (or "*" is specified).
+        - "NodeUnprepareResources": NodeUnprepareResources gRPC calls are skipped. - "*": All node-local resource operations are skipped.
+
+        Other values may be added in the future. The kubelet must ignore unknown values.
+        """
+        return pulumi.get(self, "skip_node_operations")
 
 

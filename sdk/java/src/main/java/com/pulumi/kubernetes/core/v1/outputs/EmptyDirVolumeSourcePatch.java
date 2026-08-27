@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -17,6 +18,11 @@ public final class EmptyDirVolumeSourcePatch {
      */
     private @Nullable String medium;
     /**
+     * @return mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+     * 
+     */
+    private @Nullable Integer mode;
+    /**
      * @return sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
      * 
      */
@@ -29,6 +35,13 @@ public final class EmptyDirVolumeSourcePatch {
      */
     public Optional<String> medium() {
         return Optional.ofNullable(this.medium);
+    }
+    /**
+     * @return mode specifies the permission bits for the emptyDir directory, in numeric notation (e.g., 0755, 01777). Must be a value between 0000 and 01777. If not specified, defaults to 0777. This might be in conflict with other options that affect the file mode, like fsGroup. If fsGroup is specified, the fsGroup permissions will override the mode specified here. This field has no effect on Windows. This field is alpha and requires EmptyDirVolumeMode featuregate to be enabled.
+     * 
+     */
+    public Optional<Integer> mode() {
+        return Optional.ofNullable(this.mode);
     }
     /**
      * @return sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
@@ -48,11 +61,13 @@ public final class EmptyDirVolumeSourcePatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable String medium;
+        private @Nullable Integer mode;
         private @Nullable String sizeLimit;
         public Builder() {}
         public Builder(EmptyDirVolumeSourcePatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.medium = defaults.medium;
+    	      this.mode = defaults.mode;
     	      this.sizeLimit = defaults.sizeLimit;
         }
 
@@ -60,6 +75,12 @@ public final class EmptyDirVolumeSourcePatch {
         public Builder medium(@Nullable String medium) {
 
             this.medium = medium;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder mode(@Nullable Integer mode) {
+
+            this.mode = mode;
             return this;
         }
         @CustomType.Setter
@@ -71,6 +92,7 @@ public final class EmptyDirVolumeSourcePatch {
         public EmptyDirVolumeSourcePatch build() {
             final var _resultValue = new EmptyDirVolumeSourcePatch();
             _resultValue.medium = medium;
+            _resultValue.mode = mode;
             _resultValue.sizeLimit = sizeLimit;
             return _resultValue;
         }

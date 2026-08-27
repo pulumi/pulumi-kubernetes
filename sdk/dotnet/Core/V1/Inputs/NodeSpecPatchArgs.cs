@@ -46,6 +46,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
+        /// PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+        /// </summary>
+        [Input("podPreemptionPolicy")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodePodPreemptionPolicyPatchArgs>? PodPreemptionPolicy { get; set; }
+
+        /// <summary>
         /// ID of the node assigned by the cloud provider in the format: &lt;ProviderName&gt;://&lt;ProviderSpecificNodeID&gt;
         /// </summary>
         [Input("providerID")]

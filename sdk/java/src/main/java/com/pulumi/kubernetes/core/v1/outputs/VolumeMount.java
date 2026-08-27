@@ -7,6 +7,7 @@ import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
 import java.lang.Boolean;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -14,7 +15,12 @@ import javax.annotation.Nullable;
 @CustomType
 public final class VolumeMount {
     /**
-     * @return Path within the container at which the volume should be mounted.  Must not contain &#39;:&#39;.
+     * @return bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+     * 
+     */
+    private @Nullable List<String> bindMountOptions;
+    /**
+     * @return Path within the container at which the volume should be mounted.
      * 
      */
     private String mountPath;
@@ -59,7 +65,14 @@ public final class VolumeMount {
 
     private VolumeMount() {}
     /**
-     * @return Path within the container at which the volume should be mounted.  Must not contain &#39;:&#39;.
+     * @return bindMountOptions is the list of additional bind mount options to apply when mounting this volume into the container. Allowed values are noexec, nodev, and nosuid. These are Linux mount options and have no effect on Windows nodes. This field is not supported with image volumes. This is an alpha field and requires enabling the VolumeBindMountOptions feature gate.
+     * 
+     */
+    public List<String> bindMountOptions() {
+        return this.bindMountOptions == null ? List.of() : this.bindMountOptions;
+    }
+    /**
+     * @return Path within the container at which the volume should be mounted.
      * 
      */
     public String mountPath() {
@@ -125,6 +138,7 @@ public final class VolumeMount {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable List<String> bindMountOptions;
         private String mountPath;
         private @Nullable String mountPropagation;
         private String name;
@@ -135,6 +149,7 @@ public final class VolumeMount {
         public Builder() {}
         public Builder(VolumeMount defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.bindMountOptions = defaults.bindMountOptions;
     	      this.mountPath = defaults.mountPath;
     	      this.mountPropagation = defaults.mountPropagation;
     	      this.name = defaults.name;
@@ -144,6 +159,15 @@ public final class VolumeMount {
     	      this.subPathExpr = defaults.subPathExpr;
         }
 
+        @CustomType.Setter
+        public Builder bindMountOptions(@Nullable List<String> bindMountOptions) {
+
+            this.bindMountOptions = bindMountOptions;
+            return this;
+        }
+        public Builder bindMountOptions(String... bindMountOptions) {
+            return bindMountOptions(List.of(bindMountOptions));
+        }
         @CustomType.Setter
         public Builder mountPath(String mountPath) {
             if (mountPath == null) {
@@ -192,6 +216,7 @@ public final class VolumeMount {
         }
         public VolumeMount build() {
             final var _resultValue = new VolumeMount();
+            _resultValue.bindMountOptions = bindMountOptions;
             _resultValue.mountPath = mountPath;
             _resultValue.mountPropagation = mountPropagation;
             _resultValue.name = name;

@@ -156,6 +156,8 @@ class PodGroup(pulumi.CustomResource):
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1alpha3:PodGroup"), pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1beta1:PodGroup")])
+        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(PodGroup, __self__).__init__(
             'kubernetes:scheduling.k8s.io/v1alpha2:PodGroup',
             resource_name,

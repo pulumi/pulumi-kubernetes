@@ -152,11 +152,15 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 	// Removed in v1.32:
 	// - coordination.k8s.io/v1alpha1
 	// - resource.k8s.io/v1alpha3
+	// Removed in v1.36:
+	// - scheduling.k8s.io/v1alpha1
+	// Removed in v1.37:
+	// - scheduling.k8s.io/v1alpha2
 	// Since these resources will continue to be important to users for the foreseeable future, we will merge in
 	// newer specs on top of this spec so that these resources continue to be available in our SDKs.
 	urlFmt := "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.%s.0/api/openapi-spec/swagger.json"
 	filenameFmt := "swagger-v1.%s.0.json"
-	for _, v := range []string{"17", "18", "19", "20", "26", "28", "30", "31"} {
+	for _, v := range []string{"17", "18", "19", "20", "26", "28", "30", "31", "35", "36"} {
 		legacySwaggerPath := filepath.Join(swaggerDir, fmt.Sprintf(filenameFmt, v))
 		err = DownloadFile(legacySwaggerPath, fmt.Sprintf(urlFmt, v))
 		if err != nil {

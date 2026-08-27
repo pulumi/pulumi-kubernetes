@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.apps.v1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.inputs.ReplicaSetSpecArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import java.lang.String;
@@ -67,15 +68,15 @@ public final class ReplicaSetArgs extends com.pulumi.resources.ResourceArgs {
      * Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    @Import(name="spec")
-    private @Nullable Output<ReplicaSetSpecArgs> spec;
+    @Import(name="spec", required=true)
+    private Output<ReplicaSetSpecArgs> spec;
 
     /**
      * @return Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<Output<ReplicaSetSpecArgs>> spec() {
-        return Optional.ofNullable(this.spec);
+    public Output<ReplicaSetSpecArgs> spec() {
+        return this.spec;
     }
 
     private ReplicaSetArgs() {}
@@ -174,7 +175,7 @@ public final class ReplicaSetArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder spec(@Nullable Output<ReplicaSetSpecArgs> spec) {
+        public Builder spec(Output<ReplicaSetSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
@@ -192,6 +193,9 @@ public final class ReplicaSetArgs extends com.pulumi.resources.ResourceArgs {
         public ReplicaSetArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            if ($.spec == null) {
+                throw new MissingRequiredPropertyException("ReplicaSetArgs", "spec");
+            }
             return $;
         }
     }

@@ -57,6 +57,7 @@ import (
 	flowcontrolv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1beta1"
 	flowcontrolv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1beta2"
 	flowcontrolv1beta3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/flowcontrol/v1beta3"
+	lifecyclev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/lifecycle/v1alpha1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/networking/v1"
 	networkingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/networking/v1alpha1"
@@ -78,11 +79,13 @@ import (
 	schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1"
 	schedulingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1alpha1"
 	schedulingv1alpha2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1alpha2"
+	schedulingv1alpha3 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1alpha3"
 	schedulingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/scheduling/v1beta1"
 	settingsv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/settings/v1alpha1"
 	storagev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storage/v1"
 	storagev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storage/v1alpha1"
 	storagev1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storage/v1beta1"
+	storagemigrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storagemigration/v1"
 	storagemigrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storagemigration/v1alpha1"
 	storagemigrationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/storagemigration/v1beta1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -135,6 +138,8 @@ func IsListKind(apiVersion, kind string) bool {
 		"batch/v1beta1/CronJobList",
 		"batch/v2alpha1/CronJobList",
 		"certificates.k8s.io/v1/CertificateSigningRequestList",
+		"certificates.k8s.io/v1/ClusterTrustBundleList",
+		"certificates.k8s.io/v1/PodCertificateRequestList",
 		"certificates.k8s.io/v1alpha1/ClusterTrustBundleList",
 		"certificates.k8s.io/v1beta1/CertificateSigningRequestList",
 		"certificates.k8s.io/v1beta1/ClusterTrustBundleList",
@@ -179,6 +184,8 @@ func IsListKind(apiVersion, kind string) bool {
 		"flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList",
 		"flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList",
 		"flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList",
+		"lifecycle.k8s.io/v1alpha1/EvictionList",
+		"lifecycle.k8s.io/v1alpha1/EvictionRequestList",
 		"networking.k8s.io/v1/IPAddressList",
 		"networking.k8s.io/v1/IngressClassList",
 		"networking.k8s.io/v1/IngressList",
@@ -210,6 +217,7 @@ func IsListKind(apiVersion, kind string) bool {
 		"rbac.authorization.k8s.io/v1beta1/RoleBindingList",
 		"rbac.authorization.k8s.io/v1beta1/RoleList",
 		"resource.k8s.io/v1/DeviceClassList",
+		"resource.k8s.io/v1/DeviceTaintRuleList",
 		"resource.k8s.io/v1/ResourceClaimList",
 		"resource.k8s.io/v1/ResourceClaimTemplateList",
 		"resource.k8s.io/v1/ResourceSliceList",
@@ -241,9 +249,15 @@ func IsListKind(apiVersion, kind string) bool {
 		"resource.k8s.io/v1beta2/ResourceSliceList",
 		"scheduling.k8s.io/v1/PriorityClassList",
 		"scheduling.k8s.io/v1alpha1/PriorityClassList",
+		"scheduling.k8s.io/v1alpha1/WorkloadList",
 		"scheduling.k8s.io/v1alpha2/PodGroupList",
 		"scheduling.k8s.io/v1alpha2/WorkloadList",
+		"scheduling.k8s.io/v1alpha3/CompositePodGroupList",
+		"scheduling.k8s.io/v1alpha3/PodGroupList",
+		"scheduling.k8s.io/v1alpha3/WorkloadList",
+		"scheduling.k8s.io/v1beta1/PodGroupList",
 		"scheduling.k8s.io/v1beta1/PriorityClassList",
+		"scheduling.k8s.io/v1beta1/WorkloadList",
 		"settings.k8s.io/v1alpha1/PodPresetList",
 		"storage.k8s.io/v1/CSIDriverList",
 		"storage.k8s.io/v1/CSINodeList",
@@ -259,6 +273,7 @@ func IsListKind(apiVersion, kind string) bool {
 		"storage.k8s.io/v1beta1/StorageClassList",
 		"storage.k8s.io/v1beta1/VolumeAttachmentList",
 		"storage.k8s.io/v1beta1/VolumeAttributesClassList",
+		"storagemigration.k8s.io/v1/StorageVersionMigrationList",
 		"storagemigration.k8s.io/v1alpha1/StorageVersionMigrationList",
 		"storagemigration.k8s.io/v1beta1/StorageVersionMigrationList":
 		return true
@@ -568,6 +583,20 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 	case "certificates.k8s.io/v1/CertificateSigningRequest":
 		var res certificatesv1.CertificateSigningRequest
 		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1:CertificateSigningRequest", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "certificates.k8s.io/v1/ClusterTrustBundle":
+		var res certificatesv1.ClusterTrustBundle
+		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1:ClusterTrustBundle", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "certificates.k8s.io/v1/PodCertificateRequest":
+		var res certificatesv1.PodCertificateRequest
+		err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1:PodCertificateRequest", name, props, &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -887,6 +916,20 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 			return nil, err
 		}
 		return &res, nil
+	case "lifecycle.k8s.io/v1alpha1/Eviction":
+		var res lifecyclev1alpha1.Eviction
+		err := ctx.RegisterResource("kubernetes:lifecycle.k8s.io/v1alpha1:Eviction", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "lifecycle.k8s.io/v1alpha1/EvictionRequest":
+		var res lifecyclev1alpha1.EvictionRequest
+		err := ctx.RegisterResource("kubernetes:lifecycle.k8s.io/v1alpha1:EvictionRequest", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
 	case "meta/v1/Status":
 		var res metav1.Status
 		err := ctx.RegisterResource("kubernetes:meta/v1:Status", name, props, &res, opts...)
@@ -1107,6 +1150,13 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 	case "resource.k8s.io/v1/DeviceClass":
 		var res resourcev1.DeviceClass
 		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1:DeviceClass", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "resource.k8s.io/v1/DeviceTaintRule":
+		var res resourcev1.DeviceTaintRule
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1:DeviceTaintRule", name, props, &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1335,6 +1385,13 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 			return nil, err
 		}
 		return &res, nil
+	case "scheduling.k8s.io/v1alpha1/Workload":
+		var res schedulingv1alpha1.Workload
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha1:Workload", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
 	case "scheduling.k8s.io/v1alpha2/PodGroup":
 		var res schedulingv1alpha2.PodGroup
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha2:PodGroup", name, props, &res, opts...)
@@ -1349,9 +1406,44 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 			return nil, err
 		}
 		return &res, nil
+	case "scheduling.k8s.io/v1alpha3/CompositePodGroup":
+		var res schedulingv1alpha3.CompositePodGroup
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha3:CompositePodGroup", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "scheduling.k8s.io/v1alpha3/PodGroup":
+		var res schedulingv1alpha3.PodGroup
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha3:PodGroup", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "scheduling.k8s.io/v1alpha3/Workload":
+		var res schedulingv1alpha3.Workload
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha3:Workload", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "scheduling.k8s.io/v1beta1/PodGroup":
+		var res schedulingv1beta1.PodGroup
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PodGroup", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
 	case "scheduling.k8s.io/v1beta1/PriorityClass":
 		var res schedulingv1beta1.PriorityClass
 		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "scheduling.k8s.io/v1beta1/Workload":
+		var res schedulingv1beta1.Workload
+		err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:Workload", name, props, &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -1457,6 +1549,13 @@ func RegisterResource(ctx *pulumi.Context, apiVersion, kind, name string, props 
 	case "storage.k8s.io/v1beta1/VolumeAttributesClass":
 		var res storagev1beta1.VolumeAttributesClass
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClass", name, props, &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return &res, nil
+	case "storagemigration.k8s.io/v1/StorageVersionMigration":
+		var res storagemigrationv1.StorageVersionMigration
+		err := ctx.RegisterResource("kubernetes:storagemigration.k8s.io/v1:StorageVersionMigration", name, props, &res, opts...)
 		if err != nil {
 			return nil, err
 		}

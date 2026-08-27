@@ -60,6 +60,13 @@ public final class ResourceSliceSpec {
      */
     private @Nullable NodeSelector nodeSelector;
     /**
+     * @return PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) whose value labels each device with its partition type, such as &#34;Full&#34; or &#34;Half&#34; for a MIG-style GPU.
+     * 
+     * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+     * 
+     */
+    private @Nullable String partitionTypeAttribute;
+    /**
      * @return PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
      * 
      * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -82,6 +89,18 @@ public final class ResourceSliceSpec {
      * 
      */
     private @Nullable List<CounterSet> sharedCounters;
+    /**
+     * @return SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+     * 
+     * - &#34;NodePrepareResources&#34;: NodePrepareResources gRPC calls are skipped. This
+     *   value cannot be specified unless &#34;NodeUnprepareResources&#34; is also listed
+     *   (or &#34;*&#34; is specified).
+     * - &#34;NodeUnprepareResources&#34;: NodeUnprepareResources gRPC calls are skipped. - &#34;*&#34;: All node-local resource operations are skipped.
+     * 
+     * Other values may be added in the future. The kubelet must ignore unknown values.
+     * 
+     */
+    private @Nullable List<String> skipNodeOperations;
 
     private ResourceSliceSpec() {}
     /**
@@ -136,6 +155,15 @@ public final class ResourceSliceSpec {
         return Optional.ofNullable(this.nodeSelector);
     }
     /**
+     * @return PartitionTypeAttribute names a string device attribute (by fully qualified name, e.g. &#34;gpu.example.com/profile&#34;) whose value labels each device with its partition type, such as &#34;Full&#34; or &#34;Half&#34; for a MIG-style GPU.
+     * 
+     * When set, every partitionable device in the slice must carry the attribute and devices sharing a value must share the same ConsumesCounters cost.
+     * 
+     */
+    public Optional<String> partitionTypeAttribute() {
+        return Optional.ofNullable(this.partitionTypeAttribute);
+    }
+    /**
      * @return PerDeviceNodeSelection defines whether the access from nodes to resources in the pool is set on the ResourceSlice level or on each device. If it is set to true, every device defined the ResourceSlice must specify this individually.
      * 
      * Exactly one of NodeName, NodeSelector, AllNodes, and PerDeviceNodeSelection must be set.
@@ -164,6 +192,20 @@ public final class ResourceSliceSpec {
     public List<CounterSet> sharedCounters() {
         return this.sharedCounters == null ? List.of() : this.sharedCounters;
     }
+    /**
+     * @return SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for the devices in this slice when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. Valid values are:
+     * 
+     * - &#34;NodePrepareResources&#34;: NodePrepareResources gRPC calls are skipped. This
+     *   value cannot be specified unless &#34;NodeUnprepareResources&#34; is also listed
+     *   (or &#34;*&#34; is specified).
+     * - &#34;NodeUnprepareResources&#34;: NodeUnprepareResources gRPC calls are skipped. - &#34;*&#34;: All node-local resource operations are skipped.
+     * 
+     * Other values may be added in the future. The kubelet must ignore unknown values.
+     * 
+     */
+    public List<String> skipNodeOperations() {
+        return this.skipNodeOperations == null ? List.of() : this.skipNodeOperations;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -179,9 +221,11 @@ public final class ResourceSliceSpec {
         private String driver;
         private @Nullable String nodeName;
         private @Nullable NodeSelector nodeSelector;
+        private @Nullable String partitionTypeAttribute;
         private @Nullable Boolean perDeviceNodeSelection;
         private ResourcePool pool;
         private @Nullable List<CounterSet> sharedCounters;
+        private @Nullable List<String> skipNodeOperations;
         public Builder() {}
         public Builder(ResourceSliceSpec defaults) {
     	      Objects.requireNonNull(defaults);
@@ -190,9 +234,11 @@ public final class ResourceSliceSpec {
     	      this.driver = defaults.driver;
     	      this.nodeName = defaults.nodeName;
     	      this.nodeSelector = defaults.nodeSelector;
+    	      this.partitionTypeAttribute = defaults.partitionTypeAttribute;
     	      this.perDeviceNodeSelection = defaults.perDeviceNodeSelection;
     	      this.pool = defaults.pool;
     	      this.sharedCounters = defaults.sharedCounters;
+    	      this.skipNodeOperations = defaults.skipNodeOperations;
         }
 
         @CustomType.Setter
@@ -231,6 +277,12 @@ public final class ResourceSliceSpec {
             return this;
         }
         @CustomType.Setter
+        public Builder partitionTypeAttribute(@Nullable String partitionTypeAttribute) {
+
+            this.partitionTypeAttribute = partitionTypeAttribute;
+            return this;
+        }
+        @CustomType.Setter
         public Builder perDeviceNodeSelection(@Nullable Boolean perDeviceNodeSelection) {
 
             this.perDeviceNodeSelection = perDeviceNodeSelection;
@@ -253,6 +305,15 @@ public final class ResourceSliceSpec {
         public Builder sharedCounters(CounterSet... sharedCounters) {
             return sharedCounters(List.of(sharedCounters));
         }
+        @CustomType.Setter
+        public Builder skipNodeOperations(@Nullable List<String> skipNodeOperations) {
+
+            this.skipNodeOperations = skipNodeOperations;
+            return this;
+        }
+        public Builder skipNodeOperations(String... skipNodeOperations) {
+            return skipNodeOperations(List.of(skipNodeOperations));
+        }
         public ResourceSliceSpec build() {
             final var _resultValue = new ResourceSliceSpec();
             _resultValue.allNodes = allNodes;
@@ -260,9 +321,11 @@ public final class ResourceSliceSpec {
             _resultValue.driver = driver;
             _resultValue.nodeName = nodeName;
             _resultValue.nodeSelector = nodeSelector;
+            _resultValue.partitionTypeAttribute = partitionTypeAttribute;
             _resultValue.perDeviceNodeSelection = perDeviceNodeSelection;
             _resultValue.pool = pool;
             _resultValue.sharedCounters = sharedCounters;
+            _resultValue.skipNodeOperations = skipNodeOperations;
             return _resultValue;
         }
     }

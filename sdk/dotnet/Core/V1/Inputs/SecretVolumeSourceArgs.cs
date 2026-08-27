@@ -23,6 +23,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("defaultMode")]
         public Input<int>? DefaultMode { get; set; }
 
+        /// <summary>
+        /// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        [Input("defaultUser")]
+        public Input<int>? DefaultUser { get; set; }
+
         [Input("items")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.KeyToPathArgs>? _items;
 

@@ -230,6 +230,9 @@ export class StatefulSet extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if (args?.spec === undefined && !opts.urn) {
+                throw new Error("Missing required property 'spec'");
+            }
             resourceInputs["apiVersion"] = "apps/v1";
             resourceInputs["kind"] = "StatefulSet";
             resourceInputs["metadata"] = args?.metadata;
@@ -268,5 +271,5 @@ export interface StatefulSetArgs {
     /**
      * Spec defines the desired identities of pods in this set.
      */
-    spec?: pulumi.Input<inputs.apps.v1.StatefulSetSpec | undefined>;
+    spec: pulumi.Input<inputs.apps.v1.StatefulSetSpec>;
 }

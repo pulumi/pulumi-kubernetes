@@ -25,15 +25,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// metadata is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Specification of the desired behavior of the PodDisruptionBudget.
+        /// spec is the specification of the desired behavior of the PodDisruptionBudget.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Policy.V1.PodDisruptionBudgetSpec Spec;
         /// <summary>
-        /// Most recently observed status of the PodDisruptionBudget.
+        /// status is the most recently observed status of the PodDisruptionBudget.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Policy.V1.PodDisruptionBudgetStatus Status;
 

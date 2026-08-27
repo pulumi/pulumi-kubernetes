@@ -21,14 +21,14 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
     public static final SubjectArgs Empty = new SubjectArgs();
 
     /**
-     * APIGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
+     * apiGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
      * 
      */
     @Import(name="apiGroup")
     private @Nullable Output<String> apiGroup;
 
     /**
-     * @return APIGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
+     * @return apiGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
      * 
      */
     public Optional<Output<String>> apiGroup() {
@@ -36,14 +36,14 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+     * kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
      * 
      */
     @Import(name="kind", required=true)
     private Output<String> kind;
 
     /**
-     * @return Kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+     * @return kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
      * 
      */
     public Output<String> kind() {
@@ -51,14 +51,14 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Name of the object being referenced.
+     * name of the object being referenced.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name of the object being referenced.
+     * @return name of the object being referenced.
      * 
      */
     public Output<String> name() {
@@ -66,14 +66,14 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
+     * namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
      * 
      */
     @Import(name="namespace")
     private @Nullable Output<String> namespace;
 
     /**
-     * @return Namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
+     * @return namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
      * 
      */
     public Optional<Output<String>> namespace() {
@@ -108,7 +108,7 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiGroup APIGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
+         * @param apiGroup apiGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
          * 
          * @return builder
          * 
@@ -119,7 +119,7 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiGroup APIGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
+         * @param apiGroup apiGroup holds the API group of the referenced subject. Defaults to &#34;&#34; for ServiceAccount subjects. Defaults to &#34;rbac.authorization.k8s.io&#34; for User and Group subjects.
          * 
          * @return builder
          * 
@@ -129,7 +129,7 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param kind Kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+         * @param kind kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
          * 
          * @return builder
          * 
@@ -140,7 +140,7 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param kind Kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+         * @param kind kind of object being referenced. Values defined by this API group are &#34;User&#34;, &#34;Group&#34;, and &#34;ServiceAccount&#34;. If the Authorizer does not recognized the kind value, the Authorizer should report an error.
          * 
          * @return builder
          * 
@@ -150,7 +150,7 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name of the object being referenced.
+         * @param name name of the object being referenced.
          * 
          * @return builder
          * 
@@ -161,7 +161,7 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name of the object being referenced.
+         * @param name name of the object being referenced.
          * 
          * @return builder
          * 
@@ -171,7 +171,7 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param namespace Namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
+         * @param namespace namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
          * 
          * @return builder
          * 
@@ -182,7 +182,7 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param namespace Namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
+         * @param namespace namespace of the referenced object.  If the object kind is non-namespace, such as &#34;User&#34; or &#34;Group&#34;, and this value is not empty the Authorizer should report an error.
          * 
          * @return builder
          * 

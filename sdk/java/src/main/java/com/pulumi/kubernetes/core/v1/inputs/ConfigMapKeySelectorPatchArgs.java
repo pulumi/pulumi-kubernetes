@@ -21,14 +21,14 @@ public final class ConfigMapKeySelectorPatchArgs extends com.pulumi.resources.Re
     public static final ConfigMapKeySelectorPatchArgs Empty = new ConfigMapKeySelectorPatchArgs();
 
     /**
-     * The key to select.
+     * The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
      * 
      */
     @Import(name="key")
     private @Nullable Output<String> key;
 
     /**
-     * @return The key to select.
+     * @return The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
      * 
      */
     public Optional<Output<String>> key() {
@@ -92,7 +92,7 @@ public final class ConfigMapKeySelectorPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param key The key to select.
+         * @param key The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
          * 
          * @return builder
          * 
@@ -103,7 +103,7 @@ public final class ConfigMapKeySelectorPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param key The key to select.
+         * @param key The key to select from the ConfigMap&#39;s Data field. Keys in the BinaryData field are not currently propagated to container env vars.
          * 
          * @return builder
          * 

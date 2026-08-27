@@ -19,7 +19,7 @@ public final class ObjectMetricStatusPatch {
      */
     private @Nullable MetricValueStatusPatch current;
     /**
-     * @return DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+     * @return describedObject specifies the descriptions of a object,such as kind,name apiVersion
      * 
      */
     private @Nullable CrossVersionObjectReferencePatch describedObject;
@@ -38,7 +38,7 @@ public final class ObjectMetricStatusPatch {
         return Optional.ofNullable(this.current);
     }
     /**
-     * @return DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+     * @return describedObject specifies the descriptions of a object,such as kind,name apiVersion
      * 
      */
     public Optional<CrossVersionObjectReferencePatch> describedObject() {

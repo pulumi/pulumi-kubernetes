@@ -78,6 +78,11 @@ public final class DeviceRequestAllocationResult {
      */
     private @Nullable String shareID;
     /**
+     * @return SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+     * 
+     */
+    private @Nullable List<String> skipNodeOperations;
+    /**
      * @return A copy of all tolerations specified in the request at the time when the device got allocated.
      * 
      * The maximum number of tolerations is 16.
@@ -168,6 +173,13 @@ public final class DeviceRequestAllocationResult {
         return Optional.ofNullable(this.shareID);
     }
     /**
+     * @return SkipNodeOperations lists node-local resource operations (gRPC calls) that will be skipped for this allocated device when determining whether operations are necessary on the node. If all allocated devices for a driver in a claim skip an operation, that gRPC call will be skipped. It is a copy of the ResourceSlice.spec.skipNodeOperations value at the time when the device was allocated.
+     * 
+     */
+    public List<String> skipNodeOperations() {
+        return this.skipNodeOperations == null ? List.of() : this.skipNodeOperations;
+    }
+    /**
      * @return A copy of all tolerations specified in the request at the time when the device got allocated.
      * 
      * The maximum number of tolerations is 16.
@@ -197,6 +209,7 @@ public final class DeviceRequestAllocationResult {
         private String pool;
         private String request;
         private @Nullable String shareID;
+        private @Nullable List<String> skipNodeOperations;
         private @Nullable List<DeviceToleration> tolerations;
         public Builder() {}
         public Builder(DeviceRequestAllocationResult defaults) {
@@ -210,6 +223,7 @@ public final class DeviceRequestAllocationResult {
     	      this.pool = defaults.pool;
     	      this.request = defaults.request;
     	      this.shareID = defaults.shareID;
+    	      this.skipNodeOperations = defaults.skipNodeOperations;
     	      this.tolerations = defaults.tolerations;
         }
 
@@ -282,6 +296,15 @@ public final class DeviceRequestAllocationResult {
             return this;
         }
         @CustomType.Setter
+        public Builder skipNodeOperations(@Nullable List<String> skipNodeOperations) {
+
+            this.skipNodeOperations = skipNodeOperations;
+            return this;
+        }
+        public Builder skipNodeOperations(String... skipNodeOperations) {
+            return skipNodeOperations(List.of(skipNodeOperations));
+        }
+        @CustomType.Setter
         public Builder tolerations(@Nullable List<DeviceToleration> tolerations) {
 
             this.tolerations = tolerations;
@@ -301,6 +324,7 @@ public final class DeviceRequestAllocationResult {
             _resultValue.pool = pool;
             _resultValue.request = request;
             _resultValue.shareID = shareID;
+            _resultValue.skipNodeOperations = skipNodeOperations;
             _resultValue.tolerations = tolerations;
             return _resultValue;
         }

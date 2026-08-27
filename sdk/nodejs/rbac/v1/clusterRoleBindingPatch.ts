@@ -52,15 +52,15 @@ export class ClusterRoleBindingPatch extends pulumi.CustomResource {
      */
     declare public readonly kind: pulumi.Output<"ClusterRoleBinding">;
     /**
-     * Standard object's metadata.
+     * metadata is the standard object's metadata.
      */
     declare public readonly metadata: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      */
     declare public readonly roleRef: pulumi.Output<outputs.rbac.v1.RoleRefPatch>;
     /**
-     * Subjects holds references to the objects the role applies to.
+     * subjects holds references to the objects the role applies to.
      */
     declare public readonly subjects: pulumi.Output<outputs.rbac.v1.SubjectPatch[]>;
 
@@ -107,15 +107,15 @@ export interface ClusterRoleBindingPatchArgs {
      */
     kind?: pulumi.Input<"ClusterRoleBinding" | undefined>;
     /**
-     * Standard object's metadata.
+     * metadata is the standard object's metadata.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch | undefined>;
     /**
-     * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      */
     roleRef?: pulumi.Input<inputs.rbac.v1.RoleRefPatch | undefined>;
     /**
-     * Subjects holds references to the objects the role applies to.
+     * subjects holds references to the objects the role applies to.
      */
     subjects?: pulumi.Input<pulumi.Input<inputs.rbac.v1.SubjectPatch>[] | undefined>;
 }

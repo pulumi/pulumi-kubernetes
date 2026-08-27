@@ -281,8 +281,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         /// <summary>
         /// Specification of the desired behavior of the Deployment.
         /// </summary>
-        [Input("spec")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs>? Spec { get; set; }
+        [Input("spec", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs> Spec { get; set; } = null!;
 
         public DeploymentArgs()
         {

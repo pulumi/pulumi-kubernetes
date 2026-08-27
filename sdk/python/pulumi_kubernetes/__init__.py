@@ -43,6 +43,8 @@ if typing.TYPE_CHECKING:
     helm = __helm
     import pulumi_kubernetes.kustomize as __kustomize
     kustomize = __kustomize
+    import pulumi_kubernetes.lifecycle as __lifecycle
+    lifecycle = __lifecycle
     import pulumi_kubernetes.meta as __meta
     meta = __meta
     import pulumi_kubernetes.networking as __networking
@@ -82,6 +84,7 @@ else:
     flowcontrol = _utilities.lazy_import('pulumi_kubernetes.flowcontrol')
     helm = _utilities.lazy_import('pulumi_kubernetes.helm')
     kustomize = _utilities.lazy_import('pulumi_kubernetes.kustomize')
+    lifecycle = _utilities.lazy_import('pulumi_kubernetes.lifecycle')
     meta = _utilities.lazy_import('pulumi_kubernetes.meta')
     networking = _utilities.lazy_import('pulumi_kubernetes.networking')
     node = _utilities.lazy_import('pulumi_kubernetes.node')
@@ -356,7 +359,13 @@ _utilities.register(
   "classes": {
    "kubernetes:certificates.k8s.io/v1:CertificateSigningRequest": "CertificateSigningRequest",
    "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList": "CertificateSigningRequestList",
-   "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch": "CertificateSigningRequestPatch"
+   "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch": "CertificateSigningRequestPatch",
+   "kubernetes:certificates.k8s.io/v1:ClusterTrustBundle": "ClusterTrustBundle",
+   "kubernetes:certificates.k8s.io/v1:ClusterTrustBundleList": "ClusterTrustBundleList",
+   "kubernetes:certificates.k8s.io/v1:ClusterTrustBundlePatch": "ClusterTrustBundlePatch",
+   "kubernetes:certificates.k8s.io/v1:PodCertificateRequest": "PodCertificateRequest",
+   "kubernetes:certificates.k8s.io/v1:PodCertificateRequestList": "PodCertificateRequestList",
+   "kubernetes:certificates.k8s.io/v1:PodCertificateRequestPatch": "PodCertificateRequestPatch"
   }
  },
  {
@@ -638,6 +647,19 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "lifecycle.k8s.io/v1alpha1",
+  "fqn": "pulumi_kubernetes.lifecycle.v1alpha1",
+  "classes": {
+   "kubernetes:lifecycle.k8s.io/v1alpha1:Eviction": "Eviction",
+   "kubernetes:lifecycle.k8s.io/v1alpha1:EvictionList": "EvictionList",
+   "kubernetes:lifecycle.k8s.io/v1alpha1:EvictionPatch": "EvictionPatch",
+   "kubernetes:lifecycle.k8s.io/v1alpha1:EvictionRequest": "EvictionRequest",
+   "kubernetes:lifecycle.k8s.io/v1alpha1:EvictionRequestList": "EvictionRequestList",
+   "kubernetes:lifecycle.k8s.io/v1alpha1:EvictionRequestPatch": "EvictionRequestPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "meta/v1",
   "fqn": "pulumi_kubernetes.meta.v1",
   "classes": {
@@ -820,6 +842,9 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1:DeviceClass": "DeviceClass",
    "kubernetes:resource.k8s.io/v1:DeviceClassList": "DeviceClassList",
    "kubernetes:resource.k8s.io/v1:DeviceClassPatch": "DeviceClassPatch",
+   "kubernetes:resource.k8s.io/v1:DeviceTaintRule": "DeviceTaintRule",
+   "kubernetes:resource.k8s.io/v1:DeviceTaintRuleList": "DeviceTaintRuleList",
+   "kubernetes:resource.k8s.io/v1:DeviceTaintRulePatch": "DeviceTaintRulePatch",
    "kubernetes:resource.k8s.io/v1:ResourceClaim": "ResourceClaim",
    "kubernetes:resource.k8s.io/v1:ResourceClaimList": "ResourceClaimList",
    "kubernetes:resource.k8s.io/v1:ResourceClaimPatch": "ResourceClaimPatch",
@@ -963,7 +988,10 @@ _utilities.register(
   "classes": {
    "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass": "PriorityClass",
    "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassList": "PriorityClassList",
-   "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch": "PriorityClassPatch"
+   "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch": "PriorityClassPatch",
+   "kubernetes:scheduling.k8s.io/v1alpha1:Workload": "Workload",
+   "kubernetes:scheduling.k8s.io/v1alpha1:WorkloadList": "WorkloadList",
+   "kubernetes:scheduling.k8s.io/v1alpha1:WorkloadPatch": "WorkloadPatch"
   }
  },
  {
@@ -981,12 +1009,34 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "scheduling.k8s.io/v1alpha3",
+  "fqn": "pulumi_kubernetes.scheduling.v1alpha3",
+  "classes": {
+   "kubernetes:scheduling.k8s.io/v1alpha3:CompositePodGroup": "CompositePodGroup",
+   "kubernetes:scheduling.k8s.io/v1alpha3:CompositePodGroupList": "CompositePodGroupList",
+   "kubernetes:scheduling.k8s.io/v1alpha3:CompositePodGroupPatch": "CompositePodGroupPatch",
+   "kubernetes:scheduling.k8s.io/v1alpha3:PodGroup": "PodGroup",
+   "kubernetes:scheduling.k8s.io/v1alpha3:PodGroupList": "PodGroupList",
+   "kubernetes:scheduling.k8s.io/v1alpha3:PodGroupPatch": "PodGroupPatch",
+   "kubernetes:scheduling.k8s.io/v1alpha3:Workload": "Workload",
+   "kubernetes:scheduling.k8s.io/v1alpha3:WorkloadList": "WorkloadList",
+   "kubernetes:scheduling.k8s.io/v1alpha3:WorkloadPatch": "WorkloadPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "scheduling.k8s.io/v1beta1",
   "fqn": "pulumi_kubernetes.scheduling.v1beta1",
   "classes": {
+   "kubernetes:scheduling.k8s.io/v1beta1:PodGroup": "PodGroup",
+   "kubernetes:scheduling.k8s.io/v1beta1:PodGroupList": "PodGroupList",
+   "kubernetes:scheduling.k8s.io/v1beta1:PodGroupPatch": "PodGroupPatch",
    "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass": "PriorityClass",
    "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList": "PriorityClassList",
-   "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassPatch": "PriorityClassPatch"
+   "kubernetes:scheduling.k8s.io/v1beta1:PriorityClassPatch": "PriorityClassPatch",
+   "kubernetes:scheduling.k8s.io/v1beta1:Workload": "Workload",
+   "kubernetes:scheduling.k8s.io/v1beta1:WorkloadList": "WorkloadList",
+   "kubernetes:scheduling.k8s.io/v1beta1:WorkloadPatch": "WorkloadPatch"
   }
  },
  {
@@ -1060,6 +1110,16 @@ _utilities.register(
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClass": "VolumeAttributesClass",
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassList": "VolumeAttributesClassList",
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClassPatch": "VolumeAttributesClassPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "storagemigration.k8s.io/v1",
+  "fqn": "pulumi_kubernetes.storagemigration.v1",
+  "classes": {
+   "kubernetes:storagemigration.k8s.io/v1:StorageVersionMigration": "StorageVersionMigration",
+   "kubernetes:storagemigration.k8s.io/v1:StorageVersionMigrationList": "StorageVersionMigrationList",
+   "kubernetes:storagemigration.k8s.io/v1:StorageVersionMigrationPatch": "StorageVersionMigrationPatch"
   }
  },
  {

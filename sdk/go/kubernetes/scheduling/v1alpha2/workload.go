@@ -39,6 +39,18 @@ func NewWorkload(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("scheduling.k8s.io/v1alpha2")
 	args.Kind = pulumi.StringPtr("Workload")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:scheduling.k8s.io/v1alpha1:Workload"),
+		},
+		{
+			Type: pulumi.String("kubernetes:scheduling.k8s.io/v1alpha3:Workload"),
+		},
+		{
+			Type: pulumi.String("kubernetes:scheduling.k8s.io/v1beta1:Workload"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource Workload
 	err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1alpha2:Workload", name, args, &resource, opts...)

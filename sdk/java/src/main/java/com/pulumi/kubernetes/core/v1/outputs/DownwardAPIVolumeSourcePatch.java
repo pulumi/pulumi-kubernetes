@@ -19,6 +19,11 @@ public final class DownwardAPIVolumeSourcePatch {
      */
     private @Nullable Integer defaultMode;
     /**
+     * @return defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer defaultUser;
+    /**
      * @return Items is a list of downward API volume file
      * 
      */
@@ -31,6 +36,13 @@ public final class DownwardAPIVolumeSourcePatch {
      */
     public Optional<Integer> defaultMode() {
         return Optional.ofNullable(this.defaultMode);
+    }
+    /**
+     * @return defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> defaultUser() {
+        return Optional.ofNullable(this.defaultUser);
     }
     /**
      * @return Items is a list of downward API volume file
@@ -50,11 +62,13 @@ public final class DownwardAPIVolumeSourcePatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Integer defaultMode;
+        private @Nullable Integer defaultUser;
         private @Nullable List<DownwardAPIVolumeFilePatch> items;
         public Builder() {}
         public Builder(DownwardAPIVolumeSourcePatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.defaultMode = defaults.defaultMode;
+    	      this.defaultUser = defaults.defaultUser;
     	      this.items = defaults.items;
         }
 
@@ -62,6 +76,12 @@ public final class DownwardAPIVolumeSourcePatch {
         public Builder defaultMode(@Nullable Integer defaultMode) {
 
             this.defaultMode = defaultMode;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder defaultUser(@Nullable Integer defaultUser) {
+
+            this.defaultUser = defaultUser;
             return this;
         }
         @CustomType.Setter
@@ -76,6 +96,7 @@ public final class DownwardAPIVolumeSourcePatch {
         public DownwardAPIVolumeSourcePatch build() {
             final var _resultValue = new DownwardAPIVolumeSourcePatch();
             _resultValue.defaultMode = defaultMode;
+            _resultValue.defaultUser = defaultUser;
             _resultValue.items = items;
             return _resultValue;
         }

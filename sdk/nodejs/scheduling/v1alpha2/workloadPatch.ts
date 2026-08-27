@@ -82,6 +82,8 @@ export class WorkloadPatch extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:scheduling.k8s.io/v1alpha1:WorkloadPatch" }, { type: "kubernetes:scheduling.k8s.io/v1alpha3:WorkloadPatch" }, { type: "kubernetes:scheduling.k8s.io/v1beta1:WorkloadPatch" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(WorkloadPatch.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1
         /// </summary>
         public readonly string Reason;
         /// <summary>
-        /// `status` is the status of the condition. Can be True, False, Unknown. Required.
+        /// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         /// </summary>
         public readonly string Status;
         /// <summary>

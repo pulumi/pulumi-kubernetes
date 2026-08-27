@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
     public partial class ClusterRolePatch : KubernetesResource
     {
         /// <summary>
-        /// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        /// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         /// </summary>
         [Output("aggregationRule")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Rbac.V1.AggregationRulePatch> AggregationRule { get; private set; } = null!;
@@ -40,13 +40,13 @@ namespace Pulumi.Kubernetes.Rbac.V1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// Standard object's metadata.
+        /// metadata is the standard object's metadata.
         /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Rules holds all the PolicyRules for this ClusterRole
+        /// rules holds all the PolicyRules for this ClusterRole
         /// </summary>
         [Output("rules")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Rbac.V1.PolicyRulePatch>> Rules { get; private set; } = null!;
@@ -117,7 +117,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
     public class ClusterRolePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        /// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         /// </summary>
         [Input("aggregationRule")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Rbac.V1.AggregationRulePatchArgs>? AggregationRule { get; set; }
@@ -135,7 +135,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Standard object's metadata.
+        /// metadata is the standard object's metadata.
         /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
@@ -144,7 +144,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Rbac.V1.PolicyRulePatchArgs>? _rules;
 
         /// <summary>
-        /// Rules holds all the PolicyRules for this ClusterRole
+        /// rules holds all the PolicyRules for this ClusterRole
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Rbac.V1.PolicyRulePatchArgs> Rules
         {

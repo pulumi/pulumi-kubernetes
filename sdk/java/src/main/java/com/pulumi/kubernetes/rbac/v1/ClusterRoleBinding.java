@@ -52,42 +52,42 @@ public class ClusterRoleBinding extends com.pulumi.resources.CustomResource {
         return this.kind;
     }
     /**
-     * Standard object&#39;s metadata.
+     * metadata is the standard object&#39;s metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output<ObjectMeta> metadata;
 
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Output<ObjectMeta> metadata() {
         return this.metadata;
     }
     /**
-     * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     @Export(name="roleRef", refs={RoleRef.class}, tree="[0]")
     private Output<RoleRef> roleRef;
 
     /**
-     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
+     * @return roleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     public Output<RoleRef> roleRef() {
         return this.roleRef;
     }
     /**
-     * Subjects holds references to the objects the role applies to.
+     * subjects holds references to the objects the role applies to.
      * 
      */
     @Export(name="subjects", refs={List.class,Subject.class}, tree="[0,1]")
     private Output<List<Subject>> subjects;
 
     /**
-     * @return Subjects holds references to the objects the role applies to.
+     * @return subjects holds references to the objects the role applies to.
      * 
      */
     public Output<List<Subject>> subjects() {

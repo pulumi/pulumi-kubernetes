@@ -50,14 +50,14 @@ public final class RoleArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Standard object&#39;s metadata.
+     * metadata is the standard object&#39;s metadata.
      * 
      */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Optional<Output<ObjectMetaArgs>> metadata() {
@@ -65,14 +65,14 @@ public final class RoleArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Rules holds all the PolicyRules for this Role
+     * rules holds all the PolicyRules for this Role
      * 
      */
     @Import(name="rules")
     private @Nullable Output<List<PolicyRuleArgs>> rules;
 
     /**
-     * @return Rules holds all the PolicyRules for this Role
+     * @return rules holds all the PolicyRules for this Role
      * 
      */
     public Optional<Output<List<PolicyRuleArgs>>> rules() {
@@ -149,7 +149,7 @@ public final class RoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata.
+         * @param metadata metadata is the standard object&#39;s metadata.
          * 
          * @return builder
          * 
@@ -160,7 +160,7 @@ public final class RoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param metadata Standard object&#39;s metadata.
+         * @param metadata metadata is the standard object&#39;s metadata.
          * 
          * @return builder
          * 
@@ -170,7 +170,7 @@ public final class RoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rules Rules holds all the PolicyRules for this Role
+         * @param rules rules holds all the PolicyRules for this Role
          * 
          * @return builder
          * 
@@ -181,7 +181,7 @@ public final class RoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rules Rules holds all the PolicyRules for this Role
+         * @param rules rules holds all the PolicyRules for this Role
          * 
          * @return builder
          * 
@@ -191,7 +191,7 @@ public final class RoleArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param rules Rules holds all the PolicyRules for this Role
+         * @param rules rules holds all the PolicyRules for this Role
          * 
          * @return builder
          * 

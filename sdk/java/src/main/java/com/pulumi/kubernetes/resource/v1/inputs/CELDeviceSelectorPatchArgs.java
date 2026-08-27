@@ -26,7 +26,7 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
      *  - driver (string): the name of the driver which defines this device.
      *  - attributes (map[string]object): the device&#39;s attributes, grouped by prefix
      *    (e.g. device.attributes[&#34;dra.example.com&#34;] evaluates to an object with all
-     *    of the attributes which were prefixed by &#34;dra.example.com&#34;.
+     *    of the attributes which were prefixed by &#34;dra.example.com&#34;).
      *  - capacity (map[string]object): the device&#39;s capacities, grouped by prefix.
      *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
      *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -45,6 +45,13 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
      * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
      * 
      * A robust expression should check for the existence of attributes before referencing them.
+     * 
+     * Common errors: - &#34;no such key&#34;: Use optional chaining (.? followed by orValue())
+     *   or guarding the check with has() for optional fields.
+     *   See CEL Optional Types for details:
+     *   https://pkg.go.dev/github.com/google/cel-go{@literal @}v0.17.4/cel#OptionalTypes
+     * 
+     * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
      * 
      * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
      * 
@@ -67,7 +74,7 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
      *  - driver (string): the name of the driver which defines this device.
      *  - attributes (map[string]object): the device&#39;s attributes, grouped by prefix
      *    (e.g. device.attributes[&#34;dra.example.com&#34;] evaluates to an object with all
-     *    of the attributes which were prefixed by &#34;dra.example.com&#34;.
+     *    of the attributes which were prefixed by &#34;dra.example.com&#34;).
      *  - capacity (map[string]object): the device&#39;s capacities, grouped by prefix.
      *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
      *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -86,6 +93,13 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
      * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
      * 
      * A robust expression should check for the existence of attributes before referencing them.
+     * 
+     * Common errors: - &#34;no such key&#34;: Use optional chaining (.? followed by orValue())
+     *   or guarding the check with has() for optional fields.
+     *   See CEL Optional Types for details:
+     *   https://pkg.go.dev/github.com/google/cel-go{@literal @}v0.17.4/cel#OptionalTypes
+     * 
+     * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
      * 
      * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
      * 
@@ -133,7 +147,7 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
          *  - driver (string): the name of the driver which defines this device.
          *  - attributes (map[string]object): the device&#39;s attributes, grouped by prefix
          *    (e.g. device.attributes[&#34;dra.example.com&#34;] evaluates to an object with all
-         *    of the attributes which were prefixed by &#34;dra.example.com&#34;.
+         *    of the attributes which were prefixed by &#34;dra.example.com&#34;).
          *  - capacity (map[string]object): the device&#39;s capacities, grouped by prefix.
          *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
          *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -152,6 +166,13 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
          * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
          * 
          * A robust expression should check for the existence of attributes before referencing them.
+         * 
+         * Common errors: - &#34;no such key&#34;: Use optional chaining (.? followed by orValue())
+         *   or guarding the check with has() for optional fields.
+         *   See CEL Optional Types for details:
+         *   https://pkg.go.dev/github.com/google/cel-go{@literal @}v0.17.4/cel#OptionalTypes
+         * 
+         * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
          * 
          * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
          * 
@@ -178,7 +199,7 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
          *  - driver (string): the name of the driver which defines this device.
          *  - attributes (map[string]object): the device&#39;s attributes, grouped by prefix
          *    (e.g. device.attributes[&#34;dra.example.com&#34;] evaluates to an object with all
-         *    of the attributes which were prefixed by &#34;dra.example.com&#34;.
+         *    of the attributes which were prefixed by &#34;dra.example.com&#34;).
          *  - capacity (map[string]object): the device&#39;s capacities, grouped by prefix.
          *  - allowMultipleAllocations (bool): the allowMultipleAllocations property of the device
          *    (v1.34+ with the DRAConsumableCapacity feature enabled).
@@ -197,6 +218,13 @@ public final class CELDeviceSelectorPatchArgs extends com.pulumi.resources.Resou
          * If an unknown prefix is used as a lookup in either device.attributes or device.capacity, an empty map will be returned. Any reference to an unknown field will cause an evaluation error and allocation to abort.
          * 
          * A robust expression should check for the existence of attributes before referencing them.
+         * 
+         * Common errors: - &#34;no such key&#34;: Use optional chaining (.? followed by orValue())
+         *   or guarding the check with has() for optional fields.
+         *   See CEL Optional Types for details:
+         *   https://pkg.go.dev/github.com/google/cel-go{@literal @}v0.17.4/cel#OptionalTypes
+         * 
+         * For more CEL expression syntax and examples, see: https://kubernetes.io/docs/reference/using-api/cel/
          * 
          * For ease of use, the cel.bind() function is enabled, and can be used to simplify expressions that access multiple attributes with the same domain. For example:
          * 

@@ -114,7 +114,7 @@ class ClusterTrustBundlePatch(pulumi.CustomResource):
 
         ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
 
-        It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+        It can be optionally associated with a particular signer, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -140,7 +140,7 @@ class ClusterTrustBundlePatch(pulumi.CustomResource):
 
         ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
 
-        It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+        It can be optionally associated with a particular signer, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
 
         :param str resource_name: The name of the resource.
         :param ClusterTrustBundlePatchArgs args: The arguments to use to populate this resource's properties.
@@ -174,7 +174,7 @@ class ClusterTrustBundlePatch(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'ClusterTrustBundle'
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:certificates.k8s.io/v1:ClusterTrustBundlePatch"), pulumi.Alias(type_="kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ClusterTrustBundlePatch, __self__).__init__(
             'kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundlePatch',

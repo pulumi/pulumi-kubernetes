@@ -11,8 +11,11 @@
 
 - Upgrade Kubernetes schema and libraries to v1.36.3.
 - Upgrade Kubernetes schema and libraries to v1.36.4.
+- Upgrade Kubernetes schema and libraries to v1.37.0. See the [Kubernetes 1.37 release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.37.md) for upstream API changes.
 
 ### Fixed
+
+- Restore `scheduling.k8s.io/v1alpha1` `Workload`, which the Kubernetes 1.36 upgrade dropped from the SDKs, and retain `scheduling.k8s.io/v1alpha2` `PodGroup` and `Workload`, which Kubernetes 1.37 removes from its OpenAPI specification. Both remain available to clusters that still serve them, and `scheduling.k8s.io/v1beta1` now aliases the older versions so that existing resources migrate in place rather than being replaced.
 
 - [#4524](https://github.com/pulumi/pulumi-kubernetes/pull/4524) Fix `pulumi.com/waitFor` rejecting JSONPath filters that use `!=`, `>=` or `<=`. The expression was split on every `=` that was not part of `==`, so `jsonpath={.status.conditions[?(@.type!="Failed")].status}=True` failed to parse. The path and value are now separated structurally, which also allows braces inside string literals. Comparing one path against another (`jsonpath={.status.readyReplicas}={.spec.replicas}`) is still unsupported, but now reports an error instead of silently never matching.
 

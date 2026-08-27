@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.flowcontrol.v1;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1.inputs.PriorityLevelConfigurationSpecArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import java.lang.String;
@@ -67,15 +68,15 @@ public final class PriorityLevelConfigurationArgs extends com.pulumi.resources.R
      * `spec` is the specification of the desired behavior of a &#34;request-priority&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    @Import(name="spec")
-    private @Nullable Output<PriorityLevelConfigurationSpecArgs> spec;
+    @Import(name="spec", required=true)
+    private Output<PriorityLevelConfigurationSpecArgs> spec;
 
     /**
      * @return `spec` is the specification of the desired behavior of a &#34;request-priority&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<Output<PriorityLevelConfigurationSpecArgs>> spec() {
-        return Optional.ofNullable(this.spec);
+    public Output<PriorityLevelConfigurationSpecArgs> spec() {
+        return this.spec;
     }
 
     private PriorityLevelConfigurationArgs() {}
@@ -174,7 +175,7 @@ public final class PriorityLevelConfigurationArgs extends com.pulumi.resources.R
          * @return builder
          * 
          */
-        public Builder spec(@Nullable Output<PriorityLevelConfigurationSpecArgs> spec) {
+        public Builder spec(Output<PriorityLevelConfigurationSpecArgs> spec) {
             $.spec = spec;
             return this;
         }
@@ -192,6 +193,9 @@ public final class PriorityLevelConfigurationArgs extends com.pulumi.resources.R
         public PriorityLevelConfigurationArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            if ($.spec == null) {
+                throw new MissingRequiredPropertyException("PriorityLevelConfigurationArgs", "spec");
+            }
             return $;
         }
     }

@@ -24,6 +24,10 @@ public final class IngressRule {
      * 
      */
     private @Nullable String host;
+    /**
+     * @return http is a HTTP IngressRuleValue, which contains a list of http selectors
+     * 
+     */
     private @Nullable HTTPIngressRuleValue http;
 
     private IngressRule() {}
@@ -41,6 +45,10 @@ public final class IngressRule {
     public Optional<String> host() {
         return Optional.ofNullable(this.host);
     }
+    /**
+     * @return http is a HTTP IngressRuleValue, which contains a list of http selectors
+     * 
+     */
     public Optional<HTTPIngressRuleValue> http() {
         return Optional.ofNullable(this.http);
     }

@@ -32,6 +32,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceFieldSelector ResourceFieldRef;
+        /// <summary>
+        /// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        public readonly int User;
 
         [OutputConstructor]
         private DownwardAPIVolumeFile(
@@ -41,12 +45,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string path,
 
-            Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceFieldSelector resourceFieldRef)
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceFieldSelector resourceFieldRef,
+
+            int user)
         {
             FieldRef = fieldRef;
             Mode = mode;
             Path = path;
             ResourceFieldRef = resourceFieldRef;
+            User = user;
         }
     }
 }

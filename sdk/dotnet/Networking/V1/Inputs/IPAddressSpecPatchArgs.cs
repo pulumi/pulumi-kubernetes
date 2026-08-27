@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class IPAddressSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+        /// parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         /// </summary>
         [Input("parentRef")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.ParentReferencePatchArgs>? ParentRef { get; set; }

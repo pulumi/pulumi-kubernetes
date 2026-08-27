@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.flowcontrol.v1.outputs.PriorityLevelConfigurationSpec;
 import com.pulumi.kubernetes.flowcontrol.v1.outputs.PriorityLevelConfigurationStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
@@ -33,7 +34,7 @@ public final class PriorityLevelConfiguration {
      * @return `spec` is the specification of the desired behavior of a &#34;request-priority&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    private @Nullable PriorityLevelConfigurationSpec spec;
+    private PriorityLevelConfigurationSpec spec;
     /**
      * @return `status` is the current status of a &#34;request-priority&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
@@ -66,8 +67,8 @@ public final class PriorityLevelConfiguration {
      * @return `spec` is the specification of the desired behavior of a &#34;request-priority&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    public Optional<PriorityLevelConfigurationSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public PriorityLevelConfigurationSpec spec() {
+        return this.spec;
     }
     /**
      * @return `status` is the current status of a &#34;request-priority&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -89,7 +90,7 @@ public final class PriorityLevelConfiguration {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable PriorityLevelConfigurationSpec spec;
+        private PriorityLevelConfigurationSpec spec;
         private @Nullable PriorityLevelConfigurationStatus status;
         public Builder() {}
         public Builder(PriorityLevelConfiguration defaults) {
@@ -120,8 +121,10 @@ public final class PriorityLevelConfiguration {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable PriorityLevelConfigurationSpec spec) {
-
+        public Builder spec(PriorityLevelConfigurationSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("PriorityLevelConfiguration", "spec");
+            }
             this.spec = spec;
             return this;
         }

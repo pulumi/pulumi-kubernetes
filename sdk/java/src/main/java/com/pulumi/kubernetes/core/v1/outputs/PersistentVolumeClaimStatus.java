@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ModifyVolumeStatus;
 import com.pulumi.kubernetes.core.v1.outputs.PersistentVolumeClaimCondition;
+import com.pulumi.kubernetes.core.v1.outputs.VolumeHealthStatus;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,11 @@ public final class PersistentVolumeClaimStatus {
      * 
      */
     private @Nullable String currentVolumeAttributesClassName;
+    /**
+     * @return healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+     * 
+     */
+    private @Nullable VolumeHealthStatus healthStatus;
     /**
      * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
      * 
@@ -175,6 +181,13 @@ public final class PersistentVolumeClaimStatus {
         return Optional.ofNullable(this.currentVolumeAttributesClassName);
     }
     /**
+     * @return healthStatus contains the latest controller-reported health information for the volume bound to this claim.
+     * 
+     */
+    public Optional<VolumeHealthStatus> healthStatus() {
+        return Optional.ofNullable(this.healthStatus);
+    }
+    /**
      * @return ModifyVolumeStatus represents the status object of ControllerModifyVolume operation. When this is unset, there is no ModifyVolume operation being attempted.
      * 
      */
@@ -211,6 +224,7 @@ public final class PersistentVolumeClaimStatus {
         private @Nullable Map<String,String> capacity;
         private @Nullable List<PersistentVolumeClaimCondition> conditions;
         private @Nullable String currentVolumeAttributesClassName;
+        private @Nullable VolumeHealthStatus healthStatus;
         private @Nullable ModifyVolumeStatus modifyVolumeStatus;
         private @Nullable String phase;
         private @Nullable String resizeStatus;
@@ -223,6 +237,7 @@ public final class PersistentVolumeClaimStatus {
     	      this.capacity = defaults.capacity;
     	      this.conditions = defaults.conditions;
     	      this.currentVolumeAttributesClassName = defaults.currentVolumeAttributesClassName;
+    	      this.healthStatus = defaults.healthStatus;
     	      this.modifyVolumeStatus = defaults.modifyVolumeStatus;
     	      this.phase = defaults.phase;
     	      this.resizeStatus = defaults.resizeStatus;
@@ -271,6 +286,12 @@ public final class PersistentVolumeClaimStatus {
             return this;
         }
         @CustomType.Setter
+        public Builder healthStatus(@Nullable VolumeHealthStatus healthStatus) {
+
+            this.healthStatus = healthStatus;
+            return this;
+        }
+        @CustomType.Setter
         public Builder modifyVolumeStatus(@Nullable ModifyVolumeStatus modifyVolumeStatus) {
 
             this.modifyVolumeStatus = modifyVolumeStatus;
@@ -296,6 +317,7 @@ public final class PersistentVolumeClaimStatus {
             _resultValue.capacity = capacity;
             _resultValue.conditions = conditions;
             _resultValue.currentVolumeAttributesClassName = currentVolumeAttributesClassName;
+            _resultValue.healthStatus = healthStatus;
             _resultValue.modifyVolumeStatus = modifyVolumeStatus;
             _resultValue.phase = phase;
             _resultValue.resizeStatus = resizeStatus;

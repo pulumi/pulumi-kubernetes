@@ -28,6 +28,11 @@ public final class KeyToPath {
      * 
      */
     private String path;
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer user;
 
     private KeyToPath() {}
     /**
@@ -51,6 +56,13 @@ public final class KeyToPath {
     public String path() {
         return this.path;
     }
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> user() {
+        return Optional.ofNullable(this.user);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -64,12 +76,14 @@ public final class KeyToPath {
         private String key;
         private @Nullable Integer mode;
         private String path;
+        private @Nullable Integer user;
         public Builder() {}
         public Builder(KeyToPath defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.key = defaults.key;
     	      this.mode = defaults.mode;
     	      this.path = defaults.path;
+    	      this.user = defaults.user;
         }
 
         @CustomType.Setter
@@ -94,11 +108,18 @@ public final class KeyToPath {
             this.path = path;
             return this;
         }
+        @CustomType.Setter
+        public Builder user(@Nullable Integer user) {
+
+            this.user = user;
+            return this;
+        }
         public KeyToPath build() {
             final var _resultValue = new KeyToPath();
             _resultValue.key = key;
             _resultValue.mode = mode;
             _resultValue.path = path;
+            _resultValue.user = user;
             return _resultValue;
         }
     }

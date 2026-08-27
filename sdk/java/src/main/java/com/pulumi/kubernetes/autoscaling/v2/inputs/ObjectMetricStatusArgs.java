@@ -36,14 +36,14 @@ public final class ObjectMetricStatusArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+     * describedObject specifies the descriptions of a object,such as kind,name apiVersion
      * 
      */
     @Import(name="describedObject", required=true)
     private Output<CrossVersionObjectReferenceArgs> describedObject;
 
     /**
-     * @return DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+     * @return describedObject specifies the descriptions of a object,such as kind,name apiVersion
      * 
      */
     public Output<CrossVersionObjectReferenceArgs> describedObject() {
@@ -113,7 +113,7 @@ public final class ObjectMetricStatusArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param describedObject DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+         * @param describedObject describedObject specifies the descriptions of a object,such as kind,name apiVersion
          * 
          * @return builder
          * 
@@ -124,7 +124,7 @@ public final class ObjectMetricStatusArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param describedObject DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
+         * @param describedObject describedObject specifies the descriptions of a object,such as kind,name apiVersion
          * 
          * @return builder
          * 

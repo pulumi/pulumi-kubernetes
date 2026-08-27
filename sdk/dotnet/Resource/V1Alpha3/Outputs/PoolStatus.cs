@@ -37,6 +37,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// </summary>
         public readonly string NodeName;
         /// <summary>
+        /// PartitionSummary reports allocatability per (attribute, partition type) for a partitionable pool that publishes SharedCounters. Each entry names the grouping attribute it was resolved from: the PartitionTypeAttribute declared by a device's own slice, or for devices whose slice declares none, the default named in the request. A pool that mixes partitions declared under different attributes reports each independently. When no slice declares an attribute and the request names no default, the pool reports no partition summary.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.PartitionTypeStatus> PartitionSummary;
+        /// <summary>
         /// PoolName is the name of the pool. Must be a valid resource pool name (DNS subdomains separated by "/").
         /// </summary>
         public readonly string PoolName;
@@ -44,6 +48,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// ResourceSliceCount is the number of ResourceSlices that make up this pool. May be unset when validationError is set.
         /// </summary>
         public readonly int ResourceSliceCount;
+        /// <summary>
+        /// ShareableSummary reports aggregate capacity for a pool that contains devices with AllowMultipleAllocations. It is populated only when at least one device in the pool is shareable.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.ShareableSummaryStatus ShareableSummary;
         /// <summary>
         /// TotalDevices is the total number of devices in the pool across all slices. A value of 0 means the pool has no devices. May be unset when validationError is set.
         /// </summary>
@@ -69,9 +77,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
 
             string nodeName,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.PartitionTypeStatus> partitionSummary,
+
             string poolName,
 
             int resourceSliceCount,
+
+            Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3.ShareableSummaryStatus shareableSummary,
 
             int totalDevices,
 
@@ -84,8 +96,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
             Driver = driver;
             Generation = generation;
             NodeName = nodeName;
+            PartitionSummary = partitionSummary;
             PoolName = poolName;
             ResourceSliceCount = resourceSliceCount;
+            ShareableSummary = shareableSummary;
             TotalDevices = totalDevices;
             UnavailableDevices = unavailableDevices;
             ValidationError = validationError;

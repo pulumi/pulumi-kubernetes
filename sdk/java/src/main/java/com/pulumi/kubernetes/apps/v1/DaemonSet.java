@@ -107,7 +107,7 @@ public class DaemonSet extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public DaemonSet(java.lang.String name, @Nullable DaemonSetArgs args) {
+    public DaemonSet(java.lang.String name, DaemonSetArgs args) {
         this(name, args, null);
     }
     /**
@@ -116,7 +116,7 @@ public class DaemonSet extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public DaemonSet(java.lang.String name, @Nullable DaemonSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public DaemonSet(java.lang.String name, DaemonSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1:DaemonSet", name, makeArgs(args, options), makeResourceOptions(options, Codegen.empty()), false);
     }
 
@@ -124,7 +124,7 @@ public class DaemonSet extends com.pulumi.resources.CustomResource {
         super("kubernetes:apps/v1:DaemonSet", name, null, makeResourceOptions(options, id), false);
     }
 
-    private static DaemonSetArgs makeArgs(@Nullable DaemonSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    private static DaemonSetArgs makeArgs(DaemonSetArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         if (options != null && options.getUrn().isPresent()) {
             return null;
         }

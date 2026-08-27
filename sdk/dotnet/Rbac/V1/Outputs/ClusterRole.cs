@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
     public sealed class ClusterRole
     {
         /// <summary>
-        /// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        /// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Rbac.V1.AggregationRule AggregationRule;
         /// <summary>
@@ -29,11 +29,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Standard object's metadata.
+        /// metadata is the standard object's metadata.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Rules holds all the PolicyRules for this ClusterRole
+        /// rules holds all the PolicyRules for this ClusterRole
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Rbac.V1.PolicyRule> Rules;
 

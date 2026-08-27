@@ -599,7 +599,7 @@ type IPAddressType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IPAddressSpec `pulumi:"spec"`
@@ -622,7 +622,7 @@ type IPAddressTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IPAddressSpecInput `pulumi:"spec"`
@@ -690,7 +690,7 @@ func (o IPAddressTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IPAddressType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o IPAddressTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v IPAddressType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -808,7 +808,7 @@ type IPAddressPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IPAddressSpecPatch `pulumi:"spec"`
@@ -831,7 +831,7 @@ type IPAddressPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IPAddressSpecPatchPtrInput `pulumi:"spec"`
@@ -874,7 +874,7 @@ func (o IPAddressPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IPAddressPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o IPAddressPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v IPAddressPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -886,7 +886,7 @@ func (o IPAddressPatchTypeOutput) Spec() IPAddressSpecPatchPtrOutput {
 
 // IPAddressSpec describe the attributes in an IP Address.
 type IPAddressSpec struct {
-	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	// parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 	ParentRef ParentReference `pulumi:"parentRef"`
 }
 
@@ -903,7 +903,7 @@ type IPAddressSpecInput interface {
 
 // IPAddressSpec describe the attributes in an IP Address.
 type IPAddressSpecArgs struct {
-	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	// parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 	ParentRef ParentReferenceInput `pulumi:"parentRef"`
 }
 
@@ -934,14 +934,14 @@ func (o IPAddressSpecOutput) ToIPAddressSpecOutputWithContext(ctx context.Contex
 	return o
 }
 
-// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+// parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 func (o IPAddressSpecOutput) ParentRef() ParentReferenceOutput {
 	return o.ApplyT(func(v IPAddressSpec) ParentReference { return v.ParentRef }).(ParentReferenceOutput)
 }
 
 // IPAddressSpec describe the attributes in an IP Address.
 type IPAddressSpecPatch struct {
-	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	// parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 	ParentRef *ParentReferencePatch `pulumi:"parentRef"`
 }
 
@@ -958,7 +958,7 @@ type IPAddressSpecPatchInput interface {
 
 // IPAddressSpec describe the attributes in an IP Address.
 type IPAddressSpecPatchArgs struct {
-	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	// parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 	ParentRef ParentReferencePatchPtrInput `pulumi:"parentRef"`
 }
 
@@ -1040,7 +1040,7 @@ func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchPtrOutputWithContext(ctx c
 	}).(IPAddressSpecPatchPtrOutput)
 }
 
-// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+// parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 func (o IPAddressSpecPatchOutput) ParentRef() ParentReferencePatchPtrOutput {
 	return o.ApplyT(func(v IPAddressSpecPatch) *ParentReferencePatch { return v.ParentRef }).(ParentReferencePatchPtrOutput)
 }
@@ -1069,7 +1069,7 @@ func (o IPAddressSpecPatchPtrOutput) Elem() IPAddressSpecPatchOutput {
 	}).(IPAddressSpecPatchOutput)
 }
 
-// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+// parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 func (o IPAddressSpecPatchPtrOutput) ParentRef() ParentReferencePatchPtrOutput {
 	return o.ApplyT(func(v *IPAddressSpecPatch) *ParentReferencePatch {
 		if v == nil {
@@ -1417,7 +1417,7 @@ type IngressType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IngressSpec `pulumi:"spec"`
@@ -1456,7 +1456,7 @@ type IngressTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressSpecPtrInput `pulumi:"spec"`
@@ -1540,7 +1540,7 @@ func (o IngressTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o IngressTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v IngressType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -1899,7 +1899,7 @@ type IngressClassType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IngressClassSpec `pulumi:"spec"`
@@ -1922,7 +1922,7 @@ type IngressClassTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressClassSpecPtrInput `pulumi:"spec"`
@@ -1990,7 +1990,7 @@ func (o IngressClassTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o IngressClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v IngressClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -2540,7 +2540,7 @@ type IngressClassPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IngressClassSpecPatch `pulumi:"spec"`
@@ -2563,7 +2563,7 @@ type IngressClassPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressClassSpecPatchPtrInput `pulumi:"spec"`
@@ -2606,7 +2606,7 @@ func (o IngressClassPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o IngressClassPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v IngressClassPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -3552,7 +3552,7 @@ type IngressPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IngressSpecPatch `pulumi:"spec"`
@@ -3591,7 +3591,7 @@ type IngressPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressSpecPatchPtrInput `pulumi:"spec"`
@@ -3650,7 +3650,7 @@ func (o IngressPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o IngressPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v IngressPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -3931,7 +3931,8 @@ type IngressRule struct {
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 	//
 	// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
-	Host *string               `pulumi:"host"`
+	Host *string `pulumi:"host"`
+	// http is a HTTP IngressRuleValue, which contains a list of http selectors
 	Http *HTTPIngressRuleValue `pulumi:"http"`
 }
 
@@ -3956,7 +3957,8 @@ type IngressRuleArgs struct {
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 	//
 	// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
-	Host pulumi.StringPtrInput        `pulumi:"host"`
+	Host pulumi.StringPtrInput `pulumi:"host"`
+	// http is a HTTP IngressRuleValue, which contains a list of http selectors
 	Http HTTPIngressRuleValuePtrInput `pulumi:"http"`
 }
 
@@ -4026,6 +4028,7 @@ func (o IngressRuleOutput) Host() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressRule) *string { return v.Host }).(pulumi.StringPtrOutput)
 }
 
+// http is a HTTP IngressRuleValue, which contains a list of http selectors
 func (o IngressRuleOutput) Http() HTTPIngressRuleValuePtrOutput {
 	return o.ApplyT(func(v IngressRule) *HTTPIngressRuleValue { return v.Http }).(HTTPIngressRuleValuePtrOutput)
 }
@@ -4060,7 +4063,8 @@ type IngressRulePatch struct {
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 	//
 	// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
-	Host *string                    `pulumi:"host"`
+	Host *string `pulumi:"host"`
+	// http is a HTTP IngressRuleValue, which contains a list of http selectors
 	Http *HTTPIngressRuleValuePatch `pulumi:"http"`
 }
 
@@ -4085,7 +4089,8 @@ type IngressRulePatchArgs struct {
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 	//
 	// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
-	Host pulumi.StringPtrInput             `pulumi:"host"`
+	Host pulumi.StringPtrInput `pulumi:"host"`
+	// http is a HTTP IngressRuleValue, which contains a list of http selectors
 	Http HTTPIngressRuleValuePatchPtrInput `pulumi:"http"`
 }
 
@@ -4155,6 +4160,7 @@ func (o IngressRulePatchOutput) Host() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressRulePatch) *string { return v.Host }).(pulumi.StringPtrOutput)
 }
 
+// http is a HTTP IngressRuleValue, which contains a list of http selectors
 func (o IngressRulePatchOutput) Http() HTTPIngressRuleValuePatchPtrOutput {
 	return o.ApplyT(func(v IngressRulePatch) *HTTPIngressRuleValuePatch { return v.Http }).(HTTPIngressRuleValuePatchPtrOutput)
 }
@@ -5395,7 +5401,7 @@ type NetworkPolicyType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec *NetworkPolicySpec `pulumi:"spec"`
@@ -5420,7 +5426,7 @@ type NetworkPolicyTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPtrInput `pulumi:"spec"`
@@ -5490,7 +5496,7 @@ func (o NetworkPolicyTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o NetworkPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -6049,7 +6055,7 @@ type NetworkPolicyPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec *NetworkPolicySpecPatch `pulumi:"spec"`
@@ -6074,7 +6080,7 @@ type NetworkPolicyPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPatchPtrInput `pulumi:"spec"`
@@ -6119,7 +6125,7 @@ func (o NetworkPolicyPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o NetworkPolicyPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -7306,13 +7312,13 @@ func (o NetworkPolicyStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArr
 
 // ParentReference describes a reference to a parent object.
 type ParentReference struct {
-	// Group is the group of the object being referenced.
+	// group is the group of the object being referenced.
 	Group *string `pulumi:"group"`
-	// Name is the name of the object being referenced.
+	// name is the name of the object being referenced.
 	Name string `pulumi:"name"`
-	// Namespace is the namespace of the object being referenced.
+	// namespace is the namespace of the object being referenced.
 	Namespace *string `pulumi:"namespace"`
-	// Resource is the resource of the object being referenced.
+	// resource is the resource of the object being referenced.
 	Resource string `pulumi:"resource"`
 }
 
@@ -7329,13 +7335,13 @@ type ParentReferenceInput interface {
 
 // ParentReference describes a reference to a parent object.
 type ParentReferenceArgs struct {
-	// Group is the group of the object being referenced.
+	// group is the group of the object being referenced.
 	Group pulumi.StringPtrInput `pulumi:"group"`
-	// Name is the name of the object being referenced.
+	// name is the name of the object being referenced.
 	Name pulumi.StringInput `pulumi:"name"`
-	// Namespace is the namespace of the object being referenced.
+	// namespace is the namespace of the object being referenced.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
-	// Resource is the resource of the object being referenced.
+	// resource is the resource of the object being referenced.
 	Resource pulumi.StringInput `pulumi:"resource"`
 }
 
@@ -7366,35 +7372,35 @@ func (o ParentReferenceOutput) ToParentReferenceOutputWithContext(ctx context.Co
 	return o
 }
 
-// Group is the group of the object being referenced.
+// group is the group of the object being referenced.
 func (o ParentReferenceOutput) Group() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParentReference) *string { return v.Group }).(pulumi.StringPtrOutput)
 }
 
-// Name is the name of the object being referenced.
+// name is the name of the object being referenced.
 func (o ParentReferenceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v ParentReference) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Namespace is the namespace of the object being referenced.
+// namespace is the namespace of the object being referenced.
 func (o ParentReferenceOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParentReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-// Resource is the resource of the object being referenced.
+// resource is the resource of the object being referenced.
 func (o ParentReferenceOutput) Resource() pulumi.StringOutput {
 	return o.ApplyT(func(v ParentReference) string { return v.Resource }).(pulumi.StringOutput)
 }
 
 // ParentReference describes a reference to a parent object.
 type ParentReferencePatch struct {
-	// Group is the group of the object being referenced.
+	// group is the group of the object being referenced.
 	Group *string `pulumi:"group"`
-	// Name is the name of the object being referenced.
+	// name is the name of the object being referenced.
 	Name *string `pulumi:"name"`
-	// Namespace is the namespace of the object being referenced.
+	// namespace is the namespace of the object being referenced.
 	Namespace *string `pulumi:"namespace"`
-	// Resource is the resource of the object being referenced.
+	// resource is the resource of the object being referenced.
 	Resource *string `pulumi:"resource"`
 }
 
@@ -7411,13 +7417,13 @@ type ParentReferencePatchInput interface {
 
 // ParentReference describes a reference to a parent object.
 type ParentReferencePatchArgs struct {
-	// Group is the group of the object being referenced.
+	// group is the group of the object being referenced.
 	Group pulumi.StringPtrInput `pulumi:"group"`
-	// Name is the name of the object being referenced.
+	// name is the name of the object being referenced.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Namespace is the namespace of the object being referenced.
+	// namespace is the namespace of the object being referenced.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
-	// Resource is the resource of the object being referenced.
+	// resource is the resource of the object being referenced.
 	Resource pulumi.StringPtrInput `pulumi:"resource"`
 }
 
@@ -7499,22 +7505,22 @@ func (o ParentReferencePatchOutput) ToParentReferencePatchPtrOutputWithContext(c
 	}).(ParentReferencePatchPtrOutput)
 }
 
-// Group is the group of the object being referenced.
+// group is the group of the object being referenced.
 func (o ParentReferencePatchOutput) Group() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Group }).(pulumi.StringPtrOutput)
 }
 
-// Name is the name of the object being referenced.
+// name is the name of the object being referenced.
 func (o ParentReferencePatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Namespace is the namespace of the object being referenced.
+// namespace is the namespace of the object being referenced.
 func (o ParentReferencePatchOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-// Resource is the resource of the object being referenced.
+// resource is the resource of the object being referenced.
 func (o ParentReferencePatchOutput) Resource() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Resource }).(pulumi.StringPtrOutput)
 }
@@ -7543,7 +7549,7 @@ func (o ParentReferencePatchPtrOutput) Elem() ParentReferencePatchOutput {
 	}).(ParentReferencePatchOutput)
 }
 
-// Group is the group of the object being referenced.
+// group is the group of the object being referenced.
 func (o ParentReferencePatchPtrOutput) Group() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParentReferencePatch) *string {
 		if v == nil {
@@ -7553,7 +7559,7 @@ func (o ParentReferencePatchPtrOutput) Group() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Name is the name of the object being referenced.
+// name is the name of the object being referenced.
 func (o ParentReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParentReferencePatch) *string {
 		if v == nil {
@@ -7563,7 +7569,7 @@ func (o ParentReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Namespace is the namespace of the object being referenced.
+// namespace is the namespace of the object being referenced.
 func (o ParentReferencePatchPtrOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParentReferencePatch) *string {
 		if v == nil {
@@ -7573,7 +7579,7 @@ func (o ParentReferencePatchPtrOutput) Namespace() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Resource is the resource of the object being referenced.
+// resource is the resource of the object being referenced.
 func (o ParentReferencePatchPtrOutput) Resource() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParentReferencePatch) *string {
 		if v == nil {
@@ -7907,7 +7913,7 @@ type ServiceCIDRType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *ServiceCIDRSpec `pulumi:"spec"`
@@ -7932,7 +7938,7 @@ type ServiceCIDRTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec ServiceCIDRSpecPtrInput `pulumi:"spec"`
@@ -8002,7 +8008,7 @@ func (o ServiceCIDRTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceCIDRType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o ServiceCIDRTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v ServiceCIDRType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -8125,7 +8131,7 @@ type ServiceCIDRPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *ServiceCIDRSpecPatch `pulumi:"spec"`
@@ -8150,7 +8156,7 @@ type ServiceCIDRPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec ServiceCIDRSpecPatchPtrInput `pulumi:"spec"`
@@ -8195,7 +8201,7 @@ func (o ServiceCIDRPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceCIDRPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o ServiceCIDRPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v ServiceCIDRPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -8212,7 +8218,7 @@ func (o ServiceCIDRPatchTypeOutput) Status() ServiceCIDRStatusPatchPtrOutput {
 
 // ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
 type ServiceCIDRSpec struct {
-	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	// cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
 	Cidrs []string `pulumi:"cidrs"`
 }
 
@@ -8229,7 +8235,7 @@ type ServiceCIDRSpecInput interface {
 
 // ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
 type ServiceCIDRSpecArgs struct {
-	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	// cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
 	Cidrs pulumi.StringArrayInput `pulumi:"cidrs"`
 }
 
@@ -8311,7 +8317,7 @@ func (o ServiceCIDRSpecOutput) ToServiceCIDRSpecPtrOutputWithContext(ctx context
 	}).(ServiceCIDRSpecPtrOutput)
 }
 
-// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+// cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
 func (o ServiceCIDRSpecOutput) Cidrs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceCIDRSpec) []string { return v.Cidrs }).(pulumi.StringArrayOutput)
 }
@@ -8340,7 +8346,7 @@ func (o ServiceCIDRSpecPtrOutput) Elem() ServiceCIDRSpecOutput {
 	}).(ServiceCIDRSpecOutput)
 }
 
-// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+// cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
 func (o ServiceCIDRSpecPtrOutput) Cidrs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ServiceCIDRSpec) []string {
 		if v == nil {
@@ -8352,7 +8358,7 @@ func (o ServiceCIDRSpecPtrOutput) Cidrs() pulumi.StringArrayOutput {
 
 // ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
 type ServiceCIDRSpecPatch struct {
-	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	// cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
 	Cidrs []string `pulumi:"cidrs"`
 }
 
@@ -8369,7 +8375,7 @@ type ServiceCIDRSpecPatchInput interface {
 
 // ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
 type ServiceCIDRSpecPatchArgs struct {
-	// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+	// cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
 	Cidrs pulumi.StringArrayInput `pulumi:"cidrs"`
 }
 
@@ -8451,7 +8457,7 @@ func (o ServiceCIDRSpecPatchOutput) ToServiceCIDRSpecPatchPtrOutputWithContext(c
 	}).(ServiceCIDRSpecPatchPtrOutput)
 }
 
-// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+// cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
 func (o ServiceCIDRSpecPatchOutput) Cidrs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceCIDRSpecPatch) []string { return v.Cidrs }).(pulumi.StringArrayOutput)
 }
@@ -8480,7 +8486,7 @@ func (o ServiceCIDRSpecPatchPtrOutput) Elem() ServiceCIDRSpecPatchOutput {
 	}).(ServiceCIDRSpecPatchOutput)
 }
 
-// CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+// cidrs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
 func (o ServiceCIDRSpecPatchPtrOutput) Cidrs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ServiceCIDRSpecPatch) []string {
 		if v == nil {

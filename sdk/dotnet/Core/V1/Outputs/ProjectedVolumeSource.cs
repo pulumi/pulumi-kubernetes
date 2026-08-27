@@ -21,6 +21,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly int DefaultMode;
         /// <summary>
+        /// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        public readonly int DefaultUser;
+        /// <summary>
         /// sources is the list of volume projections. Each entry in this list handles one source.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeProjection> Sources;
@@ -29,9 +33,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         private ProjectedVolumeSource(
             int defaultMode,
 
+            int defaultUser,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.VolumeProjection> sources)
         {
             DefaultMode = defaultMode;
+            DefaultUser = defaultUser;
             Sources = sources;
         }
     }

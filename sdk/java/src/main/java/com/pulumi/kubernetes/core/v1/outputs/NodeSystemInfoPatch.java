@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.NodeSwapStatusPatch;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
@@ -57,6 +58,11 @@ public final class NodeSystemInfoPatch {
      * 
      */
     private @Nullable String osImage;
+    /**
+     * @return Whether the node is running in a user namespace.
+     * 
+     */
+    private @Nullable Boolean runningInUserNamespace;
     /**
      * @return Swap Info reported by the node.
      * 
@@ -133,6 +139,13 @@ public final class NodeSystemInfoPatch {
         return Optional.ofNullable(this.osImage);
     }
     /**
+     * @return Whether the node is running in a user namespace.
+     * 
+     */
+    public Optional<Boolean> runningInUserNamespace() {
+        return Optional.ofNullable(this.runningInUserNamespace);
+    }
+    /**
      * @return Swap Info reported by the node.
      * 
      */
@@ -165,6 +178,7 @@ public final class NodeSystemInfoPatch {
         private @Nullable String machineID;
         private @Nullable String operatingSystem;
         private @Nullable String osImage;
+        private @Nullable Boolean runningInUserNamespace;
         private @Nullable NodeSwapStatusPatch swap;
         private @Nullable String systemUUID;
         public Builder() {}
@@ -179,6 +193,7 @@ public final class NodeSystemInfoPatch {
     	      this.machineID = defaults.machineID;
     	      this.operatingSystem = defaults.operatingSystem;
     	      this.osImage = defaults.osImage;
+    	      this.runningInUserNamespace = defaults.runningInUserNamespace;
     	      this.swap = defaults.swap;
     	      this.systemUUID = defaults.systemUUID;
         }
@@ -238,6 +253,12 @@ public final class NodeSystemInfoPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder runningInUserNamespace(@Nullable Boolean runningInUserNamespace) {
+
+            this.runningInUserNamespace = runningInUserNamespace;
+            return this;
+        }
+        @CustomType.Setter
         public Builder swap(@Nullable NodeSwapStatusPatch swap) {
 
             this.swap = swap;
@@ -260,6 +281,7 @@ public final class NodeSystemInfoPatch {
             _resultValue.machineID = machineID;
             _resultValue.operatingSystem = operatingSystem;
             _resultValue.osImage = osImage;
+            _resultValue.runningInUserNamespace = runningInUserNamespace;
             _resultValue.swap = swap;
             _resultValue.systemUUID = systemUUID;
             return _resultValue;

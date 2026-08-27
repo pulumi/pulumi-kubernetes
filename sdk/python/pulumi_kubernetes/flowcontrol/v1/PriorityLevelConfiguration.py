@@ -22,26 +22,37 @@ __all__ = ['PriorityLevelConfigurationInitArgs', 'PriorityLevelConfiguration']
 @pulumi.input_type
 class PriorityLevelConfigurationInitArgs:
     def __init__(__self__, *,
+                 spec: pulumi.Input['PriorityLevelConfigurationSpecArgs'],
                  api_version: pulumi.Input[Optional[Literal['flowcontrol.apiserver.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['PriorityLevelConfiguration']]] = None,
-                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: pulumi.Input[Optional['PriorityLevelConfigurationSpecArgs']] = None):
+                 metadata: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']] = None):
         """
         The set of arguments for constructing a PriorityLevelConfiguration resource.
 
+        :param pulumi.Input['PriorityLevelConfigurationSpecArgs'] spec: `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input[Literal['flowcontrol.apiserver.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['PriorityLevelConfiguration']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PriorityLevelConfigurationSpecArgs'] spec: `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'flowcontrol.apiserver.k8s.io/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'PriorityLevelConfiguration')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+
+    @_builtins.property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['PriorityLevelConfigurationSpecArgs']:
+        """
+        `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['PriorityLevelConfigurationSpecArgs']):
+        pulumi.set(self, "spec", value)
 
     @_builtins.property
     @pulumi.getter(name="apiVersion")
@@ -79,18 +90,6 @@ class PriorityLevelConfigurationInitArgs:
     def metadata(self, value: pulumi.Input[Optional['_meta.v1.ObjectMetaArgs']]):
         pulumi.set(self, "metadata", value)
 
-    @_builtins.property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input[Optional['PriorityLevelConfigurationSpecArgs']]:
-        """
-        `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input[Optional['PriorityLevelConfigurationSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
 
 @pulumi.type_token("kubernetes:flowcontrol.apiserver.k8s.io/v1:PriorityLevelConfiguration")
 class PriorityLevelConfiguration(pulumi.CustomResource):
@@ -117,7 +116,7 @@ class PriorityLevelConfiguration(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[PriorityLevelConfigurationInitArgs] = None,
+                 args: PriorityLevelConfigurationInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         PriorityLevelConfiguration represents the configuration of a priority level.
@@ -153,6 +152,8 @@ class PriorityLevelConfiguration(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'flowcontrol.apiserver.k8s.io/v1'
             __props__.__dict__["kind"] = 'PriorityLevelConfiguration'
             __props__.__dict__["metadata"] = metadata
+            if spec is None and not opts.urn:
+                raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:PriorityLevelConfiguration"), pulumi.Alias(type_="kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration"), pulumi.Alias(type_="kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration"), pulumi.Alias(type_="kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfiguration")])

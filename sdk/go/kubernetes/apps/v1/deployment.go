@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -173,9 +174,12 @@ type Deployment struct {
 func NewDeployment(ctx *pulumi.Context,
 	name string, args *DeploymentArgs, opts ...pulumi.ResourceOption) (*Deployment, error) {
 	if args == nil {
-		args = &DeploymentArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
+	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1")
 	args.Kind = pulumi.StringPtr("Deployment")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -230,7 +234,7 @@ type deploymentArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
-	Spec *DeploymentSpec `pulumi:"spec"`
+	Spec DeploymentSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a Deployment resource.
@@ -242,7 +246,7 @@ type DeploymentArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Specification of the desired behavior of the Deployment.
-	Spec DeploymentSpecPtrInput
+	Spec DeploymentSpecInput
 }
 
 func (DeploymentArgs) ElementType() reflect.Type {

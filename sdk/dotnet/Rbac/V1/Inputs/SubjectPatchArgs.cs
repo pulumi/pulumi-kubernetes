@@ -16,25 +16,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
     public class SubjectPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
+        /// apiGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
         /// </summary>
         [Input("apiGroup")]
         public Input<string>? ApiGroup { get; set; }
 
         /// <summary>
-        /// Kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
+        /// kind of object being referenced. Values defined by this API group are "User", "Group", and "ServiceAccount". If the Authorizer does not recognized the kind value, the Authorizer should report an error.
         /// </summary>
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Name of the object being referenced.
+        /// name of the object being referenced.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
+        /// namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
         /// </summary>
         [Input("namespace")]
         public Input<string>? Namespace { get; set; }

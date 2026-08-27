@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class IPAddressSpecPatch {
     /**
-     * @return ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+     * @return parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
     private @Nullable ParentReferencePatch parentRef;
 
     private IPAddressSpecPatch() {}
     /**
-     * @return ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+     * @return parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
     public Optional<ParentReferencePatch> parentRef() {

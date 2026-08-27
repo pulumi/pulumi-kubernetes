@@ -69,8 +69,8 @@ export class ControllerRevision extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if (args?.revision === undefined && !opts.urn) {
-                throw new Error("Missing required property 'revision'");
+            if (args?.data === undefined && !opts.urn) {
+                throw new Error("Missing required property 'data'");
             }
             resourceInputs["apiVersion"] = "apps/v1";
             resourceInputs["data"] = args?.data;
@@ -102,7 +102,7 @@ export interface ControllerRevisionArgs {
     /**
      * Data is the serialized representation of the state.
      */
-    data?: any | undefined;
+    data: any;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
@@ -114,5 +114,5 @@ export interface ControllerRevisionArgs {
     /**
      * Revision indicates the revision of the state represented by Data.
      */
-    revision: pulumi.Input<number>;
+    revision?: pulumi.Input<number | undefined>;
 }

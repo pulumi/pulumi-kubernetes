@@ -21,7 +21,7 @@ type CSIDriverType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec represents the specification of the CSI Driver.
 	Spec CSIDriverSpec `pulumi:"spec"`
@@ -44,7 +44,7 @@ type CSIDriverTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec represents the specification of the CSI Driver.
 	Spec CSIDriverSpecInput `pulumi:"spec"`
@@ -112,7 +112,7 @@ func (o CSIDriverTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIDriverType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o CSIDriverTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v CSIDriverType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -230,7 +230,7 @@ type CSIDriverPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec represents the specification of the CSI Driver.
 	Spec *CSIDriverSpecPatch `pulumi:"spec"`
@@ -253,7 +253,7 @@ type CSIDriverPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec represents the specification of the CSI Driver.
 	Spec CSIDriverSpecPatchPtrInput `pulumi:"spec"`
@@ -296,7 +296,7 @@ func (o CSIDriverPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIDriverPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o CSIDriverPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v CSIDriverPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -335,13 +335,13 @@ type CSIDriverSpec struct {
 	//
 	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	PodInfoOnMount *bool `pulumi:"podInfoOnMount"`
-	// PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+	// preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
 	//
 	// Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
 	//
 	// For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
 	//
-	// This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+	// This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
 	PreventPodSchedulingIfMissing *bool `pulumi:"preventPodSchedulingIfMissing"`
 	// requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
 	//
@@ -433,13 +433,13 @@ type CSIDriverSpecArgs struct {
 	//
 	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	PodInfoOnMount pulumi.BoolPtrInput `pulumi:"podInfoOnMount"`
-	// PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+	// preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
 	//
 	// Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
 	//
 	// For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
 	//
-	// This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+	// This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
 	PreventPodSchedulingIfMissing pulumi.BoolPtrInput `pulumi:"preventPodSchedulingIfMissing"`
 	// requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
 	//
@@ -558,13 +558,13 @@ func (o CSIDriverSpecOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.PodInfoOnMount }).(pulumi.BoolPtrOutput)
 }
 
-// PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+// preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
 //
 // Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
 //
 // For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
 //
-// This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+// This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
 func (o CSIDriverSpecOutput) PreventPodSchedulingIfMissing() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.PreventPodSchedulingIfMissing }).(pulumi.BoolPtrOutput)
 }
@@ -664,13 +664,13 @@ type CSIDriverSpecPatch struct {
 	//
 	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	PodInfoOnMount *bool `pulumi:"podInfoOnMount"`
-	// PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+	// preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
 	//
 	// Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
 	//
 	// For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
 	//
-	// This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+	// This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
 	PreventPodSchedulingIfMissing *bool `pulumi:"preventPodSchedulingIfMissing"`
 	// requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
 	//
@@ -762,13 +762,13 @@ type CSIDriverSpecPatchArgs struct {
 	//
 	// This field was immutable in Kubernetes < 1.29 and now is mutable.
 	PodInfoOnMount pulumi.BoolPtrInput `pulumi:"podInfoOnMount"`
-	// PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+	// preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
 	//
 	// Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
 	//
 	// For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
 	//
-	// This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+	// This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
 	PreventPodSchedulingIfMissing pulumi.BoolPtrInput `pulumi:"preventPodSchedulingIfMissing"`
 	// requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
 	//
@@ -938,13 +938,13 @@ func (o CSIDriverSpecPatchOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpecPatch) *bool { return v.PodInfoOnMount }).(pulumi.BoolPtrOutput)
 }
 
-// PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+// preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
 //
 // Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
 //
 // For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
 //
-// This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+// This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
 func (o CSIDriverSpecPatchOutput) PreventPodSchedulingIfMissing() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpecPatch) *bool { return v.PreventPodSchedulingIfMissing }).(pulumi.BoolPtrOutput)
 }
@@ -1099,13 +1099,13 @@ func (o CSIDriverSpecPatchPtrOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+// preventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
 //
 // Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
 //
 // For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
 //
-// This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+// This is a beta feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
 func (o CSIDriverSpecPatchPtrOutput) PreventPodSchedulingIfMissing() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CSIDriverSpecPatch) *bool {
 		if v == nil {
@@ -1217,10 +1217,12 @@ type CSINodeType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. metadata.name must be the Kubernetes node name.
+	// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec is the specification of CSINode
 	Spec CSINodeSpec `pulumi:"spec"`
+	// status contains health and status information for the node's storage.
+	Status *CSINodeStatus `pulumi:"status"`
 }
 
 // CSINodeTypeInput is an input type that accepts CSINodeTypeArgs and CSINodeTypeOutput values.
@@ -1240,10 +1242,12 @@ type CSINodeTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. metadata.name must be the Kubernetes node name.
+	// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec is the specification of CSINode
 	Spec CSINodeSpecInput `pulumi:"spec"`
+	// status contains health and status information for the node's storage.
+	Status CSINodeStatusPtrInput `pulumi:"status"`
 }
 
 func (CSINodeTypeArgs) ElementType() reflect.Type {
@@ -1308,7 +1312,7 @@ func (o CSINodeTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSINodeType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. metadata.name must be the Kubernetes node name.
+// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 func (o CSINodeTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v CSINodeType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -1316,6 +1320,11 @@ func (o CSINodeTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 // spec is the specification of CSINode
 func (o CSINodeTypeOutput) Spec() CSINodeSpecOutput {
 	return o.ApplyT(func(v CSINodeType) CSINodeSpec { return v.Spec }).(CSINodeSpecOutput)
+}
+
+// status contains health and status information for the node's storage.
+func (o CSINodeTypeOutput) Status() CSINodeStatusPtrOutput {
+	return o.ApplyT(func(v CSINodeType) *CSINodeStatus { return v.Status }).(CSINodeStatusPtrOutput)
 }
 
 type CSINodeTypeArrayOutput struct{ *pulumi.OutputState }
@@ -1680,10 +1689,12 @@ type CSINodePatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. metadata.name must be the Kubernetes node name.
+	// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec is the specification of CSINode
 	Spec *CSINodeSpecPatch `pulumi:"spec"`
+	// status contains health and status information for the node's storage.
+	Status *CSINodeStatusPatch `pulumi:"status"`
 }
 
 // CSINodePatchTypeInput is an input type that accepts CSINodePatchTypeArgs and CSINodePatchTypeOutput values.
@@ -1703,10 +1714,12 @@ type CSINodePatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. metadata.name must be the Kubernetes node name.
+	// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec is the specification of CSINode
 	Spec CSINodeSpecPatchPtrInput `pulumi:"spec"`
+	// status contains health and status information for the node's storage.
+	Status CSINodeStatusPatchPtrInput `pulumi:"status"`
 }
 
 func (CSINodePatchTypeArgs) ElementType() reflect.Type {
@@ -1746,7 +1759,7 @@ func (o CSINodePatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSINodePatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. metadata.name must be the Kubernetes node name.
+// metadata is the standard object metadata. metadata.name must be the Kubernetes node name.
 func (o CSINodePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v CSINodePatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -1754,6 +1767,11 @@ func (o CSINodePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 // spec is the specification of CSINode
 func (o CSINodePatchTypeOutput) Spec() CSINodeSpecPatchPtrOutput {
 	return o.ApplyT(func(v CSINodePatchType) *CSINodeSpecPatch { return v.Spec }).(CSINodeSpecPatchPtrOutput)
+}
+
+// status contains health and status information for the node's storage.
+func (o CSINodePatchTypeOutput) Status() CSINodeStatusPatchPtrOutput {
+	return o.ApplyT(func(v CSINodePatchType) *CSINodeStatusPatch { return v.Status }).(CSINodeStatusPatchPtrOutput)
 }
 
 // CSINodeSpec holds information about the specification of all CSI drivers installed on a node
@@ -1951,6 +1969,286 @@ func (o CSINodeSpecPatchPtrOutput) Drivers() CSINodeDriverPatchArrayOutput {
 	}).(CSINodeDriverPatchArrayOutput)
 }
 
+// CSINodeStatus contains health and status information for storage on a node.
+type CSINodeStatus struct {
+	// storageHealth contains backend health reports for CSI drivers registered on the node.
+	StorageHealth []StorageHealth `pulumi:"storageHealth"`
+}
+
+// CSINodeStatusInput is an input type that accepts CSINodeStatusArgs and CSINodeStatusOutput values.
+// You can construct a concrete instance of `CSINodeStatusInput` via:
+//
+//	CSINodeStatusArgs{...}
+type CSINodeStatusInput interface {
+	pulumi.Input
+
+	ToCSINodeStatusOutput() CSINodeStatusOutput
+	ToCSINodeStatusOutputWithContext(context.Context) CSINodeStatusOutput
+}
+
+// CSINodeStatus contains health and status information for storage on a node.
+type CSINodeStatusArgs struct {
+	// storageHealth contains backend health reports for CSI drivers registered on the node.
+	StorageHealth StorageHealthArrayInput `pulumi:"storageHealth"`
+}
+
+func (CSINodeStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINodeStatus)(nil)).Elem()
+}
+
+func (i CSINodeStatusArgs) ToCSINodeStatusOutput() CSINodeStatusOutput {
+	return i.ToCSINodeStatusOutputWithContext(context.Background())
+}
+
+func (i CSINodeStatusArgs) ToCSINodeStatusOutputWithContext(ctx context.Context) CSINodeStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeStatusOutput)
+}
+
+func (i CSINodeStatusArgs) ToCSINodeStatusPtrOutput() CSINodeStatusPtrOutput {
+	return i.ToCSINodeStatusPtrOutputWithContext(context.Background())
+}
+
+func (i CSINodeStatusArgs) ToCSINodeStatusPtrOutputWithContext(ctx context.Context) CSINodeStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeStatusOutput).ToCSINodeStatusPtrOutputWithContext(ctx)
+}
+
+// CSINodeStatusPtrInput is an input type that accepts CSINodeStatusArgs, CSINodeStatusPtr and CSINodeStatusPtrOutput values.
+// You can construct a concrete instance of `CSINodeStatusPtrInput` via:
+//
+//	        CSINodeStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type CSINodeStatusPtrInput interface {
+	pulumi.Input
+
+	ToCSINodeStatusPtrOutput() CSINodeStatusPtrOutput
+	ToCSINodeStatusPtrOutputWithContext(context.Context) CSINodeStatusPtrOutput
+}
+
+type csinodeStatusPtrType CSINodeStatusArgs
+
+func CSINodeStatusPtr(v *CSINodeStatusArgs) CSINodeStatusPtrInput {
+	return (*csinodeStatusPtrType)(v)
+}
+
+func (*csinodeStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSINodeStatus)(nil)).Elem()
+}
+
+func (i *csinodeStatusPtrType) ToCSINodeStatusPtrOutput() CSINodeStatusPtrOutput {
+	return i.ToCSINodeStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *csinodeStatusPtrType) ToCSINodeStatusPtrOutputWithContext(ctx context.Context) CSINodeStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeStatusPtrOutput)
+}
+
+// CSINodeStatus contains health and status information for storage on a node.
+type CSINodeStatusOutput struct{ *pulumi.OutputState }
+
+func (CSINodeStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINodeStatus)(nil)).Elem()
+}
+
+func (o CSINodeStatusOutput) ToCSINodeStatusOutput() CSINodeStatusOutput {
+	return o
+}
+
+func (o CSINodeStatusOutput) ToCSINodeStatusOutputWithContext(ctx context.Context) CSINodeStatusOutput {
+	return o
+}
+
+func (o CSINodeStatusOutput) ToCSINodeStatusPtrOutput() CSINodeStatusPtrOutput {
+	return o.ToCSINodeStatusPtrOutputWithContext(context.Background())
+}
+
+func (o CSINodeStatusOutput) ToCSINodeStatusPtrOutputWithContext(ctx context.Context) CSINodeStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSINodeStatus) *CSINodeStatus {
+		return &v
+	}).(CSINodeStatusPtrOutput)
+}
+
+// storageHealth contains backend health reports for CSI drivers registered on the node.
+func (o CSINodeStatusOutput) StorageHealth() StorageHealthArrayOutput {
+	return o.ApplyT(func(v CSINodeStatus) []StorageHealth { return v.StorageHealth }).(StorageHealthArrayOutput)
+}
+
+type CSINodeStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (CSINodeStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSINodeStatus)(nil)).Elem()
+}
+
+func (o CSINodeStatusPtrOutput) ToCSINodeStatusPtrOutput() CSINodeStatusPtrOutput {
+	return o
+}
+
+func (o CSINodeStatusPtrOutput) ToCSINodeStatusPtrOutputWithContext(ctx context.Context) CSINodeStatusPtrOutput {
+	return o
+}
+
+func (o CSINodeStatusPtrOutput) Elem() CSINodeStatusOutput {
+	return o.ApplyT(func(v *CSINodeStatus) CSINodeStatus {
+		if v != nil {
+			return *v
+		}
+		var ret CSINodeStatus
+		return ret
+	}).(CSINodeStatusOutput)
+}
+
+// storageHealth contains backend health reports for CSI drivers registered on the node.
+func (o CSINodeStatusPtrOutput) StorageHealth() StorageHealthArrayOutput {
+	return o.ApplyT(func(v *CSINodeStatus) []StorageHealth {
+		if v == nil {
+			return nil
+		}
+		return v.StorageHealth
+	}).(StorageHealthArrayOutput)
+}
+
+// CSINodeStatus contains health and status information for storage on a node.
+type CSINodeStatusPatch struct {
+	// storageHealth contains backend health reports for CSI drivers registered on the node.
+	StorageHealth []StorageHealthPatch `pulumi:"storageHealth"`
+}
+
+// CSINodeStatusPatchInput is an input type that accepts CSINodeStatusPatchArgs and CSINodeStatusPatchOutput values.
+// You can construct a concrete instance of `CSINodeStatusPatchInput` via:
+//
+//	CSINodeStatusPatchArgs{...}
+type CSINodeStatusPatchInput interface {
+	pulumi.Input
+
+	ToCSINodeStatusPatchOutput() CSINodeStatusPatchOutput
+	ToCSINodeStatusPatchOutputWithContext(context.Context) CSINodeStatusPatchOutput
+}
+
+// CSINodeStatus contains health and status information for storage on a node.
+type CSINodeStatusPatchArgs struct {
+	// storageHealth contains backend health reports for CSI drivers registered on the node.
+	StorageHealth StorageHealthPatchArrayInput `pulumi:"storageHealth"`
+}
+
+func (CSINodeStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINodeStatusPatch)(nil)).Elem()
+}
+
+func (i CSINodeStatusPatchArgs) ToCSINodeStatusPatchOutput() CSINodeStatusPatchOutput {
+	return i.ToCSINodeStatusPatchOutputWithContext(context.Background())
+}
+
+func (i CSINodeStatusPatchArgs) ToCSINodeStatusPatchOutputWithContext(ctx context.Context) CSINodeStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeStatusPatchOutput)
+}
+
+func (i CSINodeStatusPatchArgs) ToCSINodeStatusPatchPtrOutput() CSINodeStatusPatchPtrOutput {
+	return i.ToCSINodeStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i CSINodeStatusPatchArgs) ToCSINodeStatusPatchPtrOutputWithContext(ctx context.Context) CSINodeStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeStatusPatchOutput).ToCSINodeStatusPatchPtrOutputWithContext(ctx)
+}
+
+// CSINodeStatusPatchPtrInput is an input type that accepts CSINodeStatusPatchArgs, CSINodeStatusPatchPtr and CSINodeStatusPatchPtrOutput values.
+// You can construct a concrete instance of `CSINodeStatusPatchPtrInput` via:
+//
+//	        CSINodeStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type CSINodeStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToCSINodeStatusPatchPtrOutput() CSINodeStatusPatchPtrOutput
+	ToCSINodeStatusPatchPtrOutputWithContext(context.Context) CSINodeStatusPatchPtrOutput
+}
+
+type csinodeStatusPatchPtrType CSINodeStatusPatchArgs
+
+func CSINodeStatusPatchPtr(v *CSINodeStatusPatchArgs) CSINodeStatusPatchPtrInput {
+	return (*csinodeStatusPatchPtrType)(v)
+}
+
+func (*csinodeStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSINodeStatusPatch)(nil)).Elem()
+}
+
+func (i *csinodeStatusPatchPtrType) ToCSINodeStatusPatchPtrOutput() CSINodeStatusPatchPtrOutput {
+	return i.ToCSINodeStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *csinodeStatusPatchPtrType) ToCSINodeStatusPatchPtrOutputWithContext(ctx context.Context) CSINodeStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSINodeStatusPatchPtrOutput)
+}
+
+// CSINodeStatus contains health and status information for storage on a node.
+type CSINodeStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (CSINodeStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSINodeStatusPatch)(nil)).Elem()
+}
+
+func (o CSINodeStatusPatchOutput) ToCSINodeStatusPatchOutput() CSINodeStatusPatchOutput {
+	return o
+}
+
+func (o CSINodeStatusPatchOutput) ToCSINodeStatusPatchOutputWithContext(ctx context.Context) CSINodeStatusPatchOutput {
+	return o
+}
+
+func (o CSINodeStatusPatchOutput) ToCSINodeStatusPatchPtrOutput() CSINodeStatusPatchPtrOutput {
+	return o.ToCSINodeStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o CSINodeStatusPatchOutput) ToCSINodeStatusPatchPtrOutputWithContext(ctx context.Context) CSINodeStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSINodeStatusPatch) *CSINodeStatusPatch {
+		return &v
+	}).(CSINodeStatusPatchPtrOutput)
+}
+
+// storageHealth contains backend health reports for CSI drivers registered on the node.
+func (o CSINodeStatusPatchOutput) StorageHealth() StorageHealthPatchArrayOutput {
+	return o.ApplyT(func(v CSINodeStatusPatch) []StorageHealthPatch { return v.StorageHealth }).(StorageHealthPatchArrayOutput)
+}
+
+type CSINodeStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (CSINodeStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CSINodeStatusPatch)(nil)).Elem()
+}
+
+func (o CSINodeStatusPatchPtrOutput) ToCSINodeStatusPatchPtrOutput() CSINodeStatusPatchPtrOutput {
+	return o
+}
+
+func (o CSINodeStatusPatchPtrOutput) ToCSINodeStatusPatchPtrOutputWithContext(ctx context.Context) CSINodeStatusPatchPtrOutput {
+	return o
+}
+
+func (o CSINodeStatusPatchPtrOutput) Elem() CSINodeStatusPatchOutput {
+	return o.ApplyT(func(v *CSINodeStatusPatch) CSINodeStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret CSINodeStatusPatch
+		return ret
+	}).(CSINodeStatusPatchOutput)
+}
+
+// storageHealth contains backend health reports for CSI drivers registered on the node.
+func (o CSINodeStatusPatchPtrOutput) StorageHealth() StorageHealthPatchArrayOutput {
+	return o.ApplyT(func(v *CSINodeStatusPatch) []StorageHealthPatch {
+		if v == nil {
+			return nil
+		}
+		return v.StorageHealth
+	}).(StorageHealthPatchArrayOutput)
+}
+
 // CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
 //
 // For example this can express things like: - StorageClass "standard" has "1234 GiB" available in "topology.kubernetes.io/zone=us-east1" - StorageClass "localssd" has "10 GiB" available in "kubernetes.io/hostname=knode-abc123"
@@ -1973,7 +2271,7 @@ type CSIStorageCapacityType struct {
 	//
 	// This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
 	MaximumVolumeSize *string `pulumi:"maximumVolumeSize"`
-	// Standard object's metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+	// metadata is the standard object metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
 	//
 	// Objects are namespaced.
 	//
@@ -2018,7 +2316,7 @@ type CSIStorageCapacityTypeArgs struct {
 	//
 	// This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
 	MaximumVolumeSize pulumi.StringPtrInput `pulumi:"maximumVolumeSize"`
-	// Standard object's metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+	// metadata is the standard object metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
 	//
 	// Objects are namespaced.
 	//
@@ -2114,7 +2412,7 @@ func (o CSIStorageCapacityTypeOutput) MaximumVolumeSize() pulumi.StringPtrOutput
 	return o.ApplyT(func(v CSIStorageCapacityType) *string { return v.MaximumVolumeSize }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+// metadata is the standard object metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
 //
 // Objects are namespaced.
 //
@@ -2257,7 +2555,7 @@ type CSIStorageCapacityPatchType struct {
 	//
 	// This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
 	MaximumVolumeSize *string `pulumi:"maximumVolumeSize"`
-	// Standard object's metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+	// metadata is the standard object metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
 	//
 	// Objects are namespaced.
 	//
@@ -2302,7 +2600,7 @@ type CSIStorageCapacityPatchTypeArgs struct {
 	//
 	// This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
 	MaximumVolumeSize pulumi.StringPtrInput `pulumi:"maximumVolumeSize"`
-	// Standard object's metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+	// metadata is the standard object metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
 	//
 	// Objects are namespaced.
 	//
@@ -2373,7 +2671,7 @@ func (o CSIStorageCapacityPatchTypeOutput) MaximumVolumeSize() pulumi.StringPtrO
 	return o.ApplyT(func(v CSIStorageCapacityPatchType) *string { return v.MaximumVolumeSize }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+// metadata is the standard object metadata. The name has no particular meaning. It must be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
 //
 // Objects are namespaced.
 //
@@ -2404,7 +2702,7 @@ type StorageClassType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 	MountOptions []string `pulumi:"mountOptions"`
@@ -2441,7 +2739,7 @@ type StorageClassTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 	MountOptions pulumi.StringArrayInput `pulumi:"mountOptions"`
@@ -2529,7 +2827,7 @@ func (o StorageClassTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StorageClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o StorageClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v StorageClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -2673,7 +2971,7 @@ type StorageClassPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 	MountOptions []string `pulumi:"mountOptions"`
@@ -2710,7 +3008,7 @@ type StorageClassPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 	MountOptions pulumi.StringArrayInput `pulumi:"mountOptions"`
@@ -2773,7 +3071,7 @@ func (o StorageClassPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StorageClassPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o StorageClassPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v StorageClassPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -2801,6 +3099,514 @@ func (o StorageClassPatchTypeOutput) ReclaimPolicy() pulumi.StringPtrOutput {
 // volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
 func (o StorageClassPatchTypeOutput) VolumeBindingMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StorageClassPatchType) *string { return v.VolumeBindingMode }).(pulumi.StringPtrOutput)
+}
+
+// StorageHealth contains storage backend health reported by a CSI driver on a node.
+type StorageHealth struct {
+	// healthConditions are the adverse storage backend conditions reported by the CSI driver. At most 16 conditions may be reported.
+	HealthConditions []StorageHealthCondition `pulumi:"healthConditions"`
+	// name is the CSI driver name, matching CSINodeDriver.name.
+	Name string `pulumi:"name"`
+}
+
+// StorageHealthInput is an input type that accepts StorageHealthArgs and StorageHealthOutput values.
+// You can construct a concrete instance of `StorageHealthInput` via:
+//
+//	StorageHealthArgs{...}
+type StorageHealthInput interface {
+	pulumi.Input
+
+	ToStorageHealthOutput() StorageHealthOutput
+	ToStorageHealthOutputWithContext(context.Context) StorageHealthOutput
+}
+
+// StorageHealth contains storage backend health reported by a CSI driver on a node.
+type StorageHealthArgs struct {
+	// healthConditions are the adverse storage backend conditions reported by the CSI driver. At most 16 conditions may be reported.
+	HealthConditions StorageHealthConditionArrayInput `pulumi:"healthConditions"`
+	// name is the CSI driver name, matching CSINodeDriver.name.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (StorageHealthArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageHealth)(nil)).Elem()
+}
+
+func (i StorageHealthArgs) ToStorageHealthOutput() StorageHealthOutput {
+	return i.ToStorageHealthOutputWithContext(context.Background())
+}
+
+func (i StorageHealthArgs) ToStorageHealthOutputWithContext(ctx context.Context) StorageHealthOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageHealthOutput)
+}
+
+// StorageHealthArrayInput is an input type that accepts StorageHealthArray and StorageHealthArrayOutput values.
+// You can construct a concrete instance of `StorageHealthArrayInput` via:
+//
+//	StorageHealthArray{ StorageHealthArgs{...} }
+type StorageHealthArrayInput interface {
+	pulumi.Input
+
+	ToStorageHealthArrayOutput() StorageHealthArrayOutput
+	ToStorageHealthArrayOutputWithContext(context.Context) StorageHealthArrayOutput
+}
+
+type StorageHealthArray []StorageHealthInput
+
+func (StorageHealthArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageHealth)(nil)).Elem()
+}
+
+func (i StorageHealthArray) ToStorageHealthArrayOutput() StorageHealthArrayOutput {
+	return i.ToStorageHealthArrayOutputWithContext(context.Background())
+}
+
+func (i StorageHealthArray) ToStorageHealthArrayOutputWithContext(ctx context.Context) StorageHealthArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageHealthArrayOutput)
+}
+
+// StorageHealth contains storage backend health reported by a CSI driver on a node.
+type StorageHealthOutput struct{ *pulumi.OutputState }
+
+func (StorageHealthOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageHealth)(nil)).Elem()
+}
+
+func (o StorageHealthOutput) ToStorageHealthOutput() StorageHealthOutput {
+	return o
+}
+
+func (o StorageHealthOutput) ToStorageHealthOutputWithContext(ctx context.Context) StorageHealthOutput {
+	return o
+}
+
+// healthConditions are the adverse storage backend conditions reported by the CSI driver. At most 16 conditions may be reported.
+func (o StorageHealthOutput) HealthConditions() StorageHealthConditionArrayOutput {
+	return o.ApplyT(func(v StorageHealth) []StorageHealthCondition { return v.HealthConditions }).(StorageHealthConditionArrayOutput)
+}
+
+// name is the CSI driver name, matching CSINodeDriver.name.
+func (o StorageHealthOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageHealth) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type StorageHealthArrayOutput struct{ *pulumi.OutputState }
+
+func (StorageHealthArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageHealth)(nil)).Elem()
+}
+
+func (o StorageHealthArrayOutput) ToStorageHealthArrayOutput() StorageHealthArrayOutput {
+	return o
+}
+
+func (o StorageHealthArrayOutput) ToStorageHealthArrayOutputWithContext(ctx context.Context) StorageHealthArrayOutput {
+	return o
+}
+
+func (o StorageHealthArrayOutput) Index(i pulumi.IntInput) StorageHealthOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StorageHealth {
+		return vs[0].([]StorageHealth)[vs[1].(int)]
+	}).(StorageHealthOutput)
+}
+
+// StorageHealthCondition represents an adverse health condition reported by a CSI driver for its storage backend on a node.
+type StorageHealthCondition struct {
+	// accessMode is the access mode affected. Nil means all access modes are affected.
+	AccessMode *string `pulumi:"accessMode"`
+	// lastTransitionTime is when this condition first appeared at its current state.
+	LastTransitionTime *string `pulumi:"lastTransitionTime"`
+	// message is a human-readable description. Maximum permitted length of a message is 1024 characters.
+	Message *string `pulumi:"message"`
+	// reason is a brief CamelCase machine-parseable reason. Maximum permitted length of a reason is 256 characters.
+	Reason string `pulumi:"reason"`
+	// status is the health status category. One of "StorageUnreachable", "StorageDegraded".
+	Status string `pulumi:"status"`
+	// volumeMode is the volume mode affected. Nil means both are affected.
+	VolumeMode *string `pulumi:"volumeMode"`
+}
+
+// StorageHealthConditionInput is an input type that accepts StorageHealthConditionArgs and StorageHealthConditionOutput values.
+// You can construct a concrete instance of `StorageHealthConditionInput` via:
+//
+//	StorageHealthConditionArgs{...}
+type StorageHealthConditionInput interface {
+	pulumi.Input
+
+	ToStorageHealthConditionOutput() StorageHealthConditionOutput
+	ToStorageHealthConditionOutputWithContext(context.Context) StorageHealthConditionOutput
+}
+
+// StorageHealthCondition represents an adverse health condition reported by a CSI driver for its storage backend on a node.
+type StorageHealthConditionArgs struct {
+	// accessMode is the access mode affected. Nil means all access modes are affected.
+	AccessMode pulumi.StringPtrInput `pulumi:"accessMode"`
+	// lastTransitionTime is when this condition first appeared at its current state.
+	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
+	// message is a human-readable description. Maximum permitted length of a message is 1024 characters.
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// reason is a brief CamelCase machine-parseable reason. Maximum permitted length of a reason is 256 characters.
+	Reason pulumi.StringInput `pulumi:"reason"`
+	// status is the health status category. One of "StorageUnreachable", "StorageDegraded".
+	Status pulumi.StringInput `pulumi:"status"`
+	// volumeMode is the volume mode affected. Nil means both are affected.
+	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
+}
+
+func (StorageHealthConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageHealthCondition)(nil)).Elem()
+}
+
+func (i StorageHealthConditionArgs) ToStorageHealthConditionOutput() StorageHealthConditionOutput {
+	return i.ToStorageHealthConditionOutputWithContext(context.Background())
+}
+
+func (i StorageHealthConditionArgs) ToStorageHealthConditionOutputWithContext(ctx context.Context) StorageHealthConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageHealthConditionOutput)
+}
+
+// StorageHealthConditionArrayInput is an input type that accepts StorageHealthConditionArray and StorageHealthConditionArrayOutput values.
+// You can construct a concrete instance of `StorageHealthConditionArrayInput` via:
+//
+//	StorageHealthConditionArray{ StorageHealthConditionArgs{...} }
+type StorageHealthConditionArrayInput interface {
+	pulumi.Input
+
+	ToStorageHealthConditionArrayOutput() StorageHealthConditionArrayOutput
+	ToStorageHealthConditionArrayOutputWithContext(context.Context) StorageHealthConditionArrayOutput
+}
+
+type StorageHealthConditionArray []StorageHealthConditionInput
+
+func (StorageHealthConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageHealthCondition)(nil)).Elem()
+}
+
+func (i StorageHealthConditionArray) ToStorageHealthConditionArrayOutput() StorageHealthConditionArrayOutput {
+	return i.ToStorageHealthConditionArrayOutputWithContext(context.Background())
+}
+
+func (i StorageHealthConditionArray) ToStorageHealthConditionArrayOutputWithContext(ctx context.Context) StorageHealthConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageHealthConditionArrayOutput)
+}
+
+// StorageHealthCondition represents an adverse health condition reported by a CSI driver for its storage backend on a node.
+type StorageHealthConditionOutput struct{ *pulumi.OutputState }
+
+func (StorageHealthConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageHealthCondition)(nil)).Elem()
+}
+
+func (o StorageHealthConditionOutput) ToStorageHealthConditionOutput() StorageHealthConditionOutput {
+	return o
+}
+
+func (o StorageHealthConditionOutput) ToStorageHealthConditionOutputWithContext(ctx context.Context) StorageHealthConditionOutput {
+	return o
+}
+
+// accessMode is the access mode affected. Nil means all access modes are affected.
+func (o StorageHealthConditionOutput) AccessMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthCondition) *string { return v.AccessMode }).(pulumi.StringPtrOutput)
+}
+
+// lastTransitionTime is when this condition first appeared at its current state.
+func (o StorageHealthConditionOutput) LastTransitionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+}
+
+// message is a human-readable description. Maximum permitted length of a message is 1024 characters.
+func (o StorageHealthConditionOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// reason is a brief CamelCase machine-parseable reason. Maximum permitted length of a reason is 256 characters.
+func (o StorageHealthConditionOutput) Reason() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageHealthCondition) string { return v.Reason }).(pulumi.StringOutput)
+}
+
+// status is the health status category. One of "StorageUnreachable", "StorageDegraded".
+func (o StorageHealthConditionOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v StorageHealthCondition) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// volumeMode is the volume mode affected. Nil means both are affected.
+func (o StorageHealthConditionOutput) VolumeMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthCondition) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
+}
+
+type StorageHealthConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (StorageHealthConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageHealthCondition)(nil)).Elem()
+}
+
+func (o StorageHealthConditionArrayOutput) ToStorageHealthConditionArrayOutput() StorageHealthConditionArrayOutput {
+	return o
+}
+
+func (o StorageHealthConditionArrayOutput) ToStorageHealthConditionArrayOutputWithContext(ctx context.Context) StorageHealthConditionArrayOutput {
+	return o
+}
+
+func (o StorageHealthConditionArrayOutput) Index(i pulumi.IntInput) StorageHealthConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StorageHealthCondition {
+		return vs[0].([]StorageHealthCondition)[vs[1].(int)]
+	}).(StorageHealthConditionOutput)
+}
+
+// StorageHealthCondition represents an adverse health condition reported by a CSI driver for its storage backend on a node.
+type StorageHealthConditionPatch struct {
+	// accessMode is the access mode affected. Nil means all access modes are affected.
+	AccessMode *string `pulumi:"accessMode"`
+	// lastTransitionTime is when this condition first appeared at its current state.
+	LastTransitionTime *string `pulumi:"lastTransitionTime"`
+	// message is a human-readable description. Maximum permitted length of a message is 1024 characters.
+	Message *string `pulumi:"message"`
+	// reason is a brief CamelCase machine-parseable reason. Maximum permitted length of a reason is 256 characters.
+	Reason *string `pulumi:"reason"`
+	// status is the health status category. One of "StorageUnreachable", "StorageDegraded".
+	Status *string `pulumi:"status"`
+	// volumeMode is the volume mode affected. Nil means both are affected.
+	VolumeMode *string `pulumi:"volumeMode"`
+}
+
+// StorageHealthConditionPatchInput is an input type that accepts StorageHealthConditionPatchArgs and StorageHealthConditionPatchOutput values.
+// You can construct a concrete instance of `StorageHealthConditionPatchInput` via:
+//
+//	StorageHealthConditionPatchArgs{...}
+type StorageHealthConditionPatchInput interface {
+	pulumi.Input
+
+	ToStorageHealthConditionPatchOutput() StorageHealthConditionPatchOutput
+	ToStorageHealthConditionPatchOutputWithContext(context.Context) StorageHealthConditionPatchOutput
+}
+
+// StorageHealthCondition represents an adverse health condition reported by a CSI driver for its storage backend on a node.
+type StorageHealthConditionPatchArgs struct {
+	// accessMode is the access mode affected. Nil means all access modes are affected.
+	AccessMode pulumi.StringPtrInput `pulumi:"accessMode"`
+	// lastTransitionTime is when this condition first appeared at its current state.
+	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
+	// message is a human-readable description. Maximum permitted length of a message is 1024 characters.
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// reason is a brief CamelCase machine-parseable reason. Maximum permitted length of a reason is 256 characters.
+	Reason pulumi.StringPtrInput `pulumi:"reason"`
+	// status is the health status category. One of "StorageUnreachable", "StorageDegraded".
+	Status pulumi.StringPtrInput `pulumi:"status"`
+	// volumeMode is the volume mode affected. Nil means both are affected.
+	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
+}
+
+func (StorageHealthConditionPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageHealthConditionPatch)(nil)).Elem()
+}
+
+func (i StorageHealthConditionPatchArgs) ToStorageHealthConditionPatchOutput() StorageHealthConditionPatchOutput {
+	return i.ToStorageHealthConditionPatchOutputWithContext(context.Background())
+}
+
+func (i StorageHealthConditionPatchArgs) ToStorageHealthConditionPatchOutputWithContext(ctx context.Context) StorageHealthConditionPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageHealthConditionPatchOutput)
+}
+
+// StorageHealthConditionPatchArrayInput is an input type that accepts StorageHealthConditionPatchArray and StorageHealthConditionPatchArrayOutput values.
+// You can construct a concrete instance of `StorageHealthConditionPatchArrayInput` via:
+//
+//	StorageHealthConditionPatchArray{ StorageHealthConditionPatchArgs{...} }
+type StorageHealthConditionPatchArrayInput interface {
+	pulumi.Input
+
+	ToStorageHealthConditionPatchArrayOutput() StorageHealthConditionPatchArrayOutput
+	ToStorageHealthConditionPatchArrayOutputWithContext(context.Context) StorageHealthConditionPatchArrayOutput
+}
+
+type StorageHealthConditionPatchArray []StorageHealthConditionPatchInput
+
+func (StorageHealthConditionPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageHealthConditionPatch)(nil)).Elem()
+}
+
+func (i StorageHealthConditionPatchArray) ToStorageHealthConditionPatchArrayOutput() StorageHealthConditionPatchArrayOutput {
+	return i.ToStorageHealthConditionPatchArrayOutputWithContext(context.Background())
+}
+
+func (i StorageHealthConditionPatchArray) ToStorageHealthConditionPatchArrayOutputWithContext(ctx context.Context) StorageHealthConditionPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageHealthConditionPatchArrayOutput)
+}
+
+// StorageHealthCondition represents an adverse health condition reported by a CSI driver for its storage backend on a node.
+type StorageHealthConditionPatchOutput struct{ *pulumi.OutputState }
+
+func (StorageHealthConditionPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageHealthConditionPatch)(nil)).Elem()
+}
+
+func (o StorageHealthConditionPatchOutput) ToStorageHealthConditionPatchOutput() StorageHealthConditionPatchOutput {
+	return o
+}
+
+func (o StorageHealthConditionPatchOutput) ToStorageHealthConditionPatchOutputWithContext(ctx context.Context) StorageHealthConditionPatchOutput {
+	return o
+}
+
+// accessMode is the access mode affected. Nil means all access modes are affected.
+func (o StorageHealthConditionPatchOutput) AccessMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthConditionPatch) *string { return v.AccessMode }).(pulumi.StringPtrOutput)
+}
+
+// lastTransitionTime is when this condition first appeared at its current state.
+func (o StorageHealthConditionPatchOutput) LastTransitionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthConditionPatch) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
+}
+
+// message is a human-readable description. Maximum permitted length of a message is 1024 characters.
+func (o StorageHealthConditionPatchOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthConditionPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// reason is a brief CamelCase machine-parseable reason. Maximum permitted length of a reason is 256 characters.
+func (o StorageHealthConditionPatchOutput) Reason() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthConditionPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
+}
+
+// status is the health status category. One of "StorageUnreachable", "StorageDegraded".
+func (o StorageHealthConditionPatchOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthConditionPatch) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+// volumeMode is the volume mode affected. Nil means both are affected.
+func (o StorageHealthConditionPatchOutput) VolumeMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthConditionPatch) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
+}
+
+type StorageHealthConditionPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (StorageHealthConditionPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageHealthConditionPatch)(nil)).Elem()
+}
+
+func (o StorageHealthConditionPatchArrayOutput) ToStorageHealthConditionPatchArrayOutput() StorageHealthConditionPatchArrayOutput {
+	return o
+}
+
+func (o StorageHealthConditionPatchArrayOutput) ToStorageHealthConditionPatchArrayOutputWithContext(ctx context.Context) StorageHealthConditionPatchArrayOutput {
+	return o
+}
+
+func (o StorageHealthConditionPatchArrayOutput) Index(i pulumi.IntInput) StorageHealthConditionPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StorageHealthConditionPatch {
+		return vs[0].([]StorageHealthConditionPatch)[vs[1].(int)]
+	}).(StorageHealthConditionPatchOutput)
+}
+
+// StorageHealth contains storage backend health reported by a CSI driver on a node.
+type StorageHealthPatch struct {
+	// healthConditions are the adverse storage backend conditions reported by the CSI driver. At most 16 conditions may be reported.
+	HealthConditions []StorageHealthConditionPatch `pulumi:"healthConditions"`
+	// name is the CSI driver name, matching CSINodeDriver.name.
+	Name *string `pulumi:"name"`
+}
+
+// StorageHealthPatchInput is an input type that accepts StorageHealthPatchArgs and StorageHealthPatchOutput values.
+// You can construct a concrete instance of `StorageHealthPatchInput` via:
+//
+//	StorageHealthPatchArgs{...}
+type StorageHealthPatchInput interface {
+	pulumi.Input
+
+	ToStorageHealthPatchOutput() StorageHealthPatchOutput
+	ToStorageHealthPatchOutputWithContext(context.Context) StorageHealthPatchOutput
+}
+
+// StorageHealth contains storage backend health reported by a CSI driver on a node.
+type StorageHealthPatchArgs struct {
+	// healthConditions are the adverse storage backend conditions reported by the CSI driver. At most 16 conditions may be reported.
+	HealthConditions StorageHealthConditionPatchArrayInput `pulumi:"healthConditions"`
+	// name is the CSI driver name, matching CSINodeDriver.name.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (StorageHealthPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageHealthPatch)(nil)).Elem()
+}
+
+func (i StorageHealthPatchArgs) ToStorageHealthPatchOutput() StorageHealthPatchOutput {
+	return i.ToStorageHealthPatchOutputWithContext(context.Background())
+}
+
+func (i StorageHealthPatchArgs) ToStorageHealthPatchOutputWithContext(ctx context.Context) StorageHealthPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageHealthPatchOutput)
+}
+
+// StorageHealthPatchArrayInput is an input type that accepts StorageHealthPatchArray and StorageHealthPatchArrayOutput values.
+// You can construct a concrete instance of `StorageHealthPatchArrayInput` via:
+//
+//	StorageHealthPatchArray{ StorageHealthPatchArgs{...} }
+type StorageHealthPatchArrayInput interface {
+	pulumi.Input
+
+	ToStorageHealthPatchArrayOutput() StorageHealthPatchArrayOutput
+	ToStorageHealthPatchArrayOutputWithContext(context.Context) StorageHealthPatchArrayOutput
+}
+
+type StorageHealthPatchArray []StorageHealthPatchInput
+
+func (StorageHealthPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageHealthPatch)(nil)).Elem()
+}
+
+func (i StorageHealthPatchArray) ToStorageHealthPatchArrayOutput() StorageHealthPatchArrayOutput {
+	return i.ToStorageHealthPatchArrayOutputWithContext(context.Background())
+}
+
+func (i StorageHealthPatchArray) ToStorageHealthPatchArrayOutputWithContext(ctx context.Context) StorageHealthPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StorageHealthPatchArrayOutput)
+}
+
+// StorageHealth contains storage backend health reported by a CSI driver on a node.
+type StorageHealthPatchOutput struct{ *pulumi.OutputState }
+
+func (StorageHealthPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StorageHealthPatch)(nil)).Elem()
+}
+
+func (o StorageHealthPatchOutput) ToStorageHealthPatchOutput() StorageHealthPatchOutput {
+	return o
+}
+
+func (o StorageHealthPatchOutput) ToStorageHealthPatchOutputWithContext(ctx context.Context) StorageHealthPatchOutput {
+	return o
+}
+
+// healthConditions are the adverse storage backend conditions reported by the CSI driver. At most 16 conditions may be reported.
+func (o StorageHealthPatchOutput) HealthConditions() StorageHealthConditionPatchArrayOutput {
+	return o.ApplyT(func(v StorageHealthPatch) []StorageHealthConditionPatch { return v.HealthConditions }).(StorageHealthConditionPatchArrayOutput)
+}
+
+// name is the CSI driver name, matching CSINodeDriver.name.
+func (o StorageHealthPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StorageHealthPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type StorageHealthPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (StorageHealthPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StorageHealthPatch)(nil)).Elem()
+}
+
+func (o StorageHealthPatchArrayOutput) ToStorageHealthPatchArrayOutput() StorageHealthPatchArrayOutput {
+	return o
+}
+
+func (o StorageHealthPatchArrayOutput) ToStorageHealthPatchArrayOutputWithContext(ctx context.Context) StorageHealthPatchArrayOutput {
+	return o
+}
+
+func (o StorageHealthPatchArrayOutput) Index(i pulumi.IntInput) StorageHealthPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StorageHealthPatch {
+		return vs[0].([]StorageHealthPatch)[vs[1].(int)]
+	}).(StorageHealthPatchOutput)
 }
 
 // TokenRequest contains parameters of a service account token.
@@ -3029,7 +3835,7 @@ type VolumeAttachmentType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 	Spec VolumeAttachmentSpec `pulumi:"spec"`
@@ -3056,7 +3862,7 @@ type VolumeAttachmentTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 	Spec VolumeAttachmentSpecInput `pulumi:"spec"`
@@ -3128,7 +3934,7 @@ func (o VolumeAttachmentTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeAttachmentType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o VolumeAttachmentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v VolumeAttachmentType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -3253,7 +4059,7 @@ type VolumeAttachmentPatchType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 	Spec *VolumeAttachmentSpecPatch `pulumi:"spec"`
@@ -3280,7 +4086,7 @@ type VolumeAttachmentPatchTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 	Spec VolumeAttachmentSpecPatchPtrInput `pulumi:"spec"`
@@ -3327,7 +4133,7 @@ func (o VolumeAttachmentPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeAttachmentPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o VolumeAttachmentPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v VolumeAttachmentPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -4214,11 +5020,11 @@ func (o VolumeAttachmentStatusPatchPtrOutput) DetachError() VolumeErrorPatchPtrO
 type VolumeAttributesClassType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Name of the CSI driver This field is immutable.
+	// driverName is the name of the CSI driver This field is immutable.
 	DriverName string `pulumi:"driverName"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
 	//
@@ -4241,11 +5047,11 @@ type VolumeAttributesClassTypeInput interface {
 type VolumeAttributesClassTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Name of the CSI driver This field is immutable.
+	// driverName is the name of the CSI driver This field is immutable.
 	DriverName pulumi.StringInput `pulumi:"driverName"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
 	//
@@ -4310,7 +5116,7 @@ func (o VolumeAttributesClassTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeAttributesClassType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Name of the CSI driver This field is immutable.
+// driverName is the name of the CSI driver This field is immutable.
 func (o VolumeAttributesClassTypeOutput) DriverName() pulumi.StringOutput {
 	return o.ApplyT(func(v VolumeAttributesClassType) string { return v.DriverName }).(pulumi.StringOutput)
 }
@@ -4320,7 +5126,7 @@ func (o VolumeAttributesClassTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeAttributesClassType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o VolumeAttributesClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v VolumeAttributesClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -4438,11 +5244,11 @@ func (o VolumeAttributesClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput
 type VolumeAttributesClassPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Name of the CSI driver This field is immutable.
+	// driverName is the name of the CSI driver This field is immutable.
 	DriverName *string `pulumi:"driverName"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
 	//
@@ -4465,11 +5271,11 @@ type VolumeAttributesClassPatchTypeInput interface {
 type VolumeAttributesClassPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Name of the CSI driver This field is immutable.
+	// driverName is the name of the CSI driver This field is immutable.
 	DriverName pulumi.StringPtrInput `pulumi:"driverName"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// parameters hold volume attributes defined by the CSI driver. These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
 	//
@@ -4509,7 +5315,7 @@ func (o VolumeAttributesClassPatchTypeOutput) ApiVersion() pulumi.StringPtrOutpu
 	return o.ApplyT(func(v VolumeAttributesClassPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Name of the CSI driver This field is immutable.
+// driverName is the name of the CSI driver This field is immutable.
 func (o VolumeAttributesClassPatchTypeOutput) DriverName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeAttributesClassPatchType) *string { return v.DriverName }).(pulumi.StringPtrOutput)
 }
@@ -4519,7 +5325,7 @@ func (o VolumeAttributesClassPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeAttributesClassPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o VolumeAttributesClassPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v VolumeAttributesClassPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -5202,6 +6008,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeSpecInput)(nil)).Elem(), CSINodeSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeSpecPatchInput)(nil)).Elem(), CSINodeSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeSpecPatchPtrInput)(nil)).Elem(), CSINodeSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeStatusInput)(nil)).Elem(), CSINodeStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeStatusPtrInput)(nil)).Elem(), CSINodeStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeStatusPatchInput)(nil)).Elem(), CSINodeStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeStatusPatchPtrInput)(nil)).Elem(), CSINodeStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityTypeInput)(nil)).Elem(), CSIStorageCapacityTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityTypeArrayInput)(nil)).Elem(), CSIStorageCapacityTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityListTypeInput)(nil)).Elem(), CSIStorageCapacityListTypeArgs{})
@@ -5210,6 +6020,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*StorageClassTypeArrayInput)(nil)).Elem(), StorageClassTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StorageClassListTypeInput)(nil)).Elem(), StorageClassListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StorageClassPatchTypeInput)(nil)).Elem(), StorageClassPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageHealthInput)(nil)).Elem(), StorageHealthArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageHealthArrayInput)(nil)).Elem(), StorageHealthArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageHealthConditionInput)(nil)).Elem(), StorageHealthConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageHealthConditionArrayInput)(nil)).Elem(), StorageHealthConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageHealthConditionPatchInput)(nil)).Elem(), StorageHealthConditionPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageHealthConditionPatchArrayInput)(nil)).Elem(), StorageHealthConditionPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageHealthPatchInput)(nil)).Elem(), StorageHealthPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageHealthPatchArrayInput)(nil)).Elem(), StorageHealthPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestInput)(nil)).Elem(), TokenRequestArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestArrayInput)(nil)).Elem(), TokenRequestArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestPatchInput)(nil)).Elem(), TokenRequestPatchArgs{})
@@ -5258,6 +6076,10 @@ func init() {
 	pulumi.RegisterOutputType(CSINodeSpecOutput{})
 	pulumi.RegisterOutputType(CSINodeSpecPatchOutput{})
 	pulumi.RegisterOutputType(CSINodeSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(CSINodeStatusOutput{})
+	pulumi.RegisterOutputType(CSINodeStatusPtrOutput{})
+	pulumi.RegisterOutputType(CSINodeStatusPatchOutput{})
+	pulumi.RegisterOutputType(CSINodeStatusPatchPtrOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityTypeOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityTypeArrayOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityListTypeOutput{})
@@ -5266,6 +6088,14 @@ func init() {
 	pulumi.RegisterOutputType(StorageClassTypeArrayOutput{})
 	pulumi.RegisterOutputType(StorageClassListTypeOutput{})
 	pulumi.RegisterOutputType(StorageClassPatchTypeOutput{})
+	pulumi.RegisterOutputType(StorageHealthOutput{})
+	pulumi.RegisterOutputType(StorageHealthArrayOutput{})
+	pulumi.RegisterOutputType(StorageHealthConditionOutput{})
+	pulumi.RegisterOutputType(StorageHealthConditionArrayOutput{})
+	pulumi.RegisterOutputType(StorageHealthConditionPatchOutput{})
+	pulumi.RegisterOutputType(StorageHealthConditionPatchArrayOutput{})
+	pulumi.RegisterOutputType(StorageHealthPatchOutput{})
+	pulumi.RegisterOutputType(StorageHealthPatchArrayOutput{})
 	pulumi.RegisterOutputType(TokenRequestOutput{})
 	pulumi.RegisterOutputType(TokenRequestArrayOutput{})
 	pulumi.RegisterOutputType(TokenRequestPatchOutput{})

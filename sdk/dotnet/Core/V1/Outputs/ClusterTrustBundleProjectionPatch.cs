@@ -36,6 +36,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// Select all ClusterTrustBundles that match this signer name. Mutually-exclusive with name.  The contents of all selected ClusterTrustBundles will be unified and deduplicated.
         /// </summary>
         public readonly string SignerName;
+        /// <summary>
+        /// user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        public readonly int User;
 
         [OutputConstructor]
         private ClusterTrustBundleProjectionPatch(
@@ -47,13 +51,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string path,
 
-            string signerName)
+            string signerName,
+
+            int user)
         {
             LabelSelector = labelSelector;
             Name = name;
             Optional = optional;
             Path = path;
             SignerName = signerName;
+            User = user;
         }
     }
 }

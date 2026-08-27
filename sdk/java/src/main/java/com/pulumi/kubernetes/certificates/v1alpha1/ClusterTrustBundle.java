@@ -127,6 +127,7 @@ public class ClusterTrustBundle extends com.pulumi.resources.CustomResource {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
             .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:certificates.k8s.io/v1:ClusterTrustBundle").build()),
                 Output.of(Alias.builder().type("kubernetes:certificates.k8s.io/v1beta1:ClusterTrustBundle").build())
             ))
             .build();

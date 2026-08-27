@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.outputs.StatefulSetSpec;
 import com.pulumi.kubernetes.apps.v1.outputs.StatefulSetStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
@@ -33,7 +34,7 @@ public final class StatefulSet {
      * @return Spec defines the desired identities of pods in this set.
      * 
      */
-    private @Nullable StatefulSetSpec spec;
+    private StatefulSetSpec spec;
     /**
      * @return Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
      * 
@@ -66,8 +67,8 @@ public final class StatefulSet {
      * @return Spec defines the desired identities of pods in this set.
      * 
      */
-    public Optional<StatefulSetSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public StatefulSetSpec spec() {
+        return this.spec;
     }
     /**
      * @return Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
@@ -89,7 +90,7 @@ public final class StatefulSet {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable StatefulSetSpec spec;
+        private StatefulSetSpec spec;
         private @Nullable StatefulSetStatus status;
         public Builder() {}
         public Builder(StatefulSet defaults) {
@@ -120,8 +121,10 @@ public final class StatefulSet {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable StatefulSetSpec spec) {
-
+        public Builder spec(StatefulSetSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("StatefulSet", "spec");
+            }
             this.spec = spec;
             return this;
         }

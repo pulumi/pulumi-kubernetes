@@ -39,15 +39,15 @@ public final class ControllerRevisionArgs extends com.pulumi.resources.ResourceA
      * Data is the serialized representation of the state.
      * 
      */
-    @Import(name="data")
-    private @Nullable Output<JsonElement> data;
+    @Import(name="data", required=true)
+    private Output<JsonElement> data;
 
     /**
      * @return Data is the serialized representation of the state.
      * 
      */
-    public Optional<Output<JsonElement>> data() {
-        return Optional.ofNullable(this.data);
+    public Output<JsonElement> data() {
+        return this.data;
     }
 
     /**
@@ -84,15 +84,15 @@ public final class ControllerRevisionArgs extends com.pulumi.resources.ResourceA
      * Revision indicates the revision of the state represented by Data.
      * 
      */
-    @Import(name="revision", required=true)
-    private Output<Integer> revision;
+    @Import(name="revision")
+    private @Nullable Output<Integer> revision;
 
     /**
      * @return Revision indicates the revision of the state represented by Data.
      * 
      */
-    public Output<Integer> revision() {
-        return this.revision;
+    public Optional<Output<Integer>> revision() {
+        return Optional.ofNullable(this.revision);
     }
 
     private ControllerRevisionArgs() {}
@@ -150,7 +150,7 @@ public final class ControllerRevisionArgs extends com.pulumi.resources.ResourceA
          * @return builder
          * 
          */
-        public Builder data(@Nullable Output<JsonElement> data) {
+        public Builder data(Output<JsonElement> data) {
             $.data = data;
             return this;
         }
@@ -213,7 +213,7 @@ public final class ControllerRevisionArgs extends com.pulumi.resources.ResourceA
          * @return builder
          * 
          */
-        public Builder revision(Output<Integer> revision) {
+        public Builder revision(@Nullable Output<Integer> revision) {
             $.revision = revision;
             return this;
         }
@@ -230,10 +230,10 @@ public final class ControllerRevisionArgs extends com.pulumi.resources.ResourceA
 
         public ControllerRevisionArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            if ($.revision == null) {
-                throw new MissingRequiredPropertyException("ControllerRevisionArgs", "revision");
+            if ($.data == null) {
+                throw new MissingRequiredPropertyException("ControllerRevisionArgs", "data");
             }
+            $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
             return $;
         }
     }

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.batch.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.exceptions.MissingRequiredPropertyException;
+import com.pulumi.kubernetes.batch.v1.outputs.JobSchedulingConfiguration;
 import com.pulumi.kubernetes.batch.v1.outputs.PodFailurePolicy;
 import com.pulumi.kubernetes.batch.v1.outputs.SuccessPolicy;
 import com.pulumi.kubernetes.core.v1.outputs.PodTemplateSpec;
@@ -84,6 +85,11 @@ public final class JobSpec {
      * 
      */
     private @Nullable String podReplacementPolicy;
+    /**
+     * @return scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+     * 
+     */
+    private @Nullable JobSchedulingConfiguration scheduling;
     /**
      * @return A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
      * 
@@ -200,6 +206,13 @@ public final class JobSpec {
         return Optional.ofNullable(this.podReplacementPolicy);
     }
     /**
+     * @return scheduling defines the Workload-aware Scheduling configuration for this Job. When set, it specifies the scheduling policy (basic or gang), topology constraints, disruption mode, and shared resource claims. When omitted, the Job defaults to the basic scheduling policy, which behaves as standard pod-by-pod scheduling. This field is alpha-level and requires the WorkloadWithJob feature gate. This field is immutable, including whether it is set at all, only policy.gang.minCount may be changed after creation.
+     * 
+     */
+    public Optional<JobSchedulingConfiguration> scheduling() {
+        return Optional.ofNullable(this.scheduling);
+    }
+    /**
      * @return A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
      * 
      */
@@ -255,6 +268,7 @@ public final class JobSpec {
         private @Nullable Integer parallelism;
         private @Nullable PodFailurePolicy podFailurePolicy;
         private @Nullable String podReplacementPolicy;
+        private @Nullable JobSchedulingConfiguration scheduling;
         private @Nullable LabelSelector selector;
         private @Nullable SuccessPolicy successPolicy;
         private @Nullable Boolean suspend;
@@ -274,6 +288,7 @@ public final class JobSpec {
     	      this.parallelism = defaults.parallelism;
     	      this.podFailurePolicy = defaults.podFailurePolicy;
     	      this.podReplacementPolicy = defaults.podReplacementPolicy;
+    	      this.scheduling = defaults.scheduling;
     	      this.selector = defaults.selector;
     	      this.successPolicy = defaults.successPolicy;
     	      this.suspend = defaults.suspend;
@@ -348,6 +363,12 @@ public final class JobSpec {
             return this;
         }
         @CustomType.Setter
+        public Builder scheduling(@Nullable JobSchedulingConfiguration scheduling) {
+
+            this.scheduling = scheduling;
+            return this;
+        }
+        @CustomType.Setter
         public Builder selector(@Nullable LabelSelector selector) {
 
             this.selector = selector;
@@ -392,6 +413,7 @@ public final class JobSpec {
             _resultValue.parallelism = parallelism;
             _resultValue.podFailurePolicy = podFailurePolicy;
             _resultValue.podReplacementPolicy = podReplacementPolicy;
+            _resultValue.scheduling = scheduling;
             _resultValue.selector = selector;
             _resultValue.successPolicy = successPolicy;
             _resultValue.suspend = suspend;

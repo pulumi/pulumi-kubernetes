@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1
         public Input<string>? Reason { get; set; }
 
         /// <summary>
-        /// `status` is the status of the condition. Can be True, False, Unknown. Required.
+        /// `status` is the status of the condition. Should be specified and set to one of True, False, Unknown.
         /// </summary>
         [Input("status")]
         public Input<string>? Status { get; set; }
@@ -42,8 +42,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1
         /// <summary>
         /// `type` is the type of the condition. Required.
         /// </summary>
-        [Input("type")]
-        public Input<string>? Type { get; set; }
+        [Input("type", required: true)]
+        public Input<string> Type { get; set; } = null!;
 
         public PriorityLevelConfigurationConditionArgs()
         {

@@ -11,14 +11,14 @@ import java.util.Objects;
 @CustomType
 public final class IPAddressSpec {
     /**
-     * @return ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+     * @return parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
     private ParentReference parentRef;
 
     private IPAddressSpec() {}
     /**
-     * @return ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+     * @return parentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
      * 
      */
     public ParentReference parentRef() {

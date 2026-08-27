@@ -36,6 +36,11 @@ public final class HTTPGetActionPatch {
      */
     private @Nullable Either<Integer,String> port;
     /**
+     * @return Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+     * 
+     */
+    private @Nullable String protocol;
+    /**
      * @return Scheme to use for connecting to the host. Defaults to HTTP.
      * 
      */
@@ -71,6 +76,13 @@ public final class HTTPGetActionPatch {
         return Optional.ofNullable(this.port);
     }
     /**
+     * @return Protocol selects the wire protocol for the probe connection. Nil defaults to HTTP/1.1.
+     * 
+     */
+    public Optional<String> protocol() {
+        return Optional.ofNullable(this.protocol);
+    }
+    /**
      * @return Scheme to use for connecting to the host. Defaults to HTTP.
      * 
      */
@@ -91,6 +103,7 @@ public final class HTTPGetActionPatch {
         private @Nullable List<HTTPHeaderPatch> httpHeaders;
         private @Nullable String path;
         private @Nullable Either<Integer,String> port;
+        private @Nullable String protocol;
         private @Nullable String scheme;
         public Builder() {}
         public Builder(HTTPGetActionPatch defaults) {
@@ -99,6 +112,7 @@ public final class HTTPGetActionPatch {
     	      this.httpHeaders = defaults.httpHeaders;
     	      this.path = defaults.path;
     	      this.port = defaults.port;
+    	      this.protocol = defaults.protocol;
     	      this.scheme = defaults.scheme;
         }
 
@@ -130,6 +144,12 @@ public final class HTTPGetActionPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder protocol(@Nullable String protocol) {
+
+            this.protocol = protocol;
+            return this;
+        }
+        @CustomType.Setter
         public Builder scheme(@Nullable String scheme) {
 
             this.scheme = scheme;
@@ -141,6 +161,7 @@ public final class HTTPGetActionPatch {
             _resultValue.httpHeaders = httpHeaders;
             _resultValue.path = path;
             _resultValue.port = port;
+            _resultValue.protocol = protocol;
             _resultValue.scheme = scheme;
             return _resultValue;
         }

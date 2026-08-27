@@ -36,8 +36,8 @@ func NewControllerRevision(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Revision == nil {
-		return nil, errors.New("invalid value for required argument 'Revision'")
+	if args.Data == nil {
+		return nil, errors.New("invalid value for required argument 'Data'")
 	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1")
 	args.Kind = pulumi.StringPtr("ControllerRevision")
@@ -92,7 +92,7 @@ type controllerRevisionArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Revision indicates the revision of the state represented by Data.
-	Revision int `pulumi:"revision"`
+	Revision *int `pulumi:"revision"`
 }
 
 // The set of arguments for constructing a ControllerRevision resource.
@@ -106,7 +106,7 @@ type ControllerRevisionArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Revision indicates the revision of the state represented by Data.
-	Revision pulumi.IntInput
+	Revision pulumi.IntPtrInput
 }
 
 func (ControllerRevisionArgs) ElementType() reflect.Type {

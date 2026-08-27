@@ -63,6 +63,11 @@ public final class PodCertificateProjection {
      */
     private String signerName;
     /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    private @Nullable Integer user;
+    /**
      * @return userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
      * 
      * These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -136,6 +141,13 @@ public final class PodCertificateProjection {
         return this.signerName;
     }
     /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Integer> user() {
+        return Optional.ofNullable(this.user);
+    }
+    /**
      * @return userAnnotations allow pod authors to pass additional information to the signer implementation.  Kubernetes does not restrict or validate this metadata in any way.
      * 
      * These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of the PodCertificateRequest objects that Kubelet creates.
@@ -164,6 +176,7 @@ public final class PodCertificateProjection {
         private String keyType;
         private @Nullable Integer maxExpirationSeconds;
         private String signerName;
+        private @Nullable Integer user;
         private @Nullable Map<String,String> userAnnotations;
         public Builder() {}
         public Builder(PodCertificateProjection defaults) {
@@ -174,6 +187,7 @@ public final class PodCertificateProjection {
     	      this.keyType = defaults.keyType;
     	      this.maxExpirationSeconds = defaults.maxExpirationSeconds;
     	      this.signerName = defaults.signerName;
+    	      this.user = defaults.user;
     	      this.userAnnotations = defaults.userAnnotations;
         }
 
@@ -218,6 +232,12 @@ public final class PodCertificateProjection {
             return this;
         }
         @CustomType.Setter
+        public Builder user(@Nullable Integer user) {
+
+            this.user = user;
+            return this;
+        }
+        @CustomType.Setter
         public Builder userAnnotations(@Nullable Map<String,String> userAnnotations) {
 
             this.userAnnotations = userAnnotations;
@@ -231,6 +251,7 @@ public final class PodCertificateProjection {
             _resultValue.keyType = keyType;
             _resultValue.maxExpirationSeconds = maxExpirationSeconds;
             _resultValue.signerName = signerName;
+            _resultValue.user = user;
             _resultValue.userAnnotations = userAnnotations;
             return _resultValue;
         }

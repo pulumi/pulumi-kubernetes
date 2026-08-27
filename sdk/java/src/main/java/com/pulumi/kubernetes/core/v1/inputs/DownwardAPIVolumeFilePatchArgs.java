@@ -82,6 +82,21 @@ public final class DownwardAPIVolumeFilePatchArgs extends com.pulumi.resources.R
         return Optional.ofNullable(this.resourceFieldRef);
     }
 
+    /**
+     * user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    @Import(name="user")
+    private @Nullable Output<Integer> user;
+
+    /**
+     * @return user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+     * 
+     */
+    public Optional<Output<Integer>> user() {
+        return Optional.ofNullable(this.user);
+    }
+
     private DownwardAPIVolumeFilePatchArgs() {}
 
     private DownwardAPIVolumeFilePatchArgs(DownwardAPIVolumeFilePatchArgs $) {
@@ -89,6 +104,7 @@ public final class DownwardAPIVolumeFilePatchArgs extends com.pulumi.resources.R
         this.mode = $.mode;
         this.path = $.path;
         this.resourceFieldRef = $.resourceFieldRef;
+        this.user = $.user;
     }
 
     public static Builder builder() {
@@ -191,6 +207,27 @@ public final class DownwardAPIVolumeFilePatchArgs extends com.pulumi.resources.R
          */
         public Builder resourceFieldRef(ResourceFieldSelectorPatchArgs resourceFieldRef) {
             return resourceFieldRef(Output.of(resourceFieldRef));
+        }
+
+        /**
+         * @param user user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(@Nullable Output<Integer> user) {
+            $.user = user;
+            return this;
+        }
+
+        /**
+         * @param user user is Optional: The owner UID of the created file. If specified, the item-level user field takes precedence over defaultUser. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder user(Integer user) {
+            return user(Output.of(user));
         }
 
         public DownwardAPIVolumeFilePatchArgs build() {

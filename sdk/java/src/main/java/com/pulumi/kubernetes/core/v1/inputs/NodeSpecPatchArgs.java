@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.NodeConfigSourcePatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.NodePodPreemptionPolicyPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TaintPatchArgs;
 import java.lang.Boolean;
 import java.lang.String;
@@ -84,6 +85,21 @@ public final class NodeSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+     * 
+     */
+    @Import(name="podPreemptionPolicy")
+    private @Nullable Output<NodePodPreemptionPolicyPatchArgs> podPreemptionPolicy;
+
+    /**
+     * @return PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+     * 
+     */
+    public Optional<Output<NodePodPreemptionPolicyPatchArgs>> podPreemptionPolicy() {
+        return Optional.ofNullable(this.podPreemptionPolicy);
+    }
+
+    /**
      * ID of the node assigned by the cloud provider in the format: &lt;ProviderName&gt;://&lt;ProviderSpecificNodeID&gt;
      * 
      */
@@ -135,6 +151,7 @@ public final class NodeSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         this.externalID = $.externalID;
         this.podCIDR = $.podCIDR;
         this.podCIDRs = $.podCIDRs;
+        this.podPreemptionPolicy = $.podPreemptionPolicy;
         this.providerID = $.providerID;
         this.taints = $.taints;
         this.unschedulable = $.unschedulable;
@@ -250,6 +267,27 @@ public final class NodeSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder podCIDRs(String... podCIDRs) {
             return podCIDRs(List.of(podCIDRs));
+        }
+
+        /**
+         * @param podPreemptionPolicy PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder podPreemptionPolicy(@Nullable Output<NodePodPreemptionPolicyPatchArgs> podPreemptionPolicy) {
+            $.podPreemptionPolicy = podPreemptionPolicy;
+            return this;
+        }
+
+        /**
+         * @param podPreemptionPolicy PodPreemptionPolicy controls the node-level preemption behaviors for pods on this node. This is an alpha field and requires enabling the InPlacePodVerticalScalingSchedulerPreemption feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder podPreemptionPolicy(NodePodPreemptionPolicyPatchArgs podPreemptionPolicy) {
+            return podPreemptionPolicy(Output.of(podPreemptionPolicy));
         }
 
         /**

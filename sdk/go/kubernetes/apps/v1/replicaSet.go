@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -32,9 +33,12 @@ type ReplicaSet struct {
 func NewReplicaSet(ctx *pulumi.Context,
 	name string, args *ReplicaSetArgs, opts ...pulumi.ResourceOption) (*ReplicaSet, error) {
 	if args == nil {
-		args = &ReplicaSetArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
+	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1")
 	args.Kind = pulumi.StringPtr("ReplicaSet")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -86,7 +90,7 @@ type replicaSetArgs struct {
 	// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *ReplicaSetSpec `pulumi:"spec"`
+	Spec ReplicaSetSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a ReplicaSet resource.
@@ -98,7 +102,7 @@ type ReplicaSetArgs struct {
 	// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec ReplicaSetSpecPtrInput
+	Spec ReplicaSetSpecInput
 }
 
 func (ReplicaSetArgs) ElementType() reflect.Type {

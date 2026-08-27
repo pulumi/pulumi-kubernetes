@@ -23,6 +23,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly int DefaultMode;
         /// <summary>
+        /// defaultUser is Optional: The owner UID of the created files by default. The defaultUser field is only used as a fallback when the item-level user field is unset. (Alpha) This field requires the AtomicWriteVolumeUserFields feature gate to be enabled.
+        /// </summary>
+        public readonly int DefaultUser;
+        /// <summary>
         /// items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.KeyToPath> Items;
@@ -39,6 +43,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         private SecretVolumeSource(
             int defaultMode,
 
+            int defaultUser,
+
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.KeyToPath> items,
 
             bool optional,
@@ -46,6 +52,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             string secretName)
         {
             DefaultMode = defaultMode;
+            DefaultUser = defaultUser;
             Items = items;
             Optional = optional;
             SecretName = secretName;

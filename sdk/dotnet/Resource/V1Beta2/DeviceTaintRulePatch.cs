@@ -90,6 +90,7 @@ namespace Pulumi.Kubernetes.Resource.V1Beta2
                 Version = Utilities.Version,
                 Aliases =
                 {
+                    new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1:DeviceTaintRulePatch" },
                     new global::Pulumi.Alias { Type = "kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRulePatch" },
                 },
             };

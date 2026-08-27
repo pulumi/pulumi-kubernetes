@@ -24,14 +24,14 @@ import javax.annotation.Nullable;
 @ResourceType(type="kubernetes:rbac.authorization.k8s.io/v1:ClusterRole")
 public class ClusterRole extends com.pulumi.resources.CustomResource {
     /**
-     * AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+     * aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      * 
      */
     @Export(name="aggregationRule", refs={AggregationRule.class}, tree="[0]")
     private Output<AggregationRule> aggregationRule;
 
     /**
-     * @return AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+     * @return aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
      * 
      */
     public Output<AggregationRule> aggregationRule() {
@@ -66,28 +66,28 @@ public class ClusterRole extends com.pulumi.resources.CustomResource {
         return this.kind;
     }
     /**
-     * Standard object&#39;s metadata.
+     * metadata is the standard object&#39;s metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output<ObjectMeta> metadata;
 
     /**
-     * @return Standard object&#39;s metadata.
+     * @return metadata is the standard object&#39;s metadata.
      * 
      */
     public Output<ObjectMeta> metadata() {
         return this.metadata;
     }
     /**
-     * Rules holds all the PolicyRules for this ClusterRole
+     * rules holds all the PolicyRules for this ClusterRole
      * 
      */
     @Export(name="rules", refs={List.class,PolicyRule.class}, tree="[0,1]")
     private Output<List<PolicyRule>> rules;
 
     /**
-     * @return Rules holds all the PolicyRules for this ClusterRole
+     * @return rules holds all the PolicyRules for this ClusterRole
      * 
      */
     public Output<List<PolicyRule>> rules() {

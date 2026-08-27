@@ -74,6 +74,12 @@ namespace Pulumi.Kubernetes.Scheduling.V1Alpha1
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "kubernetes:scheduling.k8s.io/v1alpha2:Workload" },
+                    new global::Pulumi.Alias { Type = "kubernetes:scheduling.k8s.io/v1alpha3:Workload" },
+                    new global::Pulumi.Alias { Type = "kubernetes:scheduling.k8s.io/v1beta1:Workload" },
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

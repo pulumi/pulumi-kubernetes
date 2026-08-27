@@ -28,6 +28,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         [Input("host")]
         public Input<string>? Host { get; set; }
 
+        /// <summary>
+        /// http is a HTTP IngressRuleValue, which contains a list of http selectors
+        /// </summary>
         [Input("http")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs>? Http { get; set; }
 

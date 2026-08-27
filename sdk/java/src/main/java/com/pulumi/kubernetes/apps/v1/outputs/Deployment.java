@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
 import com.pulumi.kubernetes.apps.v1.outputs.DeploymentSpec;
 import com.pulumi.kubernetes.apps.v1.outputs.DeploymentStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
@@ -33,7 +34,7 @@ public final class Deployment {
      * @return Specification of the desired behavior of the Deployment.
      * 
      */
-    private @Nullable DeploymentSpec spec;
+    private DeploymentSpec spec;
     /**
      * @return Most recently observed status of the Deployment.
      * 
@@ -66,8 +67,8 @@ public final class Deployment {
      * @return Specification of the desired behavior of the Deployment.
      * 
      */
-    public Optional<DeploymentSpec> spec() {
-        return Optional.ofNullable(this.spec);
+    public DeploymentSpec spec() {
+        return this.spec;
     }
     /**
      * @return Most recently observed status of the Deployment.
@@ -89,7 +90,7 @@ public final class Deployment {
         private @Nullable String apiVersion;
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
-        private @Nullable DeploymentSpec spec;
+        private DeploymentSpec spec;
         private @Nullable DeploymentStatus status;
         public Builder() {}
         public Builder(Deployment defaults) {
@@ -120,8 +121,10 @@ public final class Deployment {
             return this;
         }
         @CustomType.Setter
-        public Builder spec(@Nullable DeploymentSpec spec) {
-
+        public Builder spec(DeploymentSpec spec) {
+            if (spec == null) {
+              throw new MissingRequiredPropertyException("Deployment", "spec");
+            }
             this.spec = spec;
             return this;
         }

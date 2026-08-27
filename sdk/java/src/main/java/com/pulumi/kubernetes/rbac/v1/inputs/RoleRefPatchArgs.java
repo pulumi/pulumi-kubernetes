@@ -20,14 +20,14 @@ public final class RoleRefPatchArgs extends com.pulumi.resources.ResourceArgs {
     public static final RoleRefPatchArgs Empty = new RoleRefPatchArgs();
 
     /**
-     * APIGroup is the group for the resource being referenced
+     * apiGroup is the group for the resource being referenced
      * 
      */
     @Import(name="apiGroup")
     private @Nullable Output<String> apiGroup;
 
     /**
-     * @return APIGroup is the group for the resource being referenced
+     * @return apiGroup is the group for the resource being referenced
      * 
      */
     public Optional<Output<String>> apiGroup() {
@@ -35,14 +35,14 @@ public final class RoleRefPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Kind is the type of resource being referenced
+     * kind is the type of resource being referenced
      * 
      */
     @Import(name="kind")
     private @Nullable Output<String> kind;
 
     /**
-     * @return Kind is the type of resource being referenced
+     * @return kind is the type of resource being referenced
      * 
      */
     public Optional<Output<String>> kind() {
@@ -50,14 +50,14 @@ public final class RoleRefPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Name is the name of resource being referenced
+     * name is the name of resource being referenced
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return Name is the name of resource being referenced
+     * @return name is the name of resource being referenced
      * 
      */
     public Optional<Output<String>> name() {
@@ -91,7 +91,7 @@ public final class RoleRefPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiGroup APIGroup is the group for the resource being referenced
+         * @param apiGroup apiGroup is the group for the resource being referenced
          * 
          * @return builder
          * 
@@ -102,7 +102,7 @@ public final class RoleRefPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param apiGroup APIGroup is the group for the resource being referenced
+         * @param apiGroup apiGroup is the group for the resource being referenced
          * 
          * @return builder
          * 
@@ -112,7 +112,7 @@ public final class RoleRefPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param kind Kind is the type of resource being referenced
+         * @param kind kind is the type of resource being referenced
          * 
          * @return builder
          * 
@@ -123,7 +123,7 @@ public final class RoleRefPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param kind Kind is the type of resource being referenced
+         * @param kind kind is the type of resource being referenced
          * 
          * @return builder
          * 
@@ -133,7 +133,7 @@ public final class RoleRefPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name is the name of resource being referenced
+         * @param name name is the name of resource being referenced
          * 
          * @return builder
          * 
@@ -144,7 +144,7 @@ public final class RoleRefPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name is the name of resource being referenced
+         * @param name name is the name of resource being referenced
          * 
          * @return builder
          * 

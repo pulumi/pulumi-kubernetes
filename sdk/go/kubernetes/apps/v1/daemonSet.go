@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -32,9 +33,12 @@ type DaemonSet struct {
 func NewDaemonSet(ctx *pulumi.Context,
 	name string, args *DaemonSetArgs, opts ...pulumi.ResourceOption) (*DaemonSet, error) {
 	if args == nil {
-		args = &DaemonSetArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Spec == nil {
+		return nil, errors.New("invalid value for required argument 'Spec'")
+	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1")
 	args.Kind = pulumi.StringPtr("DaemonSet")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -86,7 +90,7 @@ type daemonSetArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec *DaemonSetSpec `pulumi:"spec"`
+	Spec DaemonSetSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a DaemonSet resource.
@@ -98,7 +102,7 @@ type DaemonSetArgs struct {
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec DaemonSetSpecPtrInput
+	Spec DaemonSetSpecInput
 }
 
 func (DaemonSetArgs) ElementType() reflect.Type {

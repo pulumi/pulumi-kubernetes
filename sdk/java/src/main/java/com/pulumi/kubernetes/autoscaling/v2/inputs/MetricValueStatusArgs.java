@@ -21,14 +21,14 @@ public final class MetricValueStatusArgs extends com.pulumi.resources.ResourceAr
     public static final MetricValueStatusArgs Empty = new MetricValueStatusArgs();
 
     /**
-     * currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+     * averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
      * 
      */
     @Import(name="averageUtilization")
     private @Nullable Output<Integer> averageUtilization;
 
     /**
-     * @return currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+     * @return averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
      * 
      */
     public Optional<Output<Integer>> averageUtilization() {
@@ -92,7 +92,7 @@ public final class MetricValueStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param averageUtilization currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+         * @param averageUtilization averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
          * 
          * @return builder
          * 
@@ -103,7 +103,7 @@ public final class MetricValueStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param averageUtilization currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
+         * @param averageUtilization averageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
          * 
          * @return builder
          * 
