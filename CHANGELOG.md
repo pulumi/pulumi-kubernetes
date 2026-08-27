@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 4.34.0 (August 27, 2026)
+
 ### Added
 
 - Support adding CustomResourceDefinitions as an extension of the base `kubernetes` provider via `pulumi package add <provider> --extension`. Extension-served resources alias their `kubernetes:`-namespaced token, so state written by a crd2pulumi-generated SDK is adopted rather than replaced.
