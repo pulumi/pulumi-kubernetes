@@ -99,9 +99,9 @@ class ReplicaSetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apps/v1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ReplicaSetArgs', 'ReplicaSetArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ReplicaSetArgs', 'ReplicaSetArgsDict', 'outputs.ReplicaSet']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['ReplicaSetList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         """
         ReplicaSetList is a collection of ReplicaSets.
@@ -109,9 +109,9 @@ class ReplicaSetList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['apps/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ReplicaSetArgs', 'ReplicaSetArgsDict']]]] items: List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ReplicaSetArgs', 'ReplicaSetArgsDict', 'outputs.ReplicaSet']]]] items: List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
         :param pulumi.Input[Literal['ReplicaSetList']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         ...
     @overload
@@ -138,9 +138,9 @@ class ReplicaSetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apps/v1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ReplicaSetArgs', 'ReplicaSetArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ReplicaSetArgs', 'ReplicaSetArgsDict', 'outputs.ReplicaSet']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['ReplicaSetList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

@@ -584,8 +584,8 @@ class PodDisruptionBudgetSpec(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_unavailable: Optional[Any] = None,
-                 min_available: Optional[Any] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None,
+                 min_available: Optional[Union[_builtins.int, _builtins.str]] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
@@ -603,7 +603,7 @@ class PodDisruptionBudgetSpec(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         """
@@ -611,7 +611,7 @@ class PodDisruptionBudgetSpec(dict):
 
     @_builtins.property
     @pulumi.getter(name="minAvailable")
-    def min_available(self) -> Optional[Any]:
+    def min_available(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         """
@@ -651,8 +651,8 @@ class PodDisruptionBudgetSpecPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_unavailable: Optional[Any] = None,
-                 min_available: Optional[Any] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None,
+                 min_available: Optional[Union[_builtins.int, _builtins.str]] = None,
                  selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None):
         """
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
@@ -670,7 +670,7 @@ class PodDisruptionBudgetSpecPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         """
@@ -678,7 +678,7 @@ class PodDisruptionBudgetSpecPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="minAvailable")
-    def min_available(self) -> Optional[Any]:
+    def min_available(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         """
