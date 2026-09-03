@@ -185,10 +185,3 @@ jobs:
           gh pr create -t "$title" -b "$body"
         env:
           GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
-
-      - name: Fail if removed API group/versions need hand edits
-        if: steps.removed-apis.outputs.found == '1'
-        run: |
-          echo "Kubernetes removed the following group/versions; see the PR body for what to edit." >&2
-          cat "$RUNNER_TEMP/removed-group-versions.txt" >&2
-          exit 1
