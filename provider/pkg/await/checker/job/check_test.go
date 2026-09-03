@@ -21,7 +21,6 @@ import (
 	"github.com/stretchr/testify/require"
 	batchv1 "k8s.io/api/batch/v1"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await/checker/internal"
 )
 
@@ -148,16 +147,12 @@ func Test_Job_Checker(t *testing.T) {
 			jobChecker := NewJobChecker()
 
 			ready := false
-			var details checker.Results
 			jobStates := loadWorkflows(t, tt.workflowPaths...)
 			for _, jobState := range jobStates {
-				ready, details = jobChecker.ReadyDetails(jobState)
-				if ready {
+				if ready, _ = jobChecker.ReadyDetails(jobState); ready {
 					break
 				}
 			}
-			fmt.Printf("Expect Ready() = %t\n", tt.expectReady)
-			fmt.Println(details)
 			if ready != tt.expectReady {
 				t.Errorf("Ready() = %t, want %t", ready, tt.expectReady)
 			}
