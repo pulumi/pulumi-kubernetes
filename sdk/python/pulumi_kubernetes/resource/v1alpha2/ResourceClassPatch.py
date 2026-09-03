@@ -158,10 +158,10 @@ class ResourceClassPatch(pulumi.CustomResource):
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
                  driver_name: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceClass']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 parameters_ref: pulumi.Input[Optional[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 parameters_ref: pulumi.Input[Optional[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict', 'outputs.ResourceClassParametersReferencePatch']]] = None,
                  structured_parameters: pulumi.Input[Optional[_builtins.bool]] = None,
-                 suitable_nodes: pulumi.Input[Optional[Union['_core.v1.NodeSelectorPatchArgs', '_core.v1.NodeSelectorPatchArgsDict']]] = None,
+                 suitable_nodes: pulumi.Input[Optional[Union['_core.v1.NodeSelectorPatchArgs', '_core.v1.NodeSelectorPatchArgsDict', '_core.v1.outputs.NodeSelectorPatch']]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -181,10 +181,10 @@ class ResourceClassPatch(pulumi.CustomResource):
                
                Resource drivers have a unique name in forward domain order (acme.example.com).
         :param pulumi.Input[Literal['ResourceClass']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: Standard object metadata
-        :param pulumi.Input[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict']] parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']] metadata: Standard object metadata
+        :param pulumi.Input[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict', 'outputs.ResourceClassParametersReferencePatch']] parameters_ref: ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
         :param pulumi.Input[_builtins.bool] structured_parameters: If and only if allocation of claims using this class is handled via structured parameters, then StructuredParameters must be set to true.
-        :param pulumi.Input[Union['_core.v1.NodeSelectorPatchArgs', '_core.v1.NodeSelectorPatchArgsDict']] suitable_nodes: Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
+        :param pulumi.Input[Union['_core.v1.NodeSelectorPatchArgs', '_core.v1.NodeSelectorPatchArgsDict', '_core.v1.outputs.NodeSelectorPatch']] suitable_nodes: Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
                
                Setting this field is optional. If null, all nodes are candidates.
         """
@@ -223,10 +223,10 @@ class ResourceClassPatch(pulumi.CustomResource):
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
                  driver_name: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceClass']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 parameters_ref: pulumi.Input[Optional[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 parameters_ref: pulumi.Input[Optional[Union['ResourceClassParametersReferencePatchArgs', 'ResourceClassParametersReferencePatchArgsDict', 'outputs.ResourceClassParametersReferencePatch']]] = None,
                  structured_parameters: pulumi.Input[Optional[_builtins.bool]] = None,
-                 suitable_nodes: pulumi.Input[Optional[Union['_core.v1.NodeSelectorPatchArgs', '_core.v1.NodeSelectorPatchArgsDict']]] = None,
+                 suitable_nodes: pulumi.Input[Optional[Union['_core.v1.NodeSelectorPatchArgs', '_core.v1.NodeSelectorPatchArgsDict', '_core.v1.outputs.NodeSelectorPatch']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

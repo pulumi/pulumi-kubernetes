@@ -93,8 +93,8 @@ class PodPreset(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['settings.k8s.io/v1alpha1']]] = None,
                  kind: pulumi.Input[Optional[Literal['PodPreset']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['PodPresetSpecArgs', 'PodPresetSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['PodPresetSpecArgs', 'PodPresetSpecArgsDict', 'outputs.PodPresetSpec']]] = None,
                  __props__=None):
         """
         PodPreset is a policy resource that defines additional runtime requirements for a Pod.
@@ -130,8 +130,8 @@ class PodPreset(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['settings.k8s.io/v1alpha1']]] = None,
                  kind: pulumi.Input[Optional[Literal['PodPreset']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['PodPresetSpecArgs', 'PodPresetSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['PodPresetSpecArgs', 'PodPresetSpecArgsDict', 'outputs.PodPresetSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

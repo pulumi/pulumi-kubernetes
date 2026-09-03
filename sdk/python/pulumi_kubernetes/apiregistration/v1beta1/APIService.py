@@ -96,8 +96,8 @@ class APIService(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apiregistration.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['APIService']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['APIServiceSpecArgs', 'APIServiceSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['APIServiceSpecArgs', 'APIServiceSpecArgsDict', 'outputs.APIServiceSpec']]] = None,
                  __props__=None):
         """
         APIService represents a server for a particular GroupVersion. Name must be "version.group".
@@ -106,7 +106,7 @@ class APIService(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['apiregistration.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['APIService']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['APIServiceSpecArgs', 'APIServiceSpecArgsDict']] spec: Spec contains information for locating and communicating with a server
+        :param pulumi.Input[Union['APIServiceSpecArgs', 'APIServiceSpecArgsDict', 'outputs.APIServiceSpec']] spec: Spec contains information for locating and communicating with a server
         """
         ...
     @overload
@@ -134,8 +134,8 @@ class APIService(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apiregistration.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['APIService']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['APIServiceSpecArgs', 'APIServiceSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['APIServiceSpecArgs', 'APIServiceSpecArgsDict', 'outputs.APIServiceSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

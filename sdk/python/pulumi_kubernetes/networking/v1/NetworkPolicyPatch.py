@@ -100,8 +100,8 @@ class NetworkPolicyPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['networking.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['NetworkPolicy']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['NetworkPolicySpecPatchArgs', 'NetworkPolicySpecPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 spec: pulumi.Input[Optional[Union['NetworkPolicySpecPatchArgs', 'NetworkPolicySpecPatchArgsDict', 'outputs.NetworkPolicySpecPatch']]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -116,8 +116,8 @@ class NetworkPolicyPatch(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['networking.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['NetworkPolicy']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Union['NetworkPolicySpecPatchArgs', 'NetworkPolicySpecPatchArgsDict']] spec: spec represents the specification of the desired behavior for this NetworkPolicy.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']] metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['NetworkPolicySpecPatchArgs', 'NetworkPolicySpecPatchArgsDict', 'outputs.NetworkPolicySpecPatch']] spec: spec represents the specification of the desired behavior for this NetworkPolicy.
         """
         ...
     @overload
@@ -151,8 +151,8 @@ class NetworkPolicyPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['networking.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['NetworkPolicy']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['NetworkPolicySpecPatchArgs', 'NetworkPolicySpecPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 spec: pulumi.Input[Optional[Union['NetworkPolicySpecPatchArgs', 'NetworkPolicySpecPatchArgsDict', 'outputs.NetworkPolicySpecPatch']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
