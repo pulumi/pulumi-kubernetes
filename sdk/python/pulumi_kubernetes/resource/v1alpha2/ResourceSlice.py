@@ -136,8 +136,8 @@ class ResourceSlice(pulumi.CustomResource):
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
                  driver_name: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceSlice']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 named_resources: pulumi.Input[Optional[Union['NamedResourcesResourcesArgs', 'NamedResourcesResourcesArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 named_resources: pulumi.Input[Optional[Union['NamedResourcesResourcesArgs', 'NamedResourcesResourcesArgsDict', 'outputs.NamedResourcesResources']]] = None,
                  node_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
@@ -148,8 +148,8 @@ class ResourceSlice(pulumi.CustomResource):
         :param pulumi.Input[Literal['resource.k8s.io/v1alpha2']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] driver_name: DriverName identifies the DRA driver providing the capacity information. A field selector can be used to list only ResourceSlice objects with a certain driver name.
         :param pulumi.Input[Literal['ResourceSlice']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata
-        :param pulumi.Input[Union['NamedResourcesResourcesArgs', 'NamedResourcesResourcesArgsDict']] named_resources: NamedResources describes available resources using the named resources model.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: Standard object metadata
+        :param pulumi.Input[Union['NamedResourcesResourcesArgs', 'NamedResourcesResourcesArgsDict', 'outputs.NamedResourcesResources']] named_resources: NamedResources describes available resources using the named resources model.
         :param pulumi.Input[_builtins.str] node_name: NodeName identifies the node which provides the resources if they are local to a node.
                
                A field selector can be used to list only ResourceSlice objects with a certain node name.
@@ -181,8 +181,8 @@ class ResourceSlice(pulumi.CustomResource):
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
                  driver_name: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceSlice']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 named_resources: pulumi.Input[Optional[Union['NamedResourcesResourcesArgs', 'NamedResourcesResourcesArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 named_resources: pulumi.Input[Optional[Union['NamedResourcesResourcesArgs', 'NamedResourcesResourcesArgsDict', 'outputs.NamedResourcesResources']]] = None,
                  node_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)

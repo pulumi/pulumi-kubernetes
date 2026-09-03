@@ -114,22 +114,22 @@ class ClusterRole(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 aggregation_rule: pulumi.Input[Optional[Union['AggregationRuleArgs', 'AggregationRuleArgsDict']]] = None,
+                 aggregation_rule: pulumi.Input[Optional[Union['AggregationRuleArgs', 'AggregationRuleArgsDict', 'outputs.AggregationRule']]] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ClusterRole']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict', 'outputs.PolicyRule']]]]] = None,
                  __props__=None):
         """
         ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Union['AggregationRuleArgs', 'AggregationRuleArgsDict']] aggregation_rule: aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        :param pulumi.Input[Union['AggregationRuleArgs', 'AggregationRuleArgsDict', 'outputs.AggregationRule']] aggregation_rule: aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ClusterRole']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: metadata is the standard object's metadata.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict']]]] rules: rules holds all the PolicyRules for this ClusterRole
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: metadata is the standard object's metadata.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict', 'outputs.PolicyRule']]]] rules: rules holds all the PolicyRules for this ClusterRole
         """
         ...
     @overload
@@ -155,11 +155,11 @@ class ClusterRole(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 aggregation_rule: pulumi.Input[Optional[Union['AggregationRuleArgs', 'AggregationRuleArgsDict']]] = None,
+                 aggregation_rule: pulumi.Input[Optional[Union['AggregationRuleArgs', 'AggregationRuleArgsDict', 'outputs.AggregationRule']]] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ClusterRole']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict', 'outputs.PolicyRule']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

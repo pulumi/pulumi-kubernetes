@@ -98,9 +98,9 @@ class RoleList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RoleArgs', 'RoleArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RoleArgs', 'RoleArgsDict', 'outputs.Role']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['RoleList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         """
         RoleList is a collection of Roles
@@ -108,9 +108,9 @@ class RoleList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[Union['RoleArgs', 'RoleArgsDict']]]] items: Items is a list of Roles
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RoleArgs', 'RoleArgsDict', 'outputs.Role']]]] items: Items is a list of Roles
         :param pulumi.Input[Literal['RoleList']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']] metadata: Standard object's metadata.
+        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']] metadata: Standard object's metadata.
         """
         ...
     @overload
@@ -137,9 +137,9 @@ class RoleList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RoleArgs', 'RoleArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RoleArgs', 'RoleArgsDict', 'outputs.Role']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['RoleList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

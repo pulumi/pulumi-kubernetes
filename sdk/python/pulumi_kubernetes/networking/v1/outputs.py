@@ -2278,7 +2278,7 @@ class NetworkPolicyPort(dict):
 
     def __init__(__self__, *,
                  end_port: Optional[_builtins.int] = None,
-                 port: Optional[Any] = None,
+                 port: Optional[Union[_builtins.int, _builtins.str]] = None,
                  protocol: Optional[_builtins.str] = None):
         """
         NetworkPolicyPort describes a port to allow traffic on
@@ -2304,7 +2304,7 @@ class NetworkPolicyPort(dict):
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[Any]:
+    def port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         """
@@ -2343,7 +2343,7 @@ class NetworkPolicyPortPatch(dict):
 
     def __init__(__self__, *,
                  end_port: Optional[_builtins.int] = None,
-                 port: Optional[Any] = None,
+                 port: Optional[Union[_builtins.int, _builtins.str]] = None,
                  protocol: Optional[_builtins.str] = None):
         """
         NetworkPolicyPort describes a port to allow traffic on
@@ -2369,7 +2369,7 @@ class NetworkPolicyPortPatch(dict):
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[Any]:
+    def port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         """

@@ -115,9 +115,9 @@ class RoleBinding(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['RoleBinding']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 role_ref: pulumi.Input[Optional[Union['RoleRefArgs', 'RoleRefArgsDict']]] = None,
-                 subjects: pulumi.Input[Optional[Sequence[pulumi.Input[Union['SubjectArgs', 'SubjectArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 role_ref: pulumi.Input[Optional[Union['RoleRefArgs', 'RoleRefArgsDict', 'outputs.RoleRef']]] = None,
+                 subjects: pulumi.Input[Optional[Sequence[pulumi.Input[Union['SubjectArgs', 'SubjectArgsDict', 'outputs.Subject']]]]] = None,
                  __props__=None):
         """
         RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
@@ -126,9 +126,9 @@ class RoleBinding(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['RoleBinding']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object's metadata.
-        :param pulumi.Input[Union['RoleRefArgs', 'RoleRefArgsDict']] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['SubjectArgs', 'SubjectArgsDict']]]] subjects: Subjects holds references to the objects the role applies to.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: Standard object's metadata.
+        :param pulumi.Input[Union['RoleRefArgs', 'RoleRefArgsDict', 'outputs.RoleRef']] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['SubjectArgs', 'SubjectArgsDict', 'outputs.Subject']]]] subjects: Subjects holds references to the objects the role applies to.
         """
         ...
     @overload
@@ -156,9 +156,9 @@ class RoleBinding(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['RoleBinding']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 role_ref: pulumi.Input[Optional[Union['RoleRefArgs', 'RoleRefArgsDict']]] = None,
-                 subjects: pulumi.Input[Optional[Sequence[pulumi.Input[Union['SubjectArgs', 'SubjectArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 role_ref: pulumi.Input[Optional[Union['RoleRefArgs', 'RoleRefArgsDict', 'outputs.RoleRef']]] = None,
+                 subjects: pulumi.Input[Optional[Sequence[pulumi.Input[Union['SubjectArgs', 'SubjectArgsDict', 'outputs.Subject']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
