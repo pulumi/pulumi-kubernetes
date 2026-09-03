@@ -2890,7 +2890,7 @@ class IngressBackend(dict):
 
     def __init__(__self__, *,
                  service_name: _builtins.str,
-                 service_port: Any,
+                 service_port: Union[_builtins.int, _builtins.str],
                  resource: Optional['_core.v1.outputs.TypedLocalObjectReference'] = None):
         """
         IngressBackend describes all endpoints for a given service and port.
@@ -2914,7 +2914,7 @@ class IngressBackend(dict):
 
     @_builtins.property
     @pulumi.getter(name="servicePort")
-    def service_port(self) -> Any:
+    def service_port(self) -> Union[_builtins.int, _builtins.str]:
         """
         Specifies the port of the referenced service.
         """
@@ -2956,7 +2956,7 @@ class IngressBackendPatch(dict):
     def __init__(__self__, *,
                  resource: Optional['_core.v1.outputs.TypedLocalObjectReferencePatch'] = None,
                  service_name: Optional[_builtins.str] = None,
-                 service_port: Optional[Any] = None):
+                 service_port: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         IngressBackend describes all endpoints for a given service and port.
 
@@ -2989,7 +2989,7 @@ class IngressBackendPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="servicePort")
-    def service_port(self) -> Optional[Any]:
+    def service_port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         Specifies the port of the referenced service.
         """
@@ -3837,7 +3837,7 @@ class NetworkPolicyPort(dict):
     DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by networking/v1/NetworkPolicyPort.
     """
     def __init__(__self__, *,
-                 port: Optional[Any] = None,
+                 port: Optional[Union[_builtins.int, _builtins.str]] = None,
                  protocol: Optional[_builtins.str] = None):
         """
         DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by networking/v1/NetworkPolicyPort.
@@ -3852,7 +3852,7 @@ class NetworkPolicyPort(dict):
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[Any]:
+    def port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         If specified, the port on the given protocol.  This can either be a numerical or named port on a pod.  If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         """
@@ -3873,7 +3873,7 @@ class NetworkPolicyPortPatch(dict):
     DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by networking/v1/NetworkPolicyPort.
     """
     def __init__(__self__, *,
-                 port: Optional[Any] = None,
+                 port: Optional[Union[_builtins.int, _builtins.str]] = None,
                  protocol: Optional[_builtins.str] = None):
         """
         DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by networking/v1/NetworkPolicyPort.
@@ -3888,7 +3888,7 @@ class NetworkPolicyPortPatch(dict):
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[Any]:
+    def port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         If specified, the port on the given protocol.  This can either be a numerical or named port on a pod.  If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         """
@@ -5570,7 +5570,7 @@ class RollingUpdateDaemonSet(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_unavailable: Optional[Any] = None):
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         Spec to control the desired behavior of daemon set rolling update.
 
@@ -5581,7 +5581,7 @@ class RollingUpdateDaemonSet(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
@@ -5611,7 +5611,7 @@ class RollingUpdateDaemonSetPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_unavailable: Optional[Any] = None):
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         Spec to control the desired behavior of daemon set rolling update.
 
@@ -5622,7 +5622,7 @@ class RollingUpdateDaemonSetPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
@@ -5654,8 +5654,8 @@ class RollingUpdateDeployment(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_surge: Optional[Any] = None,
-                 max_unavailable: Optional[Any] = None):
+                 max_surge: Optional[Union[_builtins.int, _builtins.str]] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         Spec to control the desired behavior of rolling update.
 
@@ -5669,7 +5669,7 @@ class RollingUpdateDeployment(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxSurge")
-    def max_surge(self) -> Optional[Any]:
+    def max_surge(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. By default, a value of 1 is used. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         """
@@ -5677,7 +5677,7 @@ class RollingUpdateDeployment(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. By default, a fixed value of 1 is used. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
@@ -5709,8 +5709,8 @@ class RollingUpdateDeploymentPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_surge: Optional[Any] = None,
-                 max_unavailable: Optional[Any] = None):
+                 max_surge: Optional[Union[_builtins.int, _builtins.str]] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         Spec to control the desired behavior of rolling update.
 
@@ -5724,7 +5724,7 @@ class RollingUpdateDeploymentPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxSurge")
-    def max_surge(self) -> Optional[Any]:
+    def max_surge(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. By default, a value of 1 is used. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         """
@@ -5732,7 +5732,7 @@ class RollingUpdateDeploymentPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. By default, a fixed value of 1 is used. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """

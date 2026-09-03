@@ -136,9 +136,9 @@ class RuntimeClassPatch(pulumi.CustomResource):
                  api_version: pulumi.Input[Optional[Literal['node.k8s.io/v1']]] = None,
                  handler: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[Literal['RuntimeClass']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 overhead: pulumi.Input[Optional[Union['OverheadPatchArgs', 'OverheadPatchArgsDict']]] = None,
-                 scheduling: pulumi.Input[Optional[Union['SchedulingPatchArgs', 'SchedulingPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 overhead: pulumi.Input[Optional[Union['OverheadPatchArgs', 'OverheadPatchArgsDict', 'outputs.OverheadPatch']]] = None,
+                 scheduling: pulumi.Input[Optional[Union['SchedulingPatchArgs', 'SchedulingPatchArgsDict', 'outputs.SchedulingPatch']]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -154,10 +154,10 @@ class RuntimeClassPatch(pulumi.CustomResource):
         :param pulumi.Input[Literal['node.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.str] handler: handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
         :param pulumi.Input[Literal['RuntimeClass']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Union['OverheadPatchArgs', 'OverheadPatchArgsDict']] overhead: overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']] metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['OverheadPatchArgs', 'OverheadPatchArgsDict', 'outputs.OverheadPatch']] overhead: overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
                 https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-        :param pulumi.Input[Union['SchedulingPatchArgs', 'SchedulingPatchArgsDict']] scheduling: scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+        :param pulumi.Input[Union['SchedulingPatchArgs', 'SchedulingPatchArgsDict', 'outputs.SchedulingPatch']] scheduling: scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
         ...
     @overload
@@ -192,9 +192,9 @@ class RuntimeClassPatch(pulumi.CustomResource):
                  api_version: pulumi.Input[Optional[Literal['node.k8s.io/v1']]] = None,
                  handler: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[Literal['RuntimeClass']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 overhead: pulumi.Input[Optional[Union['OverheadPatchArgs', 'OverheadPatchArgsDict']]] = None,
-                 scheduling: pulumi.Input[Optional[Union['SchedulingPatchArgs', 'SchedulingPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 overhead: pulumi.Input[Optional[Union['OverheadPatchArgs', 'OverheadPatchArgsDict', 'outputs.OverheadPatch']]] = None,
+                 scheduling: pulumi.Input[Optional[Union['SchedulingPatchArgs', 'SchedulingPatchArgsDict', 'outputs.SchedulingPatch']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

@@ -95,8 +95,8 @@ class CustomResourceDefinition(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apiextensions.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['CustomResourceDefinition']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['CustomResourceDefinitionSpecArgs', 'CustomResourceDefinitionSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['CustomResourceDefinitionSpecArgs', 'CustomResourceDefinitionSpecArgsDict', 'outputs.CustomResourceDefinitionSpec']]] = None,
                  __props__=None):
         """
         CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
@@ -105,7 +105,7 @@ class CustomResourceDefinition(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['apiextensions.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['CustomResourceDefinition']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['CustomResourceDefinitionSpecArgs', 'CustomResourceDefinitionSpecArgsDict']] spec: spec describes how the user wants the resources to appear
+        :param pulumi.Input[Union['CustomResourceDefinitionSpecArgs', 'CustomResourceDefinitionSpecArgsDict', 'outputs.CustomResourceDefinitionSpec']] spec: spec describes how the user wants the resources to appear
         """
         ...
     @overload
@@ -133,8 +133,8 @@ class CustomResourceDefinition(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apiextensions.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['CustomResourceDefinition']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['CustomResourceDefinitionSpecArgs', 'CustomResourceDefinitionSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['CustomResourceDefinitionSpecArgs', 'CustomResourceDefinitionSpecArgsDict', 'outputs.CustomResourceDefinitionSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
