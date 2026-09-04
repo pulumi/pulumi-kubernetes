@@ -184,7 +184,7 @@ func crdToOpenAPI(crd *extensionv1.CustomResourceDefinition) ([]*spec.Swagger, e
 		sw, err := builder.BuildOpenAPIV2(
 			crd,
 			v.Name,
-			builder.Options{V2: true, StripValueValidation: false, StripNullable: false, AllowNonStructural: true},
+			builder.Options{V2: true, StripValueValidation: false, StripNullable: true, AllowNonStructural: true},
 		)
 		if err != nil {
 			return nil, err
