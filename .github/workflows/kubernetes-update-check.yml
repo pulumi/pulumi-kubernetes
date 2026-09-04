@@ -87,6 +87,9 @@ jobs:
           # Update k8s.io client libraries (convert e.g. v1.30.0 -> v0.30.0)
           CLIENT_VERSION=$(echo "v${KUBE_VERSION}" | sed 's/^v1\./v0./')
           echo "client_version=$CLIENT_VERSION" >> "$GITHUB_OUTPUT"
+          # Record the version we are upgrading from, so the next step can diff group/versions against it.
+          OLD_CLIENT_VERSION=$(grep -E "^\s+k8s.io/api v" provider/go.mod | head -1 | awk '{print $2}')
+          echo "old_client_version=$OLD_CLIENT_VERSION" >> "$GITHUB_OUTPUT"
           cd provider
           K8S_DEPS=$(cat go.mod | grep "^\sk8s.io" | grep -v "// indirect" | awk '{print $1}')
           for dep in $K8S_DEPS; do
@@ -130,6 +133,28 @@ jobs:
           git commit -m "Update Kubernetes to v${KUBE_VERSION}"
           git push origin update-kubernetes/${{ github.run_id }}-${{ github.run_number }}
 
+      # A group/version Kubernetes deletes is gone from k8s.io/api, so nothing downstream can
+      # discover it. Diffing the old and new module is the only place it is still visible.
+      - name: Detect removed API group/versions
+        id: removed-apis
+        if: steps.get-kubernetes-version.outputs.needs_update != 0
+        run: |
+          OLD="${{ steps.update-files.outputs.old_client_version }}"
+          NEW="${{ steps.update-files.outputs.client_version }}"
+          for version in "$OLD" "$NEW"; do
+            go mod download "k8s.io/api@${version}"
+            find "$(go env GOMODCACHE)/k8s.io/api@${version}" -maxdepth 3 -name types.go | sed "s|.*/k8s.io/api@${version}/||; s|/types.go||" | sort > "$RUNNER_TEMP/gv-${version}.txt"
+          done
+          comm -23 "$RUNNER_TEMP/gv-${OLD}.txt" "$RUNNER_TEMP/gv-${NEW}.txt" > "$RUNNER_TEMP/removed-group-versions.txt"
+          if [ -s "$RUNNER_TEMP/removed-group-versions.txt" ]; then
+            echo "found=1" >> "$GITHUB_OUTPUT"
+            echo "Removed group/versions:"
+            cat "$RUNNER_TEMP/removed-group-versions.txt"
+          else
+            echo "found=0" >> "$GITHUB_OUTPUT"
+            echo "No group/versions removed in this release."
+          fi
+
       - name: Create PR
         id: create-pr
         if: steps.get-kubernetes-version.outputs.needs_update != 0
@@ -144,7 +169,19 @@ jobs:
           - Built provider and SDKs with \`make k8sprovider build\`
 
           Closes #${{ steps.create-issue.outputs.issue_number }}."
-                    
+          if [ "${{ steps.removed-apis.outputs.found }}" = "1" ]; then
+            body="${body}
+
+          ## Removed API group/versions
+
+          These are gone from k8s.io/api v${version} and need hand edits before this merges:
+
+          \`\`\`
+          $(cat "$RUNNER_TEMP/removed-group-versions.txt")
+          \`\`\`
+
+          For each one, add \`addManualEntry\` lines to \`provider/pkg/kinds/deprecated.go\` above the block that indexes truncated group names, and append the last Kubernetes minor that served it to the legacy spec list in \`provider/cmd/pulumi-gen-kubernetes/main.go\`."
+          fi
           gh pr create -t "$title" -b "$body"
         env:
           GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}

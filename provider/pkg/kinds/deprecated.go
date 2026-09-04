@@ -165,6 +165,10 @@ func init() {
 		1, 10, 1, 17, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1", Kind: "PriorityClass"})
 	addManualEntry("scheduling.k8s.io", "v1alpha1", "PriorityClassList",
 		1, 10, 1, 17, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1", Kind: "PriorityClassList"})
+	addManualEntry("scheduling.k8s.io", "v1alpha1", "Workload",
+		1, 35, 1, 36, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1beta1", Kind: "Workload"})
+	addManualEntry("scheduling.k8s.io", "v1alpha1", "WorkloadList",
+		1, 35, 1, 36, &schema.GroupVersionKind{Group: "scheduling.k8s.io", Version: "v1beta1", Kind: "WorkloadList"})
 
 	// scheduling.k8s.io/v1alpha2 (no lifecycle files in k8s.io/api)
 	addManualEntry("scheduling.k8s.io", "v1alpha2", "Workload",
