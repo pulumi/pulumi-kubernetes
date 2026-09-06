@@ -13,6 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/providertest/pulumitest/opttest"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/events"
 	"github.com/pulumi/pulumi/sdk/v3/go/auto/optdestroy"
@@ -175,8 +176,13 @@ func TestAwaitGeneric(t *testing.T) {
 	t.Run("enabled", func(t *testing.T) {
 		t.Setenv("PULUMI_K8S_AWAIT_ALL", "true")
 
+		cwd, err := os.Getwd()
+		require.NoError(t, err)
+
 		test := pulumitest.NewPulumiTest(t,
 			"testdata/await/generic",
+			opttest.YarnLink("@pulumi/kubernetes"),
+			opttest.LocalProviderPath("kubernetes", filepath.Join(cwd, "../../../bin")),
 		)
 		dir := test.WorkingDir()
 		t.Cleanup(func() {
