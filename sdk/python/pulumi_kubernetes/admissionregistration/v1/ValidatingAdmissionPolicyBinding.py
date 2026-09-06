@@ -99,8 +99,8 @@ class ValidatingAdmissionPolicyBinding(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['admissionregistration.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ValidatingAdmissionPolicyBinding']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['ValidatingAdmissionPolicyBindingSpecArgs', 'ValidatingAdmissionPolicyBindingSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['ValidatingAdmissionPolicyBindingSpecArgs', 'ValidatingAdmissionPolicyBindingSpecArgsDict', 'outputs.ValidatingAdmissionPolicyBindingSpec']]] = None,
                  __props__=None):
         """
         ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
@@ -113,8 +113,8 @@ class ValidatingAdmissionPolicyBinding(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['admissionregistration.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ValidatingAdmissionPolicyBinding']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[Union['ValidatingAdmissionPolicyBindingSpecArgs', 'ValidatingAdmissionPolicyBindingSpecArgsDict']] spec: spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: metadata is the standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input[Union['ValidatingAdmissionPolicyBindingSpecArgs', 'ValidatingAdmissionPolicyBindingSpecArgsDict', 'outputs.ValidatingAdmissionPolicyBindingSpec']] spec: spec defines the desired behavior of the ValidatingAdmissionPolicyBinding.
         """
         ...
     @overload
@@ -146,8 +146,8 @@ class ValidatingAdmissionPolicyBinding(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['admissionregistration.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ValidatingAdmissionPolicyBinding']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['ValidatingAdmissionPolicyBindingSpecArgs', 'ValidatingAdmissionPolicyBindingSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['ValidatingAdmissionPolicyBindingSpecArgs', 'ValidatingAdmissionPolicyBindingSpecArgsDict', 'outputs.ValidatingAdmissionPolicyBindingSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
