@@ -72,7 +72,7 @@ func podInitialized(obj interface{}) checker.Result {
 		return result
 	}
 
-	err := collectContainerStatusErrors(pod.Status.ContainerStatuses)
+	err := collectContainerStatusErrors(pod.Status.InitContainerStatuses)
 	if err != nil || len(initialized.Message) > 0 {
 		result.Message = logging.WarningMessage(podError(initialized, err, fullyQualifiedName(pod)))
 	}
