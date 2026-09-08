@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- [#4588](https://github.com/pulumi/pulumi-kubernetes/issues/4588) Fix a crash on CRD schema generation with `nullable: true` fields.
+
 ## 4.34.0 (August 27, 2026)
 
 ### Added

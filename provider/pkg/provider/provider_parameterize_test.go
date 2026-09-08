@@ -372,3 +372,60 @@ func definitionNames(sw *spec.Swagger) []string {
 	}
 	return names
 }
+
+func TestCRDToOpenAPIPreservesNullableFieldTypes(t *testing.T) {
+	stringItem := extensionv1.JSONSchemaProps{Type: "string"}
+	crd := &extensionv1.CustomResourceDefinition{
+		Spec: extensionv1.CustomResourceDefinitionSpec{
+			Group: "example.com",
+			Names: extensionv1.CustomResourceDefinitionNames{Kind: "Widget", Plural: "widgets"},
+			Scope: extensionv1.NamespaceScoped,
+			Versions: []extensionv1.CustomResourceDefinitionVersion{{
+				Name:    "v1",
+				Served:  true,
+				Storage: true,
+				Schema: &extensionv1.CustomResourceValidation{
+					OpenAPIV3Schema: &extensionv1.JSONSchemaProps{
+						Type: "object",
+						Properties: map[string]extensionv1.JSONSchemaProps{
+							"timeout": {Type: "integer", Nullable: true},
+							"hosts": {
+								Type:     "array",
+								Nullable: true,
+								Items:    &extensionv1.JSONSchemaPropsOrArray{Schema: &stringItem},
+							},
+						},
+					},
+				},
+			}},
+		},
+	}
+
+	specs, err := crdToOpenAPI(crd)
+	if err != nil {
+		t.Fatalf("crdToOpenAPI returned error: %v", err)
+	}
+	if len(specs) != 1 {
+		t.Fatalf("expected 1 spec, got %d", len(specs))
+	}
+
+	widget, ok := specs[0].Definitions["com.example.v1.Widget"]
+	if !ok {
+		t.Fatalf("expected Widget definition; have: %v", definitionNames(specs[0]))
+	}
+
+	timeout := widget.Properties["timeout"]
+	if !timeout.Type.Contains("integer") {
+		t.Errorf("nullable scalar lost its type: %v", timeout.Type)
+	}
+
+	hosts := widget.Properties["hosts"]
+	switch {
+	case !hosts.Type.Contains("array"):
+		t.Errorf("nullable array lost its type: %v", hosts.Type)
+	case hosts.Items == nil || hosts.Items.Schema == nil:
+		t.Error("nullable array lost its items")
+	case !hosts.Items.Schema.Type.Contains("string"):
+		t.Errorf("nullable array lost its element type: %v", hosts.Items.Schema.Type)
+	}
+}
