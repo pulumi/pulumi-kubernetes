@@ -350,6 +350,20 @@ type extensionInfo struct {
 // apiMachineryGroup is the canonical group that an extension inherits from the base provider.
 const apiMachineryGroup = "meta"
 
+// typeFromFormat maps OpenAPI `format` values to their unambiguous underlying `type`,
+// per the OpenAPI/JSON Schema spec (each format is only ever used with one type).
+var typeFromFormat = map[string]string{
+	"int32":     "integer",
+	"int64":     "integer",
+	"float":     "number",
+	"double":    "number",
+	"byte":      "string",
+	"binary":    "string",
+	"date":      "string",
+	"date-time": "string",
+	"password":  "string",
+}
+
 func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string, extension *extensionInfo) pschema.TypeSpec {
 	if t, exists := prop["type"]; exists {
 		switch t := t.(string); t {
@@ -393,7 +407,26 @@ func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string, 
 		}}
 	}
 
-	ref := stripPrefix(prop["$ref"].(string))
+	// A property with neither a recognized `type` nor a `$ref` is untyped. This
+	// happens for CRD fields marked `nullable: true`: the k8s OpenAPI v2 builder
+	// intentionally strips `type` (along with `items`/`properties`) from nullable
+	// fields, since Swagger v2 has no native nullable support (see
+	// k8s.io/apiextensions-apiserver's ToStructuralOpenAPIV2). `format` survives
+	// that conversion and unambiguously implies an underlying type in OpenAPI, so
+	// recover it from there; otherwise fall back to treating the property as an
+	// arbitrary value, the same as `x-kubernetes-preserve-unknown-fields: true`.
+	if format, ok := prop["format"].(string); ok {
+		if t, ok := typeFromFormat[format]; ok {
+			return pschema.TypeSpec{Type: t}
+		}
+	}
+
+	refValue, hasRef := prop["$ref"]
+	ref, isString := refValue.(string)
+	if !hasRef || !isString {
+		return pschema.TypeSpec{Ref: "pulumi.json#/Any"}
+	}
+	ref = stripPrefix(ref)
 	switch ref {
 	case quantity:
 		return pschema.TypeSpec{Type: "string"}

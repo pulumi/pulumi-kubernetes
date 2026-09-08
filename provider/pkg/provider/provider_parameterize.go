@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -23,6 +24,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"sync"
 
@@ -30,6 +32,8 @@ import (
 	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/controller/openapi/builder"
 	"k8s.io/apimachinery/pkg/util/yaml"
+	"k8s.io/kube-openapi/pkg/schemamutation"
+	"k8s.io/kube-openapi/pkg/spec3"
 	"k8s.io/kube-openapi/pkg/validation/spec"
 
 	"github.com/pulumi/pulumi/pkg/v3/codegen/cgstrings"
@@ -181,14 +185,37 @@ func crdToOpenAPI(crd *extensionv1.CustomResourceDefinition) ([]*spec.Swagger, e
 			continue
 		}
 		// Defaults are not pruned here, but before being served.
-		sw, err := builder.BuildOpenAPIV2(
+		//
+		// We build OpenAPI v3, not v2: the v2 (Swagger) builder unconditionally
+		// strips `type` (along with `items`/`properties`) from any field marked
+		// `nullable: true`, since Swagger v2 has no native nullable support (see
+		// k8s.io/apiextensions-apiserver's ToStructuralOpenAPIV2, gated on
+		// Options.V2). `nullable: true` is common in CRDs, so that stripping would
+		// otherwise cause us to lose real type information for those fields.
+		v3, err := builder.BuildOpenAPIV3(
 			crd,
 			v.Name,
-			builder.Options{V2: true, StripValueValidation: false, StripNullable: false, AllowNonStructural: true},
+			builder.Options{V2: false, StripValueValidation: false, StripNullable: false, AllowNonStructural: true},
 		)
 		if err != nil {
 			return nil, err
 		}
+
+		defs, err := definitionsFromComponents(v3)
+		if err != nil {
+			return nil, err
+		}
+		// Paths must contain a path unique to this CRD version, even though we don't
+		// otherwise use paths: builder.MergeSpecs (via kube-openapi's aggregator) treats
+		// a spec with no paths of its own to contribute as having nothing to merge, and
+		// silently drops all of its definitions - whether because Paths is nil, or
+		// because none of its paths are unique versus what's already been merged in.
+		sw := &spec.Swagger{SwaggerProps: spec.SwaggerProps{
+			Definitions: defs,
+			Paths: &spec.Paths{Paths: map[string]spec.PathItem{
+				fmt.Sprintf("/apis/%s/%s/%s", crd.Spec.Group, v.Name, crd.Name): {},
+			}},
+		}}
 
 		err = flattenOpenAPI(sw)
 		if err != nil {
@@ -199,6 +226,67 @@ func crdToOpenAPI(crd *extensionv1.CustomResourceDefinition) ([]*spec.Swagger, e
 	}
 
 	return openAPIManifests, nil
+}
+
+// v3SchemaRefPrefix is the JSON Schema reference prefix the OpenAPI v3 builder uses
+// for its component schemas (as opposed to definitionPrefix, used by OpenAPI v2).
+const v3SchemaRefPrefix = "#/components/schemas/"
+
+// definitionsFromComponents adapts the schemas from an OpenAPI v3 document into the
+// `Definitions` shape of an OpenAPI v2 document, so that the rest of the pipeline
+// (which predates OpenAPI v3 support here) can keep operating on `*spec.Swagger`
+// unchanged. This includes rewriting internal `$ref`s from the v3 prefix to the v2
+// one the rest of the pipeline expects.
+func definitionsFromComponents(v3 *spec3.OpenAPI) (spec.Definitions, error) {
+	if v3.Components == nil {
+		return nil, nil
+	}
+
+	schemas := make(map[string]*spec.Schema, len(v3.Components.Schemas))
+	for name, s := range v3.Components.Schemas {
+		if s != nil {
+			schemas[name] = unwrapSingleRefAllOf(s)
+		}
+	}
+
+	b, err := json.Marshal(schemas)
+	if err != nil {
+		return nil, fmt.Errorf("error marshalling OpenAPI v3 schemas: %w", err)
+	}
+	b = bytes.ReplaceAll(b, []byte(v3SchemaRefPrefix), []byte(definitionPrefix))
+
+	var defs spec.Definitions
+	if err := json.Unmarshal(b, &defs); err != nil {
+		return nil, fmt.Errorf("error unmarshalling OpenAPI v3 schemas: %w", err)
+	}
+	return defs, nil
+}
+
+// unwrapSingleRefAllOf reverses kube-openapi's builder3 "WrapRefs" transform (see
+// k8s.io/kube-openapi/pkg/builder3/util.WrapRefs): any schema with a `$ref` that has
+// sibling fields (e.g. a description, as CRD `metadata` properties do) gets its `$ref`
+// moved into a single-element `allOf`, since OpenAPI v3 doesn't allow siblings next to
+// `$ref` the way Swagger v2 does. The rest of this pipeline (typegen.go's ref-based
+// type resolution, which looks for a direct `$ref`) predates v3 support and expects
+// the v2-style shape, so undo that wrapping here.
+func unwrapSingleRefAllOf(schema *spec.Schema) *spec.Schema {
+	walker := schemamutation.Walker{
+		SchemaCallback: func(s *spec.Schema) *spec.Schema {
+			if s.Ref.String() != "" || len(s.AllOf) != 1 {
+				return s
+			}
+			sole := s.AllOf[0]
+			if sole.Ref.String() == "" || !reflect.DeepEqual(sole, spec.Schema{SchemaProps: spec.SchemaProps{Ref: sole.Ref}}) {
+				return s
+			}
+			clone := *s
+			clone.Ref = sole.Ref
+			clone.AllOf = nil
+			return &clone
+		},
+		RefCallback: schemamutation.RefCallbackNoop,
+	}
+	return walker.WalkSchema(schema)
 }
 
 // flattenOpenAPI recursively finds all nested objects in the OpenAPI spec and flattens them into

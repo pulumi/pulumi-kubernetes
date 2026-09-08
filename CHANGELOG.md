@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Fix `pulumi package add <provider> --extension` panicking on CRDs with `nullable: true` fields, and losing type information (falling back to `any`) for such fields more generally. CRD OpenAPI specs are now built as OpenAPI v3 instead of v2, since the v2 (Swagger) builder unconditionally strips `type` from nullable fields, which Swagger v2 has no native support for.
+
 ## 4.34.0 (August 27, 2026)
 
 ### Added
