@@ -1,3 +1,0 @@
-name: guestbook_dotnet
-description: A full .NET Kubernetes Guestbook example program.
-runtime: dotnet

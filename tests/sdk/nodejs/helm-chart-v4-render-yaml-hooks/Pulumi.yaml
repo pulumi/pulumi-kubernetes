@@ -1,3 +1,0 @@
-name: helm-chart-v4-render-yaml-hooks
-description: Test Helm Chart v4 hook rendering with includeHooks + renderYamlToDirectory
-runtime: nodejs

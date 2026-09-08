@@ -1,3 +1,0 @@
-name: skip-update-unreachable-tests
-description: Tests skipUpdateUnreachable flag
-runtime: nodejs

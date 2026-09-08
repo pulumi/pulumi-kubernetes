@@ -1,9 +1,0 @@
--- olds --
-clusterIdentifier: foo
-
--- news --
-
--- wantDiffs --
-- clusterIdentifier
-
--- wantReplaces --

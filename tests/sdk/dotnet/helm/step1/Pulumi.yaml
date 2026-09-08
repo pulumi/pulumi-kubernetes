@@ -1,3 +1,0 @@
-name: dotnet_helm
-description: A test of a Helm charts in .NET.
-runtime: dotnet
