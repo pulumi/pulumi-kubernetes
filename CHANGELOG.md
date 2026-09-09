@@ -6,6 +6,7 @@
 ### Fixed
 
 - [#4615](https://github.com/pulumi/pulumi-kubernetes/pull/4615) Fix `yaml.ConfigGroup`, `yaml.ConfigFile`, and `kustomize.Directory` being ignored by policy packs in Node.js.
+- [#2675](https://github.com/pulumi/pulumi-kubernetes/issues/2675) Honor the `deleteUnreachable` option (`PULUMI_K8S_DELETE_UNREACHABLE`) when deleting a Helm Release from an unreachable cluster.
 ### Added
 
 - [#4616](https://github.com/pulumi/pulumi-kubernetes/pull/4616) `helm.v4.Chart` now accepts a `kubeVersion` input, equivalent to `helm template --kube-version`, to override the Kubernetes version used for `Capabilities.KubeVersion`. If the value is not specified, ``Capabilities.KubeVersion` will revert to the previous behavior of taking the connected cluster's version, or Helm's default of `v1.20.0` if no cluster is reachable.
