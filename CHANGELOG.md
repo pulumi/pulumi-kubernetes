@@ -6,6 +6,7 @@
 ### Fixed
 
 - [#4663](https://github.com/pulumi/pulumi-kubernetes/issues/4663) Fix the HCL examples in the API docs, which used a `pulumi {}` block that Pulumi HCL no longer accepts. HCL examples are now generated from the YAML sources along with the other languages, which also refreshes the other languages' examples with current `pulumi convert` output.
+- [#2675](https://github.com/pulumi/pulumi-kubernetes/issues/2675) Honor the `deleteUnreachable` option (`PULUMI_K8S_DELETE_UNREACHABLE`) when deleting a Helm Release from an unreachable cluster.
 
 ### Added
 
