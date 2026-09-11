@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- [#4603](https://github.com/pulumi/pulumi-kubernetes/pull/4603) Fix a lookup condition where one parameterization package name clobbered the other
+
 ## 4.34.0 (September 8, 2026)
 
 ### Fixed
