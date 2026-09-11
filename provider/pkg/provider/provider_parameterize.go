@@ -54,36 +54,38 @@ const defaultExtensionVersion = "1.0.0"
 // hoists a nested object to a top-level definition and leaves a $ref behind.
 const definitionPrefix = "#/definitions/"
 
-// parameterizedPackageMap is a map of packages to their respective Pulumi PackageSpecs. This is used to store the
-// CRD schemas that are generated from the CRD manifests with an internal lock to prevent concurrent access.
-// Note: One package can contain multiple CRD schemas within. This enables users to work with multiple CRD versions
-// across different clusters
-// in the same Pulumi program.
+// parameterizedPackageMap stores the CRD schemas generated from CRD manifests.
 type parameterizedPackageMap struct {
 	sync.Mutex
-	crdSchemas map[string]*pulumischema.PackageSpec
-}
-
-func (c *parameterizedPackageMap) mapKey(name, version string) string {
-	return fmt.Sprintf("%s@%s", name, version)
+	crdSchemas map[string]map[string]*pulumischema.PackageSpec // keyed by [name][version]
 }
 
 // get retrieves the CRD schema for the given package name.
-func (c *parameterizedPackageMap) get(name, version string) *pulumischema.PackageSpec {
-	c.Lock()
-	defer c.Unlock()
-	return c.crdSchemas[c.mapKey(name, version)]
+func (pm *parameterizedPackageMap) get(name, version string) *pulumischema.PackageSpec {
+	pm.Lock()
+	defer pm.Unlock()
+	return pm.crdSchemas[name][version]
+}
+
+// has reports whether any version of the named package is present.
+func (pm *parameterizedPackageMap) has(name string) bool {
+	pm.Lock()
+	defer pm.Unlock()
+	return len(pm.crdSchemas[name]) > 0
 }
 
 // add adds the PackageSpec for a given parameterized package.
-func (c *parameterizedPackageMap) add(name, version string, schema *pulumischema.PackageSpec) {
-	c.Lock()
-	defer c.Unlock()
-	if c.crdSchemas == nil {
-		c.crdSchemas = make(map[string]*pulumischema.PackageSpec)
+func (pm *parameterizedPackageMap) add(name, version string, schema *pulumischema.PackageSpec) {
+	pm.Lock()
+	defer pm.Unlock()
+	if pm.crdSchemas == nil {
+		pm.crdSchemas = make(map[string]map[string]*pulumischema.PackageSpec)
+	}
+	if pm.crdSchemas[name] == nil {
+		pm.crdSchemas[name] = make(map[string]*pulumischema.PackageSpec)
 	}
 
-	c.crdSchemas[c.mapKey(name, version)] = schema
+	pm.crdSchemas[name][version] = schema
 }
 
 // ParameterizedArgs holds the arguments for the Kubernetes Provider
@@ -496,10 +498,6 @@ func (k *kubeProvider) parameterizeRequestValue(
 	if len(paramBytes) == 0 {
 		return nil, errors.New("parameterize value: parameter bytes must be provided")
 	}
-
-	// Extension resources are tokened under the extension's own package name, so the
-	// runtime CRUD gate (gvkFromURN) must accept that namespace rather than "kubernetes".
-	k.providerPackage = extensionName
 
 	logger.V(9).Infof("Reconstructing CRD schema for %s@%s from saved parameters", extensionName, extensionVersion)
 
