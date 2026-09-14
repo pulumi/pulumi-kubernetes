@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- [#2675](https://github.com/pulumi/pulumi-kubernetes/issues/2675) Honor the `deleteUnreachable` option (`PULUMI_K8S_DELETE_UNREACHABLE`) when deleting a Helm Release from an unreachable cluster.
+
 ## 4.34.0 (September 8, 2026)
 
 ### Fixed
