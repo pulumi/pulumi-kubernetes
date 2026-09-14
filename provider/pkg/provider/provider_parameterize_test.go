@@ -15,12 +15,17 @@
 package provider
 
 import (
+	"context"
+	"encoding/json"
 	"strings"
 	"testing"
 
 	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/kube-openapi/pkg/validation/spec"
+
+	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
 func TestParseCrdArgs(t *testing.T) {
@@ -427,5 +432,95 @@ func TestCRDToOpenAPIPreservesNullableFieldTypes(t *testing.T) {
 		t.Error("nullable array lost its items")
 	case !hosts.Items.Schema.Type.Contains("string"):
 		t.Errorf("nullable array lost its element type: %v", hosts.Items.Schema.Type)
+	}
+}
+
+// mustParameterizeExtension builds a CRD, converts it with the provider's own crdToOpenAPI
+// and mergeSpecs, then calls Parameterize with the result.
+func mustParameterizeExtension(t *testing.T, k *kubeProvider, extension, group, kind string) {
+	t.Helper()
+
+	crd := &extensionv1.CustomResourceDefinition{
+		Spec: extensionv1.CustomResourceDefinitionSpec{
+			Group: group,
+			Names: extensionv1.CustomResourceDefinitionNames{Kind: kind, Plural: strings.ToLower(kind) + "s"},
+			Scope: extensionv1.NamespaceScoped,
+			Versions: []extensionv1.CustomResourceDefinitionVersion{{
+				Name:    "v1",
+				Served:  true,
+				Storage: true,
+				Schema: &extensionv1.CustomResourceValidation{
+					OpenAPIV3Schema: &extensionv1.JSONSchemaProps{
+						Type:       "object",
+						Properties: map[string]extensionv1.JSONSchemaProps{"size": {Type: "string"}},
+					},
+				},
+			}},
+		},
+	}
+
+	specs, err := crdToOpenAPI(crd)
+	if err != nil {
+		t.Fatalf("crdToOpenAPI(%s) returned error: %v", kind, err)
+	}
+	merged, err := mergeSpecs(specs)
+	if err != nil {
+		t.Fatalf("mergeSpecs(%s) returned error: %v", kind, err)
+	}
+	paramBytes, err := json.Marshal(merged)
+	if err != nil {
+		t.Fatalf("marshalling %s OpenAPI spec: %v", kind, err)
+	}
+
+	resp, err := k.Parameterize(context.Background(), &pulumirpc.ParameterizeRequest{
+		Parameters: &pulumirpc.ParameterizeRequest_Value{
+			Value: &pulumirpc.ParameterizeRequest_ParametersValue{
+				Name:    extension,
+				Version: "1.0.0",
+				Value:   paramBytes,
+			},
+		},
+	})
+	if err != nil {
+		t.Fatalf("Parameterize(%s) returned error: %v", extension, err)
+	}
+	if resp.GetName() != extension {
+		t.Fatalf("Parameterize(%s) returned name %q", extension, resp.GetName())
+	}
+}
+
+func TestParameterizeTwoExtensionsKeepsBothServed(t *testing.T) {
+	k, err := makeKubeProvider(nil, "kubernetes", "4.34.1", []byte("{}"), []byte("{}"), []byte("{}"))
+	if err != nil {
+		t.Fatalf("makeKubeProvider returned error: %v", err)
+	}
+
+	mustParameterizeExtension(t, k, "dragon-ext", "dragon.multiext.pulumi.com", "Dragon")
+	mustParameterizeExtension(t, k, "unicorn-ext", "unicorn.multiext.pulumi.com", "Unicorn")
+
+	tokens := map[string]schema.GroupVersionKind{
+		"dragon-ext:dragon.multiext.pulumi.com/v1:Dragon": {
+			Group: "dragon.multiext.pulumi.com", Version: "v1", Kind: "Dragon",
+		},
+		"unicorn-ext:unicorn.multiext.pulumi.com/v1:Unicorn": {
+			Group: "unicorn.multiext.pulumi.com", Version: "v1", Kind: "Unicorn",
+		},
+		"kubernetes:core/v1:ConfigMap": {
+			Group: "", Version: "v1", Kind: "ConfigMap",
+		},
+	}
+	for token, want := range tokens {
+		got, err := k.gvkFromTypeToken(token)
+		if err != nil {
+			t.Errorf("gvkFromTypeToken(%q) returned error: %v", token, err)
+			continue
+		}
+		if got != want {
+			t.Errorf("gvkFromTypeToken(%q) = %v, want %v", token, got, want)
+		}
+	}
+
+	if _, err := k.gvkFromTypeToken("griffin-ext:griffin.multiext.pulumi.com/v1:Griffin"); err == nil {
+		t.Error("gvkFromTypeToken accepted a package the provider was never parameterized with")
 	}
 }

@@ -2707,8 +2707,12 @@ func (k *kubeProvider) gvkFromUnstructured(input *unstructured.Unstructured) sch
 	}
 }
 
+func (k *kubeProvider) servesPackage(name string) bool {
+	return name == k.providerPackage || k.crdSchemas.has(name)
+}
+
 func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, error) {
-	if string(urn.Type().Package()) != k.providerPackage {
+	if !k.servesPackage(string(urn.Type().Package())) {
 		return schema.GroupVersionKind{}, fmt.Errorf("unrecognized resource type: %q for this provider",
 			urn.Type())
 	}
@@ -2737,7 +2741,7 @@ func (k *kubeProvider) gvkFromTypeToken(typeToken string) (schema.GroupVersionKi
 	if len(parts) != 3 {
 		return schema.GroupVersionKind{}, fmt.Errorf("type token must be in the format <package>:<group/version>:<kind>")
 	}
-	if parts[0] != k.providerPackage {
+	if !k.servesPackage(parts[0]) {
 		return schema.GroupVersionKind{}, fmt.Errorf("unrecognized resource type: %q for this provider", typeToken)
 	}
 	if parts[2] == "" {
