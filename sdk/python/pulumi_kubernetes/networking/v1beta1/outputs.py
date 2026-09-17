@@ -564,7 +564,7 @@ class IngressBackend(dict):
 
     def __init__(__self__, *,
                  service_name: _builtins.str,
-                 service_port: Any,
+                 service_port: Union[_builtins.int, _builtins.str],
                  resource: Optional['_core.v1.outputs.TypedLocalObjectReference'] = None):
         """
         IngressBackend describes all endpoints for a given service and port.
@@ -588,7 +588,7 @@ class IngressBackend(dict):
 
     @_builtins.property
     @pulumi.getter(name="servicePort")
-    def service_port(self) -> Any:
+    def service_port(self) -> Union[_builtins.int, _builtins.str]:
         """
         Specifies the port of the referenced service.
         """
@@ -630,7 +630,7 @@ class IngressBackendPatch(dict):
     def __init__(__self__, *,
                  resource: Optional['_core.v1.outputs.TypedLocalObjectReferencePatch'] = None,
                  service_name: Optional[_builtins.str] = None,
-                 service_port: Optional[Any] = None):
+                 service_port: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         IngressBackend describes all endpoints for a given service and port.
 
@@ -663,7 +663,7 @@ class IngressBackendPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="servicePort")
-    def service_port(self) -> Optional[Any]:
+    def service_port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         Specifies the port of the referenced service.
         """

@@ -131,11 +131,11 @@ class ResourceClassParameters(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
-                 filters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict']]]]] = None,
-                 generated_from: pulumi.Input[Optional[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
+                 filters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict', 'outputs.ResourceFilter']]]]] = None,
+                 generated_from: pulumi.Input[Optional[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict', 'outputs.ResourceClassParametersReference']]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceClassParameters']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 vendor_parameters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 vendor_parameters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict', 'outputs.VendorParameters']]]]] = None,
                  __props__=None):
         """
         ResourceClassParameters defines resource requests for a ResourceClass in an in-tree format understood by Kubernetes.
@@ -143,11 +143,11 @@ class ResourceClassParameters(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['resource.k8s.io/v1alpha2']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict']]]] filters: Filters describes additional contraints that must be met when using the class.
-        :param pulumi.Input[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']] generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict', 'outputs.ResourceFilter']]]] filters: Filters describes additional contraints that must be met when using the class.
+        :param pulumi.Input[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict', 'outputs.ResourceClassParametersReference']] generated_from: If this object was created from some other resource, then this links back to that resource. This field is used to find the in-tree representation of the class parameters when the parameter reference of the class refers to some unknown type.
         :param pulumi.Input[Literal['ResourceClassParameters']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata
-        :param pulumi.Input[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict']]]] vendor_parameters: VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: Standard object metadata
+        :param pulumi.Input[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict', 'outputs.VendorParameters']]]] vendor_parameters: VendorParameters are arbitrary setup parameters for all claims using this class. They are ignored while allocating the claim. There must not be more than one entry per driver.
         """
         ...
     @overload
@@ -174,11 +174,11 @@ class ResourceClassParameters(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha2']]] = None,
-                 filters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict']]]]] = None,
-                 generated_from: pulumi.Input[Optional[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict']]] = None,
+                 filters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ResourceFilterArgs', 'ResourceFilterArgsDict', 'outputs.ResourceFilter']]]]] = None,
+                 generated_from: pulumi.Input[Optional[Union['ResourceClassParametersReferenceArgs', 'ResourceClassParametersReferenceArgsDict', 'outputs.ResourceClassParametersReference']]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceClassParameters']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 vendor_parameters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 vendor_parameters: pulumi.Input[Optional[Sequence[pulumi.Input[Union['VendorParametersArgs', 'VendorParametersArgsDict', 'outputs.VendorParameters']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

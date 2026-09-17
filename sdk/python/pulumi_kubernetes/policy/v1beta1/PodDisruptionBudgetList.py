@@ -90,9 +90,9 @@ class PodDisruptionBudgetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['policy/v1beta1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodDisruptionBudgetArgs', 'PodDisruptionBudgetArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodDisruptionBudgetArgs', 'PodDisruptionBudgetArgsDict', 'outputs.PodDisruptionBudget']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['PodDisruptionBudgetList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         """
         PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
@@ -127,9 +127,9 @@ class PodDisruptionBudgetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['policy/v1beta1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodDisruptionBudgetArgs', 'PodDisruptionBudgetArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodDisruptionBudgetArgs', 'PodDisruptionBudgetArgsDict', 'outputs.PodDisruptionBudget']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['PodDisruptionBudgetList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
