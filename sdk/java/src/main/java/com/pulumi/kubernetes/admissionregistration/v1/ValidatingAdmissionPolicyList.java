@@ -112,10 +112,7 @@ public class ValidatingAdmissionPolicyList extends com.pulumi.resources.CustomRe
             return null;
         }
         var builder = args == null ? ValidatingAdmissionPolicyListArgs.builder() : ValidatingAdmissionPolicyListArgs.builder(args);
-        return builder
-            .apiVersion("admissionregistration.k8s.io/v1")
-            .kind("ValidatingAdmissionPolicyList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

@@ -175,7 +175,11 @@ public final class ResourceClassArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder apiVersion(@Nullable Output<String> apiVersion) {
             $.apiVersion = apiVersion;
             return this;
@@ -186,7 +190,11 @@ public final class ResourceClassArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder apiVersion(String apiVersion) {
             return apiVersion(Output.of(apiVersion));
         }
@@ -221,7 +229,11 @@ public final class ResourceClassArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder kind(@Nullable Output<String> kind) {
             $.kind = kind;
             return this;
@@ -232,7 +244,11 @@ public final class ResourceClassArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder kind(String kind) {
             return kind(Output.of(kind));
         }
@@ -326,11 +342,11 @@ public final class ResourceClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public ResourceClassArgs build() {
-            $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
+            $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).def("resource.k8s.io/v1alpha2").getNullable();
             if ($.driverName == null) {
                 throw new MissingRequiredPropertyException("ResourceClassArgs", "driverName");
             }
-            $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            $.kind = Codegen.stringProp("kind").output().arg($.kind).def("ResourceClass").getNullable();
             return $;
         }
     }

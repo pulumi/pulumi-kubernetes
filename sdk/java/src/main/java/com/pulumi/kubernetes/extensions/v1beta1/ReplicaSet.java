@@ -133,10 +133,7 @@ public class ReplicaSet extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? ReplicaSetArgs.builder() : ReplicaSetArgs.builder(args);
-        return builder
-            .apiVersion("extensions/v1beta1")
-            .kind("ReplicaSet")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

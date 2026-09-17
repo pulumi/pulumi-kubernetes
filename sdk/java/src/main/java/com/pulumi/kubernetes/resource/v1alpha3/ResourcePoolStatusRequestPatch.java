@@ -133,10 +133,7 @@ public class ResourcePoolStatusRequestPatch extends com.pulumi.resources.CustomR
             return null;
         }
         var builder = args == null ? ResourcePoolStatusRequestPatchArgs.builder() : ResourcePoolStatusRequestPatchArgs.builder(args);
-        return builder
-            .apiVersion("resource.k8s.io/v1alpha3")
-            .kind("ResourcePoolStatusRequest")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

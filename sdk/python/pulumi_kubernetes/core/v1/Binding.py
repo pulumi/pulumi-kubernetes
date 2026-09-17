@@ -99,8 +99,8 @@ class Binding(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Binding']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 target: pulumi.Input[Optional[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 target: pulumi.Input[Optional[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict', 'outputs.ObjectReference']]] = None,
                  __props__=None):
         """
         Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
@@ -109,8 +109,8 @@ class Binding(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['Binding']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']] target: The target object that you want to bind to the standard object.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict', 'outputs.ObjectReference']] target: The target object that you want to bind to the standard object.
         """
         ...
     @overload
@@ -138,8 +138,8 @@ class Binding(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Binding']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 target: pulumi.Input[Optional[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 target: pulumi.Input[Optional[Union['ObjectReferenceArgs', 'ObjectReferenceArgsDict', 'outputs.ObjectReference']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
