@@ -128,10 +128,7 @@ public class RoleBinding extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? RoleBindingArgs.builder() : RoleBindingArgs.builder(args);
-        return builder
-            .apiVersion("rbac.authorization.k8s.io/v1beta1")
-            .kind("RoleBinding")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

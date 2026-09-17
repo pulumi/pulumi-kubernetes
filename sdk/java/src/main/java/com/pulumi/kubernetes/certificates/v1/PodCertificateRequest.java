@@ -131,10 +131,7 @@ public class PodCertificateRequest extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? PodCertificateRequestArgs.builder() : PodCertificateRequestArgs.builder(args);
-        return builder
-            .apiVersion("certificates.k8s.io/v1")
-            .kind("PodCertificateRequest")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

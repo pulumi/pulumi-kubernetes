@@ -254,10 +254,7 @@ public class Job extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? JobArgs.builder() : JobArgs.builder(args);
-        return builder
-            .apiVersion("batch/v1")
-            .kind("Job")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

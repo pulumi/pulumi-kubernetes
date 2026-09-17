@@ -155,10 +155,7 @@ public class Deployment extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? DeploymentArgs.builder() : DeploymentArgs.builder(args);
-        return builder
-            .apiVersion("extensions/v1beta1")
-            .kind("Deployment")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

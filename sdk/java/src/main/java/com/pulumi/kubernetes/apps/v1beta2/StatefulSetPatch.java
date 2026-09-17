@@ -147,10 +147,7 @@ public class StatefulSetPatch extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? StatefulSetPatchArgs.builder() : StatefulSetPatchArgs.builder(args);
-        return builder
-            .apiVersion("apps/v1beta2")
-            .kind("StatefulSet")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

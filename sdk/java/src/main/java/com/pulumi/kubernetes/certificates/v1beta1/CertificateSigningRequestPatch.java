@@ -127,10 +127,7 @@ public class CertificateSigningRequestPatch extends com.pulumi.resources.CustomR
             return null;
         }
         var builder = args == null ? CertificateSigningRequestPatchArgs.builder() : CertificateSigningRequestPatchArgs.builder(args);
-        return builder
-            .apiVersion("certificates.k8s.io/v1beta1")
-            .kind("CertificateSigningRequest")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
