@@ -1,0 +1,23 @@
+name: extension-hyphenated-properties
+runtime: yaml
+description: Create a custom resource whose CRD declares a hyphenated property name, through an extension-parameterized kubernetes provider.
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+    properties:
+      metadata:
+        name: hyphen-props-test
+
+  widget:
+    type: hyphenprops:hyphenprops.pulumi.com/v1:HyphenWidget
+    properties:
+      metadata:
+        name: hyphen-widget
+        namespace: ${ns.metadata.name}
+      spec:
+        replicas: 3
+        security-labels: reserved:world
+
+outputs:
+  widgetSpec: ${widget.spec}
