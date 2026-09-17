@@ -86,7 +86,7 @@ func TestCreateGroups_IdentifyListKinds(t *testing.T) {
 				}
 			}
 
-			configGroups := createGroups(definitions, true, nil)
+			configGroups := createGroups(definitions, nil)
 
 			// Loop through all parsed kinds and ensure they are accounted for.
 			for _, g := range configGroups {
@@ -905,7 +905,7 @@ func TestCreateKinds_EmptyObjectTypes(t *testing.T) {
 		},
 	}
 
-	kinds := createKinds(definitions, map[string]string{}, map[string][]any{}, false, nil)
+	kinds := createKinds(definitions, map[string]string{}, map[string][]any{}, nil)
 
 	kindNames := make([]string, len(kinds))
 	for i, k := range kinds {
@@ -1003,10 +1003,27 @@ func TestReservedPropertyNames(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			kinds := createKinds([]definition{tt.definition}, map[string]string{}, map[string][]any{}, false, nil)
+			kinds := createKinds([]definition{tt.definition}, map[string]string{}, map[string][]any{}, nil)
 			require.Len(t, kinds, 1)
 			properties := slices.Sorted(fxs.Map(kinds[0].Properties(), func(p Property) string { return p.Name() }))
 			assert.Equal(t, tt.expectedProperties, properties)
 		})
 	}
+}
+
+func TestCreateKindsPreservesHyphenatedPropertyNames(t *testing.T) {
+	hyphenated := definition{
+		gvk: schema.GroupVersionKind{Group: "cilium.io", Version: "v2", Kind: "CiliumIdentity"},
+		data: map[string]any{
+			"properties": map[string]any{
+				"security-labels": map[string]any{"type": "string"},
+				"replicas":        map[string]any{"type": "integer"},
+			},
+		},
+	}
+
+	kinds := createKinds([]definition{hyphenated}, map[string]string{}, map[string][]any{}, nil)
+	require.Len(t, kinds, 1)
+	properties := slices.Sorted(fxs.Map(kinds[0].Properties(), func(p Property) string { return p.Name() }))
+	assert.Equal(t, []string{"replicas", "security-labels"}, properties)
 }

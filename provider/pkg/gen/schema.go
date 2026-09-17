@@ -53,9 +53,6 @@ type schemaGenerator struct {
 	// parameterization indicates whether the schema should be parameterized.
 	parameterization *pschema.ExtensionParameterizationSpec
 
-	// allowHyphens indicates whether hyphens should be allowed in property names.
-	allowHyphens bool
-
 	// pulumiKubernetesDependency indicates whether the Pulumi Kubernetes provider should be
 	// listed as a language dependency. The value is the version of the Pulumi Kubernetes provider
 	// to depend on.
@@ -102,18 +99,6 @@ func (o *withParameterizationOption) apply(sg *schemaGenerator) {
 
 func WithParameterization(parameterization *pschema.ExtensionParameterizationSpec) schemaGeneratorOption {
 	return &withParameterizationOption{parameterization: parameterization}
-}
-
-type withAllowHyphensOption struct {
-	allowHyphens bool
-}
-
-func (o *withAllowHyphensOption) apply(sg *schemaGenerator) {
-	sg.allowHyphens = o.allowHyphens
-}
-
-func WithAllowHyphens(allow bool) schemaGeneratorOption {
-	return &withAllowHyphensOption{allowHyphens: allow}
 }
 
 type withPulumiKubernetesDependency struct {
@@ -446,7 +431,7 @@ func PulumiSchema(swagger map[string]any, opts ...schemaGeneratorOption) pschema
 	}
 
 	definitions := swagger["definitions"].(map[string]any)
-	groupsSlice := createGroups(definitions, gen.allowHyphens, extension)
+	groupsSlice := createGroups(definitions, extension)
 
 	for _, group := range groupsSlice {
 		if group.Group() == "apiserverinternal" {

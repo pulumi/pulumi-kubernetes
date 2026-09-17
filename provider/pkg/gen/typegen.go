@@ -488,11 +488,11 @@ func makeSchemaType(prop map[string]any, canonicalGroups map[string]string, exte
 
 // --------------------------------------------------------------------------
 
-func createGroups(definitionsJSON map[string]any, allowHyphens bool, extension *extensionInfo) []GroupConfig {
+func createGroups(definitionsJSON map[string]any, extension *extensionInfo) []GroupConfig {
 	canonicalGroups := createCanonicalGroups(definitionsJSON)
 	definitions := createDefinitions(definitionsJSON, canonicalGroups)
 	aliases := createAliases(definitions, canonicalGroups, extension)
-	kinds := createKinds(definitions, canonicalGroups, aliases, allowHyphens, extension)
+	kinds := createKinds(definitions, canonicalGroups, aliases, extension)
 	versions := createVersions(kinds)
 	groups := createGroupsFromVersions(versions)
 	return groups
@@ -605,7 +605,6 @@ func createKinds(
 	definitions []definition,
 	canonicalGroups map[string]string,
 	aliases map[string][]any,
-	allowHyphens bool,
 	extension *extensionInfo,
 ) []KindConfig {
 	var kinds []KindConfig
@@ -676,10 +675,6 @@ func createKinds(
 				for slices.Contains(propNames, propName) {
 					propName += "_"
 				}
-			}
-
-			if !allowHyphens {
-				contract.Assertf(!strings.Contains(propName, "-"), "property names may not contain `-`")
 			}
 
 			// Create a const value for the field.
