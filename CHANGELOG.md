@@ -3,19 +3,18 @@
 
 ## Unreleased
 
+## 4.34.2 (September 18, 2026)
+
 ### Fixed
 
 - [#4603](https://github.com/pulumi/pulumi-kubernetes/pull/4603) Fix a lookup condition where one parameterization package name clobbered the other
+- [#4611](https://github.com/pulumi/pulumi-kubernetes/pull/4611) Allow hyphens in CRD generation, as supported by the Pulumi engine.
 
-## 4.34.0 (September 8, 2026)
+## 4.34.1 (September 8, 2026)
 
 ### Fixed
 
 - [#4588](https://github.com/pulumi/pulumi-kubernetes/issues/4588) Fix a crash on CRD schema generation with `nullable: true` fields.
-
-### Added
-
-- Allow hyphens in CRD generation, ass supported by the Pulumi engine.
 
 ## 4.34.0 (August 27, 2026)
 
