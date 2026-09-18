@@ -361,9 +361,8 @@ func generateSchema(
 	swagger *spec.Swagger,
 	extensionName, extensionVersion, baseProvName, baseProvVersion string,
 ) *pulumischema.PackageSpec {
-	// TODO(rquitales): We need to handle field name normalization here so that
-	// we can generate typed SDKs that contain valid field names, for example,
-	// not allowing hyphens.
+	// TODO: property names containing a dot still produce an invalid identifier.
+	// Language codegen quotes hyphenated names, but has no equivalent for dots.
 	marshaledOpenAPISchema, err := json.Marshal(swagger)
 	if err != nil {
 		log.Fatalf("error marshalling OpenAPI spec: %v", err)

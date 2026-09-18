@@ -17,14 +17,19 @@ package provider
 import (
 	"context"
 	"encoding/json"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/kube-openapi/pkg/validation/spec"
 
+	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
@@ -523,4 +528,85 @@ func TestParameterizeTwoExtensionsKeepsBothServed(t *testing.T) {
 	if _, err := k.gvkFromTypeToken("griffin-ext:griffin.multiext.pulumi.com/v1:Griffin"); err == nil {
 		t.Error("gvkFromTypeToken accepted a package the provider was never parameterized with")
 	}
+}
+
+const hyphenatedPropertyCRD = `
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: ciliumidentities.cilium.io
+spec:
+  group: cilium.io
+  names:
+    kind: CiliumIdentity
+    listKind: CiliumIdentityList
+    plural: ciliumidentities
+    singular: ciliumidentity
+  scope: Cluster
+  versions:
+    - name: v2
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                replicas:
+                  type: integer
+                security-labels:
+                  type: object
+                  additionalProperties:
+                    type: string
+`
+
+func TestParameterizePreservesHyphenatedPropertyNames(t *testing.T) {
+	manifest := filepath.Join(t.TempDir(), "crd.yaml")
+	require.NoError(t, os.WriteFile(manifest, []byte(hyphenatedPropertyCRD), 0o600))
+
+	fromArgs := &kubeProvider{name: "kubernetes", version: "4.0.0"}
+	_, err := fromArgs.parameterizeRequestArgs(&pulumirpc.ParameterizeRequest_Args{
+		Args: &pulumirpc.ParameterizeRequest_ParametersArgs{
+			Args: []string{"name=cilium", "version=1.0.0", "crd-manifest=" + manifest},
+		},
+	})
+	require.NoError(t, err)
+
+	argsSchema := fromArgs.crdSchemas.get("cilium", "1.0.0")
+	require.NotNil(t, argsSchema)
+	assertHyphenatedProperty(t, argsSchema)
+
+	require.NotNil(t, argsSchema.ExtensionParameterization)
+	savedParameter := argsSchema.ExtensionParameterization.Parameter
+	require.NotEmpty(t, savedParameter)
+
+	fromValue := &kubeProvider{name: "kubernetes", version: "4.0.0"}
+	_, err = fromValue.parameterizeRequestValue(&pulumirpc.ParameterizeRequest_Value{
+		Value: &pulumirpc.ParameterizeRequest_ParametersValue{
+			Name:    "cilium",
+			Version: "1.0.0",
+			Value:   savedParameter,
+		},
+	})
+	require.NoError(t, err)
+
+	valueSchema := fromValue.crdSchemas.get("cilium", "1.0.0")
+	require.NotNil(t, valueSchema)
+	assertHyphenatedProperty(t, valueSchema)
+}
+
+func assertHyphenatedProperty(t *testing.T, pkg *pulumischema.PackageSpec) {
+	t.Helper()
+
+	for token, typ := range pkg.Types {
+		if _, ok := typ.Properties["security-labels"]; ok {
+			assert.NotContains(t, typ.Properties, "security_labels",
+				"%s should carry only the wire name", token)
+			return
+		}
+	}
+
+	t.Fatalf("no type declared a %q property; the schema has %d types", "security-labels", len(pkg.Types))
 }

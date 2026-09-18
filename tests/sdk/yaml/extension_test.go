@@ -9,6 +9,9 @@ import (
 
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 )
 
 func packageAddCmd(t *testing.T, test *pulumitest.PulumiTest) func(args ...string) {
@@ -46,4 +49,35 @@ func TestExtensionGatewayAPI(t *testing.T) {
 		"extension-served GatewayClass should be created with its declared name")
 	require.Equal(t, "gateway-system", up.Outputs["namespaceName"].Value,
 		"base-provider Namespace should be created alongside the extension resource")
+}
+
+func TestExtensionHyphenatedPropertyNames(t *testing.T) {
+	testFolder := "testdata/extension-hyphenated-properties"
+	crdManifest := filepath.Join(testFolder, "hyphenated-crd.yaml")
+
+	_, err := tests.Kubectl("apply", "-f", crdManifest)
+	require.NoError(t, err, "failed to apply the CRD")
+	t.Cleanup(func() {
+		_, err := tests.Kubectl("delete", "-f", crdManifest)
+		contract.AssertNoErrorf(err, "failed to delete the CRD during cleanup")
+	})
+
+	test := pulumitest.NewPulumiTest(t, testFolder, opttest.SkipInstall())
+	t.Cleanup(func() {
+		test.Destroy(t)
+	})
+
+	packageAdd := packageAddCmd(t, test)
+	packageAdd("--extension", "name=hyphenprops crd-manifest=hyphenated-crd.yaml")
+
+	up := test.Up(t)
+
+	spec, ok := up.Outputs["widgetSpec"].Value.(map[string]any)
+	require.Truef(t, ok, "widgetSpec should be a map, got %T", up.Outputs["widgetSpec"].Value)
+
+	// The API server prunes fields its structural schema does not know, so a value
+	// read back under the hyphenated key proves both directions of the round trip.
+	require.Equal(t, "reserved:world", spec["security-labels"])
+	require.NotContains(t, spec, "security_labels")
+	require.EqualValues(t, 3, spec["replicas"])
 }
