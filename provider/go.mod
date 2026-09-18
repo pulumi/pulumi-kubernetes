@@ -22,7 +22,7 @@ require (
 	github.com/pulumi/pulumi/sdk/v3 v3.260.0
 	github.com/stretchr/testify v1.12.1
 	github.com/theory/jsonpath v0.9.0
-	golang.org/x/crypto v0.55.0
+	golang.org/x/crypto v0.56.0
 	golang.org/x/exp v0.0.0-20260718201538-764159d718ef
 	golang.org/x/tools v0.49.0
 	google.golang.org/grpc v1.83.2
