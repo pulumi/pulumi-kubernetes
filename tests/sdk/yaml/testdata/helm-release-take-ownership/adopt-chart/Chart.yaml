@@ -1,5 +1,0 @@
-apiVersion: v2
-name: adopt-chart
-description: Renders a single ConfigMap to exercise takeOwnership adoption.
-type: application
-version: 0.1.0

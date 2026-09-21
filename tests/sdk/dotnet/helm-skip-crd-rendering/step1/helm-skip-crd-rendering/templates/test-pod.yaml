@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: helm-skip-crd-rendering-test
-  namespace: {{ .Release.Namespace }}
-spec:
-  containers:
-  - name: helm-skip-crd-rendering-test
-    image: nginx

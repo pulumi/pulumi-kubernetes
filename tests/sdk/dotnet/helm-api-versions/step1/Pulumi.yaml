@@ -1,3 +1,0 @@
-name: dotnet-helm-apiversions
-description: Deploys a simple Helm chart with .Capabilities.ApiVersions conditional
-runtime: dotnet
