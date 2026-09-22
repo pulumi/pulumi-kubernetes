@@ -5,7 +5,7 @@
 
 ### Added
 
-- [#4616](https://github.com/pulumi/pulumi-kubernetes/pull/4616) `helm.v4.Chart` now accepts a `kubeVersion` input, equivalent to `helm template --kube-version`, to override the Kubernetes version used for `Capabilities.KubeVersion`.
+- [#4616](https://github.com/pulumi/pulumi-kubernetes/pull/4616) `helm.v4.Chart` now accepts a `kubeVersion` input, equivalent to `helm template --kube-version`, to override the Kubernetes version used for `Capabilities.KubeVersion`. If the value is not specified, ``Capabilities.KubeVersion` will revert to the previous behavior of taking the connected cluster's version, or Helm's default of `v1.20.0` if no cluster is reachable.
 
 ## 4.34.2 (September 18, 2026)
 
