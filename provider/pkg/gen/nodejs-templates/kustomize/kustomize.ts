@@ -77,6 +77,20 @@ import * as yaml from "../yaml";
  * ```
  */
 export class Directory extends yaml.CollectionComponentResource {
+    /** @internal */
+    public static readonly __pulumiType = 'kubernetes:kustomize:Directory';
+
+    /**
+     * Returns true if the given object is an instance of Directory.  This is designed to work even
+     * when multiple copies of the Pulumi SDK have been loaded into the same process.
+     */
+    public static isInstance(obj: any): obj is Directory {
+        if (obj === undefined || obj === null) {
+            return false;
+        }
+        return obj['__pulumiType'] === Directory.__pulumiType;
+    }
+
     /**
      * Create an instance of the specified kustomize directory.
      *
@@ -92,7 +106,7 @@ export class Directory extends yaml.CollectionComponentResource {
         if (config.resourcePrefix !== undefined) {
             name = `${config.resourcePrefix}-${name}`
         }
-        super("kubernetes:kustomize:Directory", name, config, opts);
+        super(Directory.__pulumiType, name, config, opts);
 
         const directory = config.directory;
         
