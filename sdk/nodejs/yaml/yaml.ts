@@ -4245,6 +4245,20 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
  * ```
  */
 export class ConfigGroup extends CollectionComponentResource {
+    /** @internal */
+    public static readonly __pulumiType = 'kubernetes:yaml:ConfigGroup';
+
+    /**
+     * Returns true if the given object is an instance of ConfigGroup.  This is designed to work even
+     * when multiple copies of the Pulumi SDK have been loaded into the same process.
+     */
+    public static isInstance(obj: any): obj is ConfigGroup {
+        if (obj === undefined || obj === null) {
+            return false;
+        }
+        return obj['__pulumiType'] === ConfigGroup.__pulumiType;
+    }
+
     /**
      * Create a ConfigGroup resource with the given unique name, arguments, and options.
      *
@@ -4253,7 +4267,7 @@ export class ConfigGroup extends CollectionComponentResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, config: ConfigGroupOpts, opts?: pulumi.ComponentResourceOptions) {
-        super("kubernetes:yaml:ConfigGroup", name, config, opts);
+        super(ConfigGroup.__pulumiType, name, config, opts);
         const childOpts = getChildOpts(this, opts);
         this.resources = parse(config, childOpts);
     }
@@ -4309,6 +4323,20 @@ export class ConfigGroup extends CollectionComponentResource {
  * ```
  */
 export class ConfigFile extends CollectionComponentResource {
+    /** @internal */
+    public static readonly __pulumiType = 'kubernetes:yaml:ConfigFile';
+
+    /**
+     * Returns true if the given object is an instance of ConfigFile.  This is designed to work even
+     * when multiple copies of the Pulumi SDK have been loaded into the same process.
+     */
+    public static isInstance(obj: any): obj is ConfigFile {
+        if (obj === undefined || obj === null) {
+            return false;
+        }
+        return obj['__pulumiType'] === ConfigFile.__pulumiType;
+    }
+
     /**
      * Create a ConfigFile resource with the given unique name, arguments, and options.
      *
@@ -4324,7 +4352,7 @@ export class ConfigFile extends CollectionComponentResource {
         if (config && config.resourcePrefix !== undefined) {
             name = `${config.resourcePrefix}-${name}`
         }
-        super("kubernetes:yaml:ConfigFile", name, config, opts);
+        super(ConfigFile.__pulumiType, name, config, opts);
         const fileId = config && config.file || name;
         let text: Promise<string>;
         if (isUrl(fileId)) {
