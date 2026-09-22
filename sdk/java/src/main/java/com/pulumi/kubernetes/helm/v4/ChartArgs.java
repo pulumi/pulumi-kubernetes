@@ -99,6 +99,21 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
+     * 
+     */
+    @Import(name="kubeVersion")
+    private @Nullable Output<String> kubeVersion;
+
+    /**
+     * @return The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
+     * 
+     */
+    public Optional<Output<String>> kubeVersion() {
+        return Optional.ofNullable(this.kubeVersion);
+    }
+
+    /**
      * Release name.
      * 
      */
@@ -286,6 +301,7 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
         this.devel = $.devel;
         this.includeHooks = $.includeHooks;
         this.keyring = $.keyring;
+        this.kubeVersion = $.kubeVersion;
         this.name = $.name;
         this.namespace = $.namespace;
         this.plainHttp = $.plainHttp;
@@ -421,6 +437,27 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder keyring(AssetOrArchive keyring) {
             return keyring(Output.of(keyring));
+        }
+
+        /**
+         * @param kubeVersion The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder kubeVersion(@Nullable Output<String> kubeVersion) {
+            $.kubeVersion = kubeVersion;
+            return this;
+        }
+
+        /**
+         * @param kubeVersion The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder kubeVersion(String kubeVersion) {
+            return kubeVersion(Output.of(kubeVersion));
         }
 
         /**

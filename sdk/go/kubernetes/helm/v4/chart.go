@@ -289,6 +289,8 @@ type chartArgs struct {
 	IncludeHooks *bool `pulumi:"includeHooks"`
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring pulumi.AssetOrArchive `pulumi:"keyring"`
+	// The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
+	KubeVersion *string `pulumi:"kubeVersion"`
 	// Release name.
 	Name *string `pulumi:"name"`
 	// Namespace for the release.
@@ -327,6 +329,8 @@ type ChartArgs struct {
 	IncludeHooks pulumi.BoolPtrInput
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring pulumi.AssetOrArchiveInput
+	// The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
+	KubeVersion pulumi.StringPtrInput
 	// Release name.
 	Name pulumi.StringPtrInput
 	// Namespace for the release.
