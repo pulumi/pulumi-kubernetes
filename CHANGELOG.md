@@ -5,7 +5,7 @@
 
 ### Fixed
 
-- [#2134](https://github.com/pulumi/pulumi-kubernetes/issues/2134) Fix `yaml.ConfigGroup`, `yaml.ConfigFile`, and `kustomize.Directory` being ignored by policy packs in Node.js.
+- [#4615](https://github.com/pulumi/pulumi-kubernetes/pull/4615) Fix `yaml.ConfigGroup`, `yaml.ConfigFile`, and `kustomize.Directory` being ignored by policy packs in Node.js.
 
 ## 4.34.2 (September 18, 2026)
 
