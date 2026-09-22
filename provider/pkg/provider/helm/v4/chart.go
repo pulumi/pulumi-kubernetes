@@ -51,6 +51,7 @@ type ChartArgs struct {
 	Namespace        pulumi.StringInput         `pulumi:"namespace,optional"`
 	Chart            pulumi.StringInput         `pulumi:"chart"`
 	Version          pulumi.StringInput         `pulumi:"version,optional"`
+	KubeVersion      pulumi.StringInput         `pulumi:"kubeVersion,optional"`
 	Devel            pulumi.BoolInput           `pulumi:"devel,optional"`
 	RepositoryOpts   helmv4.RepositoryOptsInput `pulumi:"repositoryOpts,optional"`
 	DependencyUpdate pulumi.BoolInput           `pulumi:"dependencyUpdate,optional"`
@@ -73,6 +74,7 @@ type chartArgs struct {
 	Namespace        string
 	Chart            string
 	Version          string
+	KubeVersion      string
 	Devel            bool
 	RepositoryOpts   helmv4.RepositoryOpts
 	DependencyUpdate bool
@@ -93,7 +95,8 @@ type chartArgs struct {
 func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internals.UnsafeAwaitOutputResult, error) {
 	result, err := internals.UnsafeAwaitOutput(ctx, pulumi.All(
 		args.Name, args.Namespace,
-		args.Chart, args.Version, args.Devel, args.RepositoryOpts, args.DependencyUpdate, args.Verify, args.Keyring,
+		args.Chart, args.Version, args.KubeVersion,
+		args.Devel, args.RepositoryOpts, args.DependencyUpdate, args.Verify, args.Keyring,
 		args.Values, args.ValuesFiles, args.SkipCrds, args.IncludeHooks, args.PostRenderer,
 		args.ResourcePrefix, args.SkipAwait, args.PlainHTTP))
 	if err != nil || !result.Known {
@@ -110,6 +113,7 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	r.Namespace, _ = pop().(string)
 	r.Chart, _ = pop().(string)
 	r.Version, _ = pop().(string)
+	r.KubeVersion, _ = pop().(string)
 	r.Devel, _ = pop().(bool)
 	r.RepositoryOpts, _ = pop().(helmv4.RepositoryOpts)
 	r.DependencyUpdate, _ = pop().(bool)
@@ -204,6 +208,13 @@ func (r *ChartProvider) Construct(
 		if err := setKubeVersionAndAPIVersions(r.opts.ClientSet, cmd); err != nil {
 			return nil, err
 		}
+	}
+	if chartArgs.KubeVersion != "" {
+		kubeVersion, err := chartutil.ParseKubeVersion(chartArgs.KubeVersion)
+		if err != nil {
+			return nil, fmt.Errorf("kubeVersion: %w", err)
+		}
+		cmd.KubeVersion = kubeVersion
 	}
 
 	// set chart resolution options

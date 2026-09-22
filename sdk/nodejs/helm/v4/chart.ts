@@ -210,6 +210,7 @@ export class Chart extends pulumi.ComponentResource {
             resourceInputs["devel"] = args?.devel;
             resourceInputs["includeHooks"] = args?.includeHooks;
             resourceInputs["keyring"] = args?.keyring;
+            resourceInputs["kubeVersion"] = args?.kubeVersion;
             resourceInputs["name"] = args?.name;
             resourceInputs["namespace"] = args?.namespace;
             resourceInputs["plainHttp"] = args?.plainHttp;
@@ -255,6 +256,10 @@ export interface ChartArgs {
      * Location of public keys used for verification. Used only if `verify` is true
      */
     keyring?: pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive | undefined>;
+    /**
+     * The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
+     */
+    kubeVersion?: pulumi.Input<string | undefined>;
     /**
      * Release name.
      */

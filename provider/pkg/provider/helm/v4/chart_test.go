@@ -155,6 +155,27 @@ var _ = gk.Describe("Construct", func() {
 				gm.Expect(err).ShouldNot(gm.HaveOccurred())
 				gm.Expect(executor.Action().APIVersions).To(gm.Not(gm.BeEmpty()))
 			})
+			gk.Context("given a kubeVersion", func() {
+				gk.BeforeEach(func() {
+					inputs["kubeVersion"] = resource.NewStringProperty("v1.30.1")
+				})
+				gk.It("should override the discovered kubeversion", func(ctx context.Context) {
+					_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
+					gm.Expect(executor.Action().KubeVersion).To(gs.PointTo(gm.Equal(
+						chartutil.KubeVersion{Version: "v1.30.1", Major: "1", Minor: "30"})))
+					gm.Expect(executor.Action().APIVersions).To(gm.Not(gm.BeEmpty()))
+				})
+			})
+			gk.Context("given an invalid kubeVersion", func() {
+				gk.BeforeEach(func() {
+					inputs["kubeVersion"] = resource.NewStringProperty("not-a-version")
+				})
+				gk.It("should fail", func(ctx context.Context) {
+					_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					gm.Expect(err).Should(gm.HaveOccurred())
+				})
+			})
 		})
 	})
 

@@ -269,6 +269,14 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			},
 			Description: "Use insecure HTTP for the chart download instead of HTTPS.",
 		},
+		"kubeVersion": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "The Kubernetes version used for Capabilities.KubeVersion when rendering the chart " +
+				"(equivalent to `helm template --kube-version`). If not specified, the version is " +
+				"discovered from the connected cluster.",
+		},
 		"resourcePrefix": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",

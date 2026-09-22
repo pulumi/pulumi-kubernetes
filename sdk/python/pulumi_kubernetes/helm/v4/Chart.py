@@ -25,6 +25,7 @@ class ChartArgs:
                  devel: pulumi.Input[Optional[_builtins.bool]] = None,
                  include_hooks: pulumi.Input[Optional[_builtins.bool]] = None,
                  keyring: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]] = None,
+                 kube_version: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  namespace: pulumi.Input[Optional[_builtins.str]] = None,
                  plain_http: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -45,6 +46,7 @@ class ChartArgs:
         :param pulumi.Input[_builtins.bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
         :param pulumi.Input[_builtins.bool] include_hooks: By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] keyring: Location of public keys used for verification. Used only if `verify` is true
+        :param pulumi.Input[_builtins.str] kube_version: The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
         :param pulumi.Input[_builtins.str] name: Release name.
         :param pulumi.Input[_builtins.str] namespace: Namespace for the release.
         :param pulumi.Input[_builtins.bool] plain_http: Use insecure HTTP for the chart download instead of HTTPS.
@@ -67,6 +69,8 @@ class ChartArgs:
             pulumi.set(__self__, "include_hooks", include_hooks)
         if keyring is not None:
             pulumi.set(__self__, "keyring", keyring)
+        if kube_version is not None:
+            pulumi.set(__self__, "kube_version", kube_version)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if namespace is not None:
@@ -151,6 +155,18 @@ class ChartArgs:
     @keyring.setter
     def keyring(self, value: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]]):
         pulumi.set(self, "keyring", value)
+
+    @_builtins.property
+    @pulumi.getter(name="kubeVersion")
+    def kube_version(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
+        """
+        return pulumi.get(self, "kube_version")
+
+    @kube_version.setter
+    def kube_version(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "kube_version", value)
 
     @_builtins.property
     @pulumi.getter
@@ -308,6 +324,7 @@ class Chart(pulumi.ComponentResource):
                  devel: pulumi.Input[Optional[_builtins.bool]] = None,
                  include_hooks: pulumi.Input[Optional[_builtins.bool]] = None,
                  keyring: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]] = None,
+                 kube_version: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  namespace: pulumi.Input[Optional[_builtins.str]] = None,
                  plain_http: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -497,6 +514,7 @@ class Chart(pulumi.ComponentResource):
         :param pulumi.Input[_builtins.bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
         :param pulumi.Input[_builtins.bool] include_hooks: By default, Helm hook resources (those annotated with `helm.sh/hook`) are omitted from the rendered output. When the provider is configured with `renderYamlToDirectory`, set this to true to include hook resources in the rendered manifests so that another tool (e.g. Argo CD) can apply them. Test hooks (`helm.sh/hook: test`) are always excluded. This setting has no effect outside of render mode, where hooks are not supported.
         :param pulumi.Input[Union[pulumi.Asset, pulumi.Archive]] keyring: Location of public keys used for verification. Used only if `verify` is true
+        :param pulumi.Input[_builtins.str] kube_version: The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
         :param pulumi.Input[_builtins.str] name: Release name.
         :param pulumi.Input[_builtins.str] namespace: Namespace for the release.
         :param pulumi.Input[_builtins.bool] plain_http: Use insecure HTTP for the chart download instead of HTTPS.
@@ -705,6 +723,7 @@ class Chart(pulumi.ComponentResource):
                  devel: pulumi.Input[Optional[_builtins.bool]] = None,
                  include_hooks: pulumi.Input[Optional[_builtins.bool]] = None,
                  keyring: pulumi.Input[Optional[Union[pulumi.Asset, pulumi.Archive]]] = None,
+                 kube_version: pulumi.Input[Optional[_builtins.str]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  namespace: pulumi.Input[Optional[_builtins.str]] = None,
                  plain_http: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -735,6 +754,7 @@ class Chart(pulumi.ComponentResource):
             __props__.__dict__["devel"] = devel
             __props__.__dict__["include_hooks"] = include_hooks
             __props__.__dict__["keyring"] = keyring
+            __props__.__dict__["kube_version"] = kube_version
             __props__.__dict__["name"] = name
             __props__.__dict__["namespace"] = namespace
             __props__.__dict__["plain_http"] = plain_http
