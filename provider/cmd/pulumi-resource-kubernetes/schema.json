@@ -117970,6 +117970,10 @@
                     "$ref": "pulumi.json#/Asset",
                     "description": "Location of public keys used for verification. Used only if `verify` is true"
                 },
+                "kubeVersion": {
+                    "type": "string",
+                    "description": "The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster."
+                },
                 "name": {
                     "type": "string",
                     "description": "Release name."

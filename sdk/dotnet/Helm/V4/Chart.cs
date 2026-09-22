@@ -285,6 +285,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V4
         public Input<AssetOrArchive>? Keyring { get; set; }
 
         /// <summary>
+        /// The Kubernetes version used for Capabilities.KubeVersion when rendering the chart (equivalent to `helm template --kube-version`). If not specified, the version is discovered from the connected cluster.
+        /// </summary>
+        [Input("kubeVersion")]
+        public Input<string>? KubeVersion { get; set; }
+
+        /// <summary>
         /// Release name.
         /// </summary>
         [Input("name")]
