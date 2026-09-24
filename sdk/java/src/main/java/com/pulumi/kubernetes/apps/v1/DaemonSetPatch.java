@@ -135,10 +135,7 @@ public class DaemonSetPatch extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? DaemonSetPatchArgs.builder() : DaemonSetPatchArgs.builder(args);
-        return builder
-            .apiVersion("apps/v1")
-            .kind("DaemonSet")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

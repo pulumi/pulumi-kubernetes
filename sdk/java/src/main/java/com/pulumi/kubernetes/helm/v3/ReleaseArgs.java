@@ -699,11 +699,27 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
             return cleanupOnFail(Output.of(cleanupOnFail));
         }
 
+        /**
+         * @return builder
+         * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
+         */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder compat(@Nullable Output<String> compat) {
             $.compat = compat;
             return this;
         }
 
+        /**
+         * @return builder
+         * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
+         */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder compat(String compat) {
             return compat(Output.of(compat));
         }
@@ -1373,7 +1389,7 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
             if ($.chart == null) {
                 throw new MissingRequiredPropertyException("ReleaseArgs", "chart");
             }
-            $.compat = Codegen.stringProp("compat").output().arg($.compat).getNullable();
+            $.compat = Codegen.stringProp("compat").output().arg($.compat).def("true").getNullable();
             return $;
         }
     }

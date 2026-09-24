@@ -135,10 +135,7 @@ public class ResourceClaimPatch extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? ResourceClaimPatchArgs.builder() : ResourceClaimPatchArgs.builder(args);
-        return builder
-            .apiVersion("resource.k8s.io/v1")
-            .kind("ResourceClaim")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

@@ -142,7 +142,11 @@ public final class EvictionRequestArgs extends com.pulumi.resources.ResourceArgs
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder apiVersion(@Nullable Output<String> apiVersion) {
             $.apiVersion = apiVersion;
             return this;
@@ -153,7 +157,11 @@ public final class EvictionRequestArgs extends com.pulumi.resources.ResourceArgs
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder apiVersion(String apiVersion) {
             return apiVersion(Output.of(apiVersion));
         }
@@ -163,7 +171,11 @@ public final class EvictionRequestArgs extends com.pulumi.resources.ResourceArgs
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder kind(@Nullable Output<String> kind) {
             $.kind = kind;
             return this;
@@ -174,7 +186,11 @@ public final class EvictionRequestArgs extends com.pulumi.resources.ResourceArgs
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder kind(String kind) {
             return kind(Output.of(kind));
         }
@@ -243,8 +259,8 @@ public final class EvictionRequestArgs extends com.pulumi.resources.ResourceArgs
         }
 
         public EvictionRequestArgs build() {
-            $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).def("lifecycle.k8s.io/v1alpha1").getNullable();
+            $.kind = Codegen.stringProp("kind").output().arg($.kind).def("EvictionRequest").getNullable();
             if ($.spec == null) {
                 throw new MissingRequiredPropertyException("EvictionRequestArgs", "spec");
             }
