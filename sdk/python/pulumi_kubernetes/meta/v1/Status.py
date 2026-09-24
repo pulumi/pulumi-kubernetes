@@ -147,10 +147,10 @@ class Status(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['v1']]] = None,
                  code: pulumi.Input[Optional[_builtins.int]] = None,
-                 details: pulumi.Input[Optional[Union['StatusDetailsArgs', 'StatusDetailsArgsDict']]] = None,
+                 details: pulumi.Input[Optional[Union['StatusDetailsArgs', 'StatusDetailsArgsDict', 'outputs.StatusDetails']]] = None,
                  kind: pulumi.Input[Optional[Literal['Status']]] = None,
                  message: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional[Union['ListMetaArgs', 'ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['ListMetaArgs', 'ListMetaArgsDict', 'outputs.ListMeta']]] = None,
                  reason: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
@@ -160,10 +160,10 @@ class Status(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[_builtins.int] code: Suggested HTTP return code for this status, 0 if not set.
-        :param pulumi.Input[Union['StatusDetailsArgs', 'StatusDetailsArgsDict']] details: Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
+        :param pulumi.Input[Union['StatusDetailsArgs', 'StatusDetailsArgsDict', 'outputs.StatusDetails']] details: Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
         :param pulumi.Input[Literal['Status']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[_builtins.str] message: A human-readable description of the status of this operation.
-        :param pulumi.Input[Union['ListMetaArgs', 'ListMetaArgsDict']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Union['ListMetaArgs', 'ListMetaArgsDict', 'outputs.ListMeta']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[_builtins.str] reason: A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
         """
         ...
@@ -192,10 +192,10 @@ class Status(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['v1']]] = None,
                  code: pulumi.Input[Optional[_builtins.int]] = None,
-                 details: pulumi.Input[Optional[Union['StatusDetailsArgs', 'StatusDetailsArgsDict']]] = None,
+                 details: pulumi.Input[Optional[Union['StatusDetailsArgs', 'StatusDetailsArgsDict', 'outputs.StatusDetails']]] = None,
                  kind: pulumi.Input[Optional[Literal['Status']]] = None,
                  message: pulumi.Input[Optional[_builtins.str]] = None,
-                 metadata: pulumi.Input[Optional[Union['ListMetaArgs', 'ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['ListMetaArgs', 'ListMetaArgsDict', 'outputs.ListMeta']]] = None,
                  reason: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
