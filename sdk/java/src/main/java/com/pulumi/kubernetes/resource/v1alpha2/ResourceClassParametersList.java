@@ -112,10 +112,7 @@ public class ResourceClassParametersList extends com.pulumi.resources.CustomReso
             return null;
         }
         var builder = args == null ? ResourceClassParametersListArgs.builder() : ResourceClassParametersListArgs.builder(args);
-        return builder
-            .apiVersion("resource.k8s.io/v1alpha2")
-            .kind("ResourceClassParametersList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

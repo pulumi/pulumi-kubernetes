@@ -94,9 +94,9 @@ class AuditSinkList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['auditregistration.k8s.io/v1alpha1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['AuditSinkArgs', 'AuditSinkArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['AuditSinkArgs', 'AuditSinkArgsDict', 'outputs.AuditSink']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['AuditSinkList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         """
         AuditSinkList is a list of AuditSink items.
@@ -104,7 +104,7 @@ class AuditSinkList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['auditregistration.k8s.io/v1alpha1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[Union['AuditSinkArgs', 'AuditSinkArgsDict']]]] items: List of audit configurations.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['AuditSinkArgs', 'AuditSinkArgsDict', 'outputs.AuditSink']]]] items: List of audit configurations.
         :param pulumi.Input[Literal['AuditSinkList']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         ...
@@ -132,9 +132,9 @@ class AuditSinkList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['auditregistration.k8s.io/v1alpha1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['AuditSinkArgs', 'AuditSinkArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['AuditSinkArgs', 'AuditSinkArgsDict', 'outputs.AuditSink']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['AuditSinkList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

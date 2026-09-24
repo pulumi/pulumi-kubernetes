@@ -100,8 +100,8 @@ class ValidatingWebhookConfigurationPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['admissionregistration.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ValidatingWebhookConfiguration']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 webhooks: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ValidatingWebhookPatchArgs', 'ValidatingWebhookPatchArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 webhooks: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ValidatingWebhookPatchArgs', 'ValidatingWebhookPatchArgsDict', 'outputs.ValidatingWebhookPatch']]]]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -116,8 +116,8 @@ class ValidatingWebhookConfigurationPatch(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['admissionregistration.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ValidatingWebhookConfiguration']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ValidatingWebhookPatchArgs', 'ValidatingWebhookPatchArgsDict']]]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ValidatingWebhookPatchArgs', 'ValidatingWebhookPatchArgsDict', 'outputs.ValidatingWebhookPatch']]]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
         """
         ...
     @overload
@@ -151,8 +151,8 @@ class ValidatingWebhookConfigurationPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['admissionregistration.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ValidatingWebhookConfiguration']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 webhooks: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ValidatingWebhookPatchArgs', 'ValidatingWebhookPatchArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 webhooks: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ValidatingWebhookPatchArgs', 'ValidatingWebhookPatchArgsDict', 'outputs.ValidatingWebhookPatch']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

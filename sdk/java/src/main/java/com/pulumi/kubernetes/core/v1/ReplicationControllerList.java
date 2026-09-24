@@ -112,10 +112,7 @@ public class ReplicationControllerList extends com.pulumi.resources.CustomResour
             return null;
         }
         var builder = args == null ? ReplicationControllerListArgs.builder() : ReplicationControllerListArgs.builder(args);
-        return builder
-            .apiVersion("v1")
-            .kind("ReplicationControllerList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

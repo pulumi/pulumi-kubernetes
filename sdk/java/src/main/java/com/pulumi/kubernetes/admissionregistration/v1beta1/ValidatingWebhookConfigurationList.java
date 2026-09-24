@@ -112,10 +112,7 @@ public class ValidatingWebhookConfigurationList extends com.pulumi.resources.Cus
             return null;
         }
         var builder = args == null ? ValidatingWebhookConfigurationListArgs.builder() : ValidatingWebhookConfigurationListArgs.builder(args);
-        return builder
-            .apiVersion("admissionregistration.k8s.io/v1beta1")
-            .kind("ValidatingWebhookConfigurationList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

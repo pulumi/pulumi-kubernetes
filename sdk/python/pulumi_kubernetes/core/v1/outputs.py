@@ -11058,7 +11058,7 @@ class HTTPGetAction(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 port: Any,
+                 port: Union[_builtins.int, _builtins.str],
                  host: Optional[_builtins.str] = None,
                  http_headers: Optional[Sequence['outputs.HTTPHeader']] = None,
                  path: Optional[_builtins.str] = None,
@@ -11088,7 +11088,7 @@ class HTTPGetAction(dict):
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Any:
+    def port(self) -> Union[_builtins.int, _builtins.str]:
         """
         Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         """
@@ -11161,7 +11161,7 @@ class HTTPGetActionPatch(dict):
                  host: Optional[_builtins.str] = None,
                  http_headers: Optional[Sequence['outputs.HTTPHeaderPatch']] = None,
                  path: Optional[_builtins.str] = None,
-                 port: Optional[Any] = None,
+                 port: Optional[Union[_builtins.int, _builtins.str]] = None,
                  protocol: Optional[_builtins.str] = None,
                  scheme: Optional[_builtins.str] = None):
         """
@@ -11213,7 +11213,7 @@ class HTTPGetActionPatch(dict):
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[Any]:
+    def port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         """
@@ -30409,7 +30409,7 @@ class ServicePort(dict):
                  name: Optional[_builtins.str] = None,
                  node_port: Optional[_builtins.int] = None,
                  protocol: Optional[_builtins.str] = None,
-                 target_port: Optional[Any] = None):
+                 target_port: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         ServicePort contains information on service's port.
 
@@ -30492,7 +30492,7 @@ class ServicePort(dict):
 
     @_builtins.property
     @pulumi.getter(name="targetPort")
-    def target_port(self) -> Optional[Any]:
+    def target_port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
         """
@@ -30531,7 +30531,7 @@ class ServicePortPatch(dict):
                  node_port: Optional[_builtins.int] = None,
                  port: Optional[_builtins.int] = None,
                  protocol: Optional[_builtins.str] = None,
-                 target_port: Optional[Any] = None):
+                 target_port: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         ServicePort contains information on service's port.
 
@@ -30615,7 +30615,7 @@ class ServicePortPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="targetPort")
-    def target_port(self) -> Optional[Any]:
+    def target_port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
         """
@@ -31995,7 +31995,7 @@ class TCPSocketAction(dict):
     TCPSocketAction describes an action based on opening a socket
     """
     def __init__(__self__, *,
-                 port: Any,
+                 port: Union[_builtins.int, _builtins.str],
                  host: Optional[_builtins.str] = None):
         """
         TCPSocketAction describes an action based on opening a socket
@@ -32009,7 +32009,7 @@ class TCPSocketAction(dict):
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Any:
+    def port(self) -> Union[_builtins.int, _builtins.str]:
         """
         Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         """
@@ -32031,7 +32031,7 @@ class TCPSocketActionPatch(dict):
     """
     def __init__(__self__, *,
                  host: Optional[_builtins.str] = None,
-                 port: Optional[Any] = None):
+                 port: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         TCPSocketAction describes an action based on opening a socket
 
@@ -32053,7 +32053,7 @@ class TCPSocketActionPatch(dict):
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[Any]:
+    def port(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
         """
