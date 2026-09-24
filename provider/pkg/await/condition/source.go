@@ -74,7 +74,7 @@ func (ds *DynamicSource) Watch(_ context.Context, gvk schema.GroupVersionKind) (
 
 	informer, err := ds.factory.Subscribe(gvr, events)
 	if err != nil {
-		return nil, fmt.Errorf("creating informer: %w", err)
+		return nil, err
 	}
 
 	ds.mu.Lock()

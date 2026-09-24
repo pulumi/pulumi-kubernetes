@@ -16,6 +16,7 @@ package condition
 
 import (
 	"context"
+	"errors"
 	"os"
 	"strings"
 	"sync"
@@ -105,6 +106,20 @@ func (g *getdeferred) Get(
 	g.wg.Wait()
 	return g.objectGetter.Get(ctx, name, opts, sub...)
 }
+
+func forbidden() error {
+	return k8serrors.NewForbidden(
+		schema.GroupResource{Resource: "pods"}, "foo", errors.New("cannot watch resource"),
+	)
+}
+
+type errSource struct{ err error }
+
+func (s *errSource) Watch(context.Context, schema.GroupVersionKind) (<-chan watch.Event, error) {
+	return nil, s.err
+}
+
+func (*errSource) Stop() {}
 
 func TestDeleted(t *testing.T) {
 	stdout := logbuf{os.Stdout}
@@ -247,6 +262,39 @@ func TestDeleted(t *testing.T) {
 		done, err := cond.Satisfied()
 		assert.NoError(t, err)
 		assert.True(t, done)
+	})
+
+	t.Run("watch forbidden but object already gone", func(t *testing.T) {
+		ctx := context.Background()
+		source := &errSource{err: forbidden()}
+
+		cond, err := NewDeleted(ctx, source, get404{}, stdout, pod)
+		assert.NoError(t, err)
+
+		cond.Range(func(watch.Event) bool { return true })
+
+		done, err := cond.Satisfied()
+		assert.NoError(t, err)
+		assert.True(t, done)
+	})
+
+	t.Run("watch forbidden and object still exists", func(t *testing.T) {
+		ctx := context.Background()
+		source := &errSource{err: forbidden()}
+
+		buf := &strings.Builder{}
+		cond, err := NewDeleted(ctx, source, &get200{pod}, logbuf{buf}, pod)
+		assert.NoError(t, err)
+
+		cond.Range(func(watch.Event) bool { return true })
+
+		done, err := cond.Satisfied()
+		assert.False(t, done)
+		// Wrapping must preserve the API error type, so callers can still
+		// classify it.
+		assert.True(t, k8serrors.IsForbidden(err), "expected a Forbidden error, got %v", err)
+		// The object has no finalizers, so blaming finalizers would be wrong.
+		assert.NotContains(t, buf.String(), "finalizers might be preventing deletion")
 	})
 
 	t.Run("unexpected error", func(t *testing.T) {

@@ -44,6 +44,10 @@ type Ready struct {
 // Satisfied returns `true` if the object doesn't have any recognizable status
 // conditions.
 func (r *Ready) Satisfied() (bool, error) {
+	if err := r.observer.Err(); err != nil {
+		return false, err
+	}
+
 	message := "Waiting for readiness"
 	s, err := status.Compute(r.Object())
 	if err != nil {

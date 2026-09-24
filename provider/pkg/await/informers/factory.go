@@ -25,6 +25,8 @@ import (
 	"sync"
 	"time"
 
+	k8serrors "k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
@@ -32,6 +34,14 @@ import (
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"k8s.io/client-go/tools/cache"
 )
+
+// cacheSyncPollInterval determines how often we re-check whether a newly
+// started informer has synced.
+const cacheSyncPollInterval = 100 * time.Millisecond
+
+// defaultWatchProbeDelay is how long we let an informer try to sync before we
+// ask the cluster whether it will permit a watch at all.
+const defaultWatchProbeDelay = 1 * time.Second
 
 // Factories is a cache of dynamic informer factories, keyed by namespace. It's
 // expected that the provider will share this cache of factories for the
@@ -55,7 +65,10 @@ func (f *Factories) ForNamespace(client dynamic.Interface, namespace string) Fac
 	if f == nil {
 		// In tests we don't require caching, just return a new factory.
 		dsif := dynamicinformer.NewFilteredDynamicSharedInformerFactory(client, resyncInterval, namespace, nil)
-		return Factory{dsif: dsif}
+		return Factory{
+			dsif: dsif, ctx: context.Background(), client: client, namespace: namespace,
+			watchProbeDelay: defaultWatchProbeDelay,
+		}
 	}
 	f.mu.Lock()
 	defer f.mu.Unlock()
@@ -69,7 +82,10 @@ func (f *Factories) ForNamespace(client dynamic.Interface, namespace string) Fac
 	}
 
 	dsif := dynamicinformer.NewFilteredDynamicSharedInformerFactory(client, resyncInterval, namespace, nil)
-	factory := Factory{dsif: dsif, ctx: f.ctx}
+	factory := Factory{
+		dsif: dsif, ctx: f.ctx, client: client, namespace: namespace,
+		watchProbeDelay: defaultWatchProbeDelay,
+	}
 	f.cache[namespace] = factory
 
 	// Shut down the informer when the parent context is done.
@@ -84,8 +100,12 @@ func (f *Factories) ForNamespace(client dynamic.Interface, namespace string) Fac
 // Factory is a wrapper around dynamicinformer.DynamicSharedInformerFactory
 // which provides and manages the lifecycle of dynamic informers.
 type Factory struct {
-	dsif dynamicinformer.DynamicSharedInformerFactory
-	ctx  context.Context
+	dsif      dynamicinformer.DynamicSharedInformerFactory
+	ctx       context.Context
+	client    dynamic.Interface
+	namespace string
+
+	watchProbeDelay time.Duration
 }
 
 // Subscribe returns a new Informer, scoped to this factory's namespace,
@@ -96,6 +116,10 @@ type Factory struct {
 // Calling Informer.Close() will unsubscribe the informer's event handlers, but
 // the underlying watch will remain open for other current or future
 // subscribers.
+//
+// Subscribe fails instead of waiting if the cluster rejects the informer's
+// list/watch, for example because the caller lacks those permissions on the
+// resource.
 func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.Event) (Informer, error) {
 	if gvr.Empty() {
 		return Informer{}, fmt.Errorf("must specify a GVR")
@@ -139,9 +163,84 @@ func (f Factory) Subscribe(gvr schema.GroupVersionResource, events chan<- watch.
 	}
 
 	f.dsif.Start(f.ctx.Done())
-	cache.WaitForCacheSync(f.ctx.Done(), informer.HasSynced)
+
+	if err := f.waitForCacheSync(gvr, informer); err != nil {
+		_ = informer.RemoveEventHandler(registration)
+		return Informer{}, err
+	}
 
 	return Informer{sii: informer, handle: registration}, nil
+}
+
+// waitForCacheSync blocks until the informer's cache has synced, the factory
+// shuts down, or the cluster tells us it won't permit a watch on the resource.
+//
+// An informer treats a rejected list/watch as retryable and keeps trying
+// forever, so a caller who waits for a sync that can never happen waits
+// forever. Once a sync is overdue we ask the cluster directly.
+func (f Factory) waitForCacheSync(
+	gvr schema.GroupVersionResource,
+	informer cache.SharedIndexInformer,
+) error {
+	if f.pollUntilSynced(informer, time.After(f.watchProbeDelay)) {
+		return nil
+	}
+	if err := f.probeWatch(gvr); err != nil {
+		return err
+	}
+	// The cluster permits a watch, so a sync should arrive eventually.
+	if f.pollUntilSynced(informer, nil) {
+		return nil
+	}
+	return f.ctx.Err()
+}
+
+// pollUntilSynced reports whether the informer synced before giveUp fired or
+// the factory shut down. A nil giveUp waits indefinitely.
+func (f Factory) pollUntilSynced(informer cache.SharedIndexInformer, giveUp <-chan time.Time) bool {
+	ticker := time.NewTicker(cacheSyncPollInterval)
+	defer ticker.Stop()
+
+	for {
+		if informer.HasSynced() {
+			return true
+		}
+		select {
+		case <-giveUp:
+			return false
+		case <-f.ctx.Done():
+			return false
+		case <-ticker.C:
+		}
+	}
+}
+
+// probeWatch opens a throwaway watch to find out whether the cluster permits
+// one. It reports only a refusal; any other failure may still resolve on its
+// own, so we leave the informer to keep retrying.
+func (f Factory) probeWatch(gvr schema.GroupVersionResource) error {
+	// A label selector that matches nothing, so the cluster gives us its verdict
+	// without a stream of events. Authorization ignores the selector. A field
+	// selector on a name would work too, but the cluster quotes that name back
+	// in the error, which reads like a real object the user should recognize.
+	opts := metav1.ListOptions{LabelSelector: "pulumi.com/watch-probe=true"}
+
+	w, err := f.client.Resource(gvr).Namespace(f.namespace).Watch(f.ctx, opts)
+	if err == nil {
+		w.Stop()
+		return nil
+	}
+	if isPermissionError(err) {
+		return fmt.Errorf("unable to watch %s: %w", gvr.GroupResource(), err)
+	}
+	return nil
+}
+
+// isPermissionError reports whether the cluster rejected a request because the
+// caller isn't allowed to make it. Retrying won't help until the caller's
+// permissions change.
+func isPermissionError(err error) bool {
+	return k8serrors.IsForbidden(err)
 }
 
 // Informer is a wrapper around cache.SharedIndexInformer that maintains its

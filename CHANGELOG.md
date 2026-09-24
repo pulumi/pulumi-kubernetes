@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Report an error instead of hanging when the provider lacks `list`/`watch` permission on a resource it awaits. The provider requires these verbs to observe a resource. Previously the informer retried the rejected request forever and the wait never ended. A delete now fails with the underlying `forbidden` error and states that the object may or may not have been deleted, since the delete request itself succeeded (https://github.com/pulumi/pulumi-kubernetes/issues/4580).
+
 ## 4.34.0 (August 27, 2026)
 
 ### Added

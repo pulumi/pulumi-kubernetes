@@ -25,7 +25,7 @@ import (
 
 var (
 	_ Observer = (*ObjectObserver)(nil)
-	_ observer = observer{}
+	_ Observer = (*observer)(nil)
 )
 
 // Observer acts on a watch.Event Source. Range is responsible for filtering
@@ -49,7 +49,7 @@ type ObjectObserver struct {
 	mu       sync.Mutex
 	ctx      context.Context
 	obj      *unstructured.Unstructured
-	observer Observer
+	observer *observer
 }
 
 // NewObjectObserver creates a new ObjectObserver that tracks changes to the
@@ -62,7 +62,7 @@ func NewObjectObserver(
 	return &ObjectObserver{
 		ctx: ctx,
 		obj: obj,
-		observer: NewObserver(ctx,
+		observer: newObserver(ctx,
 			source,
 			obj.GroupVersionKind(),
 			func(u *unstructured.Unstructured) bool {
@@ -70,6 +70,12 @@ func NewObjectObserver(
 			},
 		),
 	}
+}
+
+// Err returns the error, if any, that prevented this Observer from watching
+// the cluster.
+func (oo *ObjectObserver) Err() error {
+	return oo.observer.Err()
 }
 
 // Object returns the last-known state of the observed object.
@@ -123,6 +129,9 @@ type observer struct {
 	source Source
 	gvk    schema.GroupVersionKind
 	keep   func(*unstructured.Unstructured) bool
+
+	mu  sync.Mutex
+	err error
 }
 
 // NewObserver returns a new Observer with a watch.Event channel configured for
@@ -133,6 +142,15 @@ func NewObserver(
 	gvk schema.GroupVersionKind,
 	keep func(*unstructured.Unstructured) bool,
 ) Observer {
+	return newObserver(ctx, source, gvk, keep)
+}
+
+func newObserver(
+	ctx context.Context,
+	source Source,
+	gvk schema.GroupVersionKind,
+	keep func(*unstructured.Unstructured) bool,
+) *observer {
 	return &observer{
 		ctx:    ctx,
 		source: source,
@@ -141,10 +159,25 @@ func NewObserver(
 	}
 }
 
+// Err returns the error, if any, that prevented this Observer from watching
+// the cluster.
+func (o *observer) Err() error {
+	o.mu.Lock()
+	defer o.mu.Unlock()
+	return o.err
+}
+
+func (o *observer) setErr(err error) {
+	o.mu.Lock()
+	defer o.mu.Unlock()
+	o.err = err
+}
+
 // Range is an iterator over events visible to the Observer. Yielded events are
 // guaranteed to have the type *unstructured.Unstructured.
 func (o *observer) Range(yield func(watch.Event) bool) {
 	events, err := o.source.Watch(o.ctx, o.gvk)
+	o.setErr(err)
 	if err != nil {
 		return
 	}

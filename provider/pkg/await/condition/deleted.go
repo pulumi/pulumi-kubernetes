@@ -110,10 +110,11 @@ func (dc *Deleted) Range(yield func(watch.Event) bool) {
 
 	// Let the user know we might be blocked if the object has finalizers.
 	// https://github.com/pulumi/pulumi-kubernetes/issues/1418
-	finalizers := dc.Object().GetFinalizers()
-	dc.logger.Log(diag.Warning,
-		fmt.Sprintf("finalizers might be preventing deletion (%s)", strings.Join(finalizers, ", ")),
-	)
+	if finalizers := dc.Object().GetFinalizers(); len(finalizers) > 0 {
+		dc.logger.Log(diag.Warning,
+			fmt.Sprintf("finalizers might be preventing deletion (%s)", strings.Join(finalizers, ", ")),
+		)
+	}
 }
 
 // Observe watches for Deleted events.
@@ -129,6 +130,14 @@ func (dc *Deleted) Observe(e watch.Event) error {
 func (dc *Deleted) Satisfied() (bool, error) {
 	if dc.deleted.Load() {
 		return true, nil
+	}
+
+	if err := dc.observer.Err(); err != nil {
+		return false, fmt.Errorf("%w\n\n"+
+			"The provider requires list and watch permission on this resource to confirm that a "+
+			"deletion finished. The delete request itself succeeded, so the object may or may not "+
+			"be deleted. Grant list and watch to this identity so the provider can confirm "+
+			"deletions of this resource", err)
 	}
 
 	uns := dc.Object()
