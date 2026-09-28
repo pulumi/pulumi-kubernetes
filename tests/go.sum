@@ -181,8 +181,8 @@ github.com/cloudflare/circl v1.6.5 h1:O64F26HEqNhznd/hrC5KZXVKYuKM2rx4deZDTc4ihQ
 github.com/cloudflare/circl v1.6.5/go.mod h1:h5LNyxAc5nTue9DS5jT+48en2PSDYt3zdGnz5OstK6c=
 github.com/cncf/xds/go v0.0.0-20260202195803-dba9d589def2 h1:aBangftG7EVZoUb69Os8IaYg++6uMOdKK83QtkkvJik=
 github.com/cncf/xds/go v0.0.0-20260202195803-dba9d589def2/go.mod h1:qwXFYgsP6T7XnJtbKlf1HP8AjxZZyzxMmc+Lq5GjlU4=
-github.com/containerd/containerd v1.7.35 h1:7AU2T1qI2OdNBmKkreWZ7kASHUNFItN5Hgejd9sY938=
-github.com/containerd/containerd v1.7.35/go.mod h1:ozI//0TomTCLPhQREnx0IXDIQMg+Fk7yTtg9fNvU8EQ=
+github.com/containerd/containerd v1.7.36 h1:HyMsOG5kmp1LQsGzqwI6Ts06T4VpYZbszfDZYB0bW5w=
+github.com/containerd/containerd v1.7.36/go.mod h1:ozI//0TomTCLPhQREnx0IXDIQMg+Fk7yTtg9fNvU8EQ=
 github.com/containerd/errdefs v0.3.0 h1:FSZgGOeK4yuT/+DnF07/Olde/q4KBoMsaamhXxIMDp4=
 github.com/containerd/errdefs v0.3.0/go.mod h1:+YBYIdtsnF4Iw6nWZhJcqGSg/dwvV7tyJ/kCkyJ2k+M=
 github.com/containerd/log v0.1.0 h1:TCJt7ioM2cr/tfR8GPbGf9/VRAX8D2B4PjzCpfX540I=
