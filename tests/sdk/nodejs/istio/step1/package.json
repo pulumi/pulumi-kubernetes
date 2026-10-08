@@ -5,8 +5,7 @@
     },
     "dependencies": {
         "@pulumi/pulumi": "latest",
-        "@pulumi/random": "latest",
-        "@pulumi/gcp": "dev"
+        "@pulumi/random": "latest"
     },
     "peerDependencies": {
         "@pulumi/kubernetes": "latest"
