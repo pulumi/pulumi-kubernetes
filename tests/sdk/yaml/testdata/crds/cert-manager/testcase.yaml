@@ -1,0 +1,18 @@
+name: cert-manager
+version: v1.19.1
+
+manifests:
+  - file: crds.yaml
+    source: https://github.com/cert-manager/cert-manager/releases/download/${version}/cert-manager.crds.yaml
+
+expectedResources:
+  - cert-manager:cert-manager.io/v1:Certificate
+  - cert-manager:cert-manager.io/v1:ClusterIssuer
+  - cert-manager:cert-manager.io/v1:Issuer
+  - cert-manager:acme.cert-manager.io/v1:Challenge
+  - cert-manager:acme.cert-manager.io/v1:Order
+
+knownFailures:
+  go: "generated go.mod omits the base SDK module, so the module does not build on its own"
+  dotnet: "TODO #pulumi/pulumi-kubernetes/4627: generated csproj omits the Pulumi.Kubernetes package reference"
+  java: "TODO #pulumi/pulumi-kubernetes/4628: Utilities.java holds the schema in one string constant, over the class-file limit"
