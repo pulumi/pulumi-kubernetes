@@ -1,0 +1,47 @@
+name: extension-argocd
+runtime: yaml
+description: Create an Argo CD Application and AppProject through an extension-parameterized kubernetes provider.
+
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+    properties:
+      metadata:
+        name: argocd-extension
+
+  test-project:
+    type: argocd:argoproj.io/v1alpha1:AppProject
+    properties:
+      metadata:
+        name: example-project
+        namespace: ${ns.metadata.name}
+      spec:
+        description: Project served by the argocd extension package
+        sourceRepos:
+          - "*"
+        destinations:
+          - namespace: ${ns.metadata.name}
+            server: https://kubernetes.default.svc
+
+  test-application:
+    type: argocd:argoproj.io/v1alpha1:Application
+    properties:
+      metadata:
+        name: example-app
+        namespace: ${ns.metadata.name}
+      spec:
+        project: ${test-project.metadata.name}
+        destination:
+          namespace: ${ns.metadata.name}
+          server: https://kubernetes.default.svc
+        source:
+          repoURL: https://github.com/argoproj/argocd-example-apps.git
+          path: guestbook
+          targetRevision: HEAD
+
+outputs:
+  applicationName: ${test-application.metadata.name}
+  applicationProject: ${test-application.spec.project}
+  applicationRepoURL: ${test-application.spec.source.repoURL}
+  projectName: ${test-project.metadata.name}
+  namespaceName: ${ns.metadata.name}

@@ -1,0 +1,17 @@
+name: prometheus-operator
+version: v0.87.0
+
+manifests:
+  - file: crds.yaml
+    source: https://github.com/prometheus-operator/prometheus-operator/releases/download/${version}/stripped-down-crds.yaml
+
+expectedResources:
+  - prometheus-operator:monitoring.coreos.com/v1:Alertmanager
+  - prometheus-operator:monitoring.coreos.com/v1:Prometheus
+  - prometheus-operator:monitoring.coreos.com/v1:PrometheusRule
+  - prometheus-operator:monitoring.coreos.com/v1:ServiceMonitor
+
+knownFailures:
+  go: "generated go.mod omits the base SDK module, so the module does not build on its own"
+  dotnet: "TODO #pulumi/pulumi-kubernetes/4627: generated csproj omits the Pulumi.Kubernetes package reference"
+  java: "TODO #pulumi/pulumi-kubernetes/4628: Utilities.java holds the schema in one string constant, over the class-file limit"

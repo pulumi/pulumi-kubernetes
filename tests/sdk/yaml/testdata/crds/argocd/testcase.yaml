@@ -1,0 +1,20 @@
+name: argocd
+version: v3.2.0
+
+manifests:
+  - file: application.yaml
+    source: https://raw.githubusercontent.com/argoproj/argo-cd/${version}/manifests/crds/application-crd.yaml
+  - file: appproject.yaml
+    source: https://raw.githubusercontent.com/argoproj/argo-cd/${version}/manifests/crds/appproject-crd.yaml
+  - file: applicationset.yaml
+    source: https://raw.githubusercontent.com/argoproj/argo-cd/${version}/manifests/crds/applicationset-crd.yaml
+
+expectedResources:
+  - argocd:argoproj.io/v1alpha1:Application
+  - argocd:argoproj.io/v1alpha1:ApplicationSet
+  - argocd:argoproj.io/v1alpha1:AppProject
+
+knownFailures:
+  go: "generated go.mod omits the base SDK module, so the module does not build on its own"
+  dotnet: "TODO #pulumi/pulumi-kubernetes/4627: generated csproj omits the Pulumi.Kubernetes package reference"
+  java: "TODO #pulumi/pulumi-kubernetes/4628: Utilities.java holds the schema in one string constant, over the class-file limit"
