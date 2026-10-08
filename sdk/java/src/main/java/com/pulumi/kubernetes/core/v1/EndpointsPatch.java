@@ -135,10 +135,7 @@ public class EndpointsPatch extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? EndpointsPatchArgs.builder() : EndpointsPatchArgs.builder(args);
-        return builder
-            .apiVersion("v1")
-            .kind("Endpoints")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

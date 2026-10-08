@@ -138,10 +138,7 @@ public class VolumeAttributesClassPatch extends com.pulumi.resources.CustomResou
             return null;
         }
         var builder = args == null ? VolumeAttributesClassPatchArgs.builder() : VolumeAttributesClassPatchArgs.builder(args);
-        return builder
-            .apiVersion("storage.k8s.io/v1beta1")
-            .kind("VolumeAttributesClass")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

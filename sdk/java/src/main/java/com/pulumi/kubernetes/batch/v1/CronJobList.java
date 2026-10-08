@@ -112,10 +112,7 @@ public class CronJobList extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? CronJobListArgs.builder() : CronJobListArgs.builder(args);
-        return builder
-            .apiVersion("batch/v1")
-            .kind("CronJobList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

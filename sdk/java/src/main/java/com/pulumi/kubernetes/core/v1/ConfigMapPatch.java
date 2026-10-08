@@ -147,10 +147,7 @@ public class ConfigMapPatch extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? ConfigMapPatchArgs.builder() : ConfigMapPatchArgs.builder(args);
-        return builder
-            .apiVersion("v1")
-            .kind("ConfigMap")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

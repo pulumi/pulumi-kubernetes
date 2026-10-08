@@ -149,10 +149,7 @@ public class EndpointSlicePatch extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? EndpointSlicePatchArgs.builder() : EndpointSlicePatchArgs.builder(args);
-        return builder
-            .apiVersion("discovery.k8s.io/v1")
-            .kind("EndpointSlice")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

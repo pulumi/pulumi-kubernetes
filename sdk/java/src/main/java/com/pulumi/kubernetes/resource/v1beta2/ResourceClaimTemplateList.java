@@ -112,10 +112,7 @@ public class ResourceClaimTemplateList extends com.pulumi.resources.CustomResour
             return null;
         }
         var builder = args == null ? ResourceClaimTemplateListArgs.builder() : ResourceClaimTemplateListArgs.builder(args);
-        return builder
-            .apiVersion("resource.k8s.io/v1beta2")
-            .kind("ResourceClaimTemplateList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

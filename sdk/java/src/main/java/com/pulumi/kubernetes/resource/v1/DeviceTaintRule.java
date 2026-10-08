@@ -133,10 +133,7 @@ public class DeviceTaintRule extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? DeviceTaintRuleArgs.builder() : DeviceTaintRuleArgs.builder(args);
-        return builder
-            .apiVersion("resource.k8s.io/v1")
-            .kind("DeviceTaintRule")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

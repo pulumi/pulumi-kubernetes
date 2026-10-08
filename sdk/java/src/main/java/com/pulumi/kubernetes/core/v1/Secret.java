@@ -165,10 +165,7 @@ public class Secret extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? SecretArgs.builder() : SecretArgs.builder(args);
-        return builder
-            .apiVersion("v1")
-            .kind("Secret")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

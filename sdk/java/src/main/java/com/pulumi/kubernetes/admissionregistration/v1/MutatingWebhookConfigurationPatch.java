@@ -120,10 +120,7 @@ public class MutatingWebhookConfigurationPatch extends com.pulumi.resources.Cust
             return null;
         }
         var builder = args == null ? MutatingWebhookConfigurationPatchArgs.builder() : MutatingWebhookConfigurationPatchArgs.builder(args);
-        return builder
-            .apiVersion("admissionregistration.k8s.io/v1")
-            .kind("MutatingWebhookConfiguration")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

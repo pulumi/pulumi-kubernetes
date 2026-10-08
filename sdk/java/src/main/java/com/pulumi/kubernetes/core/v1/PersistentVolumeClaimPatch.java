@@ -133,10 +133,7 @@ public class PersistentVolumeClaimPatch extends com.pulumi.resources.CustomResou
             return null;
         }
         var builder = args == null ? PersistentVolumeClaimPatchArgs.builder() : PersistentVolumeClaimPatchArgs.builder(args);
-        return builder
-            .apiVersion("v1")
-            .kind("PersistentVolumeClaim")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
