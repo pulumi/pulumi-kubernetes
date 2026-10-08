@@ -98,9 +98,9 @@ class PodSchedulingContextList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha3']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodSchedulingContextArgs', 'PodSchedulingContextArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodSchedulingContextArgs', 'PodSchedulingContextArgsDict', 'outputs.PodSchedulingContext']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['PodSchedulingContextList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         """
         PodSchedulingContextList is a collection of Pod scheduling objects.
@@ -108,9 +108,9 @@ class PodSchedulingContextList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['resource.k8s.io/v1alpha3']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PodSchedulingContextArgs', 'PodSchedulingContextArgsDict']]]] items: Items is the list of PodSchedulingContext objects.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PodSchedulingContextArgs', 'PodSchedulingContextArgsDict', 'outputs.PodSchedulingContext']]]] items: Items is the list of PodSchedulingContext objects.
         :param pulumi.Input[Literal['PodSchedulingContextList']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']] metadata: Standard list metadata
+        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']] metadata: Standard list metadata
         """
         ...
     @overload
@@ -137,9 +137,9 @@ class PodSchedulingContextList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha3']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodSchedulingContextArgs', 'PodSchedulingContextArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodSchedulingContextArgs', 'PodSchedulingContextArgsDict', 'outputs.PodSchedulingContext']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['PodSchedulingContextList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

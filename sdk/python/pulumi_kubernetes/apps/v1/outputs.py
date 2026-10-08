@@ -2728,8 +2728,8 @@ class RollingUpdateDaemonSet(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_surge: Optional[Any] = None,
-                 max_unavailable: Optional[Any] = None):
+                 max_surge: Optional[Union[_builtins.int, _builtins.str]] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         Spec to control the desired behavior of daemon set rolling update.
 
@@ -2743,7 +2743,7 @@ class RollingUpdateDaemonSet(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxSurge")
-    def max_surge(self) -> Optional[Any]:
+    def max_surge(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
         """
@@ -2751,7 +2751,7 @@ class RollingUpdateDaemonSet(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
@@ -2783,8 +2783,8 @@ class RollingUpdateDaemonSetPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_surge: Optional[Any] = None,
-                 max_unavailable: Optional[Any] = None):
+                 max_surge: Optional[Union[_builtins.int, _builtins.str]] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         Spec to control the desired behavior of daemon set rolling update.
 
@@ -2798,7 +2798,7 @@ class RollingUpdateDaemonSetPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxSurge")
-    def max_surge(self) -> Optional[Any]:
+    def max_surge(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediately created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
         """
@@ -2806,7 +2806,7 @@ class RollingUpdateDaemonSetPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
@@ -2838,8 +2838,8 @@ class RollingUpdateDeployment(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_surge: Optional[Any] = None,
-                 max_unavailable: Optional[Any] = None):
+                 max_surge: Optional[Union[_builtins.int, _builtins.str]] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         Spec to control the desired behavior of rolling update.
 
@@ -2853,7 +2853,7 @@ class RollingUpdateDeployment(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxSurge")
-    def max_surge(self) -> Optional[Any]:
+    def max_surge(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         """
@@ -2861,7 +2861,7 @@ class RollingUpdateDeployment(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
@@ -2893,8 +2893,8 @@ class RollingUpdateDeploymentPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_surge: Optional[Any] = None,
-                 max_unavailable: Optional[Any] = None):
+                 max_surge: Optional[Union[_builtins.int, _builtins.str]] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None):
         """
         Spec to control the desired behavior of rolling update.
 
@@ -2908,7 +2908,7 @@ class RollingUpdateDeploymentPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxSurge")
-    def max_surge(self) -> Optional[Any]:
+    def max_surge(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         """
@@ -2916,7 +2916,7 @@ class RollingUpdateDeploymentPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
@@ -2946,7 +2946,7 @@ class RollingUpdateStatefulSetStrategy(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_unavailable: Optional[Any] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None,
                  partition: Optional[_builtins.int] = None):
         """
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
@@ -2961,7 +2961,7 @@ class RollingUpdateStatefulSetStrategy(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
         """
@@ -2999,7 +2999,7 @@ class RollingUpdateStatefulSetStrategyPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 max_unavailable: Optional[Any] = None,
+                 max_unavailable: Optional[Union[_builtins.int, _builtins.str]] = None,
                  partition: Optional[_builtins.int] = None):
         """
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
@@ -3014,7 +3014,7 @@ class RollingUpdateStatefulSetStrategyPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="maxUnavailable")
-    def max_unavailable(self) -> Optional[Any]:
+    def max_unavailable(self) -> Optional[Union[_builtins.int, _builtins.str]]:
         """
         The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding up. This can not be 0. Defaults to 1. This field is beta-level and is enabled by default. The field applies to all pods in the range 0 to Replicas-1. That means if there is any unavailable pod in the range 0 to Replicas-1, it will be counted towards MaxUnavailable. This setting might not be effective for the OrderedReady podManagementPolicy. That policy ensures pods are created and become ready one at a time.
         """

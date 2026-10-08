@@ -100,8 +100,8 @@ class RolePatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Role']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict', 'outputs.PolicyRulePatch']]]]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -116,8 +116,8 @@ class RolePatch(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['Role']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: metadata is the standard object's metadata.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict']]]] rules: rules holds all the PolicyRules for this Role
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']] metadata: metadata is the standard object's metadata.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict', 'outputs.PolicyRulePatch']]]] rules: rules holds all the PolicyRules for this Role
         """
         ...
     @overload
@@ -151,8 +151,8 @@ class RolePatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Role']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict', 'outputs.PolicyRulePatch']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

@@ -308,17 +308,17 @@ class EventPatch(pulumi.CustomResource):
                  deprecated_count: pulumi.Input[Optional[_builtins.int]] = None,
                  deprecated_first_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
                  deprecated_last_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
-                 deprecated_source: pulumi.Input[Optional[Union['_core.v1.EventSourcePatchArgs', '_core.v1.EventSourcePatchArgsDict']]] = None,
+                 deprecated_source: pulumi.Input[Optional[Union['_core.v1.EventSourcePatchArgs', '_core.v1.EventSourcePatchArgsDict', '_core.v1.outputs.EventSourcePatch']]] = None,
                  event_time: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[Literal['Event']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
                  note: pulumi.Input[Optional[_builtins.str]] = None,
                  reason: pulumi.Input[Optional[_builtins.str]] = None,
-                 regarding: pulumi.Input[Optional[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict']]] = None,
-                 related: pulumi.Input[Optional[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict']]] = None,
+                 regarding: pulumi.Input[Optional[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict', '_core.v1.outputs.ObjectReferencePatch']]] = None,
+                 related: pulumi.Input[Optional[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict', '_core.v1.outputs.ObjectReferencePatch']]] = None,
                  reporting_controller: pulumi.Input[Optional[_builtins.str]] = None,
                  reporting_instance: pulumi.Input[Optional[_builtins.str]] = None,
-                 series: pulumi.Input[Optional[Union['EventSeriesPatchArgs', 'EventSeriesPatchArgsDict']]] = None,
+                 series: pulumi.Input[Optional[Union['EventSeriesPatchArgs', 'EventSeriesPatchArgsDict', 'outputs.EventSeriesPatch']]] = None,
                  type: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
@@ -337,16 +337,16 @@ class EventPatch(pulumi.CustomResource):
         :param pulumi.Input[_builtins.int] deprecated_count: Deprecated field assuring backward compatibility with core.v1 Event type
         :param pulumi.Input[_builtins.str] deprecated_first_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
         :param pulumi.Input[_builtins.str] deprecated_last_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
-        :param pulumi.Input[Union['_core.v1.EventSourcePatchArgs', '_core.v1.EventSourcePatchArgsDict']] deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[Union['_core.v1.EventSourcePatchArgs', '_core.v1.EventSourcePatchArgsDict', '_core.v1.outputs.EventSourcePatch']] deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
         :param pulumi.Input[_builtins.str] event_time: Required. Time when this Event was first observed.
         :param pulumi.Input[Literal['Event']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[_builtins.str] note: Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         :param pulumi.Input[_builtins.str] reason: Why the action was taken.
-        :param pulumi.Input[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict']] regarding: The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-        :param pulumi.Input[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict']] related: Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        :param pulumi.Input[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict', '_core.v1.outputs.ObjectReferencePatch']] regarding: The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        :param pulumi.Input[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict', '_core.v1.outputs.ObjectReferencePatch']] related: Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         :param pulumi.Input[_builtins.str] reporting_controller: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         :param pulumi.Input[_builtins.str] reporting_instance: ID of the controller instance, e.g. `kubelet-xyzf`.
-        :param pulumi.Input[Union['EventSeriesPatchArgs', 'EventSeriesPatchArgsDict']] series: Data about the Event series this event represents or nil if it's a singleton Event.
+        :param pulumi.Input[Union['EventSeriesPatchArgs', 'EventSeriesPatchArgsDict', 'outputs.EventSeriesPatch']] series: Data about the Event series this event represents or nil if it's a singleton Event.
         :param pulumi.Input[_builtins.str] type: Type of this event (Normal, Warning), new types could be added in the future.
         """
         ...
@@ -384,17 +384,17 @@ class EventPatch(pulumi.CustomResource):
                  deprecated_count: pulumi.Input[Optional[_builtins.int]] = None,
                  deprecated_first_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
                  deprecated_last_timestamp: pulumi.Input[Optional[_builtins.str]] = None,
-                 deprecated_source: pulumi.Input[Optional[Union['_core.v1.EventSourcePatchArgs', '_core.v1.EventSourcePatchArgsDict']]] = None,
+                 deprecated_source: pulumi.Input[Optional[Union['_core.v1.EventSourcePatchArgs', '_core.v1.EventSourcePatchArgsDict', '_core.v1.outputs.EventSourcePatch']]] = None,
                  event_time: pulumi.Input[Optional[_builtins.str]] = None,
                  kind: pulumi.Input[Optional[Literal['Event']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
                  note: pulumi.Input[Optional[_builtins.str]] = None,
                  reason: pulumi.Input[Optional[_builtins.str]] = None,
-                 regarding: pulumi.Input[Optional[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict']]] = None,
-                 related: pulumi.Input[Optional[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict']]] = None,
+                 regarding: pulumi.Input[Optional[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict', '_core.v1.outputs.ObjectReferencePatch']]] = None,
+                 related: pulumi.Input[Optional[Union['_core.v1.ObjectReferencePatchArgs', '_core.v1.ObjectReferencePatchArgsDict', '_core.v1.outputs.ObjectReferencePatch']]] = None,
                  reporting_controller: pulumi.Input[Optional[_builtins.str]] = None,
                  reporting_instance: pulumi.Input[Optional[_builtins.str]] = None,
-                 series: pulumi.Input[Optional[Union['EventSeriesPatchArgs', 'EventSeriesPatchArgsDict']]] = None,
+                 series: pulumi.Input[Optional[Union['EventSeriesPatchArgs', 'EventSeriesPatchArgsDict', 'outputs.EventSeriesPatch']]] = None,
                  type: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
