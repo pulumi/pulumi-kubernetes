@@ -96,8 +96,8 @@ class PodDisruptionBudget(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['policy/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['PodDisruptionBudget']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['PodDisruptionBudgetSpecArgs', 'PodDisruptionBudgetSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['PodDisruptionBudgetSpecArgs', 'PodDisruptionBudgetSpecArgsDict', 'outputs.PodDisruptionBudgetSpec']]] = None,
                  __props__=None):
         """
         PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
@@ -106,7 +106,7 @@ class PodDisruptionBudget(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['policy/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['PodDisruptionBudget']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['PodDisruptionBudgetSpecArgs', 'PodDisruptionBudgetSpecArgsDict']] spec: Specification of the desired behavior of the PodDisruptionBudget.
+        :param pulumi.Input[Union['PodDisruptionBudgetSpecArgs', 'PodDisruptionBudgetSpecArgsDict', 'outputs.PodDisruptionBudgetSpec']] spec: Specification of the desired behavior of the PodDisruptionBudget.
         """
         ...
     @overload
@@ -134,8 +134,8 @@ class PodDisruptionBudget(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['policy/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['PodDisruptionBudget']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['PodDisruptionBudgetSpecArgs', 'PodDisruptionBudgetSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['PodDisruptionBudgetSpecArgs', 'PodDisruptionBudgetSpecArgsDict', 'outputs.PodDisruptionBudgetSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

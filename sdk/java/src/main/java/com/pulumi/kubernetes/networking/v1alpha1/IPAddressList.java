@@ -112,10 +112,7 @@ public class IPAddressList extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? IPAddressListArgs.builder() : IPAddressListArgs.builder(args);
-        return builder
-            .apiVersion("networking.k8s.io/v1alpha1")
-            .kind("IPAddressList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

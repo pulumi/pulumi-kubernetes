@@ -129,10 +129,7 @@ public class HorizontalPodAutoscaler extends com.pulumi.resources.CustomResource
             return null;
         }
         var builder = args == null ? HorizontalPodAutoscalerArgs.builder() : HorizontalPodAutoscalerArgs.builder(args);
-        return builder
-            .apiVersion("autoscaling/v2")
-            .kind("HorizontalPodAutoscaler")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

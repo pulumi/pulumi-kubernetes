@@ -135,10 +135,7 @@ public class StorageVersionMigrationPatch extends com.pulumi.resources.CustomRes
             return null;
         }
         var builder = args == null ? StorageVersionMigrationPatchArgs.builder() : StorageVersionMigrationPatchArgs.builder(args);
-        return builder
-            .apiVersion("storagemigration.k8s.io/v1alpha1")
-            .kind("StorageVersionMigration")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

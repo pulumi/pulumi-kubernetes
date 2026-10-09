@@ -112,10 +112,7 @@ public class PriorityLevelConfigurationList extends com.pulumi.resources.CustomR
             return null;
         }
         var builder = args == null ? PriorityLevelConfigurationListArgs.builder() : PriorityLevelConfigurationListArgs.builder(args);
-        return builder
-            .apiVersion("flowcontrol.apiserver.k8s.io/v1")
-            .kind("PriorityLevelConfigurationList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

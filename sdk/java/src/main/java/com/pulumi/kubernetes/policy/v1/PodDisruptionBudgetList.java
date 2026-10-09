@@ -112,10 +112,7 @@ public class PodDisruptionBudgetList extends com.pulumi.resources.CustomResource
             return null;
         }
         var builder = args == null ? PodDisruptionBudgetListArgs.builder() : PodDisruptionBudgetListArgs.builder(args);
-        return builder
-            .apiVersion("policy/v1")
-            .kind("PodDisruptionBudgetList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

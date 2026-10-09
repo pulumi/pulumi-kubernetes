@@ -143,10 +143,7 @@ public class Eviction extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? EvictionArgs.builder() : EvictionArgs.builder(args);
-        return builder
-            .apiVersion("lifecycle.k8s.io/v1alpha1")
-            .kind("Eviction")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

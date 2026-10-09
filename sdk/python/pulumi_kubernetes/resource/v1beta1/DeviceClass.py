@@ -107,8 +107,8 @@ class DeviceClass(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['DeviceClass']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['DeviceClassSpecArgs', 'DeviceClassSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['DeviceClassSpecArgs', 'DeviceClassSpecArgsDict', 'outputs.DeviceClassSpec']]] = None,
                  __props__=None):
         """
         DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.
@@ -119,8 +119,8 @@ class DeviceClass(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['resource.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['DeviceClass']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata
-        :param pulumi.Input[Union['DeviceClassSpecArgs', 'DeviceClassSpecArgsDict']] spec: Spec defines what can be allocated and how to configure it.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: Standard object metadata
+        :param pulumi.Input[Union['DeviceClassSpecArgs', 'DeviceClassSpecArgsDict', 'outputs.DeviceClassSpec']] spec: Spec defines what can be allocated and how to configure it.
                
                This is mutable. Consumers have to be prepared for classes changing at any time, either because they get updated or replaced. Claim allocations are done once based on whatever was set in classes at the time of allocation.
                
@@ -154,8 +154,8 @@ class DeviceClass(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['DeviceClass']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['DeviceClassSpecArgs', 'DeviceClassSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['DeviceClassSpecArgs', 'DeviceClassSpecArgsDict', 'outputs.DeviceClassSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

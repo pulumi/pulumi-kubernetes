@@ -117,10 +117,7 @@ public class CSINode extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? CSINodeArgs.builder() : CSINodeArgs.builder(args);
-        return builder
-            .apiVersion("storage.k8s.io/v1beta1")
-            .kind("CSINode")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
