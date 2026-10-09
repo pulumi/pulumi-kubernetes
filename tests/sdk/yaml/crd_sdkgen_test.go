@@ -150,8 +150,6 @@ func onlyMatch(t *testing.T, dir, pattern string) string {
 func compileGoSDK(t *testing.T, build sdkBuild) error {
 	const baseModule = "github.com/pulumi/pulumi-kubernetes/sdk/v4"
 
-	// The SDK is its own Go module. A consumer cannot tidy a nested module on
-	// its behalf, so the generated go.mod has to require what the code imports.
 	goMod, err := os.ReadFile(filepath.Join(build.sdkDir, "go.mod"))
 	if err != nil {
 		return err
