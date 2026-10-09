@@ -627,7 +627,7 @@ class Release(pulumi.CustomResource):
                  recreate_pods: pulumi.Input[Optional[_builtins.bool]] = None,
                  render_subchart_notes: pulumi.Input[Optional[_builtins.bool]] = None,
                  replace: pulumi.Input[Optional[_builtins.bool]] = None,
-                 repository_opts: pulumi.Input[Optional[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
+                 repository_opts: pulumi.Input[Optional[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict', 'outputs.RepositoryOpts']]] = None,
                  reset_values: pulumi.Input[Optional[_builtins.bool]] = None,
                  resource_names: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
                  reuse_values: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -847,7 +847,7 @@ class Release(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] recreate_pods: Perform pods restart during upgrade/rollback.
         :param pulumi.Input[_builtins.bool] render_subchart_notes: If set, render subchart notes along with the parent.
         :param pulumi.Input[_builtins.bool] replace: Re-use the given name, even if that name is already used. This is unsafe in production
-        :param pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']] repository_opts: Specification defining the Helm chart repository to use.
+        :param pulumi.Input[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict', 'outputs.RepositoryOpts']] repository_opts: Specification defining the Helm chart repository to use.
         :param pulumi.Input[_builtins.bool] reset_values: When upgrading, reset the values to the ones built into the chart.
         :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]] resource_names: Names of resources created by the release grouped by "kind/version".
         :param pulumi.Input[_builtins.bool] reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
@@ -1087,7 +1087,7 @@ class Release(pulumi.CustomResource):
                  recreate_pods: pulumi.Input[Optional[_builtins.bool]] = None,
                  render_subchart_notes: pulumi.Input[Optional[_builtins.bool]] = None,
                  replace: pulumi.Input[Optional[_builtins.bool]] = None,
-                 repository_opts: pulumi.Input[Optional[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict']]] = None,
+                 repository_opts: pulumi.Input[Optional[Union['RepositoryOptsArgs', 'RepositoryOptsArgsDict', 'outputs.RepositoryOpts']]] = None,
                  reset_values: pulumi.Input[Optional[_builtins.bool]] = None,
                  resource_names: pulumi.Input[Optional[Mapping[str, pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]]] = None,
                  reuse_values: pulumi.Input[Optional[_builtins.bool]] = None,

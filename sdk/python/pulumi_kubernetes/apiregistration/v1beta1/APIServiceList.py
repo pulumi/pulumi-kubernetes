@@ -90,9 +90,9 @@ class APIServiceList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apiregistration.k8s.io/v1beta1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['APIServiceArgs', 'APIServiceArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['APIServiceArgs', 'APIServiceArgsDict', 'outputs.APIService']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['APIServiceList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         """
         APIServiceList is a list of APIService objects.
@@ -127,9 +127,9 @@ class APIServiceList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apiregistration.k8s.io/v1beta1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['APIServiceArgs', 'APIServiceArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['APIServiceArgs', 'APIServiceArgsDict', 'outputs.APIService']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['APIServiceList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

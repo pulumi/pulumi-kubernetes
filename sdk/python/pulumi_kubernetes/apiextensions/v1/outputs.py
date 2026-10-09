@@ -1868,13 +1868,13 @@ class JSONSchemaProps(dict):
     def __init__(__self__, *,
                  _ref: Optional[_builtins.str] = None,
                  _schema: Optional[_builtins.str] = None,
-                 additional_items: Optional[Any] = None,
-                 additional_properties: Optional[Any] = None,
+                 additional_items: Optional[Union['outputs.JSONSchemaProps', _builtins.bool]] = None,
+                 additional_properties: Optional[Union['outputs.JSONSchemaProps', _builtins.bool]] = None,
                  all_of: Optional[Sequence['outputs.JSONSchemaProps']] = None,
                  any_of: Optional[Sequence['outputs.JSONSchemaProps']] = None,
                  default: Optional[Any] = None,
                  definitions: Optional[Mapping[str, 'outputs.JSONSchemaProps']] = None,
-                 dependencies: Optional[Mapping[str, Any]] = None,
+                 dependencies: Optional[Mapping[str, Union['outputs.JSONSchemaProps', Sequence[_builtins.str]]]] = None,
                  description: Optional[_builtins.str] = None,
                  enum: Optional[Sequence[Any]] = None,
                  example: Optional[Any] = None,
@@ -1883,7 +1883,7 @@ class JSONSchemaProps(dict):
                  external_docs: Optional['outputs.ExternalDocumentation'] = None,
                  format: Optional[_builtins.str] = None,
                  id: Optional[_builtins.str] = None,
-                 items: Optional[Any] = None,
+                 items: Optional[Union['outputs.JSONSchemaProps', Sequence[Any]]] = None,
                  max_items: Optional[_builtins.int] = None,
                  max_length: Optional[_builtins.int] = None,
                  max_properties: Optional[_builtins.int] = None,
@@ -2059,12 +2059,12 @@ class JSONSchemaProps(dict):
 
     @_builtins.property
     @pulumi.getter(name="additionalItems")
-    def additional_items(self) -> Optional[Any]:
+    def additional_items(self) -> Optional[Union['outputs.JSONSchemaProps', _builtins.bool]]:
         return pulumi.get(self, "additional_items")
 
     @_builtins.property
     @pulumi.getter(name="additionalProperties")
-    def additional_properties(self) -> Optional[Any]:
+    def additional_properties(self) -> Optional[Union['outputs.JSONSchemaProps', _builtins.bool]]:
         return pulumi.get(self, "additional_properties")
 
     @_builtins.property
@@ -2092,7 +2092,7 @@ class JSONSchemaProps(dict):
 
     @_builtins.property
     @pulumi.getter
-    def dependencies(self) -> Optional[Mapping[str, Any]]:
+    def dependencies(self) -> Optional[Mapping[str, Union['outputs.JSONSchemaProps', Sequence[_builtins.str]]]]:
         return pulumi.get(self, "dependencies")
 
     @_builtins.property
@@ -2142,7 +2142,7 @@ class JSONSchemaProps(dict):
 
     @_builtins.property
     @pulumi.getter
-    def items(self) -> Optional[Any]:
+    def items(self) -> Optional[Union['outputs.JSONSchemaProps', Sequence[Any]]]:
         return pulumi.get(self, "items")
 
     @_builtins.property
@@ -2393,13 +2393,13 @@ class JSONSchemaPropsPatch(dict):
     def __init__(__self__, *,
                  _ref: Optional[_builtins.str] = None,
                  _schema: Optional[_builtins.str] = None,
-                 additional_items: Optional[Any] = None,
-                 additional_properties: Optional[Any] = None,
+                 additional_items: Optional[Union['outputs.JSONSchemaProps', _builtins.bool]] = None,
+                 additional_properties: Optional[Union['outputs.JSONSchemaProps', _builtins.bool]] = None,
                  all_of: Optional[Sequence['outputs.JSONSchemaPropsPatch']] = None,
                  any_of: Optional[Sequence['outputs.JSONSchemaPropsPatch']] = None,
                  default: Optional[Any] = None,
                  definitions: Optional[Mapping[str, 'outputs.JSONSchemaProps']] = None,
-                 dependencies: Optional[Mapping[str, Any]] = None,
+                 dependencies: Optional[Mapping[str, Union['outputs.JSONSchemaProps', Sequence[_builtins.str]]]] = None,
                  description: Optional[_builtins.str] = None,
                  enum: Optional[Sequence[Any]] = None,
                  example: Optional[Any] = None,
@@ -2408,7 +2408,7 @@ class JSONSchemaPropsPatch(dict):
                  external_docs: Optional['outputs.ExternalDocumentationPatch'] = None,
                  format: Optional[_builtins.str] = None,
                  id: Optional[_builtins.str] = None,
-                 items: Optional[Any] = None,
+                 items: Optional[Union['outputs.JSONSchemaProps', Sequence[Any]]] = None,
                  max_items: Optional[_builtins.int] = None,
                  max_length: Optional[_builtins.int] = None,
                  max_properties: Optional[_builtins.int] = None,
@@ -2584,12 +2584,12 @@ class JSONSchemaPropsPatch(dict):
 
     @_builtins.property
     @pulumi.getter(name="additionalItems")
-    def additional_items(self) -> Optional[Any]:
+    def additional_items(self) -> Optional[Union['outputs.JSONSchemaProps', _builtins.bool]]:
         return pulumi.get(self, "additional_items")
 
     @_builtins.property
     @pulumi.getter(name="additionalProperties")
-    def additional_properties(self) -> Optional[Any]:
+    def additional_properties(self) -> Optional[Union['outputs.JSONSchemaProps', _builtins.bool]]:
         return pulumi.get(self, "additional_properties")
 
     @_builtins.property
@@ -2617,7 +2617,7 @@ class JSONSchemaPropsPatch(dict):
 
     @_builtins.property
     @pulumi.getter
-    def dependencies(self) -> Optional[Mapping[str, Any]]:
+    def dependencies(self) -> Optional[Mapping[str, Union['outputs.JSONSchemaProps', Sequence[_builtins.str]]]]:
         return pulumi.get(self, "dependencies")
 
     @_builtins.property
@@ -2667,7 +2667,7 @@ class JSONSchemaPropsPatch(dict):
 
     @_builtins.property
     @pulumi.getter
-    def items(self) -> Optional[Any]:
+    def items(self) -> Optional[Union['outputs.JSONSchemaProps', Sequence[Any]]]:
         return pulumi.get(self, "items")
 
     @_builtins.property
