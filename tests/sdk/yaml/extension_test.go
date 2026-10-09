@@ -53,7 +53,7 @@ func TestExtensionGatewayAPI(t *testing.T) {
 }
 
 func TestExtensionArgoCD(t *testing.T) {
-	crdDir, err := filepath.Abs(filepath.Join("testdata", "crds", "argocd"))
+	crdDir, err := filepath.Abs(filepath.Join("..", "..", "testdata", "crds", "argocd"))
 	require.NoError(t, err)
 
 	test := pulumitest.NewPulumiTest(t, "testdata/extension-argocd", opttest.SkipInstall())

@@ -15,3 +15,7 @@ popd
 
 echo Installing Gateway API CRDs...
 kubectl apply -f tests/sdk/yaml/testdata/extension-gateway-api/gateway-api-crds.yaml
+
+echo Installing Argo CD CRDs...
+kubectl apply -f tests/testdata/crds/argocd/application.yaml
+kubectl apply -f tests/testdata/crds/argocd/appproject.yaml

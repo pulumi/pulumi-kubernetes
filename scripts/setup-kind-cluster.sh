@@ -45,8 +45,6 @@ helm upgrade --install traefik traefik/traefik --namespace traefik --create-name
 echo "Installing Gateway API CRDs..."
 kubectl apply -f tests/sdk/yaml/testdata/extension-gateway-api/gateway-api-crds.yaml
 
-# Installed here rather than by the test so that a shared cluster cannot see one
-# job delete the CRDs while another job is still using them.
 echo "Installing Argo CD CRDs..."
-kubectl apply -f tests/sdk/yaml/testdata/crds/argocd/application.yaml
-kubectl apply -f tests/sdk/yaml/testdata/crds/argocd/appproject.yaml
+kubectl apply -f tests/testdata/crds/argocd/application.yaml
+kubectl apply -f tests/testdata/crds/argocd/appproject.yaml

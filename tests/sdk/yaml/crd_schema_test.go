@@ -1,4 +1,4 @@
-// Copyright 2024, Pulumi Corporation.
+// Copyright 2016-2026, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,8 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package test contains end-to-end tests that drive the provider from a YAML
-// program. CI runs them in the "yaml" leg of the test matrix, which installs no
-// language SDK. A test that needs one belongs in that language's directory
-// instead.
 package test
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/require"
+
+	"github.com/pulumi/pulumi-kubernetes/tests/v4/crdsdk"
+)
+
+func TestCRDExtensionSchemaHasExpectedResources(t *testing.T) {
+	for _, testCase := range crdsdk.Cases {
+		t.Run(testCase.Name, func(t *testing.T) {
+			t.Parallel()
+
+			pkg := testCase.Schema(t)
+			for _, token := range testCase.ExpectedResources {
+				require.Contains(t, pkg.Resources, token)
+			}
+		})
+	}
+}
