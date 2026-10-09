@@ -148,16 +148,9 @@ test_fast::
 	cd tests/sdk/go && $(GO_TEST_FAST) ./...
 	cd tests/sdk/java && $(GO_TEST_FAST) ./...
 
-# Check that the extension schema serves the resources each CRD test case
-# declares. This needs the provider binary but no cluster and no SDK, so it is
-# the cheap half of the CRD extension suite.
 test_crd_schema:: k8sprovider
 	cd tests/sdk/yaml && $(GO_TEST) -run 'TestCRDExtensionSchemaHasExpectedResources' ./...
 
-# Compile the generated SDK for every CRD test case in every language. The
-# generated SDK pins the base provider at an unpublished development version,
-# so the local SDKs have to exist for the compile checks to resolve it. Limit
-# the parallelism because each case runs a language toolchain.
 test_crd_sdkgen:: k8sprovider nodejs_sdk go_sdk python_sdk dotnet_sdk java_sdk
 	cd tests/sdk/yaml && $(GO_TEST) -parallel 4 -run 'TestCRDExtension' ./...
 

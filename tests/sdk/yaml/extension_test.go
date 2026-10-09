@@ -77,8 +77,6 @@ func TestExtensionArgoCD(t *testing.T) {
 	require.Equal(t, "argocd-extension", up.Outputs["namespaceName"].Value,
 		"base-provider resources should be created alongside the extension resources")
 
-	// Reading the object back proves the extension wrote it to the API server
-	// under the tokens the generated schema advertises.
 	output, err := tests.Kubectl("get application example-app -n argocd-extension -o json")
 	require.NoError(t, err)
 	assert.Contains(t, string(output), "argocd-example-apps")
