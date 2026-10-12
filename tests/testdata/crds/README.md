@@ -32,3 +32,8 @@ needs, so CI picks it up in each language's existing test job.
   at an unpublished development version.
 - `cd tests/sdk/nodejs && go test -run TestCRDExtensionSDKCompiles ./...` runs
   one language, once `make nodejs_sdk` has run.
+
+## Move a test case to a new release
+
+Download the manifests again from the URLs recorded above each case in
+`tests/crdsdk/crdsdk.go`, then update the version in those comments.

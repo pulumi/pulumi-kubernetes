@@ -56,6 +56,15 @@ func TestExtensionArgoCD(t *testing.T) {
 	crdDir, err := filepath.Abs(filepath.Join("..", "..", "testdata", "crds", "argocd"))
 	require.NoError(t, err)
 
+	for _, manifest := range []string{"application.yaml", "appproject.yaml"} {
+		_, err := tests.Kubectl("apply", "-f", filepath.Join(crdDir, manifest))
+		require.NoError(t, err, "failed to apply the CRD")
+		t.Cleanup(func() {
+			_, err := tests.Kubectl("delete", "-f", filepath.Join(crdDir, manifest))
+			contract.AssertNoErrorf(err, "failed to delete the CRD during cleanup")
+		})
+	}
+
 	test := pulumitest.NewPulumiTest(t, "testdata/extension-argocd", opttest.SkipInstall())
 	t.Cleanup(func() {
 		test.Destroy(t)

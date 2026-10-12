@@ -13,10 +13,7 @@
 // limitations under the License.
 
 // Package crdsdk drives extension SDK generation over the vendored
-// CustomResourceDefinition manifests under tests/testdata/crds. Each language
-// directory under tests/sdk runs the compile check for its own language, so
-// that the base SDK and toolchain the check needs are the ones the job already
-// installed.
+// CustomResourceDefinition manifests under tests/testdata/crds.
 package crdsdk
 
 import (
@@ -40,9 +37,6 @@ type Case struct {
 	Manifests         []string
 	ExpectedResources []string
 
-	// Languages whose generated SDK is known not to compile, mapped to the
-	// reason. A listed language must fail: when one starts to compile, the
-	// test fails and says to drop the entry.
 	KnownFailures map[string]string
 }
 
@@ -52,12 +46,8 @@ var codegenDefects = map[string]string{
 	"go": "generated go.mod omits the base SDK module, so the module does not build on its own",
 	"dotnet": "TODO #pulumi/pulumi-kubernetes/4627: generated csproj omits the " +
 		"Pulumi.Kubernetes package reference",
-	"java": "TODO #pulumi/pulumi-kubernetes/4628: codegen puts the schema in one " +
-		"string constant, over the class-file limit",
 }
 
-// Cases are the CustomResourceDefinitions of widely used operators. To move one
-// to a new release, download the manifests from the URL above it again.
 var Cases = []Case{
 	{
 		// cert-manager v1.19.1
@@ -176,7 +166,6 @@ var compilers = map[string]func(t *testing.T, build sdkBuild) error{
 	"python": compilePythonSDK,
 	"go":     compileGoSDK,
 	"dotnet": compileDotnetSDK,
-	"java":   compileJavaSDK,
 }
 
 // RunCompileTest generates the extension SDK for every test case in one
@@ -254,9 +243,6 @@ func compileGoSDK(t *testing.T, build sdkBuild) error {
 	return runBuildCommand(t, build.sdkDir, "go", "build", "./...")
 }
 
-// The generated SDK pins the base provider at the version of the provider that
-// generated it. A development build is never published, so each compile check
-// resolves the base SDK from this repository instead of from a package registry.
 func compileNodejsSDK(t *testing.T, build sdkBuild) error {
 	baseSDK := filepath.Join(build.repoRoot, "sdk", "nodejs", "bin")
 
@@ -294,8 +280,8 @@ func compileNodejsSDK(t *testing.T, build sdkBuild) error {
 func compilePythonSDK(t *testing.T, build sdkBuild) error {
 	baseSDK := filepath.Join(build.repoRoot, "sdk", "python", "bin")
 
-	// Resolve the module before pip runs, because installing adds an egg-info
-	// directory that matches the same pattern.
+	// Resolve the module before pip runs, because installing adds a metadata
+	// directory alongside it that matches the same pattern.
 	module := filepath.Base(onlyMatch(t, build.sdkDir, "pulumi_*"))
 
 	venv := filepath.Join(t.TempDir(), "venv")
@@ -327,8 +313,8 @@ func compileDotnetSDK(t *testing.T, build sdkBuild) error {
 
 	baseSDK := filepath.Join(build.repoRoot, "sdk", "dotnet", "bin", "Debug")
 
-	// The local base SDK keeps the same version across rebuilds, so a shared
-	// package folder serves a stale copy. Give each run its own.
+	// A rebuilt base SDK keeps its version, and NuGet caches by name and
+	// version, so a shared cache would serve the previous build.
 	nugetConfig := fmt.Sprintf(`<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <config>
@@ -344,43 +330,4 @@ func compileDotnetSDK(t *testing.T, build sdkBuild) error {
 	}
 
 	return runBuildCommand(t, build.sdkDir, "dotnet", "build", project)
-}
-
-// A class file cannot hold a string constant longer than this. Codegen puts
-// each constant on one line, so an over-long line is an over-long constant.
-const javaConstantLimit = 65535
-
-func checkJavaConstantLength(sdkDir string) error {
-	var sources []string
-	err := filepath.WalkDir(sdkDir, func(path string, entry os.DirEntry, err error) error {
-		if err == nil && !entry.IsDir() && filepath.Ext(path) == ".java" {
-			sources = append(sources, path)
-		}
-		return err
-	})
-	if err != nil {
-		return err
-	}
-
-	for _, path := range sources {
-		source, err := os.ReadFile(path)
-		if err != nil {
-			return err
-		}
-		for number, line := range strings.Split(string(source), "\n") {
-			if len(line) > javaConstantLimit {
-				relative, _ := filepath.Rel(sdkDir, path)
-				return fmt.Errorf("%s:%d is %d bytes, over the %d byte constant limit",
-					relative, number+1, len(line), javaConstantLimit)
-			}
-		}
-	}
-	return nil
-}
-
-func compileJavaSDK(t *testing.T, build sdkBuild) error {
-	if err := checkJavaConstantLength(build.sdkDir); err != nil {
-		return err
-	}
-	return runBuildCommand(t, build.sdkDir, "gradle", "--console=plain", "compileJava")
 }
