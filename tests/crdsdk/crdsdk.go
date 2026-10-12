@@ -244,8 +244,9 @@ func compileGoSDK(t *testing.T, build sdkBuild) error {
 }
 
 func compileNodejsSDK(t *testing.T, build sdkBuild) error {
+	// The generated manifest pins the base SDK at this build's version, which no
+	// registry carries, so point it at the built SDK in this repository.
 	baseSDK := filepath.Join(build.repoRoot, "sdk", "nodejs", "bin")
-
 	manifestPath := filepath.Join(build.sdkDir, "package.json")
 	raw, err := os.ReadFile(manifestPath)
 	if err != nil {
@@ -312,24 +313,5 @@ func compileDotnetSDK(t *testing.T, build sdkBuild) error {
 		return fmt.Errorf("%s has no Pulumi.Kubernetes package reference:\n%s",
 			filepath.Base(project), projectFile)
 	}
-
-	baseSDK := filepath.Join(build.repoRoot, "sdk", "dotnet", "bin", "Debug")
-
-	// A rebuilt base SDK keeps its version, and NuGet caches by name and
-	// version, so a shared cache would serve the previous build.
-	nugetConfig := fmt.Sprintf(`<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <config>
-    <add key="globalPackagesFolder" value="%s" />
-  </config>
-  <packageSources>
-    <add key="local-base-sdk" value="%s" />
-  </packageSources>
-</configuration>
-`, filepath.Join(t.TempDir(), "nuget"), baseSDK)
-	if err := os.WriteFile(filepath.Join(build.sdkDir, "nuget.config"), []byte(nugetConfig), 0o600); err != nil {
-		return err
-	}
-
 	return runBuildCommand(t, build.sdkDir, "dotnet", "build", project)
 }
