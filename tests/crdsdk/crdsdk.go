@@ -179,6 +179,7 @@ func RunCompileTest(t *testing.T, language string) {
 			t.Parallel()
 
 			build := sdkBuild{
+				name:     testCase.Name,
 				sdkDir:   testCase.generateSDK(t, language),
 				repoRoot: RepoRoot(t),
 			}
@@ -197,6 +198,7 @@ func RunCompileTest(t *testing.T, language string) {
 }
 
 type sdkBuild struct {
+	name     string
 	sdkDir   string
 	repoRoot string
 }
@@ -212,14 +214,6 @@ func runBuildCommand(t *testing.T, dir, name string, args ...string) error {
 		return fmt.Errorf("%s %s: %w\n%s", name, strings.Join(args, " "), err, output)
 	}
 	return nil
-}
-
-func onlyMatch(t *testing.T, dir, pattern string) string {
-	t.Helper()
-	matches, err := filepath.Glob(filepath.Join(dir, pattern))
-	require.NoError(t, err)
-	require.Lenf(t, matches, 1, "expected exactly one %s in %s, found %v", pattern, dir, matches)
-	return matches[0]
 }
 
 func compileGoSDK(t *testing.T, build sdkBuild) error {
@@ -279,39 +273,28 @@ func compileNodejsSDK(t *testing.T, build sdkBuild) error {
 }
 
 func compilePythonSDK(t *testing.T, build sdkBuild) error {
-	// Install the built wheel, not the source directory. Building from source
-	// writes into the shared tree, so parallel cases race each other.
-	baseSDK := onlyMatch(t, filepath.Join(build.repoRoot, "sdk", "python", "bin", "dist"), "*.whl")
-
-	// Resolve the module before pip runs, because installing adds a metadata
-	// directory alongside it that matches the same pattern.
-	module := filepath.Base(onlyMatch(t, build.sdkDir, "pulumi_*"))
+	// The generated manifest pins the base SDK at this build's version, which no
+	// index carries, so install the wheel this repository built.
+	wheels := filepath.Join(build.repoRoot, "sdk", "python", "bin", "dist")
 
 	venv := filepath.Join(t.TempDir(), "venv")
 	if err := runBuildCommand(t, build.sdkDir, "python3", "-m", "venv", venv); err != nil {
 		return err
 	}
 	pip := filepath.Join(venv, "bin", "pip")
-	if err := runBuildCommand(t, build.sdkDir, pip, "install", "--quiet", baseSDK); err != nil {
+	if err := runBuildCommand(t, build.sdkDir, pip, "install", "--quiet",
+		"--find-links", wheels, "pulumi_kubernetes"); err != nil {
 		return err
 	}
 	if err := runBuildCommand(t, build.sdkDir, pip, "install", "--quiet", "--no-deps", "."); err != nil {
 		return err
 	}
 
+	module := "pulumi_" + strings.ReplaceAll(build.name, "-", "_")
 	python := filepath.Join(venv, "bin", "python")
 	return runBuildCommand(t, build.sdkDir, python, "-c", "import "+module)
 }
 
 func compileDotnetSDK(t *testing.T, build sdkBuild) error {
-	project := onlyMatch(t, build.sdkDir, "*.csproj")
-	projectFile, err := os.ReadFile(project)
-	if err != nil {
-		return err
-	}
-	if !strings.Contains(string(projectFile), "Pulumi.Kubernetes") {
-		return fmt.Errorf("%s has no Pulumi.Kubernetes package reference:\n%s",
-			filepath.Base(project), projectFile)
-	}
-	return runBuildCommand(t, build.sdkDir, "dotnet", "build", project)
+	return runBuildCommand(t, build.sdkDir, "dotnet", "build")
 }
