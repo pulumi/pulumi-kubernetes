@@ -278,7 +278,9 @@ func compileNodejsSDK(t *testing.T, build sdkBuild) error {
 }
 
 func compilePythonSDK(t *testing.T, build sdkBuild) error {
-	baseSDK := filepath.Join(build.repoRoot, "sdk", "python", "bin")
+	// Install the built wheel, not the source directory. Building from source
+	// writes into the shared tree, so parallel cases race each other.
+	baseSDK := onlyMatch(t, filepath.Join(build.repoRoot, "sdk", "python", "bin", "dist"), "*.whl")
 
 	// Resolve the module before pip runs, because installing adds a metadata
 	// directory alongside it that matches the same pattern.
