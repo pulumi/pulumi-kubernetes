@@ -21,7 +21,7 @@ import (
 )
 
 func TestCRDExtensionSDKCompiles(t *testing.T) {
-	t.Skip("TODO #pulumi/pulumi-kubernetes/4627: generated csproj omits the Pulumi.Kubernetes package reference")
+	t.Skip("needs a pulumi release carrying pulumi/pulumi-dotnet#1204, and a fix for hyphenated API groups producing invalid C# namespaces")
 
 	crdsdk.RunCompileTest(t, "dotnet")
 }
