@@ -238,8 +238,6 @@ func compileGoSDK(t *testing.T, build sdkBuild) error {
 }
 
 func compileNodejsSDK(t *testing.T, build sdkBuild) error {
-	// The generated manifest pins the base SDK at this build's version, which no
-	// registry carries, so point it at the built SDK in this repository.
 	baseSDK := filepath.Join(build.repoRoot, "sdk", "nodejs", "bin")
 	manifestPath := filepath.Join(build.sdkDir, "package.json")
 	raw, err := os.ReadFile(manifestPath)
@@ -269,21 +267,23 @@ func compileNodejsSDK(t *testing.T, build sdkBuild) error {
 	if err := runBuildCommand(t, build.sdkDir, "npm", "install", "--no-audit", "--no-fund"); err != nil {
 		return err
 	}
-	return runBuildCommand(t, build.sdkDir, "npx", "--no-install", "tsc", "--noEmit")
+	return runBuildCommand(t, build.sdkDir, "npm", "run", "build")
 }
 
 func compilePythonSDK(t *testing.T, build sdkBuild) error {
-	// The generated manifest pins the base SDK at this build's version, which no
-	// index carries, so install the wheel this repository built.
-	wheels := filepath.Join(build.repoRoot, "sdk", "python", "bin", "dist")
+	// The wheel carries the build's version in its name. Install it by path, so
+	// pip cannot prefer a published release over the one built here.
+	wheels, _ := filepath.Glob(filepath.Join(build.repoRoot, "sdk", "python", "bin", "dist", "*.whl"))
+	if len(wheels) != 1 {
+		return fmt.Errorf("expected one base SDK wheel in sdk/python/bin/dist, found %v", wheels)
+	}
 
 	venv := filepath.Join(t.TempDir(), "venv")
 	if err := runBuildCommand(t, build.sdkDir, "python3", "-m", "venv", venv); err != nil {
 		return err
 	}
 	pip := filepath.Join(venv, "bin", "pip")
-	if err := runBuildCommand(t, build.sdkDir, pip, "install", "--quiet",
-		"--find-links", wheels, "pulumi_kubernetes"); err != nil {
+	if err := runBuildCommand(t, build.sdkDir, pip, "install", "--quiet", wheels[0]); err != nil {
 		return err
 	}
 	if err := runBuildCommand(t, build.sdkDir, pip, "install", "--quiet", "--no-deps", "."); err != nil {
