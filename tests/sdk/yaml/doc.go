@@ -12,11 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package test contains a number of end-to-end tests written in YAML despite
-// being located under sdk/java. This is necessary because our CI jobs don't
-// currently execute a test step for YAML. We don't have any Java SDK tests at
-// the moment so we might as well give this shard something to do.
-//
-// See https://github.com/pulumi/ci-mgmt/issues/676#issuecomment-2085892601 for
-// a discussion of how to better distribute these tests in CI.
+// Package test contains end-to-end tests that drive the provider from a YAML
+// program. CI runs them in the "yaml" leg of the test matrix, which installs no
+// language SDK. A test that needs one belongs in that language's directory
+// instead.
 package test

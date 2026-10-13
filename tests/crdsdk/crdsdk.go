@@ -1,0 +1,287 @@
+// Copyright 2016-2026, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Package crdsdk drives extension SDK generation over the vendored
+// CustomResourceDefinition manifests under tests/testdata/crds.
+package crdsdk
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"strings"
+	"testing"
+
+	"github.com/stretchr/testify/require"
+
+	"github.com/pulumi/providertest/pulumitest"
+	"github.com/pulumi/providertest/pulumitest/opttest"
+	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+)
+
+type Case struct {
+	Name              string
+	Manifests         []string
+	ExpectedResources []string
+}
+
+var Cases = []Case{
+	{
+		// cert-manager v1.19.1
+		// https://github.com/cert-manager/cert-manager/releases/download/v1.19.1/cert-manager.crds.yaml
+		Name:      "cert-manager",
+		Manifests: []string{"crds.yaml"},
+		ExpectedResources: []string{
+			"cert-manager:cert-manager.io/v1:Certificate",
+			"cert-manager:cert-manager.io/v1:ClusterIssuer",
+			"cert-manager:cert-manager.io/v1:Issuer",
+			"cert-manager:acme.cert-manager.io/v1:Challenge",
+			"cert-manager:acme.cert-manager.io/v1:Order",
+		},
+	},
+	{
+		// Prometheus Operator v0.87.0
+		// https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.87.0/stripped-down-crds.yaml
+		Name:      "prometheus-operator",
+		Manifests: []string{"crds.yaml"},
+		ExpectedResources: []string{
+			"prometheus-operator:monitoring.coreos.com/v1:Alertmanager",
+			"prometheus-operator:monitoring.coreos.com/v1:Prometheus",
+			"prometheus-operator:monitoring.coreos.com/v1:PrometheusRule",
+			"prometheus-operator:monitoring.coreos.com/v1:ServiceMonitor",
+		},
+	},
+	{
+		// Argo CD v3.2.0
+		// https://raw.githubusercontent.com/argoproj/argo-cd/v3.2.0/manifests/crds/application-crd.yaml
+		// https://raw.githubusercontent.com/argoproj/argo-cd/v3.2.0/manifests/crds/appproject-crd.yaml
+		// https://raw.githubusercontent.com/argoproj/argo-cd/v3.2.0/manifests/crds/applicationset-crd.yaml
+		Name:      "argocd",
+		Manifests: []string{"application.yaml", "appproject.yaml", "applicationset.yaml"},
+		ExpectedResources: []string{
+			"argocd:argoproj.io/v1alpha1:Application",
+			"argocd:argoproj.io/v1alpha1:ApplicationSet",
+			"argocd:argoproj.io/v1alpha1:AppProject",
+		},
+	},
+}
+
+// RepoRoot resolves the repository root from any test directory under tests/sdk.
+func RepoRoot(t *testing.T) string {
+	t.Helper()
+	cwd, err := os.Getwd()
+	require.NoError(t, err)
+	root, err := filepath.Abs(filepath.Join(cwd, "..", "..", ".."))
+	require.NoError(t, err)
+	return root
+}
+
+// HostProject is a Pulumi project that declares no resources. The package
+// commands need a project to run in.
+func HostProject(t *testing.T) string {
+	t.Helper()
+	return filepath.Join(RepoRoot(t), "tests", "testdata", "crd-sdkgen")
+}
+
+func (testCase Case) ExtensionArg(t *testing.T) string {
+	t.Helper()
+
+	crdDir := filepath.Join(RepoRoot(t), "tests", "testdata", "crds", testCase.Name)
+	parts := []string{"name=" + testCase.Name}
+	for _, manifest := range testCase.Manifests {
+		path := filepath.Join(crdDir, manifest)
+		require.FileExists(t, path)
+		parts = append(parts, "crd-manifest="+path)
+	}
+	return strings.Join(parts, " ")
+}
+
+// Schema returns the extension schema the provider serves for a test case.
+func (testCase Case) Schema(t *testing.T) pulumischema.PackageSpec {
+	t.Helper()
+
+	binDir := filepath.Join(RepoRoot(t), "bin")
+	test := pulumitest.NewPulumiTest(t, HostProject(t),
+		opttest.SkipInstall(),
+		opttest.LocalProviderPath("kubernetes", binDir))
+
+	pulumi := test.CurrentStack().Workspace().PulumiCommand()
+	stdout, stderr, _, err := pulumi.Run(test.Context(), test.WorkingDir(), nil, nil, nil, nil,
+		"package", "get-schema", filepath.Join(binDir, "pulumi-resource-kubernetes"),
+		"--extension", testCase.ExtensionArg(t))
+	require.NoErrorf(t, err, "pulumi package get-schema failed: %s", stderr)
+
+	var pkg pulumischema.PackageSpec
+	require.NoError(t, json.Unmarshal([]byte(stdout), &pkg))
+	return pkg
+}
+
+func (testCase Case) generateSDK(t *testing.T, language string) string {
+	t.Helper()
+
+	binDir := filepath.Join(RepoRoot(t), "bin")
+	outDir := t.TempDir()
+
+	test := pulumitest.NewPulumiTest(t, HostProject(t),
+		opttest.SkipInstall(),
+		opttest.LocalProviderPath("kubernetes", binDir))
+
+	pulumi := test.CurrentStack().Workspace().PulumiCommand()
+	_, stderr, _, err := pulumi.Run(test.Context(), test.WorkingDir(), nil, nil, nil, nil,
+		"package", "gen-sdk", filepath.Join(binDir, "pulumi-resource-kubernetes"),
+		"--extension", testCase.ExtensionArg(t), "--language", language, "-o", outDir)
+	require.NoErrorf(t, err, "pulumi package gen-sdk failed: %s", stderr)
+
+	return filepath.Join(outDir, language)
+}
+
+var compilers = map[string]func(t *testing.T, build sdkBuild) error{
+	"nodejs": compileNodejsSDK,
+	"python": compilePythonSDK,
+	"go":     compileGoSDK,
+	"dotnet": compileDotnetSDK,
+}
+
+// RunCompileTest generates the extension SDK for every test case in one
+// language and compiles it against this repository's own base SDK.
+func RunCompileTest(t *testing.T, language string) {
+	compile, supported := compilers[language]
+	require.Truef(t, supported, "no compile check for %s", language)
+
+	for _, testCase := range Cases {
+		t.Run(testCase.Name, func(t *testing.T) {
+			t.Parallel()
+
+			build := sdkBuild{
+				name:     testCase.Name,
+				sdkDir:   testCase.generateSDK(t, language),
+				repoRoot: RepoRoot(t),
+			}
+
+			require.NoError(t, compile(t, build))
+		})
+	}
+}
+
+type sdkBuild struct {
+	name     string
+	sdkDir   string
+	repoRoot string
+}
+
+func runBuildCommand(t *testing.T, dir, name string, args ...string) error {
+	t.Helper()
+
+	command := exec.Command(name, args...)
+	command.Dir = dir
+	output, err := command.CombinedOutput()
+	t.Logf("$ %s %s\n%s", name, strings.Join(args, " "), output)
+	if err != nil {
+		return fmt.Errorf("%s %s: %w\n%s", name, strings.Join(args, " "), err, output)
+	}
+	return nil
+}
+
+func compileGoSDK(t *testing.T, build sdkBuild) error {
+	replacement := "github.com/pulumi/pulumi-kubernetes/sdk/v4=" + filepath.Join(build.repoRoot, "sdk")
+	if err := runBuildCommand(t, build.sdkDir, "go", "mod", "edit", "-replace", replacement); err != nil {
+		return err
+	}
+	// Download rather than tidy: tidy would add the requires the generated
+	// go.mod is missing, which is one of the things being checked.
+	if err := runBuildCommand(t, build.sdkDir, "go", "mod", "download", "all"); err != nil {
+		return err
+	}
+	return runBuildCommand(t, build.sdkDir, "go", "build", "./...")
+}
+
+func compileNodejsSDK(t *testing.T, build sdkBuild) error {
+	baseSDK := filepath.Join(build.repoRoot, "sdk", "nodejs", "bin")
+	manifestPath := filepath.Join(build.sdkDir, "package.json")
+	raw, err := os.ReadFile(manifestPath)
+	if err != nil {
+		return err
+	}
+	var manifest map[string]any
+	if err := json.Unmarshal(raw, &manifest); err != nil {
+		return err
+	}
+	dependencies, ok := manifest["dependencies"].(map[string]any)
+	if !ok {
+		return fmt.Errorf("%s declares no dependencies", manifestPath)
+	}
+	if _, declared := dependencies["@pulumi/kubernetes"]; !declared {
+		return fmt.Errorf("%s does not depend on @pulumi/kubernetes", manifestPath)
+	}
+	dependencies["@pulumi/kubernetes"] = "file:" + baseSDK
+	patched, err := json.MarshalIndent(manifest, "", "  ")
+	if err != nil {
+		return err
+	}
+	if err := os.WriteFile(manifestPath, patched, 0o600); err != nil {
+		return err
+	}
+
+	if err := runBuildCommand(t, build.sdkDir, "npm", "install", "--no-audit", "--no-fund"); err != nil {
+		return err
+	}
+	return runBuildCommand(t, build.sdkDir, "npm", "run", "build")
+}
+
+func compilePythonSDK(t *testing.T, build sdkBuild) error {
+	// The wheel carries the build's version in its name. Install it by path, so
+	// pip cannot prefer a published release over the one built here.
+	wheels, _ := filepath.Glob(filepath.Join(build.repoRoot, "sdk", "python", "bin", "dist", "*.whl"))
+	if len(wheels) != 1 {
+		return fmt.Errorf("expected one base SDK wheel in sdk/python/bin/dist, found %v", wheels)
+	}
+
+	venv := filepath.Join(t.TempDir(), "venv")
+	if err := runBuildCommand(t, build.sdkDir, "python3", "-m", "venv", venv); err != nil {
+		return err
+	}
+	pip := filepath.Join(venv, "bin", "pip")
+	if err := runBuildCommand(t, build.sdkDir, pip, "install", "--quiet", wheels[0]); err != nil {
+		return err
+	}
+	if err := runBuildCommand(t, build.sdkDir, pip, "install", "--quiet", "--no-deps", "."); err != nil {
+		return err
+	}
+
+	module := "pulumi_" + strings.ReplaceAll(build.name, "-", "_")
+	python := filepath.Join(venv, "bin", "python")
+	return runBuildCommand(t, build.sdkDir, python, "-c", "import "+module)
+}
+
+func compileDotnetSDK(t *testing.T, build sdkBuild) error {
+	// A rebuilt base SDK keeps its version, and NuGet caches by name and
+	// version, so a shared cache would serve the previous build.
+	nugetConfig := fmt.Sprintf(`<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <config>
+    <add key="globalPackagesFolder" value="%s" />
+  </config>
+  <packageSources>
+    <add key="local-base-sdk" value="%s" />
+  </packageSources>
+</configuration>
+`, filepath.Join(t.TempDir(), "nuget"), filepath.Join(build.repoRoot, "sdk", "dotnet", "bin", "Debug"))
+	if err := os.WriteFile(filepath.Join(build.sdkDir, "nuget.config"), []byte(nugetConfig), 0o600); err != nil {
+		return err
+	}
+
+	return runBuildCommand(t, build.sdkDir, "dotnet", "build")
+}

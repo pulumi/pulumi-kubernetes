@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/pulumi/providertest/pulumitest"
@@ -49,6 +50,46 @@ func TestExtensionGatewayAPI(t *testing.T) {
 		"extension-served GatewayClass should be created with its declared name")
 	require.Equal(t, "gateway-system", up.Outputs["namespaceName"].Value,
 		"base-provider Namespace should be created alongside the extension resource")
+}
+
+func TestExtensionArgoCD(t *testing.T) {
+	crdDir, err := filepath.Abs(filepath.Join("..", "..", "testdata", "crds", "argocd"))
+	require.NoError(t, err)
+
+	for _, manifest := range []string{"application.yaml", "appproject.yaml"} {
+		_, err := tests.Kubectl("apply", "-f", filepath.Join(crdDir, manifest))
+		require.NoError(t, err, "failed to apply the CRD")
+		t.Cleanup(func() {
+			_, err := tests.Kubectl("delete", "-f", filepath.Join(crdDir, manifest))
+			contract.AssertNoErrorf(err, "failed to delete the CRD during cleanup")
+		})
+	}
+
+	test := pulumitest.NewPulumiTest(t, "testdata/extension-argocd", opttest.SkipInstall())
+	t.Cleanup(func() {
+		test.Destroy(t)
+	})
+
+	packageAdd := packageAddCmd(t, test)
+	packageAdd("--extension", "name=argocd"+
+		" crd-manifest="+filepath.Join(crdDir, "application.yaml")+
+		" crd-manifest="+filepath.Join(crdDir, "appproject.yaml"))
+
+	up := test.Up(t)
+	require.Equal(t, "example-app", up.Outputs["applicationName"].Value,
+		"the extension-served Application should be created with its declared name")
+	require.Equal(t, "example-project", up.Outputs["applicationProject"].Value,
+		"the Application should reference the AppProject served by the same extension")
+	require.Equal(t, "https://github.com/argoproj/argocd-example-apps.git",
+		up.Outputs["applicationRepoURL"].Value,
+		"a nested spec property should survive the round trip")
+	require.Equal(t, "argocd-extension", up.Outputs["namespaceName"].Value,
+		"base-provider resources should be created alongside the extension resources")
+
+	output, err := tests.Kubectl("get application example-app -n argocd-extension -o json")
+	require.NoError(t, err)
+	assert.Contains(t, string(output), "argocd-example-apps")
+	assert.Contains(t, string(output), `"project": "example-project"`)
 }
 
 func TestExtensionHyphenatedPropertyNames(t *testing.T) {
