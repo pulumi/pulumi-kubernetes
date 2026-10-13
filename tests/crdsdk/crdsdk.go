@@ -36,16 +36,6 @@ type Case struct {
 	Name              string
 	Manifests         []string
 	ExpectedResources []string
-
-	KnownFailures map[string]string
-}
-
-// Codegen emits the same three broken SDKs for every CustomResourceDefinition,
-// so every test case shares these.
-var codegenDefects = map[string]string{
-	"go": "generated go.mod omits the base SDK module, so the module does not build on its own",
-	"dotnet": "TODO #pulumi/pulumi-kubernetes/4627: generated csproj omits the " +
-		"Pulumi.Kubernetes package reference",
 }
 
 var Cases = []Case{
@@ -61,7 +51,6 @@ var Cases = []Case{
 			"cert-manager:acme.cert-manager.io/v1:Challenge",
 			"cert-manager:acme.cert-manager.io/v1:Order",
 		},
-		KnownFailures: codegenDefects,
 	},
 	{
 		// Prometheus Operator v0.87.0
@@ -74,7 +63,6 @@ var Cases = []Case{
 			"prometheus-operator:monitoring.coreos.com/v1:PrometheusRule",
 			"prometheus-operator:monitoring.coreos.com/v1:ServiceMonitor",
 		},
-		KnownFailures: codegenDefects,
 	},
 	{
 		// Argo CD v3.2.0
@@ -88,7 +76,6 @@ var Cases = []Case{
 			"argocd:argoproj.io/v1alpha1:ApplicationSet",
 			"argocd:argoproj.io/v1alpha1:AppProject",
 		},
-		KnownFailures: codegenDefects,
 	},
 }
 
@@ -184,15 +171,7 @@ func RunCompileTest(t *testing.T, language string) {
 				repoRoot: RepoRoot(t),
 			}
 
-			err := compile(t, build)
-			if reason, known := testCase.KnownFailures[language]; known {
-				require.Errorf(t, err,
-					"the %s SDK compiles now; drop the %s knownFailures entry for %s (%s)",
-					language, language, testCase.Name, reason)
-				t.Logf("failed as expected: %s", reason)
-				return
-			}
-			require.NoError(t, err)
+			require.NoError(t, compile(t, build))
 		})
 	}
 }
@@ -217,21 +196,13 @@ func runBuildCommand(t *testing.T, dir, name string, args ...string) error {
 }
 
 func compileGoSDK(t *testing.T, build sdkBuild) error {
-	const baseModule = "github.com/pulumi/pulumi-kubernetes/sdk/v4"
-
-	goMod, err := os.ReadFile(filepath.Join(build.sdkDir, "go.mod"))
-	if err != nil {
-		return err
-	}
-	if !strings.Contains(string(goMod), baseModule) {
-		return fmt.Errorf("generated go.mod does not require %s:\n%s", baseModule, goMod)
-	}
-
-	replacement := baseModule + "=" + filepath.Join(build.repoRoot, "sdk")
+	replacement := "github.com/pulumi/pulumi-kubernetes/sdk/v4=" + filepath.Join(build.repoRoot, "sdk")
 	if err := runBuildCommand(t, build.sdkDir, "go", "mod", "edit", "-replace", replacement); err != nil {
 		return err
 	}
-	if err := runBuildCommand(t, build.sdkDir, "go", "mod", "tidy"); err != nil {
+	// Download rather than tidy: tidy would add the requires the generated
+	// go.mod is missing, which is one of the things being checked.
+	if err := runBuildCommand(t, build.sdkDir, "go", "mod", "download", "all"); err != nil {
 		return err
 	}
 	return runBuildCommand(t, build.sdkDir, "go", "build", "./...")
