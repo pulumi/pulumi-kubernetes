@@ -267,5 +267,21 @@ func compilePythonSDK(t *testing.T, build sdkBuild) error {
 }
 
 func compileDotnetSDK(t *testing.T, build sdkBuild) error {
+	// A rebuilt base SDK keeps its version, and NuGet caches by name and
+	// version, so a shared cache would serve the previous build.
+	nugetConfig := fmt.Sprintf(`<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <config>
+    <add key="globalPackagesFolder" value="%s" />
+  </config>
+  <packageSources>
+    <add key="local-base-sdk" value="%s" />
+  </packageSources>
+</configuration>
+`, filepath.Join(t.TempDir(), "nuget"), filepath.Join(build.repoRoot, "sdk", "dotnet", "bin", "Debug"))
+	if err := os.WriteFile(filepath.Join(build.sdkDir, "nuget.config"), []byte(nugetConfig), 0o600); err != nil {
+		return err
+	}
+
 	return runBuildCommand(t, build.sdkDir, "dotnet", "build")
 }
