@@ -39,6 +39,9 @@ func TestCaseMapping_Get(t *testing.T) {
 	assert.Equal(t, "Test", cm.Get("test"))
 
 	assert.Equal(t, "Unknown", cm.Get("unknown"))
+
+	assert.Equal(t, "CertManager", cm.Get("cert-manager"))
+	assert.Equal(t, "ExternalSecretsOperator", cm.Get("external-secrets-operator"))
 }
 
 func TestPascalCaseMapping(t *testing.T) {
