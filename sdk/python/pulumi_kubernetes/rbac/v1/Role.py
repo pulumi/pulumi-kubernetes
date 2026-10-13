@@ -100,8 +100,8 @@ class Role(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Role']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict', 'outputs.PolicyRule']]]]] = None,
                  __props__=None):
         """
         Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
@@ -110,8 +110,8 @@ class Role(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['Role']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: metadata is the standard object's metadata.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict']]]] rules: rules holds all the PolicyRules for this Role
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: metadata is the standard object's metadata.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict', 'outputs.PolicyRule']]]] rules: rules holds all the PolicyRules for this Role
         """
         ...
     @overload
@@ -139,8 +139,8 @@ class Role(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Role']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRuleArgs', 'PolicyRuleArgsDict', 'outputs.PolicyRule']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

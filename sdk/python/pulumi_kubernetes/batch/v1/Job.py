@@ -102,8 +102,8 @@ class Job(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['batch/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Job']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['JobSpecArgs', 'JobSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['JobSpecArgs', 'JobSpecArgsDict', 'outputs.JobSpec']]] = None,
                  __props__=None):
         """
         Job represents the configuration of a single job.
@@ -189,8 +189,8 @@ class Job(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['batch/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['Job']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Union['JobSpecArgs', 'JobSpecArgsDict']] spec: Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['JobSpecArgs', 'JobSpecArgsDict', 'outputs.JobSpec']] spec: Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         ...
     @overload
@@ -295,8 +295,8 @@ class Job(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['batch/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Job']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['JobSpecArgs', 'JobSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['JobSpecArgs', 'JobSpecArgsDict', 'outputs.JobSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

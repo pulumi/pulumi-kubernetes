@@ -120,10 +120,7 @@ public class ValidatingAdmissionPolicyBindingPatch extends com.pulumi.resources.
             return null;
         }
         var builder = args == null ? ValidatingAdmissionPolicyBindingPatchArgs.builder() : ValidatingAdmissionPolicyBindingPatchArgs.builder(args);
-        return builder
-            .apiVersion("admissionregistration.k8s.io/v1alpha1")
-            .kind("ValidatingAdmissionPolicyBinding")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

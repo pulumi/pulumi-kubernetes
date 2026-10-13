@@ -98,9 +98,9 @@ class PersistentVolumeClaimList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['v1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PersistentVolumeClaimArgs', 'PersistentVolumeClaimArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PersistentVolumeClaimArgs', 'PersistentVolumeClaimArgsDict', 'outputs.PersistentVolumeClaim']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['PersistentVolumeClaimList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         """
         PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
@@ -108,9 +108,9 @@ class PersistentVolumeClaimList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PersistentVolumeClaimArgs', 'PersistentVolumeClaimArgsDict']]]] items: items is a list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PersistentVolumeClaimArgs', 'PersistentVolumeClaimArgsDict', 'outputs.PersistentVolumeClaim']]]] items: items is a list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         :param pulumi.Input[Literal['PersistentVolumeClaimList']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         ...
     @overload
@@ -137,9 +137,9 @@ class PersistentVolumeClaimList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['v1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PersistentVolumeClaimArgs', 'PersistentVolumeClaimArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PersistentVolumeClaimArgs', 'PersistentVolumeClaimArgsDict', 'outputs.PersistentVolumeClaim']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['PersistentVolumeClaimList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

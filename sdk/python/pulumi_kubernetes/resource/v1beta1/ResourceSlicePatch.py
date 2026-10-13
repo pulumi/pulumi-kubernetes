@@ -105,8 +105,8 @@ class ResourceSlicePatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceSlice']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['ResourceSliceSpecPatchArgs', 'ResourceSliceSpecPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 spec: pulumi.Input[Optional[Union['ResourceSliceSpecPatchArgs', 'ResourceSliceSpecPatchArgsDict', 'outputs.ResourceSliceSpecPatch']]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -131,8 +131,8 @@ class ResourceSlicePatch(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['resource.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ResourceSlice']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: Standard object metadata
-        :param pulumi.Input[Union['ResourceSliceSpecPatchArgs', 'ResourceSliceSpecPatchArgsDict']] spec: Contains the information published by the driver.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']] metadata: Standard object metadata
+        :param pulumi.Input[Union['ResourceSliceSpecPatchArgs', 'ResourceSliceSpecPatchArgsDict', 'outputs.ResourceSliceSpecPatch']] spec: Contains the information published by the driver.
                
                Changing the spec automatically increments the metadata.generation number.
         """
@@ -178,8 +178,8 @@ class ResourceSlicePatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourceSlice']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['ResourceSliceSpecPatchArgs', 'ResourceSliceSpecPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 spec: pulumi.Input[Optional[Union['ResourceSliceSpecPatchArgs', 'ResourceSliceSpecPatchArgsDict', 'outputs.ResourceSliceSpecPatch']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

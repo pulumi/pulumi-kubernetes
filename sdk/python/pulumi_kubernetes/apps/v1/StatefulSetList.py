@@ -99,9 +99,9 @@ class StatefulSetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apps/v1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['StatefulSetArgs', 'StatefulSetArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['StatefulSetArgs', 'StatefulSetArgsDict', 'outputs.StatefulSet']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['StatefulSetList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         """
         StatefulSetList is a collection of StatefulSets.
@@ -109,9 +109,9 @@ class StatefulSetList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['apps/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[Union['StatefulSetArgs', 'StatefulSetArgsDict']]]] items: Items is the list of stateful sets.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['StatefulSetArgs', 'StatefulSetArgsDict', 'outputs.StatefulSet']]]] items: Items is the list of stateful sets.
         :param pulumi.Input[Literal['StatefulSetList']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']] metadata: Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']] metadata: Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         ...
     @overload
@@ -138,9 +138,9 @@ class StatefulSetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apps/v1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['StatefulSetArgs', 'StatefulSetArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['StatefulSetArgs', 'StatefulSetArgsDict', 'outputs.StatefulSet']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['StatefulSetList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

@@ -99,9 +99,9 @@ class PodPresetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['settings.k8s.io/v1alpha1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodPresetArgs', 'PodPresetArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodPresetArgs', 'PodPresetArgsDict', 'outputs.PodPreset']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['PodPresetList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         """
         PodPresetList is a list of PodPreset objects.
@@ -109,9 +109,9 @@ class PodPresetList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['settings.k8s.io/v1alpha1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PodPresetArgs', 'PodPresetArgsDict']]]] items: Items is a list of schema objects.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PodPresetArgs', 'PodPresetArgsDict', 'outputs.PodPreset']]]] items: Items is a list of schema objects.
         :param pulumi.Input[Literal['PodPresetList']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         ...
     @overload
@@ -138,9 +138,9 @@ class PodPresetList(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['settings.k8s.io/v1alpha1']]] = None,
-                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodPresetArgs', 'PodPresetArgsDict']]]]] = None,
+                 items: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PodPresetArgs', 'PodPresetArgsDict', 'outputs.PodPreset']]]]] = None,
                  kind: pulumi.Input[Optional[Literal['PodPresetList']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ListMetaArgs', '_meta.v1.ListMetaArgsDict', '_meta.v1.outputs.ListMeta']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

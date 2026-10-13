@@ -112,10 +112,7 @@ public class FlowSchemaList extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? FlowSchemaListArgs.builder() : FlowSchemaListArgs.builder(args);
-        return builder
-            .apiVersion("flowcontrol.apiserver.k8s.io/v1beta2")
-            .kind("FlowSchemaList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

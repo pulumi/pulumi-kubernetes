@@ -112,10 +112,7 @@ public class RoleList extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? RoleListArgs.builder() : RoleListArgs.builder(args);
-        return builder
-            .apiVersion("rbac.authorization.k8s.io/v1alpha1")
-            .kind("RoleList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

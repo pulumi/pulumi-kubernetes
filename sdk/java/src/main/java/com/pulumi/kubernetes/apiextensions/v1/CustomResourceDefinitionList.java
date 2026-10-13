@@ -112,10 +112,7 @@ public class CustomResourceDefinitionList extends com.pulumi.resources.CustomRes
             return null;
         }
         var builder = args == null ? CustomResourceDefinitionListArgs.builder() : CustomResourceDefinitionListArgs.builder(args);
-        return builder
-            .apiVersion("apiextensions.k8s.io/v1")
-            .kind("CustomResourceDefinitionList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

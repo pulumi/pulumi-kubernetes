@@ -100,8 +100,8 @@ class ServiceCIDR(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['networking.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ServiceCIDR']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['ServiceCIDRSpecArgs', 'ServiceCIDRSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['ServiceCIDRSpecArgs', 'ServiceCIDRSpecArgsDict', 'outputs.ServiceCIDRSpec']]] = None,
                  __props__=None):
         """
         ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.
@@ -110,8 +110,8 @@ class ServiceCIDR(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['networking.k8s.io/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ServiceCIDR']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Union['ServiceCIDRSpecArgs', 'ServiceCIDRSpecArgsDict']] spec: spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['ServiceCIDRSpecArgs', 'ServiceCIDRSpecArgsDict', 'outputs.ServiceCIDRSpec']] spec: spec is the desired state of the ServiceCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         ...
     @overload
@@ -139,8 +139,8 @@ class ServiceCIDR(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['networking.k8s.io/v1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ServiceCIDR']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['ServiceCIDRSpecArgs', 'ServiceCIDRSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['ServiceCIDRSpecArgs', 'ServiceCIDRSpecArgsDict', 'outputs.ServiceCIDRSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

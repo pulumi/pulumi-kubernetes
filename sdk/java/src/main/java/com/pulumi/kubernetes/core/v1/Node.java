@@ -127,10 +127,7 @@ public class Node extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? NodeArgs.builder() : NodeArgs.builder(args);
-        return builder
-            .apiVersion("v1")
-            .kind("Node")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

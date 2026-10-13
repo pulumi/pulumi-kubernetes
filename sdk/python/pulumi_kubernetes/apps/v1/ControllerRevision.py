@@ -114,7 +114,7 @@ class ControllerRevision(pulumi.CustomResource):
                  api_version: pulumi.Input[Optional[Literal['apps/v1']]] = None,
                  data: Optional[Any] = None,
                  kind: pulumi.Input[Optional[Literal['ControllerRevision']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
                  revision: pulumi.Input[Optional[_builtins.int]] = None,
                  __props__=None):
         """
@@ -125,7 +125,7 @@ class ControllerRevision(pulumi.CustomResource):
         :param pulumi.Input[Literal['apps/v1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param Any data: Data is the serialized representation of the state.
         :param pulumi.Input[Literal['ControllerRevision']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[_builtins.int] revision: Revision indicates the revision of the state represented by Data.
         """
         ...
@@ -155,7 +155,7 @@ class ControllerRevision(pulumi.CustomResource):
                  api_version: pulumi.Input[Optional[Literal['apps/v1']]] = None,
                  data: Optional[Any] = None,
                  kind: pulumi.Input[Optional[Literal['ControllerRevision']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
                  revision: pulumi.Input[Optional[_builtins.int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)

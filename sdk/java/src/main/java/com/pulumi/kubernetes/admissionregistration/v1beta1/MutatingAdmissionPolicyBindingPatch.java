@@ -124,10 +124,7 @@ public class MutatingAdmissionPolicyBindingPatch extends com.pulumi.resources.Cu
             return null;
         }
         var builder = args == null ? MutatingAdmissionPolicyBindingPatchArgs.builder() : MutatingAdmissionPolicyBindingPatchArgs.builder(args);
-        return builder
-            .apiVersion("admissionregistration.k8s.io/v1beta1")
-            .kind("MutatingAdmissionPolicyBinding")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

@@ -149,10 +149,7 @@ public class ResourceClassParametersPatch extends com.pulumi.resources.CustomRes
             return null;
         }
         var builder = args == null ? ResourceClassParametersPatchArgs.builder() : ResourceClassParametersPatchArgs.builder(args);
-        return builder
-            .apiVersion("resource.k8s.io/v1alpha2")
-            .kind("ResourceClassParameters")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

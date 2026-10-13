@@ -111,10 +111,7 @@ public class PodTemplate extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? PodTemplateArgs.builder() : PodTemplateArgs.builder(args);
-        return builder
-            .apiVersion("v1")
-            .kind("PodTemplate")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

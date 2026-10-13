@@ -112,10 +112,7 @@ public class PodSecurityPolicyList extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? PodSecurityPolicyListArgs.builder() : PodSecurityPolicyListArgs.builder(args);
-        return builder
-            .apiVersion("extensions/v1beta1")
-            .kind("PodSecurityPolicyList")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

@@ -101,8 +101,8 @@ class Deployment(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apps/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Deployment']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['DeploymentSpecArgs', 'DeploymentSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['DeploymentSpecArgs', 'DeploymentSpecArgsDict', 'outputs.DeploymentSpec']]] = None,
                  __props__=None):
         """
         Deployment enables declarative updates for Pods and ReplicaSets.
@@ -133,8 +133,8 @@ class Deployment(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['apps/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['Deployment']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata.
-        :param pulumi.Input[Union['DeploymentSpecArgs', 'DeploymentSpecArgsDict']] spec: Specification of the desired behavior of the Deployment.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: Standard object metadata.
+        :param pulumi.Input[Union['DeploymentSpecArgs', 'DeploymentSpecArgsDict', 'outputs.DeploymentSpec']] spec: Specification of the desired behavior of the Deployment.
         """
         ...
     @overload
@@ -184,8 +184,8 @@ class Deployment(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['apps/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['Deployment']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['DeploymentSpecArgs', 'DeploymentSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['DeploymentSpecArgs', 'DeploymentSpecArgsDict', 'outputs.DeploymentSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

@@ -98,8 +98,8 @@ class ResourcePoolStatusRequest(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha3']]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourcePoolStatusRequest']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['ResourcePoolStatusRequestSpecArgs', 'ResourcePoolStatusRequestSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['ResourcePoolStatusRequestSpecArgs', 'ResourcePoolStatusRequestSpecArgsDict', 'outputs.ResourcePoolStatusRequestSpec']]] = None,
                  __props__=None):
         """
         ResourcePoolStatusRequest triggers a one-time calculation of resource pool status based on the provided filters. Once status is set, the request is considered complete and will not be reprocessed. Users should delete and recreate requests to get updated information.
@@ -108,8 +108,8 @@ class ResourcePoolStatusRequest(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Literal['resource.k8s.io/v1alpha3']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ResourcePoolStatusRequest']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']] metadata: Standard object metadata
-        :param pulumi.Input[Union['ResourcePoolStatusRequestSpecArgs', 'ResourcePoolStatusRequestSpecArgsDict']] spec: Spec defines the filters for which pools to include in the status. The spec is immutable once created.
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']] metadata: Standard object metadata
+        :param pulumi.Input[Union['ResourcePoolStatusRequestSpecArgs', 'ResourcePoolStatusRequestSpecArgsDict', 'outputs.ResourcePoolStatusRequestSpec']] spec: Spec defines the filters for which pools to include in the status. The spec is immutable once created.
         """
         ...
     @overload
@@ -137,8 +137,8 @@ class ResourcePoolStatusRequest(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['resource.k8s.io/v1alpha3']]] = None,
                  kind: pulumi.Input[Optional[Literal['ResourcePoolStatusRequest']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['ResourcePoolStatusRequestSpecArgs', 'ResourcePoolStatusRequestSpecArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaArgs', '_meta.v1.ObjectMetaArgsDict', '_meta.v1.outputs.ObjectMeta']]] = None,
+                 spec: pulumi.Input[Optional[Union['ResourcePoolStatusRequestSpecArgs', 'ResourcePoolStatusRequestSpecArgsDict', 'outputs.ResourcePoolStatusRequestSpec']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

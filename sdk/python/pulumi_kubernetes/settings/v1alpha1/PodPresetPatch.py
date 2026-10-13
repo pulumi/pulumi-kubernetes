@@ -93,8 +93,8 @@ class PodPresetPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['settings.k8s.io/v1alpha1']]] = None,
                  kind: pulumi.Input[Optional[Literal['PodPreset']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['PodPresetSpecPatchArgs', 'PodPresetSpecPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 spec: pulumi.Input[Optional[Union['PodPresetSpecPatchArgs', 'PodPresetSpecPatchArgsDict', 'outputs.PodPresetSpecPatch']]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -142,8 +142,8 @@ class PodPresetPatch(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  api_version: pulumi.Input[Optional[Literal['settings.k8s.io/v1alpha1']]] = None,
                  kind: pulumi.Input[Optional[Literal['PodPreset']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 spec: pulumi.Input[Optional[Union['PodPresetSpecPatchArgs', 'PodPresetSpecPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 spec: pulumi.Input[Optional[Union['PodPresetSpecPatchArgs', 'PodPresetSpecPatchArgsDict', 'outputs.PodPresetSpecPatch']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

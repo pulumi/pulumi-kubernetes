@@ -159,7 +159,11 @@ public final class StatusPatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder apiVersion(@Nullable Output<String> apiVersion) {
             $.apiVersion = apiVersion;
             return this;
@@ -170,7 +174,11 @@ public final class StatusPatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder apiVersion(String apiVersion) {
             return apiVersion(Output.of(apiVersion));
         }
@@ -222,7 +230,11 @@ public final class StatusPatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder kind(@Nullable Output<String> kind) {
             $.kind = kind;
             return this;
@@ -233,7 +245,11 @@ public final class StatusPatchArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder kind(String kind) {
             return kind(Output.of(kind));
         }
@@ -302,8 +318,8 @@ public final class StatusPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public StatusPatchArgs build() {
-            $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).def("v1").getNullable();
+            $.kind = Codegen.stringProp("kind").output().arg($.kind).def("Status").getNullable();
             return $;
         }
     }

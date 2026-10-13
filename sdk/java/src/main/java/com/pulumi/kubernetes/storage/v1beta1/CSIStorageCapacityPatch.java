@@ -186,10 +186,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
             return null;
         }
         var builder = args == null ? CSIStorageCapacityPatchArgs.builder() : CSIStorageCapacityPatchArgs.builder(args);
-        return builder
-            .apiVersion("storage.k8s.io/v1beta1")
-            .kind("CSIStorageCapacity")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

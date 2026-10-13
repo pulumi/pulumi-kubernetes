@@ -135,10 +135,7 @@ public class FlowSchemaPatch extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? FlowSchemaPatchArgs.builder() : FlowSchemaPatchArgs.builder(args);
-        return builder
-            .apiVersion("flowcontrol.apiserver.k8s.io/v1beta2")
-            .kind("FlowSchema")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

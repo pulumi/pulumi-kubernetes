@@ -114,11 +114,11 @@ class ClusterRolePatch(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 aggregation_rule: pulumi.Input[Optional[Union['AggregationRulePatchArgs', 'AggregationRulePatchArgsDict']]] = None,
+                 aggregation_rule: pulumi.Input[Optional[Union['AggregationRulePatchArgs', 'AggregationRulePatchArgsDict', 'outputs.AggregationRulePatch']]] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ClusterRole']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict', 'outputs.PolicyRulePatch']]]]] = None,
                  __props__=None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -131,11 +131,11 @@ class ClusterRolePatch(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Union['AggregationRulePatchArgs', 'AggregationRulePatchArgsDict']] aggregation_rule: AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+        :param pulumi.Input[Union['AggregationRulePatchArgs', 'AggregationRulePatchArgsDict', 'outputs.AggregationRulePatch']] aggregation_rule: AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         :param pulumi.Input[Literal['rbac.authorization.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['ClusterRole']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: Standard object's metadata.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict']]]] rules: Rules holds all the PolicyRules for this ClusterRole
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']] metadata: Standard object's metadata.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict', 'outputs.PolicyRulePatch']]]] rules: Rules holds all the PolicyRules for this ClusterRole
         """
         ...
     @overload
@@ -167,11 +167,11 @@ class ClusterRolePatch(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 aggregation_rule: pulumi.Input[Optional[Union['AggregationRulePatchArgs', 'AggregationRulePatchArgsDict']]] = None,
+                 aggregation_rule: pulumi.Input[Optional[Union['AggregationRulePatchArgs', 'AggregationRulePatchArgsDict', 'outputs.AggregationRulePatch']]] = None,
                  api_version: pulumi.Input[Optional[Literal['rbac.authorization.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['ClusterRole']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
-                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict']]]]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
+                 rules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PolicyRulePatchArgs', 'PolicyRulePatchArgsDict', 'outputs.PolicyRulePatch']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):

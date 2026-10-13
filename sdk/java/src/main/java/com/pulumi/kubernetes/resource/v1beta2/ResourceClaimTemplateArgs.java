@@ -115,7 +115,11 @@ public final class ResourceClaimTemplateArgs extends com.pulumi.resources.Resour
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder apiVersion(@Nullable Output<String> apiVersion) {
             $.apiVersion = apiVersion;
             return this;
@@ -126,7 +130,11 @@ public final class ResourceClaimTemplateArgs extends com.pulumi.resources.Resour
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder apiVersion(String apiVersion) {
             return apiVersion(Output.of(apiVersion));
         }
@@ -136,7 +144,11 @@ public final class ResourceClaimTemplateArgs extends com.pulumi.resources.Resour
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder kind(@Nullable Output<String> kind) {
             $.kind = kind;
             return this;
@@ -147,7 +159,11 @@ public final class ResourceClaimTemplateArgs extends com.pulumi.resources.Resour
          * 
          * @return builder
          * 
+         * @deprecated
+         * This property has a constant value, which is set automatically.
+         * 
          */
+        @Deprecated /* This property has a constant value, which is set automatically. */
         public Builder kind(String kind) {
             return kind(Output.of(kind));
         }
@@ -199,8 +215,8 @@ public final class ResourceClaimTemplateArgs extends com.pulumi.resources.Resour
         }
 
         public ResourceClaimTemplateArgs build() {
-            $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
-            $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
+            $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).def("resource.k8s.io/v1beta2").getNullable();
+            $.kind = Codegen.stringProp("kind").output().arg($.kind).def("ResourceClaimTemplate").getNullable();
             if ($.spec == null) {
                 throw new MissingRequiredPropertyException("ResourceClaimTemplateArgs", "spec");
             }

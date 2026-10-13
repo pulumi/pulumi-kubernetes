@@ -167,10 +167,7 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? ResourceClassArgs.builder() : ResourceClassArgs.builder(args);
-        return builder
-            .apiVersion("resource.k8s.io/v1alpha2")
-            .kind("ResourceClass")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

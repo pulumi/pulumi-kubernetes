@@ -127,10 +127,7 @@ public class CompositePodGroup extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? CompositePodGroupArgs.builder() : CompositePodGroupArgs.builder(args);
-        return builder
-            .apiVersion("scheduling.k8s.io/v1alpha3")
-            .kind("CompositePodGroup")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {

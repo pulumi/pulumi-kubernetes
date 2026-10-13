@@ -194,10 +194,10 @@ class StorageClassPatch(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_volume_expansion: pulumi.Input[Optional[_builtins.bool]] = None,
-                 allowed_topologies: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict']]]]] = None,
+                 allowed_topologies: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict', '_core.v1.outputs.TopologySelectorTermPatch']]]]] = None,
                  api_version: pulumi.Input[Optional[Literal['storage.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['StorageClass']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
                  mount_options: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  parameters: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  provisioner: pulumi.Input[Optional[_builtins.str]] = None,
@@ -218,10 +218,10 @@ class StorageClassPatch(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
-        :param pulumi.Input[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict']]]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict', '_core.v1.outputs.TopologySelectorTermPatch']]]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         :param pulumi.Input[Literal['storage.k8s.io/v1beta1']] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Literal['StorageClass']] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] parameters: Parameters holds the parameters for the provisioner that should create volumes of this storage class.
         :param pulumi.Input[_builtins.str] provisioner: Provisioner indicates the type of the provisioner.
@@ -261,10 +261,10 @@ class StorageClassPatch(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_volume_expansion: pulumi.Input[Optional[_builtins.bool]] = None,
-                 allowed_topologies: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict']]]]] = None,
+                 allowed_topologies: pulumi.Input[Optional[Sequence[pulumi.Input[Union['_core.v1.TopologySelectorTermPatchArgs', '_core.v1.TopologySelectorTermPatchArgsDict', '_core.v1.outputs.TopologySelectorTermPatch']]]]] = None,
                  api_version: pulumi.Input[Optional[Literal['storage.k8s.io/v1beta1']]] = None,
                  kind: pulumi.Input[Optional[Literal['StorageClass']]] = None,
-                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict']]] = None,
+                 metadata: pulumi.Input[Optional[Union['_meta.v1.ObjectMetaPatchArgs', '_meta.v1.ObjectMetaPatchArgsDict', '_meta.v1.outputs.ObjectMetaPatch']]] = None,
                  mount_options: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  parameters: pulumi.Input[Optional[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
                  provisioner: pulumi.Input[Optional[_builtins.str]] = None,

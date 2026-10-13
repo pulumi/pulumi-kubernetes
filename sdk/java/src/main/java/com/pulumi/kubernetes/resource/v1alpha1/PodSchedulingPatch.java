@@ -135,10 +135,7 @@ public class PodSchedulingPatch extends com.pulumi.resources.CustomResource {
             return null;
         }
         var builder = args == null ? PodSchedulingPatchArgs.builder() : PodSchedulingPatchArgs.builder(args);
-        return builder
-            .apiVersion("resource.k8s.io/v1alpha1")
-            .kind("PodScheduling")
-            .build();
+        return builder.build();
     }
 
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<java.lang.String> id) {
