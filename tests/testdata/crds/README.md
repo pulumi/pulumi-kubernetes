@@ -15,25 +15,31 @@ Create a directory, put the manifests in it, and add an entry to `Cases` with
 the upstream URL in a comment above it. To move a case to a new release,
 download the manifests from that URL again and update the comment.
 
-## Known failures
-
-A language listed under `KnownFailures` must fail to compile. If it starts to
-compile, the test fails and tells you to drop the entry. This keeps a tracked
-defect visible without turning the whole suite red, and it reports the fix the
-moment one lands.
-
 ## Run the tests
 
-The compile check runs in the language directory whose toolchain and base SDK it
-needs, so CI picks it up in each language's existing test job.
+Two kinds of test read these manifests.
 
-- `make test_crd_sdkgen` runs the schema check and all five compile checks. It
-  builds the local SDKs first, because the generated SDK pins the base provider
-  at an unpublished development version.
-- `cd tests/sdk/nodejs && go test -run TestCRDExtensionSDKCompiles ./...` runs
-  one language, once `make nodejs_sdk` has run.
+- `TestCRDExtensionSchemaHasExpectedResources` in `tests/sdk/yaml` checks that
+  the extension schema serves the resources each case declares. It needs the
+  provider binary and nothing else.
+- `TestCRDExtensionSDKCompiles` in `tests/sdk/<language>` generates the SDK and
+  compiles it. Each language has its own copy, so the check runs in the job that
+  already installed that toolchain and that language's base SDK.
 
-## Move a test case to a new release
+Both are picked up by `make test_all` and `make test_fast`. To run one language
+on its own, build its base SDK first:
 
-Download the manifests again from the URLs recorded above each case in
-`tests/crdsdk/crdsdk.go`, then update the version in those comments.
+```
+make go_sdk
+cd tests/sdk/go && go test -run TestCRDExtensionSDKCompiles ./...
+```
+
+The compile check resolves the base SDK from this repository, because the
+generated SDK pins the base provider at an unpublished development version.
+
+## Skipped languages
+
+A language whose codegen produces an SDK that cannot compile calls `t.Skip` in
+its own test file, with the reason. Remove the line when the codegen is fixed.
+Java has no test file at all for the same reason; add one alongside the others
+when its codegen is fixed.
