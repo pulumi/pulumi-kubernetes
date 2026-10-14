@@ -2,7 +2,7 @@
 set -o nounset -o errexit -o pipefail
 
 CALICO_VERSION="v3.32.1"
-METALLB_VERSION="v0.16.0"
+CLOUD_PROVIDER_KIND_VERSION="v0.7.0"
 
 echo "Installing Calico..."
 gh api -H "Accept: application/vnd.github.raw" "/repos/projectcalico/calico/contents/manifests/calico.yaml?ref=${CALICO_VERSION}" > /tmp/calico.yaml
@@ -10,32 +10,23 @@ kubectl apply -f /tmp/calico.yaml
 kubectl -n kube-system rollout status daemonset/calico-node --timeout=5m
 kubectl -n kube-system rollout status deployment/calico-kube-controllers --timeout=5m
 
-echo "Installing MetalLB..."
-gh api -H "Accept: application/vnd.github.raw" "/repos/metallb/metallb/contents/config/manifests/metallb-native.yaml?ref=${METALLB_VERSION}" > /tmp/metallb-native.yaml
-kubectl apply -f /tmp/metallb-native.yaml
-kubectl wait --namespace metallb-system --for=condition=available deploy/controller --timeout=120s
-kubectl wait --namespace metallb-system --for=condition=ready pod -l component=speaker --timeout=120s
+echo "Installing cloud-provider-kind..."
+docker run -d --name cloud-provider-kind --restart unless-stopped --network kind -v /var/run/docker.sock:/var/run/docker.sock "registry.k8s.io/cloud-provider-kind/cloud-controller-manager:${CLOUD_PROVIDER_KIND_VERSION}"
 
-# Address range is taken from the high end of kind's default docker network (172.18.0.0/16).
-kubectl apply -f - <<EOF
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: default
-  namespace: metallb-system
-spec:
-  addresses:
-  - 172.18.255.200-172.18.255.250
----
-apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
-metadata:
-  name: default
-  namespace: metallb-system
-spec:
-  ipAddressPools:
-  - default
-EOF
+# A LoadBalancer service never gets an address if this controller is not serving,
+# so report the failure here instead of in a test timeout.
+serving=""
+for _ in $(seq 60); do
+  if docker logs cloud-provider-kind 2>&1 | grep -q "Starting service controller"; then
+    serving="yes"
+    break
+  fi
+  sleep 2
+done
+if [ -z "$serving" ]; then
+  echo "cloud-provider-kind is not serving load balancers" >&2
+  exit 1
+fi
 
 echo "Installing Traefik..."
 helm repo add traefik https://traefik.github.io/charts
