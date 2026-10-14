@@ -17,6 +17,7 @@ package gen
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/pulumi/pulumi/pkg/v3/codegen/cgstrings"
 )
@@ -44,12 +45,17 @@ func (c *CaseMapping) Add(name, pascal string) error {
 }
 
 func (c *CaseMapping) Get(name string) string {
-	pascal, ok := c.mapping[name]
-	if !ok {
-		return cgstrings.UppercaseFirst(name)
+	if pascal, ok := c.mapping[name]; ok {
+		return pascal
 	}
 
-	return pascal
+	// A CustomResourceDefinition group may contain hyphens, which a C# namespace
+	// cannot, so capitalize each hyphenated part and join them.
+	var pascal strings.Builder
+	for _, part := range strings.Split(name, "-") {
+		pascal.WriteString(cgstrings.UppercaseFirst(part))
+	}
+	return pascal.String()
 }
 
 // PascalCaseMapping is a mapping of lower cased resources to their PascalCase equivalents.
