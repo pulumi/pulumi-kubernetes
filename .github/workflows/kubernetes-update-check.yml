@@ -4,7 +4,6 @@ on:
     - cron: 35 12 * * 4 # Thursdays at 12:35
   workflow_dispatch: {}
 env:
-  GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
   TF_APPEND_USER_AGENT: pulumi
 
@@ -20,6 +19,8 @@ jobs:
           lfs: true
       - name: Get Kubernetes Version
         id: get-kubernetes-version
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           git config --local user.email 'bot@pulumi.com'
           
@@ -63,6 +64,8 @@ jobs:
       - name: Create Issue
         id: create-issue
         if: steps.get-kubernetes-version.outputs.needs_update != 0
+        env:
+          GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
         run: |
           KUBE_VERSION="${{ steps.get-kubernetes-version.outputs.kube_version }}"
           ISSUE_URL=$(gh issue create \
