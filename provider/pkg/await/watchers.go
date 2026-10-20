@@ -18,6 +18,7 @@ import (
 	"context"
 	"fmt"
 	"sync"
+	"time"
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -227,13 +228,39 @@ func NewEventAggregator(
 			m := logging.WarningMessage(msg)
 			switch e.Type {
 			case corev1.EventTypeWarning:
-				logger.LogStatus(diag.Warning, m.S)
+				logger.LogStatus(diag.Warning, formatEventWarning(e))
 			default:
 				logger.LogStatus(diag.Debug, m.S)
 			}
 			return nil
 		},
 	)
+}
+
+func formatEventWarning(e *corev1.Event) string {
+	count := e.Count
+	lastSeen := e.LastTimestamp.Time
+	if e.Series != nil {
+		count = e.Series.Count
+		if !e.Series.LastObservedTime.IsZero() {
+			lastSeen = e.Series.LastObservedTime.Time
+		}
+	} else {
+		if count == 0 {
+			count = 1
+		}
+		if lastSeen.IsZero() && count == 1 {
+			lastSeen = e.EventTime.Time
+			if lastSeen.IsZero() {
+				lastSeen = e.FirstTimestamp.Time
+			}
+		}
+	}
+	lastSeenText := "unknown"
+	if !lastSeen.IsZero() {
+		lastSeenText = lastSeen.UTC().Format(time.RFC3339Nano)
+	}
+	return fmt.Sprintf("%s: %s (last seen: %s, count: %d)", e.Reason, e.Message, lastSeenText, count)
 }
 
 type logMessager interface {
