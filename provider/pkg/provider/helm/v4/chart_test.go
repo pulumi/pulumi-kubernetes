@@ -431,6 +431,37 @@ var _ = gk.Describe("Construct", func() {
 			})
 		})
 
+		gk.Describe("Skip Schema Validation", func() {
+			// The schema-validation chart ships a strict values.schema.json that
+			// requires `replicas` to be an integer and forbids additional
+			// properties. The inputs below violate that schema.
+			gk.BeforeEach(func() {
+				inputs["chart"] = resource.NewStringProperty("schema-validation")
+				locator = kubehelm.NewFakeLocator("./testdata/schema-validation", nil)
+				inputs["values"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(map[string]any{
+					"replicas": "not-an-integer",
+				}))
+			})
+
+			gk.Context("by default", func() {
+				gk.It("should fail schema validation", func(ctx context.Context) {
+					_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					gm.Expect(err).Should(gm.HaveOccurred())
+				})
+			})
+
+			gk.Context("given skipSchemaValidation", func() {
+				gk.BeforeEach(func() {
+					inputs["skipSchemaValidation"] = resource.NewBoolProperty(true)
+				})
+				gk.It("should skip schema validation and render the chart", func(ctx context.Context) {
+					_, err := pulumiprovider.Construct(ctx, req, tc.EngineConn(), k.Construct)
+					gm.Expect(err).ShouldNot(gm.HaveOccurred())
+					gm.Expect(executor.Action().SkipSchemaValidation).To(gm.BeTrue())
+				})
+			})
+		})
+
 		gk.Describe("Helm hooks", func() {
 			// The reference chart contains a non-test hook (a ConfigMap annotated
 			// "helm.sh/hook": pre-install) and a test hook (a Pod annotated

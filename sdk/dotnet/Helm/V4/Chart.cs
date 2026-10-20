@@ -338,6 +338,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V4
         [Input("skipCrds")]
         public Input<bool>? SkipCrds { get; set; }
 
+        /// <summary>
+        /// If set, disable JSON schema validation. By default, values are validated against the chart's schema.
+        /// </summary>
+        [Input("skipSchemaValidation")]
+        public Input<bool>? SkipSchemaValidation { get; set; }
+
         [Input("valueYamlFiles")]
         private InputList<AssetOrArchive>? _valueYamlFiles;
 
