@@ -35,7 +35,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates.V1Beta1
         ///  2. If it's a kubelet serving certificate, it is assigned
         ///     "kubernetes.io/kubelet-serving".
         ///  3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
-        /// Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+        ///     Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
         /// </summary>
         public readonly string SignerName;
         /// <summary>

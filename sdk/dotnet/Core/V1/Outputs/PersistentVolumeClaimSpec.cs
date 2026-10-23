@@ -32,7 +32,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         ///   specified.
         /// * While dataSource only allows local objects, dataSourceRef allows objects
         ///   in any namespaces.
-        /// (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+        ///   (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.TypedObjectReference DataSourceRef;
         /// <summary>

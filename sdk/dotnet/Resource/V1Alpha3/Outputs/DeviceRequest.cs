@@ -26,12 +26,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1Alpha3
         /// AllocationMode and its related fields define how devices are allocated to satisfy this request. Supported values are:
         /// 
         /// - ExactCount: This request is for a specific number of devices.
-        ///   This is the default. The exact number is provided in the
-        ///   count field.
+        /// This is the default. The exact number is provided in the
+        /// count field.
         /// 
         /// - All: This request is for all of the matching devices in a pool.
-        ///   Allocation will fail if some devices are already allocated,
-        ///   unless adminAccess is requested.
+        /// Allocation will fail if some devices are already allocated,
+        /// unless adminAccess is requested.
         /// 
         /// If AlloctionMode is not specified, the default mode is ExactCount. If the mode is ExactCount and count is not specified, the default count is one. Any other requests must specify this field.
         /// 

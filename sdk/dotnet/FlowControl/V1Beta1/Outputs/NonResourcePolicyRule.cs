@@ -23,7 +23,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta1
         ///   - "/hea" is legal but matches nothing
         ///   - "/hea/*" also matches nothing
         ///   - "/healthz/*" matches all per-component health checks.
-        /// "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+        ///     "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
         /// </summary>
         public readonly ImmutableArray<string> NonResourceURLs;
         /// <summary>

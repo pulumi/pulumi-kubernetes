@@ -27,7 +27,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Resource.V1
         /// 		  GPU device instance of this type will account for 2Gi of memory.
         /// 
         /// 2.  If `capacityKey` IS set: `allocationMultiplier` is multiplied by the amount of that capacity consumed.
-        /// 	   The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
+        ///        The final node allocatable resource amount is `consumedCapacity[capacityKey]` * `allocationMultiplier`.
         ///     For example, if a Device's capacity "dra.example.com/cores" is consumed,
         ///     and each "core" provides 2 "cpu"s, the mapping would be:
         ///     {ResourceName: "cpu", capacityKey: "dra.example.com/cores", allocationMultiplier: "2"}.
