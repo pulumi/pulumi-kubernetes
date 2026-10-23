@@ -23,9 +23,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         ///  - InProgress
         ///    InProgress indicates that the volume is being modified.
         ///  - Infeasible
-        ///   Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
-        /// 	  resolve the error, a valid VolumeAttributesClass needs to be specified.
-        /// Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
+        ///      Infeasible indicates that the request has been rejected as invalid by the CSI driver. To
+        ///       resolve the error, a valid VolumeAttributesClass needs to be specified.
+        ///    Note: New statuses can be added in the future. Consumers should check for unknown statuses and fail appropriately.
         /// </summary>
         [Input("status", required: true)]
         public Input<string> Status { get; set; } = null!;

@@ -25,8 +25,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Lifecycle.V1Alpha1
         ///   by any eviction responder. This can happen if the request is canceled or if no responder
         ///   managed to evict the target (e.g. terminate or delete a pod).
         /// - TargetEvicted means that the target has been evicted (e.g. a pod has been terminated or deleted).
-        /// 
-        /// 	The maximum length of the conditions list is 100.
+        ///   
+        /// ThThe maximum length of the conditions list is 100.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs> Conditions
         {

@@ -37,7 +37,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination.V1Alpha1
         ///   will be used.
         /// - If a candidate has strategy [X, Y] and another candidate has strategy [Y, X], this is a user error and leader
         ///   election will not operate the Lease until resolved.
-        /// (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+        ///   (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
         /// </summary>
         public readonly ImmutableArray<string> PreferredStrategies;
         /// <summary>

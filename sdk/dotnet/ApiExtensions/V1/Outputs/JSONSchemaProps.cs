@@ -100,7 +100,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
         ///      These lists are like maps in that their elements have a non-index key
         ///      used to identify them. Order is preserved upon merge. The map tag
         ///      must only be used on a list with elements of type object.
-        /// Defaults to atomic for arrays.
+        ///    Defaults to atomic for arrays.
         /// </summary>
         public readonly string X_kubernetes_list_type;
         /// <summary>

@@ -38,7 +38,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         /// * ImplementationSpecific: Interpretation of the Path matching is up to
         ///   the IngressClass. Implementations can treat this as a separate PathType
         ///   or treat it identically to Prefix or Exact path types.
-        /// Implementations are required to support all path types.
+        ///   Implementations are required to support all path types.
         /// </summary>
         [Input("pathType", required: true)]
         public Input<string> PathType { get; set; } = null!;

@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         /// scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
         ///   * increase no more than 4 pods per 60 seconds
         ///   * double the number of pods per 60 seconds
-        /// No stabilization is used.
+        ///     No stabilization is used.
         /// </summary>
         [Input("scaleUp")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2.HPAScalingRulesArgs>? ScaleUp { get; set; }

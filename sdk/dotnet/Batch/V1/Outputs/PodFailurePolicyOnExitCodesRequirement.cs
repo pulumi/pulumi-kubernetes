@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         /// - NotIn: the requirement is satisfied if at least one container exit code
         ///   (might be multiple if there are multiple containers not restricted
         ///   by the 'containerName' field) is not in the set of specified values.
-        /// Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        ///   Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
         /// </summary>
         public readonly string Operator;
         /// <summary>

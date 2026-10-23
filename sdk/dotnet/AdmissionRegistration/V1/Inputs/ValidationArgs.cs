@@ -41,7 +41,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         ///   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
         ///     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
         ///     non-intersecting keys are appended, retaining their partial order.
-        /// Required.
+        ///     Required.
         /// </summary>
         [Input("expression", required: true)]
         public Input<string> Expression { get; set; } = null!;

@@ -22,13 +22,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
     /// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
     ///    to 'True'.
     /// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
-    /// 	'status' set to 'True'. If this condition is set, we should fail the Job immediately.
+    ///     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
     /// 
     /// If the Job has not reached a Ready state after 10 minutes, it will
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
     /// 
-    /// By default, if a resource failed to become ready in a previous update, 
+    /// By default, if a resource failed to become ready in a previous update,
     /// Pulumi will continue to wait for readiness on the next update. If you would prefer
     /// to schedule a replacement for an unready resource on the next update, you can add the
     /// "pulumi.com/replaceUnready": "true" annotation to the resource definition.

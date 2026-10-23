@@ -35,7 +35,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
         /// * ImplementationSpecific: Interpretation of the Path matching is up to
         ///   the IngressClass. Implementations can treat this as a separate PathType
         ///   or treat it identically to Prefix or Exact path types.
-        /// Implementations are required to support all path types. Defaults to ImplementationSpecific.
+        ///   Implementations are required to support all path types. Defaults to ImplementationSpecific.
         /// </summary>
         public readonly string PathType;
 

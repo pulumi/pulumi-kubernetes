@@ -26,7 +26,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         ///   incremented and a replacement pod is created.
         /// - Count: indicates that the pod is handled in the default way - the
         ///   counter towards the .backoffLimit is incremented.
-        /// Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+        ///   Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
         /// </summary>
         [Input("action")]
         public Input<string>? Action { get; set; }
