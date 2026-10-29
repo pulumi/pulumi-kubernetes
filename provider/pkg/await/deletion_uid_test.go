@@ -35,22 +35,42 @@ import (
 )
 
 func TestDeletionUIDPrecondition(t *testing.T) {
-	for _, tt := range []struct {
+	tests := []struct {
 		name        string
 		uid         types.UID
 		deleteError error
+		replace     bool
 	}{
-		{"recorded UID", "original", nil},
-		{"missing UID", "", nil},
-		{"already deleted", "original", apierrors.NewNotFound(schema.GroupResource{Resource: "pods"}, "foo")},
 		{
-			"UID conflict", "original",
-			apierrors.NewConflict(schema.GroupResource{Resource: "pods"}, "foo", errors.New("UID precondition failed")),
+			name: "recorded UID",
+			uid:  "original",
 		},
-	} {
+		{
+			name: "missing UID",
+		},
+		{
+			name:    "replacement after accepted delete",
+			uid:     "original",
+			replace: true,
+		},
+		{
+			name:        "already deleted",
+			uid:         "original",
+			deleteError: apierrors.NewNotFound(schema.GroupResource{Resource: "pods"}, "foo"),
+		},
+		{
+			name: "UID conflict",
+			uid:  "original",
+			deleteError: apierrors.NewConflict(
+				schema.GroupResource{Resource: "pods"}, "foo", errors.New("UID precondition failed")),
+		},
+	}
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			obj := validPodUnstructured.DeepCopy()
 			obj.SetUID(tt.uid)
+			replacement := obj.DeepCopy()
+			replacement.SetUID("replacement")
 			client, _, _, transport := fake.NewSimpleDynamicClient(fake.WithObjects(obj))
 			deletes := 0
 			transport.PrependReactor("delete", "pods", func(action kubetesting.Action) (bool, runtime.Object, error) {
@@ -63,17 +83,30 @@ func TestDeletionUIDPrecondition(t *testing.T) {
 					require.NotNil(t, options.Preconditions.UID)
 					require.Equal(t, tt.uid, *options.Preconditions.UID)
 				}
+				if tt.replace {
+					err := transport.Tracker().Delete(action.GetResource(), action.GetNamespace(), obj.GetName())
+					require.NoError(t, err)
+					err = transport.Tracker().Create(action.GetResource(), replacement, action.GetNamespace())
+					require.NoError(t, err)
+					return true, nil, nil
+				}
 				return tt.deleteError != nil, nil, tt.deleteError
 			})
 			urn := resource.NewURN(tokens.QName("test"), tokens.PackageName("test"), "", "kubernetes:core/v1:Pod", "foo")
 			host := &fakehost.HostClient{}
 			err := Deletion(DeleteConfig{
 				ProviderConfig: ProviderConfig{
-					Context: t.Context(), ClientSet: client, URN: urn, Host: host,
+					Context:     t.Context(),
+					ClientSet:   client,
+					URN:         urn,
+					Host:        host,
 					DedupLogger: logging.NewLogger(t.Context(), host, urn),
 					Factories:   informers.NewFactories(t.Context()),
 				},
-				Inputs: obj.DeepCopy(), Outputs: obj, Name: obj.GetName(), Timeout: 2,
+				Inputs:  obj.DeepCopy(),
+				Outputs: obj,
+				Name:    obj.GetName(),
+				Timeout: 2,
 			})
 			require.Equal(t, 1, deletes)
 			if apierrors.IsConflict(tt.deleteError) {
@@ -86,6 +119,12 @@ func TestDeletionUIDPrecondition(t *testing.T) {
 			require.Equal(t, "delete", actions[0].GetVerb())
 			if tt.deleteError != nil {
 				require.Len(t, actions, 1)
+			}
+			if tt.replace {
+				live, err := transport.Tracker().Get(
+					schema.GroupVersionResource{Version: "v1", Resource: "pods"}, obj.GetNamespace(), obj.GetName())
+				require.NoError(t, err)
+				require.Equal(t, replacement, live)
 			}
 		})
 	}
