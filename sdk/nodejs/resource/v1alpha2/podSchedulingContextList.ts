@@ -23,6 +23,16 @@ export class PodSchedulingContextList extends pulumi.CustomResource {
         return new PodSchedulingContextList(name, undefined as any, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing PodSchedulingContextList resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList", id, {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList';
 
