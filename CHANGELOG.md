@@ -13,6 +13,7 @@
 ### Changed
 
 - Upgrade Kubernetes schema and libraries to v1.37.1.
+- Upgrade Kubernetes schema and libraries to v1.37.2.
 
 ## 4.34.2 (September 18, 2026)
 
