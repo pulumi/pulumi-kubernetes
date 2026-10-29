@@ -29,6 +29,16 @@ export class MutatingWebhookConfigurationPatch extends pulumi.CustomResource {
         return new MutatingWebhookConfigurationPatch(name, undefined as any, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing MutatingWebhookConfigurationPatch resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationPatch", id, {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationPatch';
 
