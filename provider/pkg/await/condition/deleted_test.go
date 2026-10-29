@@ -284,25 +284,77 @@ func TestDeletedUIDObserve(t *testing.T) {
 	terminating.SetDeletionTimestamp(&now)
 	terminating.SetFinalizers([]string{"example.com/hold"})
 
-	for _, tt := range []struct {
-		name   string
-		event  watch.Event
-		getter objectGetter
-		done   bool
+	tests := []struct {
+		name        string
+		event       watch.Event
+		getter      objectGetter
+		wantDeleted bool
 	}{
-		{"original deleted", watch.Event{Type: watch.Deleted, Object: checkpoint}, &get200{checkpoint}, true},
-		{"original terminating", watch.Event{Type: watch.Modified, Object: terminating}, &get200{terminating}, false},
-		{"replacement confirmed live", watch.Event{Type: watch.Added, Object: replacement}, &get200{replacement}, true},
-		{"replacement followed by not found", watch.Event{Type: watch.Modified, Object: replacement}, get404{}, true},
-		{"cached older UID", watch.Event{Type: watch.Added, Object: replacement}, &get200{checkpoint}, false},
-		{"replacement lookup failed", watch.Event{Type: watch.Modified, Object: replacement}, get503{}, false},
-		{"different UID deleted", watch.Event{Type: watch.Deleted, Object: replacement}, &get200{replacement}, false},
-		{"UID-less delete", watch.Event{Type: watch.Deleted, Object: uidless}, &get200{checkpoint}, false},
-		{"UID-less update", watch.Event{Type: watch.Modified, Object: uidless}, &get200{checkpoint}, false},
-		{"different namespace", watch.Event{Type: watch.Added, Object: otherNamespace}, &get200{replacement}, false},
-		{"different name", watch.Event{Type: watch.Added, Object: otherName}, &get200{replacement}, false},
-		{"invalid event object", watch.Event{Type: watch.Error, Object: &metav1.Status{}}, &get200{checkpoint}, false},
-	} {
+		{
+			name:        "original deleted",
+			event:       watch.Event{Type: watch.Deleted, Object: checkpoint},
+			getter:      &get200{checkpoint},
+			wantDeleted: true,
+		},
+		{
+			name:   "original with finalizers remains pending",
+			event:  watch.Event{Type: watch.Modified, Object: terminating},
+			getter: &get200{terminating},
+		},
+		{
+			name:        "replacement confirmed by live lookup",
+			event:       watch.Event{Type: watch.Added, Object: replacement},
+			getter:      &get200{replacement},
+			wantDeleted: true,
+		},
+		{
+			name:        "not found after replacement event",
+			event:       watch.Event{Type: watch.Modified, Object: replacement},
+			getter:      get404{},
+			wantDeleted: true,
+		},
+		{
+			name:   "cached different UID while original still exists",
+			event:  watch.Event{Type: watch.Added, Object: replacement},
+			getter: &get200{checkpoint},
+		},
+		{
+			name:   "failed live lookup remains pending",
+			event:  watch.Event{Type: watch.Modified, Object: replacement},
+			getter: get503{},
+		},
+		{
+			name:   "ignores deleted event for another UID",
+			event:  watch.Event{Type: watch.Deleted, Object: replacement},
+			getter: &get200{replacement},
+		},
+		{
+			name:   "ignores deleted event without UID",
+			event:  watch.Event{Type: watch.Deleted, Object: uidless},
+			getter: &get200{checkpoint},
+		},
+		{
+			name:   "ignores modified event without UID",
+			event:  watch.Event{Type: watch.Modified, Object: uidless},
+			getter: &get200{checkpoint},
+		},
+		{
+			name:   "ignores event for another namespace",
+			event:  watch.Event{Type: watch.Added, Object: otherNamespace},
+			getter: &get200{replacement},
+		},
+		{
+			name:   "ignores event for another name",
+			event:  watch.Event{Type: watch.Added, Object: otherName},
+			getter: &get200{replacement},
+		},
+		{
+			name:   "ignores non-object event",
+			event:  watch.Event{Type: watch.Error, Object: &metav1.Status{}},
+			getter: &get200{checkpoint},
+		},
+	}
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cond, err := NewDeleted(t.Context(), Static(nil), tt.getter, logbuf{&strings.Builder{}}, checkpoint.DeepCopy())
 			require.NoError(t, err)
@@ -310,7 +362,7 @@ func TestDeletedUIDObserve(t *testing.T) {
 			require.NoError(t, cond.Observe(tt.event))
 			done, err := cond.Satisfied()
 			require.NoError(t, err)
-			require.Equal(t, tt.done, done)
+			require.Equal(t, tt.wantDeleted, done)
 			require.Equal(t, types.UID("original"), cond.Object().GetUID())
 			require.Equal(t, checkpoint.GetName(), cond.Object().GetName())
 			require.Equal(t, checkpoint.GetNamespace(), cond.Object().GetNamespace())
@@ -318,7 +370,7 @@ func TestDeletedUIDObserve(t *testing.T) {
 	}
 }
 
-func TestDeletedUIDRange(t *testing.T) {
+func TestDeletedUIDFinalLookup(t *testing.T) {
 	checkpoint := pod.DeepCopy()
 	checkpoint.SetUID("original")
 	replacement := checkpoint.DeepCopy()
@@ -334,18 +386,38 @@ func TestDeletedUIDRange(t *testing.T) {
 	terminating.SetDeletionTimestamp(&now)
 	terminating.SetFinalizers([]string{"example.com/hold"})
 
-	for _, tt := range []struct {
-		name string
-		live *unstructured.Unstructured
-		done bool
+	tests := []struct {
+		name        string
+		live        *unstructured.Unstructured
+		wantDeleted bool
 	}{
-		{"replacement", replacement, true},
-		{"original", checkpoint, false},
-		{"original terminating", terminating, false},
-		{"UID-less object", uidless, false},
-		{"different namespace", otherNamespace, false},
-		{"different name", otherName, false},
-	} {
+		{
+			name:        "replacement completes deletion",
+			live:        replacement,
+			wantDeleted: true,
+		},
+		{
+			name: "original remains pending",
+			live: checkpoint,
+		},
+		{
+			name: "original with finalizers remains pending",
+			live: terminating,
+		},
+		{
+			name: "missing UID remains pending",
+			live: uidless,
+		},
+		{
+			name: "ignores different namespace",
+			live: otherNamespace,
+		},
+		{
+			name: "ignores different name",
+			live: otherName,
+		},
+	}
+	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			ctx, cancel := context.WithCancel(t.Context())
 			cancel()
@@ -356,7 +428,7 @@ func TestDeletedUIDRange(t *testing.T) {
 			cond.Range(nil)
 			done, err := cond.Satisfied()
 			require.NoError(t, err)
-			require.Equal(t, tt.done, done)
+			require.Equal(t, tt.wantDeleted, done)
 			require.Equal(t, 2, getter.idx)
 			require.Equal(t, types.UID("original"), cond.Object().GetUID())
 		})
