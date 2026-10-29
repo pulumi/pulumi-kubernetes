@@ -219,6 +219,7 @@ export class Chart extends pulumi.ComponentResource {
             resourceInputs["resourcePrefix"] = args?.resourcePrefix;
             resourceInputs["skipAwait"] = args?.skipAwait;
             resourceInputs["skipCrds"] = args?.skipCrds;
+            resourceInputs["skipSchemaValidation"] = args?.skipSchemaValidation;
             resourceInputs["valueYamlFiles"] = args?.valueYamlFiles;
             resourceInputs["values"] = args?.values;
             resourceInputs["verify"] = args?.verify;
@@ -292,6 +293,10 @@ export interface ChartArgs {
      * If set, no CRDs will be installed. By default, CRDs are installed if not already present.
      */
     skipCrds?: pulumi.Input<boolean | undefined>;
+    /**
+     * If set, disable JSON schema validation. By default, values are validated against the chart's schema.
+     */
+    skipSchemaValidation?: pulumi.Input<boolean | undefined>;
     /**
      * List of assets (raw yaml files). Content is read and merged with values.
      */

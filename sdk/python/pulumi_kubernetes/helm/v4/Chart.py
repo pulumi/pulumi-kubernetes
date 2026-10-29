@@ -34,6 +34,7 @@ class ChartArgs:
                  resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
                  skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_crds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_schema_validation: pulumi.Input[Optional[_builtins.bool]] = None,
                  value_yaml_files: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
                  values: pulumi.Input[Optional[Mapping[str, Any]]] = None,
                  verify: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -55,6 +56,7 @@ class ChartArgs:
         :param pulumi.Input[_builtins.str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
         :param pulumi.Input[_builtins.bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[_builtins.bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
+        :param pulumi.Input[_builtins.bool] skip_schema_validation: If set, disable JSON schema validation. By default, values are validated against the chart's schema.
         :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
         :param pulumi.Input[_builtins.bool] verify: Verify the chart's integrity.
@@ -87,6 +89,8 @@ class ChartArgs:
             pulumi.set(__self__, "skip_await", skip_await)
         if skip_crds is not None:
             pulumi.set(__self__, "skip_crds", skip_crds)
+        if skip_schema_validation is not None:
+            pulumi.set(__self__, "skip_schema_validation", skip_schema_validation)
         if value_yaml_files is not None:
             pulumi.set(__self__, "value_yaml_files", value_yaml_files)
         if values is not None:
@@ -265,6 +269,18 @@ class ChartArgs:
         pulumi.set(self, "skip_crds", value)
 
     @_builtins.property
+    @pulumi.getter(name="skipSchemaValidation")
+    def skip_schema_validation(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        If set, disable JSON schema validation. By default, values are validated against the chart's schema.
+        """
+        return pulumi.get(self, "skip_schema_validation")
+
+    @skip_schema_validation.setter
+    def skip_schema_validation(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "skip_schema_validation", value)
+
+    @_builtins.property
     @pulumi.getter(name="valueYamlFiles")
     def value_yaml_files(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]:
         """
@@ -333,6 +349,7 @@ class Chart(pulumi.ComponentResource):
                  resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
                  skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_crds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_schema_validation: pulumi.Input[Optional[_builtins.bool]] = None,
                  value_yaml_files: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
                  values: pulumi.Input[Optional[Mapping[str, Any]]] = None,
                  verify: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -523,6 +540,7 @@ class Chart(pulumi.ComponentResource):
         :param pulumi.Input[_builtins.str] resource_prefix: An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix="foo" would produce a resource named "foo:resourceName".
         :param pulumi.Input[_builtins.bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[_builtins.bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
+        :param pulumi.Input[_builtins.bool] skip_schema_validation: If set, disable JSON schema validation. By default, values are validated against the chart's schema.
         :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
         :param pulumi.Input[_builtins.bool] verify: Verify the chart's integrity.
@@ -732,6 +750,7 @@ class Chart(pulumi.ComponentResource):
                  resource_prefix: pulumi.Input[Optional[_builtins.str]] = None,
                  skip_await: pulumi.Input[Optional[_builtins.bool]] = None,
                  skip_crds: pulumi.Input[Optional[_builtins.bool]] = None,
+                 skip_schema_validation: pulumi.Input[Optional[_builtins.bool]] = None,
                  value_yaml_files: pulumi.Input[Optional[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
                  values: pulumi.Input[Optional[Mapping[str, Any]]] = None,
                  verify: pulumi.Input[Optional[_builtins.bool]] = None,
@@ -763,6 +782,7 @@ class Chart(pulumi.ComponentResource):
             __props__.__dict__["resource_prefix"] = resource_prefix
             __props__.__dict__["skip_await"] = skip_await
             __props__.__dict__["skip_crds"] = skip_crds
+            __props__.__dict__["skip_schema_validation"] = skip_schema_validation
             __props__.__dict__["value_yaml_files"] = value_yaml_files
             __props__.__dict__["values"] = values
             __props__.__dict__["verify"] = verify

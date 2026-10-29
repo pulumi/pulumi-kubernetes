@@ -240,6 +240,12 @@ var helmV4ChartResource = pschema.ResourceSpec{
 			},
 			Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
 		},
+		"skipSchemaValidation": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "If set, disable JSON schema validation. By default, values are validated against the chart's schema.",
+		},
 		"includeHooks": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
