@@ -2632,16 +2632,17 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 						"field before deleting: %s", cause.Field)
 			}
 		}
-		partialErr, isPartialErr := awaitErr.(await.PartialError)
+		_, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// There was an error executing the delete operation. The resource is still present and tracked.
 			return nil, awaitErr
 		}
 
-		lastKnownState := partialErr.Object()
+		// Retain the checkpoint identity so a retry cannot delete a replacement.
+		lastKnownState := current
 
 		inputsAndComputed, err := plugin.MarshalProperties(
-			checkpointObject(current, lastKnownState, oldState, initialAPIVersion, fieldManager), plugin.MarshalOptions{
+			checkpointObject(oldInputs, lastKnownState, oldState, initialAPIVersion, fieldManager), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 				KeepUnknowns: true,
 				SkipNulls:    false,
@@ -2651,8 +2652,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			return nil, err
 		}
 
-		// Resource delete was issued, but failed to complete. Return live version of object so it can be
-		// checkpointed.
+		// Resource delete was issued, but failed to complete. Preserve the original checkpoint.
 		return nil, partialError(fqObjName(lastKnownState), awaitErr, inputsAndComputed, nil)
 	}
 

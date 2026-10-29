@@ -22,10 +22,12 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
 )
 
@@ -264,4 +266,99 @@ func TestDeleted(t *testing.T) {
 		assert.False(t, done)
 		assert.Contains(t, buf.String(), "boom")
 	})
+}
+
+func TestDeletedUIDObserve(t *testing.T) {
+	checkpoint := pod.DeepCopy()
+	checkpoint.SetUID("original")
+	replacement := checkpoint.DeepCopy()
+	replacement.SetUID("replacement")
+	uidless := checkpoint.DeepCopy()
+	uidless.SetUID("")
+	otherNamespace := replacement.DeepCopy()
+	otherNamespace.SetNamespace("other")
+	otherName := replacement.DeepCopy()
+	otherName.SetName("other")
+	terminating := checkpoint.DeepCopy()
+	now := metav1.Now()
+	terminating.SetDeletionTimestamp(&now)
+	terminating.SetFinalizers([]string{"example.com/hold"})
+
+	for _, tt := range []struct {
+		name   string
+		event  watch.Event
+		getter objectGetter
+		done   bool
+	}{
+		{"original deleted", watch.Event{Type: watch.Deleted, Object: checkpoint}, &get200{checkpoint}, true},
+		{"original terminating", watch.Event{Type: watch.Modified, Object: terminating}, &get200{terminating}, false},
+		{"replacement confirmed live", watch.Event{Type: watch.Added, Object: replacement}, &get200{replacement}, true},
+		{"replacement followed by not found", watch.Event{Type: watch.Modified, Object: replacement}, get404{}, true},
+		{"cached older UID", watch.Event{Type: watch.Added, Object: replacement}, &get200{checkpoint}, false},
+		{"replacement lookup failed", watch.Event{Type: watch.Modified, Object: replacement}, get503{}, false},
+		{"different UID deleted", watch.Event{Type: watch.Deleted, Object: replacement}, &get200{replacement}, false},
+		{"UID-less delete", watch.Event{Type: watch.Deleted, Object: uidless}, &get200{checkpoint}, false},
+		{"UID-less update", watch.Event{Type: watch.Modified, Object: uidless}, &get200{checkpoint}, false},
+		{"different namespace", watch.Event{Type: watch.Added, Object: otherNamespace}, &get200{replacement}, false},
+		{"different name", watch.Event{Type: watch.Added, Object: otherName}, &get200{replacement}, false},
+		{"invalid event object", watch.Event{Type: watch.Error, Object: &metav1.Status{}}, &get200{checkpoint}, false},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			cond, err := NewDeleted(t.Context(), Static(nil), tt.getter, logbuf{&strings.Builder{}}, checkpoint.DeepCopy())
+			require.NoError(t, err)
+			t.Cleanup(cond.cancel)
+			require.NoError(t, cond.Observe(tt.event))
+			done, err := cond.Satisfied()
+			require.NoError(t, err)
+			require.Equal(t, tt.done, done)
+			require.Equal(t, types.UID("original"), cond.Object().GetUID())
+			require.Equal(t, checkpoint.GetName(), cond.Object().GetName())
+			require.Equal(t, checkpoint.GetNamespace(), cond.Object().GetNamespace())
+		})
+	}
+}
+
+func TestDeletedUIDRange(t *testing.T) {
+	checkpoint := pod.DeepCopy()
+	checkpoint.SetUID("original")
+	replacement := checkpoint.DeepCopy()
+	replacement.SetUID("replacement")
+	uidless := checkpoint.DeepCopy()
+	uidless.SetUID("")
+	otherNamespace := replacement.DeepCopy()
+	otherNamespace.SetNamespace("other")
+	otherName := replacement.DeepCopy()
+	otherName.SetName("other")
+	terminating := checkpoint.DeepCopy()
+	now := metav1.Now()
+	terminating.SetDeletionTimestamp(&now)
+	terminating.SetFinalizers([]string{"example.com/hold"})
+
+	for _, tt := range []struct {
+		name string
+		live *unstructured.Unstructured
+		done bool
+	}{
+		{"replacement", replacement, true},
+		{"original", checkpoint, false},
+		{"original terminating", terminating, false},
+		{"UID-less object", uidless, false},
+		{"different namespace", otherNamespace, false},
+		{"different name", otherName, false},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			ctx, cancel := context.WithCancel(t.Context())
+			cancel()
+			getter := &getsequence{getters: []objectGetter{&get200{checkpoint}, &get200{tt.live}}}
+			cond, err := NewDeleted(ctx, Static(nil), getter, logbuf{&strings.Builder{}}, checkpoint.DeepCopy())
+			require.NoError(t, err)
+			t.Cleanup(cond.cancel)
+			cond.Range(nil)
+			done, err := cond.Satisfied()
+			require.NoError(t, err)
+			require.Equal(t, tt.done, done)
+			require.Equal(t, 2, getter.idx)
+			require.Equal(t, types.UID("original"), cond.Object().GetUID())
+		})
+	}
 }

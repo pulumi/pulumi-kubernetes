@@ -5,6 +5,7 @@
 
 ### Fixed
 
+- Use the recorded UID when deleting Kubernetes resources and waiting for deletion, so a replacement with the same name is left untouched. State without a UID retains name-only deletion.
 - [#4615](https://github.com/pulumi/pulumi-kubernetes/pull/4615) Fix `yaml.ConfigGroup`, `yaml.ConfigFile`, and `kustomize.Directory` being ignored by policy packs in Node.js.
 ### Added
 
