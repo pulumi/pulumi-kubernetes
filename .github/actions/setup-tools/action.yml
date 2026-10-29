@@ -18,9 +18,12 @@ runs:
       env:
         MISE_FETCH_REMOTE_VERSIONS_TIMEOUT: 30s
       with:
-        version: 2026.3.7
+        version: 2026.10.21
         cache_save: ${{ inputs.cache }}
         github_token: ${{ inputs.github_token }}
+    - name: Install project dependencies
+      run: mise deps install
+      shell: bash
 
     - name: Setup Go Cache
       uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
