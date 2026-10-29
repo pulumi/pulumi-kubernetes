@@ -2638,22 +2638,8 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			return nil, awaitErr
 		}
 
-		// Retain the checkpoint identity so a retry cannot delete a replacement.
-		lastKnownState := current
-
-		inputsAndComputed, err := plugin.MarshalProperties(
-			checkpointObject(oldInputs, lastKnownState, oldState, initialAPIVersion, fieldManager), plugin.MarshalOptions{
-				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
-				KeepUnknowns: true,
-				SkipNulls:    false,
-				KeepSecrets:  k.enableSecrets,
-			})
-		if err != nil {
-			return nil, err
-		}
-
-		// Resource delete was issued, but failed to complete. Preserve the original checkpoint.
-		return nil, partialError(fqObjName(lastKnownState), awaitErr, inputsAndComputed, nil)
+		// Preserve the original checkpoint, including its UID, inputs, and secret markers.
+		return nil, partialError(fqObjName(current), awaitErr, req.GetProperties(), nil)
 	}
 
 	return &pbempty.Empty{}, nil

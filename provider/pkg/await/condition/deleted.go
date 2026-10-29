@@ -33,8 +33,7 @@ import (
 
 var _ Satisfier = (*Deleted)(nil)
 
-// Deleted succeeds when the recorded object no longer exists. When its UID is
-// known, a live object with the same name and a different UID also proves deletion.
+// Deleted succeeds when the recorded object no longer exists.
 type Deleted struct {
 	ctx      context.Context
 	cancel   func()
@@ -134,8 +133,7 @@ func (dc *Deleted) Observe(e watch.Event) error {
 			return nil
 		}
 		if obj.GetUID() != dc.uid {
-			// Informer caches may contain an older object. Confirm another UID
-			// with a live read before treating it as a replacement.
+			// The cached object may be older than ours. Confirm with a live read.
 			if e.Type != watch.Deleted && dc.replaced(obj) {
 				dc.refreshClusterState()
 			}
@@ -153,7 +151,7 @@ func (dc *Deleted) replaced(obj *unstructured.Unstructured) bool {
 		obj.GetName() == dc.name && obj.GetNamespace() == dc.namespace
 }
 
-// Satisfied reports whether the recorded object is gone, logging its status while pending.
+// Satisfied reports whether the recorded object is gone and logs its status while pending.
 func (dc *Deleted) Satisfied() (bool, error) {
 	if dc.deleted.Load() {
 		return true, nil
