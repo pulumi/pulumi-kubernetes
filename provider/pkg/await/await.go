@@ -966,6 +966,11 @@ func Deletion(c DeleteConfig) error {
 	deleteOpts := metav1.DeleteOptions{
 		PropagationPolicy: &deletePolicy,
 	}
+	// Bind deletion to the recorded object, even if its name has been reused.
+	// State without a UID retains the existing name-only behavior.
+	if uid := c.Outputs.GetUID(); uid != "" {
+		deleteOpts.Preconditions = &metav1.Preconditions{UID: &uid}
+	}
 
 	err = client.Delete(c.Context, c.Name, deleteOpts)
 	if err != nil {
