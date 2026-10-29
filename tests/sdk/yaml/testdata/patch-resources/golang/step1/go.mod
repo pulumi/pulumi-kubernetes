@@ -1,6 +1,6 @@
 module patch-resources
 
-go 1.26.6
+go 1.26.10
 
 require (
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.15.0
