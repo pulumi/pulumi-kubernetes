@@ -58,7 +58,7 @@ import * as utilities from "../../utilities";
  *             app: "nginx",
  *         },
  *     },
- *     serviceName: service.metadata.apply(metadata => metadata?.name),
+ *     serviceName: service.metadata.name,
  *     template: {
  *         metadata: {
  *             labels: {
@@ -131,7 +131,7 @@ import * as utilities from "../../utilities";
  *                 app: "nginx",
  *             },
  *         },
- *         serviceName: service.metadata.apply(metadata => metadata?.name),
+ *         serviceName: service.metadata.name,
  *         template: {
  *             metadata: {
  *                 labels: {

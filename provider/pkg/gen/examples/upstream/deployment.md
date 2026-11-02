@@ -44,35 +44,35 @@ import pulumi
 import pulumi_kubernetes as kubernetes
 
 deployment = kubernetes.apps.v1.Deployment("deployment",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        labels={
+    metadata={
+        "labels": {
             "app": "nginx",
         },
-    ),
-    spec=kubernetes.apps.v1.DeploymentSpecArgs(
-        replicas=3,
-        selector=kubernetes.meta.v1.LabelSelectorArgs(
-            match_labels={
+    },
+    spec={
+        "replicas": 3,
+        "selector": {
+            "match_labels": {
                 "app": "nginx",
             },
-        ),
-        template=kubernetes.core.v1.PodTemplateSpecArgs(
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+        },
+        "template": {
+            "metadata": {
+                "labels": {
                     "app": "nginx",
                 },
-            ),
-            spec=kubernetes.core.v1.PodSpecArgs(
-                containers=[kubernetes.core.v1.ContainerArgs(
-                    image="nginx:1.14.2",
-                    name="nginx",
-                    ports=[kubernetes.core.v1.ContainerPortArgs(
-                        container_port=80,
-                    )],
-                )],
-            ),
-        ),
-    ))
+            },
+            "spec": {
+                "containers": [{
+                    "image": "nginx:1.14.2",
+                    "name": "nginx",
+                    "ports": [{
+                        "container_port": 80,
+                    }],
+                }],
+            },
+        },
+    })
 ```
 ```csharp
 using System.Collections.Generic;
@@ -202,8 +202,10 @@ import com.pulumi.kubernetes.apps_v1.inputs.DeploymentSpecArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -215,7 +217,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var deployment = new Deployment("deployment", DeploymentArgs.builder()        
+        var deployment = new Deployment("deployment", DeploymentArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .labels(Map.of("app", "nginx"))
                 .build())
@@ -272,7 +274,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -281,22 +283,25 @@ pulumi {
 }
 
 resource "kubernetes_apps_v1_deployment" "deployment" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     labels = {
-      app = "nginx"
+      "app" = "nginx"
     }
   }
   spec = {
     replicas = 3
     selector = {
       match_labels = {
-        app = "nginx"
+        "app" = "nginx"
       }
     }
     template = {
       metadata = {
         labels = {
-          app = "nginx"
+          "app" = "nginx"
         }
       }
       spec = {
@@ -358,36 +363,36 @@ import pulumi
 import pulumi_kubernetes as kubernetes
 
 deployment = kubernetes.apps.v1.Deployment("deployment",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        labels={
+    metadata={
+        "labels": {
             "app": "nginx",
         },
-        name="nginx-deployment",
-    ),
-    spec=kubernetes.apps.v1.DeploymentSpecArgs(
-        replicas=3,
-        selector=kubernetes.meta.v1.LabelSelectorArgs(
-            match_labels={
+        "name": "nginx-deployment",
+    },
+    spec={
+        "replicas": 3,
+        "selector": {
+            "match_labels": {
                 "app": "nginx",
             },
-        ),
-        template=kubernetes.core.v1.PodTemplateSpecArgs(
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+        },
+        "template": {
+            "metadata": {
+                "labels": {
                     "app": "nginx",
                 },
-            ),
-            spec=kubernetes.core.v1.PodSpecArgs(
-                containers=[kubernetes.core.v1.ContainerArgs(
-                    image="nginx:1.14.2",
-                    name="nginx",
-                    ports=[kubernetes.core.v1.ContainerPortArgs(
-                        container_port=80,
-                    )],
-                )],
-            ),
-        ),
-    ))
+            },
+            "spec": {
+                "containers": [{
+                    "image": "nginx:1.14.2",
+                    "name": "nginx",
+                    "ports": [{
+                        "container_port": 80,
+                    }],
+                }],
+            },
+        },
+    })
 ```
 ```csharp
 using System.Collections.Generic;
@@ -519,8 +524,10 @@ import com.pulumi.kubernetes.apps_v1.inputs.DeploymentSpecArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -532,7 +539,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var deployment = new Deployment("deployment", DeploymentArgs.builder()        
+        var deployment = new Deployment("deployment", DeploymentArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .labels(Map.of("app", "nginx"))
                 .name("nginx-deployment")
@@ -591,7 +598,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -600,9 +607,12 @@ pulumi {
 }
 
 resource "kubernetes_apps_v1_deployment" "deployment" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     labels = {
-      app = "nginx"
+      "app" = "nginx"
     }
     name = "nginx-deployment"
   }
@@ -610,13 +620,13 @@ resource "kubernetes_apps_v1_deployment" "deployment" {
     replicas = 3
     selector = {
       match_labels = {
-        app = "nginx"
+        "app" = "nginx"
       }
     }
     template = {
       metadata = {
         labels = {
-          app = "nginx"
+          "app" = "nginx"
         }
       }
       spec = {

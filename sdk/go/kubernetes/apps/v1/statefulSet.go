@@ -78,9 +78,7 @@ import (
 //							"app": pulumi.String("nginx"),
 //						},
 //					},
-//					ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (*string, error) {
-//						return &metadata.Name, nil
-//					}).(pulumi.StringPtrOutput),
+//					ServiceName: service.Metadata.Name(),
 //					Template: &corev1.PodTemplateSpecArgs{
 //						Metadata: &metav1.ObjectMetaArgs{
 //							Labels: pulumi.StringMap{
@@ -109,17 +107,17 @@ import (
 //							TerminationGracePeriodSeconds: pulumi.Int(10),
 //						},
 //					},
-//					VolumeClaimTemplates: []corev1.PersistentVolumeClaimTypeArgs{
-//						{
-//							Metadata: {
+//					VolumeClaimTemplates: corev1.PersistentVolumeClaimTypeArray{
+//						&corev1.PersistentVolumeClaimTypeArgs{
+//							Metadata: &metav1.ObjectMetaArgs{
 //								Name: pulumi.String("www"),
 //							},
-//							Spec: {
+//							Spec: &corev1.PersistentVolumeClaimSpecArgs{
 //								AccessModes: pulumi.StringArray{
 //									pulumi.String("ReadWriteOnce"),
 //								},
-//								Resources: {
-//									Requests: {
+//								Resources: &corev1.VolumeResourceRequirementsArgs{
+//									Requests: pulumi.StringMap{
 //										"storage": pulumi.String("1Gi"),
 //									},
 //								},
@@ -185,9 +183,7 @@ import (
 //							"app": pulumi.String("nginx"),
 //						},
 //					},
-//					ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (*string, error) {
-//						return &metadata.Name, nil
-//					}).(pulumi.StringPtrOutput),
+//					ServiceName: service.Metadata.Name(),
 //					Template: &corev1.PodTemplateSpecArgs{
 //						Metadata: &metav1.ObjectMetaArgs{
 //							Labels: pulumi.StringMap{
@@ -216,17 +212,17 @@ import (
 //							TerminationGracePeriodSeconds: pulumi.Int(10),
 //						},
 //					},
-//					VolumeClaimTemplates: []corev1.PersistentVolumeClaimTypeArgs{
-//						{
-//							Metadata: {
+//					VolumeClaimTemplates: corev1.PersistentVolumeClaimTypeArray{
+//						&corev1.PersistentVolumeClaimTypeArgs{
+//							Metadata: &metav1.ObjectMetaArgs{
 //								Name: pulumi.String("www"),
 //							},
-//							Spec: {
+//							Spec: &corev1.PersistentVolumeClaimSpecArgs{
 //								AccessModes: pulumi.StringArray{
 //									pulumi.String("ReadWriteOnce"),
 //								},
-//								Resources: {
-//									Requests: {
+//								Resources: &corev1.VolumeResourceRequirementsArgs{
+//									Requests: pulumi.StringMap{
 //										"storage": pulumi.String("1Gi"),
 //									},
 //								},

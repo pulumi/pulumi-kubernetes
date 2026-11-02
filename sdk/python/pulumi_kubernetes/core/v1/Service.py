@@ -130,16 +130,16 @@ class Service(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        service = kubernetes.core.v1.Service("service", spec=kubernetes.core.v1.ServiceSpecArgs(
-            ports=[kubernetes.core.v1.ServicePortArgs(
-                port=80,
-                protocol="TCP",
-                target_port=9376,
-            )],
-            selector={
+        service = kubernetes.core.v1.Service("service", spec={
+            "ports": [{
+                "port": 80,
+                "protocol": "TCP",
+                "target_port": 9376,
+            }],
+            "selector": {
                 "app": "MyApp",
             },
-        ))
+        })
         ```
         ### Create a Service with a user-specified name
         ```python
@@ -147,19 +147,19 @@ class Service(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         service = kubernetes.core.v1.Service("service",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="my-service",
-            ),
-            spec=kubernetes.core.v1.ServiceSpecArgs(
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    port=80,
-                    protocol="TCP",
-                    target_port=9376,
-                )],
-                selector={
+            metadata={
+                "name": "my-service",
+            },
+            spec={
+                "ports": [{
+                    "port": 80,
+                    "protocol": "TCP",
+                    "target_port": 9376,
+                }],
+                "selector": {
                     "app": "MyApp",
                 },
-            ))
+            })
         ```
 
 
@@ -202,16 +202,16 @@ class Service(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        service = kubernetes.core.v1.Service("service", spec=kubernetes.core.v1.ServiceSpecArgs(
-            ports=[kubernetes.core.v1.ServicePortArgs(
-                port=80,
-                protocol="TCP",
-                target_port=9376,
-            )],
-            selector={
+        service = kubernetes.core.v1.Service("service", spec={
+            "ports": [{
+                "port": 80,
+                "protocol": "TCP",
+                "target_port": 9376,
+            }],
+            "selector": {
                 "app": "MyApp",
             },
-        ))
+        })
         ```
         ### Create a Service with a user-specified name
         ```python
@@ -219,19 +219,19 @@ class Service(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         service = kubernetes.core.v1.Service("service",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="my-service",
-            ),
-            spec=kubernetes.core.v1.ServiceSpecArgs(
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    port=80,
-                    protocol="TCP",
-                    target_port=9376,
-                )],
-                selector={
+            metadata={
+                "name": "my-service",
+            },
+            spec={
+                "ports": [{
+                    "port": 80,
+                    "protocol": "TCP",
+                    "target_port": 9376,
+                }],
+                "selector": {
                     "app": "MyApp",
                 },
-            ))
+            })
         ```
 
 

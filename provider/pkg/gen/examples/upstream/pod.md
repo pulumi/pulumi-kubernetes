@@ -21,15 +21,15 @@ const pod = new kubernetes.core.v1.Pod("pod", {spec: {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-pod = kubernetes.core.v1.Pod("pod", spec=kubernetes.core.v1.PodSpecArgs(
-    containers=[kubernetes.core.v1.ContainerArgs(
-        image="nginx:1.14.2",
-        name="nginx",
-        ports=[kubernetes.core.v1.ContainerPortArgs(
-            container_port=80,
-        )],
-    )],
-))
+pod = kubernetes.core.v1.Pod("pod", spec={
+    "containers": [{
+        "image": "nginx:1.14.2",
+        "name": "nginx",
+        "ports": [{
+            "container_port": 80,
+        }],
+    }],
+})
 ```
 ```csharp
 using System.Collections.Generic;
@@ -105,8 +105,10 @@ import com.pulumi.core.Output;
 import com.pulumi.kubernetes.core_v1.Pod;
 import com.pulumi.kubernetes.core_v1.PodArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -118,7 +120,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var pod = new Pod("pod", PodArgs.builder()        
+        var pod = new Pod("pod", PodArgs.builder()
             .spec(PodSpecArgs.builder()
                 .containers(ContainerArgs.builder()
                     .image("nginx:1.14.2")
@@ -149,7 +151,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -158,6 +160,9 @@ pulumi {
 }
 
 resource "kubernetes_core_v1_pod" "pod" {
+  lifecycle {
+    create_before_destroy = true
+  }
   spec = {
     containers = [{
       image = "nginx:1.14.2"
@@ -197,18 +202,18 @@ import pulumi
 import pulumi_kubernetes as kubernetes
 
 pod = kubernetes.core.v1.Pod("pod",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        name="nginx",
-    ),
-    spec=kubernetes.core.v1.PodSpecArgs(
-        containers=[kubernetes.core.v1.ContainerArgs(
-            image="nginx:1.14.2",
-            name="nginx",
-            ports=[kubernetes.core.v1.ContainerPortArgs(
-                container_port=80,
-            )],
-        )],
-    ))
+    metadata={
+        "name": "nginx",
+    },
+    spec={
+        "containers": [{
+            "image": "nginx:1.14.2",
+            "name": "nginx",
+            "ports": [{
+                "container_port": 80,
+            }],
+        }],
+    })
 ```
 ```csharp
 using System.Collections.Generic;
@@ -293,8 +298,10 @@ import com.pulumi.kubernetes.core_v1.Pod;
 import com.pulumi.kubernetes.core_v1.PodArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -306,7 +313,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var pod = new Pod("pod", PodArgs.builder()        
+        var pod = new Pod("pod", PodArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .name("nginx")
                 .build())
@@ -342,7 +349,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -351,6 +358,9 @@ pulumi {
 }
 
 resource "kubernetes_core_v1_pod" "pod" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     name = "nginx"
   }

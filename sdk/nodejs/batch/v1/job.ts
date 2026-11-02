@@ -38,7 +38,7 @@ import * as utilities from "../../utilities";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
  * const job = new kubernetes.batch.v1.Job("job", {
- *     metadata: undefined,
+ *     metadata: null,
  *     spec: {
  *         backoffLimit: 4,
  *         template: {

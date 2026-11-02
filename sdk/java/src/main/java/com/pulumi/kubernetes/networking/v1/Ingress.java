@@ -48,8 +48,14 @@ import javax.annotation.Nullable;
  * import com.pulumi.kubernetes.networking.k8s.io_v1.IngressArgs;
  * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
  * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressSpecArgs;
- * import java.util.List;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressRuleArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.HTTPIngressRuleValueArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.HTTPIngressPathArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressBackendArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressServiceBackendArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.ServiceBackendPortArgs;
  * import java.util.ArrayList;
+ * import java.util.Arrays;
  * import java.util.Map;
  * import java.io.File;
  * import java.nio.file.Files;
@@ -61,7 +67,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var ingress = new Ingress("ingress", IngressArgs.builder()        
+ *         var ingress = new Ingress("ingress", IngressArgs.builder()
  *             .metadata(ObjectMetaArgs.builder()
  *                 .annotations(Map.of("nginx.ingress.kubernetes.io/rewrite-target", "/"))
  *                 .build())
@@ -101,8 +107,14 @@ import javax.annotation.Nullable;
  * import com.pulumi.kubernetes.networking.k8s.io_v1.IngressArgs;
  * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
  * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressSpecArgs;
- * import java.util.List;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressRuleArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.HTTPIngressRuleValueArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.HTTPIngressPathArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressBackendArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressServiceBackendArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.ServiceBackendPortArgs;
  * import java.util.ArrayList;
+ * import java.util.Arrays;
  * import java.util.Map;
  * import java.io.File;
  * import java.nio.file.Files;
@@ -114,7 +126,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var ingress = new Ingress("ingress", IngressArgs.builder()        
+ *         var ingress = new Ingress("ingress", IngressArgs.builder()
  *             .metadata(ObjectMetaArgs.builder()
  *                 .annotations(Map.of("nginx.ingress.kubernetes.io/rewrite-target", "/"))
  *                 .name("minimal-ingress")

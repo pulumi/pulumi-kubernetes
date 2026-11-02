@@ -127,15 +127,15 @@ class Pod(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        pod = kubernetes.core.v1.Pod("pod", spec=kubernetes.core.v1.PodSpecArgs(
-            containers=[kubernetes.core.v1.ContainerArgs(
-                image="nginx:1.14.2",
-                name="nginx",
-                ports=[kubernetes.core.v1.ContainerPortArgs(
-                    container_port=80,
-                )],
-            )],
-        ))
+        pod = kubernetes.core.v1.Pod("pod", spec={
+            "containers": [{
+                "image": "nginx:1.14.2",
+                "name": "nginx",
+                "ports": [{
+                    "container_port": 80,
+                }],
+            }],
+        })
         ```
         ### Create a Pod with a user-specified name
         ```python
@@ -143,18 +143,18 @@ class Pod(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         pod = kubernetes.core.v1.Pod("pod",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="nginx",
-            ),
-            spec=kubernetes.core.v1.PodSpecArgs(
-                containers=[kubernetes.core.v1.ContainerArgs(
-                    image="nginx:1.14.2",
-                    name="nginx",
-                    ports=[kubernetes.core.v1.ContainerPortArgs(
-                        container_port=80,
-                    )],
-                )],
-            ))
+            metadata={
+                "name": "nginx",
+            },
+            spec={
+                "containers": [{
+                    "image": "nginx:1.14.2",
+                    "name": "nginx",
+                    "ports": [{
+                        "container_port": 80,
+                    }],
+                }],
+            })
         ```
 
 
@@ -195,15 +195,15 @@ class Pod(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        pod = kubernetes.core.v1.Pod("pod", spec=kubernetes.core.v1.PodSpecArgs(
-            containers=[kubernetes.core.v1.ContainerArgs(
-                image="nginx:1.14.2",
-                name="nginx",
-                ports=[kubernetes.core.v1.ContainerPortArgs(
-                    container_port=80,
-                )],
-            )],
-        ))
+        pod = kubernetes.core.v1.Pod("pod", spec={
+            "containers": [{
+                "image": "nginx:1.14.2",
+                "name": "nginx",
+                "ports": [{
+                    "container_port": 80,
+                }],
+            }],
+        })
         ```
         ### Create a Pod with a user-specified name
         ```python
@@ -211,18 +211,18 @@ class Pod(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         pod = kubernetes.core.v1.Pod("pod",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="nginx",
-            ),
-            spec=kubernetes.core.v1.PodSpecArgs(
-                containers=[kubernetes.core.v1.ContainerArgs(
-                    image="nginx:1.14.2",
-                    name="nginx",
-                    ports=[kubernetes.core.v1.ContainerPortArgs(
-                        container_port=80,
-                    )],
-                )],
-            ))
+            metadata={
+                "name": "nginx",
+            },
+            spec={
+                "containers": [{
+                    "image": "nginx:1.14.2",
+                    "name": "nginx",
+                    "ports": [{
+                        "container_port": 80,
+                    }],
+                }],
+            })
         ```
 
 

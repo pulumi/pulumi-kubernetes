@@ -135,35 +135,35 @@ class Deployment(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         deployment = kubernetes.apps.v1.Deployment("deployment",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+            metadata={
+                "labels": {
                     "app": "nginx",
                 },
-            ),
-            spec=kubernetes.apps.v1.DeploymentSpecArgs(
-                replicas=3,
-                selector=kubernetes.meta.v1.LabelSelectorArgs(
-                    match_labels={
+            },
+            spec={
+                "replicas": 3,
+                "selector": {
+                    "match_labels": {
                         "app": "nginx",
                     },
-                ),
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                        labels={
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
                             "app": "nginx",
                         },
-                    ),
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            image="nginx:1.14.2",
-                            name="nginx",
-                            ports=[kubernetes.core.v1.ContainerPortArgs(
-                                container_port=80,
-                            )],
-                        )],
-                    ),
-                ),
-            ))
+                    },
+                    "spec": {
+                        "containers": [{
+                            "image": "nginx:1.14.2",
+                            "name": "nginx",
+                            "ports": [{
+                                "container_port": 80,
+                            }],
+                        }],
+                    },
+                },
+            })
         ```
         ### Create a Deployment with a user-specified name
         ```python
@@ -171,36 +171,36 @@ class Deployment(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         deployment = kubernetes.apps.v1.Deployment("deployment",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+            metadata={
+                "labels": {
                     "app": "nginx",
                 },
-                name="nginx-deployment",
-            ),
-            spec=kubernetes.apps.v1.DeploymentSpecArgs(
-                replicas=3,
-                selector=kubernetes.meta.v1.LabelSelectorArgs(
-                    match_labels={
+                "name": "nginx-deployment",
+            },
+            spec={
+                "replicas": 3,
+                "selector": {
+                    "match_labels": {
                         "app": "nginx",
                     },
-                ),
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                        labels={
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
                             "app": "nginx",
                         },
-                    ),
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            image="nginx:1.14.2",
-                            name="nginx",
-                            ports=[kubernetes.core.v1.ContainerPortArgs(
-                                container_port=80,
-                            )],
-                        )],
-                    ),
-                ),
-            ))
+                    },
+                    "spec": {
+                        "containers": [{
+                            "image": "nginx:1.14.2",
+                            "name": "nginx",
+                            "ports": [{
+                                "container_port": 80,
+                            }],
+                        }],
+                    },
+                },
+            })
         ```
 
 
@@ -249,35 +249,35 @@ class Deployment(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         deployment = kubernetes.apps.v1.Deployment("deployment",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+            metadata={
+                "labels": {
                     "app": "nginx",
                 },
-            ),
-            spec=kubernetes.apps.v1.DeploymentSpecArgs(
-                replicas=3,
-                selector=kubernetes.meta.v1.LabelSelectorArgs(
-                    match_labels={
+            },
+            spec={
+                "replicas": 3,
+                "selector": {
+                    "match_labels": {
                         "app": "nginx",
                     },
-                ),
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                        labels={
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
                             "app": "nginx",
                         },
-                    ),
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            image="nginx:1.14.2",
-                            name="nginx",
-                            ports=[kubernetes.core.v1.ContainerPortArgs(
-                                container_port=80,
-                            )],
-                        )],
-                    ),
-                ),
-            ))
+                    },
+                    "spec": {
+                        "containers": [{
+                            "image": "nginx:1.14.2",
+                            "name": "nginx",
+                            "ports": [{
+                                "container_port": 80,
+                            }],
+                        }],
+                    },
+                },
+            })
         ```
         ### Create a Deployment with a user-specified name
         ```python
@@ -285,36 +285,36 @@ class Deployment(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         deployment = kubernetes.apps.v1.Deployment("deployment",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+            metadata={
+                "labels": {
                     "app": "nginx",
                 },
-                name="nginx-deployment",
-            ),
-            spec=kubernetes.apps.v1.DeploymentSpecArgs(
-                replicas=3,
-                selector=kubernetes.meta.v1.LabelSelectorArgs(
-                    match_labels={
+                "name": "nginx-deployment",
+            },
+            spec={
+                "replicas": 3,
+                "selector": {
+                    "match_labels": {
                         "app": "nginx",
                     },
-                ),
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                        labels={
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
                             "app": "nginx",
                         },
-                    ),
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            image="nginx:1.14.2",
-                            name="nginx",
-                            ports=[kubernetes.core.v1.ContainerPortArgs(
-                                container_port=80,
-                            )],
-                        )],
-                    ),
-                ),
-            ))
+                    },
+                    "spec": {
+                        "containers": [{
+                            "image": "nginx:1.14.2",
+                            "name": "nginx",
+                            "ports": [{
+                                "container_port": 80,
+                            }],
+                        }],
+                    },
+                },
+            })
         ```
 
 

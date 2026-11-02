@@ -38,29 +38,29 @@ import pulumi
 import pulumi_kubernetes as kubernetes
 
 ingress = kubernetes.networking.v1.Ingress("ingress",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        annotations={
+    metadata={
+        "annotations": {
             "nginx.ingress.kubernetes.io/rewrite-target": "/",
         },
-    ),
-    spec=kubernetes.networking.v1.IngressSpecArgs(
-        rules=[kubernetes.networking.v1.IngressRuleArgs(
-            http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
-                paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                    backend=kubernetes.networking.v1.IngressBackendArgs(
-                        service=kubernetes.networking.v1.IngressServiceBackendArgs(
-                            name="test",
-                            port=kubernetes.networking.v1.ServiceBackendPortArgs(
-                                number=80,
-                            ),
-                        ),
-                    ),
-                    path="/testpath",
-                    path_type="Prefix",
-                )],
-            ),
-        )],
-    ))
+    },
+    spec={
+        "rules": [{
+            "http": {
+                "paths": [{
+                    "backend": {
+                        "service": {
+                            "name": "test",
+                            "port": {
+                                "number": 80,
+                            },
+                        },
+                    },
+                    "path": "/testpath",
+                    "path_type": "Prefix",
+                }],
+            },
+        }],
+    })
 ```
 ```csharp
 using System.Collections.Generic;
@@ -172,8 +172,14 @@ import com.pulumi.kubernetes.networking.k8s.io_v1.Ingress;
 import com.pulumi.kubernetes.networking.k8s.io_v1.IngressArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressRuleArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.HTTPIngressRuleValueArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.HTTPIngressPathArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressBackendArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressServiceBackendArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.ServiceBackendPortArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -185,7 +191,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var ingress = new Ingress("ingress", IngressArgs.builder()        
+        var ingress = new Ingress("ingress", IngressArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .annotations(Map.of("nginx.ingress.kubernetes.io/rewrite-target", "/"))
                 .build())
@@ -236,7 +242,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -245,6 +251,9 @@ pulumi {
 }
 
 resource "kubernetes_networking.k8s.io_v1_ingress" "ingress" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     annotations = {
       "nginx.ingress.kubernetes.io/rewrite-target" = "/"
@@ -310,30 +319,30 @@ import pulumi
 import pulumi_kubernetes as kubernetes
 
 ingress = kubernetes.networking.v1.Ingress("ingress",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        annotations={
+    metadata={
+        "annotations": {
             "nginx.ingress.kubernetes.io/rewrite-target": "/",
         },
-        name="minimal-ingress",
-    ),
-    spec=kubernetes.networking.v1.IngressSpecArgs(
-        rules=[kubernetes.networking.v1.IngressRuleArgs(
-            http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
-                paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                    backend=kubernetes.networking.v1.IngressBackendArgs(
-                        service=kubernetes.networking.v1.IngressServiceBackendArgs(
-                            name="test",
-                            port=kubernetes.networking.v1.ServiceBackendPortArgs(
-                                number=80,
-                            ),
-                        ),
-                    ),
-                    path="/testpath",
-                    path_type="Prefix",
-                )],
-            ),
-        )],
-    ))
+        "name": "minimal-ingress",
+    },
+    spec={
+        "rules": [{
+            "http": {
+                "paths": [{
+                    "backend": {
+                        "service": {
+                            "name": "test",
+                            "port": {
+                                "number": 80,
+                            },
+                        },
+                    },
+                    "path": "/testpath",
+                    "path_type": "Prefix",
+                }],
+            },
+        }],
+    })
 ```
 ```csharp
 using System.Collections.Generic;
@@ -447,8 +456,14 @@ import com.pulumi.kubernetes.networking.k8s.io_v1.Ingress;
 import com.pulumi.kubernetes.networking.k8s.io_v1.IngressArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressRuleArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.HTTPIngressRuleValueArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.HTTPIngressPathArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressBackendArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressServiceBackendArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.ServiceBackendPortArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -460,7 +475,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var ingress = new Ingress("ingress", IngressArgs.builder()        
+        var ingress = new Ingress("ingress", IngressArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .annotations(Map.of("nginx.ingress.kubernetes.io/rewrite-target", "/"))
                 .name("minimal-ingress")
@@ -513,7 +528,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -522,6 +537,9 @@ pulumi {
 }
 
 resource "kubernetes_networking.k8s.io_v1_ingress" "ingress" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     annotations = {
       "nginx.ingress.kubernetes.io/rewrite-target" = "/"

@@ -31,7 +31,7 @@ const statefulset = new kubernetes.apps.v1.StatefulSet("statefulset", {spec: {
             app: "nginx",
         },
     },
-    serviceName: service.metadata.apply(metadata => metadata?.name),
+    serviceName: service.metadata.name,
     template: {
         metadata: {
             labels: {
@@ -74,65 +74,65 @@ import pulumi
 import pulumi_kubernetes as kubernetes
 
 service = kubernetes.core.v1.Service("service",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        labels={
+    metadata={
+        "labels": {
             "app": "nginx",
         },
-    ),
-    spec=kubernetes.core.v1.ServiceSpecArgs(
-        cluster_ip="None",
-        ports=[kubernetes.core.v1.ServicePortArgs(
-            name="web",
-            port=80,
-        )],
-        selector={
+    },
+    spec={
+        "cluster_ip": "None",
+        "ports": [{
+            "name": "web",
+            "port": 80,
+        }],
+        "selector": {
             "app": "nginx",
         },
-    ))
-statefulset = kubernetes.apps.v1.StatefulSet("statefulset", spec=kubernetes.apps.v1.StatefulSetSpecArgs(
-    replicas=3,
-    selector=kubernetes.meta.v1.LabelSelectorArgs(
-        match_labels={
+    })
+statefulset = kubernetes.apps.v1.StatefulSet("statefulset", spec={
+    "replicas": 3,
+    "selector": {
+        "match_labels": {
             "app": "nginx",
         },
-    ),
-    service_name=service.metadata.name,
-    template=kubernetes.core.v1.PodTemplateSpecArgs(
-        metadata=kubernetes.meta.v1.ObjectMetaArgs(
-            labels={
+    },
+    "service_name": service.metadata.name,
+    "template": {
+        "metadata": {
+            "labels": {
                 "app": "nginx",
             },
-        ),
-        spec=kubernetes.core.v1.PodSpecArgs(
-            containers=[kubernetes.core.v1.ContainerArgs(
-                image="nginx:stable-alpine3.17-slim",
-                name="nginx",
-                ports=[kubernetes.core.v1.ContainerPortArgs(
-                    container_port=80,
-                    name="web",
-                )],
-                volume_mounts=[kubernetes.core.v1.VolumeMountArgs(
-                    mount_path="/usr/share/nginx/html",
-                    name="www",
-                )],
-            )],
-            termination_grace_period_seconds=10,
-        ),
-    ),
-    volume_claim_templates=[kubernetes.core.v1.PersistentVolumeClaimArgs(
-        metadata=kubernetes.meta.v1.ObjectMetaArgs(
-            name="www",
-        ),
-        spec=kubernetes.core.v1.PersistentVolumeClaimSpecArgs(
-            access_modes=["ReadWriteOnce"],
-            resources=kubernetes.core.v1.ResourceRequirementsArgs(
-                requests={
+        },
+        "spec": {
+            "containers": [{
+                "image": "nginx:stable-alpine3.17-slim",
+                "name": "nginx",
+                "ports": [{
+                    "container_port": 80,
+                    "name": "web",
+                }],
+                "volume_mounts": [{
+                    "mount_path": "/usr/share/nginx/html",
+                    "name": "www",
+                }],
+            }],
+            "termination_grace_period_seconds": 10,
+        },
+    },
+    "volume_claim_templates": [{
+        "metadata": {
+            "name": "www",
+        },
+        "spec": {
+            "access_modes": ["ReadWriteOnce"],
+            "resources": {
+                "requests": {
                     "storage": "1Gi",
                 },
-            ),
-        ),
-    )],
-))
+            },
+        },
+    }],
+})
 ```
 ```csharp
 using System.Collections.Generic;
@@ -181,7 +181,7 @@ return await Deployment.RunAsync(() =>
                     { "app", "nginx" },
                 },
             },
-            ServiceName = service.Metadata.Apply(metadata => metadata?.Name),
+            ServiceName = service.Metadata.Apply(metadata => metadata.Name),
             Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
             {
                 Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
@@ -220,7 +220,7 @@ return await Deployment.RunAsync(() =>
                     TerminationGracePeriodSeconds = 10,
                 },
             },
-            VolumeClaimTemplates = new[]
+            VolumeClaimTemplates = 
             {
                 new Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimArgs
                 {
@@ -234,7 +234,7 @@ return await Deployment.RunAsync(() =>
                         {
                             "ReadWriteOnce",
                         },
-                        Resources = new Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs
+                        Resources = new Kubernetes.Types.Inputs.Core.V1.VolumeResourceRequirementsArgs
                         {
                             Requests = 
                             {
@@ -292,9 +292,7 @@ func main() {
 						"app": pulumi.String("nginx"),
 					},
 				},
-				ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (*string, error) {
-					return &metadata.Name, nil
-				}).(pulumi.StringPtrOutput),
+				ServiceName: service.Metadata.Name(),
 				Template: &corev1.PodTemplateSpecArgs{
 					Metadata: &metav1.ObjectMetaArgs{
 						Labels: pulumi.StringMap{
@@ -323,17 +321,17 @@ func main() {
 						TerminationGracePeriodSeconds: pulumi.Int(10),
 					},
 				},
-				VolumeClaimTemplates: []corev1.PersistentVolumeClaimTypeArgs{
-					{
-						Metadata: {
+				VolumeClaimTemplates: corev1.PersistentVolumeClaimTypeArray{
+					&corev1.PersistentVolumeClaimTypeArgs{
+						Metadata: &metav1.ObjectMetaArgs{
 							Name: pulumi.String("www"),
 						},
-						Spec: {
+						Spec: &corev1.PersistentVolumeClaimSpecArgs{
 							AccessModes: pulumi.StringArray{
 								pulumi.String("ReadWriteOnce"),
 							},
-							Resources: {
-								Requests: {
+							Resources: &corev1.VolumeResourceRequirementsArgs{
+								Requests: pulumi.StringMap{
 									"storage": pulumi.String("1Gi"),
 								},
 							},
@@ -359,14 +357,21 @@ import com.pulumi.kubernetes.core_v1.Service;
 import com.pulumi.kubernetes.core_v1.ServiceArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.ServicePortArgs;
 import com.pulumi.kubernetes.apps_v1.StatefulSet;
 import com.pulumi.kubernetes.apps_v1.StatefulSetArgs;
 import com.pulumi.kubernetes.apps_v1.inputs.StatefulSetSpecArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
+import com.pulumi.kubernetes.core_v1.inputs.VolumeMountArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PersistentVolumeClaimArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PersistentVolumeClaimSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.VolumeResourceRequirementsArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -378,7 +383,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var service = new Service("service", ServiceArgs.builder()        
+        var service = new Service("service", ServiceArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .labels(Map.of("app", "nginx"))
                 .build())
@@ -392,13 +397,13 @@ public class App {
                 .build())
             .build());
 
-        var statefulset = new StatefulSet("statefulset", StatefulSetArgs.builder()        
+        var statefulset = new StatefulSet("statefulset", StatefulSetArgs.builder()
             .spec(StatefulSetSpecArgs.builder()
                 .replicas(3)
                 .selector(LabelSelectorArgs.builder()
                     .matchLabels(Map.of("app", "nginx"))
                     .build())
-                .serviceName(service.metadata().applyValue(metadata -> metadata.name()))
+                .serviceName(service.metadata().applyValue(_metadata -> _metadata.name()))
                 .template(PodTemplateSpecArgs.builder()
                     .metadata(ObjectMetaArgs.builder()
                         .labels(Map.of("app", "nginx"))
@@ -425,7 +430,7 @@ public class App {
                         .build())
                     .spec(PersistentVolumeClaimSpecArgs.builder()
                         .accessModes("ReadWriteOnce")
-                        .resources(ResourceRequirementsArgs.builder()
+                        .resources(VolumeResourceRequirementsArgs.builder()
                             .requests(Map.of("storage", "1Gi"))
                             .build())
                         .build())
@@ -489,7 +494,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -498,9 +503,12 @@ pulumi {
 }
 
 resource "kubernetes_core_v1_service" "service" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     labels = {
-      app = "nginx"
+      "app" = "nginx"
     }
   }
   spec = {
@@ -510,24 +518,26 @@ resource "kubernetes_core_v1_service" "service" {
       port = 80
     }]
     selector = {
-      app = "nginx"
+      "app" = "nginx"
     }
   }
 }
-
 resource "kubernetes_apps_v1_stateful_set" "statefulset" {
+  lifecycle {
+    create_before_destroy = true
+  }
   spec = {
     replicas = 3
     selector = {
       match_labels = {
-        app = "nginx"
+        "app" = "nginx"
       }
     }
     service_name = kubernetes_core_v1_service.service.metadata.name
     template = {
       metadata = {
         labels = {
-          app = "nginx"
+          "app" = "nginx"
         }
       }
       spec = {
@@ -554,7 +564,7 @@ resource "kubernetes_apps_v1_stateful_set" "statefulset" {
         access_modes = ["ReadWriteOnce"]
         resources = {
           requests = {
-            storage = "1Gi"
+            "storage" = "1Gi"
           }
         }
       }
@@ -599,7 +609,7 @@ const statefulset = new kubernetes.apps.v1.StatefulSet("statefulset", {
                 app: "nginx",
             },
         },
-        serviceName: service.metadata.apply(metadata => metadata?.name),
+        serviceName: service.metadata.name,
         template: {
             metadata: {
                 labels: {
@@ -643,70 +653,70 @@ import pulumi
 import pulumi_kubernetes as kubernetes
 
 service = kubernetes.core.v1.Service("service",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        labels={
+    metadata={
+        "labels": {
             "app": "nginx",
         },
-        name="nginx",
-    ),
-    spec=kubernetes.core.v1.ServiceSpecArgs(
-        cluster_ip="None",
-        ports=[kubernetes.core.v1.ServicePortArgs(
-            name="web",
-            port=80,
-        )],
-        selector={
+        "name": "nginx",
+    },
+    spec={
+        "cluster_ip": "None",
+        "ports": [{
+            "name": "web",
+            "port": 80,
+        }],
+        "selector": {
             "app": "nginx",
         },
-    ))
+    })
 statefulset = kubernetes.apps.v1.StatefulSet("statefulset",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        name="web",
-    ),
-    spec=kubernetes.apps.v1.StatefulSetSpecArgs(
-        replicas=3,
-        selector=kubernetes.meta.v1.LabelSelectorArgs(
-            match_labels={
+    metadata={
+        "name": "web",
+    },
+    spec={
+        "replicas": 3,
+        "selector": {
+            "match_labels": {
                 "app": "nginx",
             },
-        ),
-        service_name=service.metadata.name,
-        template=kubernetes.core.v1.PodTemplateSpecArgs(
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+        },
+        "service_name": service.metadata.name,
+        "template": {
+            "metadata": {
+                "labels": {
                     "app": "nginx",
                 },
-            ),
-            spec=kubernetes.core.v1.PodSpecArgs(
-                containers=[kubernetes.core.v1.ContainerArgs(
-                    image="nginx:stable-alpine3.17-slim",
-                    name="nginx",
-                    ports=[kubernetes.core.v1.ContainerPortArgs(
-                        container_port=80,
-                        name="web",
-                    )],
-                    volume_mounts=[kubernetes.core.v1.VolumeMountArgs(
-                        mount_path="/usr/share/nginx/html",
-                        name="www",
-                    )],
-                )],
-                termination_grace_period_seconds=10,
-            ),
-        ),
-        volume_claim_templates=[kubernetes.core.v1.PersistentVolumeClaimArgs(
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="www",
-            ),
-            spec=kubernetes.core.v1.PersistentVolumeClaimSpecArgs(
-                access_modes=["ReadWriteOnce"],
-                resources=kubernetes.core.v1.ResourceRequirementsArgs(
-                    requests={
+            },
+            "spec": {
+                "containers": [{
+                    "image": "nginx:stable-alpine3.17-slim",
+                    "name": "nginx",
+                    "ports": [{
+                        "container_port": 80,
+                        "name": "web",
+                    }],
+                    "volume_mounts": [{
+                        "mount_path": "/usr/share/nginx/html",
+                        "name": "www",
+                    }],
+                }],
+                "termination_grace_period_seconds": 10,
+            },
+        },
+        "volume_claim_templates": [{
+            "metadata": {
+                "name": "www",
+            },
+            "spec": {
+                "access_modes": ["ReadWriteOnce"],
+                "resources": {
+                    "requests": {
                         "storage": "1Gi",
                     },
-                ),
-            ),
-        )],
-    ))
+                },
+            },
+        }],
+    })
 ```
 ```csharp
 using System.Collections.Generic;
@@ -760,7 +770,7 @@ return await Deployment.RunAsync(() =>
                     { "app", "nginx" },
                 },
             },
-            ServiceName = service.Metadata.Apply(metadata => metadata?.Name),
+            ServiceName = service.Metadata.Apply(metadata => metadata.Name),
             Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
             {
                 Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
@@ -799,7 +809,7 @@ return await Deployment.RunAsync(() =>
                     TerminationGracePeriodSeconds = 10,
                 },
             },
-            VolumeClaimTemplates = new[]
+            VolumeClaimTemplates = 
             {
                 new Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimArgs
                 {
@@ -813,7 +823,7 @@ return await Deployment.RunAsync(() =>
                         {
                             "ReadWriteOnce",
                         },
-                        Resources = new Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs
+                        Resources = new Kubernetes.Types.Inputs.Core.V1.VolumeResourceRequirementsArgs
                         {
                             Requests = 
                             {
@@ -875,9 +885,7 @@ func main() {
 						"app": pulumi.String("nginx"),
 					},
 				},
-				ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (*string, error) {
-					return &metadata.Name, nil
-				}).(pulumi.StringPtrOutput),
+				ServiceName: service.Metadata.Name(),
 				Template: &corev1.PodTemplateSpecArgs{
 					Metadata: &metav1.ObjectMetaArgs{
 						Labels: pulumi.StringMap{
@@ -906,17 +914,17 @@ func main() {
 						TerminationGracePeriodSeconds: pulumi.Int(10),
 					},
 				},
-				VolumeClaimTemplates: []corev1.PersistentVolumeClaimTypeArgs{
-					{
-						Metadata: {
+				VolumeClaimTemplates: corev1.PersistentVolumeClaimTypeArray{
+					&corev1.PersistentVolumeClaimTypeArgs{
+						Metadata: &metav1.ObjectMetaArgs{
 							Name: pulumi.String("www"),
 						},
-						Spec: {
+						Spec: &corev1.PersistentVolumeClaimSpecArgs{
 							AccessModes: pulumi.StringArray{
 								pulumi.String("ReadWriteOnce"),
 							},
-							Resources: {
-								Requests: {
+							Resources: &corev1.VolumeResourceRequirementsArgs{
+								Requests: pulumi.StringMap{
 									"storage": pulumi.String("1Gi"),
 								},
 							},
@@ -942,14 +950,21 @@ import com.pulumi.kubernetes.core_v1.Service;
 import com.pulumi.kubernetes.core_v1.ServiceArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.ServicePortArgs;
 import com.pulumi.kubernetes.apps_v1.StatefulSet;
 import com.pulumi.kubernetes.apps_v1.StatefulSetArgs;
 import com.pulumi.kubernetes.apps_v1.inputs.StatefulSetSpecArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
+import com.pulumi.kubernetes.core_v1.inputs.VolumeMountArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PersistentVolumeClaimArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PersistentVolumeClaimSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.VolumeResourceRequirementsArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -961,7 +976,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var service = new Service("service", ServiceArgs.builder()        
+        var service = new Service("service", ServiceArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .labels(Map.of("app", "nginx"))
                 .name("nginx")
@@ -976,7 +991,7 @@ public class App {
                 .build())
             .build());
 
-        var statefulset = new StatefulSet("statefulset", StatefulSetArgs.builder()        
+        var statefulset = new StatefulSet("statefulset", StatefulSetArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .name("web")
                 .build())
@@ -985,7 +1000,7 @@ public class App {
                 .selector(LabelSelectorArgs.builder()
                     .matchLabels(Map.of("app", "nginx"))
                     .build())
-                .serviceName(service.metadata().applyValue(metadata -> metadata.name()))
+                .serviceName(service.metadata().applyValue(_metadata -> _metadata.name()))
                 .template(PodTemplateSpecArgs.builder()
                     .metadata(ObjectMetaArgs.builder()
                         .labels(Map.of("app", "nginx"))
@@ -1012,7 +1027,7 @@ public class App {
                         .build())
                     .spec(PersistentVolumeClaimSpecArgs.builder()
                         .accessModes("ReadWriteOnce")
-                        .resources(ResourceRequirementsArgs.builder()
+                        .resources(VolumeResourceRequirementsArgs.builder()
                             .requests(Map.of("storage", "1Gi"))
                             .build())
                         .build())
@@ -1079,7 +1094,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -1088,9 +1103,12 @@ pulumi {
 }
 
 resource "kubernetes_core_v1_service" "service" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     labels = {
-      app = "nginx"
+      "app" = "nginx"
     }
     name = "nginx"
   }
@@ -1101,12 +1119,14 @@ resource "kubernetes_core_v1_service" "service" {
       port = 80
     }]
     selector = {
-      app = "nginx"
+      "app" = "nginx"
     }
   }
 }
-
 resource "kubernetes_apps_v1_stateful_set" "statefulset" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     name = "web"
   }
@@ -1114,14 +1134,14 @@ resource "kubernetes_apps_v1_stateful_set" "statefulset" {
     replicas = 3
     selector = {
       match_labels = {
-        app = "nginx"
+        "app" = "nginx"
       }
     }
     service_name = kubernetes_core_v1_service.service.metadata.name
     template = {
       metadata = {
         labels = {
-          app = "nginx"
+          "app" = "nginx"
         }
       }
       spec = {
@@ -1148,7 +1168,7 @@ resource "kubernetes_apps_v1_stateful_set" "statefulset" {
         access_modes = ["ReadWriteOnce"]
         resources = {
           requests = {
-            storage = "1Gi"
+            "storage" = "1Gi"
           }
         }
       }
