@@ -1,3 +1,0 @@
-name: provider
-description: A program that smoke-tests Kubernetes first-class providers
-runtime: python

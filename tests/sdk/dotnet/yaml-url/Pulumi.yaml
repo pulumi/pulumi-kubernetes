@@ -1,3 +1,0 @@
-name: dotnet_yaml_url
-description: A test of a ConfigFile parsing YAML from a URL.
-runtime: dotnet

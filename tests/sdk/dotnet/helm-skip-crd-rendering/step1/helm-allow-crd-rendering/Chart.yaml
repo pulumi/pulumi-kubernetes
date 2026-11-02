@@ -1,4 +1,0 @@
-deprecated: true
-description: Chart to test the default behavior of allowing crd rendering
-name: allow-rendering-test
-version: 0.0.1

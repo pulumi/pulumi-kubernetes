@@ -1,3 +1,0 @@
-name: dotnet_yaml_uninitialized_provider
-description: A test of the yaml resoures with an uninitialized provider
-runtime: dotnet

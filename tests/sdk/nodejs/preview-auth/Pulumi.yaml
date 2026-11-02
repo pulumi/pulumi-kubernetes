@@ -1,3 +1,0 @@
-name: preview-auth-tests
-description: Tests SSA previews with restricted auth.
-runtime: nodejs
