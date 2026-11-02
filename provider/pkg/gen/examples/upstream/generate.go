@@ -199,6 +199,7 @@ func convert(dir, language, outDir string, mainFile ...string) (string, error) {
 }
 
 // unpinProviderVersions removes `version` from each provider in `terraform { required_providers { ... } }`.
+// The converter pins whichever provider version is installed, which would change the docs on every release.
 func unpinProviderVersions(program string) (string, error) {
 	f, diags := hclwrite.ParseConfig([]byte(program), "program.tf", hcl.InitialPos)
 	if diags.HasErrors() {
