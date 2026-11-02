@@ -187,4 +187,4 @@ jobs:
           fi
           gh pr create -t "$title" -b "$body"
         env:
-          GITHUB_TOKEN: ${{ steps.esc-secrets.outputs.PULUMI_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-auth.outputs.token }}
