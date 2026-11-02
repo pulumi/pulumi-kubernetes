@@ -134,26 +134,24 @@ class Job(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        job = kubernetes.batch.v1.Job("job",
-            metadata=None,
-            spec={
-                "backoff_limit": 4,
-                "template": {
-                    "spec": {
-                        "containers": [{
-                            "command": [
-                                "perl",
-                                "-Mbignum=bpi",
-                                "-wle",
-                                "print bpi(2000)",
-                            ],
-                            "image": "perl",
-                            "name": "pi",
-                        }],
-                        "restart_policy": "Never",
-                    },
+        job = kubernetes.batch.v1.Job("job", spec={
+            "backoff_limit": 4,
+            "template": {
+                "spec": {
+                    "containers": [{
+                        "command": [
+                            "perl",
+                            "-Mbignum=bpi",
+                            "-wle",
+                            "print bpi(2000)",
+                        ],
+                        "image": "perl",
+                        "name": "pi",
+                    }],
+                    "restart_policy": "Never",
                 },
-            })
+            },
+        })
         ```
         ### Create a Job with a user-specified name
         ```python
@@ -227,26 +225,24 @@ class Job(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        job = kubernetes.batch.v1.Job("job",
-            metadata=None,
-            spec={
-                "backoff_limit": 4,
-                "template": {
-                    "spec": {
-                        "containers": [{
-                            "command": [
-                                "perl",
-                                "-Mbignum=bpi",
-                                "-wle",
-                                "print bpi(2000)",
-                            ],
-                            "image": "perl",
-                            "name": "pi",
-                        }],
-                        "restart_policy": "Never",
-                    },
+        job = kubernetes.batch.v1.Job("job", spec={
+            "backoff_limit": 4,
+            "template": {
+                "spec": {
+                    "containers": [{
+                        "command": [
+                            "perl",
+                            "-Mbignum=bpi",
+                            "-wle",
+                            "print bpi(2000)",
+                        ],
+                        "image": "perl",
+                        "name": "pi",
+                    }],
+                    "restart_policy": "Never",
                 },
-            })
+            },
+        })
         ```
         ### Create a Job with a user-specified name
         ```python

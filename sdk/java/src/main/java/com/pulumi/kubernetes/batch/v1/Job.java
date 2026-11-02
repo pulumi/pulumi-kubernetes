@@ -68,7 +68,6 @@ import javax.annotation.Nullable;
  * 
  *     public static void stack(Context ctx) {
  *         var job = new Job("job", JobArgs.builder()
- *             .metadata(null)
  *             .spec(JobSpecArgs.builder()
  *                 .backoffLimit(4)
  *                 .template(PodTemplateSpecArgs.builder()

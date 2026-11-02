@@ -44,7 +44,6 @@ namespace Pulumi.Kubernetes.Batch.V1
     /// {
     ///     var job = new Kubernetes.Batch.V1.Job("job", new()
     ///     {
-    ///         Metadata = null,
     ///         Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
     ///         {
     ///             BackoffLimit = 4,
