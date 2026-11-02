@@ -78,7 +78,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     ///                     { "app", "nginx" },
     ///                 },
     ///             },
-    ///             ServiceName = service.Metadata.Apply(metadata =&gt; metadata?.Name),
+    ///             ServiceName = service.Metadata.Apply(metadata =&gt; metadata.Name),
     ///             Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
     ///             {
     ///                 Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
@@ -117,7 +117,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     ///                     TerminationGracePeriodSeconds = 10,
     ///                 },
     ///             },
-    ///             VolumeClaimTemplates = new[]
+    ///             VolumeClaimTemplates = 
     ///             {
     ///                 new Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimArgs
     ///                 {
@@ -131,7 +131,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     ///                         {
     ///                             "ReadWriteOnce",
     ///                         },
-    ///                         Resources = new Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs
+    ///                         Resources = new Kubernetes.Types.Inputs.Core.V1.VolumeResourceRequirementsArgs
     ///                         {
     ///                             Requests = 
     ///                             {
@@ -200,7 +200,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     ///                     { "app", "nginx" },
     ///                 },
     ///             },
-    ///             ServiceName = service.Metadata.Apply(metadata =&gt; metadata?.Name),
+    ///             ServiceName = service.Metadata.Apply(metadata =&gt; metadata.Name),
     ///             Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
     ///             {
     ///                 Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
@@ -239,7 +239,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     ///                     TerminationGracePeriodSeconds = 10,
     ///                 },
     ///             },
-    ///             VolumeClaimTemplates = new[]
+    ///             VolumeClaimTemplates = 
     ///             {
     ///                 new Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimArgs
     ///                 {
@@ -253,7 +253,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     ///                         {
     ///                             "ReadWriteOnce",
     ///                         },
-    ///                         Resources = new Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs
+    ///                         Resources = new Kubernetes.Types.Inputs.Core.V1.VolumeResourceRequirementsArgs
     ///                         {
     ///                             Requests = 
     ///                             {

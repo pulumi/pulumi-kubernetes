@@ -51,14 +51,21 @@ import javax.annotation.Nullable;
  * import com.pulumi.kubernetes.core_v1.ServiceArgs;
  * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ServicePortArgs;
  * import com.pulumi.kubernetes.apps_v1.StatefulSet;
  * import com.pulumi.kubernetes.apps_v1.StatefulSetArgs;
  * import com.pulumi.kubernetes.apps_v1.inputs.StatefulSetSpecArgs;
  * import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
- * import java.util.List;
+ * import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.VolumeMountArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PersistentVolumeClaimArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PersistentVolumeClaimSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.VolumeResourceRequirementsArgs;
  * import java.util.ArrayList;
+ * import java.util.Arrays;
  * import java.util.Map;
  * import java.io.File;
  * import java.nio.file.Files;
@@ -70,7 +77,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var service = new Service("service", ServiceArgs.builder()        
+ *         var service = new Service("service", ServiceArgs.builder()
  *             .metadata(ObjectMetaArgs.builder()
  *                 .labels(Map.of("app", "nginx"))
  *                 .build())
@@ -84,13 +91,13 @@ import javax.annotation.Nullable;
  *                 .build())
  *             .build());
  * 
- *         var statefulset = new StatefulSet("statefulset", StatefulSetArgs.builder()        
+ *         var statefulset = new StatefulSet("statefulset", StatefulSetArgs.builder()
  *             .spec(StatefulSetSpecArgs.builder()
  *                 .replicas(3)
  *                 .selector(LabelSelectorArgs.builder()
  *                     .matchLabels(Map.of("app", "nginx"))
  *                     .build())
- *                 .serviceName(service.metadata().applyValue(metadata -> metadata.name()))
+ *                 .serviceName(service.metadata().applyValue(_metadata -> _metadata.name()))
  *                 .template(PodTemplateSpecArgs.builder()
  *                     .metadata(ObjectMetaArgs.builder()
  *                         .labels(Map.of("app", "nginx"))
@@ -117,7 +124,7 @@ import javax.annotation.Nullable;
  *                         .build())
  *                     .spec(PersistentVolumeClaimSpecArgs.builder()
  *                         .accessModes("ReadWriteOnce")
- *                         .resources(ResourceRequirementsArgs.builder()
+ *                         .resources(VolumeResourceRequirementsArgs.builder()
  *                             .requests(Map.of("storage", "1Gi"))
  *                             .build())
  *                         .build())
@@ -141,14 +148,21 @@ import javax.annotation.Nullable;
  * import com.pulumi.kubernetes.core_v1.ServiceArgs;
  * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ServicePortArgs;
  * import com.pulumi.kubernetes.apps_v1.StatefulSet;
  * import com.pulumi.kubernetes.apps_v1.StatefulSetArgs;
  * import com.pulumi.kubernetes.apps_v1.inputs.StatefulSetSpecArgs;
  * import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
- * import java.util.List;
+ * import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.VolumeMountArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PersistentVolumeClaimArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PersistentVolumeClaimSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.VolumeResourceRequirementsArgs;
  * import java.util.ArrayList;
+ * import java.util.Arrays;
  * import java.util.Map;
  * import java.io.File;
  * import java.nio.file.Files;
@@ -160,7 +174,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var service = new Service("service", ServiceArgs.builder()        
+ *         var service = new Service("service", ServiceArgs.builder()
  *             .metadata(ObjectMetaArgs.builder()
  *                 .labels(Map.of("app", "nginx"))
  *                 .name("nginx")
@@ -175,7 +189,7 @@ import javax.annotation.Nullable;
  *                 .build())
  *             .build());
  * 
- *         var statefulset = new StatefulSet("statefulset", StatefulSetArgs.builder()        
+ *         var statefulset = new StatefulSet("statefulset", StatefulSetArgs.builder()
  *             .metadata(ObjectMetaArgs.builder()
  *                 .name("web")
  *                 .build())
@@ -184,7 +198,7 @@ import javax.annotation.Nullable;
  *                 .selector(LabelSelectorArgs.builder()
  *                     .matchLabels(Map.of("app", "nginx"))
  *                     .build())
- *                 .serviceName(service.metadata().applyValue(metadata -> metadata.name()))
+ *                 .serviceName(service.metadata().applyValue(_metadata -> _metadata.name()))
  *                 .template(PodTemplateSpecArgs.builder()
  *                     .metadata(ObjectMetaArgs.builder()
  *                         .labels(Map.of("app", "nginx"))
@@ -211,7 +225,7 @@ import javax.annotation.Nullable;
  *                         .build())
  *                     .spec(PersistentVolumeClaimSpecArgs.builder()
  *                         .accessModes("ReadWriteOnce")
- *                         .resources(ResourceRequirementsArgs.builder()
+ *                         .resources(VolumeResourceRequirementsArgs.builder()
  *                             .requests(Map.of("storage", "1Gi"))
  *                             .build())
  *                         .build())

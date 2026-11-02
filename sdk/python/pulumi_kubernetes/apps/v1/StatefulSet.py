@@ -130,65 +130,65 @@ class StatefulSet(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         service = kubernetes.core.v1.Service("service",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+            metadata={
+                "labels": {
                     "app": "nginx",
                 },
-            ),
-            spec=kubernetes.core.v1.ServiceSpecArgs(
-                cluster_ip="None",
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    name="web",
-                    port=80,
-                )],
-                selector={
+            },
+            spec={
+                "cluster_ip": "None",
+                "ports": [{
+                    "name": "web",
+                    "port": 80,
+                }],
+                "selector": {
                     "app": "nginx",
                 },
-            ))
-        statefulset = kubernetes.apps.v1.StatefulSet("statefulset", spec=kubernetes.apps.v1.StatefulSetSpecArgs(
-            replicas=3,
-            selector=kubernetes.meta.v1.LabelSelectorArgs(
-                match_labels={
+            })
+        statefulset = kubernetes.apps.v1.StatefulSet("statefulset", spec={
+            "replicas": 3,
+            "selector": {
+                "match_labels": {
                     "app": "nginx",
                 },
-            ),
-            service_name=service.metadata.name,
-            template=kubernetes.core.v1.PodTemplateSpecArgs(
-                metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                    labels={
+            },
+            "service_name": service.metadata.name,
+            "template": {
+                "metadata": {
+                    "labels": {
                         "app": "nginx",
                     },
-                ),
-                spec=kubernetes.core.v1.PodSpecArgs(
-                    containers=[kubernetes.core.v1.ContainerArgs(
-                        image="nginx:stable-alpine3.17-slim",
-                        name="nginx",
-                        ports=[kubernetes.core.v1.ContainerPortArgs(
-                            container_port=80,
-                            name="web",
-                        )],
-                        volume_mounts=[kubernetes.core.v1.VolumeMountArgs(
-                            mount_path="/usr/share/nginx/html",
-                            name="www",
-                        )],
-                    )],
-                    termination_grace_period_seconds=10,
-                ),
-            ),
-            volume_claim_templates=[kubernetes.core.v1.PersistentVolumeClaimArgs(
-                metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                    name="www",
-                ),
-                spec=kubernetes.core.v1.PersistentVolumeClaimSpecArgs(
-                    access_modes=["ReadWriteOnce"],
-                    resources=kubernetes.core.v1.ResourceRequirementsArgs(
-                        requests={
+                },
+                "spec": {
+                    "containers": [{
+                        "image": "nginx:stable-alpine3.17-slim",
+                        "name": "nginx",
+                        "ports": [{
+                            "container_port": 80,
+                            "name": "web",
+                        }],
+                        "volume_mounts": [{
+                            "mount_path": "/usr/share/nginx/html",
+                            "name": "www",
+                        }],
+                    }],
+                    "termination_grace_period_seconds": 10,
+                },
+            },
+            "volume_claim_templates": [{
+                "metadata": {
+                    "name": "www",
+                },
+                "spec": {
+                    "access_modes": ["ReadWriteOnce"],
+                    "resources": {
+                        "requests": {
                             "storage": "1Gi",
                         },
-                    ),
-                ),
-            )],
-        ))
+                    },
+                },
+            }],
+        })
         ```
         ### Create a StatefulSet with a user-specified name
         ```python
@@ -196,70 +196,70 @@ class StatefulSet(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         service = kubernetes.core.v1.Service("service",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+            metadata={
+                "labels": {
                     "app": "nginx",
                 },
-                name="nginx",
-            ),
-            spec=kubernetes.core.v1.ServiceSpecArgs(
-                cluster_ip="None",
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    name="web",
-                    port=80,
-                )],
-                selector={
+                "name": "nginx",
+            },
+            spec={
+                "cluster_ip": "None",
+                "ports": [{
+                    "name": "web",
+                    "port": 80,
+                }],
+                "selector": {
                     "app": "nginx",
                 },
-            ))
+            })
         statefulset = kubernetes.apps.v1.StatefulSet("statefulset",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="web",
-            ),
-            spec=kubernetes.apps.v1.StatefulSetSpecArgs(
-                replicas=3,
-                selector=kubernetes.meta.v1.LabelSelectorArgs(
-                    match_labels={
+            metadata={
+                "name": "web",
+            },
+            spec={
+                "replicas": 3,
+                "selector": {
+                    "match_labels": {
                         "app": "nginx",
                     },
-                ),
-                service_name=service.metadata.name,
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                        labels={
+                },
+                "service_name": service.metadata.name,
+                "template": {
+                    "metadata": {
+                        "labels": {
                             "app": "nginx",
                         },
-                    ),
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            image="nginx:stable-alpine3.17-slim",
-                            name="nginx",
-                            ports=[kubernetes.core.v1.ContainerPortArgs(
-                                container_port=80,
-                                name="web",
-                            )],
-                            volume_mounts=[kubernetes.core.v1.VolumeMountArgs(
-                                mount_path="/usr/share/nginx/html",
-                                name="www",
-                            )],
-                        )],
-                        termination_grace_period_seconds=10,
-                    ),
-                ),
-                volume_claim_templates=[kubernetes.core.v1.PersistentVolumeClaimArgs(
-                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                        name="www",
-                    ),
-                    spec=kubernetes.core.v1.PersistentVolumeClaimSpecArgs(
-                        access_modes=["ReadWriteOnce"],
-                        resources=kubernetes.core.v1.ResourceRequirementsArgs(
-                            requests={
+                    },
+                    "spec": {
+                        "containers": [{
+                            "image": "nginx:stable-alpine3.17-slim",
+                            "name": "nginx",
+                            "ports": [{
+                                "container_port": 80,
+                                "name": "web",
+                            }],
+                            "volume_mounts": [{
+                                "mount_path": "/usr/share/nginx/html",
+                                "name": "www",
+                            }],
+                        }],
+                        "termination_grace_period_seconds": 10,
+                    },
+                },
+                "volume_claim_templates": [{
+                    "metadata": {
+                        "name": "www",
+                    },
+                    "spec": {
+                        "access_modes": ["ReadWriteOnce"],
+                        "resources": {
+                            "requests": {
                                 "storage": "1Gi",
                             },
-                        ),
-                    ),
-                )],
-            ))
+                        },
+                    },
+                }],
+            })
         ```
 
 
@@ -303,65 +303,65 @@ class StatefulSet(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         service = kubernetes.core.v1.Service("service",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+            metadata={
+                "labels": {
                     "app": "nginx",
                 },
-            ),
-            spec=kubernetes.core.v1.ServiceSpecArgs(
-                cluster_ip="None",
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    name="web",
-                    port=80,
-                )],
-                selector={
+            },
+            spec={
+                "cluster_ip": "None",
+                "ports": [{
+                    "name": "web",
+                    "port": 80,
+                }],
+                "selector": {
                     "app": "nginx",
                 },
-            ))
-        statefulset = kubernetes.apps.v1.StatefulSet("statefulset", spec=kubernetes.apps.v1.StatefulSetSpecArgs(
-            replicas=3,
-            selector=kubernetes.meta.v1.LabelSelectorArgs(
-                match_labels={
+            })
+        statefulset = kubernetes.apps.v1.StatefulSet("statefulset", spec={
+            "replicas": 3,
+            "selector": {
+                "match_labels": {
                     "app": "nginx",
                 },
-            ),
-            service_name=service.metadata.name,
-            template=kubernetes.core.v1.PodTemplateSpecArgs(
-                metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                    labels={
+            },
+            "service_name": service.metadata.name,
+            "template": {
+                "metadata": {
+                    "labels": {
                         "app": "nginx",
                     },
-                ),
-                spec=kubernetes.core.v1.PodSpecArgs(
-                    containers=[kubernetes.core.v1.ContainerArgs(
-                        image="nginx:stable-alpine3.17-slim",
-                        name="nginx",
-                        ports=[kubernetes.core.v1.ContainerPortArgs(
-                            container_port=80,
-                            name="web",
-                        )],
-                        volume_mounts=[kubernetes.core.v1.VolumeMountArgs(
-                            mount_path="/usr/share/nginx/html",
-                            name="www",
-                        )],
-                    )],
-                    termination_grace_period_seconds=10,
-                ),
-            ),
-            volume_claim_templates=[kubernetes.core.v1.PersistentVolumeClaimArgs(
-                metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                    name="www",
-                ),
-                spec=kubernetes.core.v1.PersistentVolumeClaimSpecArgs(
-                    access_modes=["ReadWriteOnce"],
-                    resources=kubernetes.core.v1.ResourceRequirementsArgs(
-                        requests={
+                },
+                "spec": {
+                    "containers": [{
+                        "image": "nginx:stable-alpine3.17-slim",
+                        "name": "nginx",
+                        "ports": [{
+                            "container_port": 80,
+                            "name": "web",
+                        }],
+                        "volume_mounts": [{
+                            "mount_path": "/usr/share/nginx/html",
+                            "name": "www",
+                        }],
+                    }],
+                    "termination_grace_period_seconds": 10,
+                },
+            },
+            "volume_claim_templates": [{
+                "metadata": {
+                    "name": "www",
+                },
+                "spec": {
+                    "access_modes": ["ReadWriteOnce"],
+                    "resources": {
+                        "requests": {
                             "storage": "1Gi",
                         },
-                    ),
-                ),
-            )],
-        ))
+                    },
+                },
+            }],
+        })
         ```
         ### Create a StatefulSet with a user-specified name
         ```python
@@ -369,70 +369,70 @@ class StatefulSet(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         service = kubernetes.core.v1.Service("service",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                labels={
+            metadata={
+                "labels": {
                     "app": "nginx",
                 },
-                name="nginx",
-            ),
-            spec=kubernetes.core.v1.ServiceSpecArgs(
-                cluster_ip="None",
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    name="web",
-                    port=80,
-                )],
-                selector={
+                "name": "nginx",
+            },
+            spec={
+                "cluster_ip": "None",
+                "ports": [{
+                    "name": "web",
+                    "port": 80,
+                }],
+                "selector": {
                     "app": "nginx",
                 },
-            ))
+            })
         statefulset = kubernetes.apps.v1.StatefulSet("statefulset",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="web",
-            ),
-            spec=kubernetes.apps.v1.StatefulSetSpecArgs(
-                replicas=3,
-                selector=kubernetes.meta.v1.LabelSelectorArgs(
-                    match_labels={
+            metadata={
+                "name": "web",
+            },
+            spec={
+                "replicas": 3,
+                "selector": {
+                    "match_labels": {
                         "app": "nginx",
                     },
-                ),
-                service_name=service.metadata.name,
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                        labels={
+                },
+                "service_name": service.metadata.name,
+                "template": {
+                    "metadata": {
+                        "labels": {
                             "app": "nginx",
                         },
-                    ),
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            image="nginx:stable-alpine3.17-slim",
-                            name="nginx",
-                            ports=[kubernetes.core.v1.ContainerPortArgs(
-                                container_port=80,
-                                name="web",
-                            )],
-                            volume_mounts=[kubernetes.core.v1.VolumeMountArgs(
-                                mount_path="/usr/share/nginx/html",
-                                name="www",
-                            )],
-                        )],
-                        termination_grace_period_seconds=10,
-                    ),
-                ),
-                volume_claim_templates=[kubernetes.core.v1.PersistentVolumeClaimArgs(
-                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                        name="www",
-                    ),
-                    spec=kubernetes.core.v1.PersistentVolumeClaimSpecArgs(
-                        access_modes=["ReadWriteOnce"],
-                        resources=kubernetes.core.v1.ResourceRequirementsArgs(
-                            requests={
+                    },
+                    "spec": {
+                        "containers": [{
+                            "image": "nginx:stable-alpine3.17-slim",
+                            "name": "nginx",
+                            "ports": [{
+                                "container_port": 80,
+                                "name": "web",
+                            }],
+                            "volume_mounts": [{
+                                "mount_path": "/usr/share/nginx/html",
+                                "name": "www",
+                            }],
+                        }],
+                        "termination_grace_period_seconds": 10,
+                    },
+                },
+                "volume_claim_templates": [{
+                    "metadata": {
+                        "name": "www",
+                    },
+                    "spec": {
+                        "access_modes": ["ReadWriteOnce"],
+                        "resources": {
+                            "requests": {
                                 "storage": "1Gi",
                             },
-                        ),
-                    ),
-                )],
-            ))
+                        },
+                    },
+                }],
+            })
         ```
 
 

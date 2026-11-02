@@ -22,16 +22,16 @@ const service = new kubernetes.core.v1.Service("service", {spec: {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-service = kubernetes.core.v1.Service("service", spec=kubernetes.core.v1.ServiceSpecArgs(
-    ports=[kubernetes.core.v1.ServicePortArgs(
-        port=80,
-        protocol="TCP",
-        target_port=9376,
-    )],
-    selector={
+service = kubernetes.core.v1.Service("service", spec={
+    "ports": [{
+        "port": 80,
+        "protocol": "TCP",
+        "target_port": 9376,
+    }],
+    "selector": {
         "app": "MyApp",
     },
-))
+})
 ```
 ```csharp
 using System.Collections.Generic;
@@ -104,8 +104,9 @@ import com.pulumi.core.Output;
 import com.pulumi.kubernetes.core_v1.Service;
 import com.pulumi.kubernetes.core_v1.ServiceArgs;
 import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ServicePortArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -117,7 +118,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var service = new Service("service", ServiceArgs.builder()        
+        var service = new Service("service", ServiceArgs.builder()
             .spec(ServiceSpecArgs.builder()
                 .ports(ServicePortArgs.builder()
                     .port(80)
@@ -148,7 +149,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -157,6 +158,9 @@ pulumi {
 }
 
 resource "kubernetes_core_v1_service" "service" {
+  lifecycle {
+    create_before_destroy = true
+  }
   spec = {
     ports = [{
       port        = 80
@@ -164,7 +168,7 @@ resource "kubernetes_core_v1_service" "service" {
       target_port = 9376
     }]
     selector = {
-      app = "MyApp"
+      "app" = "MyApp"
     }
   }
 }
@@ -198,19 +202,19 @@ import pulumi
 import pulumi_kubernetes as kubernetes
 
 service = kubernetes.core.v1.Service("service",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        name="my-service",
-    ),
-    spec=kubernetes.core.v1.ServiceSpecArgs(
-        ports=[kubernetes.core.v1.ServicePortArgs(
-            port=80,
-            protocol="TCP",
-            target_port=9376,
-        )],
-        selector={
+    metadata={
+        "name": "my-service",
+    },
+    spec={
+        "ports": [{
+            "port": 80,
+            "protocol": "TCP",
+            "target_port": 9376,
+        }],
+        "selector": {
             "app": "MyApp",
         },
-    ))
+    })
 ```
 ```csharp
 using System.Collections.Generic;
@@ -292,8 +296,9 @@ import com.pulumi.kubernetes.core_v1.Service;
 import com.pulumi.kubernetes.core_v1.ServiceArgs;
 import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ServicePortArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -305,7 +310,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var service = new Service("service", ServiceArgs.builder()        
+        var service = new Service("service", ServiceArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .name("my-service")
                 .build())
@@ -341,7 +346,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -350,6 +355,9 @@ pulumi {
 }
 
 resource "kubernetes_core_v1_service" "service" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     name = "my-service"
   }
@@ -360,7 +368,7 @@ resource "kubernetes_core_v1_service" "service" {
       target_port = 9376
     }]
     selector = {
-      app = "MyApp"
+      "app" = "MyApp"
     }
   }
 }

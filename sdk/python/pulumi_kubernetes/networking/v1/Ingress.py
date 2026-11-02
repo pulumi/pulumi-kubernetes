@@ -128,29 +128,29 @@ class Ingress(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         ingress = kubernetes.networking.v1.Ingress("ingress",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                annotations={
+            metadata={
+                "annotations": {
                     "nginx.ingress.kubernetes.io/rewrite-target": "/",
                 },
-            ),
-            spec=kubernetes.networking.v1.IngressSpecArgs(
-                rules=[kubernetes.networking.v1.IngressRuleArgs(
-                    http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
-                        paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                            backend=kubernetes.networking.v1.IngressBackendArgs(
-                                service=kubernetes.networking.v1.IngressServiceBackendArgs(
-                                    name="test",
-                                    port=kubernetes.networking.v1.ServiceBackendPortArgs(
-                                        number=80,
-                                    ),
-                                ),
-                            ),
-                            path="/testpath",
-                            path_type="Prefix",
-                        )],
-                    ),
-                )],
-            ))
+            },
+            spec={
+                "rules": [{
+                    "http": {
+                        "paths": [{
+                            "backend": {
+                                "service": {
+                                    "name": "test",
+                                    "port": {
+                                        "number": 80,
+                                    },
+                                },
+                            },
+                            "path": "/testpath",
+                            "path_type": "Prefix",
+                        }],
+                    },
+                }],
+            })
         ```
         ### Create an Ingress with a user-specified name
         ```python
@@ -158,30 +158,30 @@ class Ingress(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         ingress = kubernetes.networking.v1.Ingress("ingress",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                annotations={
+            metadata={
+                "annotations": {
                     "nginx.ingress.kubernetes.io/rewrite-target": "/",
                 },
-                name="minimal-ingress",
-            ),
-            spec=kubernetes.networking.v1.IngressSpecArgs(
-                rules=[kubernetes.networking.v1.IngressRuleArgs(
-                    http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
-                        paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                            backend=kubernetes.networking.v1.IngressBackendArgs(
-                                service=kubernetes.networking.v1.IngressServiceBackendArgs(
-                                    name="test",
-                                    port=kubernetes.networking.v1.ServiceBackendPortArgs(
-                                        number=80,
-                                    ),
-                                ),
-                            ),
-                            path="/testpath",
-                            path_type="Prefix",
-                        )],
-                    ),
-                )],
-            ))
+                "name": "minimal-ingress",
+            },
+            spec={
+                "rules": [{
+                    "http": {
+                        "paths": [{
+                            "backend": {
+                                "service": {
+                                    "name": "test",
+                                    "port": {
+                                        "number": 80,
+                                    },
+                                },
+                            },
+                            "path": "/testpath",
+                            "path_type": "Prefix",
+                        }],
+                    },
+                }],
+            })
         ```
 
 
@@ -222,29 +222,29 @@ class Ingress(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         ingress = kubernetes.networking.v1.Ingress("ingress",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                annotations={
+            metadata={
+                "annotations": {
                     "nginx.ingress.kubernetes.io/rewrite-target": "/",
                 },
-            ),
-            spec=kubernetes.networking.v1.IngressSpecArgs(
-                rules=[kubernetes.networking.v1.IngressRuleArgs(
-                    http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
-                        paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                            backend=kubernetes.networking.v1.IngressBackendArgs(
-                                service=kubernetes.networking.v1.IngressServiceBackendArgs(
-                                    name="test",
-                                    port=kubernetes.networking.v1.ServiceBackendPortArgs(
-                                        number=80,
-                                    ),
-                                ),
-                            ),
-                            path="/testpath",
-                            path_type="Prefix",
-                        )],
-                    ),
-                )],
-            ))
+            },
+            spec={
+                "rules": [{
+                    "http": {
+                        "paths": [{
+                            "backend": {
+                                "service": {
+                                    "name": "test",
+                                    "port": {
+                                        "number": 80,
+                                    },
+                                },
+                            },
+                            "path": "/testpath",
+                            "path_type": "Prefix",
+                        }],
+                    },
+                }],
+            })
         ```
         ### Create an Ingress with a user-specified name
         ```python
@@ -252,30 +252,30 @@ class Ingress(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         ingress = kubernetes.networking.v1.Ingress("ingress",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                annotations={
+            metadata={
+                "annotations": {
                     "nginx.ingress.kubernetes.io/rewrite-target": "/",
                 },
-                name="minimal-ingress",
-            ),
-            spec=kubernetes.networking.v1.IngressSpecArgs(
-                rules=[kubernetes.networking.v1.IngressRuleArgs(
-                    http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
-                        paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                            backend=kubernetes.networking.v1.IngressBackendArgs(
-                                service=kubernetes.networking.v1.IngressServiceBackendArgs(
-                                    name="test",
-                                    port=kubernetes.networking.v1.ServiceBackendPortArgs(
-                                        number=80,
-                                    ),
-                                ),
-                            ),
-                            path="/testpath",
-                            path_type="Prefix",
-                        )],
-                    ),
-                )],
-            ))
+                "name": "minimal-ingress",
+            },
+            spec={
+                "rules": [{
+                    "http": {
+                        "paths": [{
+                            "backend": {
+                                "service": {
+                                    "name": "test",
+                                    "port": {
+                                        "number": 80,
+                                    },
+                                },
+                            },
+                            "path": "/testpath",
+                            "path_type": "Prefix",
+                        }],
+                    },
+                }],
+            })
         ```
 
 

@@ -7,52 +7,47 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const job = new kubernetes.batch.v1.Job("job", {
-    metadata: undefined,
-    spec: {
-        backoffLimit: 4,
-        template: {
-            spec: {
-                containers: [{
-                    command: [
-                        "perl",
-                        "-Mbignum=bpi",
-                        "-wle",
-                        "print bpi(2000)",
-                    ],
-                    image: "perl",
-                    name: "pi",
-                }],
-                restartPolicy: "Never",
-            },
+const job = new kubernetes.batch.v1.Job("job", {spec: {
+    backoffLimit: 4,
+    template: {
+        spec: {
+            containers: [{
+                command: [
+                    "perl",
+                    "-Mbignum=bpi",
+                    "-wle",
+                    "print bpi(2000)",
+                ],
+                image: "perl",
+                name: "pi",
+            }],
+            restartPolicy: "Never",
         },
     },
-});
+}});
 ```
 ```python
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-job = kubernetes.batch.v1.Job("job",
-    metadata=None,
-    spec=kubernetes.batch.v1.JobSpecArgs(
-        backoff_limit=4,
-        template=kubernetes.core.v1.PodTemplateSpecArgs(
-            spec=kubernetes.core.v1.PodSpecArgs(
-                containers=[kubernetes.core.v1.ContainerArgs(
-                    command=[
-                        "perl",
-                        "-Mbignum=bpi",
-                        "-wle",
-                        "print bpi(2000)",
-                    ],
-                    image="perl",
-                    name="pi",
-                )],
-                restart_policy="Never",
-            ),
-        ),
-    ))
+job = kubernetes.batch.v1.Job("job", spec={
+    "backoff_limit": 4,
+    "template": {
+        "spec": {
+            "containers": [{
+                "command": [
+                    "perl",
+                    "-Mbignum=bpi",
+                    "-wle",
+                    "print bpi(2000)",
+                ],
+                "image": "perl",
+                "name": "pi",
+            }],
+            "restart_policy": "Never",
+        },
+    },
+})
 ```
 ```csharp
 using System.Collections.Generic;
@@ -64,7 +59,6 @@ return await Deployment.RunAsync(() =>
 {
     var job = new Kubernetes.Batch.V1.Job("job", new()
     {
-        Metadata = null,
         Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
         {
             BackoffLimit = 4,
@@ -102,14 +96,12 @@ package main
 import (
 	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/batch/v1"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		_, err := batchv1.NewJob(ctx, "job", &batchv1.JobArgs{
-			Metadata: nil,
 			Spec: &batchv1.JobSpecArgs{
 				BackoffLimit: pulumi.Int(4),
 				Template: &corev1.PodTemplateSpecArgs{
@@ -149,8 +141,9 @@ import com.pulumi.kubernetes.batch_v1.JobArgs;
 import com.pulumi.kubernetes.batch_v1.inputs.JobSpecArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -162,8 +155,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var job = new Job("job", JobArgs.builder()        
-            .metadata(null)
+        var job = new Job("job", JobArgs.builder()
             .spec(JobSpecArgs.builder()
                 .backoffLimit(4)
                 .template(PodTemplateSpecArgs.builder()
@@ -192,7 +184,6 @@ name: yaml-example
 resources:
     job:
         properties:
-            metadata: null
             spec:
                 backoffLimit: 4
                 template:
@@ -210,7 +201,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -219,19 +210,17 @@ pulumi {
 }
 
 resource "kubernetes_batch_v1_job" "job" {
+  lifecycle {
+    create_before_destroy = true
+  }
   spec = {
     backoff_limit = 4
     template = {
       spec = {
         containers = [{
-          command = [
-            "perl",
-            "-Mbignum=bpi",
-            "-wle",
-            "print bpi(2000)",
-          ]
-          image = "perl"
-          name  = "pi"
+          command = ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          image   = "perl"
+          name    = "pi"
         }]
         restart_policy = "Never"
       }
@@ -276,27 +265,27 @@ import pulumi
 import pulumi_kubernetes as kubernetes
 
 job = kubernetes.batch.v1.Job("job",
-    metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        name="pi",
-    ),
-    spec=kubernetes.batch.v1.JobSpecArgs(
-        backoff_limit=4,
-        template=kubernetes.core.v1.PodTemplateSpecArgs(
-            spec=kubernetes.core.v1.PodSpecArgs(
-                containers=[kubernetes.core.v1.ContainerArgs(
-                    command=[
+    metadata={
+        "name": "pi",
+    },
+    spec={
+        "backoff_limit": 4,
+        "template": {
+            "spec": {
+                "containers": [{
+                    "command": [
                         "perl",
                         "-Mbignum=bpi",
                         "-wle",
                         "print bpi(2000)",
                     ],
-                    image="perl",
-                    name="pi",
-                )],
-                restart_policy="Never",
-            ),
-        ),
-    ))
+                    "image": "perl",
+                    "name": "pi",
+                }],
+                "restart_policy": "Never",
+            },
+        },
+    })
 ```
 ```csharp
 using System.Collections.Generic;
@@ -399,8 +388,9 @@ import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
 import com.pulumi.kubernetes.batch_v1.inputs.JobSpecArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
 import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
-import java.util.List;
+import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.File;
 import java.nio.file.Files;
@@ -412,7 +402,7 @@ public class App {
     }
 
     public static void stack(Context ctx) {
-        var job = new Job("job", JobArgs.builder()        
+        var job = new Job("job", JobArgs.builder()
             .metadata(ObjectMetaArgs.builder()
                 .name("pi")
                 .build())
@@ -463,7 +453,7 @@ resources:
 runtime: yaml
 ```
 ```hcl
-pulumi {
+terraform {
   required_providers {
     kubernetes = {
       source = "pulumi/kubernetes"
@@ -472,6 +462,9 @@ pulumi {
 }
 
 resource "kubernetes_batch_v1_job" "job" {
+  lifecycle {
+    create_before_destroy = true
+  }
   metadata = {
     name = "pi"
   }
@@ -480,14 +473,9 @@ resource "kubernetes_batch_v1_job" "job" {
     template = {
       spec = {
         containers = [{
-          command = [
-            "perl",
-            "-Mbignum=bpi",
-            "-wle",
-            "print bpi(2000)",
-          ]
-          image = "perl"
-          name  = "pi"
+          command = ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          image   = "perl"
+          name    = "pi"
         }]
         restart_policy = "Never"
       }

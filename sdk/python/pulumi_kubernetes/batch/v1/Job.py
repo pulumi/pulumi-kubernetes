@@ -134,26 +134,24 @@ class Job(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        job = kubernetes.batch.v1.Job("job",
-            metadata=None,
-            spec=kubernetes.batch.v1.JobSpecArgs(
-                backoff_limit=4,
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            command=[
-                                "perl",
-                                "-Mbignum=bpi",
-                                "-wle",
-                                "print bpi(2000)",
-                            ],
-                            image="perl",
-                            name="pi",
-                        )],
-                        restart_policy="Never",
-                    ),
-                ),
-            ))
+        job = kubernetes.batch.v1.Job("job", spec={
+            "backoff_limit": 4,
+            "template": {
+                "spec": {
+                    "containers": [{
+                        "command": [
+                            "perl",
+                            "-Mbignum=bpi",
+                            "-wle",
+                            "print bpi(2000)",
+                        ],
+                        "image": "perl",
+                        "name": "pi",
+                    }],
+                    "restart_policy": "Never",
+                },
+            },
+        })
         ```
         ### Create a Job with a user-specified name
         ```python
@@ -161,27 +159,27 @@ class Job(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         job = kubernetes.batch.v1.Job("job",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="pi",
-            ),
-            spec=kubernetes.batch.v1.JobSpecArgs(
-                backoff_limit=4,
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            command=[
+            metadata={
+                "name": "pi",
+            },
+            spec={
+                "backoff_limit": 4,
+                "template": {
+                    "spec": {
+                        "containers": [{
+                            "command": [
                                 "perl",
                                 "-Mbignum=bpi",
                                 "-wle",
                                 "print bpi(2000)",
                             ],
-                            image="perl",
-                            name="pi",
-                        )],
-                        restart_policy="Never",
-                    ),
-                ),
-            ))
+                            "image": "perl",
+                            "name": "pi",
+                        }],
+                        "restart_policy": "Never",
+                    },
+                },
+            })
         ```
 
 
@@ -227,26 +225,24 @@ class Job(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        job = kubernetes.batch.v1.Job("job",
-            metadata=None,
-            spec=kubernetes.batch.v1.JobSpecArgs(
-                backoff_limit=4,
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            command=[
-                                "perl",
-                                "-Mbignum=bpi",
-                                "-wle",
-                                "print bpi(2000)",
-                            ],
-                            image="perl",
-                            name="pi",
-                        )],
-                        restart_policy="Never",
-                    ),
-                ),
-            ))
+        job = kubernetes.batch.v1.Job("job", spec={
+            "backoff_limit": 4,
+            "template": {
+                "spec": {
+                    "containers": [{
+                        "command": [
+                            "perl",
+                            "-Mbignum=bpi",
+                            "-wle",
+                            "print bpi(2000)",
+                        ],
+                        "image": "perl",
+                        "name": "pi",
+                    }],
+                    "restart_policy": "Never",
+                },
+            },
+        })
         ```
         ### Create a Job with a user-specified name
         ```python
@@ -254,27 +250,27 @@ class Job(pulumi.CustomResource):
         import pulumi_kubernetes as kubernetes
 
         job = kubernetes.batch.v1.Job("job",
-            metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="pi",
-            ),
-            spec=kubernetes.batch.v1.JobSpecArgs(
-                backoff_limit=4,
-                template=kubernetes.core.v1.PodTemplateSpecArgs(
-                    spec=kubernetes.core.v1.PodSpecArgs(
-                        containers=[kubernetes.core.v1.ContainerArgs(
-                            command=[
+            metadata={
+                "name": "pi",
+            },
+            spec={
+                "backoff_limit": 4,
+                "template": {
+                    "spec": {
+                        "containers": [{
+                            "command": [
                                 "perl",
                                 "-Mbignum=bpi",
                                 "-wle",
                                 "print bpi(2000)",
                             ],
-                            image="perl",
-                            name="pi",
-                        )],
-                        restart_policy="Never",
-                    ),
-                ),
-            ))
+                            "image": "perl",
+                            "name": "pi",
+                        }],
+                        "restart_policy": "Never",
+                    },
+                },
+            })
         ```
 
 

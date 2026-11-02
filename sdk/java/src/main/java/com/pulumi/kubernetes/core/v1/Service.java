@@ -48,8 +48,9 @@ import javax.annotation.Nullable;
  * import com.pulumi.kubernetes.core_v1.Service;
  * import com.pulumi.kubernetes.core_v1.ServiceArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
- * import java.util.List;
+ * import com.pulumi.kubernetes.core_v1.inputs.ServicePortArgs;
  * import java.util.ArrayList;
+ * import java.util.Arrays;
  * import java.util.Map;
  * import java.io.File;
  * import java.nio.file.Files;
@@ -61,7 +62,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var service = new Service("service", ServiceArgs.builder()        
+ *         var service = new Service("service", ServiceArgs.builder()
  *             .spec(ServiceSpecArgs.builder()
  *                 .ports(ServicePortArgs.builder()
  *                     .port(80)
@@ -88,8 +89,9 @@ import javax.annotation.Nullable;
  * import com.pulumi.kubernetes.core_v1.ServiceArgs;
  * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
- * import java.util.List;
+ * import com.pulumi.kubernetes.core_v1.inputs.ServicePortArgs;
  * import java.util.ArrayList;
+ * import java.util.Arrays;
  * import java.util.Map;
  * import java.io.File;
  * import java.nio.file.Files;
@@ -101,7 +103,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var service = new Service("service", ServiceArgs.builder()        
+ *         var service = new Service("service", ServiceArgs.builder()
  *             .metadata(ObjectMetaArgs.builder()
  *                 .name("my-service")
  *                 .build())

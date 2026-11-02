@@ -37,27 +37,24 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const job = new kubernetes.batch.v1.Job("job", {
- *     metadata: undefined,
- *     spec: {
- *         backoffLimit: 4,
- *         template: {
- *             spec: {
- *                 containers: [{
- *                     command: [
- *                         "perl",
- *                         "-Mbignum=bpi",
- *                         "-wle",
- *                         "print bpi(2000)",
- *                     ],
- *                     image: "perl",
- *                     name: "pi",
- *                 }],
- *                 restartPolicy: "Never",
- *             },
+ * const job = new kubernetes.batch.v1.Job("job", {spec: {
+ *     backoffLimit: 4,
+ *     template: {
+ *         spec: {
+ *             containers: [{
+ *                 command: [
+ *                     "perl",
+ *                     "-Mbignum=bpi",
+ *                     "-wle",
+ *                     "print bpi(2000)",
+ *                 ],
+ *                 image: "perl",
+ *                 name: "pi",
+ *             }],
+ *             restartPolicy: "Never",
  *         },
  *     },
- * });
+ * }});
  * ```
  * ### Create a Job with a user-specified name
  *

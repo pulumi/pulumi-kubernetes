@@ -8,6 +8,9 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/hashicorp/hcl/v2"
+	"github.com/hashicorp/hcl/v2/hclsyntax"
+	"github.com/hashicorp/hcl/v2/hclwrite"
 	"gopkg.in/yaml.v3"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
@@ -68,7 +71,8 @@ func markdownExample(description string,
 	csharp string,
 	golang string,
 	java string,
-	yaml string) string {
+	yaml string,
+	hcl string) string {
 
 	return fmt.Sprintf("{{%% example %%}}\n### %s\n\n"+
 		"```typescript\n%s```\n"+
@@ -77,8 +81,9 @@ func markdownExample(description string,
 		"```go\n%s```\n"+
 		"```java\n%s```\n"+
 		"```yaml\n%s```\n"+
+		"```hcl\n%s```\n"+
 		"{{%% /example %%}}\n",
-		description, typescript, python, csharp, golang, java, yaml)
+		description, typescript, python, csharp, golang, java, yaml, hcl)
 }
 
 func processYaml(path string, mdDir string) error {
@@ -123,84 +128,37 @@ func processYaml(path string, mdDir string) error {
 		}
 		contract.AssertNoErrorf(src.Close(), "unexpected error while encoding YAML")
 
-		//nolint:gosec // we control the input
-		cmd := exec.Command("pulumi", "convert", "--generate-only", "--language", "typescript", "--out",
-			filepath.Join(dir, "example-nodejs"))
-		cmd.Stderr = os.Stderr
-		cmd.Stdout = os.Stdout
-		cmd.Dir = dir
-		if err = cmd.Run(); err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "convert nodejs failed, ignoring: %+v", err)
-		}
-		content, err := os.ReadFile(filepath.Join(dir, "example-nodejs", "index.ts"))
+		typescript, err := convert(dir, "typescript", "example-nodejs", "index.ts")
 		if err != nil {
 			return err
 		}
-		typescript := string(content)
-
-		//nolint:gosec // we control the input
-		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "python", "--out",
-			filepath.Join(dir, "example-py"))
-		cmd.Stderr = os.Stderr
-		cmd.Stdout = os.Stdout
-		cmd.Dir = dir
-		if err := cmd.Run(); err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "convert python failed, ignoring: %+v", err)
-		}
-		content, err = os.ReadFile(filepath.Join(dir, "example-py", "__main__.py"))
+		python, err := convert(dir, "python", "example-py", "__main__.py")
 		if err != nil {
 			return err
 		}
-		python := string(content)
-
-		//nolint:gosec // we control the input
-		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "csharp", "--out",
-			filepath.Join(dir, "example-dotnet"))
-		cmd.Stderr = os.Stderr
-		cmd.Stdout = os.Stdout
-		cmd.Dir = dir
-		if err = cmd.Run(); err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "convert dotnet failed, ignoring: %+v", err)
-		}
-		content, err = os.ReadFile(filepath.Join(dir, "example-dotnet", "Program.cs"))
+		csharp, err := convert(dir, "csharp", "example-dotnet", "Program.cs")
 		if err != nil {
 			return err
 		}
-		csharp := string(content)
-
-		//nolint:gosec // we control the input
-		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "go", "--out",
-			filepath.Join(dir, "example-go"))
-		cmd.Stderr = os.Stderr
-		cmd.Stdout = os.Stdout
-		cmd.Dir = dir
-		if err = cmd.Run(); err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "convert go failed, ignoring: %+v", err)
-		}
-		content, err = os.ReadFile(filepath.Join(dir, "example-go", "main.go"))
+		golang, err := convert(dir, "go", "example-go", "main.go")
 		if err != nil {
 			return err
 		}
-		golang := string(content)
-
-		//nolint:gosec // we control the input
-		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "java", "--out",
-			filepath.Join(dir, "example-java"))
-		cmd.Stderr = os.Stderr
-		cmd.Stdout = os.Stdout
-		cmd.Dir = dir
-		if err = cmd.Run(); err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "convert java failed, ignoring: %+v", err)
-		}
-		content, err = os.ReadFile(
-			filepath.Join(dir, "example-java", "src", "main", "java", "generated_program", "App.java"),
-		)
+		java, err := convert(dir, "java", "example-java",
+			"src", "main", "java", "generated_program", "App.java")
 		if err != nil {
 			return err
 		}
-		java := string(content)
+		hcl, err := convert(dir, "hcl", "example-hcl", "program.tf")
+		if err != nil {
+			return err
+		}
+		hcl, err = unpinProviderVersions(hcl)
+		if err != nil {
+			return err
+		}
 
-		content, err = os.ReadFile(filepath.Join(dir, "Pulumi.yaml"))
+		content, err := os.ReadFile(filepath.Join(dir, "Pulumi.yaml"))
 		if err != nil {
 			return err
 		}
@@ -208,7 +166,7 @@ func processYaml(path string, mdDir string) error {
 
 		exampleStrings = append(
 			exampleStrings,
-			markdownExample(description, typescript, python, csharp, golang, java, yaml),
+			markdownExample(description, typescript, python, csharp, golang, java, yaml, hcl),
 		)
 	}
 	fmt.Fprintf(os.Stdout, "Writing %s\n", filepath.Join(mdDir, md))
@@ -220,4 +178,61 @@ func processYaml(path string, mdDir string) error {
 	_, err = f.Write([]byte(markdownExamples(exampleStrings)))
 	contract.AssertNoErrorf(err, "unexpected error while writing markdown examples")
 	return nil
+}
+
+// convert converts the Pulumi YAML program in dir to language and returns the generated main file.
+func convert(dir, language, outDir string, mainFile ...string) (string, error) {
+	//nolint:gosec // we control the input
+	cmd := exec.Command("pulumi", "convert", "--generate-only", "--language", language, "--out",
+		filepath.Join(dir, outDir))
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+	cmd.Dir = dir
+	if err := cmd.Run(); err != nil {
+		_, _ = fmt.Fprintf(os.Stderr, "convert %s failed, ignoring: %+v", language, err)
+	}
+	content, err := os.ReadFile(filepath.Join(append([]string{dir, outDir}, mainFile...)...))
+	if err != nil {
+		return "", err
+	}
+	return string(content), nil
+}
+
+// unpinProviderVersions removes `version` from each provider in `terraform { required_providers { ... } }`.
+// The converter pins whichever provider version is installed, which would change the docs on every release.
+func unpinProviderVersions(program string) (string, error) {
+	f, diags := hclwrite.ParseConfig([]byte(program), "program.tf", hcl.InitialPos)
+	if diags.HasErrors() {
+		return "", diags
+	}
+	for _, tf := range f.Body().Blocks() {
+		if tf.Type() != "terraform" {
+			continue
+		}
+		for _, rp := range tf.Body().Blocks() {
+			if rp.Type() != "required_providers" {
+				continue
+			}
+			for name, attr := range rp.Body().Attributes() {
+				rp.Body().SetAttributeRaw(name, dropVersionItem(attr.Expr().BuildTokens(nil)))
+			}
+		}
+	}
+	return string(hclwrite.Format(f.Bytes())), nil
+}
+
+// dropVersionItem removes the `version = ...` line from an object expression's tokens.
+func dropVersionItem(tokens hclwrite.Tokens) hclwrite.Tokens {
+	var out hclwrite.Tokens
+	for i := 0; i < len(tokens); i++ {
+		if tokens[i].Type == hclsyntax.TokenIdent && string(tokens[i].Bytes) == "version" &&
+			i+1 < len(tokens) && tokens[i+1].Type == hclsyntax.TokenEqual {
+			for i < len(tokens) && tokens[i].Type != hclsyntax.TokenNewline {
+				i++
+			}
+			continue
+		}
+		out = append(out, tokens[i])
+	}
+	return out
 }

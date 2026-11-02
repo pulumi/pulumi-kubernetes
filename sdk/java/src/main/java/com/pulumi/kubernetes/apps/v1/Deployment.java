@@ -59,8 +59,10 @@ import javax.annotation.Nullable;
  * import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
- * import java.util.List;
+ * import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
  * import java.util.ArrayList;
+ * import java.util.Arrays;
  * import java.util.Map;
  * import java.io.File;
  * import java.nio.file.Files;
@@ -72,7 +74,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var deployment = new Deployment("deployment", DeploymentArgs.builder()        
+ *         var deployment = new Deployment("deployment", DeploymentArgs.builder()
  *             .metadata(ObjectMetaArgs.builder()
  *                 .labels(Map.of("app", "nginx"))
  *                 .build())
@@ -117,8 +119,10 @@ import javax.annotation.Nullable;
  * import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
  * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
- * import java.util.List;
+ * import com.pulumi.kubernetes.core_v1.inputs.ContainerArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ContainerPortArgs;
  * import java.util.ArrayList;
+ * import java.util.Arrays;
  * import java.util.Map;
  * import java.io.File;
  * import java.nio.file.Files;
@@ -130,7 +134,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var deployment = new Deployment("deployment", DeploymentArgs.builder()        
+ *         var deployment = new Deployment("deployment", DeploymentArgs.builder()
  *             .metadata(ObjectMetaArgs.builder()
  *                 .labels(Map.of("app", "nginx"))
  *                 .name("nginx-deployment")
