@@ -16,53 +16,54 @@ package provider
 
 import (
 	"context"
+	"testing"
 
-	gk "github.com/onsi/ginkgo/v2"
-	gm "github.com/onsi/gomega"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
-var _ = gk.Describe("RPC:Delete", func() {
-	var k *kubeProvider
-	var req *pulumirpc.DeleteRequest
+func TestDelete_HelmReleaseWithUnreachableCluster(t *testing.T) {
+	tests := []struct {
+		name              string
+		deleteUnreachable bool
+		wantErr           string
+	}{
+		{
+			name:              "deleteUnreachable disabled reports how to recover",
+			deleteUnreachable: false,
+			wantErr:           "PULUMI_K8S_DELETE_UNREACHABLE",
+		},
+		{
+			name:              "deleteUnreachable enabled drops the release from state",
+			deleteUnreachable: true,
+		},
+	}
 
-	gk.BeforeEach(func() {
-		k = pctx.NewProvider()
-		req = &pulumirpc.DeleteRequest{}
-	})
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			k := &kubeProvider{
+				host:                     newMockHost(&mockEngine{t: t}),
+				clusterUnreachable:       true,
+				clusterUnreachableReason: "test-only: unable to load kubeconfig",
+				deleteUnreachable:        tt.deleteUnreachable,
+			}
 
-	gk.Context("when the cluster is unreachable", func() {
-		gk.BeforeEach(func() {
-			k.clusterUnreachable = true
-			k.clusterUnreachableReason = "unable to load kubeconfig"
+			req := &pulumirpc.DeleteRequest{
+				Urn: "urn:pulumi:test::test::kubernetes:helm.sh/v3:Release::test",
+				Id:  "default/test",
+			}
+
+			resp, err := k.Delete(context.Background(), req)
+
+			if tt.wantErr != "" {
+				require.Error(t, err)
+				assert.Contains(t, err.Error(), tt.wantErr)
+				return
+			}
+			require.NoError(t, err)
+			assert.NotNil(t, resp)
 		})
-
-		gk.Describe("Helm Release", func() {
-			gk.BeforeEach(func() {
-				req.Urn = "urn:pulumi:test::test::kubernetes:helm.sh/v3:Release::test"
-				req.Id = "default/test"
-			})
-
-			gk.Context("when deleteUnreachable is disabled", func() {
-				gk.BeforeEach(func() {
-					k.deleteUnreachable = false
-				})
-				gk.It("should return an error mentioning PULUMI_K8S_DELETE_UNREACHABLE", func() {
-					_, err := k.Delete(context.Background(), req)
-					gm.Expect(err).Should(gm.MatchError(gm.ContainSubstring("PULUMI_K8S_DELETE_UNREACHABLE")))
-				})
-			})
-
-			gk.Context("when deleteUnreachable is enabled", func() {
-				gk.BeforeEach(func() {
-					k.deleteUnreachable = true
-				})
-				gk.It("should remove the resource from state", func() {
-					_, err := k.Delete(context.Background(), req)
-					gm.Expect(err).ShouldNot(gm.HaveOccurred())
-				})
-			})
-		})
-	})
-})
+	}
+}
