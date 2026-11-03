@@ -72,13 +72,13 @@ func TestOrderedStringSet_Add(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(_ *testing.T) {
+		t.Run(tt.name, func(t *testing.T) {
 			o := &TimeOrderedLogSet{
 				exists:   tt.fields.exists,
 				Messages: tt.fields.Messages,
 			}
 			o.Add(tt.args.msg)
-			assert.ObjectsAreEqual(o.Messages, tt.expect)
+			assert.EqualValues(t, tt.expect, o.Messages)
 		})
 	}
 }
