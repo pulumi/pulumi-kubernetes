@@ -18,12 +18,16 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"testing"
 
 	gk "github.com/onsi/ginkgo/v2"
 	gm "github.com/onsi/gomega"
 	gs "github.com/onsi/gomega/gstruct"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"helm.sh/helm/v3/pkg/chartutil"
 	"helm.sh/helm/v3/pkg/cli"
+	"k8s.io/utils/ptr"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
@@ -683,3 +687,83 @@ var _ = gk.Describe("Construct", func() {
 		})
 	})
 })
+
+func TestChartSkipSchemaValidation(t *testing.T) {
+	tests := []struct {
+		name            string
+		input           *bool
+		wantSkip        bool
+		wantErrContains []string
+	}{
+		{
+			name:            "unset",
+			wantErrContains: []string{"schema-validation:", "replicas"},
+		},
+		{
+			name:            "false",
+			input:           ptr.To(false),
+			wantErrContains: []string{"schema-validation:", "replicas"},
+		},
+		{
+			name:     "true",
+			input:    ptr.To(true),
+			wantSkip: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tc := newTestContext(t)
+
+			opts := &providerresource.ResourceProviderOptions{}
+			opts.ClientSet, _, _, _ = fake.NewSimpleDynamicClient()
+			opts.DefaultNamespace = "default"
+			opts.HelmOptions = &providerresource.HelmOptions{EnvSettings: cli.New()}
+			opts.HelmOptions.EnvSettings.SetNamespace("default")
+
+			locator := kubehelm.NewFakeLocator("./testdata/schema-validation", nil)
+			executor := kubehelm.NewFakeExecutor()
+			k := &ChartProvider{
+				opts: opts,
+				tool: func() *kubehelm.Tool {
+					return kubehelm.NewFakeTool(
+						opts.HelmOptions.EnvSettings,
+						kubehelm.FakeInitActionConfig("default", chartutil.DefaultCapabilities),
+						locator.LocateChart,
+						executor.Execute,
+					)
+				},
+			}
+
+			inputs := resource.PropertyMap{
+				"chart": resource.NewStringProperty("schema-validation"),
+				"values": resource.NewObjectProperty(resource.PropertyMap{
+					"replicas": resource.NewStringProperty("not-an-integer"),
+				}),
+			}
+			if tt.input != nil {
+				inputs["skipSchemaValidation"] = resource.NewBoolProperty(*tt.input)
+			}
+
+			req := tc.NewConstructRequest()
+			req.Type = "kubernetes:helm/v4:Chart"
+			req.Name = "test"
+			marshalled, err := plugin.MarshalProperties(inputs, plugin.MarshalOptions{
+				Label: "inputs", KeepSecrets: true, KeepResources: true, KeepUnknowns: true, KeepOutputValues: true,
+			})
+			require.NoError(t, err)
+			req.Inputs = marshalled
+
+			_, err = pulumiprovider.Construct(context.Background(), req, tc.EngineConn(), k.Construct)
+			if len(tt.wantErrContains) > 0 {
+				require.Error(t, err)
+				for _, want := range tt.wantErrContains {
+					assert.Contains(t, err.Error(), want)
+				}
+			} else {
+				require.NoError(t, err)
+			}
+			assert.Equal(t, tt.wantSkip, executor.Action().SkipSchemaValidation)
+		})
+	}
+}

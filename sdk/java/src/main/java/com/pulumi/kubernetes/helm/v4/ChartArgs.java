@@ -234,6 +234,21 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * If set, disable JSON schema validation. By default, values are validated against the chart&#39;s schema.
+     * 
+     */
+    @Import(name="skipSchemaValidation")
+    private @Nullable Output<Boolean> skipSchemaValidation;
+
+    /**
+     * @return If set, disable JSON schema validation. By default, values are validated against the chart&#39;s schema.
+     * 
+     */
+    public Optional<Output<Boolean>> skipSchemaValidation() {
+        return Optional.ofNullable(this.skipSchemaValidation);
+    }
+
+    /**
      * List of assets (raw yaml files). Content is read and merged with values.
      * 
      */
@@ -310,6 +325,7 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
         this.resourcePrefix = $.resourcePrefix;
         this.skipAwait = $.skipAwait;
         this.skipCrds = $.skipCrds;
+        this.skipSchemaValidation = $.skipSchemaValidation;
         this.valueYamlFiles = $.valueYamlFiles;
         this.values = $.values;
         this.verify = $.verify;
@@ -626,6 +642,27 @@ public final class ChartArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder skipCrds(Boolean skipCrds) {
             return skipCrds(Output.of(skipCrds));
+        }
+
+        /**
+         * @param skipSchemaValidation If set, disable JSON schema validation. By default, values are validated against the chart&#39;s schema.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipSchemaValidation(@Nullable Output<Boolean> skipSchemaValidation) {
+            $.skipSchemaValidation = skipSchemaValidation;
+            return this;
+        }
+
+        /**
+         * @param skipSchemaValidation If set, disable JSON schema validation. By default, values are validated against the chart&#39;s schema.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipSchemaValidation(Boolean skipSchemaValidation) {
+            return skipSchemaValidation(Output.of(skipSchemaValidation));
         }
 
         /**

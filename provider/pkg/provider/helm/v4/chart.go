@@ -58,11 +58,12 @@ type ChartArgs struct {
 	Verify           pulumi.BoolInput           `pulumi:"verify,optional"`
 	Keyring          pulumi.AssetInput          `pulumi:"keyring,optional"`
 
-	Values       pulumi.MapInput          `pulumi:"values,optional"`
-	ValuesFiles  pulumi.AssetArrayInput   `pulumi:"valueYamlFiles,optional"`
-	SkipCrds     pulumi.BoolInput         `pulumi:"skipCrds,optional"`
-	IncludeHooks pulumi.BoolInput         `pulumi:"includeHooks,optional"`
-	PostRenderer helmv4.PostRendererInput `pulumi:"postRenderer,optional"`
+	Values               pulumi.MapInput          `pulumi:"values,optional"`
+	ValuesFiles          pulumi.AssetArrayInput   `pulumi:"valueYamlFiles,optional"`
+	SkipCrds             pulumi.BoolInput         `pulumi:"skipCrds,optional"`
+	SkipSchemaValidation pulumi.BoolInput         `pulumi:"skipSchemaValidation,optional"`
+	IncludeHooks         pulumi.BoolInput         `pulumi:"includeHooks,optional"`
+	PostRenderer         helmv4.PostRendererInput `pulumi:"postRenderer,optional"`
 
 	ResourcePrefix pulumi.StringInput `pulumi:"resourcePrefix,optional"`
 	SkipAwait      pulumi.BoolInput   `pulumi:"skipAwait,optional"`
@@ -81,11 +82,12 @@ type chartArgs struct {
 	Verify           bool
 	Keyring          pulumi.Asset
 
-	Values       map[string]any
-	ValuesFiles  []pulumi.Asset
-	SkipCrds     bool
-	IncludeHooks bool
-	PostRenderer *helmv4.PostRenderer
+	Values               map[string]any
+	ValuesFiles          []pulumi.Asset
+	SkipCrds             bool
+	SkipSchemaValidation bool
+	IncludeHooks         bool
+	PostRenderer         *helmv4.PostRenderer
 
 	ResourcePrefix *string
 	SkipAwait      bool
@@ -97,7 +99,7 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 		args.Name, args.Namespace,
 		args.Chart, args.Version, args.KubeVersion,
 		args.Devel, args.RepositoryOpts, args.DependencyUpdate, args.Verify, args.Keyring,
-		args.Values, args.ValuesFiles, args.SkipCrds, args.IncludeHooks, args.PostRenderer,
+		args.Values, args.ValuesFiles, args.SkipCrds, args.SkipSchemaValidation, args.IncludeHooks, args.PostRenderer,
 		args.ResourcePrefix, args.SkipAwait, args.PlainHTTP))
 	if err != nil || !result.Known {
 		return nil, result, err
@@ -123,6 +125,7 @@ func unwrapChartArgs(ctx context.Context, args *ChartArgs) (*chartArgs, internal
 	r.Values, _ = pop().(map[string]any)
 	r.ValuesFiles, _ = pop().([]pulumi.Asset)
 	r.SkipCrds, _ = pop().(bool)
+	r.SkipSchemaValidation, _ = pop().(bool)
 	r.IncludeHooks, _ = pop().(bool)
 	if v, ok := pop().(helmv4.PostRenderer); ok {
 		r.PostRenderer = &v
@@ -239,6 +242,7 @@ func (r *ChartProvider) Construct(
 	cmd.Values.Values = chartArgs.Values
 	cmd.Values.ValuesFiles = chartArgs.ValuesFiles
 	cmd.IncludeCRDs = !chartArgs.SkipCrds
+	cmd.SkipSchemaValidation = chartArgs.SkipSchemaValidation
 	cmd.DisableHooks = true
 	cmd.ReleaseName = chartArgs.Name
 	cmd.Namespace = chartArgs.Namespace

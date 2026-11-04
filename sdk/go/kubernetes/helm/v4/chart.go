@@ -307,6 +307,8 @@ type chartArgs struct {
 	SkipAwait *bool `pulumi:"skipAwait"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds *bool `pulumi:"skipCrds"`
+	// If set, disable JSON schema validation. By default, values are validated against the chart's schema.
+	SkipSchemaValidation *bool `pulumi:"skipSchemaValidation"`
 	// List of assets (raw yaml files). Content is read and merged with values.
 	ValueYamlFiles []pulumi.AssetOrArchive `pulumi:"valueYamlFiles"`
 	// Custom values set for the release.
@@ -347,6 +349,8 @@ type ChartArgs struct {
 	SkipAwait pulumi.BoolPtrInput
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds pulumi.BoolPtrInput
+	// If set, disable JSON schema validation. By default, values are validated against the chart's schema.
+	SkipSchemaValidation pulumi.BoolPtrInput
 	// List of assets (raw yaml files). Content is read and merged with values.
 	ValueYamlFiles pulumi.AssetOrArchiveArrayInput
 	// Custom values set for the release.
