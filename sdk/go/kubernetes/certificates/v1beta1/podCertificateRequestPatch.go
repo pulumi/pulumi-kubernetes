@@ -83,6 +83,12 @@ func (PodCertificateRequestPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*podCertificateRequestPatchState)(nil)).Elem()
 }
 
+// PodCertificateRequestPatchExists checks whether an existing PodCertificateRequestPatch resource with the given ID exists.
+func PodCertificateRequestPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PodCertificateRequestPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:certificates.k8s.io/v1beta1:PodCertificateRequestPatch", id, state, "", opts...)
+}
+
 type podCertificateRequestPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

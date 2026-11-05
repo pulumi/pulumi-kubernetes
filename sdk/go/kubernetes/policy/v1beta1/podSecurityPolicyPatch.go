@@ -79,6 +79,12 @@ func (PodSecurityPolicyPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*podSecurityPolicyPatchState)(nil)).Elem()
 }
 
+// PodSecurityPolicyPatchExists checks whether an existing PodSecurityPolicyPatch resource with the given ID exists.
+func PodSecurityPolicyPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PodSecurityPolicyPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:policy/v1beta1:PodSecurityPolicyPatch", id, state, "", opts...)
+}
+
 type podSecurityPolicyPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

@@ -83,6 +83,12 @@ func (EndpointSlicePatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*endpointSlicePatchState)(nil)).Elem()
 }
 
+// EndpointSlicePatchExists checks whether an existing EndpointSlicePatch resource with the given ID exists.
+func EndpointSlicePatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *EndpointSlicePatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:discovery.k8s.io/v1:EndpointSlicePatch", id, state, "", opts...)
+}
+
 type endpointSlicePatchArgs struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name. (Deprecated) The EndpointSlice controller only generates, and kube-proxy only processes, slices of addressType "IPv4" and "IPv6". No semantics are defined for the "FQDN" type.
 	AddressType *string `pulumi:"addressType"`

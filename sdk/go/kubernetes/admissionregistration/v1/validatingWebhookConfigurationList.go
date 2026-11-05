@@ -71,6 +71,12 @@ func (ValidatingWebhookConfigurationListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*validatingWebhookConfigurationListState)(nil)).Elem()
 }
 
+// ValidatingWebhookConfigurationListExists checks whether an existing ValidatingWebhookConfigurationList resource with the given ID exists.
+func ValidatingWebhookConfigurationListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ValidatingWebhookConfigurationListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList", id, state, "", opts...)
+}
+
 type validatingWebhookConfigurationListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

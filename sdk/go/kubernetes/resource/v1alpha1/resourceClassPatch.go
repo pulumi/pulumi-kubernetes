@@ -90,6 +90,12 @@ func (ResourceClassPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*resourceClassPatchState)(nil)).Elem()
 }
 
+// ResourceClassPatchExists checks whether an existing ResourceClassPatch resource with the given ID exists.
+func ResourceClassPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ResourceClassPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch", id, state, "", opts...)
+}
+
 type resourceClassPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
