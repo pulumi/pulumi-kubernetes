@@ -670,10 +670,55 @@ func ssaUpdate(
 
 	currentOutputs, err := client.Patch(c.Context, liveOldObj.GetName(), types.ApplyPatchType, objYAML, options)
 	if err != nil {
+		// A preview cannot persist the CSA-to-SSA field-manager migration. If
+		// those fields are exclusively ours, an SSA dry-run can reject valid
+		// replacements because Kubernetes still sees the old manager as their
+		// owner. Validate a three-way strategic merge patch without changing the
+		// live object; retain the original error if that preview also fails.
+		if c.Preview && apierrors.IsInvalid(err) && previewCanUseLegacyPatch(c, liveOldObj) {
+			patch, patchType, _, patchErr := openapi.PatchForResourceUpdate(
+				c.Resources, c.OldInputs, c.Inputs, liveOldObj,
+			)
+			if patchErr == nil && patchType == types.StrategicMergePatchType {
+				preview, previewErr := client.Patch(c.Context, liveOldObj.GetName(), patchType, patch,
+					metav1.PatchOptions{FieldManager: c.FieldManager, DryRun: []string{metav1.DryRunAll}})
+				if previewErr == nil {
+					return preview, nil
+				}
+			}
+		}
 		return nil, handleSSAErr(err, c.FieldManager)
 	}
 
 	return currentOutputs, nil
+}
+
+// previewCanUseLegacyPatch confines the fallback to resources whose fields
+// are managed only by this provider. Strategic merge does not enforce SSA
+// ownership, so it must not replace the SSA preview when another manager owns
+// fields on the resource.
+func previewCanUseLegacyPatch(c *UpdateConfig, live *unstructured.Unstructured) bool {
+	if c.OldInputs == nil || c.Resources == nil || kinds.IsPatchResource(c.URN, c.Inputs.GetKind()) {
+		return false
+	}
+	hasLegacyManager := false
+	for _, field := range live.GetManagedFields() {
+		if field.Subresource != "" {
+			continue
+		}
+		if field.Manager == c.FieldManager && field.Operation == metav1.ManagedFieldsOperationApply {
+			continue
+		}
+		if field.Operation == metav1.ManagedFieldsOperationUpdate {
+			switch field.Manager {
+			case "pulumi-kubernetes", "pulumi-kubernetes.exe", "pulumi-resource-kubernetes":
+				hasLegacyManager = true
+				continue
+			}
+		}
+		return false
+	}
+	return hasLegacyManager
 }
 
 // handleCSAIgnoreFields handles updating the inputs to use the last known
