@@ -71,6 +71,12 @@ func (ControllerRevisionListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*controllerRevisionListState)(nil)).Elem()
 }
 
+// ControllerRevisionListExists checks whether an existing ControllerRevisionList resource with the given ID exists.
+func ControllerRevisionListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ControllerRevisionListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:apps/v1beta2:ControllerRevisionList", id, state, "", opts...)
+}
+
 type controllerRevisionListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

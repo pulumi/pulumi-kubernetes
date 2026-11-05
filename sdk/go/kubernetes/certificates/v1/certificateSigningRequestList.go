@@ -70,6 +70,12 @@ func (CertificateSigningRequestListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*certificateSigningRequestListState)(nil)).Elem()
 }
 
+// CertificateSigningRequestListExists checks whether an existing CertificateSigningRequestList resource with the given ID exists.
+func CertificateSigningRequestListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *CertificateSigningRequestListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList", id, state, "", opts...)
+}
+
 type certificateSigningRequestListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

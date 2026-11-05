@@ -69,6 +69,12 @@ func (PodDisruptionBudgetListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*podDisruptionBudgetListState)(nil)).Elem()
 }
 
+// PodDisruptionBudgetListExists checks whether an existing PodDisruptionBudgetList resource with the given ID exists.
+func PodDisruptionBudgetListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PodDisruptionBudgetListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:policy/v1beta1:PodDisruptionBudgetList", id, state, "", opts...)
+}
+
 type podDisruptionBudgetListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string                   `pulumi:"apiVersion"`

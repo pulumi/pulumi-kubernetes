@@ -73,6 +73,12 @@ func (CompositePodGroupState) ElementType() reflect.Type {
 	return reflect.TypeOf((*compositePodGroupState)(nil)).Elem()
 }
 
+// CompositePodGroupExists checks whether an existing CompositePodGroup resource with the given ID exists.
+func CompositePodGroupExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *CompositePodGroupState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:scheduling.k8s.io/v1alpha3:CompositePodGroup", id, state, "", opts...)
+}
+
 type compositePodGroupArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

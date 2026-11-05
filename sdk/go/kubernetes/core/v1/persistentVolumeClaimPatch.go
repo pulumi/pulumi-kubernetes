@@ -75,6 +75,12 @@ func (PersistentVolumeClaimPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*persistentVolumeClaimPatchState)(nil)).Elem()
 }
 
+// PersistentVolumeClaimPatchExists checks whether an existing PersistentVolumeClaimPatch resource with the given ID exists.
+func PersistentVolumeClaimPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PersistentVolumeClaimPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:core/v1:PersistentVolumeClaimPatch", id, state, "", opts...)
+}
+
 type persistentVolumeClaimPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

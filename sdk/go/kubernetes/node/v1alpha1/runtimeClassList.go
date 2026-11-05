@@ -71,6 +71,12 @@ func (RuntimeClassListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*runtimeClassListState)(nil)).Elem()
 }
 
+// RuntimeClassListExists checks whether an existing RuntimeClassList resource with the given ID exists.
+func RuntimeClassListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *RuntimeClassListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:node.k8s.io/v1alpha1:RuntimeClassList", id, state, "", opts...)
+}
+
 type runtimeClassListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
