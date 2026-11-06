@@ -57,15 +57,10 @@ import (
 // which themselves are an abstraction for replicating Pods), the success conditions are fairly
 // complex:
 //
-//   1. `.metadata.annotations["deployment.kubernetes.io/revision"]` in the current Deployment must
-//      have been incremented by the Deployment controller, i.e., it must not be equal to the
-//      revision number in the previous outputs.
-//
-//      This number is used to indicate the the active ReplicaSet. Any time a change is made to the
-//      Deployment's Pod template, this revision is incremented, and a new ReplicaSet is created
-//      with a corresponding revision number in its own annotations. This condition overall is a
-//      test to make sure that the Deployment controller is making progress in rolling forward to
-//      the new generation.
+//   1. The Deployment's replica counts must agree that the rollout finished:
+//      `.status.updatedReplicas` has reached `.spec.replicas`, `.status.replicas` is no greater
+//      than `.status.updatedReplicas`, and `.status.readyReplicas` has reached
+//      `.status.updatedReplicas`. `kubectl rollout status` makes the same comparisons.
 //   2. `.status.conditions` has a status with `type` equal to `Progressing`, a `status` set to
 //      `True`, and a `reason` set to `NewReplicaSetAvailable`. Though the condition is called
 //      "Progressing", this condition indicates that the new ReplicaSet has become healthy and
@@ -593,13 +588,13 @@ func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	logger.V(3).Infof("Checking ReplicaSet status for Deployment %q", dia.config.currentOutputs.GetName())
 
-	rs, updatedReplicaSetCreated := dia.replicaSets[dia.replicaSetGeneration]
+	replicaSet, updatedReplicaSetCreated := dia.replicaSets[dia.replicaSetGeneration]
 	if dia.replicaSetGeneration == "0" || !updatedReplicaSetCreated {
 		return
 	}
 
 	logger.V(3).Infof("Deployment %q has generation %q, which corresponds to ReplicaSet %q",
-		dia.config.currentOutputs.GetName(), dia.replicaSetGeneration, rs.GetName())
+		dia.config.currentOutputs.GetName(), dia.replicaSetGeneration, replicaSet.GetName())
 
 	var lastRevision string
 	if outputs := dia.config.lastOutputs; outputs != nil {
@@ -608,31 +603,25 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 
 	logger.V(3).Infof("The last generation of Deployment %q was %q", dia.config.currentOutputs.GetName(), lastRevision)
 
-	// NOTE: Check `.spec.replicas` in the live `ReplicaSet` instead of the last input `Deployment`,
-	// since this is the plan of record. This protects against (e.g.) a user running `kubectl scale`
-	// to reduce the number of replicas, which would cause subsequent `pulumi refresh` to fail, as
-	// we would now have fewer replicas than we had requested in the `Deployment` we last submitted
-	// when we last ran `pulumi up`.
-	rawSpecReplicas, specReplicasExists := openapi.Pluck(rs.Object, "spec", "replicas")
-	specReplicas, _ := rawSpecReplicas.(int64)
-	if !specReplicasExists {
-		specReplicas = 1
-	}
-
-	var rawReadyReplicas any
-	var readyReplicas int64
-	var readyReplicasExists bool
-	var unavailableReplicas int64
-	var expectedNumberOfUpdatedReplicas bool
-	// extensions/v1beta1/ReplicaSet does not include the "readyReplicas" status for rollouts,
-	// so use the Deployment "readyReplicas" status instead.
 	// Note: We must use the annotated apiVersion rather than the API-reported apiVersion, because
 	// the Progressing status field will not be present if the Deployment was created with the `extensions/v1beta1` API,
 	// regardless of what the Event apiVersion says.
-	extensionsV1Beta1API := dia.config.initialAPIVersion == extensionsv1b1ApiVersion
-	if extensionsV1Beta1API {
-		rawReadyReplicas, readyReplicasExists = openapi.Pluck(dia.deployment.Object, "status", "readyReplicas")
-		readyReplicas, _ = rawReadyReplicas.(int64)
+	if dia.config.initialAPIVersion == extensionsv1b1ApiVersion {
+		// NOTE: Check `.spec.replicas` in the live `ReplicaSet` instead of the last input `Deployment`,
+		// since this is the plan of record. This protects against (e.g.) a user running `kubectl scale`
+		// to reduce the number of replicas, which would cause subsequent `pulumi refresh` to fail, as
+		// we would now have fewer replicas than we had requested in the `Deployment` we last submitted
+		// when we last ran `pulumi up`.
+		rawSpecReplicas, specReplicasExists := openapi.Pluck(replicaSet.Object, "spec", "replicas")
+		specReplicas, _ := rawSpecReplicas.(int64)
+		if !specReplicasExists {
+			specReplicas = 1
+		}
+
+		// extensions/v1beta1/ReplicaSet does not include the "readyReplicas" status for rollouts,
+		// so use the Deployment "readyReplicas" status instead.
+		rawReadyReplicas, readyReplicasExists := openapi.Pluck(dia.deployment.Object, "status", "readyReplicas")
+		readyReplicas, _ := rawReadyReplicas.(int64)
 
 		doneWaitingOnReplicas := func() bool {
 			if readyReplicasExists {
@@ -641,6 +630,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 			return specReplicas == 0
 		}
 
+		expectedNumberOfUpdatedReplicas := false
 		if rawUpdatedReplicas, ok := openapi.Pluck(dia.deployment.Object, "status", "updatedReplicas"); ok {
 			updatedReplicas, _ := rawUpdatedReplicas.(int64)
 			expectedNumberOfUpdatedReplicas = updatedReplicas == specReplicas
@@ -659,7 +649,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		unavailableReplicasPresent := false
 		if rawUnavailableReplicas, ok := openapi.Pluck(
 			dia.deployment.Object, "status", "unavailableReplicas"); ok {
-			unavailableReplicas, _ = rawUnavailableReplicas.(int64)
+			unavailableReplicas, _ := rawUnavailableReplicas.(int64)
 
 			unavailableReplicasPresent = unavailableReplicas != 0
 		}
@@ -672,46 +662,66 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 			dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
 				doneWaitingOnReplicas() && !tooManyReplicas
 		}
+
+		if !dia.updatedReplicaSetReady {
+			dia.config.logger.LogStatus(
+				diag.Info,
+				fmt.Sprintf("Waiting for app ReplicaSet to be available (%d/%d Pods available)",
+					readyReplicas, specReplicas))
+		}
+		if dia.updatedReplicaSetReady && specReplicas == 0 {
+			dia.logScaledToZero()
+		}
 	} else {
-		rawReadyReplicas, readyReplicasExists = openapi.Pluck(rs.Object, "status", "readyReplicas")
-		readyReplicas, _ = rawReadyReplicas.(int64)
-
-		doneWaitingOnReplicas := func() bool {
-			if readyReplicasExists {
-				return readyReplicas >= specReplicas
+		statusCount := func(field string) int64 {
+			if raw, ok := openapi.Pluck(dia.deployment.Object, "status", field); ok {
+				count, _ := raw.(int64)
+				return count
 			}
-			return specReplicas == 0
+			return 0
 		}
 
-		logger.V(3).Infof("ReplicaSet %q requests '%v' replicas, but has '%v' ready",
-			rs.GetName(), specReplicas, readyReplicas)
+		// initialize with the API's default of 1
+		desiredReplicas := int64(1)
+		if rawDesiredReplicas, ok := openapi.Pluck(dia.deployment.Object, "spec", "replicas"); ok {
+			if count, isInt := rawDesiredReplicas.(int64); isInt {
+				desiredReplicas = count
+			}
+		}
+		updatedReplicas := statusCount("updatedReplicas")
+		totalReplicas := statusCount("replicas")
+		readyReplicas := statusCount("readyReplicas")
 
-		if dia.changeTriggeredRollout() {
-			logger.V(9).
-				Infof("Template change detected for replicaset %q - last revision: %q, current revision: %q",
-					rs.GetName(),
-					lastRevision,
-					dia.replicaSetGeneration)
-			dia.updatedReplicaSetReady = lastRevision != dia.replicaSetGeneration && updatedReplicaSetCreated &&
-				doneWaitingOnReplicas()
-		} else {
-			dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
-				doneWaitingOnReplicas()
+		logger.V(3).Infof(
+			"Deployment %q wants %v replicas, and reports %v updated, %v total, %v ready",
+			dia.deployment.GetName(), desiredReplicas, updatedReplicas, totalReplicas, readyReplicas)
+
+		dia.updatedReplicaSetReady = false
+		switch {
+		case updatedReplicas < desiredReplicas:
+			dia.config.logger.LogStatus(diag.Info,
+				fmt.Sprintf("Waiting for the rollout to create new Pods (%d/%d created)",
+					updatedReplicas, desiredReplicas))
+		case totalReplicas > updatedReplicas:
+			dia.config.logger.LogStatus(diag.Info,
+				fmt.Sprintf("Waiting for %d old Pods to terminate", totalReplicas-updatedReplicas))
+		case readyReplicas < updatedReplicas:
+			dia.config.logger.LogStatus(diag.Info,
+				fmt.Sprintf("Waiting for new Pods to become ready (%d/%d ready)",
+					readyReplicas, updatedReplicas))
+		default:
+			dia.updatedReplicaSetReady = true
+			if desiredReplicas == 0 {
+				dia.logScaledToZero()
+			}
 		}
 	}
+}
 
-	if !dia.updatedReplicaSetReady {
-		dia.config.logger.LogStatus(
-			diag.Info,
-			fmt.Sprintf("Waiting for app ReplicaSet to be available (%d/%d Pods available)",
-				readyReplicas, specReplicas))
-	}
-
-	if dia.updatedReplicaSetReady && specReplicasExists && specReplicas == 0 {
-		dia.config.logger.LogStatus(
-			diag.Warning,
-			fmt.Sprintf("Replicas scaled to 0 for Deployment %q", dia.deployment.GetName()))
-	}
+func (dia *deploymentInitAwaiter) logScaledToZero() {
+	dia.config.logger.LogStatus(
+		diag.Warning,
+		fmt.Sprintf("Replicas scaled to 0 for Deployment %q", dia.deployment.GetName()))
 }
 
 // changeTriggeredRollout returns true if the current deployment has a different revision than the last deployment.

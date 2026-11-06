@@ -580,6 +580,40 @@ func Test_Apps_Deployment(t *testing.T) {
 			},
 		},
 		{
+			description: "Should not succeed while the Recreate strategy terminates the old Pods",
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
+				deployments <- watchAddedEvent(
+					deploymentRecreateNotRolledOut(inputNamespace, deploymentInputName))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
+
+				// Timeout. Failure.
+				timeout <- time.Now()
+			},
+			expectedError: &timeoutError{
+				object: deploymentRecreateNotRolledOut(inputNamespace, deploymentInputName),
+				subErrors: []string{
+					"Minimum number of Pods to consider the application live was not attained",
+				},
+			},
+		},
+		{
+			description: "Should succeed once the Recreate strategy rolls out the new ReplicaSet",
+			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
+				deployments <- watchAddedEvent(
+					deploymentRecreateNotRolledOut(inputNamespace, deploymentInputName))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision1))
+				deployments <- watchAddedEvent(
+					deploymentRolloutComplete(inputNamespace, deploymentInputName, revision2))
+				replicaSets <- watchAddedEvent(
+					availableReplicaSet(inputNamespace, replicaSetGeneratedName, deploymentInputName, revision2))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
 			description: "Should fail if ReplicaSet generations do not match",
 			do: func(deployments, replicaSets, _ /* pods */ chan watch.Event, timeout chan time.Time) {
 				deployments <- watchAddedEvent(
@@ -654,6 +688,7 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 					`[ProgressDeadlineExceeded] ReplicaSet "foo-13y9rdnu-b94df86d6" has timed ` +
 						`out progressing.`,
 					fmt.Sprintf("Failed to bind PersistentVolumeClaim(s): %q", pvcInputName),
+					"Minimum number of Pods to consider the application live was not attained",
 				},
 			},
 		},
@@ -1633,7 +1668,7 @@ func deploymentScaledToZero(namespace, name, revision string) *unstructured.Unst
 		}
 	},
 	"spec": {
-		"replicas": 1,
+		"replicas": 0,
 		"selector": {
 			"matchLabels": {
 				"app": "foo"
@@ -1679,6 +1714,84 @@ func deploymentScaledToZero(namespace, name, revision string) *unstructured.Unst
 		]
 	}
 }`, namespace, name, name, revision))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// A Deployment with the Recreate strategy does not get a new ReplicaSet until the old Pods are
+// gone, so the controller records generation 2 while the revision annotation still names revision 1.
+// No Pod has the new template spec yet, so updatedReplicas is absent.
+func deploymentRecreateNotRolledOut(namespace, name string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+	"kind": "Deployment",
+	"apiVersion": "apps/v1",
+	"metadata": {
+		"namespace": "%s",
+		"name": "%s",
+        "uid": "%s-deployment-uid",
+		"generation": 2,
+		"labels": {
+			"app": "foo"
+		},
+		"annotations": {
+			"deployment.kubernetes.io/revision": "1",
+			"pulumi.com/autonamed": "true"
+		}
+	},
+	"spec": {
+		"replicas": 1,
+		"strategy": {
+			"type": "Recreate"
+		},
+		"selector": {
+			"matchLabels": {
+				"app": "foo"
+			}
+		},
+		"template": {
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "foo"
+				}
+			},
+			"spec": {
+				"containers": [
+					{
+						"name": "nginx",
+						"image": "nginx:1.27.1"
+					}
+				]
+			}
+		}
+	},
+	"status": {
+		"observedGeneration": 2,
+		"replicas": 1,
+		"readyReplicas": 1,
+		"availableReplicas": 1,
+		"conditions": [
+			{
+				"type": "Available",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T21:49:11Z",
+				"lastTransitionTime": "2018-07-31T21:49:11Z",
+				"reason": "MinimumReplicasAvailable",
+				"message": "Deployment has minimum availability."
+			},
+			{
+				"type": "Progressing",
+				"status": "True",
+				"lastUpdateTime": "2018-07-31T21:49:11Z",
+				"lastTransitionTime": "2018-07-31T21:49:04Z",
+				"reason": "NewReplicaSetAvailable",
+				"message": "ReplicaSet \"foo-lobqxn87-546cb87d96\" has successfully progressed."
+			}
+		]
+	}
+}`, namespace, name, name))
 	if err != nil {
 		panic(err)
 	}
