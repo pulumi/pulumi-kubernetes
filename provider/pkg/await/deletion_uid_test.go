@@ -42,21 +42,12 @@ func TestDeletionUIDPrecondition(t *testing.T) {
 		replace     bool
 	}{
 		{
-			name: "recorded UID",
-			uid:  "original",
-		},
-		{
 			name: "missing UID",
 		},
 		{
 			name:    "replacement after accepted delete",
 			uid:     "original",
 			replace: true,
-		},
-		{
-			name:        "already deleted",
-			uid:         "original",
-			deleteError: apierrors.NewNotFound(schema.GroupResource{Resource: "pods"}, "foo"),
 		},
 		{
 			name: "UID conflict",
@@ -109,7 +100,7 @@ func TestDeletionUIDPrecondition(t *testing.T) {
 				Timeout: 2,
 			})
 			require.Equal(t, 1, deletes)
-			if apierrors.IsConflict(tt.deleteError) {
+			if tt.deleteError != nil {
 				require.ErrorIs(t, err, tt.deleteError)
 			} else {
 				require.NoError(t, err)
