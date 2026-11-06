@@ -22,6 +22,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -219,6 +220,9 @@ func TestDeleted(t *testing.T) {
 
 		podWithFinalizers := pod.DeepCopy()
 		podWithFinalizers.SetFinalizers([]string{"stuck"})
+		podWithFinalizers.SetUID("original")
+		now := metav1.Now()
+		podWithFinalizers.SetDeletionTimestamp(&now)
 
 		buf := &strings.Builder{}
 		cond, err := NewDeleted(ctx, Static(nil), getter, logbuf{buf}, podWithFinalizers)
@@ -264,4 +268,77 @@ func TestDeleted(t *testing.T) {
 		assert.False(t, done)
 		assert.Contains(t, buf.String(), "boom")
 	})
+}
+
+func TestDeletedUIDObserve(t *testing.T) {
+	checkpoint := pod.DeepCopy()
+	checkpoint.SetUID("original")
+	replacement := checkpoint.DeepCopy()
+	replacement.SetUID("replacement")
+
+	tests := []struct {
+		name        string
+		event       watch.Event
+		getter      objectGetter
+		wantDeleted bool
+	}{
+		{
+			name:        "original deleted",
+			event:       watch.Event{Type: watch.Deleted, Object: checkpoint},
+			getter:      &get200{checkpoint},
+			wantDeleted: true,
+		},
+		{
+			name:        "replacement confirmed by live lookup",
+			event:       watch.Event{Type: watch.Added, Object: replacement},
+			getter:      &get200{replacement},
+			wantDeleted: true,
+		},
+		{
+			name:   "cached different UID while original still exists",
+			event:  watch.Event{Type: watch.Added, Object: replacement},
+			getter: &get200{checkpoint},
+		},
+		{
+			name:   "failed live lookup remains pending",
+			event:  watch.Event{Type: watch.Modified, Object: replacement},
+			getter: get503{},
+		},
+		{
+			name:   "ignores deleted event for another UID",
+			event:  watch.Event{Type: watch.Deleted, Object: replacement},
+			getter: &get200{replacement},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cond, err := NewDeleted(t.Context(), Static(nil), tt.getter, logbuf{&strings.Builder{}}, checkpoint.DeepCopy())
+			require.NoError(t, err)
+			t.Cleanup(cond.cancel)
+			require.NoError(t, cond.Observe(tt.event))
+			done, err := cond.Satisfied()
+			require.NoError(t, err)
+			assert.Equal(t, tt.wantDeleted, done)
+			assert.Equal(t, checkpoint.GetUID(), cond.Object().GetUID())
+		})
+	}
+}
+
+func TestDeletedUIDFinalLookup(t *testing.T) {
+	checkpoint := pod.DeepCopy()
+	checkpoint.SetUID("original")
+	replacement := checkpoint.DeepCopy()
+	replacement.SetUID("replacement")
+	getter := &getsequence{getters: []objectGetter{&get200{checkpoint}, &get200{replacement}}}
+
+	ctx, cancel := context.WithCancel(t.Context())
+	cancel()
+	cond, err := NewDeleted(ctx, Static(nil), getter, logbuf{&strings.Builder{}}, checkpoint)
+	require.NoError(t, err)
+	t.Cleanup(cond.cancel)
+	cond.Range(nil)
+	done, err := cond.Satisfied()
+	require.NoError(t, err)
+	assert.True(t, done)
+	assert.Equal(t, checkpoint.GetUID(), cond.Object().GetUID())
 }
