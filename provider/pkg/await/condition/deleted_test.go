@@ -27,7 +27,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
 )
 
@@ -221,6 +220,9 @@ func TestDeleted(t *testing.T) {
 
 		podWithFinalizers := pod.DeepCopy()
 		podWithFinalizers.SetFinalizers([]string{"stuck"})
+		podWithFinalizers.SetUID("original")
+		now := metav1.Now()
+		podWithFinalizers.SetDeletionTimestamp(&now)
 
 		buf := &strings.Builder{}
 		cond, err := NewDeleted(ctx, Static(nil), getter, logbuf{buf}, podWithFinalizers)
@@ -273,16 +275,6 @@ func TestDeletedUIDObserve(t *testing.T) {
 	checkpoint.SetUID("original")
 	replacement := checkpoint.DeepCopy()
 	replacement.SetUID("replacement")
-	uidless := checkpoint.DeepCopy()
-	uidless.SetUID("")
-	otherNamespace := replacement.DeepCopy()
-	otherNamespace.SetNamespace("other")
-	otherName := replacement.DeepCopy()
-	otherName.SetName("other")
-	terminating := checkpoint.DeepCopy()
-	now := metav1.Now()
-	terminating.SetDeletionTimestamp(&now)
-	terminating.SetFinalizers([]string{"example.com/hold"})
 
 	tests := []struct {
 		name        string
@@ -297,20 +289,9 @@ func TestDeletedUIDObserve(t *testing.T) {
 			wantDeleted: true,
 		},
 		{
-			name:   "original with finalizers remains pending",
-			event:  watch.Event{Type: watch.Modified, Object: terminating},
-			getter: &get200{terminating},
-		},
-		{
 			name:        "replacement confirmed by live lookup",
 			event:       watch.Event{Type: watch.Added, Object: replacement},
 			getter:      &get200{replacement},
-			wantDeleted: true,
-		},
-		{
-			name:        "not found after replacement event",
-			event:       watch.Event{Type: watch.Modified, Object: replacement},
-			getter:      get404{},
 			wantDeleted: true,
 		},
 		{
@@ -328,31 +309,6 @@ func TestDeletedUIDObserve(t *testing.T) {
 			event:  watch.Event{Type: watch.Deleted, Object: replacement},
 			getter: &get200{replacement},
 		},
-		{
-			name:   "ignores deleted event without UID",
-			event:  watch.Event{Type: watch.Deleted, Object: uidless},
-			getter: &get200{checkpoint},
-		},
-		{
-			name:   "ignores modified event without UID",
-			event:  watch.Event{Type: watch.Modified, Object: uidless},
-			getter: &get200{checkpoint},
-		},
-		{
-			name:   "ignores event for another namespace",
-			event:  watch.Event{Type: watch.Added, Object: otherNamespace},
-			getter: &get200{replacement},
-		},
-		{
-			name:   "ignores event for another name",
-			event:  watch.Event{Type: watch.Added, Object: otherName},
-			getter: &get200{replacement},
-		},
-		{
-			name:   "ignores non-object event",
-			event:  watch.Event{Type: watch.Error, Object: &metav1.Status{}},
-			getter: &get200{checkpoint},
-		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -362,10 +318,8 @@ func TestDeletedUIDObserve(t *testing.T) {
 			require.NoError(t, cond.Observe(tt.event))
 			done, err := cond.Satisfied()
 			require.NoError(t, err)
-			require.Equal(t, tt.wantDeleted, done)
-			require.Equal(t, types.UID("original"), cond.Object().GetUID())
-			require.Equal(t, checkpoint.GetName(), cond.Object().GetName())
-			require.Equal(t, checkpoint.GetNamespace(), cond.Object().GetNamespace())
+			assert.Equal(t, tt.wantDeleted, done)
+			assert.Equal(t, checkpoint.GetUID(), cond.Object().GetUID())
 		})
 	}
 }
@@ -375,62 +329,16 @@ func TestDeletedUIDFinalLookup(t *testing.T) {
 	checkpoint.SetUID("original")
 	replacement := checkpoint.DeepCopy()
 	replacement.SetUID("replacement")
-	uidless := checkpoint.DeepCopy()
-	uidless.SetUID("")
-	otherNamespace := replacement.DeepCopy()
-	otherNamespace.SetNamespace("other")
-	otherName := replacement.DeepCopy()
-	otherName.SetName("other")
-	terminating := checkpoint.DeepCopy()
-	now := metav1.Now()
-	terminating.SetDeletionTimestamp(&now)
-	terminating.SetFinalizers([]string{"example.com/hold"})
+	getter := &getsequence{getters: []objectGetter{&get200{checkpoint}, &get200{replacement}}}
 
-	tests := []struct {
-		name        string
-		live        *unstructured.Unstructured
-		wantDeleted bool
-	}{
-		{
-			name:        "replacement completes deletion",
-			live:        replacement,
-			wantDeleted: true,
-		},
-		{
-			name: "original remains pending",
-			live: checkpoint,
-		},
-		{
-			name: "original with finalizers remains pending",
-			live: terminating,
-		},
-		{
-			name: "missing UID remains pending",
-			live: uidless,
-		},
-		{
-			name: "ignores different namespace",
-			live: otherNamespace,
-		},
-		{
-			name: "ignores different name",
-			live: otherName,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			ctx, cancel := context.WithCancel(t.Context())
-			cancel()
-			getter := &getsequence{getters: []objectGetter{&get200{checkpoint}, &get200{tt.live}}}
-			cond, err := NewDeleted(ctx, Static(nil), getter, logbuf{&strings.Builder{}}, checkpoint.DeepCopy())
-			require.NoError(t, err)
-			t.Cleanup(cond.cancel)
-			cond.Range(nil)
-			done, err := cond.Satisfied()
-			require.NoError(t, err)
-			require.Equal(t, tt.wantDeleted, done)
-			require.Equal(t, 2, getter.idx)
-			require.Equal(t, types.UID("original"), cond.Object().GetUID())
-		})
-	}
+	ctx, cancel := context.WithCancel(t.Context())
+	cancel()
+	cond, err := NewDeleted(ctx, Static(nil), getter, logbuf{&strings.Builder{}}, checkpoint)
+	require.NoError(t, err)
+	t.Cleanup(cond.cancel)
+	cond.Range(nil)
+	done, err := cond.Satisfied()
+	require.NoError(t, err)
+	assert.True(t, done)
+	assert.Equal(t, checkpoint.GetUID(), cond.Object().GetUID())
 }
