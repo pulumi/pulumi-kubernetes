@@ -17,6 +17,9 @@ package provider
 import (
 	"context"
 	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -138,6 +141,13 @@ func TestDeriveExtensionName(t *testing.T) {
 		{"first path wins", []string{"gateway-api.yaml", "cert-manager.yaml"}, "gateway-api"},
 		{"empty list falls back to default", nil, defaultExtensionName},
 		{"empty path falls back to default", []string{""}, defaultExtensionName},
+		{
+			"github blob url",
+			[]string{"https://github.com/kubernetes-sigs/gateway-api/blob/v1.2.1/config/crd/gateway-crds.yaml"},
+			"gateway-crds",
+		},
+		{"url with query string", []string{"https://example.com/crds/cert-manager.yaml?raw=true#L1"}, "cert-manager"},
+		{"url with no path falls back to default", []string{"https://example.com"}, defaultExtensionName},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -567,7 +577,7 @@ func TestParameterizePreservesHyphenatedPropertyNames(t *testing.T) {
 	require.NoError(t, os.WriteFile(manifest, []byte(hyphenatedPropertyCRD), 0o600))
 
 	fromArgs := &kubeProvider{name: "kubernetes", version: "4.0.0"}
-	_, err := fromArgs.parameterizeRequestArgs(&pulumirpc.ParameterizeRequest_Args{
+	_, err := fromArgs.parameterizeRequestArgs(context.Background(), &pulumirpc.ParameterizeRequest_Args{
 		Args: &pulumirpc.ParameterizeRequest_ParametersArgs{
 			Args: []string{"name=cilium", "version=1.0.0", "crd-manifest=" + manifest},
 		},
@@ -609,4 +619,115 @@ func assertHyphenatedProperty(t *testing.T, pkg *pulumischema.PackageSpec) {
 	}
 
 	t.Fatalf("no type declared a %q property; the schema has %d types", "security-labels", len(pkg.Types))
+}
+
+func TestResolveManifestURL(t *testing.T) {
+	tests := []struct {
+		name string
+		in   string
+		want string
+	}{
+		{
+			"github blob",
+			"https://github.com/kubernetes-sigs/gateway-api/blob/v1.2.1/config/crd/standard/gateways.yaml",
+			"https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.2.1/config/crd/standard/gateways.yaml",
+		},
+		{
+			"github raw",
+			"https://github.com/owner/repo/raw/main/crds.yaml",
+			"https://raw.githubusercontent.com/owner/repo/main/crds.yaml",
+		},
+		{
+			"github blob with raw=true query",
+			"https://github.com/owner/repo/blob/main/crds.yaml?raw=true",
+			"https://raw.githubusercontent.com/owner/repo/main/crds.yaml",
+		},
+		{
+			"raw.githubusercontent passthrough",
+			"https://raw.githubusercontent.com/owner/repo/main/crds.yaml",
+			"https://raw.githubusercontent.com/owner/repo/main/crds.yaml",
+		},
+		{
+			"github release download passthrough",
+			"https://github.com/owner/repo/releases/download/v1.0.0/crds.yaml",
+			"https://github.com/owner/repo/releases/download/v1.0.0/crds.yaml",
+		},
+		{
+			"non-github passthrough",
+			"https://example.com/crds.yaml?x=1",
+			"https://example.com/crds.yaml?x=1",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			u, err := url.Parse(tt.in)
+			require.NoError(t, err)
+			assert.Equal(t, tt.want, resolveManifestURL(u).String())
+		})
+	}
+}
+
+func TestParseRemoteManifest(t *testing.T) {
+	for _, s := range []string{"https://example.com/a.yaml", "http://example.com/a.yaml"} {
+		_, ok := parseRemoteManifest(s)
+		assert.True(t, ok, s)
+	}
+	for _, s := range []string{"crds.yaml", "./dir/crds.yaml", "/abs/crds.yaml", `C:\crds.yaml`, "file:///crds.yaml"} {
+		_, ok := parseRemoteManifest(s)
+		assert.False(t, ok, s)
+	}
+}
+
+func TestIsGitHubHost(t *testing.T) {
+	assert.True(t, isGitHubHost("github.com"))
+	assert.True(t, isGitHubHost("raw.githubusercontent.com"))
+	assert.True(t, isGitHubHost("GitHub.com"))
+	assert.False(t, isGitHubHost("example.com"))
+	assert.False(t, isGitHubHost("github.com.evil.example"))
+	assert.False(t, isGitHubHost("127.0.0.1:8080"))
+}
+
+func TestParameterizeFromURL(t *testing.T) {
+	t.Setenv("GITHUB_TOKEN", "secret-token")
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// The token must never be sent to non-GitHub hosts.
+		if r.Header.Get("Authorization") != "" {
+			http.Error(w, "unexpected Authorization header", http.StatusBadRequest)
+			return
+		}
+		switch r.URL.Path {
+		case "/crds/cilium.yaml":
+			_, _ = w.Write([]byte(hyphenatedPropertyCRD))
+		default:
+			http.NotFound(w, r)
+		}
+	}))
+	defer srv.Close()
+
+	t.Run("downloads manifest", func(t *testing.T) {
+		k := &kubeProvider{name: "kubernetes", version: "4.0.0"}
+		resp, err := k.parameterizeRequestArgs(context.Background(), &pulumirpc.ParameterizeRequest_Args{
+			Args: &pulumirpc.ParameterizeRequest_ParametersArgs{
+				Args: []string{"crd-manifest=" + srv.URL + "/crds/cilium.yaml"},
+			},
+		})
+		require.NoError(t, err)
+		assert.Equal(t, "cilium", resp.Name)
+
+		pkg := k.crdSchemas.get("cilium", defaultExtensionVersion)
+		require.NotNil(t, pkg)
+		assertHyphenatedProperty(t, pkg)
+	})
+
+	t.Run("reports http errors", func(t *testing.T) {
+		k := &kubeProvider{name: "kubernetes", version: "4.0.0"}
+		_, err := k.parameterizeRequestArgs(context.Background(), &pulumirpc.ParameterizeRequest_Args{
+			Args: &pulumirpc.ParameterizeRequest_ParametersArgs{
+				Args: []string{"crd-manifest=" + srv.URL + "/missing.yaml"},
+			},
+		})
+		require.Error(t, err)
+		assert.Contains(t, err.Error(), "404")
+	})
 }
