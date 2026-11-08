@@ -92,6 +92,9 @@ func (s *StateChecker) Ready(state interface{}) bool {
 
 func (s *StateChecker) ReadyStatus(state interface{}) (bool, Result) {
 	ok, results := s.readyDetails(state)
+	if len(results) == 0 {
+		return ok, Result{Ok: ok}
+	}
 	return ok, results[len(results)-1]
 }
 
