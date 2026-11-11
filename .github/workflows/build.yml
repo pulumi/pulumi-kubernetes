@@ -2,18 +2,7 @@
 
 name: main # For consistency with bridged providers.
 on:
-  push:
-    branches:
-    - master
-    - main
-    - feature-**
-    paths-ignore:
-    - CHANGELOG.md
-    tags-ignore:
-    - v*
-    - sdk/*
-    - "**"
-  workflow_dispatch: {}
+  workflow_call: {}
 env:
   PROVIDER: kubernetes
   TRAVIS_OS_NAME: linux
@@ -37,6 +26,7 @@ env:
 
 jobs:
   prerequisites:
+    if: github.repository == 'pulumi/pulumi-kubernetes'
     runs-on: pulumi-ubuntu-8core
     name: prerequisites
     permissions:
@@ -607,10 +597,12 @@ jobs:
       env:
         SLACK_WEBHOOK_URL: ${{ steps.esc-secrets.outputs.SLACK_WEBHOOK_URL }}
   lint:
+    if: github.repository == 'pulumi/pulumi-kubernetes'
     name: lint
     uses: ./.github/workflows/lint.yml
     secrets: inherit
   build-test-cluster:
+    if: github.repository == 'pulumi/pulumi-kubernetes'
     runs-on: ubuntu-latest
     name: build-test-cluster
     outputs:
@@ -669,7 +661,7 @@ jobs:
     needs:
     - build-test-cluster
     - test
-    if: ${{ always() && github.repository_owner == 'pulumi' }}
+    if: ${{ always() && github.repository_owner == 'pulumi' && github.repository == 'pulumi/pulumi-kubernetes' }}
     permissions:
       contents: read
       id-token: write # For Pulumi access token OIDC.
