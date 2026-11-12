@@ -1,0 +1,32 @@
+name: csa-create-ssa-probe
+runtime: yaml
+resources:
+  ns:
+    type: kubernetes:core/v1:Namespace
+  deployment:
+    type: kubernetes:apps/v1:Deployment
+    properties:
+      metadata:
+        name: probe-transition
+        namespace: ${ns.metadata.name}
+        annotations:
+          pulumi.com/skipAwait: "true"
+      spec:
+        replicas: 0
+        selector:
+          matchLabels:
+            app: probe-transition
+        template:
+          metadata:
+            labels:
+              app: probe-transition
+          spec:
+            containers:
+              - name: server
+                image: nginx
+                readinessProbe:
+                  httpGet:
+                    path: /
+                    port: 8080
+outputs:
+  namespace: ${ns.metadata.name}
