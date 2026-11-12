@@ -80,6 +80,12 @@ func (StatusPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPatchState)(nil)).Elem()
 }
 
+// StatusPatchExists checks whether an existing StatusPatch resource with the given ID exists.
+func StatusPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:meta/v1:StatusPatch", id, state, "", opts...)
+}
+
 type statusPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

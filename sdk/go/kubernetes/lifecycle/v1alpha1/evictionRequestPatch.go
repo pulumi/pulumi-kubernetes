@@ -85,6 +85,12 @@ func (EvictionRequestPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*evictionRequestPatchState)(nil)).Elem()
 }
 
+// EvictionRequestPatchExists checks whether an existing EvictionRequestPatch resource with the given ID exists.
+func EvictionRequestPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *EvictionRequestPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:lifecycle.k8s.io/v1alpha1:EvictionRequestPatch", id, state, "", opts...)
+}
+
 type evictionRequestPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

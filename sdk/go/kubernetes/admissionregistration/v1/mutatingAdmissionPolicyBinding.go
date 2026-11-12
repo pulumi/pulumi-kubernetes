@@ -80,6 +80,12 @@ func (MutatingAdmissionPolicyBindingState) ElementType() reflect.Type {
 	return reflect.TypeOf((*mutatingAdmissionPolicyBindingState)(nil)).Elem()
 }
 
+// MutatingAdmissionPolicyBindingExists checks whether an existing MutatingAdmissionPolicyBinding resource with the given ID exists.
+func MutatingAdmissionPolicyBindingExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MutatingAdmissionPolicyBindingState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:admissionregistration.k8s.io/v1:MutatingAdmissionPolicyBinding", id, state, "", opts...)
+}
+
 type mutatingAdmissionPolicyBindingArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

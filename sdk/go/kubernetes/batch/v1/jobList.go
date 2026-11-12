@@ -71,6 +71,12 @@ func (JobListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*jobListState)(nil)).Elem()
 }
 
+// JobListExists checks whether an existing JobList resource with the given ID exists.
+func JobListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *JobListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:batch/v1:JobList", id, state, "", opts...)
+}
+
 type jobListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

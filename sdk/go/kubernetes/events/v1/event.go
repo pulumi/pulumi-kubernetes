@@ -107,6 +107,12 @@ func (EventState) ElementType() reflect.Type {
 	return reflect.TypeOf((*eventState)(nil)).Elem()
 }
 
+// EventExists checks whether an existing Event resource with the given ID exists.
+func EventExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *EventState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:events.k8s.io/v1:Event", id, state, "", opts...)
+}
+
 type eventArgs struct {
 	// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
 	Action *string `pulumi:"action"`

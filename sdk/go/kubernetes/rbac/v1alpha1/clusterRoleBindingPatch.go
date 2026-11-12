@@ -84,6 +84,12 @@ func (ClusterRoleBindingPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*clusterRoleBindingPatchState)(nil)).Elem()
 }
 
+// ClusterRoleBindingPatchExists checks whether an existing ClusterRoleBindingPatch resource with the given ID exists.
+func ClusterRoleBindingPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ClusterRoleBindingPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingPatch", id, state, "", opts...)
+}
+
 type clusterRoleBindingPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
