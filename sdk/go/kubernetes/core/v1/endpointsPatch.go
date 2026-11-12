@@ -89,6 +89,12 @@ func (EndpointsPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*endpointsPatchState)(nil)).Elem()
 }
 
+// EndpointsPatchExists checks whether an existing EndpointsPatch resource with the given ID exists.
+func EndpointsPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *EndpointsPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:core/v1:EndpointsPatch", id, state, "", opts...)
+}
+
 type endpointsPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

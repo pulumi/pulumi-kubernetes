@@ -75,6 +75,12 @@ func (NetworkPolicyState) ElementType() reflect.Type {
 	return reflect.TypeOf((*networkPolicyState)(nil)).Elem()
 }
 
+// NetworkPolicyExists checks whether an existing NetworkPolicy resource with the given ID exists.
+func NetworkPolicyExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *NetworkPolicyState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:networking.k8s.io/v1:NetworkPolicy", id, state, "", opts...)
+}
+
 type networkPolicyArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

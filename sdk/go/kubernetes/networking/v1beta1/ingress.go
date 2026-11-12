@@ -92,6 +92,12 @@ func (IngressState) ElementType() reflect.Type {
 	return reflect.TypeOf((*ingressState)(nil)).Elem()
 }
 
+// IngressExists checks whether an existing Ingress resource with the given ID exists.
+func IngressExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *IngressState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:networking.k8s.io/v1beta1:Ingress", id, state, "", opts...)
+}
+
 type ingressArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

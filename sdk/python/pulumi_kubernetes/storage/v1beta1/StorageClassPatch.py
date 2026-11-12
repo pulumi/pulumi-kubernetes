@@ -325,6 +325,12 @@ class StorageClassPatch(pulumi.CustomResource):
         __props__.__dict__["volume_binding_mode"] = None
         return StorageClassPatch(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        return pulumi.runtime.exists_resource(None, 'kubernetes:storage.k8s.io/v1beta1:StorageClassPatch', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="allowVolumeExpansion")
     def allow_volume_expansion(self) -> pulumi.Output[Optional[_builtins.bool]]:

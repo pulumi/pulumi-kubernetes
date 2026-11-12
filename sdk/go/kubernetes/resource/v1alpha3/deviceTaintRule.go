@@ -84,6 +84,12 @@ func (DeviceTaintRuleState) ElementType() reflect.Type {
 	return reflect.TypeOf((*deviceTaintRuleState)(nil)).Elem()
 }
 
+// DeviceTaintRuleExists checks whether an existing DeviceTaintRule resource with the given ID exists.
+func DeviceTaintRuleExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *DeviceTaintRuleState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:resource.k8s.io/v1alpha3:DeviceTaintRule", id, state, "", opts...)
+}
+
 type deviceTaintRuleArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

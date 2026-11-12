@@ -84,6 +84,12 @@ func (PodGroupPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*podGroupPatchState)(nil)).Elem()
 }
 
+// PodGroupPatchExists checks whether an existing PodGroupPatch resource with the given ID exists.
+func PodGroupPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PodGroupPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:scheduling.k8s.io/v1beta1:PodGroupPatch", id, state, "", opts...)
+}
+
 type podGroupPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

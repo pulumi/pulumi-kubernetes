@@ -106,6 +106,12 @@ func (EventState) ElementType() reflect.Type {
 	return reflect.TypeOf((*eventState)(nil)).Elem()
 }
 
+// EventExists checks whether an existing Event resource with the given ID exists.
+func EventExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *EventState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:events.k8s.io/v1beta1:Event", id, state, "", opts...)
+}
+
 type eventArgs struct {
 	// What action was taken/failed regarding to the regarding object.
 	Action *string `pulumi:"action"`

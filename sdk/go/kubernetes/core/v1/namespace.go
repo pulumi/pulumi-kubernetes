@@ -69,6 +69,12 @@ func (NamespaceState) ElementType() reflect.Type {
 	return reflect.TypeOf((*namespaceState)(nil)).Elem()
 }
 
+// NamespaceExists checks whether an existing Namespace resource with the given ID exists.
+func NamespaceExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *NamespaceState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:core/v1:Namespace", id, state, "", opts...)
+}
+
 type namespaceArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
