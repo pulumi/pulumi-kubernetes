@@ -217,6 +217,12 @@ class ClusterRolePatch(pulumi.CustomResource):
         __props__.__dict__["rules"] = None
         return ClusterRolePatch(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        return pulumi.runtime.exists_resource(None, 'kubernetes:rbac.authorization.k8s.io/v1:ClusterRolePatch', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="aggregationRule")
     def aggregation_rule(self) -> pulumi.Output[Optional['outputs.AggregationRulePatch']]:
