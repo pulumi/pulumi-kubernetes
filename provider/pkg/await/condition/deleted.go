@@ -24,6 +24,7 @@ import (
 	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
 	"sigs.k8s.io/cli-utils/pkg/kstatus/status"
 
@@ -32,8 +33,7 @@ import (
 
 var _ Satisfier = (*Deleted)(nil)
 
-// Deleted condition succeeds when GET on a resource 404s or when a Deleted
-// event is received for the resource.
+// Deleted succeeds when the recorded object no longer exists.
 type Deleted struct {
 	ctx      context.Context
 	cancel   func()
@@ -41,6 +41,11 @@ type Deleted struct {
 	logger   logger
 	deleted  atomic.Bool
 	getter   objectGetter
+
+	// Keep the recorded identity separate from the observer's latest state.
+	uid       types.UID
+	name      string
+	namespace string
 }
 
 // NewDeleted constructs a new Deleted condition.
@@ -58,6 +63,10 @@ func NewDeleted(
 		observer: NewObjectObserver(ctx, source, obj),
 		logger:   logger,
 		getter:   getter,
+
+		uid:       obj.GetUID(),
+		name:      obj.GetName(),
+		namespace: obj.GetNamespace(),
 	}
 	return dc, nil
 }
@@ -116,16 +125,33 @@ func (dc *Deleted) Range(yield func(watch.Event) bool) {
 	)
 }
 
-// Observe watches for Deleted events.
+// Observe tracks deletion without adopting another object with the same name.
 func (dc *Deleted) Observe(e watch.Event) error {
+	if dc.uid != "" {
+		obj, ok := e.Object.(*unstructured.Unstructured)
+		if !ok || obj == nil || obj.GetName() != dc.name || obj.GetNamespace() != dc.namespace {
+			return nil
+		}
+		if obj.GetUID() != dc.uid {
+			// The cached object may be older than ours. Confirm with a live read.
+			if e.Type != watch.Deleted && dc.replaced(obj) {
+				dc.refreshClusterState()
+			}
+			return nil
+		}
+	}
 	if e.Type == watch.Deleted {
 		dc.deleted.Store(true)
 	}
 	return dc.observer.Observe(e)
 }
 
-// Satisfied returns true if a Deleted event was Observed. Otherwise a status
-// message will be logged, if available.
+func (dc *Deleted) replaced(obj *unstructured.Unstructured) bool {
+	return dc.uid != "" && obj != nil && obj.GetUID() != "" && obj.GetUID() != dc.uid &&
+		obj.GetName() == dc.name && obj.GetNamespace() == dc.namespace
+}
+
+// Satisfied reports whether the recorded object is gone and logs its status while pending.
 func (dc *Deleted) Satisfied() (bool, error) {
 	if dc.deleted.Load() {
 		return true, nil
@@ -151,9 +177,11 @@ func (dc *Deleted) refreshClusterState() {
 	// Our context might be closed, but we still want to issue this request
 	// even if we're shutting down.
 	ctx := context.WithoutCancel(dc.ctx)
-	_, err := dc.getter.Get(ctx, dc.Object().GetName(), metav1.GetOptions{})
+	live, err := dc.getter.Get(ctx, dc.name, metav1.GetOptions{})
 	if err == nil {
-		// Still exists.
+		if dc.replaced(live) {
+			dc.deleted.Store(true)
+		}
 		return
 	}
 	if k8serrors.IsNotFound(err) {

@@ -20,8 +20,19 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"google.golang.org/protobuf/proto"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
+	kubetesting "k8s.io/client-go/testing"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil/rpcerror"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients/fake"
+	fakehost "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/host/fake"
 )
 
 func TestDelete_HelmReleaseWithUnreachableCluster(t *testing.T) {
@@ -66,4 +77,60 @@ func TestDelete_HelmReleaseWithUnreachableCluster(t *testing.T) {
 			assert.NotNil(t, resp)
 		})
 	}
+}
+
+func TestDelete_PartialFailurePreservesCheckpoint(t *testing.T) {
+	inputs := &unstructured.Unstructured{Object: map[string]any{
+		"apiVersion": "v1",
+		"kind":       "ConfigMap",
+		"metadata":   map[string]any{"name": "foo", "namespace": defaultNamespace},
+		"data":       map[string]any{"key": "original"},
+	}}
+	checkpoint := inputs.DeepCopy()
+	checkpoint.SetUID("original")
+	replacement := inputs.DeepCopy()
+	replacement.SetUID("replacement")
+	replacement.Object["data"] = map[string]any{"key": "replacement"}
+
+	k, err := makeKubeProvider(&fakehost.HostClient{}, "kubernetes", "4.0.0", nil, nil, nil)
+	require.NoError(t, err)
+	t.Cleanup(k.canceler.cancel)
+	k.serverSideApplyMode = true
+	k.enableSecrets = true
+	client, _, _, transport := fake.NewSimpleDynamicClient(fake.WithObjects(checkpoint))
+	k.clientSet = client
+	transport.PrependReactor("delete", "configmaps", func(action kubetesting.Action) (bool, runtime.Object, error) {
+		options := action.(kubetesting.DeleteAction).GetDeleteOptions()
+		require.NotNil(t, options.Preconditions)
+		require.NotNil(t, options.Preconditions.UID)
+		require.Equal(t, checkpoint.GetUID(), *options.Preconditions.UID)
+		require.NoError(t, transport.Tracker().Delete(action.GetResource(), action.GetNamespace(), checkpoint.GetName()))
+		require.NoError(t, transport.Tracker().Create(action.GetResource(), replacement, action.GetNamespace()))
+		return true, nil, nil
+	})
+	transport.PrependReactor("get", "configmaps", func(kubetesting.Action) (bool, runtime.Object, error) {
+		k.canceler.cancel()
+		return true, nil, apierrors.NewServiceUnavailable("live lookup unavailable")
+	})
+
+	state := checkpointObject(inputs, checkpoint, nil, "v1", "test-manager")
+	state["__inputs"].ObjectValue()["bootstrapToken"] = resource.MakeSecret(
+		resource.NewStringProperty("input-only-secret"),
+	)
+	properties, err := plugin.MarshalProperties(state, plugin.MarshalOptions{KeepSecrets: true})
+	require.NoError(t, err)
+
+	_, err = k.Delete(t.Context(), &pulumirpc.DeleteRequest{
+		Urn:        "urn:pulumi:test::test::kubernetes:core/v1:ConfigMap::foo",
+		Id:         "default/foo",
+		Properties: properties,
+	})
+	require.Error(t, err)
+	rpcErr, ok := rpcerror.FromError(err)
+	require.True(t, ok)
+	require.Len(t, rpcErr.Details(), 1)
+	detail, ok := rpcErr.Details()[0].(*pulumirpc.ErrorResourceInitFailed)
+	require.True(t, ok)
+	assert.True(t, proto.Equal(properties, detail.Properties), "partial delete must preserve checkpoint properties")
+	assert.Equal(t, "default/foo", detail.Id)
 }
