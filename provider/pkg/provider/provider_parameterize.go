@@ -21,10 +21,14 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
+	"net/url"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/go-openapi/jsonreference"
 	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
@@ -53,6 +57,15 @@ const defaultExtensionVersion = "1.0.0"
 // "#/definitions/Foo" resolves to definitions.Foo). Used when flattenOpenAPI
 // hoists a nested object to a top-level definition and leaves a $ref behind.
 const definitionPrefix = "#/definitions/"
+
+// manifestDownloadTimeout bounds how long fetching a remote CRD manifest may take.
+const manifestDownloadTimeout = 60 * time.Second
+
+// maxManifestBytes caps the size of a downloaded CRD manifest.
+const maxManifestBytes = 50 << 20 // 50 MiB
+
+// manifestHTTPClient is used to download remote CRD manifests. Tests may replace it.
+var manifestHTTPClient = &http.Client{Timeout: manifestDownloadTimeout}
 
 // parameterizedPackageMap stores the CRD schemas generated from CRD manifests.
 type parameterizedPackageMap struct {
@@ -105,8 +118,9 @@ func (p ParameterizedArgs) String() string {
 
 // parseCrdArgs parses the user-provided parameterization arguments. Each argument
 // is a key=value pair, e.g. "name=foo version=1.0 crd-manifest=crds.yaml". The
-// crd-manifest key may be repeated to supply multiple manifests. version is
-// optional and defaults to defaultExtensionVersion.
+// crd-manifest key may be repeated to supply multiple manifests, and each value
+// may be a local path or an http(s) URL (GitHub file links are supported).
+// version is optional and defaults to defaultExtensionVersion.
 func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	var extensionName string
 	var extensionVersion string
@@ -134,7 +148,7 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 	}
 
 	if len(yamlPaths) == 0 {
-		return nil, errors.New("no CRD manifests given (crd-manifest=<path>)")
+		return nil, errors.New("no CRD manifests given (crd-manifest=<path-or-url>)")
 	}
 
 	return &ParameterizedArgs{
@@ -145,19 +159,110 @@ func parseCrdArgs(args []string) (*ParameterizedArgs, error) {
 }
 
 // deriveExtensionName produces an extension name from the first CRD manifest
-// file path. The file's base name (without extension) is used directly, e.g.
-// "gateway-api-crds.yaml" → "gateway-api-crds". Falls back to
+// path or URL. The file's base name (without extension) is used directly, e.g.
+// "gateway-api-crds.yaml" → "gateway-api-crds". For URLs, only the URL path is
+// considered, so query strings and fragments are ignored. Falls back to
 // defaultExtensionName if no usable path is provided.
 func deriveExtensionName(paths []string) string {
 	for _, p := range paths {
-		base := filepath.Base(p)
+		var base string
+		if u, ok := parseRemoteManifest(p); ok {
+			base = path.Base(u.Path)
+		} else {
+			base = filepath.Base(p)
+		}
 		ext := filepath.Ext(base)
 		name := strings.TrimSuffix(base, ext)
-		if name != "" {
+		if name != "" && name != "." && name != "/" {
 			return name
 		}
 	}
 	return defaultExtensionName
+}
+
+// parseRemoteManifest reports whether the given crd-manifest value is an http(s)
+// URL, returning the parsed URL if so.
+func parseRemoteManifest(s string) (*url.URL, bool) {
+	u, err := url.Parse(s)
+	if err != nil || u.Host == "" {
+		return nil, false
+	}
+	if u.Scheme != "http" && u.Scheme != "https" {
+		return nil, false
+	}
+	return u, true
+}
+
+// resolveManifestURL rewrites GitHub file page links into raw content links, so
+// that "https://github.com/<owner>/<repo>/blob/<ref>/<path>" (or ".../raw/...")
+// becomes "https://raw.githubusercontent.com/<owner>/<repo>/<ref>/<path>". Any
+// other URL is returned unchanged.
+func resolveManifestURL(u *url.URL) *url.URL {
+	if !strings.EqualFold(u.Host, "github.com") && !strings.EqualFold(u.Host, "www.github.com") {
+		return u
+	}
+	// Expect: /<owner>/<repo>/<blob|raw>/<ref>/<path...>
+	parts := strings.SplitN(strings.TrimPrefix(u.Path, "/"), "/", 4)
+	if len(parts) < 4 || (parts[2] != "blob" && parts[2] != "raw") {
+		return u
+	}
+	return &url.URL{
+		Scheme: "https",
+		Host:   "raw.githubusercontent.com",
+		Path:   "/" + parts[0] + "/" + parts[1] + "/" + parts[3],
+	}
+}
+
+// isGitHubHost reports whether a GitHub token may be sent to the given host.
+func isGitHubHost(host string) bool {
+	switch strings.ToLower(host) {
+	case "github.com", "www.github.com", "raw.githubusercontent.com":
+		return true
+	}
+	return false
+}
+
+// openCRDManifest opens a CRD manifest from a local path or downloads it from an
+// http(s) URL. For GitHub hosts, the GITHUB_TOKEN environment variable (if set) is
+// sent so that manifests in private repositories can be fetched.
+func openCRDManifest(ctx context.Context, location string) (io.ReadCloser, error) {
+	u, ok := parseRemoteManifest(location)
+	if !ok {
+		f, err := os.Open(location)
+		if err != nil {
+			return nil, fmt.Errorf("error opening CRD manifest file: %w", err)
+		}
+		return f, nil
+	}
+
+	u = resolveManifestURL(u)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request for CRD manifest %q: %w", location, err)
+	}
+	gitHub := isGitHubHost(u.Host)
+	if token := os.Getenv("GITHUB_TOKEN"); token != "" && gitHub {
+		req.Header.Set("Authorization", "Bearer "+token)
+	}
+
+	logger.V(9).Infof("Downloading CRD manifest from %s", u)
+	resp, err := manifestHTTPClient.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error downloading CRD manifest %q: %w", location, err)
+	}
+	if resp.StatusCode < 200 || resp.StatusCode > 299 {
+		resp.Body.Close()
+		msg := fmt.Sprintf("error downloading CRD manifest %q: %s", location, resp.Status)
+		if gitHub && resp.StatusCode == http.StatusNotFound {
+			msg += " (if the repository is private, set GITHUB_TOKEN)"
+		}
+		return nil, errors.New(msg)
+	}
+
+	return struct {
+		io.Reader
+		io.Closer
+	}{io.LimitReader(resp.Body, maxManifestBytes), resp.Body}, nil
 }
 
 // fillDefaultNames sets the default names for the CRD if they are not specified.
@@ -309,11 +414,11 @@ func makeDefinitionRef(name string) (spec.Ref, error) {
 	return spec.Ref{Ref: ref}, nil
 }
 
-// readCRDManifestFile reads the CRD manifest from the given file path.
-func readCRDManifestFile(filepath string) ([]*extensionv1.CustomResourceDefinition, error) {
-	f, err := os.Open(filepath)
+// readCRDManifest reads the CRDs from the given local path or http(s) URL.
+func readCRDManifest(ctx context.Context, location string) ([]*extensionv1.CustomResourceDefinition, error) {
+	f, err := openCRDManifest(ctx, location)
 	if err != nil {
-		return nil, fmt.Errorf("error opening CRD manifest file: %w", err)
+		return nil, err
 	}
 	defer f.Close()
 
@@ -328,7 +433,7 @@ func readCRDManifestFile(filepath string) ([]*extensionv1.CustomResourceDefiniti
 				break
 			}
 
-			return nil, fmt.Errorf("error decoding CRD manifest within %q: %w", filepath, err)
+			return nil, fmt.Errorf("error decoding CRD manifest within %q: %w", location, err)
 		}
 
 		if crd.Kind != "CustomResourceDefinition" {
@@ -392,7 +497,7 @@ func generateSchema(
 
 // Parameterize is called by the engine when the Kubernetes provider is used for CRDs.
 func (k *kubeProvider) Parameterize(
-	_ /* ctx */ context.Context,
+	ctx context.Context,
 	req *pulumirpc.ParameterizeRequest,
 ) (*pulumirpc.ParameterizeResponse, error) {
 	log.Println("Parameterizing CRD schemas...")
@@ -400,7 +505,7 @@ func (k *kubeProvider) Parameterize(
 
 	switch p := req.Parameters.(type) {
 	case *pulumirpc.ParameterizeRequest_Args:
-		return k.parameterizeRequestArgs(p)
+		return k.parameterizeRequestArgs(ctx, p)
 
 	case *pulumirpc.ParameterizeRequest_Value:
 		return k.parameterizeRequestValue(p)
@@ -414,6 +519,7 @@ func (k *kubeProvider) Parameterize(
 // parameterizeRequestArgs is the implementation for the parameterization of the CRD schemas to create typed SDKs from
 // CRD manifests.
 func (k *kubeProvider) parameterizeRequestArgs(
+	ctx context.Context,
 	p *pulumirpc.ParameterizeRequest_Args,
 ) (*pulumirpc.ParameterizeResponse, error) {
 	args, err := parseCrdArgs(p.Args.GetArgs())
@@ -425,10 +531,10 @@ func (k *kubeProvider) parameterizeRequestArgs(
 
 	var allCRDSpecs []*spec.Swagger
 
-	// We need to iterate through all filepaths provided by the user to generate the CRD schemas. Within each file, we
-	// can also have multiple CRDs.
+	// We need to iterate through all paths/URLs provided by the user to generate the CRD schemas. Within each
+	// manifest, we can also have multiple CRDs.
 	for _, crdPath := range args.CRDManifestPaths {
-		crds, err := readCRDManifestFile(crdPath)
+		crds, err := readCRDManifest(ctx, crdPath)
 		if err != nil {
 			return nil, fmt.Errorf("error reading CRD manifest: %w", err)
 		}
