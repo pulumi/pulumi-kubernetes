@@ -86,6 +86,48 @@ func TestAwaitDaemonSet(t *testing.T) {
 	)
 }
 
+func TestAwaitDeploymentRecreateStrategy(t *testing.T) {
+	t.Parallel()
+
+	// The provider returns the live object as it saw it when the await finished. A rollout which
+	// was reported early records a status that does not yet describe the new Pod.
+	assertRolloutComplete := func(t *testing.T, outputs auto.OutputMap) {
+		specReplicas, ok := outputs["specReplicas"]
+		require.True(t, ok)
+
+		updatedReplicas, ok := outputs["updatedReplicas"]
+		require.True(t, ok)
+
+		readyReplicas, ok := outputs["readyReplicas"]
+		require.True(t, ok)
+
+		replicas, ok := outputs["replicas"]
+		require.True(t, ok)
+
+		assert.Equal(t, specReplicas.Value, updatedReplicas.Value, "every Pod should have the new template spec")
+		assert.Equal(t, specReplicas.Value, readyReplicas.Value, "every Pod should be ready")
+		assert.Equal(t, specReplicas.Value, replicas.Value, "no old Pod should remain")
+	}
+
+	test := pulumitest.NewPulumiTest(t,
+		"testdata/await/deployment-recreate",
+		opttest.SkipInstall(),
+	)
+	t.Cleanup(func() {
+		test.Destroy(t)
+	})
+
+	up := test.Up(t)
+	assertRolloutComplete(t, up.Outputs)
+
+	// Change the image. The Recreate strategy scales the old ReplicaSet to zero and waits for the
+	// old Pod to terminate before it creates the new ReplicaSet, so the revision annotation names
+	// the old ReplicaSet for most of the rollout.
+	test.UpdateSource(t, "testdata/await/deployment-recreate/step2")
+	up = test.Up(t)
+	assertRolloutComplete(t, up.Outputs)
+}
+
 func TestAwaitPVC(t *testing.T) {
 	t.Parallel()
 
