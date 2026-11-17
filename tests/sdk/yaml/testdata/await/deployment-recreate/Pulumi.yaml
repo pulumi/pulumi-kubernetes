@@ -1,0 +1,50 @@
+name: await-deployment-recreate
+runtime: yaml
+resources:
+  deployment:
+    type: kubernetes:apps/v1:Deployment
+    properties:
+      metadata:
+        name: await-deployment-recreate
+      spec:
+        replicas: 1
+        strategy:
+          type: Recreate
+        selector:
+          matchLabels:
+            "foo": "bar"
+        template:
+          metadata:
+            labels:
+              "foo": "bar"
+          spec:
+            # The preStop hook holds the old Pod in the Terminating state, so the new ReplicaSet
+            # cannot appear for a known length of time. The revision annotation names the old
+            # ReplicaSet for that whole window.
+            terminationGracePeriodSeconds: 60
+            containers:
+              - name: nginx
+                image: nginx:stable-alpine3.17-slim
+                command: ["sh", "-c", "sleep 15; exec nginx -g 'daemon off;'"]
+                ports:
+                  - containerPort: 80
+                lifecycle:
+                  preStop:
+                    exec:
+                      command: ["sh", "-c", "sleep 30"]
+                readinessProbe:
+                  httpGet:
+                    path: /
+                    port: 80
+                  periodSeconds: 2
+                  failureThreshold: 60
+    options:
+      customTimeouts:
+        create: 300s
+        update: 300s
+        delete: 300s
+outputs:
+  specReplicas: ${deployment.spec.replicas}
+  updatedReplicas: ${deployment.status.updatedReplicas}
+  readyReplicas: ${deployment.status.readyReplicas}
+  replicas: ${deployment.status.replicas}
