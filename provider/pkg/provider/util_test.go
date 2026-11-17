@@ -23,8 +23,11 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	appsv1 "k8s.io/api/apps/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/util/strategicpatch"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	"sigs.k8s.io/yaml"
@@ -1347,7 +1350,7 @@ func TestPruneMap(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := pruneMap(tt.args.source, tt.args.target); !reflect.DeepEqual(got, tt.want) {
+			if got := pruneMap(tt.args.source, tt.args.target, nil); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("\nDescription: %s\nExpected:    %+v\nActual:      %+v", tt.description, tt.want, got)
 			}
 		})
@@ -1659,9 +1662,158 @@ func TestPruneSlice(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := pruneSlice(tt.args.source, tt.args.target); !reflect.DeepEqual(got, tt.want) {
+			if got := pruneSlice(tt.args.source, tt.args.target, nil, ""); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("\nDescription: %s\nExpected:    %+v\nActual:      %+v", tt.description, tt.want, got)
 			}
 		})
 	}
+}
+
+func daemonSetPatchMeta(t *testing.T) strategicpatch.LookupPatchMeta {
+	t.Helper()
+	patchMeta, err := strategicpatch.NewPatchMetaFromStruct(&appsv1.DaemonSet{})
+	require.NoError(t, err)
+	return patchMeta
+}
+
+func daemonSetWithEnv(containers ...any) map[string]any {
+	return map[string]any{
+		"apiVersion": "apps/v1",
+		"kind":       "DaemonSet",
+		"metadata":   map[string]any{"name": "aws-node", "namespace": "kube-system"},
+		"spec": map[string]any{"template": map[string]any{"spec": map[string]any{
+			"containers": containers,
+		}}},
+	}
+}
+
+func container(name string, env ...any) map[string]any {
+	return map[string]any{"name": name, "env": env}
+}
+
+func envVar(name, value string) map[string]any {
+	return map[string]any{"name": name, "value": value}
+}
+
+func TestPruneLiveStateMatchesListEntriesByMergeKey(t *testing.T) {
+	inputs := daemonSetWithEnv(container("aws-node",
+		envVar("AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG", "true"),
+		envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+	))
+
+	live := daemonSetWithEnv(
+		container("aws-vpc-cni-init", envVar("DISABLE_TCP_EARLY_DEMUX", "false")),
+		container("aws-node",
+			envVar("ADDITIONAL_ENI_TAGS", "{}"),
+			envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+			envVar("AWS_VPC_ENI_MTU", "9001"),
+			envVar("AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG", "true"),
+		),
+	)
+
+	pruned := pruneLiveState(
+		&unstructured.Unstructured{Object: live},
+		&unstructured.Unstructured{Object: inputs},
+		daemonSetPatchMeta(t),
+	)
+
+	assert.Equal(t, inputs, pruned.Object)
+}
+
+func TestPruneLiveStateReportsDriftInManagedListEntries(t *testing.T) {
+	inputs := daemonSetWithEnv(container("aws-node",
+		envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+		envVar("ENABLE_PREFIX_DELEGATION", "true"),
+	))
+
+	tests := []struct {
+		name    string
+		liveEnv []any
+		wantEnv []any
+	}{
+		{
+			name: "a changed value is kept from the live state",
+			liveEnv: []any{
+				envVar("ADDITIONAL_ENI_TAGS", "{}"),
+				envVar("ENABLE_PREFIX_DELEGATION", "false"),
+				envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+			},
+			wantEnv: []any{
+				envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+				envVar("ENABLE_PREFIX_DELEGATION", "false"),
+			},
+		},
+		{
+			name: "a deleted entry is absent from the pruned state",
+			liveEnv: []any{
+				envVar("ADDITIONAL_ENI_TAGS", "{}"),
+				envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+			},
+			wantEnv: []any{
+				envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			live := daemonSetWithEnv(container("aws-node", tt.liveEnv...))
+
+			pruned := pruneLiveState(
+				&unstructured.Unstructured{Object: live},
+				&unstructured.Unstructured{Object: inputs},
+				daemonSetPatchMeta(t),
+			)
+
+			assert.Equal(t, daemonSetWithEnv(container("aws-node", tt.wantEnv...)), pruned.Object)
+		})
+	}
+}
+
+func TestPruneLiveStateFallsBackToPositionalWithoutSchema(t *testing.T) {
+	inputs := daemonSetWithEnv(container("aws-node", envVar("ENI_CONFIG_LABEL_DEF", "zone")))
+	live := daemonSetWithEnv(
+		container("aws-vpc-cni-init", envVar("DISABLE_TCP_EARLY_DEMUX", "false")),
+		container("aws-node", envVar("ENI_CONFIG_LABEL_DEF", "zone")),
+	)
+
+	pruned := pruneLiveState(
+		&unstructured.Unstructured{Object: live},
+		&unstructured.Unstructured{Object: inputs},
+		nil,
+	)
+
+	want := daemonSetWithEnv(container("aws-vpc-cni-init", envVar("DISABLE_TCP_EARLY_DEMUX", "false")))
+	assert.Equal(t, want, pruned.Object)
+}
+
+func TestPrunedLiveStateProducesNoPatchForUnchangedPatchResource(t *testing.T) {
+	inputs := daemonSetWithEnv(container("aws-node",
+		envVar("AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG", "true"),
+		envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+		envVar("ENABLE_PREFIX_DELEGATION", "true"),
+	))
+
+	live := daemonSetWithEnv(
+		container("aws-vpc-cni-init", envVar("DISABLE_TCP_EARLY_DEMUX", "false")),
+		container("aws-node",
+			envVar("ADDITIONAL_ENI_TAGS", "{}"),
+			envVar("AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG", "true"),
+			envVar("AWS_VPC_ENI_MTU", "9001"),
+			envVar("ENABLE_PREFIX_DELEGATION", "true"),
+			envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+		),
+		container("aws-eks-nodeagent", envVar("DISABLE_TCP_EARLY_DEMUX", "false")),
+	)
+
+	newInputs := &unstructured.Unstructured{Object: live}
+	oldLivePruned := pruneLiveState(
+		newInputs,
+		&unstructured.Unstructured{Object: inputs},
+		daemonSetPatchMeta(t),
+	)
+
+	patch, err := (&kubeProvider{}).inputPatch(oldLivePruned, &unstructured.Unstructured{Object: inputs})
+	require.NoError(t, err)
+	assert.Equal(t, "{}", string(patch))
 }

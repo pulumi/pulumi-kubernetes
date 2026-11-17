@@ -45,11 +45,13 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/util/strategicpatch"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
+	kubectlscheme "k8s.io/kubectl/pkg/scheme"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 	"k8s.io/utils/ptr"
 	"sigs.k8s.io/yaml"
@@ -1491,7 +1493,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	if err != nil {
 		return nil, err
 	}
-	oldLivePruned := pruneLiveState(oldLive, oldInputs)
+	oldLivePruned := pruneLiveState(oldLive, oldInputs, k.patchMetaForObject(oldLive))
 
 	gvk := k.gvkFromUnstructured(newInputs)
 
@@ -2080,7 +2082,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	contract.Assertf(liveObj.GetName() != "", "expected live object name to be nonempty: %v", liveObj)
 
 	// Prune the live inputs to remove properties that are not present in the program inputs.
-	liveInputs := pruneLiveState(liveObj, oldInputs)
+	liveInputs := pruneLiveState(liveObj, oldInputs, k.patchMetaForObject(liveObj))
 
 	if readFromCluster {
 		// If no previous inputs were known, populate the inputs from the live cluster state for the resource.
@@ -2386,7 +2388,7 @@ func (k *kubeProvider) Update(
 	if err != nil {
 		return nil, err
 	}
-	oldLivePruned := pruneLiveState(oldLive, oldInputs)
+	oldLivePruned := pruneLiveState(oldLive, oldInputs, k.patchMetaForObject(oldLive))
 
 	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
 	fieldManagerOld := k.fieldManagerName(nil, oldState, oldInputs)
@@ -2970,12 +2972,43 @@ func removeLastAppliedConfigurationAnnotation(oldLive, oldInputs *unstructured.U
 }
 
 // pruneLiveState prunes a live resource object to match the shape of the input object that created the resource.
-func pruneLiveState(live, oldInputs *unstructured.Unstructured) *unstructured.Unstructured {
+// The schema pairs list entries by their merge key; a nil schema pairs them by position.
+func pruneLiveState(
+	live, oldInputs *unstructured.Unstructured, schema strategicpatch.LookupPatchMeta,
+) *unstructured.Unstructured {
 	oldLivePruned := &unstructured.Unstructured{
-		Object: pruneMap(live.Object, oldInputs.Object),
+		Object: pruneMap(live.Object, oldInputs.Object, schema),
 	}
 
 	return oldLivePruned
+}
+
+// patchMetaForObject returns the strategic merge metadata for a resource.
+func (k *kubeProvider) patchMetaForObject(obj *unstructured.Unstructured) strategicpatch.LookupPatchMeta {
+	gvk := obj.GroupVersionKind()
+	if gvk.Empty() {
+		return nil
+	}
+
+	if !k.clusterUnreachable {
+		if resources, err := k.getResources(); err == nil {
+			if resourceSchema := resources.LookupResource(gvk); resourceSchema != nil {
+				return strategicpatch.PatchMetaFromOpenAPI{Schema: resourceSchema}
+			}
+		}
+	}
+
+	// Fall back to the types compiled into the provider.
+	versionedObject, err := kubectlscheme.Scheme.New(gvk)
+	if err != nil {
+		return nil
+	}
+	patchMeta, err := strategicpatch.NewPatchMetaFromStruct(versionedObject)
+	if err != nil {
+		return nil
+	}
+
+	return patchMeta
 }
 
 // shouldNormalize returns false for CustomResources, and true otherwise.
@@ -2993,7 +3026,7 @@ func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured
 		if err != nil {
 			return nil, err
 		}
-		uns = pruneLiveState(normalized, uns)
+		uns = pruneLiveState(normalized, uns, nil)
 	}
 
 	// Remove read-only fields
