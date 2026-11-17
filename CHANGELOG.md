@@ -13,6 +13,7 @@
 - [#4665](https://github.com/pulumi/pulumi-kubernetes/pull/4665) `helm.v4.Chart` now accepts a `skipSchemaValidation` input, equivalent to `helm template --skip-schema-validation`, to disable validation of values against the chart's `values.schema.json`.
 
 ### Changed
+- Upgrade Kubernetes schema and libraries to v1.37.2.
 
 ## 4.34.3 (November 2, 2026)
 
