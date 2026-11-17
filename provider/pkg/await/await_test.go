@@ -1161,6 +1161,42 @@ func TestDeletion(t *testing.T) {
 	}
 }
 
+func TestPreviewCanUseLegacyPatch(t *testing.T) {
+	_, discovery, _, _ := fake.NewSimpleDynamicClient()
+	resources, err := openapi.GetResourceSchemasForClient(discovery)
+	require.NoError(t, err)
+	config := &UpdateConfig{
+		ProviderConfig: ProviderConfig{
+			URN:          resource.NewURN("stack", "project", "", "kubernetes:core/v1:Pod", "pod"),
+			FieldManager: "pulumi-kubernetes-current",
+			Resources:    resources,
+		},
+		OldInputs: validPodUnstructured,
+		Inputs:    validPodUnstructured,
+		Preview:   true,
+	}
+	legacy := metav1.ManagedFieldsEntry{Manager: "pulumi-kubernetes", Operation: metav1.ManagedFieldsOperationUpdate}
+	current := metav1.ManagedFieldsEntry{Manager: config.FieldManager, Operation: metav1.ManagedFieldsOperationApply}
+	foreign := metav1.ManagedFieldsEntry{Manager: "other", Operation: metav1.ManagedFieldsOperationApply}
+	status := metav1.ManagedFieldsEntry{Manager: "controller", Operation: metav1.ManagedFieldsOperationUpdate, Subresource: "status"}
+	for _, test := range []struct {
+		name     string
+		managers []metav1.ManagedFieldsEntry
+		want     bool
+	}{
+		{name: "only legacy owner", managers: []metav1.ManagedFieldsEntry{legacy}, want: true},
+		{name: "current and status owners", managers: []metav1.ManagedFieldsEntry{legacy, current, status}, want: true},
+		{name: "foreign owner", managers: []metav1.ManagedFieldsEntry{legacy, foreign}},
+		{name: "no legacy owner", managers: []metav1.ManagedFieldsEntry{current}},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			live := validPodUnstructured.DeepCopy()
+			live.SetManagedFields(test.managers)
+			assert.Equal(t, test.want, previewCanUseLegacyPatch(config, live))
+		})
+	}
+}
+
 func TestPatchForce(t *testing.T) {
 	t.Parallel()
 
