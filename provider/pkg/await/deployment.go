@@ -698,6 +698,9 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 
 		dia.updatedReplicaSetReady = false
 		switch {
+		case statusCount("observedGeneration") < dia.deployment.GetGeneration():
+			dia.config.logger.LogStatus(diag.Info,
+				"Waiting for the Deployment controller to observe the update")
 		case updatedReplicas < desiredReplicas:
 			dia.config.logger.LogStatus(diag.Info,
 				fmt.Sprintf("Waiting for the rollout to create new Pods (%d/%d created)",
