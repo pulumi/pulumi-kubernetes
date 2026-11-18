@@ -1849,3 +1849,120 @@ func TestPruneLiveStateMatchesNumericMergeKeysAcrossTypes(t *testing.T) {
 
 	assert.Equal(t, podSpec(map[string]any{"containerPort": int64(8080)}), pruned.Object)
 }
+
+func TestPatchMetaForObject(t *testing.T) {
+	tests := []struct {
+		name       string
+		object     map[string]any
+		wantSchema bool
+	}{
+		{
+			name:       "a built-in kind resolves against the compiled-in types",
+			object:     map[string]any{"apiVersion": "apps/v1", "kind": "DaemonSet"},
+			wantSchema: true,
+		},
+		{
+			name:       "a custom resource has no compiled-in type",
+			object:     map[string]any{"apiVersion": "example.com/v1", "kind": "Widget"},
+			wantSchema: false,
+		},
+		{
+			name:       "an object without a kind has nothing to look up",
+			object:     map[string]any{"metadata": map[string]any{"name": "anonymous"}},
+			wantSchema: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			k := &kubeProvider{clusterUnreachable: true}
+			got := k.patchMetaForObject(&unstructured.Unstructured{Object: tt.object})
+			if !tt.wantSchema {
+				assert.Nil(t, got)
+				return
+			}
+			require.NotNil(t, got)
+			spec := structSchema(got, "spec")
+			require.NotNil(t, spec)
+			template := structSchema(spec, "template")
+			require.NotNil(t, template)
+			podSpec := structSchema(template, "spec")
+			require.NotNil(t, podSpec)
+			_, mergeKey := sliceSchema(podSpec, "containers")
+			assert.Equal(t, "name", mergeKey)
+		})
+	}
+}
+
+func TestSliceSchemaReadsTheMergeStrategy(t *testing.T) {
+	podMeta, err := strategicpatch.NewPatchMetaFromStruct(&corev1.Pod{})
+	require.NoError(t, err)
+	specSchema := structSchema(podMeta, "spec")
+	require.NotNil(t, specSchema)
+
+	tests := []struct {
+		name         string
+		field        string
+		wantMergeKey string
+	}{
+		{name: "a list that declares merge reports its key", field: "hostAliases", wantMergeKey: "ip"},
+		{name: "a list without a merge strategy reports no key", field: "tolerations", wantMergeKey: ""},
+		{name: "an unknown field reports no key", field: "nonesuch", wantMergeKey: ""},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, mergeKey := sliceSchema(specSchema, tt.field)
+			assert.Equal(t, tt.wantMergeKey, mergeKey)
+		})
+	}
+}
+
+func TestPruneSliceFallsBackToPositionalOnUnusableMergeKey(t *testing.T) {
+	tests := []struct {
+		name   string
+		source []any
+		target []any
+		want   []any
+	}{
+		{
+			name: "a duplicate key in the source is ambiguous",
+			source: []any{
+				map[string]any{"name": "a", "value": "first"},
+				map[string]any{"name": "a", "value": "second"},
+			},
+			target: []any{map[string]any{"name": "a"}},
+			want:   []any{map[string]any{"name": "a"}},
+		},
+		{
+			name: "a target entry without the key cannot be matched",
+			source: []any{
+				map[string]any{"name": "a", "value": "first"},
+				map[string]any{"name": "b", "value": "second"},
+			},
+			target: []any{map[string]any{"value": "second"}},
+			want:   []any{map[string]any{"value": "first"}},
+		},
+		{
+			name: "a source entry without the key cannot be indexed",
+			source: []any{
+				map[string]any{"value": "first"},
+				map[string]any{"name": "b", "value": "second"},
+			},
+			target: []any{map[string]any{"name": "b", "value": "second"}},
+			want:   []any{map[string]any{"value": "first"}},
+		},
+		{
+			name:   "a nil entry on both sides is copied through",
+			source: []any{nil},
+			target: []any{nil},
+			want:   []any{nil},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, pruneSlice(tt.source, tt.target, nil, "name"))
+		})
+	}
+}

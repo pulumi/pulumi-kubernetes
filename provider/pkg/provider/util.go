@@ -295,7 +295,7 @@ func pruneSlice(source, target []any, schema strategicpatch.LookupPatchMeta, mer
 		return deepcopy.Copy(source).([]any)
 	}
 
-	if mergeKey != "" && valueT.Kind() == reflect.Map {
+	if mergeKey != "" && valueT != nil && valueT.Kind() == reflect.Map {
 		if merged, ok := pruneSliceByMergeKey(source, target, schema, mergeKey); ok {
 			return merged
 		}
