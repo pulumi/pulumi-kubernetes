@@ -2972,7 +2972,7 @@ func removeLastAppliedConfigurationAnnotation(oldLive, oldInputs *unstructured.U
 }
 
 // pruneLiveState prunes a live resource object to match the shape of the input object that created the resource.
-// The schema pairs list entries by their merge key; a nil schema pairs them by position.
+// The schema matches list entries by their merge key; a nil schema matches them by position.
 func pruneLiveState(
 	live, oldInputs *unstructured.Unstructured, schema strategicpatch.LookupPatchMeta,
 ) *unstructured.Unstructured {

@@ -25,6 +25,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
@@ -1816,4 +1817,35 @@ func TestPrunedLiveStateProducesNoPatchForUnchangedPatchResource(t *testing.T) {
 	patch, err := (&kubeProvider{}).inputPatch(oldLivePruned, &unstructured.Unstructured{Object: inputs})
 	require.NoError(t, err)
 	assert.Equal(t, "{}", string(patch))
+}
+
+func TestPruneLiveStateMatchesNumericMergeKeysAcrossTypes(t *testing.T) {
+	podSpec := func(ports ...any) map[string]any {
+		return map[string]any{
+			"apiVersion": "v1",
+			"kind":       "Pod",
+			"metadata":   map[string]any{"name": "p"},
+			"spec": map[string]any{"containers": []any{map[string]any{
+				"name":  "c",
+				"ports": ports,
+			}}},
+		}
+	}
+
+	inputs := podSpec(map[string]any{"containerPort": float64(8080)})
+	live := podSpec(
+		map[string]any{"containerPort": int64(80)},
+		map[string]any{"containerPort": int64(8080)},
+	)
+
+	patchMeta, err := strategicpatch.NewPatchMetaFromStruct(&corev1.Pod{})
+	require.NoError(t, err)
+
+	pruned := pruneLiveState(
+		&unstructured.Unstructured{Object: live},
+		&unstructured.Unstructured{Object: inputs},
+		patchMeta,
+	)
+
+	assert.Equal(t, podSpec(map[string]any{"containerPort": int64(8080)}), pruned.Object)
 }

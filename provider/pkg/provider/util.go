@@ -233,7 +233,7 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 
 // pruneMap builds a pruned map by recursively copying elements from the source map that have a matching key in the
 // target map. This is useful as a preprocessing step for live resource state before comparing it to program inputs.
-// The schema pairs list entries by their declared merge key; a nil schema pairs them by position.
+// The schema matches list entries by their declared merge key; a nil schema matches them by position.
 func pruneMap(source, target map[string]any, schema strategicpatch.LookupPatchMeta) map[string]any {
 	// If either map is nil, return nil.
 	if target == nil || source == nil {
@@ -272,8 +272,8 @@ func pruneMap(source, target map[string]any, schema strategicpatch.LookupPatchMe
 }
 
 // pruneSlice builds a pruned slice by copying elements from the source slice that have a matching element in the
-// target slice. A non-empty mergeKey names the field that identifies each entry, and entries are paired by that
-// value. An empty mergeKey pairs them by position.
+// target slice. A non-empty mergeKey names the field whose value decides which elements match. An empty mergeKey
+// matches them by position.
 func pruneSlice(source, target []any, schema strategicpatch.LookupPatchMeta, mergeKey string) []any {
 	// If either slice is nil, return nil.
 	if target == nil || source == nil {
@@ -331,7 +331,7 @@ func pruneSlice(source, target []any, schema strategicpatch.LookupPatchMeta, mer
 	return result
 }
 
-// pruneSliceByMergeKey pairs entries by their value of mergeKey, and returns the pruned
+// pruneSliceByMergeKey matches entries by their value of mergeKey, and returns the pruned
 // entries in target order. A target entry that the source does not contain is dropped. The result is false if any
 // entry lacks a usable key.
 func pruneSliceByMergeKey(
@@ -343,7 +343,7 @@ func pruneSliceByMergeKey(
 		if !ok {
 			return nil, false
 		}
-		// A duplicate key makes the pairing ambiguous.
+		// A duplicate key makes the match ambiguous.
 		if _, exists := sourceByKey[keyValue]; exists {
 			return nil, false
 		}
@@ -377,9 +377,13 @@ func mergeKeyOf(entry any, mergeKey string) (map[string]any, any, bool) {
 	if !ok {
 		return nil, nil, false
 	}
-	switch keyValue.(type) {
-	case string, bool, int64, float64:
-		return entryMap, keyValue, true
+	switch key := keyValue.(type) {
+	case string, bool, float64:
+		return entryMap, key, true
+	case int64:
+		// A number decoded from the cluster is an int64, and the same number from the Pulumi
+		// checkpoint is a float64. Use one type so that the two compare equal.
+		return entryMap, float64(key), true
 	default:
 		return nil, nil, false
 	}
