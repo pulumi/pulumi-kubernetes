@@ -1,5 +1,6 @@
 template: native
 provider: kubernetes
+npmTrustedPublishing: true
 lint: true
 aws: true # need AWS credentials to test in EKS
 gcp: true # need GCP credentials to test in GKE
