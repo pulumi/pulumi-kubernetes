@@ -175,6 +175,12 @@ class APIServiceList(pulumi.CustomResource):
         __props__.__dict__["metadata"] = None
         return APIServiceList(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        return pulumi.runtime.exists_resource(None, 'kubernetes:apiregistration.k8s.io/v1beta1:APIServiceList', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="apiVersion")
     def api_version(self) -> pulumi.Output[Literal['apiregistration.k8s.io/v1beta1']]:
