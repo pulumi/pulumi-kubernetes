@@ -966,6 +966,10 @@ func Deletion(c DeleteConfig) error {
 	deleteOpts := metav1.DeleteOptions{
 		PropagationPolicy: &deletePolicy,
 	}
+	// The name may have been reused since the last checkpoint.
+	if uid := c.Outputs.GetUID(); uid != "" {
+		deleteOpts.Preconditions = &metav1.Preconditions{UID: &uid}
+	}
 
 	err = client.Delete(c.Context, c.Name, deleteOpts)
 	if err != nil {
