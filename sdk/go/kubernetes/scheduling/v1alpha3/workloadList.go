@@ -71,6 +71,12 @@ func (WorkloadListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*workloadListState)(nil)).Elem()
 }
 
+// WorkloadListExists checks whether an existing WorkloadList resource with the given ID exists.
+func WorkloadListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *WorkloadListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:scheduling.k8s.io/v1alpha3:WorkloadList", id, state, "", opts...)
+}
+
 type workloadListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

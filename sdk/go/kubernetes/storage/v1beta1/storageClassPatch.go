@@ -94,6 +94,12 @@ func (StorageClassPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*storageClassPatchState)(nil)).Elem()
 }
 
+// StorageClassPatchExists checks whether an existing StorageClassPatch resource with the given ID exists.
+func StorageClassPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StorageClassPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:storage.k8s.io/v1beta1:StorageClassPatch", id, state, "", opts...)
+}
+
 type storageClassPatchArgs struct {
 	// AllowVolumeExpansion shows whether the storage class allow volume expand
 	AllowVolumeExpansion *bool `pulumi:"allowVolumeExpansion"`
