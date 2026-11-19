@@ -101,6 +101,12 @@ func (StatefulSetPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statefulSetPatchState)(nil)).Elem()
 }
 
+// StatefulSetPatchExists checks whether an existing StatefulSetPatch resource with the given ID exists.
+func StatefulSetPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatefulSetPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:apps/v1beta2:StatefulSetPatch", id, state, "", opts...)
+}
+
 type statefulSetPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

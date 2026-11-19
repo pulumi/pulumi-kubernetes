@@ -78,6 +78,12 @@ func (ClusterRoleState) ElementType() reflect.Type {
 	return reflect.TypeOf((*clusterRoleState)(nil)).Elem()
 }
 
+// ClusterRoleExists checks whether an existing ClusterRole resource with the given ID exists.
+func ClusterRoleExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ClusterRoleState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRole", id, state, "", opts...)
+}
+
 type clusterRoleArgs struct {
 	// aggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
 	AggregationRule *AggregationRule `pulumi:"aggregationRule"`

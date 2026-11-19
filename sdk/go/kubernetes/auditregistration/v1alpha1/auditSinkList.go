@@ -70,6 +70,12 @@ func (AuditSinkListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*auditSinkListState)(nil)).Elem()
 }
 
+// AuditSinkListExists checks whether an existing AuditSinkList resource with the given ID exists.
+func AuditSinkListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *AuditSinkListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList", id, state, "", opts...)
+}
+
 type auditSinkListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

@@ -93,6 +93,12 @@ func (ResourceClaimTemplatePatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*resourceClaimTemplatePatchState)(nil)).Elem()
 }
 
+// ResourceClaimTemplatePatchExists checks whether an existing ResourceClaimTemplatePatch resource with the given ID exists.
+func ResourceClaimTemplatePatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ResourceClaimTemplatePatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch", id, state, "", opts...)
+}
+
 type resourceClaimTemplatePatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
