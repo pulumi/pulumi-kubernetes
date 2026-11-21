@@ -91,6 +91,11 @@ export class CustomResource extends pulumi.CustomResource {
                 inputs[key] = undefined;
             }
         }
+        // Always register `metadata` so that `.metadata` is available as an output even when it is
+        // not provided as an input (e.g., when relying on auto-naming).
+        if (!("metadata" in inputs)) {
+            inputs["metadata"] = undefined;
+        }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
