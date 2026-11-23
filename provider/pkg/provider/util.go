@@ -9,10 +9,12 @@ import (
 	"os/user"
 	"path/filepath"
 	"reflect"
+	"slices"
 	"strings"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/util/strategicpatch"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 
@@ -231,7 +233,8 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 
 // pruneMap builds a pruned map by recursively copying elements from the source map that have a matching key in the
 // target map. This is useful as a preprocessing step for live resource state before comparing it to program inputs.
-func pruneMap(source, target map[string]any) map[string]any {
+// The schema matches list entries by their declared merge key; a nil schema matches them by position.
+func pruneMap(source, target map[string]any, schema strategicpatch.LookupPatchMeta) map[string]any {
 	// If either map is nil, return nil.
 	if target == nil || source == nil {
 		return nil
@@ -252,10 +255,12 @@ func pruneMap(source, target map[string]any) map[string]any {
 
 			switch valueT.Kind() {
 			case reflect.Map:
-				nestedResult := pruneMap(value.(map[string]any), targetValue.(map[string]any))
+				nestedResult := pruneMap(
+					value.(map[string]any), targetValue.(map[string]any), structSchema(schema, key))
 				result[key] = nestedResult
 			case reflect.Slice:
-				nestedResult := pruneSlice(value.([]any), targetValue.([]any))
+				elemSchema, mergeKey := sliceSchema(schema, key)
+				nestedResult := pruneSlice(value.([]any), targetValue.([]any), elemSchema, mergeKey)
 				result[key] = nestedResult
 			default:
 				result[key] = value
@@ -267,8 +272,9 @@ func pruneMap(source, target map[string]any) map[string]any {
 }
 
 // pruneSlice builds a pruned slice by copying elements from the source slice that have a matching element in the
-// target slice.
-func pruneSlice(source, target []any) []any {
+// target slice. A non-empty mergeKey names the field whose value decides which elements match. An empty mergeKey
+// matches them by position.
+func pruneSlice(source, target []any, schema strategicpatch.LookupPatchMeta, mergeKey string) []any {
 	// If either slice is nil, return nil.
 	if target == nil || source == nil {
 		return nil
@@ -289,6 +295,12 @@ func pruneSlice(source, target []any) []any {
 		return deepcopy.Copy(source).([]any)
 	}
 
+	if mergeKey != "" && valueT != nil && valueT.Kind() == reflect.Map {
+		if merged, ok := pruneSliceByMergeKey(source, target, schema, mergeKey); ok {
+			return merged
+		}
+	}
+
 	for i, targetValue := range target {
 		if i+1 > len(source) {
 			break
@@ -302,12 +314,12 @@ func pruneSlice(source, target []any) []any {
 
 		switch valueT.Kind() {
 		case reflect.Map:
-			nestedResult := pruneMap(value.(map[string]any), targetValue.(map[string]any))
+			nestedResult := pruneMap(value.(map[string]any), targetValue.(map[string]any), schema)
 			if nestedResult != nil {
 				result = append(result, nestedResult)
 			}
 		case reflect.Slice:
-			nestedResult := pruneSlice(value.([]any), targetValue.([]any))
+			nestedResult := pruneSlice(value.([]any), targetValue.([]any), nil, "")
 			if nestedResult != nil {
 				result = append(result, nestedResult)
 			}
@@ -317,4 +329,90 @@ func pruneSlice(source, target []any) []any {
 	}
 
 	return result
+}
+
+// pruneSliceByMergeKey matches entries by their value of mergeKey, and returns the pruned
+// entries in target order. A target entry that the source does not contain is dropped. The result is false if any
+// entry lacks a usable key.
+func pruneSliceByMergeKey(
+	source, target []any, schema strategicpatch.LookupPatchMeta, mergeKey string,
+) ([]any, bool) {
+	sourceByKey := make(map[any]map[string]any, len(source))
+	for _, entry := range source {
+		entryMap, keyValue, ok := mergeKeyOf(entry, mergeKey)
+		if !ok {
+			return nil, false
+		}
+		// A duplicate key makes the match ambiguous.
+		if _, exists := sourceByKey[keyValue]; exists {
+			return nil, false
+		}
+		sourceByKey[keyValue] = entryMap
+	}
+
+	result := make([]any, 0, len(target))
+	for _, entry := range target {
+		targetMap, keyValue, ok := mergeKeyOf(entry, mergeKey)
+		if !ok {
+			return nil, false
+		}
+		sourceMap, exists := sourceByKey[keyValue]
+		if !exists {
+			continue
+		}
+		result = append(result, pruneMap(sourceMap, targetMap, schema))
+	}
+
+	return result, true
+}
+
+// mergeKeyOf returns the value that identifies a list entry. The result is false if the entry is not an object, or
+// if its key is absent or is not a scalar that can index a map.
+func mergeKeyOf(entry any, mergeKey string) (map[string]any, any, bool) {
+	entryMap, ok := entry.(map[string]any)
+	if !ok {
+		return nil, nil, false
+	}
+	keyValue, ok := entryMap[mergeKey]
+	if !ok {
+		return nil, nil, false
+	}
+	switch key := keyValue.(type) {
+	case string, bool, float64:
+		return entryMap, key, true
+	case int64:
+		// A number decoded from the cluster is an int64, and the same number from the Pulumi
+		// checkpoint is a float64. Use one type so that the two compare equal.
+		return entryMap, float64(key), true
+	default:
+		return nil, nil, false
+	}
+}
+
+// structSchema returns the schema of a nested object field, or nil if it cannot be resolved.
+func structSchema(schema strategicpatch.LookupPatchMeta, field string) strategicpatch.LookupPatchMeta {
+	if schema == nil {
+		return nil
+	}
+	nested, _, err := schema.LookupPatchMetadataForStruct(field)
+	if err != nil {
+		return nil
+	}
+	return nested
+}
+
+// sliceSchema returns the schema of the entries of a list field, and the merge key that identifies them. The merge
+// key is empty if the list declares no merge strategy, or if the schema cannot be resolved.
+func sliceSchema(schema strategicpatch.LookupPatchMeta, field string) (strategicpatch.LookupPatchMeta, string) {
+	if schema == nil {
+		return nil, ""
+	}
+	elem, patchMeta, err := schema.LookupPatchMetadataForSlice(field)
+	if err != nil {
+		return nil, ""
+	}
+	if !slices.Contains(patchMeta.GetPatchStrategies(), "merge") {
+		return elem, ""
+	}
+	return elem, patchMeta.GetPatchMergeKey()
 }

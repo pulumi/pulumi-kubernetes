@@ -23,8 +23,12 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	appsv1 "k8s.io/api/apps/v1"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/util/strategicpatch"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	"sigs.k8s.io/yaml"
@@ -1347,7 +1351,7 @@ func TestPruneMap(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := pruneMap(tt.args.source, tt.args.target); !reflect.DeepEqual(got, tt.want) {
+			if got := pruneMap(tt.args.source, tt.args.target, nil); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("\nDescription: %s\nExpected:    %+v\nActual:      %+v", tt.description, tt.want, got)
 			}
 		})
@@ -1659,9 +1663,306 @@ func TestPruneSlice(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := pruneSlice(tt.args.source, tt.args.target); !reflect.DeepEqual(got, tt.want) {
+			if got := pruneSlice(tt.args.source, tt.args.target, nil, ""); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("\nDescription: %s\nExpected:    %+v\nActual:      %+v", tt.description, tt.want, got)
 			}
+		})
+	}
+}
+
+func daemonSetPatchMeta(t *testing.T) strategicpatch.LookupPatchMeta {
+	t.Helper()
+	patchMeta, err := strategicpatch.NewPatchMetaFromStruct(&appsv1.DaemonSet{})
+	require.NoError(t, err)
+	return patchMeta
+}
+
+func daemonSetWithEnv(containers ...any) map[string]any {
+	return map[string]any{
+		"apiVersion": "apps/v1",
+		"kind":       "DaemonSet",
+		"metadata":   map[string]any{"name": "aws-node", "namespace": "kube-system"},
+		"spec": map[string]any{"template": map[string]any{"spec": map[string]any{
+			"containers": containers,
+		}}},
+	}
+}
+
+func container(name string, env ...any) map[string]any {
+	return map[string]any{"name": name, "env": env}
+}
+
+func envVar(name, value string) map[string]any {
+	return map[string]any{"name": name, "value": value}
+}
+
+func TestPruneLiveStateMatchesListEntriesByMergeKey(t *testing.T) {
+	inputs := daemonSetWithEnv(container("aws-node",
+		envVar("AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG", "true"),
+		envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+	))
+
+	live := daemonSetWithEnv(
+		container("aws-vpc-cni-init", envVar("DISABLE_TCP_EARLY_DEMUX", "false")),
+		container("aws-node",
+			envVar("ADDITIONAL_ENI_TAGS", "{}"),
+			envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+			envVar("AWS_VPC_ENI_MTU", "9001"),
+			envVar("AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG", "true"),
+		),
+	)
+
+	pruned := pruneLiveState(
+		&unstructured.Unstructured{Object: live},
+		&unstructured.Unstructured{Object: inputs},
+		daemonSetPatchMeta(t),
+	)
+
+	assert.Equal(t, inputs, pruned.Object)
+}
+
+func TestPruneLiveStateReportsDriftInManagedListEntries(t *testing.T) {
+	inputs := daemonSetWithEnv(container("aws-node",
+		envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+		envVar("ENABLE_PREFIX_DELEGATION", "true"),
+	))
+
+	tests := []struct {
+		name    string
+		liveEnv []any
+		wantEnv []any
+	}{
+		{
+			name: "a changed value is kept from the live state",
+			liveEnv: []any{
+				envVar("ADDITIONAL_ENI_TAGS", "{}"),
+				envVar("ENABLE_PREFIX_DELEGATION", "false"),
+				envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+			},
+			wantEnv: []any{
+				envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+				envVar("ENABLE_PREFIX_DELEGATION", "false"),
+			},
+		},
+		{
+			name: "a deleted entry is absent from the pruned state",
+			liveEnv: []any{
+				envVar("ADDITIONAL_ENI_TAGS", "{}"),
+				envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+			},
+			wantEnv: []any{
+				envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			live := daemonSetWithEnv(container("aws-node", tt.liveEnv...))
+
+			pruned := pruneLiveState(
+				&unstructured.Unstructured{Object: live},
+				&unstructured.Unstructured{Object: inputs},
+				daemonSetPatchMeta(t),
+			)
+
+			assert.Equal(t, daemonSetWithEnv(container("aws-node", tt.wantEnv...)), pruned.Object)
+		})
+	}
+}
+
+func TestPruneLiveStateFallsBackToPositionalWithoutSchema(t *testing.T) {
+	inputs := daemonSetWithEnv(container("aws-node", envVar("ENI_CONFIG_LABEL_DEF", "zone")))
+	live := daemonSetWithEnv(
+		container("aws-vpc-cni-init", envVar("DISABLE_TCP_EARLY_DEMUX", "false")),
+		container("aws-node", envVar("ENI_CONFIG_LABEL_DEF", "zone")),
+	)
+
+	pruned := pruneLiveState(
+		&unstructured.Unstructured{Object: live},
+		&unstructured.Unstructured{Object: inputs},
+		nil,
+	)
+
+	want := daemonSetWithEnv(container("aws-vpc-cni-init", envVar("DISABLE_TCP_EARLY_DEMUX", "false")))
+	assert.Equal(t, want, pruned.Object)
+}
+
+func TestPrunedLiveStateProducesNoPatchForUnchangedPatchResource(t *testing.T) {
+	inputs := daemonSetWithEnv(container("aws-node",
+		envVar("AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG", "true"),
+		envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+		envVar("ENABLE_PREFIX_DELEGATION", "true"),
+	))
+
+	live := daemonSetWithEnv(
+		container("aws-vpc-cni-init", envVar("DISABLE_TCP_EARLY_DEMUX", "false")),
+		container("aws-node",
+			envVar("ADDITIONAL_ENI_TAGS", "{}"),
+			envVar("AWS_VPC_K8S_CNI_CUSTOM_NETWORK_CFG", "true"),
+			envVar("AWS_VPC_ENI_MTU", "9001"),
+			envVar("ENABLE_PREFIX_DELEGATION", "true"),
+			envVar("ENI_CONFIG_LABEL_DEF", "topology.kubernetes.io/zone"),
+		),
+		container("aws-eks-nodeagent", envVar("DISABLE_TCP_EARLY_DEMUX", "false")),
+	)
+
+	newInputs := &unstructured.Unstructured{Object: live}
+	oldLivePruned := pruneLiveState(
+		newInputs,
+		&unstructured.Unstructured{Object: inputs},
+		daemonSetPatchMeta(t),
+	)
+
+	patch, err := (&kubeProvider{}).inputPatch(oldLivePruned, &unstructured.Unstructured{Object: inputs})
+	require.NoError(t, err)
+	assert.Equal(t, "{}", string(patch))
+}
+
+func TestPruneLiveStateMatchesNumericMergeKeysAcrossTypes(t *testing.T) {
+	podSpec := func(ports ...any) map[string]any {
+		return map[string]any{
+			"apiVersion": "v1",
+			"kind":       "Pod",
+			"metadata":   map[string]any{"name": "p"},
+			"spec": map[string]any{"containers": []any{map[string]any{
+				"name":  "c",
+				"ports": ports,
+			}}},
+		}
+	}
+
+	inputs := podSpec(map[string]any{"containerPort": float64(8080)})
+	live := podSpec(
+		map[string]any{"containerPort": int64(80)},
+		map[string]any{"containerPort": int64(8080)},
+	)
+
+	patchMeta, err := strategicpatch.NewPatchMetaFromStruct(&corev1.Pod{})
+	require.NoError(t, err)
+
+	pruned := pruneLiveState(
+		&unstructured.Unstructured{Object: live},
+		&unstructured.Unstructured{Object: inputs},
+		patchMeta,
+	)
+
+	assert.Equal(t, podSpec(map[string]any{"containerPort": int64(8080)}), pruned.Object)
+}
+
+func TestPatchMetaForObject(t *testing.T) {
+	tests := []struct {
+		name       string
+		object     map[string]any
+		wantSchema bool
+	}{
+		{
+			name:       "a built-in kind resolves against the compiled-in types",
+			object:     map[string]any{"apiVersion": "apps/v1", "kind": "DaemonSet"},
+			wantSchema: true,
+		},
+		{
+			name:       "a custom resource has no compiled-in type",
+			object:     map[string]any{"apiVersion": "example.com/v1", "kind": "Widget"},
+			wantSchema: false,
+		},
+		{
+			name:       "an object without a kind has nothing to look up",
+			object:     map[string]any{"metadata": map[string]any{"name": "anonymous"}},
+			wantSchema: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			k := &kubeProvider{clusterUnreachable: true}
+			got := k.patchMetaForObject(&unstructured.Unstructured{Object: tt.object})
+			if !tt.wantSchema {
+				assert.Nil(t, got)
+				return
+			}
+			require.NotNil(t, got)
+			spec := structSchema(got, "spec")
+			require.NotNil(t, spec)
+			template := structSchema(spec, "template")
+			require.NotNil(t, template)
+			podSpec := structSchema(template, "spec")
+			require.NotNil(t, podSpec)
+			_, mergeKey := sliceSchema(podSpec, "containers")
+			assert.Equal(t, "name", mergeKey)
+		})
+	}
+}
+
+func TestSliceSchemaReadsTheMergeStrategy(t *testing.T) {
+	podMeta, err := strategicpatch.NewPatchMetaFromStruct(&corev1.Pod{})
+	require.NoError(t, err)
+	specSchema := structSchema(podMeta, "spec")
+	require.NotNil(t, specSchema)
+
+	tests := []struct {
+		name         string
+		field        string
+		wantMergeKey string
+	}{
+		{name: "a list that declares merge reports its key", field: "hostAliases", wantMergeKey: "ip"},
+		{name: "a list without a merge strategy reports no key", field: "tolerations", wantMergeKey: ""},
+		{name: "an unknown field reports no key", field: "nonesuch", wantMergeKey: ""},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, mergeKey := sliceSchema(specSchema, tt.field)
+			assert.Equal(t, tt.wantMergeKey, mergeKey)
+		})
+	}
+}
+
+func TestPruneSliceFallsBackToPositionalOnUnusableMergeKey(t *testing.T) {
+	tests := []struct {
+		name   string
+		source []any
+		target []any
+		want   []any
+	}{
+		{
+			name: "a duplicate key in the source is ambiguous",
+			source: []any{
+				map[string]any{"name": "a", "value": "first"},
+				map[string]any{"name": "a", "value": "second"},
+			},
+			target: []any{map[string]any{"name": "a"}},
+			want:   []any{map[string]any{"name": "a"}},
+		},
+		{
+			name: "a target entry without the key cannot be matched",
+			source: []any{
+				map[string]any{"name": "a", "value": "first"},
+				map[string]any{"name": "b", "value": "second"},
+			},
+			target: []any{map[string]any{"value": "second"}},
+			want:   []any{map[string]any{"value": "first"}},
+		},
+		{
+			name: "a source entry without the key cannot be indexed",
+			source: []any{
+				map[string]any{"value": "first"},
+				map[string]any{"name": "b", "value": "second"},
+			},
+			target: []any{map[string]any{"name": "b", "value": "second"}},
+			want:   []any{map[string]any{"value": "first"}},
+		},
+		{
+			name:   "a nil entry on both sides is copied through",
+			source: []any{nil},
+			target: []any{nil},
+			want:   []any{nil},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, pruneSlice(tt.source, tt.target, nil, "name"))
 		})
 	}
 }
