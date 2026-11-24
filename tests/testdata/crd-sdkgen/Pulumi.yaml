@@ -1,3 +1,0 @@
-name: crd-sdkgen
-runtime: yaml
-description: Host project for the CRD extension SDK generation tests. It declares no resources.

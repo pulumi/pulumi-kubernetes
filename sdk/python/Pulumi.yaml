@@ -1,3 +1,0 @@
-name: kubernetes
-description: A Pulumi resource provider for kubernetes.
-language: python

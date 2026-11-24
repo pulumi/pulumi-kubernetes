@@ -1,3 +1,0 @@
-name: switch_ssa_delete-container
-description: A simple Go Kubernetes program.
-runtime: go

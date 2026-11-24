@@ -1,3 +1,0 @@
-name: service-account-token-secret
-description: Test for service account token.
-runtime: nodejs

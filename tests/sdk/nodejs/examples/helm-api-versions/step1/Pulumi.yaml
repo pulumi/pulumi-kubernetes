@@ -1,3 +1,0 @@
-name: helm-api-versions
-runtime: nodejs
-description: Deploys a simple Helm chart with .Capabilities.ApiVersions conditional
