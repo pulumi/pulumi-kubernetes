@@ -71,6 +71,12 @@ func (StatefulSetListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statefulSetListState)(nil)).Elem()
 }
 
+// StatefulSetListExists checks whether an existing StatefulSetList resource with the given ID exists.
+func StatefulSetListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatefulSetListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:apps/v1:StatefulSetList", id, state, "", opts...)
+}
+
 type statefulSetListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

@@ -92,6 +92,12 @@ func (StorageClassState) ElementType() reflect.Type {
 	return reflect.TypeOf((*storageClassState)(nil)).Elem()
 }
 
+// StorageClassExists checks whether an existing StorageClass resource with the given ID exists.
+func StorageClassExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StorageClassState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:storage.k8s.io/v1:StorageClass", id, state, "", opts...)
+}
+
 type storageClassArgs struct {
 	// allowVolumeExpansion shows whether the storage class allow volume expand.
 	AllowVolumeExpansion *bool `pulumi:"allowVolumeExpansion"`

@@ -102,6 +102,12 @@ func (CSIStorageCapacityState) ElementType() reflect.Type {
 	return reflect.TypeOf((*csistorageCapacityState)(nil)).Elem()
 }
 
+// CSIStorageCapacityExists checks whether an existing CSIStorageCapacity resource with the given ID exists.
+func CSIStorageCapacityExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *CSIStorageCapacityState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:storage.k8s.io/v1:CSIStorageCapacity", id, state, "", opts...)
+}
+
 type csistorageCapacityArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

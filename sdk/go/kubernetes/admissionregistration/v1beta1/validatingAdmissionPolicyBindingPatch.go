@@ -86,6 +86,12 @@ func (ValidatingAdmissionPolicyBindingPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*validatingAdmissionPolicyBindingPatchState)(nil)).Elem()
 }
 
+// ValidatingAdmissionPolicyBindingPatchExists checks whether an existing ValidatingAdmissionPolicyBindingPatch resource with the given ID exists.
+func ValidatingAdmissionPolicyBindingPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ValidatingAdmissionPolicyBindingPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingPatch", id, state, "", opts...)
+}
+
 type validatingAdmissionPolicyBindingPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

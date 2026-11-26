@@ -81,6 +81,12 @@ func (HorizontalPodAutoscalerState) ElementType() reflect.Type {
 	return reflect.TypeOf((*horizontalPodAutoscalerState)(nil)).Elem()
 }
 
+// HorizontalPodAutoscalerExists checks whether an existing HorizontalPodAutoscaler resource with the given ID exists.
+func HorizontalPodAutoscalerExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *HorizontalPodAutoscalerState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler", id, state, "", opts...)
+}
+
 type horizontalPodAutoscalerArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

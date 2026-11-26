@@ -71,6 +71,12 @@ func (ResourceClassParametersListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*resourceClassParametersListState)(nil)).Elem()
 }
 
+// ResourceClassParametersListExists checks whether an existing ResourceClassParametersList resource with the given ID exists.
+func ResourceClassParametersListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ResourceClassParametersListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:resource.k8s.io/v1alpha2:ResourceClassParametersList", id, state, "", opts...)
+}
+
 type resourceClassParametersListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

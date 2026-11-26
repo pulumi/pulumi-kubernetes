@@ -84,6 +84,12 @@ func (VolumeAttributesClassState) ElementType() reflect.Type {
 	return reflect.TypeOf((*volumeAttributesClassState)(nil)).Elem()
 }
 
+// VolumeAttributesClassExists checks whether an existing VolumeAttributesClass resource with the given ID exists.
+func VolumeAttributesClassExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *VolumeAttributesClassState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:storage.k8s.io/v1beta1:VolumeAttributesClass", id, state, "", opts...)
+}
+
 type volumeAttributesClassArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

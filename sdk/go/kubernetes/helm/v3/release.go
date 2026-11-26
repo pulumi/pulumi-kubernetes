@@ -446,6 +446,12 @@ func (ReleaseState) ElementType() reflect.Type {
 	return reflect.TypeOf((*releaseState)(nil)).Elem()
 }
 
+// ReleaseExists checks whether an existing Release resource with the given ID exists.
+func ReleaseExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ReleaseState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:helm.sh/v3:Release", id, state, "", opts...)
+}
+
 type releaseArgs struct {
 	// Whether to allow Null values in helm chart configs.
 	AllowNullValues *bool `pulumi:"allowNullValues"`

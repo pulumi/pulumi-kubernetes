@@ -71,6 +71,12 @@ func (ClusterCIDRListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*clusterCIDRListState)(nil)).Elem()
 }
 
+// ClusterCIDRListExists checks whether an existing ClusterCIDRList resource with the given ID exists.
+func ClusterCIDRListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ClusterCIDRListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList", id, state, "", opts...)
+}
+
 type clusterCIDRListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

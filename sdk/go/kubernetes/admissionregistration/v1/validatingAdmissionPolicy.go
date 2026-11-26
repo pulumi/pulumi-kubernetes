@@ -78,6 +78,12 @@ func (ValidatingAdmissionPolicyState) ElementType() reflect.Type {
 	return reflect.TypeOf((*validatingAdmissionPolicyState)(nil)).Elem()
 }
 
+// ValidatingAdmissionPolicyExists checks whether an existing ValidatingAdmissionPolicy resource with the given ID exists.
+func ValidatingAdmissionPolicyExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ValidatingAdmissionPolicyState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingAdmissionPolicy", id, state, "", opts...)
+}
+
 type validatingAdmissionPolicyArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
