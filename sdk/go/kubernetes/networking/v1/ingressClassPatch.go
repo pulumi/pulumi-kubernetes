@@ -79,6 +79,12 @@ func (IngressClassPatchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*ingressClassPatchState)(nil)).Elem()
 }
 
+// IngressClassPatchExists checks whether an existing IngressClassPatch resource with the given ID exists.
+func IngressClassPatchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *IngressClassPatchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:networking.k8s.io/v1:IngressClassPatch", id, state, "", opts...)
+}
+
 type ingressClassPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

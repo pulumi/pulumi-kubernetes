@@ -71,6 +71,12 @@ func (LeaseListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*leaseListState)(nil)).Elem()
 }
 
+// LeaseListExists checks whether an existing LeaseList resource with the given ID exists.
+func LeaseListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *LeaseListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:coordination.k8s.io/v1beta1:LeaseList", id, state, "", opts...)
+}
+
 type leaseListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

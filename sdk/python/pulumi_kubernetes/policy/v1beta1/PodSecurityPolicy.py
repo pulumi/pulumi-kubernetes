@@ -185,6 +185,12 @@ class PodSecurityPolicy(pulumi.CustomResource):
         __props__.__dict__["spec"] = None
         return PodSecurityPolicy(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        return pulumi.runtime.exists_resource(None, 'kubernetes:policy/v1beta1:PodSecurityPolicy', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="apiVersion")
     def api_version(self) -> pulumi.Output[Literal['policy/v1beta1']]:

@@ -71,6 +71,12 @@ func (PriorityClassListState) ElementType() reflect.Type {
 	return reflect.TypeOf((*priorityClassListState)(nil)).Elem()
 }
 
+// PriorityClassListExists checks whether an existing PriorityClassList resource with the given ID exists.
+func PriorityClassListExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PriorityClassListState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:scheduling.k8s.io/v1beta1:PriorityClassList", id, state, "", opts...)
+}
+
 type priorityClassListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

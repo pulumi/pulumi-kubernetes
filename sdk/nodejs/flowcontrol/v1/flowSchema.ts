@@ -23,6 +23,16 @@ export class FlowSchema extends pulumi.CustomResource {
         return new FlowSchema(name, undefined as any, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing FlowSchema resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchema", id, {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'kubernetes:flowcontrol.apiserver.k8s.io/v1:FlowSchema';
 

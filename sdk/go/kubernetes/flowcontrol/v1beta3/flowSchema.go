@@ -84,6 +84,12 @@ func (FlowSchemaState) ElementType() reflect.Type {
 	return reflect.TypeOf((*flowSchemaState)(nil)).Elem()
 }
 
+// FlowSchemaExists checks whether an existing FlowSchema resource with the given ID exists.
+func FlowSchemaExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *FlowSchemaState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchema", id, state, "", opts...)
+}
+
 type flowSchemaArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

@@ -69,6 +69,12 @@ func (PersistentVolumeState) ElementType() reflect.Type {
 	return reflect.TypeOf((*persistentVolumeState)(nil)).Elem()
 }
 
+// PersistentVolumeExists checks whether an existing PersistentVolume resource with the given ID exists.
+func PersistentVolumeExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PersistentVolumeState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("kubernetes:core/v1:PersistentVolume", id, state, "", opts...)
+}
+
 type persistentVolumeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`

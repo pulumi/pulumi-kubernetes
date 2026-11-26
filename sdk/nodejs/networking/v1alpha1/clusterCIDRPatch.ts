@@ -29,6 +29,16 @@ export class ClusterCIDRPatch extends pulumi.CustomResource {
         return new ClusterCIDRPatch(name, undefined as any, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing ClusterCIDRPatch resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch", id, {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch';
 
