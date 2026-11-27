@@ -20,6 +20,11 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/tools/clientcmd"
 
 	"github.com/pulumi/providertest/pulumitest"
 	"github.com/pulumi/providertest/pulumitest/opttest"
@@ -81,6 +86,53 @@ func TestCSACreateToSSAUpdate(t *testing.T) {
 		"-n", namespace, "-o", "jsonpath={.data.key}")
 	require.NoError(t, err)
 	assert.Equal(t, "step2", string(outB))
+}
+
+// TestCSACreateToSSAPreviewProbe ensures preview can replace a field owned by
+// the create-time manager without modifying the existing resource.
+func TestCSACreateToSSAPreviewProbe(t *testing.T) {
+	ctx := context.Background()
+	test := pulumitest.NewPulumiTest(t, "testdata/csa-create-ssa-probe", opttest.SkipInstall())
+	t.Cleanup(func() { test.Destroy(t) })
+	result := test.Up(t)
+	namespace := result.Outputs["namespace"].Value.(string)
+
+	config, err := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+		clientcmd.NewDefaultClientConfigLoadingRules(), &clientcmd.ConfigOverrides{},
+	).ClientConfig()
+	require.NoError(t, err)
+	client, err := dynamic.NewForConfig(config)
+	require.NoError(t, err)
+	deployments := client.Resource(schema.GroupVersionResource{Group: "apps", Version: "v1", Resource: "deployments"}).Namespace(namespace)
+	readProbe := func() map[string]any {
+		deployment, err := deployments.Get(ctx, "probe-transition", metav1.GetOptions{})
+		require.NoError(t, err)
+		containers, found, err := unstructured.NestedSlice(deployment.Object, "spec", "template", "spec", "containers")
+		require.NoError(t, err)
+		require.True(t, found)
+		require.Len(t, containers, 1)
+		probe, found, err := unstructured.NestedMap(containers[0].(map[string]any), "readinessProbe")
+		require.NoError(t, err)
+		require.True(t, found)
+		return probe
+	}
+
+	assert.Contains(t, readProbe(), "tcpSocket")
+	test.UpdateSource(t, "testdata/csa-create-ssa-probe/invalid")
+	_, err = test.CurrentStack().Preview(ctx)
+	require.Error(t, err, "preview must reject an invalid probe containing both handlers")
+	assert.Contains(t, err.Error(), "may not specify more than 1 handler type")
+	assert.Contains(t, readProbe(), "tcpSocket")
+
+	test.UpdateSource(t, "testdata/csa-create-ssa-probe/step2")
+	test.Preview(t)
+	probe := readProbe()
+	assert.Contains(t, probe, "tcpSocket", "preview must not modify the live resource")
+	assert.NotContains(t, probe, "httpGet")
+	test.Up(t)
+	probe = readProbe()
+	assert.Contains(t, probe, "httpGet")
+	assert.NotContains(t, probe, "tcpSocket")
 }
 
 // TestRenameDoesNotDeleteObject verifies that renaming a Pulumi resource
